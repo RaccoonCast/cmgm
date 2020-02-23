@@ -1,0 +1,28 @@
+
+input.date{
+position: relative;
+width: 230px!important; height: 22px;
+color: transparent;
+}
+
+input.date:before {
+    left: 3px;
+    content: attr(data-date);
+    color: black;
+}
+
+input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.date::-webkit-clear-button {
+    display: none;
+}
+
+input.date::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
+
+#box1 {float:left;}
+#box2 {padding-left : 5px;float:left;}
+
+textarea { font-size: 9px; }

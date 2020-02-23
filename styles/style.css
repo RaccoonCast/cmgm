@@ -1,0 +1,59 @@
+@media only screen and (max-width: 600px) {
+  body {
+    zoom: 210%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  body {
+    zoom: 210%;
+  }
+}
+p {
+margin-top: 1px;
+margin-bottom: 1px;
+font-size: 11px;
+}
+
+.fakeinput {
+margin-top: 0px;
+margin-bottom: 0px;
+height: 20px;
+width: 250px;
+}
+@font-face {
+font-family: 'Regular';
+src: URL('../font/lato-Regular.ttf') format('truetype');
+}
+body {
+font-display: swap;
+font-family: 'Regular', Fallback, sans-serif;
+}
+form {
+margin-top: 3px !important;
+margin: 0;
+}
+.flex {
+display: flex;
+justify-content: center;
+}
+.flex-item {
+margin-top: 0px;
+}
+a {
+  position: fixed;
+  top: 97%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+/*
+::-webkit-datetime-edit { padding: 0.25em; }
+::-webkit-datetime-edit-text { color: black; padding: 0 0.3em; }
+::-webkit-datetime-edit-month-field { color: black; }
+::-webkit-datetime-edit-day-field { color: black; }
+::-webkit-datetime-edit-year-field { color: black; }
+::-webkit-calendar-picker-indicator { background: black; }
+*/
+input,textarea {
+  min-height: 20px;
+}
