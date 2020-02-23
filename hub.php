@@ -16,13 +16,18 @@
       </form>
 	  <br>
       <!-- FORMS -->
+      <?php
+      if (isset($_GET['lat'])) {
+      } else {
+        ?>
       <form action="findlater.php" method="post" class="flex-item">
          <input type="submit" style="color: #F80000; height: 40px" value="Find Later">
       </form>   <br>
 	  <form action="dbinfo.php" method="post" class="flex-item">
          <input type="submit" style="color: #e8db4a; height: 40px" value="Database Lookup">
-      </form>
-
+      </form> <?php
+}
+?>
 	        <!-- <form action="database.php" method="post" style="display: inline" class="flex-item">
          <input type="submit" style="color: #E9A623" value="Database">
       </form> -->
@@ -44,6 +49,14 @@
     $string = $_POST['field1'];
     fwrite($fh,$string); // Write information to the file
     fclose($fh); // Close the file
+ } else {
+   $lat = $_GET['lat'];
+   $long = $_GET['long'];
+   $fh = fopen($path,"a+");
+   $string = "$lat,$long";
+   fwrite($fh,$string); // Write information to the file
+   fclose($fh); // Close the file
+   $hide = true;
  }
 
  system("cmd /c convert.bat");

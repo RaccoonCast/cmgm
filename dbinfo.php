@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                           break;
                       case 5:
                           $long = $value;
-                          $url = "http://www.google.com/maps/@?api=1&map_action=map&center=$lat,$long&zoom=20&basemap=satellite";
+                          $url = "hub.php?lat=$lat&long=$long";
                           echo '<td><a href="'.$url.'" target="_blank">'.$lat.','.$long.'</a></td>';
                           break;
                       case 6:
