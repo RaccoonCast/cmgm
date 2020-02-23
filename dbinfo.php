@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Findlater Database</title>
   <?php include 'functions.php';?>
   <?php if(isMobile()){
@@ -49,7 +48,7 @@ echo '</tr>';
 echo '</div>';
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
     echo "<tr>";
-    foreach ($row as $field => $value) { // I you want you can right this line like this: foreach($row as $value) {
+    foreach ($row as $field => $value) { // If you want you can right this line like this: foreach($row as $value) {
             		if(strpos($value, 'https://') !== 0) {
              echo nl2br("<td>" . $value . "</td>"); // I just did not use "htmlspecialchars()" function.
             } else {

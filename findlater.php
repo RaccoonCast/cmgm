@@ -33,7 +33,7 @@
             <option value="Macro tower">Macro tower</option>
             <option value="Monopine/palm">Monopine/palm</option>
             <option value="Pole">Pole</option>
-            <option value="Power line small cell">Power line small cell</option>
+            <option value="Power line">Power line small cell</option>
             <option value="Rooftop">Rooftop</option>
             <option value="Small cell">Small cell</option>
             <option value="Street Light">Street Light</option>

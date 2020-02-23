@@ -17,14 +17,6 @@ body {
 td, tr, p, table {
 	font-size: 72px!important;
 }
-td {
-  padding-right: 30px;
-  padding-left: 8px;
-  overflow: hidden;
-}
-tr {
-	padding: 0em;
-}
 table {
 border-spacing: 0;
 border-collapse: collapse;
@@ -53,8 +45,12 @@ tr,
 p,
 table {
   font-size: 20px;
+  padding: 0em;
 }
 td {
+  padding-right: 50px;
+  padding-left: 8px;
+  overflow: hidden;
   width: auto;
   max-width: 1650px;
   padding-right: 15px;
