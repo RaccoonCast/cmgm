@@ -33,32 +33,69 @@ echo '<div class="start"></td>';
 echo '<tr><td class="top">eNB ID</td>';
 echo '<td class="top">Carrier</td>';
 echo '<td class="top">Type</td>';
-echo '<td class="top">Latitude</td>';
-echo '<td class="top">Longitude</td>';
+echo '<td class="top">Latitude and Longitude</td>';
 echo '<td class="top">First Seen</td>';
 echo '<td class="top">Band(s)</td>';
 echo '<td class="top">Citiy</td>';
 echo '<td class="top">Zip</td>';
 echo '<td class="top">State</td>';
 echo '<td class="top">Address</td>';
-echo '<td class="top">Link</td>';
 echo '<td class="top">Bio</td>';
-echo '<td class="top">Distance Away</td>';
 echo '</tr>';
 echo '</div>';
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
+  $colCount = 1;
     echo "<tr>";
-    foreach ($row as $field => $value) { // If you want you can right this line like this: foreach($row as $value) {
-            		if(strpos($value, 'https://') !== 0) {
-             echo nl2br("<td>" . $value . "</td>"); // I just did not use "htmlspecialchars()" function.
-            } else {
-				echo '<td><a href="'.$value.'" target="_blank">Maps</a></td>';
+    foreach ($row as $field => $value) {
 
+      $sepCount = ($colCount++);
+
+                  switch ($sepCount) {
+                      case 1:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 2:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 3:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 4:
+                          $lat = $value;
+                          break;
+                      case 5:
+                          $long = $value;
+                          $url = "http://www.google.com/maps/@?api=1&map_action=map&center=$lat,$long&zoom=20&basemap=satellite";
+                          echo '<td><a href="'.$url.'" target="_blank">'.$lat.','.$long.'</a></td>';
+                          break;
+                      case 6:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 7:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 8:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 9:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 10:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 11:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 12:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 13:
+                          break;
+                  }
             }
 
     }
     echo "</tr>";
-}
 echo "</table>";
 ?>
 </body>
