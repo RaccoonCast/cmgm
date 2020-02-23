@@ -12,15 +12,12 @@ html, body, #page {
     background-color:green;
 }
 body {
-	zoom: 50%;
+	zoom: 70%;
 }
 td, tr, p, table {
 	font-size: 72px!important;
 }
 td {
-  width: auto;
-  max-width: 2750px;
-  height: auto;
   padding-right: 30px;
   padding-left: 8px;
   overflow: hidden;
@@ -32,23 +29,45 @@ table {
 border-spacing: 0;
 border-collapse: collapse;
 }
-
 .TFtable{
-  width:100%;
   border-collapse:collapse;
 }
-.TFtable td{
-  padding:7px; border:#4e95f4 1px solid;
+.TFtable td {
+  padding: 7px;
+  border: #000 1px solid;
 }
 /* provide some minimal visual accomodation for IE8 and below */
-.TFtable tr{
-  background: #b8d1f3;
+.TFtable tr {
+  background: #fff;
 }
 /*  Define the background color for all the ODD background rows  */
-.TFtable tr:nth-child(odd){
-  background: #ffffff;
+.TFtable tr:nth-child(odd) {
+  background: #ededed;
 }
 /*  Define the background color for all the EVEN background rows  */
-.TFtable tr:nth-child(even){
-  background: #ededed;
+.TFtable tr:nth-child(even) {
+  background: #fff;
+}
+td,
+tr,
+p,
+table {
+  font-size: 20px;
+}
+td {
+  width: auto;
+  max-width: 1650px;
+  padding-right: 15px;
+  padding-left: 8px;
+  overflow: hidden;
+}
+tr {
+  padding: 0em;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.top {
+    font-size: 75%;
 }

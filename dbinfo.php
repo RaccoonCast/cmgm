@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Findlater Database</title>
   <?php include 'functions.php';?>
   <?php if(isMobile()){
@@ -29,27 +30,30 @@ $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(la
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 
 echo "<table class='TFtable' border='1'>";
-echo '<tr><td>eNB ID';
-echo '<td>Carrier';
-echo '<td>Type';
-echo '<td>Latitude';
-echo '<td>Longitude';
-echo '<td>First Seen';
-echo '<td>Band(s)';
-echo '<td>Citiy';
-echo '<td>Zip';
-echo '<td>State';
-echo '<td>Address';
-echo '<td>Link';
-echo '<td>Bio';
+echo '<div class="start"></td>';
+echo '<tr><td class="top">eNB ID</td>';
+echo '<td class="top">Carrier</td>';
+echo '<td class="top">Type</td>';
+echo '<td class="top">Latitude</td>';
+echo '<td class="top">Longitude</td>';
+echo '<td class="top">First Seen</td>';
+echo '<td class="top">Band(s)</td>';
+echo '<td class="top">Citiy</td>';
+echo '<td class="top">Zip</td>';
+echo '<td class="top">State</td>';
+echo '<td class="top">Address</td>';
+echo '<td class="top">Link</td>';
+echo '<td class="top">Bio</td>';
+echo '<td class="top">Distance Away</td>';
 echo '</tr>';
+echo '</div>';
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
     echo "<tr>";
     foreach ($row as $field => $value) { // I you want you can right this line like this: foreach($row as $value) {
             		if(strpos($value, 'https://') !== 0) {
-             echo "<td>" . $value . "</td>"; // I just did not use "htmlspecialchars()" function.
+             echo nl2br("<td>" . $value . "</td>"); // I just did not use "htmlspecialchars()" function.
             } else {
-				echo '<td><a href="'.$value.'" target="_blank">Google Maps</a></td>';
+				echo '<td><a href="'.$value.'" target="_blank">Maps</a></td>';
 
             }
 
