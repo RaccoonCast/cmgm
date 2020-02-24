@@ -6,7 +6,13 @@
   <meta charset="utf-8">
   <title>Findlater Database</title>
   <?php include 'functions.php';?>
-<link rel="stylesheet" href="styles/dbinfo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<?php if(isMobile()){
+  echo '<link rel="stylesheet" href="styles/m-dbinfo.css">';
+} else {
+  echo '<link rel="stylesheet" href="styles/d-dbinfo.css">';
+}
+?>
 </head>
 <body>
 <?php
