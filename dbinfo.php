@@ -1,25 +1,11 @@
 <!doctype html>
-
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="/logo.png">
-  <meta charset="utf-8">
   <title>Findlater Database</title>
   <?php include 'functions.php';?>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<?php if(isMobile()){
-  echo '<link rel="stylesheet" href="styles/dbinfo/mobile.css">';
-} else {
-  echo '<link rel="stylesheet" href="styles/dbinfo/desktop.css">';
-}
-?>
 </head>
 <body>
 <?php
-$servername = '127.0.0.1';
-$username = 'rooter';
-$password = 'My$QLP@$$w0rd';
-$dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $latitude  = file_get_contents('dustbin\latitude.txt');

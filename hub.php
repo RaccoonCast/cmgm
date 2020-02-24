@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-	  <link rel="stylesheet" href="styles/style.css">
       <title>Evil CM</title>
-      <link rel="icon" type="image/png" href="/logo.png">
    </head>
    <body class="flex" style="zoom: 255%;">
       <form action="gmaps.php" method="post" class="flex-item">

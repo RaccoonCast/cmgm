@@ -1,28 +1,65 @@
-
+textarea {
+	font-size: 9px;
+}
+.fakeinput {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	height: 20px;
+	width: 250px;
+}
+p {
+	margin-top: 1px;
+	margin-bottom: 1px;
+	font-size: 11px;
+}
+@font-face {
+	font-family: 'Regular';
+	src: URL('../font/lato-Regular.ttf') format('truetype');
+}
+body {
+	font-display: swap;
+	font-family: 'Regular', Fallback, sans-serif;
+}
+form {
+	margin-top: 3px !important;
+	margin: 0;
+}
+a {
+	position: fixed;
+	top: 97%;
+	left: 50%transform: translate(-50%, -50%);
+}
+input,textarea {
+	min-height: 20px;
+}
+/* TEXT BOXES NEXT TO EACHOTHER */
+#box1 {
+	float:left;
+}
+#box2 {
+	padding-left : 5px;
+	float:left;
+}
+/* TEXT BOXES NEXT TO EACHOTHER */
+/* INPUT DATE */
 input.date{
-position: relative;
-width: 230px!important; height: 22px;
-color: transparent;
+	position: relative;
+	width: 230px!important;
+	height: 22px;
+	color: transparent;
 }
-
 input.date:before {
-    left: 3px;
-    content: attr(data-date);
-    color: black;
+	left: 3px;
+	content: attr(data-date);
+	color: black;
 }
-
 input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.date::-webkit-clear-button {
-    display: none;
+	display: none;
 }
-
 input.date::-webkit-calendar-picker-indicator {
-    position: absolute;
-    right: 0;
-    color: black;
-    opacity: 1;
+	position: absolute;
+	right: 0;
+	color: black;
+	opacity: 1;
 }
-
-#box1 {float:left;}
-#box2 {padding-left : 5px;float:left;}
-
-textarea { font-size: 9px; }
+/* INPUT DATE */
