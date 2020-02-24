@@ -4,9 +4,9 @@
       <title>Evil CM</title>
       <?php include 'functions.php';?>
       <?php if(isMobile()){
-    	  echo '<link rel="stylesheet" href="styles/m-date.css">';
+    	  echo '<link rel="stylesheet" href="styles/findlater/mobile.css">';
       } else {
-    	  echo '<link rel="stylesheet" href="styles/d-date.css">';
+    	  echo '<link rel="stylesheet" href="styles/findlater/desktop.css">';
       }
     ?>
       <link rel="stylesheet" href="styles/style.css">

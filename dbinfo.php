@@ -8,9 +8,9 @@
   <?php include 'functions.php';?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <?php if(isMobile()){
-  echo '<link rel="stylesheet" href="styles/m-dbinfo.css">';
+  echo '<link rel="stylesheet" href="styles/dbinfo/mobile.css">';
 } else {
-  echo '<link rel="stylesheet" href="styles/d-dbinfo.css">';
+  echo '<link rel="stylesheet" href="styles/dbinfo/desktop.css">';
 }
 ?>
 </head>
