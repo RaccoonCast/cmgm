@@ -17,10 +17,7 @@ td {
   padding: 4px;
 }
 .top {
-    font-size: 100%;
-}
-tr:nth-child(odd) {
-  background: #fff;
+    font-size: 75%;
 }
 tr:nth-child(even) {
   background: #ededed;

@@ -10,17 +10,16 @@ table {
 	padding:0;
 }
 td {
+  min-width: 60px;
   width: auto;
+  max-width: 1320px;
   padding-right: 15px;
   padding-left: 8px;
   vertical-align: top;
-  padding: 7px;
+  padding: 4px;
 }
 .top {
-    font-size: 100%;
-}
-tr:nth-child(odd) {
-  background: #fff;
+    font-size: 75%;
 }
 tr:nth-child(even) {
   background: #ededed;
@@ -30,4 +29,14 @@ tr:nth-child(even) {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+.img {
+  min-width: 30px!important;
+}
+.firstseen {
+  min-width: 80px!important;
+}
+img {
+  width: 30px;
+  height: 30px;
 }

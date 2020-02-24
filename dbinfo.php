@@ -38,9 +38,11 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
 <th></th>
 <th>First Seen</th>
 <th>Band(s)</th>
+<!--
 <th>Citiy</th>
 <th>Zip</th>
 <th>State</th>
+-->
 <th>Address</th>
 <th>Bio</th>
 </tr>
@@ -61,12 +63,36 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       case 5:
                           $long = $value;
                           $url = "hub.php?lat=$lat&long=$long";
-                          echo '<td><a href="'.$url.'" target="_blank"><img src="/logo.png" alt=
+                          echo '<td class="img"><a href="'.$url.'" target="_blank"><img src="/logo.png" alt=
 						  ""></a></td>';
+              break;
+                      case 6:
+                          echo '<td class="firstseen">' . $value . '</td>';
                           break;
+                      case 8:
+                      $city = $value;
+                          break;
+
+                      case 9:
+                      $zip = $value;
+                          break;
+
+                      case 10:
+                      $state = $value;
+                          break;
+
+                          case 11:
+                          $address = $value;
+                         echo nl2br("<td>" . $address . "<br>" . $city . ", " . $state . " " . $zip . "</td>");
+                              break;
+
                       case 13:
                           break;
+
                       default:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 2:
                           echo nl2br("<td>" . $value . "</td>");
                           break;
                   }
