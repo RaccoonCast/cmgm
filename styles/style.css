@@ -57,3 +57,11 @@ a {
 input,textarea {
   min-height: 20px;
 }
+
+#style  {
+    color: #03fcf8;
+
+}
+#style:focus {
+    color:red;
+}

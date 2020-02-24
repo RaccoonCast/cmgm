@@ -17,7 +17,13 @@
 	  <br>
       <!-- FORMS -->
       <?php
-      if (isset($_GET['lat'])) {
+      if (isset($_GET['lat'])) { ?>
+        <script src="js\copy.js"></script>
+        <form method="post" class="flex-item">
+           <input onclick="myFunction2()" type="submit" id="style" style="height: 40px" value="Copy">
+        </form>
+        <?php
+
       } else {
         ?>
       <form action="findlater.php" method="post" class="flex-item">
@@ -44,12 +50,7 @@
    if (file_exists($longitude)) { unlink($longitude) or die("Couldn't delete file"); }
    if (file_exists($carrier)) { unlink($carrier) or die("Couldn't delete file"); }
 
- if (isset($_POST['field1'])) {
-    $fh = fopen($path,"a+");
-    $string = $_POST['field1'];
-    fwrite($fh,$string); // Write information to the file
-    fclose($fh); // Close the file
- } else {
+ if (isset($_GET['lat'])) {
    $lat = $_GET['lat'];
    $long = $_GET['long'];
    $fh = fopen($path,"a+");
@@ -57,7 +58,12 @@
    fwrite($fh,$string); // Write information to the file
    fclose($fh); // Close the file
    $hide = true;
+    system("cmd /c convert.bat");
+ } else {
+   $fh = fopen($path,"a+");
+   $string = $_POST['field1'];
+   fwrite($fh,$string); // Write information to the file
+   fclose($fh); // Close the file
+   system("cmd /c convert.bat");
  }
-
- system("cmd /c convert.bat");
 ?>

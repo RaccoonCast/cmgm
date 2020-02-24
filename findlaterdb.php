@@ -149,7 +149,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`,`gmaps`) VALUES ('$id','$carrier','$type','$latitude','$longitude','$firstseen','".mysqli_real_escape_string($conn, $bio)."','$bands','$city','$zip','$state','$address','https://www.google.com/maps/@$latitude,$longitude,21z');  ";
+$sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`) VALUES ('$id','$carrier','$type','$latitude','$longitude','$firstseen','".mysqli_real_escape_string($conn, $bio)."','$bands','$city','$zip','$state','$address');  ";
 
 if (mysqli_query($conn, $sql)) {
     echo '<meta http-equiv="refresh" content="0; url=../cm/">';
