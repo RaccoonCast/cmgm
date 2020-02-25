@@ -9,14 +9,9 @@ function getQueryVariable(variable)
        return(false);
 }
 
-console.log('hi');
-
 function myFunction2() {
-console.log('hi')
-var lat = getQueryVariable("lat");
-var long = getQueryVariable("long");
-var lat = lat;
-var long = long;
+var lat = getQueryVariable("latitude");
+var long = getQueryVariable("longitude");
 var latlong = lat + "," + long
 console.log(lat);
 console.log(long);

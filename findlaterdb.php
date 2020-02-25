@@ -1,17 +1,5 @@
 <?php
-
-// MySQL Login info
-
-$servername = '127.0.0.1';
-$username = 'rooter';
-$password = 'My$QLP@$$w0rd';
-$dbname = 'cmgm';
-
-// Get lat & long from dustbin
-
-if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
-if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
-
+include "functions.php";
 // Call google to convert latitude & longitude
 $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=AIzaSyAhNIGTtBPudtLxXejJfRkcT4aVwATAYs8';
 
@@ -27,8 +15,6 @@ curl_close($ch);
 // Parse the json output
 
  $response = json_decode($response);
-
-// Extract zip
 
 $addressComponents = $response->results[0]->address_components;
 foreach ($addressComponents as $addrComp) {
@@ -51,14 +37,15 @@ foreach ($addressComponents as $addrComp) {
 
 $address = "$number $name";
 
-// Get some data from the form
+// Get data from the form
 
-$id = $_GET['field3'];
-$carrier = $_GET['field2'];
-$type = $_GET['field1'];
-
-$firstseen = $_GET['field4'];
-$firstseen2 = $_GET['field7'];
+$id = $_GET['carrier'];
+$carrier = $_GET['carrier'];
+$type = $_GET['type'];
+$firstseen = $_GET['date-1'];
+$firstseen2 = $_GET['date-2'];
+$bands = $_GET['bands'];
+$bio = $_GET['bio'];
 
 if (empty($firstseen2)) {
   $date = str_replace('/"', '-', $firstseen);
@@ -66,9 +53,6 @@ if (empty($firstseen2)) {
   $date = str_replace('/"', '-', $firstseen2);
 }
 $firstseen = date("Y/m/d", strtotime($date));
-
-$bands = $_GET['field5'];
-$bio = $_GET['field6'];
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
