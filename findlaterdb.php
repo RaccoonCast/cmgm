@@ -83,60 +83,14 @@ $type = $_GET['field1'];
 $firstseen = $_GET['field4'];
 $firstseen2 = $_GET['field7'];
 
-if (substr("$firstseen2", 0, 2) === '20') {
-    $firstseen = $firstseen2;
+if (empty($firstseen2)) {
+  $date = str_replace('/"', '-', $firstseen);
+  $newDate = date("Y/m/d", strtotime($date));
+  $firstseen = $newDate;
 } else {
-    if (empty($firstseen2)) {
-        $date = str_replace('/"', '-', $firstseen);
-        $newDate = date("Y/m/d", strtotime($date));
-        $firstseen = $newDate;
-    } else {
-        if (substr("$firstseen2", 1, 2) === 'at' || substr("$firstseen2", 1, 2) === 'on' || substr("$firstseen2", 1, 2) === 'ue' || substr("$firstseen2", 1, 2) === 'ed' || substr("$firstseen2", 1, 2) === 'hu' || substr("$firstseen2", 1, 2) === 'ri' || substr("$firstseen2", 1, 2) === 'Sat') {
-            $firstseen2 = substr($firstseen2, 5);
-        }
-        if (substr("$firstseen2", 1, 2) === 'an') {
-            $month = '1';
-        }
-        if (substr("$firstseen2", 1, 2) === 'eb') {
-            $month = '2';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ar') {
-            $month = '3';
-        }
-        if (substr("$firstseen2", 1, 2) === 'pr') {
-            $month = '4';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ay') {
-            $month = '5';
-        }
-        if (substr("$firstseen2", 1, 2) === 'un') {
-            $month = '6';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ul') {
-            $month = '7';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ug') {
-            $month = '8';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ep') {
-            $month = '9';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ct') {
-            $month = '10';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ov') {
-            $month = '11';
-        }
-        if (substr("$firstseen2", 1, 2) === 'ec') {
-            $month = '12';
-        }
-        $day = substr(strstr("$firstseen2", " "), 1, -5);
-        if (substr("$day", -1) === ',') {
-            $day = substr($day, 0, -1);
-        }
-        $year = substr("$firstseen2", -4);
-        $firstseen = "$year-$month-$day";
-    }
+  $date = str_replace('/"', '-', $firstseen2);
+  $newDate = date("Y/m/d", strtotime($date));
+  $firstseen = $newDate;
 }
 
 $bands = $_GET['field5'];
