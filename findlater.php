@@ -17,15 +17,16 @@
    <body>
    <p>The cell site near</p>
       <?php
-         $latitude = file_get_contents('dustbin\latitude.txt');
-         $longitude = file_get_contents('dustbin\longitude.txt');
+         $latitude = $_GET['latitude'];
+         $longitude = $_GET['longitude'];
          $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=21";
          echo nl2br("$latitude \n $longitude");
          // echo '<a style="display:inline" href="'.$cmlink.'" target="_blank">Open in CellMapper</a>';
          $path = 'dustbin\data.txt';
-
          ?>
-      <form action="findlaterdb.php" method="post">
+      <form action="findlaterdb.php" method="get">
+      <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+      <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
 	  <p>is a</p>
          <select class="fakeinput" autocomplete="on" name="field1">
             <option value="Macro tower">Macro tower</option>

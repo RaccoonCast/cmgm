@@ -1,6 +1,6 @@
 <?php
-$latitude = file_get_contents('dustbin\latitude.txt');
-$longitude = file_get_contents('dustbin\longitude.txt');
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 $url = "http://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 
 header('Location: ' . $url);

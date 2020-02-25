@@ -9,8 +9,8 @@ $dbname = 'cmgm';
 
 // Get lat & long from dustbin
 
-$latitude  = file_get_contents('dustbin\latitude.txt');
-$longitude = file_get_contents('dustbin\longitude.txt');
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
 // Call google to convert latitude & longitude
 $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=AIzaSyAhNIGTtBPudtLxXejJfRkcT4aVwATAYs8';
@@ -76,12 +76,12 @@ foreach ($addressComponents as $addrComp) {
 
 // Get some data from the form
 
-$id = $_POST['field3'];
-$carrier = $_POST['field2'];
-$type = $_POST['field1'];
+$id = $_GET['field3'];
+$carrier = $_GET['field2'];
+$type = $_GET['field1'];
 
-$firstseen = $_POST['field4'];
-$firstseen2 = $_POST['field7'];
+$firstseen = $_GET['field4'];
+$firstseen2 = $_GET['field7'];
 
 if (substr("$firstseen2", 0, 2) === '20') {
     $firstseen = $firstseen2;
@@ -139,8 +139,8 @@ if (substr("$firstseen2", 0, 2) === '20') {
     }
 }
 
-$bands = $_POST['field5'];
-$bio = $_POST['field6'];
+$bands = $_GET['field5'];
+$bio = $_GET['field6'];
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

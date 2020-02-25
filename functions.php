@@ -11,11 +11,23 @@ if(isMobile()){
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
 
+
 $servername = '127.0.0.1';
 $username = 'rooter';
 $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 
+function hubLatLong($file,$color,$text) {
+  if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+  if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
+  echo "<form action=" . $file . "?latitude=" . $latitude . "&?longitude=" . $longitude . " " . "method=" . "get " . "class=" . "flex-item" . ">";
+?>
+  <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+  <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+  <input type="submit" class="submitbutton" style="color: <?php echo $color; ?>;" value='<?php echo $text; ?>' >
+</FORM>
+<?php
+}
 ?>
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="manifest" href="pwa-manifest.json">

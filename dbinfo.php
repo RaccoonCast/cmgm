@@ -8,8 +8,8 @@
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$latitude  = file_get_contents('dustbin\latitude.txt');
-$longitude = file_get_contents('dustbin\longitude.txt');
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
 $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater ORDER BY distance";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
