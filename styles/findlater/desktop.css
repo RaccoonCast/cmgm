@@ -3,13 +3,19 @@
 	width: 350px;
   font-size: 1em;
 }
+.submitbutton {
+  font-size: 0.85em;
+  width: 105px;
+  height: 45px;
+  color: #A8B2B1
+}
 textarea {
   padding-top: 10px;
   font-size: 1.5em!important;
 }
 p {
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 7px;
+	margin-bottom: 7px;
 }
 body {
   font-size: 1.5em;
@@ -20,7 +26,6 @@ body {
 	font-family: 'Regular';
 	src: URL('../font/lato-Regular.ttf') format('truetype');
 }
-
 
 /* TEXT BOXES NEXT TO EACHOTHER */
 #box2 {
@@ -46,8 +51,8 @@ input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.
 	display: none;
 }
 input.date::-webkit-calendar-picker-indicator {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   position: absolute;
 	right: 0;
 	color: black;

@@ -58,23 +58,18 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       case 8:
                       $city = $value;
                           break;
-
                       case 9:
                       $zip = $value;
                           break;
-
                       case 10:
                       $state = $value;
                           break;
-
-                          case 11:
+                      case 11:
                           $address = $value;
-                         echo nl2br("<td>" . $address . "<br>" . $city . ", " . $state . " " . $zip . "</td>");
-                              break;
-
+                          echo nl2br('<td class="address">' . $address . '<br>' . $city . ', ' . $state . ' ' . $zip . '</td>');
+                          break;
                       case 13:
                           break;
-
                       default:
                           echo nl2br("<td>" . $value . "</td>");
                           break;

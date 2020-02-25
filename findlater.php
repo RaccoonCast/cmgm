@@ -21,14 +21,13 @@
          $longitude = file_get_contents('dustbin\longitude.txt');
          $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=21";
          echo nl2br("$latitude \n $longitude");
-         echo '<a style="display:inline" href="'.$cmlink.'" target="_blank">Open in CellMapper</a>';
+         // echo '<a style="display:inline" href="'.$cmlink.'" target="_blank">Open in CellMapper</a>';
          $path = 'dustbin\data.txt';
 
          ?>
       <form action="findlaterdb.php" method="post">
-	  <p style="display:inline">is a</p>
-         <br>
-         <select class="fakeinput" id="type" autocomplete="on" name="field1">
+	  <p>is a</p>
+         <select class="fakeinput" autocomplete="on" name="field1">
             <option value="Macro tower">Macro tower</option>
             <option value="Monopine/palm">Monopine/palm</option>
             <option value="Pole">Pole</option>
@@ -39,23 +38,22 @@
         </select>
 		 <br>
 		       <p>the carrier may be</p>
+           <select class="fakeinput" autocomplete="on" name="field2">
            <?php
-           $carrier = '';
            if (file_exists('dustbin\carrier.txt')) {
                $carrier = file_get_contents('dustbin\carrier.txt');
            }
-        echo '<select class="fakeinput" autocomplete="on" value="'.$carrier.'" name="field2"></textarea>';
-    ?>
-            <option value="T-Mobile">T-Mobile</option>
-            <option value="AT&T">AT&T</option>
-            <option value="Verizon">Verizon</option>
-            <option value="Sprint">Sprint</option>
+            if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
+            if('AT&T' == '' . $carrier . '') { echo '<option selected="selected" value="AT&T">AT&T</option>';} else { echo '<option value="AT&T">AT&T</option>';}
+            if('Verizon' == '' . $carrier . '') { echo '<option selected="selected" value="Verizon">Verizon</option>';} else { echo '<option value="Verizon">Verizon</option>';}
+            if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
+            ?>
           </select>
 		 <p>eNB ID: </p>
-		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="25" name="field3"></textarea>
+		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="21" name="field3"></textarea>
 		 <br>
 		 <p>Bands: </P>
-       <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="25" name="field5"></textarea>
+       <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="21" name="field5"></textarea>
     <p>First seen: </P>
       <input type="date" id="box2" class="date" data-date="" data-date-format="DD MMMM YYYY" value="2015-11-13" name="field4">
     <textarea  class="fakeinput" style="resize: none;" rows="1" cols="25" autocomplete="one-time-code" title="Accepts: 2015-12-31; Jan 13 2020; Jan 13, 2020" placeholder="or type Dec 13, 2019" name="field7"></textarea>
@@ -73,7 +71,7 @@ if (isMobile()) {
 }
 ?>
       <br>
-      <input type="submit" style="color: #A8B2B1" value="Submit">
+      <input type="submit" class="submitbutton" value="Submit">
       </form>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -2,7 +2,7 @@
 set /p input=<dustbin\data.txt
 if exist dustbin\lat.txt del dustbin\lat.txt
 if exist dustbin\long.txt del dustbin\long.txt
-set input=%input:	=,%
+set "input=%input:	=,%"
 if not exist dustbin\lat.txt if "%input:~0,22%" == "https://cellmapper.net" call :cmgmapserror
 if not exist dustbin\lat.txt if "%input:~0,26%" == "https://www.cellmapper.net" call :cmgmaps
 if not exist dustbin\lat.txt if "%input:~-4%" == "maps" call :gmapscm

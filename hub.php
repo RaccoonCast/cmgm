@@ -4,31 +4,30 @@
       <title>Evil CM</title>
    </head>
    <body class="flex" style="zoom: 255%;">
+     <?php include "functions.php"?>
       <form action="gmaps.php" method="post" class="flex-item">
+        <form action="dbinfo.php" method="post" class="flex-item">
+             <input type="submit" style="color: #e8db4a; height: 40px" value="Database Search">
+          </form>
          <input type="submit" style="color: #4185FA; height: 40px" value="Google Maps">
       </form>
-	  <br>
       <!-- FORMS -->
       <form action="cm.php" method="post" class="flex-item">
          <input type="submit" style="color: #5DC904; height: 40px" value="CellMapper">
       </form>
-	  <br>
       <!-- FORMS -->
       <?php
       if (isset($_GET['lat'])) { ?>
-        <script src="js\copy.js"></script>
-        <form method="post" class="flex-item">
-           <input onclick="myFunction2()" type="submit" id="style" style="height: 40px" value="Copy">
-        </form>
         <?php
 
       } else {
         ?>
       <form action="findlater.php" method="post" class="flex-item">
          <input type="submit" style="color: #F80000; height: 40px" value="Find Later">
-      </form>   <br>
-	  <form action="dbinfo.php" method="post" class="flex-item">
-         <input type="submit" style="color: #e8db4a; height: 40px" value="Database Lookup">
+      </form>
+      <script src="js\copy.js"></script>
+      <form method="post" class="flex-item">
+         <input onclick="myFunction2()" type="submit" id="style" style="color: #050400!important; height: 40px" value="Copy">
       </form> <?php
 }
 ?>
