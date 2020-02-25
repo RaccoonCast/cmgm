@@ -35,44 +35,21 @@ foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'postal_code') {
         $zip = $addrComp->long_name;
     }
-}
-
-// Extract address number
-
-$addressComponents = $response->results[0]->address_components;
-foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'street_number') {
         $number = $addrComp->short_name;
     }
-}
-// Extract street name
-
-$addressComponents = $response->results[0]->address_components;
-foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'route') {
         $name = $addrComp->short_name;
     }
-}
-
-$address = "$number $name";
-
-// Extract city (locality)
-
-$addressComponents = $response->results[0]->address_components;
-foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'locality') {
         $city = $addrComp->short_name;
     }
-}
-
-// Extract state
-
-$addressComponents = $response->results[0]->address_components;
-foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'administrative_area_level_1') {
         $state = $addrComp->short_name;
     }
 }
+
+$address = "$number $name";
 
 // Get some data from the form
 
@@ -85,13 +62,10 @@ $firstseen2 = $_GET['field7'];
 
 if (empty($firstseen2)) {
   $date = str_replace('/"', '-', $firstseen);
-  $newDate = date("Y/m/d", strtotime($date));
-  $firstseen = $newDate;
 } else {
   $date = str_replace('/"', '-', $firstseen2);
-  $newDate = date("Y/m/d", strtotime($date));
-  $firstseen = $newDate;
 }
+$firstseen = date("Y/m/d", strtotime($date));
 
 $bands = $_GET['field5'];
 $bio = $_GET['field6'];
