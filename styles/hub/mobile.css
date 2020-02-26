@@ -3,3 +3,9 @@ padding-top: 10px;
 padding-bottom: 10px;
 text-align: center;
 }
+.submitbutton {
+  padding: 30px;
+  font-size: 2.85em;
+  width: auto;
+  height: auto;
+}
