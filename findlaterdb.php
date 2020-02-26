@@ -66,7 +66,7 @@ ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 $sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`) VALUES ('$id','$carrier','$type','$latitude','$longitude','$firstseen','".mysqli_real_escape_string($conn, $bio)."','$bands','$city','$zip','$state','$address');  ";
 
 if (mysqli_query($conn, $sql)) {
-   echo '<meta http-equiv="refresh" content="0; url=../cm/">';
+    echo '<meta http-equiv="refresh" content="0; url=../cm/">';
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

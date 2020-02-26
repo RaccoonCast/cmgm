@@ -33,7 +33,7 @@ function hubLatLong($file,$color,$text) {
 <?php
 }
 ?>
-<link rel="icon" type="image/png" href="/logo.png">
+<link rel="icon" type="image/png" href="/cm/images/logo.png">
 <link rel="manifest" href="pwa-manifest.json">
 <link rel="apple-touch-icon" href="images/icons-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">

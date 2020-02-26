@@ -8,7 +8,9 @@
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude']; else { ?>
+  <?php
+}
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
 $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater ORDER BY distance";
@@ -49,7 +51,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       case 5:
                           $long = $value;
                           $url = "hub.php?lat=$lat&long=$long";
-                          echo '<td class="img"><a href="'.$url.'" target="_blank"><img src="/logo.png" alt=
+                          echo '<td class="img" style="vertical-align: middle"><a href="'.$url.'" target="_blank"><img src="/cm/images/logo.png" alt=
 						  ""></a></td>';
               break;
                       case 6:
