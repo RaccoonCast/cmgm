@@ -13,6 +13,6 @@
          <input type="hidden" name="redirect" value="index.html">
       </form>
       <script src="index.js"></script>
-	  <a href="dbinfo.php">FindlaterDB</a>
+	 <a id="findlater">FindlaterDB</a>
    </body>
 </html>
