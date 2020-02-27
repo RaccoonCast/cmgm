@@ -23,11 +23,11 @@ function hubLatLong($file,$color,$text) {
   if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
   if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
   if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-  echo "<form action=" . $file . "?latitude=" . $latitude . "&?longitude=" . $longitude . " " . "method=" . "get " . "class=" . "flex-item" . ">";
+  echo "<form action=" . $file . " " . "method=" . "get " . "class=" . "flex-item" . ">";
 ?>
   <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-  <input type="hidden" name="carrier" value="<?php echo $carrier;?>">
+  <input type="hidden" name="carrier" value="<?php if (isset($_GET['carrier'])) echo $carrier;?>">
   <input type="submit" class="submitbutton" style="color: <?php echo $color; ?>;" value='<?php echo $text; ?>' >
 </FORM>
 <?php
