@@ -17,9 +17,7 @@ if (navigator.geolocation) {
 }
 
 function showPosition(position) {
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
-  var href = "dbinfo.php?latitude=" + latitude + "&longitude=" + longitude;
+  var href = "dbinfo.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
   var yourElement = document.getElementById("findlater");
   yourElement.setAttribute("href", href);
 }
