@@ -3,12 +3,6 @@
    <head>
       <title>Evil CM</title>
       <?php include 'functions.php';?>
-      <?php if(isMobile()){
-    	  echo '<link rel="stylesheet" href="styles/findlater/mobile.css">';
-      } else {
-    	  echo '<link rel="stylesheet" href="styles/findlater/desktop.css">';
-      }
-    ?>
       <link rel="stylesheet" href="styles/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta charset="utf-8">
@@ -19,10 +13,12 @@
       <?php
          $latitude = $_GET['latitude'];
          $longitude = $_GET['longitude'];
+         $latitude = substr("$latitude", 0, 9);
+         $longitude = substr("$longitude", 0, 10);
          if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-         $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=21";
+         $cmlink = "https://cmgm.gq/cm/hub.php?latitude=$latitude&longitude=$longitude";
          echo nl2br("$latitude \n $longitude");
-         // echo '<a style="display:inline" href="'.$cmlink.'" target="_blank">Open in CellMapper</a>';
+         echo '<a href="'.$cmlink.'" target="_blank">Open</a>';
          $path = 'dustbin\data.txt';
          ?>
       <form action="findlaterdb.php" method="get">

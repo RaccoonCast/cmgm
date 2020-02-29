@@ -62,4 +62,13 @@ input.date::-webkit-calendar-picker-indicator {
 	color: black;
 	opacity: 1;
 }
+a {
+  font-size: 2.2em;
+  position: fixed;
+  top: 98%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
 /* INPUT DATE */

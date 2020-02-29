@@ -39,12 +39,12 @@ $address = "$number $name";
 
 // Get data from the form
 
-$id = $_GET['carrier'];
-$carrier = $_GET['carrier'];
 $type = $_GET['type'];
+$carrier = $_GET['carrier'];
+$id = $_GET['id'];
+$bands = $_GET['bands'];
 $firstseen = $_GET['date-1'];
 $firstseen2 = $_GET['date-2'];
-$bands = $_GET['bands'];
 $bio = $_GET['bio'];
 
 if (empty($firstseen2)) {
@@ -63,7 +63,20 @@ if (!$conn) {
 
 ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
-$sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`) VALUES ('$id','$carrier','$type','$latitude','$longitude','$firstseen','".mysqli_real_escape_string($conn, $bio)."','$bands','$city','$zip','$state','$address');  ";
+$sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`)
+                      VALUES (
+                        '".mysqli_real_escape_string($conn, $id)."',
+                        '".mysqli_real_escape_string($conn, $carrier)."',
+                        '".mysqli_real_escape_string($conn, $type)."',
+                        '".mysqli_real_escape_string($conn, $latitude)."',
+                        '".mysqli_real_escape_string($conn, $longitude)."',
+                        '".mysqli_real_escape_string($conn, $firstseen)."',
+                        '".mysqli_real_escape_string($conn, $bio)."',
+                        '".mysqli_real_escape_string($conn, $bands)."',
+                        '".mysqli_real_escape_string($conn, $city)."',
+                        '".mysqli_real_escape_string($conn, $zip)."',
+                        '".mysqli_real_escape_string($conn, $state)."',
+                        '".mysqli_real_escape_string($conn, $address)."');  ";
 
 if (mysqli_query($conn, $sql)) {
     echo '<meta http-equiv="refresh" content="0; url=../cm/">';
