@@ -51,7 +51,7 @@
        <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="21" name="bands"></textarea>
     <p>First seen: </P>
       <input type="date" id="box2" class="date" data-date="" data-date-format="DD MMMM YYYY" value="2015-11-13" name="date-1">
-    <textarea  class="fakeinput" style="resize: none;" rows="1" cols="25" autocomplete="one-time-code" title="Accepts: 2015-12-31; Jan 13 2020; Jan 13, 2020" placeholder="or type Dec 13, 2019" name="date-2"></textarea>
+    <textarea  class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="21" autocomplete="one-time-code" title="Accepts: 2015-12-31; Jan 13 2020; Jan 13, 2020" placeholder="or type Dec 13, 2019" name="date-2"></textarea>
     <br>
     <p>More info: </p>
 		<?php
