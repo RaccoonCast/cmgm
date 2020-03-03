@@ -10,9 +10,8 @@
          <input class="fakeinput" type="text" name="data" id="txtresult" required>
          <input type="submit" class="submitbutton" style="color: #A8B2B1;"  value="Submit">
 		     <input type="button" class="submitbutton" value="Locate" style="color: #A8B2B1;" onclick="myFunction()">
-         <input type="hidden" name="redirect" value="index.html">
       </form>
-      <script src="index.js"></script>
+      <script src="js/index.js"></script>
 	 <a id="findlater">FindlaterDB</a>
    </body>
 </html>
