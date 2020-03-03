@@ -14,16 +14,20 @@ if(isMobile()){
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE & E_WARNING);
+
 $servername = '127.0.0.1';
-$username = 'rooter';
-$password = 'My$QLP@$$w0rd';
+$username = 'root';
+$password = 'p50846';
 $dbname = 'cmgm';
 
 function hubLatLong($file,$color,$text) {
   if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
   if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
   if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-  echo "<form action=" . $file . " " . "method=" . "get " . "class=" . "flex-item" . ">";
+  echo "<form action=" . $file . " " . "method=" . "get " . ">";
 ?>
   <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude;?>">

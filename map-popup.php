@@ -4,7 +4,7 @@
   <title>Findlater Database</title>
   <?php include 'functions.php';?>
 </head>
-<body>
+<body class="body">
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -19,30 +19,9 @@ $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(la
 LIMIT $limit ";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 
-?>
-<table border="1">
-<thead>
-<tr>
-<th>eNB ID</th>
-<th>Carrier</th>
-<th>Type</th>
-<th></th>
-<th>First Seen</th>
-<th>Band(s)</th>
-<!--
-<th>Citiy</th>
-<th>Zip</th>
-<th>State</th>
--->
-<th>Address</th>
-<th>Bio</th>
-</tr>
-</thead>
-<tbody>
-<?php
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
-    echo "<tr>";
+
     foreach ($row as $field => $value) {
 
       $sepCount = ($colCount++);
@@ -51,15 +30,18 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       case 4:
                           $lat = $value;
                           break;
+					  case 1:
+                          $id = $value;
+						  $end = "map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+						  echo ("<a target=_blank href=http://www.cellmapper.net/$end>" . $value . "</a>");
+                          break;
                       case 5:
                           $long = $value;
                           $url = "hub.php?lat=$lat&long=$long";
-                          echo '<td class="img" style="vertical-align: middle"><a href="'.$url.'" target="_blank"><img src="/cm/images/logo.png" alt=
-						  ""></a></td>';
-              break;
+                          echo '<a href="'.$url.'" target="_blank"></a>';
+						  break;
                       case 6:
-                          echo '<td class="firstseen">' . $value . '</td>';
-                          break;
+                      $firstseen = $value;
                       case 8:
                       $city = $value;
                           break;
@@ -70,20 +52,17 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       $state = $value;
                           break;
                       case 11:
-                          $address = $value;
-                          echo nl2br('<td class="address">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</td>');
+                      $address = $value;
+                          echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$lat . ',' .$long . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
                           break;
                       case 13:
                           break;
-                      default:
-                          echo nl2br("<td>" . $value . "</td>");
-                          break;
-                      case 2:
-                          echo nl2br("<td>" . $value . "</td>");
-                          break;
+                    default:
+                        echo ("<p>" . $value . "</p>");
+                        break;
                   }
             }
-echo "</tr>";
+
     }
 ?>
 </tbody>

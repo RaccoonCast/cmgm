@@ -28,7 +28,7 @@ margin: 0;
 a {
   font-size: 2.2em;
   position: fixed;
-  top: 98%;
+  top: 97%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);

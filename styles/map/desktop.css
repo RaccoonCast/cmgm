@@ -1,0 +1,17 @@
+#mapid { height: 100%; }
+body {
+margin:0;
+padding:0;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-content, iframe {
+	 width: auto!important;
+	 height: auto!important;
+	 max-width: auto!important;
+	 max-height: auto!important;
+	 min-width: 350px!important;
+	 min-height: 165px!important;
+	 }
+.body::-webkit-scrollbar {
+    display: none;
+}

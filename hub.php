@@ -14,11 +14,12 @@
 <?php hubLatLong("cm.php","#5DC904","CellMapper");?>
 <?php hubLatLong("findlater.php","#F80000","Find later");?>
 <script src="js\copy.js"></script>
-<form method="get" class="flex-item">
+<form method="get">
    <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
    <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
    <input onclick="myFunction2()" type="submit" class="submitbutton" value="Copy">
 </form>
+<?php hubLatLong("map.php","#F80000","Map");?>
 	        <!-- <form action="database.php" method="post" style="display: inline" class="flex-item">
          <input type="submit" style="color: #E9A623" value="Database">
       </form> -->

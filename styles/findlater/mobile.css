@@ -7,6 +7,12 @@ textarea {
 	height: 20px;
 	width: 250px;
 }
+.dropdown {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	height: 40px;
+	width: 250px;
+}
 p {
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -65,7 +71,7 @@ input.date::-webkit-calendar-picker-indicator {
 a {
   font-size: 2.2em;
   position: fixed;
-  top: 98%;
+  top: 97%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);

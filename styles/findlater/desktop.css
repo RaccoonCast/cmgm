@@ -1,9 +1,16 @@
 .fakeinput {
-	height: 45px;
-	width: 350px;
+	height: 30px;
+	width: 480px;
   font-size: 1em;
 }
+.dropdown {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	height: 40px;
+	width: 485px;
+}
 .submitbutton {
+	display: block;
   font-size: 0.85em;
   width: 105px;
   height: 45px;
@@ -11,11 +18,11 @@
 }
 textarea {
   padding-top: 10px;
-  font-size: 1.5em!important;
+  font-size: 1em!important;
 }
 p {
-	margin-top: 7px;
-	margin-bottom: 7px;
+	margin-top: 6px;
+	margin-bottom: 6px;
 }
 body {
   font-size: 1.5em;
@@ -37,8 +44,9 @@ body {
 input.date{
   float:left;
 	position: relative;
-  height: 55px;
-	width: 350px;
+  height: 30px;
+	padding-top: 10px;
+	width: 480px;
 	color: transparent;
 }
 input.date:before {
@@ -51,17 +59,18 @@ input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.
 	display: none;
 }
 input.date::-webkit-calendar-picker-indicator {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+	top: 10px;
+  height: 25px;
   position: absolute;
 	right: 0;
 	color: black;
 	opacity: 1;
 }
-a {
+.footer_link {
   font-size: 1.5em;
   position: fixed;
-  top: 98%;
+  top: 97%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
