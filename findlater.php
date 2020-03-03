@@ -28,7 +28,7 @@
 	  <p>is a</p>
          <select class="fakeinput dropdown" autocomplete="on" name="type">
             <option value="Macro tower">Macro tower</option>
-            <option value="Monopine/palm">Monopine/palm</option>
+            <option value="Monopine">Monopine/palm</option>
             <option value="Pole">Pole</option>
             <option value="Power line">Power line small cell</option>
             <option value="Rooftop">Rooftop</option>
@@ -58,7 +58,7 @@
 		<?php
 if (isMobile()) {
         ?>
-	<textarea rows="15" cols="35" id="bio" name="bio"></textarea>
+	<textarea style="height: 250px;" class="fakeinput" rows="15" cols="35" id="bio" name="bio"></textarea>
 <?php
     } else {
     ?>

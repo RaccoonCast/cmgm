@@ -13,8 +13,6 @@ td {
   min-width: 60px;
   width: auto;
   max-width: auto;
-  padding-right: 15px;
-  padding-left: 8px;
   vertical-align: top;
   padding: 4px;
 }
@@ -30,16 +28,9 @@ tr:nth-child(even) {
   margin-right: auto;
   width: 50%;
 }
-.img {
-  min-width: 30px!important;
-}
 .firstseen {
-  min-width: 80px!important;
+  min-width: 79px!important;
 }
 .address {
   min-width: 160px!important;
-}
-img {
-  width: 30px;
-  height: 30px;
 }

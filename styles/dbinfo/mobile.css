@@ -2,7 +2,7 @@ body {
   height:auto;
   margin:0;
   padding:0;
-  font-size:0.4em!important;
+  font-size:0.6em!important;
 }
 table {
 	border-collapse: collapse;
@@ -11,8 +11,8 @@ table {
 }
 td {
   width: auto;
-  padding-right: 15px;
-  padding-left: 8px;
+  padding-right: 10px;
+  padding-left: 6px;
   vertical-align: top;
   padding: 4px;
 }
@@ -27,8 +27,4 @@ tr:nth-child(even) {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-}
-img {
-  width: 20px;
-  height: 20px;
 }

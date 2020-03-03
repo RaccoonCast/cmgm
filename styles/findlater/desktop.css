@@ -8,6 +8,7 @@
 	margin-bottom: 0px;
 	height: 40px;
 	width: 485px;
+	color: #1e1f1e;
 }
 .submitbutton {
 	display: block;
@@ -33,13 +34,18 @@ body {
 	font-family: 'Regular';
 	src: URL('../font/lato-Regular.ttf') format('truetype');
 }
-
-/* TEXT BOXES NEXT TO EACHOTHER */
 #box2 {
 	padding-left : 5px;
 	float:left;
 }
-/* TEXT BOXES NEXT TO EACHOTHER */
+.footer_link {
+  font-size: 1.5em;
+  position: fixed;
+  top: 97%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
 /* INPUT DATE */
 input.date{
   float:left;
@@ -50,8 +56,7 @@ input.date{
 	color: transparent;
 }
 input.date:before {
-  font-size: 2em;
-	left: 3px;
+  font-size: 1em;
 	content: attr(data-date);
 	color: black;
 }
@@ -67,13 +72,4 @@ input.date::-webkit-calendar-picker-indicator {
 	color: black;
 	opacity: 1;
 }
-.footer_link {
-  font-size: 1.5em;
-  position: fixed;
-  top: 97%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-
 /* INPUT DATE */
