@@ -2,7 +2,6 @@
 <html lang="en">
    <head>
 	  <?php include "functions.php"?>
-      <title>Evil CM</title>
    </head>
    <body>
       <form action="convert.php" method="get" autocomplete="off">

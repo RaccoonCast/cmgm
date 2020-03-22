@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="en-us">
    <head>
-      <title>Evil CM</title>
       <?php include 'functions.php';?>
       <link rel="stylesheet" href="styles/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta charset="utf-8">
       <link rel="icon" type="image/png" href="/logo.png">
    </head>
    <body>
@@ -22,7 +20,7 @@
          echo '<a class="footer_link" href="'.$cmlink.'" target="_blank">Open</a>';
          $path = 'dustbin\data.txt';
          ?>
-      <form action="findlaterdb.php" method="get">
+      <form action="findlaterdbmod.php" method="get">
       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
 	  <p>is a</p>
@@ -70,6 +68,6 @@ if (isMobile()) {
     </form>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script src="js\date.js"></script>
+      <script src="js/date.js"></script>
    </body>
 </html>

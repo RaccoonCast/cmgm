@@ -56,7 +56,8 @@ input.date{
 	color: transparent;
 }
 input.date:before {
-  font-size: 1em;
+	padding-bottom: 10px;
+  font-size: 1.5em;
 	content: attr(data-date);
 	color: black;
 }
@@ -65,7 +66,7 @@ input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.
 }
 input.date::-webkit-calendar-picker-indicator {
   width: 25px;
-	top: 10px;
+	top: 7px;
   height: 25px;
   position: absolute;
 	right: 0;

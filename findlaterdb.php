@@ -1,99 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <?php include 'functions.php';?>
+</head>
+<body>
 <?php
-include "functions.php";
-// Call google to convert latitude & longitude
-$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=AIzaSyAhNIGTtBPudtLxXejJfRkcT4aVwATAYs8';
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-$response = curl_exec($ch);
-curl_close($ch);
-
-// Parse the json output
-
- $response = json_decode($response);
-
-$addressComponents = $response->results[0]->address_components;
-foreach ($addressComponents as $addrComp) {
-    if ($addrComp->types[0] == 'postal_code') {
-        $zip = $addrComp->long_name;
-    }
-    if ($addrComp->types[0] == 'street_number') {
-        $number = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'route') {
-        $name = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'locality') {
-        $city = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'administrative_area_level_1') {
-        $state = $addrComp->short_name;
-    }
-}
-
-$address = "$number $name";
-
-// Get data from the form
-
-$type = $_GET['type'];
-$carrier = $_GET['carrier'];
-$id = $_GET['id'];
-$bands = $_GET['bands'];
-$firstseen = $_GET['date-1'];
-$firstseen2 = $_GET['date-2'];
-$bio = $_GET['bio'];
-
-if (empty($firstseen2)) {
-  $date = str_replace('/"', '-', $firstseen);
-} else {
-  $date = str_replace('/"', '-', $firstseen2);
-}
-$firstseen = date("Y/m/d", strtotime($date));
-
-// Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 
-ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+$limit = 10000;
 
-$sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`)
-                      VALUES (
-                        '".mysqli_real_escape_string($conn, $id)."',
-                        '".mysqli_real_escape_string($conn, $carrier)."',
-                        '".mysqli_real_escape_string($conn, $type)."',
-                        '".mysqli_real_escape_string($conn, $latitude)."',
-                        '".mysqli_real_escape_string($conn, $longitude)."',
-                        '".mysqli_real_escape_string($conn, $firstseen)."',
-                        '".mysqli_real_escape_string($conn, $bio)."',
-                        '".mysqli_real_escape_string($conn, $bands)."',
-                        '".mysqli_real_escape_string($conn, $city)."',
-                        '".mysqli_real_escape_string($conn, $zip)."',
-                        '".mysqli_real_escape_string($conn, $state)."',
-                        '".mysqli_real_escape_string($conn, $address)."');  ";
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
+if (isset($_GET['limit'])) $limit = $_GET['limit'];
 
-if (mysqli_query($conn, $sql)) {
-    echo '<meta http-equiv="refresh" content="0; url=../cm/">';
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
 
-mysqli_close($conn);
-
+$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater ORDER BY distance
+LIMIT $limit ";
+$result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 
 ?>
-<!doctype html>
-<html lang="en-us">
-<head>
-<title>Evil CM</title>
-<meta charset="utf-8">
-</head>
-<body style="zoom: 100%">
+<table border="1">
+<thead>
+<tr>
+<th>eNB ID</th>
+<th>Carrier</th>
+<th>Type</th>
+<th>First Seen</th>
+<th>Band(s)</th>
+<!--
+<th>Citiy</th>
+<th>Zip</th>
+<th>State</th>
+-->
+<th>Address</th>
+<th>Bio</th>
+</tr>
+</thead>
+<tbody>
+<?php
+while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
+  $colCount = 1;
+    echo "<tr>";
+    foreach ($row as $field => $value) {
+
+      $sepCount = ($colCount++);
+
+                  switch ($sepCount) {
+                      case 4:
+                          $lat = $value;
+                          break;
+                      case 5:
+                          $long = $value;
+                          break;
+                      case 6:
+                          echo '<td class="firstseen">' . $value . '</td>';
+                          break;
+                      case 8:
+                      $city = $value;
+                          break;
+                      case 9:
+                      $zip = $value;
+                          break;
+                      case 10:
+                      $state = $value;
+                          break;
+                      case 11:
+                          $address = $value;
+                          echo nl2br('<td class="address"><a href="https://cmgm.gq/cm/hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</td></a>');
+                          break;
+                      case 13:
+                          break;
+                      default:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                      case 2:
+                          echo nl2br("<td>" . $value . "</td>");
+                          break;
+                  }
+            }
+echo "</tr>";
+    }
+?>
+</tbody>
+</table>
 </body>
 </html>

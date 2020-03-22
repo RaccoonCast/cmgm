@@ -1,4 +1,5 @@
 <?php
+
 $data = $_GET['data'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];

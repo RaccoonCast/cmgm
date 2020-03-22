@@ -2,25 +2,21 @@
 function isMobile() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
-$name = basename($_SERVER['PHP_SELF']);
-$without_extension = basename($name, '.php');
+$without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
 
 if(isMobile()){
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/mobile.css">';
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
+echo '<title>EvilCM - '. $without_extension . '</title>';
 
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL & ~E_NOTICE & E_WARNING);
-
-$servername = '127.0.0.1';
-$username = 'root';
-$password = 'p50846';
+$servername = 'mysql.cmgm.gq';
+$username = 'arbpen';
+$password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 
 function hubLatLong($file,$color,$text) {

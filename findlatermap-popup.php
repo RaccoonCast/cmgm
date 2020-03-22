@@ -1,23 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Findlater Database</title>
-  <?php include 'functions.php';?>
+  <?php
+  function isMobile() {
+      return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+  }
+
+  if(isMobile()){
+    echo '<link rel="stylesheet" href="styles/findlatermap-popup/mobile.css">';
+  } else {
+    echo '<link rel="stylesheet" href="styles/findlatermap-popup/desktop.css">';
+  }
+   ?>
 </head>
 <body class="body">
 <?php
+echo "loading";
+$servername = 'localhost';
+$username = 'root';
+$password = 'p50846';
+$dbname = 'cmgm';
+$latitude = $_GET['latitude'];
+$longitude = $_GET['longitude'];
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$limit = 10000;
-
-if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
-if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
-if (isset($_GET['limit'])) $limit = $_GET['limit'];
-
-
-$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater ORDER BY distance
-LIMIT $limit ";
-$result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
+$sql2 = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater ORDER BY distance LIMIT 1 ";
+$result = mysqli_query($conn, $sql2); // First parameter is just return of "mysqli_connect()" function
 
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
