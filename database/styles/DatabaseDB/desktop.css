@@ -19,9 +19,6 @@ td {
 tr:nth-child(even) {
   background: #ededed;
 }
-.firstseen {
-  min-width: 79px!important;
-}
 .address {
   min-width: 160px!important;
 }

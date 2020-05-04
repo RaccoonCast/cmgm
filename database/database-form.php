@@ -18,17 +18,6 @@
       <form action="database-submit.php" method="get">
       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-	  <p>is a</p>
-         <select class="fakeinput dropdown" autocomplete="on" name="type">
-            <option value="Macro tower">Macro tower</option>
-            <option value="Monopine">Monopine/palm</option>
-            <option value="Pole">Pole</option>
-            <option value="Power line">Power line small cell</option>
-            <option value="Rooftop">Rooftop</option>
-            <option value="Small cell">Small cell</option>
-            <option value="Street Light">Street Light</option>
-        </select>
-		 <br>
 		       <p>the carrier is</p>
            <select class="fakeinput dropdown" autocomplete="on" name="carrier">
            <?php
@@ -37,21 +26,15 @@
             if('Verizon' == '' . $carrier . '') { echo '<option selected="selected" value="Verizon">Verizon</option>';} else { echo '<option value="Verizon">Verizon</option>';}
             if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
             ?>
-            <option value="Unknown">Unknown</option>
           </select>
           <br>
-          <div style="padding: 10px ">
-          <input type="checkbox" id="multiple_carriers" name="multiple_carriers" value="true">
+          <div style="padding: 8px ">
+          <input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
           <label for="multiple_carriers">Multiple carriers</label><br>
         </div>
      <p>eNB ID: </p>
-		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="30"  placeholder="" name="id" required></textarea>
+		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
 		 <br>
-		 <p>Bands: </p>
-       <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="35"  placeholder="leave blank if not relevant" name="bands"></textarea>
-     <p>First seen: </p>
-    <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="40" autocomplete="one-time-code" placeholder="leave blank if not relevant" name="date"></textarea>
-    <br>
     <p>Evidence: </p>
         <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500"  placeholder="" name="evidence_text"></textarea><br>
         <input type="checkbox" id="ev1" name="permit_cellsite" value="true">
@@ -60,10 +43,16 @@
         <label for="ev2"> Permit matches suspected carrier (+20)</label><br>
         <input type="checkbox" id="ev3" name="trails_match" value="true">
         <label for="ev3"> Trails match suspected location with the suspected carrier (+5)</label><br>
-        <input type="checkbox" id="ev3" name="other_carriers_dont" value="true">
+        <input type="checkbox" id="ev4" name="other_carriers_dont" value="true">
         <label for="ev4"> Other carriers don't have matching trails (+3)</label><br>
-        <input type="checkbox" id="ev3" name="antennnas_match_carrier" value="true">
+        <input type="checkbox" id="ev5" name="antennas_match_carrier" value="true">
         <label for="ev5"> Antennas look like suspected carrier (+1)</label><br>
+        <input type="checkbox" id="ev6" name="cellmapper_triangulation" value="true">
+        <label for="ev6"> CellMapper triangulates very close to the suspected location (+2)</label><br>
+        <input type="checkbox" id="ev7" name="image_evidence" value="true">
+        <label for="ev7"> Image evidence of a site identifier matching the suspected carrier (+10)</label><br>
+        <input type="checkbox" id="ev8" name="verified_by_visit" value="true">
+        <label for="ev8"> On-site verification (+5)</label><br>
       <!-- <input class="upbttn" name="Files" type="file" name="myFile" multiple /> -->
     <p>Extra notes: </p>
 		<?php

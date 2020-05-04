@@ -24,28 +24,26 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 1: $row_id = $value; break;
                     case 2: $id = $value; break;
                     case 3: $carrier = $value; break;
-                    case 4: $carrier_multiple = $value; break;
-                    case 5: $type = $value; break;
-                    case 6: $lat = $value; break;
-                    case 7: $long = $value; break;
-                    case 8: $firstseen = $value; break;
-                    case 9: $bands = $value; break;
-                    case 10: $city = $value; break;
-                    case 11: $zip = $value; break;
-                    case 12: $state = $value; break;
-                    case 13: $address = $value; break;
-                    case 14: $bio = $value; break;
-                    case 15: $permit_cellsite = $value; break;
-                    case 16: $permit_suspected_carrier = $value; break;
-                    case 17: $trails_match = $value; break;
-                    case 18: $other_carriers_dont = $value; break;
-                    case 19: $antennnas_match_carrier = $value; break;
-                    case 20: $evidence_score = $value; break;
-                    case 21:
-                    $evidence_text = $value;
+                    case 4: $lat = $value; break;
+                    case 5: $long = $value; break;
+                    case 6: $city = $value; break;
+                    case 7: $zip = $value; break;
+                    case 8: $state = $value; break;
+                    case 9: $address = $value; break;
+                    case 10: $bio = $value; break;
+                    case 11: $evidence_score = $value; break;
+                    case 12: $evidence_text = $value; break;
+                    case 13: $permit_cellsite = $value; break;
+                    case 14: $permit_suspected_carrier = $value; break;
+                    case 15: $trails_match = $value; break;
+                    case 16: $other_carriers_dont = $value; break;
+                    case 17: $antennas_match_carrier = $value; break;
+                    case 18: $cellmapper_triangulation = $value; break;
+                    case 19: $image_evidence = $value; break;
+                    case 20: $verified_by_visit = $value; break;
+                    case 21: $carrier_multiple = $value;
                     echo ("<p>Database ID: " . $row_id . "</p>");
                     echo ("<p>" . $carrier . "</p>");
-                    echo ("<p>" . $type . "</p>");
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
                     } elseif ("$carrier" == "Sprint") {
@@ -67,6 +65,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       }
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$lat . ',' .$long . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
+                      echo ("<p>Evidence Score: " . $evidence_score . "</p>");
+                      echo ("<p>" . $evidence_text . "</p>");
                     break;
 
                 }

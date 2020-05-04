@@ -14,7 +14,7 @@
 lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
-  var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], 14);
+  var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 19,
@@ -29,7 +29,7 @@ long = <?php echo $longitude?>;
       iconSize: [20, 20], // size of the icon
       popupAnchor: [0, -15]
   });
-  var marker = L.marker([lat, long]).addTo(mymap);
+  // var marker = L.marker([lat, long]).addTo(mymap);
 
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -42,27 +42,27 @@ while ($row = mysqli_fetch_assoc($result)) {
       $sepCount = ($colCount++);
 
 switch ($sepCount) {
-case 1: $row_id = $value; break;
-case 2: $id = $value; break;
-case 3: $carrier = $value; break;
-case 4: $carrier_multiple = $value; break;
-case 5: $type = $value; break;
-case 6: $lat = $value; break;
-case 7: $long = $value; break;
-case 8: $firstseen = $value; break;
-case 9: $bands = $value; break;
-case 10: $city = $value; break;
-case 11: $zip = $value; break;
-case 12: $state = $value; break;
-case 13: $address = $value; break;
-case 14: $bio = $value; break;
-case 15: $permit_cellsite = $value; break;
-case 16: $permit_suspected_carrier = $value; break;
-case 17: $trails_match = $value; break;
-case 18: $other_carriers_dont = $value; break;
-case 19: $antennnas_match_carrier = $value; break;
-case 20: $evidence_score = $value; break;
-case 21: $evidence_text = $value;
+  case 1: $row_id = $value; break;
+  case 2: $id = $value; break;
+  case 3: $carrier = $value; break;
+  case 4: $lat = $value; break;
+  case 5: $long = $value; break;
+  case 6: $city = $value; break;
+  case 7: $zip = $value; break;
+  case 8: $state = $value; break;
+  case 9: $address = $value; break;
+  case 10: $bio = $value; break;
+  case 11: $evidence_score = $value; break;
+  case 12: $evidence_text = $value; break;
+  case 13: $permit_cellsite = $value; break;
+  case 14: $permit_suspected_carrier = $value; break;
+  case 15: $trails_match = $value; break;
+  case 16: $other_carriers_dont = $value; break;
+  case 17: $antennas_match_carrier = $value; break;
+  case 18: $cellmapper_triangulation = $value; break;
+  case 19: $image_evidence = $value; break;
+  case 20: $verified_by_visit = $value; break;
+  case 21: $carrier_multiple = $value;
 ?>
 var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id&limit=1"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
 L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
