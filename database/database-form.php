@@ -50,7 +50,7 @@
         <input type="checkbox" id="ev6" name="cellmapper_triangulation" value="true">
         <label for="ev6"> CellMapper triangulates very close to the suspected location (+2)</label><br>
         <input type="checkbox" id="ev7" name="image_evidence" value="true">
-        <label for="ev7"> Image evidence of a site identifier matching the suspected carrier (+10)</label><br>
+        <label for="ev7"> On-site image evidence of a site identifier matching the suspected carrier (+10)</label><br>
         <input type="checkbox" id="ev8" name="verified_by_visit" value="true">
         <label for="ev8"> On-site verification (+5)</label><br>
       <!-- <input class="upbttn" name="Files" type="file" name="myFile" multiple /> -->

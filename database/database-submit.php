@@ -80,7 +80,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_text`,`permit_cellsite`,`permit_suspected_carrier`,
+$sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`permit_cellsite`,`permit_suspected_carrier`,
       `trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`carrier_multiple`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $id)."',
@@ -105,7 +105,7 @@ $sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`z
                         '".mysqli_real_escape_string($conn, $carrier_multiple)."');  ";
 
 if (mysqli_query($conn, $sql)) {
-    echo '<meta http-equiv="refresh" content="3;URL=../" /> ';
+    echo '<meta http-equiv="refresh" content="2;URL=../" /> ';
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
