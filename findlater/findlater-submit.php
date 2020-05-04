@@ -35,9 +35,7 @@ $bands = $_GET['bands'];
 $firstseen = $_GET['date'];
 $bio = $_GET['bio'];
 
-if (empty($firstseen)) {
-
-} else {
+if (!empty($firstseen)) {
   $date = str_replace('/"', '-', $firstseen);
   $firstseen = date("Y/m/d", strtotime($date));
 }
