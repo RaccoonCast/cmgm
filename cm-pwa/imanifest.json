@@ -15,7 +15,7 @@
   ],
   "background_color": "#323639",
   "display": "fullscreen",
-  "scope": "/cm/cm-pwa/",
+  "scope": "/",
   "theme_color": "#5DB505",
   "start_url": "redir.html"
 }

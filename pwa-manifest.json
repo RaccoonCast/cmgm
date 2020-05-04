@@ -15,7 +15,7 @@
   ],
   "background_color": "#fff",
   "display": "fullscreen",
-  "scope": "",
+  "scope": "/",
   "theme_color": "#5DB505",
-  "start_url": "/cm/index.php"
+  "start_url": "/Home.php"
 }

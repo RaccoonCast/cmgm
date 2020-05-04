@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 					  case 1:
                           $id = $value;
 						  $end = "map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-						  echo ("<a target=_blank href=http://www.cellmapper.net/$end>" . $value . "</a>");
+						  echo ("<a target=_blank href=https://www.cellmapper.net/$end>" . $value . "</a>");
                           break;
                       case 5:
                           $long = $value;

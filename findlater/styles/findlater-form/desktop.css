@@ -1,0 +1,76 @@
+.fakeinput {
+	height: 30px;
+	width: 480px;
+  font-size: 1em;
+}
+.dropdown {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	height: 40px;
+	width: 485px;
+	color: #1e1f1e;
+}
+.submitbutton {
+	display: block;
+  font-size: 0.85em;
+  width: 105px;
+  height: 45px;
+  color: #A8B2B1
+}
+textarea {
+  padding-top: 10px;
+  font-size: 1em!important;
+}
+p {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+body {
+  font-size: 1.5em;
+	font-display: swap;
+	font-family: 'Regular', Fallback, sans-serif;
+}
+@font-face {
+	font-family: 'Regular';
+	src: URL('../font/lato-Regular.ttf') format('truetype');
+}
+#box2 {
+	padding-left : 5px;
+	float:left;
+}
+.footer_link {
+  font-size: 1.5em;
+  position: fixed;
+  top: 97%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+/* INPUT DATE */
+input.date{
+  float:left;
+	position: relative;
+  height: 30px;
+	padding-top: 10px;
+	width: 480px;
+	color: transparent;
+}
+input.date:before {
+	padding-bottom: 10px;
+  font-size: 1.5em;
+	content: attr(data-date);
+	color: black;
+}
+input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.date::-webkit-clear-button {
+	display: none;
+}
+input.date::-webkit-calendar-picker-indicator {
+  width: 25px;
+	top: 7px;
+  height: 25px;
+  position: absolute;
+	right: 0;
+	color: black;
+	opacity: 1;
+}
+/* INPUT DATE */

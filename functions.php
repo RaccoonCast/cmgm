@@ -13,9 +13,11 @@ echo '<title>EvilCM - '. $without_extension . '</title>';
 
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
+if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
+if (isset($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/cookie.php".">Google Maps API</a> key is NOT defined";}
 
 $servername = 'mysql.cmgm.gq';
-$username = 'arbpen';
+$username = 'cmgm';
 $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 
@@ -23,20 +25,22 @@ function hubLatLong($file,$color,$text) {
   if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
   if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
   if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-  echo "<form action=" . $file . " " . "method=" . "get " . ">";
+  echo "<form action=" . $file . " " . "method=" . "get" . ">
+  ";
 ?>
-  <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+<input type="hidden" name="latitude" value="<?php echo $latitude;?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
   <input type="hidden" name="carrier" value="<?php if (isset($_GET['carrier'])) echo $carrier;?>">
   <input type="submit" class="submitbutton" style="color: <?php echo $color; ?>;" value='<?php echo $text; ?>' >
-</FORM>
+</form>
+
 <?php
 }
 ?>
-<link rel="icon" type="image/png" href="/cm/images/logo.png">
-<link rel="manifest" href="pwa-manifest.json">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="manifest" href="/pwa-manifest.json">
 <link rel="apple-touch-icon" href="images/icons-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta charset="utf-8">
 <meta name="theme-color" content="#fff"/>
-<script src="pwa2.js"></script>
+<script src="/pwa2.js"></script>

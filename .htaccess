@@ -1,2 +1,6 @@
 #Alternate default index pages
-DirectoryIndex first.html index.htm index.html index.php Home.php
+DirectoryIndex Home.php
+
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
