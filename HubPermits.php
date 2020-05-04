@@ -30,13 +30,11 @@
    foreach ($addressComponents as $addrComp) {
        if ($addrComp->types[0] == 'postal_code') $zip = $addrComp->long_name;
        if ($addrComp->types[0] == 'street_number') $number = $addrComp->short_name;
-       if ($addrComp->types[0] == 'route') $name = $addrComp->short_name; $long_street_name = $addrComp->long_name;
+       if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name; $long_street_name = $addrComp->long_name;
        if ($addrComp->types[0] == 'locality') $city = $addrComp->short_name;
        if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
-       $address = "$number $name";
        }
-   }
-   
+
     $directionCheck_a = explode(' ',trim($short_street_name));
     $directionCheck_b = explode(' ',trim($long_street_name));
 

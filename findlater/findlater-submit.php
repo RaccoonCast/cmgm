@@ -23,9 +23,8 @@ foreach ($addressComponents as $addrComp) {
     if ($addrComp->types[0] == 'route') $name = $addrComp->short_name;
     if ($addrComp->types[0] == 'locality') $city = $addrComp->short_name;
     if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
-    $address = "$number $name";
     }
-}
+    $address = "$number $name";
 // Get data from the form
 
 $type = $_GET['type'];
