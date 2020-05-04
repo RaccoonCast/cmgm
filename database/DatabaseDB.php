@@ -66,7 +66,6 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
   <?php if (isset($debug)) echo '<th>city</ht>'; ?>
   <?php if (isset($debug)) echo '<th>zip</ht>'; ?>
   <?php if (isset($debug)) echo '<th>state</ht>'; ?>
-  <?php if (isset($debug)) echo '<th>❌</ht>'; ?>
   <?php if (isset($debug)) echo '<th>address</ht>'; ?>
   <?php if (isset($debug)) {
     echo '<th>bio</ht>';
@@ -141,7 +140,6 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 12:
                       $address = $value;
                       echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
-                      echo nl2br('<td><center><a href="Delete.php?databaseID='.$row_id.'">❌</a></center></td>');
                       break;
                     case 13:
                       $bio = $value;

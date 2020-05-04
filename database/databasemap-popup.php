@@ -68,7 +68,6 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       }
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$lat . ',' .$long . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
-                      echo nl2br('<td><a href="Delete.php?databaseID='.$row_id.'">❌</a></td>');
                     break;
 
                 }
