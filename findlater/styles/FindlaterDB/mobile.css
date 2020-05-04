@@ -16,17 +16,8 @@ td {
   vertical-align: top;
   padding: 4px;
 }
-.top {
-    font-size: 75%;
-}
 tr:nth-child(even) {
   background: #ededed;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
 }
 .hide-underline {
 	   text-decoration: none;

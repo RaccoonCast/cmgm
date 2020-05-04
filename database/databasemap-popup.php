@@ -7,12 +7,11 @@
 </head>
 <body class="body">
 <?php
-$latitude = $_GET['latitude'];
-$longitude = $_GET['longitude'];
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$row_id = $_GET['row_id'];
 
-$sql2 = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ORDER BY distance LIMIT 1 ";
-$result = mysqli_query($conn, $sql2); // First parameter is just return of "mysqli_connect()" function
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+$sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
+$result = mysqli_query($conn, $sql);
 
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;

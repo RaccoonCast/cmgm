@@ -48,11 +48,7 @@ case 3: $carrier = $value; break;
 case 4: $carrier_multiple = $value; break;
 case 5: $type = $value; break;
 case 6: $lat = $value; break;
-case 7:
-$long = $value; ?>
-var customPopup = "<?php $url = "databasemap-popup.php?latitude=$lat&longitude=$long&limit=1"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
-L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
-break;
+case 7: $long = $value; break;
 case 8: $firstseen = $value; break;
 case 9: $bands = $value; break;
 case 10: $city = $value; break;
@@ -66,7 +62,11 @@ case 17: $trails_match = $value; break;
 case 18: $other_carriers_dont = $value; break;
 case 19: $antennnas_match_carrier = $value; break;
 case 20: $evidence_score = $value; break;
-case 21: $evidence_text = $value; break;
+case 21: $evidence_text = $value;
+?>
+var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id&limit=1"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
+L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
+break;
             }
     }
 }
