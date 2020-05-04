@@ -30,7 +30,6 @@ curl_close($ch);
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      $address = "$number $name";
      }
- }
 // get text data from form
 
 $type = $_GET['type'];
