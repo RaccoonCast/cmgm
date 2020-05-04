@@ -27,10 +27,5 @@
   <input type="submit" class="submitbutton" value='Back' >
 </form>
 <script src="js/copy.js"></script>
-
-	        <!-- <form action="database.php" method="post" style="display: inline" class="flex-item">
-         <input type="submit" style="color: #E9A623" value="Database">
-      </form> -->
-      <!-- FORMS -->
    </body>
 </html>
