@@ -59,7 +59,7 @@ case 5:
     break;
 case 6:
     $long = $value; ?>
-var customPopup = "<?php $url = "findlatermap-popup.php?latitude=$lat&longitude=$long&limit=1"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
+var customPopup = "<?php $url = "findlatermap-popup.php?row_id=$row_id"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
 L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap);
 
 <?php
