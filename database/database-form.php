@@ -35,7 +35,7 @@
      <p>eNB ID: </p>
 		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
 		 <br>
-    <p>Evidence: </p>
+    <p>Evidence Link: </p>
         <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500"  placeholder="" name="evidence_text"></textarea><br>
         <input type="checkbox" id="ev1" name="permit_cellsite" value="true">
         <label for="ev1"> Permit says cellsite (+1)</label><br>
