@@ -67,9 +67,6 @@
    }
   </script>
   <?php
-  if (empty($latitude)) {
-    header('Location: https://cmgm.gq/');
-  } else {
     if ("$city" == "Glendale") {
       echo '<meta http-equiv="Refresh" content="0; url=https://csi.glendaleca.gov/csipropertyportal/" />';
     } elseif ("$city" == "Los Angeles") {
@@ -84,7 +81,6 @@
       echo "QUERY: $url";
       echo "$city not listed";
     }
-  }
 ?>
 </body>
 </html>
