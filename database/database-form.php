@@ -50,14 +50,8 @@
 		 <p>Bands: </p>
        <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="35"  placeholder="leave blank if not relevant" name="bands"></textarea>
      <p>First seen: </p>
-       <!--
-      <input type="date" id="box2" class="date" data-date="" data-date-format="DD MMMM YYYY" value="2015-11-13" name="date-1">
-    -->
     <textarea class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="40" autocomplete="one-time-code" placeholder="leave blank if not relevant" name="date"></textarea>
     <br>
-
-    <!-- Upload box - upload file to server and create a variable that stores the filename -->
-
     <p>Evidence: </p>
         <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500"  placeholder="" name="evidence_text"></textarea><br>
         <input type="checkbox" id="ev1" name="permit_cellsite" value="true">

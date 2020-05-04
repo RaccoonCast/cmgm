@@ -18,25 +18,14 @@ curl_close($ch);
 
 $addressComponents = $response->results[0]->address_components;
 foreach ($addressComponents as $addrComp) {
-    if ($addrComp->types[0] == 'postal_code') {
-        $zip = $addrComp->long_name;
-    }
-    if ($addrComp->types[0] == 'street_number') {
-        $number = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'route') {
-        $name = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'locality') {
-        $city = $addrComp->short_name;
-    }
-    if ($addrComp->types[0] == 'administrative_area_level_1') {
-        $state = $addrComp->short_name;
+    if ($addrComp->types[0] == 'postal_code') $zip = $addrComp->long_name;
+    if ($addrComp->types[0] == 'street_number') $number = $addrComp->short_name;
+    if ($addrComp->types[0] == 'route') $name = $addrComp->short_name;
+    if ($addrComp->types[0] == 'locality') $city = $addrComp->short_name;
+    if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
+    $address = "$number $name";
     }
 }
-
-$address = "$number $name";
-
 // Get data from the form
 
 $type = $_GET['type'];
@@ -76,41 +65,10 @@ $sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`fi
                         '".mysqli_real_escape_string($conn, $address)."');  ";
 
 if (mysqli_query($conn, $sql)) {
-    // echo '<p>Created a findlater entry for a ' . $carrier . ' ' . $type . ' site, it was seen at ' . $latitude . ' ' . $longitude . ', the bands this site has are ' . $bands . ', it is located at ' . $address . '  ' . $city . ', ' . $state . ' ' . $zip . ', it was firstseen on ' . $firstseen . '.';
-    // echo '<br>';
-    echo  $carrier;
-    echo '<br>';
-    echo $id;
-    echo '<br>';
-    echo  $type;
-    echo '<br>';
-    echo '<br>';
-    echo  $latitude;
-    echo '<br>';
-    echo  $longitude;
-    echo '<br>';
-    echo '<br>';
-    echo  $firstseen;
-    echo '<br>';
-    echo  $bands;
-    echo '<br>';
-    echo '<p>' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</p>';
-    echo  $bio;
-    echo '<br>';
     echo '<meta http-equiv="refresh" content="3;URL=../" /> ';
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 mysqli_close($conn);
-
-
 ?>
-<!doctype html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8">
-</head>
-<body style="zoom: 200%">
-</body>
-</html>
