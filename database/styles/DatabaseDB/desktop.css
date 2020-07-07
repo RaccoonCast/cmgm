@@ -22,3 +22,6 @@ tr:nth-child(even) {
 .address {
   min-width: 160px!important;
 }
+.hide-underline {
+	   text-decoration: none;
+}

@@ -19,3 +19,6 @@ td {
 tr:nth-child(even) {
   background: #ededed;
 }
+.hide-underline {
+	   text-decoration: none;
+}
