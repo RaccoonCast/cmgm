@@ -14,12 +14,12 @@
      if (empty($latitude)) {
        header('Location: https://cmgm.gq/');
      } else {
-       // hubLatLong("findlater/FindlaterDB.php","#e8db4a","FindlaterDB");
        hubLatLong("findlater/findlater-form.php","#F80000","Findlater");
        hubLatLong("findlater/Search.php","#e31bdc","Search");
        hubLatLong("findlater/FindlaterMap.php","#E9A623","Findlater Map");
      }
 ?>
+<!-- Put latitude & longitude & carrier from URL bar into next form automatically -->
 <form action=\Hub.php method=get>
   <input type="hidden" name="latitude" value="<?php echo $latitude?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude?>">

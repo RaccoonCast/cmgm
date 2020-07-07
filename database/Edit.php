@@ -3,7 +3,6 @@
 <?php include "../functions.php"; ?>
 </head>
 <?php
-//THIS CODE IS JUST A COPY OF FINDLATER.PHP'S EDIT PAGE - IT DOESNT WORK - i have to change sfm shit
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $row_id = $_GET['row_id'];
 if(isMobile()){
@@ -14,31 +13,50 @@ if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['type'])) $type = $_GET['type'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
-if (isset($_GET['firstseen'])) $firstseen = $_GET['firstseen'];
-if (isset($_GET['bands'])) $bands = $_GET['bands'];
 if (isset($_GET['city'])) $city = $_GET['city'];
 if (isset($_GET['zip'])) $zip = $_GET['zip'];
 if (isset($_GET['state'])) $state = $_GET['state'];
-if (isset($_GET['address'])) {
-  $address = $_GET['address'];
+if (isset($_GET['address'])) $address = $_GET['address'];
+if (isset($_GET['bio'])) $evidence_score = $_GET['evidence_score'];
+if (isset($_GET['evidence_link'])) $evidence_link = $_GET['evidence_link'];
+if (isset($_GET['permit_cellsite'])) $permit_cellsite = $_GET['permit_cellsite'];
+if (isset($_GET['permit_suspected_carrier'])) $permit_suspected_carrier = $_GET['permit_suspected_carrier'];
+if (isset($_GET['trails_match'])) $trails_match = $_GET['trails_match'];
+if (isset($_GET['other_carriers_dont'])) $other_carriers_dont = $_GET['other_carriers_dont'];
+if (isset($_GET['antennas_match_carrier'])) $antennas_match_carrier = $_GET['antennas_match_carrier'];
+if (isset($_GET['cellmaper_triangulation'])) $cellmapper_triangulation = $_GET['cellmaper_triangulation'];
+if (isset($_GET['image_evidence'])) $image_evidence = $_GET['image_evidence'];
+if (isset($_GET['verified_by_visit'])) $verified_by_visit = $_GET['verified_by_visit'];
+if (isset($_GET['carrier_multiple'])) {
+  $carrier_multiple = $_GET['carrier_multiple'];
   $sql_edit = "UPDATE `cmgm`.`findlater`
   SET `id` = '".mysqli_real_escape_string($conn, $id)."',
   `carrier` = '".mysqli_real_escape_string($conn, $carrier)."',
   `type` = '".mysqli_real_escape_string($conn, $type)."',
   `latitude` = '".mysqli_real_escape_string($conn, $latitude)."',
   `longitude` = '".mysqli_real_escape_string($conn, $longitude)."',
-  `firstseen` = '".mysqli_real_escape_string($conn, $firstseen)."',
   `bands` = '".mysqli_real_escape_string($conn, $bands)."',
   `city` = '".mysqli_real_escape_string($conn, $city)."',
   `zip` = '".mysqli_real_escape_string($conn, $zip)."',
   `state` = '".mysqli_real_escape_string($conn, $state)."',
-  `address` = '".mysqli_real_escape_string($conn, $address)."' WHERE row_id = $row_id";
+  `address` = '".mysqli_real_escape_string($conn, $address)."',
+  `bio` = '".mysqli_real_escape_string($conn, $bio)."',
+  `evidence_link` = '".mysqli_real_escape_string($conn, $evidence_link)."',
+  `permit_cellsite` = '".mysqli_real_escape_string($conn, $permit_cellsite)."',
+  `permit_suspected_carrier` = '".mysqli_real_escape_string($conn, $permit_suspected_carrier)."',
+  `trails_match` = '".mysqli_real_escape_string($conn, $trails_match)."',
+  `other_carriers_dont` = '".mysqli_real_escape_string($conn, $other_carriers_dont)."',
+  `antennas_match_carrier` = '".mysqli_real_escape_string($conn, $antennas_match_carrier)."',
+  `cellmapper_triangulation` = '".mysqli_real_escape_string($conn, $cellmapper_triangulation)."',
+  `image_evidence` = '".mysqli_real_escape_string($conn, $image_evidence)."',
+  `verified_by_visit` = '".mysqli_real_escape_string($conn, $verified_by_visit)."',
+  `carrier_multiple` = '".mysqli_real_escape_string($conn, $carrier_multiple)."' WHERE row_id = $row_id";
   mysqli_query($conn, $sql_edit);
 }
 ?> <?php
 
 
-$sql = "SELECT * FROM findlater WHERE row_id = $row_id;";
+$sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
 ?>
 <table border="1">

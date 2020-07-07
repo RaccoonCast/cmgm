@@ -14,7 +14,7 @@
        hubLatLong("HubDatabase.php","#00ccff","Database");
        hubLatLong("cm.php","#5DC904","CellMapper");
        hubLatLong("gmaps.php","#4185FA","Google Maps");
-       hubLatLong("HubPermits.php","#00e3e0","Permits");
+       hubLatLong("Permits.php","#00e3e0","Permits");
 ?>
 <script src="js/copy.js"></script>
 <form method="get">

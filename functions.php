@@ -1,37 +1,47 @@
 <?php
+// The mobile detection function
 function isMobile() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
-$without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
 
+// Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
+$without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
+echo '<title>EvilCM - '. $without_extension . '</title>';
+
+// Use Mobile CSS if on Mobile and use Desktop if on Desktop (OBVSLY)
 if(isMobile()){
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/mobile.css">';
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
-echo '<title>EvilCM - '. $without_extension . '</title>';
 
+
+// if latitude & longitude & carrier are set in URL bar create PHP variable with data
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-if (isset($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/gm-cookie.php".">Google Maps API</a> key is NOT defined<br>";}
 
-if (isset($_COOKIE["latitude"]) | isset($_COOKIE["longitude"])) {
+// Warnings if cookies not set
+if (!empty($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/gm-cookie.php".">Google Maps API</a> key is NOT defined<br>";}
+if (!empty($_COOKIE["latitude"]) | !empty($_COOKIE["longitude"])) {
   $cookie_latitude = $_COOKIE["latitude"];
   $cookie_longitude = $_COOKIE["longitude"];
 } else {echo "WARNING: <a href="."/latlong-cookie.php".">Latitude/Longitude</a> key is NOT defined<br>";}
 
 /*
+Debug code for the cookie values
 echo "API KEY: $api_key (Cookie)<br>";
 echo "Latitude: $cookie_latitude (Cookie)<br>";
 echo "Longitude: $cookie_longitude (Cookie)<br>";
 */
 
+// SQL Database login info
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
 $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 
+// the button code used in Hub*.php
 function hubLatLong($file,$color,$text) {
   if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; } else {$latitude = $_COOKIE["latitude"];}
   if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; } else {$longitude = $_COOKIE["longitude"];}

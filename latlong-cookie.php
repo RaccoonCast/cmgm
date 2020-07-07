@@ -2,6 +2,7 @@
 <html lang="en">
    <head>
 	  <?php
+    // if latitude & longitude & carrier are set in URL bar create PHP variable with data
      if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
      if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
      if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
@@ -20,11 +21,11 @@
         <option value="Verizon">Verizon</option>
         <option value="Sprint">Sprint</option>
          </select>
-         <script src="js/latlong-cookie.js"></script>
          <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
          <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
       </form>
       <script>
+      // Create the coookies
       document.cookie = "latitude=<?php echo $latitude;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       document.cookie = "longitude=<?php echo $longitude;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       document.cookie = "carrier=<?php echo $carrier;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
