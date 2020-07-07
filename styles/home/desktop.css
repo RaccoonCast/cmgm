@@ -29,7 +29,7 @@ form {
 margin-top: 3px !important;
 margin: 0;
 }
-#findlater {
+.footer {
   font-size: 2.2em;
   position: fixed;
   top: 97%;

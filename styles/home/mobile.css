@@ -33,3 +33,11 @@ margin: 0;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+.footer {
+  font-size: 2.2em;
+  position: fixed;
+  top: 97%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
