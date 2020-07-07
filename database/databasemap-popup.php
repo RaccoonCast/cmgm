@@ -66,7 +66,15 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$lat . ',' .$long . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
                       echo ("<p>Evidence Score: " . $evidence_score . "</p>");
-                      echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p>");
+
+                      if(substr($evidence_text, 0, 14) == "image-evidence") {
+                         $evidence_text = "uploads/$evidence_text";
+                      }
+                      
+                      if (!empty($evidence_text)) {
+                        echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p>");
+                        echo "<br>";
+                      }
                     break;
 
                 }

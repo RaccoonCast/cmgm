@@ -5,7 +5,6 @@
 </head>
 <body>
 <?php
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $limit = 10000;
 $sub1 = ""; $sub2 = ""; $sub3 = "";
@@ -37,6 +36,7 @@ if (!empty($id)) {
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
 
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM findlater $sub1 $sub2 $sub3 ORDER BY distance LIMIT $limit";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 
@@ -83,9 +83,10 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo '<td class="firstseen">' . $firstseen . '</td>';
                     echo nl2br("<td>" . $bands . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
-                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?findlaterID='.$row_id.'">🔧</a></center>');
+                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');
                     echo nl2br('<center><a class="hide-underline" href="Delete.php?findlaterID='.$row_id.'">❌</a></center></td>');
                     echo nl2br("<td>" . $bio . "</td>");
+                    break;
                   }
             }
 echo "</tr>";

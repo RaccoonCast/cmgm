@@ -5,15 +5,16 @@
    </head>
    <body class="flex">
      <?php
-     if (empty($latitude)) {
-       header('Location: https://cmgm.gq/');
-     } else {
+     if (empty($_GET['latitude'])) {
+       if (isset($_COOKIE["latitude"]) | isset($_COOKIE["longitude"])) {
+       $latitude = $_COOKIE["latitude"];
+       $longitude = $_COOKIE["longitude"]; }
+     }
        hubLatLong("HubFindlater.php","#F80000","Findlater");
        hubLatLong("HubDatabase.php","#00ccff","Database");
        hubLatLong("cm.php","#5DC904","CellMapper");
        hubLatLong("gmaps.php","#4185FA","Google Maps");
        hubLatLong("HubPermits.php","#00e3e0","Permits");
-     }
 ?>
 <script src="js/copy.js"></script>
 <form method="get">

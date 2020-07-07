@@ -7,22 +7,11 @@
       <link rel="icon" type="image/png" href="/logo.png">
    </head>
    <body>
-   <p>Searching for a</p>
       <?php
          ?>
       <form action="DatabaseDB.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-         <select class="fakeinput dropdown" autocomplete="on" name="type">
-            <option value=""> </option>
-            <option value="Macro tower">Macro tower</option>
-            <option value="Monopine">Monopine/palm</option>
-            <option value="Pole">Pole</option>
-            <option value="Power line">Power line small cell</option>
-            <option value="Rooftop">Rooftop</option>
-            <option value="Small cell">Small cell</option>
-            <option value="Street Light">Street Light</option>
-        </select>
 		 <br>
 		       <p>the carrier is</p>
            <select class="fakeinput dropdown" autocomplete="on" name="carrier">

@@ -46,12 +46,11 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
 <tr>
     <th>eNB ID</th>
     <th>Carrier</th>
-    <th>Type</th>
-    <th>First Seen</th>
-    <th>Band(s)</th>
     <th>Address</th>
     <th>Edit</th>
     <th>Bio</th>
+    <th>Evidence Score</th>
+    <th>Evidence</th>
 </tr>
 </thead>
 <tbody>
@@ -84,14 +83,15 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18: $cellmapper_triangulation = $value; break;
                     case 19: $image_evidence = $value; break;
                     case 20: $verified_by_visit = $value; break;
-                    case 21: $carrier_multiple = $value
+                    case 21: $carrier_multiple = $value;
                     echo nl2br("<td>" . $id . "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
                     echo nl2br('<td><center><a class="hide-underline" href="Edit.php?findlaterID='.$row_id.'">🔧</a></center>');
                     echo nl2br('<center><a class="hide-underline" href="Delete.php?findlaterID='.$row_id.'">❌</a></center></td>');
                     echo nl2br("<td>" . $bio . "</td>");
-                    echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p>");
+                    echo nl2br("<td>" . $evidence_score . "</td>");
+                    echo nl2br("<td><a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p></td>");
                   }
             }
 echo "</tr>";

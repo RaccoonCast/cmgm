@@ -1,19 +1,27 @@
 <!doctype html>
 <html lang="en-us">
    <head>
-      <?php include '../functions.php';?>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" type="image/png" href="/logo.png">
+     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+     <script src="../js/pasteimages.js"></script>
+     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+     <script src="script.js"></script>
+     <?php include '../functions.php';?>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="/logo.png">
    </head>
    <body>
+     <?php
+     // Get textbox values from database-form.php
+     include  "includes/database-form/upload-form.php";
+     ?>
    <p>The cell site at</p>
       <?php
          $latitude = substr("$latitude", 0, 9);
          $longitude = substr("$longitude", 0, 10);
-         $cmlink = "https://cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-         $gmlink = "https://maps.google.com/maps?f=q&source=s_q&hl=en&q=$latitude,$longitude";
-         echo '<a href="'.$gmlink.'" target="_blank">' . $latitude . ','  . $longitude . '</a>';
-         echo '<a class="footer_link" href="'.$cmlink.'" target="_blank">Open</a>';
+         $pmlink = "../HubPermits.php?latitude=$latitude&longitude=$longitude";
+         $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+         echo '<a href="'.$cmlink.'" target="_blank">' . $latitude . ','  . $longitude . '</a>';
+         echo '<a class="footer_link" href="'.$pmlink.'" target="_blank">Permits</a>';
          ?>
       <form action="database-submit.php" method="get">
       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
@@ -36,7 +44,11 @@
 		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
 		 <br>
     <p>Evidence Link: </p>
-        <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500"  placeholder="" name="evidence_text"></textarea><br>
+        <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500" placeholder="" name="evidence_text"><?php if (isset($link)) echo $link?></textarea><br>
+        <?php if (isset($link)) {?> <a href="uploads/<?php echo $link;?>">Evidence</a><br>
+        <?php
+        }
+        ?>
         <input type="checkbox" id="ev1" name="permit_cellsite" value="true">
         <label for="ev1"> Permit says cellsite (+1)</label><br>
         <input type="checkbox" id="ev2" name="permit_suspected_carrier" value="true">
@@ -44,7 +56,7 @@
         <input type="checkbox" id="ev3" name="trails_match" value="true">
         <label for="ev3"> Trails match suspected location with the suspected carrier (+5)</label><br>
         <input type="checkbox" id="ev4" name="other_carriers_dont" value="true">
-        <label for="ev4"> Other carriers don't have matching trails (+3)</label><br>
+        <label for="ev4"> Trails rule-out others (+3)</label><br>
         <input type="checkbox" id="ev5" name="antennas_match_carrier" value="true">
         <label for="ev5"> Antennas look like suspected carrier (+1)</label><br>
         <input type="checkbox" id="ev6" name="cellmapper_triangulation" value="true">
@@ -68,7 +80,5 @@ if (isMobile()) {
 ?>
       <input type="submit" class="submitbutton" value="Submit">
     </form>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
    </body>
 </html>

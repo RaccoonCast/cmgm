@@ -26,6 +26,8 @@ elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
   $latitude = $str_arr[0];
   $longitude = $str_arr[1];
   echo '<meta http-equiv="refresh" content="0; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '">';
+}elseif (empty($_GET['data'])) {
+  echo '<meta http-equiv="refresh" content="0; url=Hub.php">';
 }
 else {
 $input_data = str_replace(' ', '', $data);

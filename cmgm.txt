@@ -1,0 +1,44 @@
+/*
+if (!empty($_FILES["myFile"])) {
+    $myFile = $_FILES["myFile"];
+
+    if ($myFile["error"] !== UPLOAD_ERR_OK) {
+        echo "<p>An error occurred.</p>";
+        exit;
+    }
+
+    // ensure a safe filename
+    $upload_name = preg_replace("/[^A-Z0-9._-]/i", "_", $myFile["name"]);
+
+    // don't overwrite an existing file
+    $i = 0;
+    $parts = pathinfo($upload_name);
+    while (file_exists(UPLOAD_DIR . $upload_name)) {
+        $i++;
+        $upload_name = $parts["filename"] . "-" . $i . "." . $parts["extension"];
+    }
+
+    // preserve file from temporary directory
+    $success = move_uploaded_file($myFile["tmp_name"],
+        UPLOAD_DIR . $upload_name);
+    if (!$success) {
+        echo "<p>Unable to save file.</p>";
+        exit;
+    }
+
+    // set proper permissions on the new file
+    chmod(UPLOAD_DIR . $upload_name, 0644);
+
+	// if file upload was succesful
+	    if ($success) {
+        exit;
+    }
+
+}
+*/
+
+/*
+UPDATE `cmgm`.`findlater` SET `type`='Rooftop' WHERE  `row_id`=2;
+SELECT `row_id`, `id`, `carrier`, `type`, `latitude`, `longitude`, `firstseen`, `bands`, `city`, `zip`, `state`, `address`, `bio`
+FROM `cmgm`.`findlater` WHERE  `row_id`=2;
+*/

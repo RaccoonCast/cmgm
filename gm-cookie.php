@@ -6,13 +6,13 @@
      include "functions.php"?>
    </head>
    <body>
-      <form action="cookie.php" method="get" autocomplete="off">
+      <form action="gm-cookie.php" method="get" autocomplete="off">
          <p>Google Maps API Key: </p>
          <input type="text" name="key" id="txtresult" required>
-         <input type="submit" class="submitbutton" style="color: #A8B2B1;"  value="Submit">
+         <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
       </form>
       <script>
-      document.cookie = "api_key=<?php echo $key;?>; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/";
+      document.cookie = "api_key=<?php echo $key;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       </script>
    </body>
 </html>
