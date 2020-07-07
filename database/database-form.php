@@ -37,7 +37,7 @@
           </select>
           <br>
           <div style="padding: 8px ">
-          <input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
+          <input type="checkbox" id="multiple_carriers" name="carrier_multiple">
           <label for="multiple_carriers">Multiple carriers</label><br>
         </div>
      <p>eNB ID: </p>
@@ -49,21 +49,21 @@
         <?php
         }
         ?>
-        <input type="checkbox" id="ev1" name="permit_cellsite" value="true">
+        <input type="checkbox" id="ev1" name="permit_cellsite">
         <label for="ev1"> Permit says cellsite (+1)</label><br>
-        <input type="checkbox" id="ev2" name="permit_suspected_carrier" value="true">
+        <input type="checkbox" id="ev2" name="permit_suspected_carrier">
         <label for="ev2"> Permit matches suspected carrier (+20)</label><br>
-        <input type="checkbox" id="ev3" name="trails_match" value="true">
+        <input type="checkbox" id="ev3" name="trails_match">
         <label for="ev3"> Trails match suspected address with the suspected carrier (+5)</label><br>
-        <input type="checkbox" id="ev4" name="other_carriers_dont" value="true">
+        <input type="checkbox" id="ev4" name="other_carriers_dont">
         <label for="ev4"> Trails rule-out others (+3)</label><br>
-        <input type="checkbox" id="ev5" name="antennas_match_carrier" value="true">
+        <input type="checkbox" id="ev5" name="antennas_match_carrier">
         <label for="ev5"> Antennas look like suspected carrier (+1)</label><br>
-        <input type="checkbox" id="ev6" name="cellmapper_triangulation" value="true">
+        <input type="checkbox" id="ev6" name="cellmapper_triangulation">
         <label for="ev6"> CellMapper triangulates very close to the suspected location (+2)</label><br>
-        <input type="checkbox" id="ev7" name="image_evidence" value="true">
+        <input type="checkbox" id="ev7" name="image_evidence">
         <label for="ev7"> On-site image evidence of a site identifier matching the suspected carrier (+10)</label><br>
-        <input type="checkbox" id="ev8" name="verified_by_visit" value="true">
+        <input type="checkbox" id="ev8" name="verified_by_visit">
         <label for="ev8"> On-site verification (+5)</label><br>
       <!-- <input class="upbttn" name="Files" type="file" name="myFile" multiple /> -->
     <p>Extra notes: </p>
