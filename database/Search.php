@@ -12,7 +12,6 @@
       <form action="DatabaseDB.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-		 <br>
 		       <p>the carrier is</p>
            <select class="fakeinput dropdown" autocomplete="on" name="carrier">
              <option value=""> </option>

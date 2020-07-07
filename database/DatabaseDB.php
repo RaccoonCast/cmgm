@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo nl2br("<td>" . $id . "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
-                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?findlaterID='.$row_id.'">🔧</a></center>');
+                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');
                     echo nl2br('<center><a class="hide-underline" href="Delete.php?findlaterID='.$row_id.'">❌</a></center></td>');
                     echo nl2br("<td>" . $bio . "</td>");
                     echo nl2br("<td>" . $evidence_score . "</td>");

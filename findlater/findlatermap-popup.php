@@ -33,7 +33,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     case 11: $state = $value; break;
                     case 12: $address = $value;break;
                     case 13: $bio = $value;
-                    echo ("<p>Findlater ID: " . $row_id . "</p>");
+                    echo nl2br("<p class=" . "widget" .">Findlater ID: " . $row_id . "   </p>");
+                    echo nl2br('<a class="widget" href="Edit.php?row_id='.$row_id.'">🔧</a>');
+                    echo nl2br('<a class="widget" href="Delete.php?row_id='.$row_id.'">❌</a>');
                     echo ("<p>" . $carrier . "</p>");
                       if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
@@ -55,7 +57,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         echo "<br>";
                       }
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$lat . ',' .$long . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
-                      echo nl2br('<td><a href="Delete.php?findlaterID='.$row_id.'">❌</a></td>');
+
                       echo ("<p>" . $bio . "</p>");
                       break;
 

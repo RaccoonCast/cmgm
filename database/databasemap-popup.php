@@ -42,7 +42,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 19: $image_evidence = $value; break;
                     case 20: $verified_by_visit = $value; break;
                     case 21: $carrier_multiple = $value;
-                    echo ("<p>Database ID: " . $row_id . "</p>");
+                    echo nl2br("<p class=" . "widget" .">Database ID: " . $row_id . "   </p>");
+                    echo nl2br('<a class="widget" href="Edit.php?row_id='.$row_id.'">🔧</a>');
+                    echo nl2br('<a class="widget" href="Delete.php?row_id='.$row_id.'">❌</a>');
                     echo ("<p>" . $carrier . "</p>");
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
@@ -70,7 +72,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       if(substr($evidence_text, 0, 14) == "image-evidence") {
                          $evidence_text = "uploads/$evidence_text";
                       }
-                      
+
                       if (!empty($evidence_text)) {
                         echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p>");
                         echo "<br>";

@@ -8,16 +8,17 @@ $row_id = $_GET['row_id'];
 if(isMobile()){
   header('Location: mobile-edit.php?row_id=' . $row_id . ' ');
 }
+if (isset($_GET['row_id'])) $row_id = $_GET['row_id'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-if (isset($_GET['type'])) $type = $_GET['type'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 if (isset($_GET['city'])) $city = $_GET['city'];
 if (isset($_GET['zip'])) $zip = $_GET['zip'];
 if (isset($_GET['state'])) $state = $_GET['state'];
 if (isset($_GET['address'])) $address = $_GET['address'];
-if (isset($_GET['bio'])) $evidence_score = $_GET['evidence_score'];
+if (isset($_GET['bio'])) $bio = $_GET['bio'];
+if (isset($_GET['evidence_score'])) $evidence_score = $_GET['evidence_score'];
 if (isset($_GET['evidence_link'])) $evidence_link = $_GET['evidence_link'];
 if (isset($_GET['permit_cellsite'])) $permit_cellsite = $_GET['permit_cellsite'];
 if (isset($_GET['permit_suspected_carrier'])) $permit_suspected_carrier = $_GET['permit_suspected_carrier'];
@@ -32,15 +33,14 @@ if (isset($_GET['carrier_multiple'])) {
   $sql_edit = "UPDATE `cmgm`.`findlater`
   SET `id` = '".mysqli_real_escape_string($conn, $id)."',
   `carrier` = '".mysqli_real_escape_string($conn, $carrier)."',
-  `type` = '".mysqli_real_escape_string($conn, $type)."',
   `latitude` = '".mysqli_real_escape_string($conn, $latitude)."',
   `longitude` = '".mysqli_real_escape_string($conn, $longitude)."',
-  `bands` = '".mysqli_real_escape_string($conn, $bands)."',
   `city` = '".mysqli_real_escape_string($conn, $city)."',
   `zip` = '".mysqli_real_escape_string($conn, $zip)."',
   `state` = '".mysqli_real_escape_string($conn, $state)."',
   `address` = '".mysqli_real_escape_string($conn, $address)."',
   `bio` = '".mysqli_real_escape_string($conn, $bio)."',
+  `evidence_score` = '".mysqli_real_escape_string($conn, $evidence_score)."',
   `evidence_link` = '".mysqli_real_escape_string($conn, $evidence_link)."',
   `permit_cellsite` = '".mysqli_real_escape_string($conn, $permit_cellsite)."',
   `permit_suspected_carrier` = '".mysqli_real_escape_string($conn, $permit_suspected_carrier)."',
@@ -59,21 +59,30 @@ if (isset($_GET['carrier_multiple'])) {
 $sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
 ?>
-<table border="1">
+<table border="0">
 <thead>
 <tr>
+    <th>RowID</th>
     <th>ID</th>
     <th>Carrier</th>
-    <th>Type</th>
     <th>Latitude</th>
     <th>Longitude</th>
-    <th>Firstseen</th>
-    <th>Bands</th>
     <th>City</th>
     <th>Zip</th>
     <th>State</th>
-    <th>address</th>
+    <th>Address</th>
     <th>Bio</th>
+    <th title="Evidence score">EV</th>
+    <th>Evidence</th>
+    <th title="Permit says cellsite?">EV1</th>
+    <th title="Permit matches suspected carrier">EV2</th>
+    <th title="Trails match suspected address with the suspected carrier">EV3</th>
+    <th title="Trails rule out other carriers">EV4</th>
+    <th title="Antennas look like suspected carrier">EV5</th>
+    <th title="CellMapper triangulates very close to the suspected location">EV6</th>
+    <th title="On-site image evidence of a site identifier matching the suspected carrier">EV7</th>
+    <th title="On-site verification">EV8</th>
+    <th title="Multiple carriers">MC</th>
 </tr>
 </thead>
 <tbody>
@@ -81,40 +90,57 @@ $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
     echo "<tr>";
+    ?>
+
+    <?php
     foreach ($row as $field => $value) {
-
       $sepCount = ($colCount++);
-
                   switch ($sepCount) {
                     case 1: $row_id = $value; break;
                     case 2: $id = $value; break;
                     case 3: $carrier = $value; break;
-                    case 4: $type = $value; break;
-                    case 5: $latitude = $value;  break;
-                    case 6: $longitude = $value; break;
-                    case 7: $firstseen = $value; break;
-                    case 8: $bands = $value; break;
-                    case 9: $city = $value; break;
-                    case 10: $zip = $value; break;
-                    case 11: $state = $value; break;
-                    case 12: $address = $value;break;
-                    case 13: $bio = $value;
+                    case 4: $latitude = $value;  break;
+                    case 5: $longitude = $value; break;
+                    case 6: $city = $value; break;
+                    case 7: $zip = $value; break;
+                    case 8: $state = $value; break;
+                    case 9: $address = $value;break;
+                    case 10: $bio = $value;break;
+                    case 11: $evidence_score = $value;break;
+                    case 12: $evidence_link = $value;break;
+                    case 13: $permit_cellsite = $value;break;
+                    case 14: $permit_suspected_carrier = $value;break;
+                    case 15: $trails_match = $value;break;
+                    case 16: $other_carriers_dont = $value;break;
+                    case 17: $antennas_match_carrier = $value;break;
+                    case 18: $cellmapper_triangulation = $value;break;
+                    case 19: $image_evidence = $value;break;
+                    case 20: $verified_by_visit = $value;break;
+                    case 21: $carrier_multiple = $value;
 ?>
 <form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
   <tr>
-<input type="hidden" class="row_id" name="row_id" value="<?php echo $row_id?>">
+<td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
 <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
 <td><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>"></td>
-<td><input type="text" class="type" name="type" value="<?php echo $type?>"></td>
 <td><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>"></td>
 <td><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>"></td>
-<td><input type="text" class="firstseen" name="firstseen" value="<?php echo $firstseen?>"></td>
-<td><input type="text" class="bands" name="bands" value="<?php echo $bands?>"></td>
 <td><input type="text" class="city" name="city" value="<?php echo $city?>"></td>
 <td><input type="text" class="zip" name="zip" value="<?php echo $zip?>"></td>
 <td><input type="text" class="state" name="state" value="<?php echo $state?>"></td>
 <td><input type="text" class="address" name="address" value="<?php echo $address?>"></td>
 <td><input type="text" class="bio" name="bio" value="<?php echo $bio?>"></td>
+<td><input type="text" class="evidence_score" name="evidence_score" value="<?php echo $evidence_score?>"></td>
+<td><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"></td>
+<td><input type="text" class="permit_cellsite" name="permit_cellsite" value="<?php echo $permit_cellsite?>"></td>
+<td><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>"></td>
+<td><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>"></td>
+<td><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>"></td>
+<td><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>"></td>
+<td><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>"></td>
+<td><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>"></td>
+<td><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>"></td>
+<td><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"></td>
  <?php
                                 break;
                           }

@@ -54,7 +54,7 @@
         <input type="checkbox" id="ev2" name="permit_suspected_carrier" value="true">
         <label for="ev2"> Permit matches suspected carrier (+20)</label><br>
         <input type="checkbox" id="ev3" name="trails_match" value="true">
-        <label for="ev3"> Trails match suspected location with the suspected carrier (+5)</label><br>
+        <label for="ev3"> Trails match suspected address with the suspected carrier (+5)</label><br>
         <input type="checkbox" id="ev4" name="other_carriers_dont" value="true">
         <label for="ev4"> Trails rule-out others (+3)</label><br>
         <input type="checkbox" id="ev5" name="antennas_match_carrier" value="true">

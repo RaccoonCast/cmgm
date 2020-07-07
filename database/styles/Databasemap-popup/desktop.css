@@ -1,6 +1,6 @@
 p {
 	padding: 0em;
-	margin: 0em;	
+	margin: 0em;
 }
 
 .body::-webkit-scrollbar {
@@ -8,4 +8,7 @@ p {
 }
 body {
 font-size: 0.95em;
+}
+.inline {
+	display: inline;
 }

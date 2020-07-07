@@ -35,21 +35,15 @@ input[type=text] {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }
-.latitude {
-  max-width: 85px!important;
-}
-.longitude {
-  max-width: 85px!important;
-}
+/* BOX SIZING */
 .firstseen {
-
-  max-width: 99px!important;
+  min-width: 79px!important;
 }
 .address {
-  min-width: 150px!important;
+  max-width: 150px!important;
 }
 .state {
-  max-width: 37px!important;
+  max-width: 45px!important;
 }
 .zip {
   max-width: 55px!important;
@@ -61,10 +55,10 @@ input[type=text] {
   max-width: 100px!important;
 }
 .row_id {
-  max-width: 44px!important;
+  max-width: 55px!important;
 }
 .id {
-  max-width: 50px!important;
+  max-width: 60px!important;
 }
 .carrier {
   max-width: 70px!important;
@@ -72,17 +66,50 @@ input[type=text] {
 .type {
   max-width: 90px!important;
 }
-.lat {
-  max-width: 75px!important;
+.latitude {
+  max-width: 85px!important;
 }
-.long {
-  max-width: 75px!important;
+.longitude {
+  max-width: 85px!important;
 }
 .type {
   max-width: 90px!important;
 }
 .bio {
-  min-width: 11500px!important;
+  min-width: 5500px!important;
+}
+.evidence_score {
+  max-width: 28px!important;
+}
+.evidence_link {
+  min-width: 310px!important;
+}
+.permit_cellsite {
+  max-width: 35px!important;
+}
+.permit_suspected_carrier {
+  max-width: 35px!important;
+}
+.trails_match {
+  max-width: 39px!important;
+}
+.other_carriers_dont {
+  max-width: 39px!important;
+}
+.antennas_match_carrier {
+  max-width: 39px!important;
+}
+.cellmaper_triangulation {
+  max-width: 39px!important;
+}
+.image_evidence {
+  max-width: 39px!important;
+}
+.verified_by_visit {
+  max-width: 39px!important;
+}
+.carrier_multiple {
+  max-width: 39px!important;
 }
 .hide-underline {
 	   text-decoration: none;

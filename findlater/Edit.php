@@ -13,12 +13,13 @@ if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['type'])) $type = $_GET['type'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
+if (isset($_GET['bands'])) $bands = $_GET['bands'];
 if (isset($_GET['city'])) $city = $_GET['city'];
 if (isset($_GET['zip'])) $zip = $_GET['zip'];
 if (isset($_GET['state'])) $state = $_GET['state'];
 if (isset($_GET['address'])) $address = $_GET['address'];
 if (isset($_GET['bio'])) {
-  $evidence_score = $_GET['bio'];
+  $bio = $_GET['bio'];
   $sql_edit = "UPDATE `cmgm`.`findlater`
   SET `id` = '".mysqli_real_escape_string($conn, $id)."',
   `carrier` = '".mysqli_real_escape_string($conn, $carrier)."',
@@ -36,10 +37,10 @@ if (isset($_GET['bio'])) {
 ?> <?php
 
 
-$sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
+$sql = "SELECT * FROM findlater WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
 ?>
-<table border="1">
+<table border="0">
 <thead>
 <tr>
     <th>ID</th>
@@ -95,13 +96,13 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 <td><input type="text" class="state" name="state" value="<?php echo $state?>"></td>
 <td><input type="text" class="address" name="address" value="<?php echo $address?>"></td>
 <td><input type="text" class="bio" name="bio" value="<?php echo $bio?>"></td>
- <?php
-                                break;
-                          }
-                      }
-              echo "</tr>";
+<?php
+                               break;
+                         }
+                     }
+             echo "</tr>";
 
-            }
+           }
 ?>
 </tbody>
 </table>
