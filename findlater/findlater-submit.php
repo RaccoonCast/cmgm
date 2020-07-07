@@ -62,7 +62,7 @@ $sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`fi
                         '".mysqli_real_escape_string($conn, $address)."');  ";
 
 if (mysqli_query($conn, $sql)) {
-    echo '<meta http-equiv="refresh" content="3;URL=../" /> ';
+    echo '<meta http-equiv="refresh" content="2;URL=../" /> ';
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

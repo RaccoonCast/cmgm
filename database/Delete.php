@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <?php include '../functions.php';?>
+  <link rel="stylesheet" href="styles/Edit/desktop.css">
 </head>
 <body>
 <?php
@@ -116,7 +117,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 </tbody>
 </table>
 <br>
-<button type="submit" form="form1" value="Submit">Submit</button>
+<button type="submit" form="form1" value="Submit">Delete</button>
 </form>
 </body>
 </html>

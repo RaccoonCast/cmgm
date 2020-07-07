@@ -31,7 +31,7 @@ $sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`z
                         '".mysqli_real_escape_string($conn, $carrier_multiple)."');  ";
 
 if (mysqli_query($conn, $sql)) {
-    echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+    echo '<meta http-equiv="refresh" content="2;URL=../" /> ';
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

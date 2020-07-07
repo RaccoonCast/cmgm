@@ -42,14 +42,13 @@ input[type=text] {
   max-width: 85px!important;
 }
 .firstseen {
-
   max-width: 99px!important;
 }
 .address {
   min-width: 150px!important;
 }
 .state {
-  max-width: 37px!important;
+  max-width: 47px!important;
 }
 .zip {
   max-width: 55px!important;
@@ -61,15 +60,16 @@ input[type=text] {
   max-width: 100px!important;
 }
 .row_id {
-  max-width: 44px!important;
+  max-width: 65px!important;
 }
 .id {
-  max-width: 50px!important;
+  max-width: 85px!important;
 }
 .carrier {
   max-width: 70px!important;
 }
 .type {
+  min-width: 70px!important;
   max-width: 90px!important;
 }
 .lat {
@@ -82,7 +82,7 @@ input[type=text] {
   max-width: 90px!important;
 }
 .bio {
-  min-width: 11500px!important;
+  min-width: 950px!important;
 }
 .hide-underline {
 	   text-decoration: none;

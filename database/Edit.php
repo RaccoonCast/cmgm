@@ -30,7 +30,7 @@ if (isset($_GET['image_evidence'])) $image_evidence = $_GET['image_evidence'];
 if (isset($_GET['verified_by_visit'])) $verified_by_visit = $_GET['verified_by_visit'];
 if (isset($_GET['carrier_multiple'])) {
   $carrier_multiple = $_GET['carrier_multiple'];
-  $sql_edit = "UPDATE `cmgm`.`findlater`
+  $sql_edit = "UPDATE `cmgm`.`database_db`
   SET `id` = '".mysqli_real_escape_string($conn, $id)."',
   `carrier` = '".mysqli_real_escape_string($conn, $carrier)."',
   `latitude` = '".mysqli_real_escape_string($conn, $latitude)."',

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <?php include '../functions.php';?>
+  <link rel="stylesheet" href="styles/Edit/desktop.css">
 </head>
 <body>
 <?php
@@ -25,6 +26,7 @@ $result = mysqli_query($conn, $sql);
 <table border="0">
 <thead>
 <tr>
+    <th>Row ID</th>
     <th>eNB ID</th>
     <th>Carrier</th>
     <th>Type</th>
@@ -64,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 13: $bio = $value;
 ?>
   <tr>
-<input type="hidden" class="row_id" name="row_id" value="<?php echo $row_id?>">
+<td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
 <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
 <td><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>"></td>
 <td><input type="text" class="type" name="type" value="<?php echo $type?>"></td>
@@ -88,7 +90,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 </tbody>
 </table>
 <br>
-<button type="submit" form="form1" value="Submit">Submit</button>
+<button type="submit" form="form1" value="Submit">Delete</button>
 </form>
 </body>
 </html>
