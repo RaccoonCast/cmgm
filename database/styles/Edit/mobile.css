@@ -21,8 +21,8 @@ label {
   display: inline-block;
   width: 140px;
   text-align: left;
-}​
-input[type=submit] {
+}
+.submitbutton {
     width: 12em;  height: 4em;
 }
 input[type=text] {
