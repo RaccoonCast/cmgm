@@ -25,7 +25,7 @@
   <input type="hidden" name="latitude" value="<?php echo $latitude?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude?>">
   <input type="hidden" name="carrier" value="<?php echo $carrier?>">
-  <input type="hidden" name="carrier" value="<?php echo $zoom?>">
+  <input type="hidden" name="zoom" value="<?php echo $zoom?>">
   <input type="submit" class="submitbutton" value='Back' >
 </form>
 <script src="js/copy.js"></script>
