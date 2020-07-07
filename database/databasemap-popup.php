@@ -74,9 +74,12 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       }
 
                       if (!empty($evidence_text)) {
-                        echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</p>");
+                        echo ("<a target=" . "_blank" . " href=" . "$evidence_text" . ">Evidence</a>");
                         echo "<br>";
                       }
+                      if (!empty($bio)) {
+                      echo ("<p>" . $bio . "</p>");
+                    }
                     break;
 
                 }
