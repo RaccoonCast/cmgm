@@ -4,7 +4,7 @@ $data = $_GET['data'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
-// LAT & LONG (comma conversion)
+// CellMapper URL Conversion
 if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
     $input = substr("$data", 31, 97);
     $str_explode = explode("&", $input);
@@ -17,7 +17,7 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
     if('311480' == '' . $network . '') {$carrier = "Verizon";}
     echo '<meta http-equiv="refresh" content="0; url=Hub.php?' . $str_explode[3] . '&' . $str_explode[4] . '&carrier=' . $carrier . '">';
 }
-
+// Google Maps URL Conversion
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
   $first = substr($data, strpos($data, "@") + 1);
   $arr = explode("/", $first, 2);
@@ -26,9 +26,11 @@ elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
   $latitude = $str_arr[0];
   $longitude = $str_arr[1];
   echo '<meta http-equiv="refresh" content="0; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '">';
+  // Cookie latlong source
 }elseif (empty($_GET['data'])) {
   echo '<meta http-equiv="refresh" content="0; url=Hub.php">';
 }
+// Comma Seperator
 else {
 $input_data = str_replace(' ', '', $data);
 $str_explode = explode(",", $input_data);
