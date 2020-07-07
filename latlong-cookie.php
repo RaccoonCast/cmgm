@@ -21,7 +21,6 @@
         <option value="Verizon">Verizon</option>
         <option value="Sprint">Sprint</option>
          </select>
-         <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
          <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
       </form>
       <script>

@@ -24,11 +24,14 @@ long = <?php echo $longitude?>;
       accessToken: 'pk.eyJ1IjoicmFjY29vbmNhc3QiLCJhIjoiY2s3YjZ0cDViMDM3ODNncnlwdWY5M2VudCJ9.X_icvui90_cQLuP3VjG7BA'
   }).addTo(mymap);
 
-  var icon = L.icon({
-      iconUrl: '../images/red.png',
-      iconSize: [20, 20], // size of the icon
-      popupAnchor: [0, -15]
-  });
+  <?php
+   if(isMobile()){
+     include 'includes/findlatermap/iconsize-mobile.php';
+   } else {
+     include 'includes/findlatermap/iconsize-desktop.php';
+   }
+  ?>
+
   var marker = L.marker([lat, long]).addTo(mymap);
 
 <?php

@@ -64,4 +64,9 @@ function hubLatLong($file,$color,$text) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta charset="utf-8">
 <meta name="theme-color" content="#fff"/>
-<script src="/pwa2.js"></script>
+<script>
+import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+const el = document.createElement('pwa-update');
+document.body.appendChild(el);
+</script>

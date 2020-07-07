@@ -35,20 +35,19 @@
             if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
             ?>
           </select>
-          <br>
           <div style="padding: 8px ">
           <input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
           <label for="multiple_carriers">Multiple carriers</label><br>
         </div>
-     <p>eNB ID: </p>
-		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
-		 <br>
-    <p>Evidence Link: </p>
+        <p>Evidence Link: </p>
         <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500" placeholder="" name="evidence_text"><?php if (isset($link)) echo $link?></textarea><br>
         <?php if (isset($link)) {?> <a href="uploads/<?php echo $link;?>">Evidence</a><br>
         <?php
-        }
-        ?>
+      }
+      ?>
+     <p>eNB ID: </p>
+		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
+		 <br>
         <input type="checkbox" id="ev1" name="permit_cellsite" value="true">
         <label for="ev1"> Permit says cellsite (+1)</label><br>
         <input type="checkbox" id="ev2" name="permit_suspected_carrier" value="true">

@@ -5,9 +5,7 @@
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $row_id = $_GET['row_id'];
-if(isMobile()){
-  header('Location: mobile-edit.php?row_id=' . $row_id . ' ');
-}
+
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['type'])) $type = $_GET['type'];
@@ -39,7 +37,8 @@ if (isset($_GET['bio'])) {
 
 $sql = "SELECT * FROM findlater WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
-?>
+
+if (!isMobile()) { ?>
 <table border="0">
 <thead>
 <tr>
@@ -58,10 +57,10 @@ $result = mysqli_query($conn, $sql);
 </tr>
 </thead>
 <tbody>
-<?php
+  <?php }
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
-    echo "<tr>";
+    if (!isMobile()) echo "<tr>";
     foreach ($row as $field => $value) {
 
       $sepCount = ($colCount++);
@@ -82,6 +81,21 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 13: $bio = $value;
 ?>
 <form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
+    <?php if (isMobile()) { ?>
+      <input type="hidden" class="row_id" name="row_id" value="<?php echo $row_id?>">
+      <label for="id">ID</label><input type="text" class="id" name="id" value="<?php echo $id?>">
+      <br><label for="carrier">Carrier</label><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>">
+      <br><label for="type">Type</label><input type="text" class="type" name="type" value="<?php echo $type?>">
+      <br><label for="Latitude">Latitude</label><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>">
+      <br><label for="Longitude">Longitude</label><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>">
+      <br><label for="Firstseen">Firstseen</label><input type="text" class="firstseen" name="firstseen" value="<?php echo $firstseen?>">
+      <br><label for="Bands">Bands</label><input type="text" class="bands" name="bands" value="<?php echo $bands?>">
+      <br><label for="City">City</label><input type="text" class="city" name="city" value="<?php echo $city?>">
+      <br><label for="Zip">Zip</label><input type="text" class="zip" name="zip" value="<?php echo $zip?>">
+      <br><label for="State">State</label><input type="text" class="state" name="state" value="<?php echo $state?>">
+      <br><label for="Address">Address</label><input type="text" class="address" name="address" value="<?php echo $address?>">
+      <br><label for="Bio">Bio</label><input type="text" class="bio" name="bio" value="<?php echo $bio?>"> <?php
+      } else { ?>
   <tr>
 <input type="hidden" class="row_id" name="row_id" value="<?php echo $row_id?>">
 <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
@@ -96,7 +110,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 <td><input type="text" class="state" name="state" value="<?php echo $state?>"></td>
 <td><input type="text" class="address" name="address" value="<?php echo $address?>"></td>
 <td><input type="text" class="bio" name="bio" value="<?php echo $bio?>"></td>
-<?php
+<?php }
                                break;
                          }
                      }

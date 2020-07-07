@@ -5,9 +5,7 @@
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $row_id = $_GET['row_id'];
-if(isMobile()){
-  header('Location: mobile-edit.php?row_id=' . $row_id . ' ');
-}
+
 if (isset($_GET['row_id'])) $row_id = $_GET['row_id'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
@@ -53,12 +51,15 @@ if (isset($_GET['carrier_multiple'])) {
   `carrier_multiple` = '".mysqli_real_escape_string($conn, $carrier_multiple)."' WHERE row_id = $row_id";
   mysqli_query($conn, $sql_edit);
 }
-?> <?php
 
+if(isMobile()){
+  header('Location: mobile-edit.php?row_id=' . $row_id . ' ');
+}
 
 $sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
-?>
+
+if (!isMobile()) { ?>
 <table border="0">
 <thead>
 <tr>
@@ -86,10 +87,10 @@ $result = mysqli_query($conn, $sql);
 </tr>
 </thead>
 <tbody>
-<?php
+<?php }
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
-    echo "<tr>";
+    if (!isMobile()) echo "<tr>";
     ?>
 
     <?php
@@ -119,29 +120,53 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 21: $carrier_multiple = $value;
 ?>
 <form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
-  <tr>
-<td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
-<td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
-<td><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>"></td>
-<td><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>"></td>
-<td><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>"></td>
-<td><input type="text" class="city" name="city" value="<?php echo $city?>"></td>
-<td><input type="text" class="zip" name="zip" value="<?php echo $zip?>"></td>
-<td><input type="text" class="state" name="state" value="<?php echo $state?>"></td>
-<td><input type="text" class="address" name="address" value="<?php echo $address?>"></td>
-<td><input type="text" class="bio" name="bio" value="<?php echo $bio?>"></td>
-<td><input type="text" class="evidence_score" name="evidence_score" value="<?php echo $evidence_score?>"></td>
-<td><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"></td>
-<td><input type="text" class="permit_cellsite" name="permit_cellsite" value="<?php echo $permit_cellsite?>"></td>
-<td><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>"></td>
-<td><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>"></td>
-<td><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>"></td>
-<td><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>"></td>
-<td><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>"></td>
-<td><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>"></td>
-<td><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>"></td>
-<td><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"></td>
- <?php
+
+    <?php if (isMobile()) { ?>
+      <label for="row_id">Row ID</label><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>">
+      <br><label for="id">ID</label><input type="text" class="id" name="id" value="<?php echo $id?>">
+      <br><label for="carrier">Carrier</label><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>">
+      <br><label for="latitude">Latitude</label><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>">
+      <br><label for="longitude">Longitude</label><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>">
+      <br><label for="city">City</label><input type="text" class="city" name="city" value="<?php echo $city?>">
+      <br><label for="zip">Zip</label><input type="text" class="zip" name="zip" value="<?php echo $zip?>">
+      <br><label for="state">State</label><input type="text" class="state" name="state" value="<?php echo $state?>">
+      <br><label for="address">Address</label><input type="text" class="address" name="address" value="<?php echo $address?>">
+      <br><label for="bio">Bio</label><input type="text" class="bio" name="bio" value="<?php echo $bio?>">
+      <br><label for="evidence_score">Evidence Score</label><input type="text" class="evidence_score" name="evidence_score" value="<?php echo $evidence_score?>">
+      <br><label for="evidence_link">Evidence Link</label><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
+      <br><label for="permit_cellsite">Permit Cellsite</label><input type="text" class="permit_cellsite" name="permit_cellsite" value="<?php echo $permit_cellsite?>">
+      <br><label for="permit_suspected_carrier">Permit Suspected Carrier</label><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>">
+      <br><label for="trails_match">Trails match</label><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>">
+      <br><label for="other_carriers_dont">Other carriers don't</label><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>">
+      <br><label for="antennas_match_carrier">Antennas match carrier</label><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
+      <br><label for="cellmaper_triangulation">CellMapper Triangulates Close to</label><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>">
+      <br><label for="image_evidence">On-site image picture</label><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
+      <br><label for="verified_by_visit">Verified by visit</label><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
+      <br><label for="carrier_multiple">Multiple carriers?</label><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"> <?php
+    } else { ?>
+      <tr>
+      <td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
+      <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
+      <td><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>"></td>
+      <td><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>"></td>
+      <td><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>"></td>
+      <td><input type="text" class="city" name="city" value="<?php echo $city?>"></td>
+      <td><input type="text" class="zip" name="zip" value="<?php echo $zip?>"></td>
+      <td><input type="text" class="state" name="state" value="<?php echo $state?>"></td>
+      <td><input type="text" class="address" name="address" value="<?php echo $address?>"></td>
+      <td><input type="text" class="bio" name="bio" value="<?php echo $bio?>"></td>
+      <td><input type="text" class="evidence_score" name="evidence_score" value="<?php echo $evidence_score?>"></td>
+      <td><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"></td>
+      <td><input type="text" class="permit_cellsite" name="permit_cellsite" value="<?php echo $permit_cellsite?>"></td>
+      <td><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>"></td>
+      <td><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>"></td>
+      <td><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>"></td>
+      <td><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>"></td>
+      <td><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>"></td>
+      <td><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>"></td>
+      <td><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>"></td>
+      <td><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"></td> <?php
+    }
                                 break;
                           }
                       }
