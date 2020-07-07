@@ -3,6 +3,7 @@
 <?php include "../functions.php"; ?>
 </head>
 <?php
+//THIS CODE IS JUST A COPY OF FINDLATER.PHP'S EDIT PAGE - IT DOESNT WORK - i have to change sfm shit
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $row_id = $_GET['row_id'];
 if(isMobile()){
