@@ -76,7 +76,8 @@ input[type=text] {
   max-width: 90px!important;
 }
 .bio {
-  min-width: 5500px!important;
+  min-width: 700px!important;
+  max-width: 1100px!important;
 }
 .evidence_score {
   max-width: 28px!important;

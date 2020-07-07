@@ -65,7 +65,6 @@
         <label for="ev7"> On-site image evidence of a site identifier matching the suspected carrier (+10)</label><br>
         <input type="checkbox" id="ev8" name="verified_by_visit">
         <label for="ev8"> On-site verification (+5)</label><br>
-      <!-- <input class="upbttn" name="Files" type="file" name="myFile" multiple /> -->
     <p>Extra notes: </p>
 		<?php
 if (isMobile()) {

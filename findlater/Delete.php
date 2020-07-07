@@ -63,7 +63,6 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 12: $address = $value;break;
                     case 13: $bio = $value;
 ?>
-<form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
   <tr>
 <input type="hidden" class="row_id" name="row_id" value="<?php echo $row_id?>">
 <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
