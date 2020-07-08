@@ -42,11 +42,11 @@ $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 
 // the button code used in Hub*.php
-function hubLatLong($file,$color,$text) {
+function hubLatLong($file,$color,$text,$target) {
   if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; } else {$latitude = $_COOKIE["latitude"];}
   if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; } else {$longitude = $_COOKIE["longitude"];}
   if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; } else {$carrier = $_COOKIE["carrier"];}
-  echo "<form target=" . "_blank" . " action=" . $file . " " . "method=" . "get" . ">
+  echo "<form target=" . $target . " action=" . $file . " " . "method=" . "get" . ">
   ";
 ?>
 <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
