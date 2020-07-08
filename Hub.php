@@ -20,7 +20,7 @@
        hubLatLong("cm.php","#5DC904","CellMapper","_blank");
        hubLatLong("gmaps.php","#4185FA","Google Maps","_blank");
        hubLatLong("Permits.php","#00e3e0","Permits","_blank");
-       hubLatLong("\Hub.php","#00000","Back","_self");
+       hubLatLong("\Home.php","#00000","Back","_self");
 ?>
 <script src="js/copy.js"></script>
    </body>
