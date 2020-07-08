@@ -34,7 +34,7 @@ body {
 	font-family: 'Regular';
 	src: URL('../font/lato-Regular.ttf') format('truetype');
 }
-.footer_link {
+.footer {
   font-size: 1.5em;
   position: fixed;
   top: 97%;

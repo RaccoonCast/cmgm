@@ -80,11 +80,10 @@
       echo '<meta http-equiv="Refresh" content="3; url=http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress" />';
     } elseif ("$city" == "Burbank") {
       echo '<meta http-equiv="Refresh" content="3; url=https://permit.burbankca.gov/epalspi/" />';
-    } elseif ("$city" == "Pasadena") {
-      echo '<meta http-equiv="Refresh" content="3; url=https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx" />';
-    } else {
     } elseif ("$city" == "San Francisco") {
       echo '<meta http-equiv="Refresh" content="3; url=https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery" />';
+    } elseif ("$city" == "Pasadena") {
+      echo '<meta http-equiv="Refresh" content="3; url=https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx" />';
     } else {
       echo "QUERY: $url";
       echo "$city not listed";

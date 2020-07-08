@@ -18,11 +18,15 @@
       <?php
          $latitude = substr("$latitude", 0, 9);
          $longitude = substr("$longitude", 0, 10);
-         $pmlink = "../HubPermits.php?latitude=$latitude&longitude=$longitude";
+         $pmlink = "../Permits.php?latitude=$latitude&longitude=$longitude";
          $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+         $dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude";
          echo '<a href="'.$cmlink.'" target="_blank">' . $latitude . ','  . $longitude . '</a>';
-         echo '<a class="footer_link" href="'.$pmlink.'" target="_blank">Permits</a>';
          ?>
+         <div class="footer">
+         <a href="<?php echo $pmlink?>" target="_blank">Permits</a>
+         <a href="<?php echo $dblink?>" target="_blank">DatabaseMap</a>
+       </div>
       <form action="database-submit.php" method="get">
       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
@@ -55,13 +59,13 @@
         <input type="checkbox" id="ev3" name="trails_match" value="true">
         <label for="ev3"> Trails match suspected address with the suspected carrier (+5)</label><br>
         <input type="checkbox" id="ev4" name="other_carriers_dont" value="true">
-        <label for="ev4"> Trails rule-out others (+3)</label><br>
+        <label for="ev4"> Trails rule-out other carriers (+3)</label><br>
         <input type="checkbox" id="ev5" name="antennas_match_carrier" value="true">
         <label for="ev5"> Antennas look like suspected carrier (+1)</label><br>
         <input type="checkbox" id="ev6" name="cellmapper_triangulation" value="true">
         <label for="ev6"> CellMapper triangulates very close to the suspected location (+2)</label><br>
         <input type="checkbox" id="ev7" name="image_evidence" value="true">
-        <label for="ev7"> On-site image evidence of a site identifier matching the suspected carrier (+10)</label><br>
+        <label for="ev7"> Identifier at the site with carrier name (+10)</label><br>
         <input type="checkbox" id="ev8" name="verified_by_visit" value="true">
         <label for="ev8"> On-site verification (+5)</label><br>
     <p>Extra notes: </p>

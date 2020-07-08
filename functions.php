@@ -59,14 +59,14 @@ function hubLatLong($file,$color,$text) {
 }
 ?>
 <link rel="icon" type="image/png" href="/images/logo.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="images/icons-192.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta charset="utf-8">
-<meta name="theme-color" content="#fff"/>
-<script>
+<script type="module">
 import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
 
 const el = document.createElement('pwa-update');
 document.body.appendChild(el);
 </script>
+<link rel='manifest' href='/manifest.json'>
+<link rel="apple-touch-icon" href="images/icons-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8">
+<meta name="theme-color" content="#fff"/>

@@ -81,7 +81,7 @@ if (!isMobile()) { ?>
     <th title="Trails rule out other carriers">EV4</th>
     <th title="Antennas look like suspected carrier">EV5</th>
     <th title="CellMapper triangulates very close to the suspected location">EV6</th>
-    <th title="On-site image evidence of a site identifier matching the suspected carrier">EV7</th>
+    <th title="Identifier at the site with carrier name">EV7</th>
     <th title="On-site verification">EV8</th>
     <th title="Multiple carriers">MC</th>
 </tr>
