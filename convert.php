@@ -26,18 +26,15 @@ elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
   $longitude = $str_arr[1];
 } elseif( strpos($data, ',') !== false ) {
 // Comma Seperator (-50.45894508,-100.3848 > [-50.45894508] [-100.3848] )
-$latitude = explode(",", $data)[0];
-$longitude = explode(',', $data, 2)[1];
+$input_data = str_replace(' ', '', $data);
+$str_explode = explode(",", $input_data);
+$latitude = $str_explode[0];
+$longitude = $str_explode[1];
 } else {
 // Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
  $data = str_replace(' ', '+', $data);
  $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' . $data . '&location=' . $_COOKIE["latitude"] . ',' . $_COOKIE["longitude"] . '&radius=190000&key=' . $_COOKIE["api_key"] . '';
- $ch = curl_init();
- curl_setopt($ch, CURLOPT_URL, $url);
- curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
- curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
- curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
- curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+ $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
  $response = curl_exec($ch);
  curl_close($ch);
 
