@@ -3,7 +3,6 @@ $data = $_GET['data'];
 
 // CellMapper URL Conversionhttps://www.cellmapper.net/map?MCC=310&MNC=260&type=LTE&latitude=40.13653501758051&longitude=-118.8975396188031&zoo.. > 40.136535,-118.897539)
 if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
-    $input = substr("$data", 31, 97);
     $latitude = explode('latitude=', $data, 2)[1];
     $longitude = explode('longitude=', $data, 2)[1];
     $mcc = explode('MCC=', $data, 2)[1];
