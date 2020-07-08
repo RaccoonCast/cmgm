@@ -10,7 +10,7 @@
        $latitude = $_COOKIE["latitude"];
        $longitude = $_COOKIE["longitude"]; }
      }
-     echo 'Latitude: ';
+     echo ' Latitude: ';
      echo $latitude;
      echo '<br> Longitude: ';
      echo $longitude;
