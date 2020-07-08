@@ -10,6 +10,10 @@
        $latitude = $_COOKIE["latitude"];
        $longitude = $_COOKIE["longitude"]; }
      }
+     echo 'Latitude: ';
+     echo $latitude;
+     echo '<br> Longitude: ';
+     echo $longitude;
        hubLatLong("HubFindlater.php","#F80000","Findlater");
        hubLatLong("HubDatabase.php","#00ccff","Database");
        hubLatLong("cm.php","#5DC904","CellMapper");
