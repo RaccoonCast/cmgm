@@ -25,7 +25,7 @@ if (isset($_POST['base64_file'])) {
   imagealphablending($bg, TRUE);
   imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
   imagedestroy($image);
-  $quality = 90; // 0 = worst / smaller file, 100 = better / bigger file
+  $quality = 80; // 0 = worst / smaller file, 100 = better / bigger file
   imagejpeg($bg, $fileNoExtension . ".jpg", $quality);
   imagedestroy($bg);
   unlink($file);

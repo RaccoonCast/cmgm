@@ -2,10 +2,10 @@
 <head>
   <meta charset="utf-8">
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
    <?php include '../functions.php';
-   if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
-   if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
+   $zoom = 14;
+   if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
    ?>
 </head>
 <body class="body">
@@ -14,7 +14,7 @@
 lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
-  var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], 13);
+  var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], <?php echo $zoom;?>);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 19,
@@ -35,7 +35,6 @@ long = <?php echo $longitude?>;
   var marker = L.marker([lat, long]).addTo(mymap);
 
 <?php
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM findlater";
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {

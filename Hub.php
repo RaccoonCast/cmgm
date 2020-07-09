@@ -5,11 +5,7 @@
    </head>
    <body class="flex">
      <?php
-     if (empty($_GET['latitude'])) {
-       if (isset($_COOKIE["latitude"]) | isset($_COOKIE["longitude"])) {
-       $latitude = $_COOKIE["latitude"];
-       $longitude = $_COOKIE["longitude"]; }
-     }
+
      echo ' Latitude: ';
      echo $latitude;
      echo '<br> Longitude: ';

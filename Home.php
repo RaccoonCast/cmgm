@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-	  <?php
-     include "functions.php"?>
+	  <?php include "functions.php"?>
    </head>
    <body>
       <form action="convert.php" method="get" autocomplete="off">

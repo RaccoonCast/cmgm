@@ -10,12 +10,31 @@ if (!$conn) {
 
 $result = mysqli_query($conn, $sql);
 
+
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $colCount = 1;
+
+    foreach ($row as $field => $value) {
+      $sepCount = ($colCount++);
+                  switch ($sepCount) {
+                    case 3: $carrier = $value; break;
+                    case 4: $latitude = $value;  break;
+                    case 5: $longitude = $value;
+                  }
+                }
+              }
+              
+$dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude&carrier=$carrier";
+mysqli_close($conn);
+
 if (!mysqli_num_rows($result) == 0) {
         $dont_create = 'true';
-        mysqli_close($conn);
-        echo '<meta http-equiv="refresh" content="0;URL=already-exists.php" /> ';
+
+        header("$dblink");
+        exit;
 } else {
     $dont_create = 'false';
-    mysqli_close($conn);
 }
+
 ?>

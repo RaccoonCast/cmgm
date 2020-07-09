@@ -91,9 +91,7 @@ if (!isMobile()) { ?>
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
   $colCount = 1;
     if (!isMobile()) echo "<tr>";
-    ?>
 
-    <?php
     foreach ($row as $field => $value) {
       $sepCount = ($colCount++);
                   switch ($sepCount) {

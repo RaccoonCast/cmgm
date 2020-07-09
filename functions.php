@@ -6,7 +6,6 @@ function isMobile() {
 
 // Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
 $without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
-echo '<title>EvilCM - '. $without_extension . '</title>';
 
 // Use Mobile CSS if on Mobile and use Desktop if on Desktop (OBVSLY)
 if(isMobile()){
@@ -14,7 +13,21 @@ if(isMobile()){
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
+?>
 
+      <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      const el = document.createElement('pwa-update');
+      document.body.appendChild(el);
+      </script>
+      <title>EvilCM - <?php echo $without_extension?></title>
+      <link rel="icon" type="image/png" href="/images/logo.png">
+      <link rel='manifest' href='/manifest.json'>
+      <link rel="apple-touch-icon" href="images/icons-192.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+      <meta charset="utf-8">
+      <meta name="theme-color" content="#fff"/>
+<?php
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
@@ -40,6 +53,7 @@ $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
 $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // the button code used in Hub*.php
 function hubLatLong($file,$color,$text,$target) {
@@ -47,26 +61,9 @@ function hubLatLong($file,$color,$text,$target) {
   if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; } else {$longitude = $_COOKIE["longitude"];}
   if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; } else {$carrier = $_COOKIE["carrier"];}
   echo "<form target=" . $target . " action=" . $file . " " . "method=" . "get" . ">
-  ";
-?>
+  "; ?>
 <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
   <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
   <input type="hidden" name="carrier" value="<?php if (isset($_GET['carrier'])) echo $carrier;?>">
   <input type="submit" class="submitbutton" style="color: <?php echo $color; ?>;" value='<?php echo $text; ?>' >
-</form>
-
-<?php
-}
-?>
-<link rel="icon" type="image/png" href="/images/logo.png">
-<script type="module">
-import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-const el = document.createElement('pwa-update');
-document.body.appendChild(el);
-</script>
-<link rel='manifest' href='/manifest.json'>
-<link rel="apple-touch-icon" href="images/icons-192.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta charset="utf-8">
-<meta name="theme-color" content="#fff"/>
+</form> <?php } ?>

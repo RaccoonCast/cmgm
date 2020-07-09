@@ -2,11 +2,9 @@
 <head>
   <meta charset="utf-8">
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
    <?php include '../functions.php';
    $zoom = 14;
-   if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
-   if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
    if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
    ?>
 </head>
@@ -20,7 +18,7 @@ long = <?php echo $longitude?>;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 19,
-      minZoom: 3.5,
+      minZoom: 4.5,
       tileSize: 256,
       zoomOffset: 0,
       accessToken: 'pk.eyJ1IjoicmFjY29vbmNhc3QiLCJhIjoiY2s3YjZ0cDViMDM3ODNncnlwdWY5M2VudCJ9.X_icvui90_cQLuP3VjG7BA'
@@ -32,35 +30,10 @@ long = <?php echo $longitude?>;
   } else {
     include 'includes/databasemap/iconsize-desktop.php';
   }
- ?>
-<?php
-$sub1 = ""; $sub2 = ""; $sub3 = "";
-if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-if (isset($_GET['type'])) $type = $_GET['type'];
-if (isset($_GET['id'])) $id = $_GET['id'];
 
-if (!empty($carrier)) {
-  $sub1 = "WHERE carrier='$carrier'";
-}
+  include 'includes/databasemap/get-get-queries.php';
 
-if (!empty($type)) {
-  if (empty($sub1)) {
-    $sub2 = "WHERE type='$type'";
-  } else {
-    $sub2 = "AND type='$type'";
-  }
-}
-
-if (!empty($id)) {
-  if (empty($sub2) && (empty($sub1)) ) {
-    $sub3 = "WHERE id='$id'";
-  } else {
-    $sub3 = "AND id='$id'";
-  }
-}
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-$sql = "SELECT * FROM database_db $sub1 $sub2 $sub3 ";
+$sql = "SELECT * FROM database_db $sub1 $sub2";
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
 
