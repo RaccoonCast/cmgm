@@ -14,9 +14,8 @@
      echo $latitude;
      echo '<br> Longitude: ';
      echo $longitude;
-     echo "Howdy!";
-       hubLatLong("HubDatabase.php","#00ccff","Database","_self");
        hubLatLong("HubFindlater.php","#F80000","Findlater","_self");
+       hubLatLong("HubDatabase.php","#00ccff","Database","_self");
        hubLatLong("cm.php","#5DC904","CellMapper","_blank");
        hubLatLong("gmaps.php","#4185FA","Google Maps","_blank");
        hubLatLong("Permits.php","#00e3e0","Permits","_blank");

@@ -19,8 +19,8 @@ long = <?php echo $longitude?>;
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 19,
       minZoom: 3.5,
-      tileSize: 512,
-      zoomOffset: -1,
+      tileSize: 256,
+      zoomOffset: 0,
       accessToken: 'pk.eyJ1IjoicmFjY29vbmNhc3QiLCJhIjoiY2s3YjZ0cDViMDM3ODNncnlwdWY5M2VudCJ9.X_icvui90_cQLuP3VjG7BA'
   }).addTo(mymap);
 
