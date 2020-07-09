@@ -31,14 +31,14 @@ $latitude = $str_explode[0];
 $longitude = $str_explode[1];
 if (!is_numeric($latitude) && !is_numeric($longitude)) {
 // Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
-include 'google-maps-conversion.php';
+include 'includes/convert/google-maps-conversion.php';
   }
 } elseif(!empty($data)) {
-  include 'google-maps-conversion.php';
+  include 'includes/convert/google-maps-conversion.php';
 }
-//if(!isset($latitude)) $latitude = $_COOKIE["latitude"];
-//if(!isset($longitude)) $longitude = $_COOKIE["longitude"];
-//if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
-//$latitude = substr($latitude,0,10);
-//$longitude = substr($longitude,0,10);
-echo '<meta http-equiv="refresh" content="1000; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '">';
+if(!isset($latitude)) $latitude = $_COOKIE["latitude"];
+if(!isset($longitude)) $longitude = $_COOKIE["longitude"];
+if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
+$latitude = substr($latitude,0,10);
+$longitude = substr($longitude,0,10);
+echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '">';
