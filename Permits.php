@@ -30,7 +30,8 @@
  foreach ($addressComponents as $addrComp) {
      if ($addrComp->types[0] == 'postal_code') $zip = $addrComp->long_name;
      if ($addrComp->types[0] == 'street_number') $number = $addrComp->short_name;
-     if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name; $long_street_name = $addrComp->long_name;
+     if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name;
+     if ($addrComp->types[0] == 'route') $long_street_name = $addrComp->long_name;
      if ($addrComp->types[0] == 'locality') $city = $addrComp->short_name;
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      }
@@ -40,10 +41,12 @@
     $directionCheck_b = explode(' ',trim($long_street_name));
 
     // Remove - North / East / South / West & N / E / S / W
-    if ("$directionCheck_a[0]" == "N" && "$directionCheck_b[0]" == "North") {$short_street_name = substr($short_street_name,2); }
-    if ("$directionCheck_a[0]" == "E" && "$directionCheck_b[0]" == "East")  {$short_street_name = substr($short_street_name,2); }
-    if ("$directionCheck_a[0]" == "S" && "$directionCheck_b[0]" == "South") {$short_street_name = substr($short_street_name,2); }
-    if ("$directionCheck_a[0]" == "W" && "$directionCheck_b[0]" == "West")  {$short_street_name = substr($short_street_name,2); }
+    if ("$directionCheck_a[0]" == "N" && "$directionCheck_b[0]" == "North") {$long_street_name = substr($long_street_name,5); }
+    if ("$directionCheck_a[0]" == "E" && "$directionCheck_b[0]" == "East")  {$long_street_name = substr($long_street_name,4); }
+    if ("$directionCheck_a[0]" == "S" && "$directionCheck_b[0]" == "South") {$long_street_name = substr($long_street_name,5); }
+    if ("$directionCheck_a[0]" == "W" && "$directionCheck_b[0]" == "West")  {$long_street_name = substr($long_street_name,4); }
+
+    $street_name = $long_street_name;
 
     // Set short address variable
     $text = "$number $street_name";
