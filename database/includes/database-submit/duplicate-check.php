@@ -4,13 +4,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND id = '$id')";
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 $result = mysqli_query($conn, $sql);
-
-
 
 while ($row = mysqli_fetch_assoc($result)) {
   $colCount = 1;
@@ -24,16 +18,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                   }
                 }
               }
-              
+
 $dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude&carrier=$carrier";
-mysqli_close($conn);
+
 
 if (!mysqli_num_rows($result) == 0) {
+        echo 'This has already been added to the database.';
         $dont_create = 'true';
-
-        header("$dblink");
+        echo '<meta http-equiv="refresh" content="2;url=' . $dblink . '">';
+        mysqli_close($conn);
         exit;
 } else {
+    mysqli_close($conn);
     $dont_create = 'false';
 }
 
