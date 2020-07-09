@@ -14,19 +14,9 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
     if('310120' == '' . $network . '') {$carrier = "Sprint";}
     if('310410' == '' . $network . '') {$carrier = "ATT";}
     if('311480' == '' . $network . '') {$carrier = "Verizon";}
-} elseif (substr_count("$data"," ") >= 3) {
-// Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
-   $data = str_replace(' ', '+', $data);
-   $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' . $data . '&location=' . $_COOKIE["latitude"] . ',' . $_COOKIE["longitude"] . '&radius=10000&key=' . $_COOKIE["api_key"] . '';
-   $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-   $response = curl_exec($ch);
-   curl_close($ch);
-
-   $response = json_decode($response);
-   $latitude = $response->results[0]->geometry->location->lat;
-   $longitude = $response->results[0]->geometry->location->lng;
-} elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
-  // Google Maps URL Conversion (https://www.google.com/maps/@35.2820911,-111.0069811,15.21z > 35.2820911,-111.0069811 )
+}
+// Google Maps URL Conversion (https://www.google.com/maps/@35.2820911,-111.0069811,15.21z > 35.2820911,-111.0069811 )
+elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
   $first = substr($data, strpos($data, "@") + 1);
   $arr = explode("/", $first, 2);
   $second = $arr[0];
@@ -34,11 +24,22 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
   $latitude = $str_arr[0];
   $longitude = $str_arr[1];
 } elseif( strpos($data, ',') !== false ) {
-  // Comma Seperator (-50.45894508,-100.3848 > [-50.45894508] [-100.3848] )
-  $input_data = str_replace(' ', '', $data);
-  $str_explode = explode(",", $input_data);
-  $latitude = $str_explode[0];
-  $longitude = $str_explode[1];
+// Comma Seperator (-50.45894508,-100.3848 > [-50.45894508] [-100.3848] )
+$input_data = str_replace(' ', '', $data);
+$str_explode = explode(",", $input_data);
+$latitude = $str_explode[0];
+$longitude = $str_explode[1];
+} elseif(!empty($data)) {
+// Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
+ $data = str_replace(' ', '+', $data);
+ $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' . $data . '&location=' . $_COOKIE["latitude"] . ',' . $_COOKIE["longitude"] . '&radius=10000&key=' . $_COOKIE["api_key"] . '';
+ $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+ $response = curl_exec($ch);
+ curl_close($ch);
+
+ $response = json_decode($response);
+ $latitude = $response->results[0]->geometry->location->lat;
+ $longitude = $response->results[0]->geometry->location->lng;
 }
 if(!isset($latitude)) $latitude = $_COOKIE["latitude"];
 if(!isset($longitude)) $longitude = $_COOKIE["longitude"];
