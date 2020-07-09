@@ -46,10 +46,14 @@
     if ("$directionCheck_a[0]" == "W" && "$directionCheck_b[0]" == "West")  {$short_street_name = substr($short_street_name,2); }
 
     // REMOVE THE LAST WORD (Ave/Blvd/Rd/Etc)
-    $words = explode(' ',$short_street_name);
-    $noofwords = count($words);
-    unset($words[$noofwords-1]);
-    $street_name = implode(' ',$words);
+    if (!str_word_count($short_street_name) === 2) {
+        $words = explode(' ',$short_street_name);
+        $noofwords = count($words);
+        unset($words[$noofwords-1]);
+        $street_name = implode(' ',$words);
+    } else {
+      $street_name = $short_street_name;
+    }
 
     // Set short address variable
     $text = "$number $street_name";
