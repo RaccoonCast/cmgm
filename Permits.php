@@ -1,29 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <?php include "functions.php";
-  if(isMobile()){
-    echo '<link rel="stylesheet" href="styles/Hub/mobile.css">';
-  } else {
-    echo '<link rel="stylesheet" href="styles/Hub/desktop.css">';
-  }
-  ?>
-</head>
-<body class="flex">
-  <?php
-  // Code I stole to get JSON data
-  $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=' . $api_key . '';
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-  $response = curl_exec($ch);
-  curl_close($ch);
+<?php
+if (isset($_GET['permit_redirect'])) {
+// Code I stole to get JSON data
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=' . $api_key . '';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+$response = curl_exec($ch);
+curl_close($ch);
 
-  // Parse the json output
-  $response = json_decode($response);
+// Parse the json output
+$response = json_decode($response);
 
  // Retrieve important information from JSON and set the data to a corresponding variable
  $addressComponents = $response->results[0]->address_components;
@@ -50,7 +39,6 @@
 
     // Set short address variable
     $text = "$number $street_name";
-    echo $text
   ?>
 
    <script>
@@ -70,20 +58,21 @@
   <?php
   // Check what city we in and redirect to their page
     if ("$city" == "Glendale") {
-      echo '<meta http-equiv="Refresh" content="3; url=https://csi.glendaleca.gov/csipropertyportal/" />';
+      echo '<meta http-equiv="Refresh" content="0; url=https://csi.glendaleca.gov/csipropertyportal/" />';
     } elseif ("$city" == "Los Angeles") {
-      echo '<meta http-equiv="Refresh" content="3; url=http://ladbsdoc.lacity.org/idispublic/" />';
+      echo '<meta http-equiv="Refresh" content="0; url=http://ladbsdoc.lacity.org/idispublic/" />';
     } elseif ("$city" == "Long Beach") {
-      echo '<meta http-equiv="Refresh" content="3; url=http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress" />';
+      echo '<meta http-equiv="Refresh" content="0; url=http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress" />';
     } elseif ("$city" == "Burbank") {
-      echo '<meta http-equiv="Refresh" content="3; url=https://permit.burbankca.gov/epalspi/" />';
+      echo '<meta http-equiv="Refresh" content="0; url=https://permit.burbankca.gov/epalspi/" />';
     } elseif ("$city" == "San Francisco") {
-      echo '<meta http-equiv="Refresh" content="3; url=https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery" />';
+      echo '<meta http-equiv="Refresh" content="0; url=https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery" />';
     } elseif ("$city" == "Pasadena") {
-      echo '<meta http-equiv="Refresh" content="3; url=https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx" />';
+      echo '<meta http-equiv="Refresh" content="0; url=https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx" />';
     } else {
       echo "QUERY: $url";
       echo "$city not listed";
+    }
     }
 ?>
 </body>
