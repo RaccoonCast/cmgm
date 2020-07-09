@@ -7,8 +7,6 @@
    </head>
    <body>
      <?php
-     // Google Maps convert latitude and longitude to Physical Address
-     include  "includes/database-form/google-maps.php";
 
      // Ctrl+v paste images
      include  "includes/database-form/upload-form.php";
@@ -25,8 +23,8 @@
       // Evidence...?
       include  "includes/database-form/evidence.php";
 
-      // Address...?
-      include  "includes/database-form/address.php";
+      // Google Maps convert latitude and longitude to Physical Address
+      include  "includes/database-form/google-maps.php";
 
       // eNB ID...?
       include  "includes/database-form/enb-id.php";
