@@ -24,8 +24,10 @@ curl_close($ch);
      }
      $address = "$number $street_name";
 ?>
-<p title="Make sure the address matches the one on the permit if you have a picture">Address: </p>
+<div title="Make sure the address matches the one on the permit if you have a picture">
+<p>Address: </p>
 <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500" placeholder="" name="address"><?php if (isset($address)) echo $address?></textarea><br>
+</div>
 <input type="hidden" name="zip" value="<?php echo $zip;?>">
 <input type="hidden" name="city" value="<?php echo $city;?>">
 <input type="hidden" name="state" value="<?php echo $state;?>">
