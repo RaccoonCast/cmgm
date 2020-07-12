@@ -11,14 +11,17 @@
       <?php
          $latitude = substr("$latitude", 0, 9);
          $longitude = substr("$longitude", 0, 10);
-         $cmlink = "https://cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+         $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
          $gmlink = "https://maps.google.com/maps?f=q&source=s_q&hl=en&q=$latitude,$longitude";
-         echo '<a href="'.$gmlink.'" target="_blank">' . $latitude . ','  . $longitude . '</a>';
+         echo '<a title="' . $address . ', ' . $city . ', ' . $state . ' ' . $zip . '" href="'.$cmlink.'" target="_blank">' . $latitude . ','  . $longitude . '</a>';
          echo '<a class="footer_link" href="'.$cmlink.'" target="_blank">Open</a>';
          ?>
       <form action="findlater-submit.php" method="get">
       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+      <input type="hidden" name="zip" value="<?php echo $zip;?>">
+      <input type="hidden" name="city" value="<?php echo $city;?>">
+      <input type="hidden" name="state" value="<?php echo $state;?>">
 	  <p>is a</p>
          <select class="fakeinput dropdown" autocomplete="on" name="type">
             <option value="Macro tower">Macro tower</option>
@@ -40,6 +43,10 @@
             ?>
             <option value="Unknown">Unknown</option>
           </select>
+     <div title="Make sure the address matches the one on the permit if you have a picture">
+     <p>Address: </p>
+     <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500" placeholder="" name="address"><?php if (isset($address)) echo $address?></textarea><br>
+     </div>
 		 <p>eNB ID: </p>
 		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="leave blank if unknown" name="id"></textarea>
 		 <br>

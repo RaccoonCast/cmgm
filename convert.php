@@ -44,4 +44,4 @@ if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
 
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
-echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '&address=' . $address . '&zip=' . $zip . '&state=' . $state .'&city=' . $city .'">';
+echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '&address=' . $address . '&zip=' . $zip . '&city=' . $city .'&state=' . $state .'">';
