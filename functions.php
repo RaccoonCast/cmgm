@@ -13,26 +13,17 @@ if(isMobile()){
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
-?>
 
-      <script type="module">
-      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-      const el = document.createElement('pwa-update');
-      document.body.appendChild(el);
-      </script>
-      <title>EvilCM - <?php echo $without_extension?></title>
-      <link rel="icon" type="image/png" href="/images/logo.png">
-      <link rel='manifest' href='/manifest.json'>
-      <link rel="apple-touch-icon" href="images/icons-192.png">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-      <meta charset="utf-8">
-      <meta name="theme-color" content="#fff"/>
-<?php
+include 'includes/functions/headhtml.php';
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data
-if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
-if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
-if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
+if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; }
+if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; }
+if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
+if (!empty($_GET['zip'])) { $zip = $_GET['zip']; }
+if (!empty($_GET['state'])) { $state = $_GET['state']; }
+if (!empty($_GET['city'])) { $city = $_GET['city']; }
+if (!empty($_GET['address'])) { $address = $_GET['address']; }
 
 // Warnings if cookies not set
 if (!empty($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/gm-cookie.php".">Google Maps API</a> key is NOT defined<br>";}
@@ -56,14 +47,5 @@ $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // the button code used in Hub*.php
-function hubLatLong($file,$color,$text,$target) {
-  if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; } else {$latitude = $_COOKIE["latitude"];}
-  if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; } else {$longitude = $_COOKIE["longitude"];}
-  if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; } else {$carrier = $_COOKIE["carrier"];}
-  echo "<form target=" . $target . " action=" . $file . " " . "method=" . "get" . ">
-  "; ?>
-<input type="hidden" name="latitude" value="<?php echo $latitude;?>">
-  <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-  <input type="hidden" name="carrier" value="<?php if (isset($_GET['carrier'])) echo $carrier;?>">
-  <input type="submit" class="submitbutton" style="color: <?php echo $color; ?>;" value='<?php echo $text; ?>' >
-</form> <?php } ?>
+include 'includes/functions/hubLatLong.php'
+?>

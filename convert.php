@@ -14,6 +14,8 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
     if('310120' == '' . $network . '') {$carrier = "Sprint";}
     if('310410' == '' . $network . '') {$carrier = "ATT";}
     if('311480' == '' . $network . '') {$carrier = "Verizon";}
+    $latitude = substr($latitude,0,10);
+    $longitude = substr($longitude,0,10);
 }
 // Google Maps URL Conversion (https://www.google.com/maps/@35.2820911,-111.0069811,15.21z > 35.2820911,-111.0069811 )
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
@@ -29,16 +31,17 @@ $input_data = str_replace(' ', '', $data);
 $str_explode = explode(",", $input_data);
 $latitude = $str_explode[0];
 $longitude = $str_explode[1];
-if (!is_numeric($latitude) && !is_numeric($longitude)) {
-// Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
-include 'includes/convert/google-maps-conversion.php';
-  }
-} elseif(!empty($data)) {
-  include 'includes/convert/google-maps-conversion.php';
 }
+if (empty($data)) {
 if(!isset($latitude)) $latitude = $_COOKIE["latitude"];
 if(!isset($longitude)) $longitude = $_COOKIE["longitude"];
+}
+
+// Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location)
+include 'includes/convert/google-maps-conversion.php';
+
 if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
+
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
-echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '">';
+echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '&address=' . $address . '&zip=' . $zip . '&state=' . $state .'&city=' . $city .'">';

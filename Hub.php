@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <?php include "functions.php";
-            include "permits.php";
-             ?>
+      <?php
+      include "functions.php";
+      include "permits.php";
+      ?>
    </head>
    <body class="flex">
      <?php
@@ -22,6 +23,9 @@
       <form target="_blank" action="Hub.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+        <input type="hidden" name="zip" value="<?php echo $zip;?>">
+        <input type="hidden" name="city" value="<?php echo $city;?>">
+        <input type="hidden" name="state" value="<?php echo $state;?>">
         <input type="hidden" name="permit_redirect" value="true">
         <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
       </form>
