@@ -9,7 +9,7 @@
      include "../functions.php"?>
    </head>
    <body>
-      <form action="latlong-cookie.php" method="get" autocomplete="off">
+      <form action="latlong.php" method="get" autocomplete="off">
          <p>Latitude: </p>
          <input type="text" name="latitude" id="latitude" required>
          <p>Longitude: </p>
@@ -30,6 +30,8 @@
       document.cookie = "longitude=<?php echo $longitude;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       document.cookie = "carrier=<?php echo $carrier;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       </script>
-    <?php } ?>
+    <?php
+  echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+} ?>
    </body>
 </html>

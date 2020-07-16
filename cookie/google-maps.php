@@ -6,7 +6,7 @@
      include "../functions.php"?>
    </head>
    <body>
-      <form action="gm-cookie.php" method="get" autocomplete="off">
+      <form action="google-maps.php" method="get" autocomplete="off">
          <p>Google Maps API Key: </p>
          <input type="text" name="key" id="txtresult" required>
          <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
@@ -15,6 +15,8 @@
       <script>
       document.cookie = "api_key=<?php echo $key;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       </script>
-       <?php } ?>
+       <?php
+     echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+   } ?>
    </body>
 </html>
