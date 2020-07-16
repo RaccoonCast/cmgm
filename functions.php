@@ -15,6 +15,7 @@ if(isMobile()){
 }
 
 include 'includes/functions/headhtml.php';
+include 'includes/usercheck.php';
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data
 if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; }
@@ -26,11 +27,11 @@ if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
 
 // Warnings if cookies not set
-if (!empty($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/gm-cookie.php".">Google Maps API</a> key is NOT defined<br>";}
+if (!empty($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/cookie/google-maps.php".">Google Maps API</a> key is NOT defined<br>";}
 if (!empty($_COOKIE["latitude"]) | !empty($_COOKIE["longitude"])) {
   $cookie_latitude = $_COOKIE["latitude"];
   $cookie_longitude = $_COOKIE["longitude"];
-} else {echo "WARNING: <a href="."/latlong-cookie.php".">Latitude/Longitude</a> key is NOT defined<br>";}
+} else {echo "WARNING: <a href="."/cookie/latlong.php".">Latitude/Longitude</a> key is NOT defined<br>";}
 
 /*
 Debug code for the cookie values

@@ -19,6 +19,7 @@
       hubLatLong("HubDatabase.php","#00ccff","Database","_self");
       hubLatLong("cm.php","#5DC904","CellMapper","_blank");
       hubLatLong("gmaps.php","#4185FA","Google Maps","_blank");
+      hubLatLong("gmaps-special.php","#B17DC9","LA Permit Map","_blank");
       ?>
       <form target="_blank" action="Hub.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">

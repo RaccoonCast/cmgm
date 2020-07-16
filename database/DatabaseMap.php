@@ -71,18 +71,6 @@ break;
     }
 }
 ?>
-mymap.addEventListener('mousemove', function(ev) {
-   lat_1 = ev.latlng.lat;
-   lng_1 = ev.latlng.lng;
-});
-
-mymap.on("contextmenu", function (event) {
-  console.log("Coordinates: " + event.latlng.toString());
-  var url = "database-form.php?latitude=" + lat_1 + "&longitude=" + lng_1;
-  var markerPopup = window.location.href = url;
-
-  L.marker(event.latlng).addTo(mymap);
-});
 </script>
 </body>
 </html>

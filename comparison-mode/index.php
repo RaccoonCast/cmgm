@@ -27,8 +27,8 @@
 
         <p>Zoom?</p>
         <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="2" name="zoom" required><?php echo $textboxZoom;?></textarea>
-       <input type="hidden" name="cookie-latitude" value="<?php echo $latitude;?>">
-       <input type="hidden" name="cookie-longitude" value="<?php echo $longitude;?>">
+       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
    		 <br>
        <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
       </form>
@@ -37,8 +37,8 @@
 <?php
 
 
-if (isset($_GET['cookie-latitude'])) $latitude = $_GET['latitude'];
-if (isset($_GET['cookie-longitude'])) $longitude = $_GET['longitude'];
+if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
+if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
 if ("$carrier" == "T-Mobile") {
  $beginning = "?MCC=310&MNC=260&type=LTE&tilesEnabled=false&showVerifiedOnly=true";

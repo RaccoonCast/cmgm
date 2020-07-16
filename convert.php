@@ -1,4 +1,5 @@
 <?php
+include 'functions.php';
 $data = $_GET['data'];
 
 // CellMapper URL Conversionhttps://www.cellmapper.net/map?MCC=310&MNC=260&type=LTE&latitude=40.13653501758051&longitude=-118.8975396188031&zoo.. > 40.136535,-118.897539)
@@ -44,4 +45,4 @@ if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
 
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
-echo '<meta http-equiv="refresh" content="1; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '&address=' . $address . '&zip=' . $zip . '&city=' . $city .'&state=' . $state .'">';
+echo '<meta http-equiv="refresh" content="0; url=Hub.php?latitude=' . $latitude . '&longitude=' . $longitude . '&carrier=' . $carrier . '&address=' . $address . '&zip=' . $zip . '&city=' . $city .'&state=' . $state .'">';

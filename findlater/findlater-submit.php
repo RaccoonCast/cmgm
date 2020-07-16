@@ -20,6 +20,10 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+if (empty($firstseen)) {
+  $firstseen = '0000-00-00';
+}
+
 $sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`firstseen`,`bio`,`bands`,`city`,`zip`,`state`,`address`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $id)."',
@@ -34,7 +38,7 @@ $sql = "INSERT INTO findlater (`id`, `carrier`,`type`,`latitude`,`longitude`,`fi
                         '".mysqli_real_escape_string($conn, $zip)."',
                         '".mysqli_real_escape_string($conn, $state)."',
                         '".mysqli_real_escape_string($conn, $address)."');  ";
-
+echo $sql;
 if (mysqli_query($conn, $sql)) {
     echo '<meta http-equiv="refresh" content="2;URL=../" /> ';
 } else {

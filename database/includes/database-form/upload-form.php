@@ -1,4 +1,8 @@
-<form action="database-form.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php if (isset($carrier)) echo $carrier?>" name="image_upload" method="post">
+<?php
+$url = "database-form.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
+
+ ?>
+<form action="<?php $url?>" name="image_upload" method="post">
 <input type="hidden" name="file" id="base64_file_form" />
   <div id="picture" ></div>
 </div>

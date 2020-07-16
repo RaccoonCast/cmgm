@@ -1,4 +1,4 @@
- <script src="js/permit-copy.js"></script>
+<script src="js/permit-copy.js"></script>
   <?php
 
   // Check what city we in and redirect to their page
