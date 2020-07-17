@@ -20,12 +20,19 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
 }
 // Google Maps URL Conversion (https://www.google.com/maps/@35.2820911,-111.0069811,15.21z > 35.2820911,-111.0069811 )
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
-  $first = substr($data, strpos($data, "@") + 1);
-  $arr = explode("/", $first, 2);
-  $second = $arr[0];
-  $str_arr = preg_split ("/\,/", $second);
-  $latitude = $str_arr[0];
-  $longitude = $str_arr[1];
+  if(substr("$data", 0, 39) === 'https://www.google.com/maps/d/u/0/edit?') {
+    $latitude = explode('ll=', $data, 2)[1];
+    $longitude = explode('%2C', $data, 2)[1];
+    $latitude = substr($latitude,0,10);
+    $longitude = substr($longitude,0,10);
+  } else {
+    $first = substr($data, strpos($data, "@") + 1);
+    $arr = explode("/", $first, 2);
+    $second = $arr[0];
+    $str_arr = preg_split ("/\,/", $second);
+    $latitude = $str_arr[0];
+    $longitude = $str_arr[1];
+  }
 } elseif( strpos($data, ',') !== false ) {
 // Comma Seperator (-50.45894508,-100.3848 > [-50.45894508] [-100.3848] )
 $input_data = str_replace(' ', '', $data);
