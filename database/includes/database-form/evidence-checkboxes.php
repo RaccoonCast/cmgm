@@ -15,3 +15,7 @@
    <label for="ev7"> Identifier at the site with carrier name (+10)</label><br>
    <input type="checkbox" id="ev8" name="verified_by_visit" value="true">
    <label for="ev8"> On-site verification (+5)</label><br>
+   <input type="checkbox" id="ev9" name="sector_split_match" value="true">
+   <label for="ev9"> Sectors split apart where the site is (+4)</label><br>
+   <input title="Only check if you can't find carrier name on permit" type="checkbox" id="ev10" name="contact_permit_carrier" value="true">
+   <label title="Only check if you can't find carrier name on permit" for="ev10"> Contact name on permit only does permits for X carrier (+10)</label><br>

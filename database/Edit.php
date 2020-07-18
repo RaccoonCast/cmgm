@@ -26,6 +26,8 @@ if (isset($_GET['antennas_match_carrier'])) $antennas_match_carrier = $_GET['ant
 if (isset($_GET['cellmaper_triangulation'])) $cellmapper_triangulation = $_GET['cellmaper_triangulation'];
 if (isset($_GET['image_evidence'])) $image_evidence = $_GET['image_evidence'];
 if (isset($_GET['verified_by_visit'])) $verified_by_visit = $_GET['verified_by_visit'];
+if (isset($_GET['sector_split_match'])) $sector_split_match = $_GET['sector_split_match'];
+if (isset($_GET['contact_permit_carrier'])) $contact_permit_carrier = $_GET['contact_permit_carrier'];
 if (isset($_GET['carrier_multiple'])) {
   $carrier_multiple = $_GET['carrier_multiple'];
   $sql_edit = "UPDATE `cmgm`.`database_db`
@@ -48,6 +50,8 @@ if (isset($_GET['carrier_multiple'])) {
   `cellmapper_triangulation` = '".mysqli_real_escape_string($conn, $cellmapper_triangulation)."',
   `image_evidence` = '".mysqli_real_escape_string($conn, $image_evidence)."',
   `verified_by_visit` = '".mysqli_real_escape_string($conn, $verified_by_visit)."',
+  `sector_split_match` = '".mysqli_real_escape_string($conn, $sector_split_match)."',
+  `contact_permit_carrier` = '".mysqli_real_escape_string($conn, $contact_permit_carrier)."',
   `carrier_multiple` = '".mysqli_real_escape_string($conn, $carrier_multiple)."' WHERE row_id = $row_id";
   mysqli_query($conn, $sql_edit);
 }
@@ -83,6 +87,8 @@ if (!isMobile()) { ?>
     <th title="CellMapper triangulates very close to the suspected location">EV6</th>
     <th title="Identifier at the site with carrier name">EV7</th>
     <th title="On-site verification">EV8</th>
+    <th title="Sector split match location">EV9</th>
+    <th title="Contact permit carrier match">EV10</th>
     <th title="Multiple carriers">MC</th>
 </tr>
 </thead>
@@ -115,7 +121,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18: $cellmapper_triangulation = $value;break;
                     case 19: $image_evidence = $value;break;
                     case 20: $verified_by_visit = $value;break;
-                    case 21: $carrier_multiple = $value;
+                    case 21: $sector_split_match = $value;break;
+                    case 22: $contact_permit_carrier = $value;break;
+                    case 23: $carrier_multiple = $value;
 ?>
 <form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
 
@@ -136,10 +144,12 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
       <br><label for="permit_suspected_carrier">Permit Suspected Carrier</label><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>">
       <br><label for="trails_match">Trails match</label><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>">
       <br><label for="other_carriers_dont">Other carriers don't</label><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>">
-      <br><label for="antennas_match_carrier">Antennas match carrier</label><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
-      <br><label for="cellmaper_triangulation">CellMapper Triangulates Close to</label><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>">
-      <br><label for="image_evidence">On-site image picture</label><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
-      <br><label for="verified_by_visit">Verified by visit</label><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
+      <br><label for="antennas_match_carrier">Antenna configuartion match carrier</label><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
+      <br><label for="cellmaper_triangulation">CellMapper Triangulates near the location</label><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>">
+      <br><label for="image_evidence">Picture with carrier name at the base station</label><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
+      <br><label for="verified_by_visit">Verified by visiting the area</label><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
+      <br><label for="sector_split_match">Sector split matches the suspected location</label><input type="text" class="sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>">
+      <br><label for="contact_permit_carrier">Contact info on permit match other permits with carrier name</label><input type="text" class="contact_permit_carrier" name="contact_permit_carrier" value="<?php echo $contact_permit_carrier?>">
       <br><label for="carrier_multiple">Multiple carriers?</label><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"> <?php
     } else { ?>
       <tr>
@@ -163,6 +173,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
       <td><input type="text" class="cellmaper_triangulation" name="cellmaper_triangulation" value="<?php echo $cellmapper_triangulation?>"></td>
       <td><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>"></td>
       <td><input type="text" class="verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>"></td>
+      <td><input type="text" class="sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>"></td>
+      <td><input type="text" class="contact_permit_carrier" name="contact_permit_carrier" value="<?php echo $contact_permit_carrier?>"></td>
       <td><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"></td> <?php
     }
                                 break;

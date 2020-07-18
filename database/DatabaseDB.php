@@ -83,7 +83,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18: $cellmapper_triangulation = $value; break;
                     case 19: $image_evidence = $value; break;
                     case 20: $verified_by_visit = $value; break;
-                    case 21: $carrier_multiple = $value;
+                    case 21: $sector_split_match = $value; break;
+                    case 22: $contact_permit_carrier = $value; break;
+                    case 23: $carrier_multiple = $value;
                     echo nl2br("<td>" . $id . "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');

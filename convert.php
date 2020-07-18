@@ -20,7 +20,7 @@ if (substr("$data", 0, 26) === 'https://www.cellmapper.net') {
 }
 // Google Maps URL Conversion (https://www.google.com/maps/@35.2820911,-111.0069811,15.21z > 35.2820911,-111.0069811 )
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') {
-  if(substr("$data", 0, 39) === 'https://www.google.com/maps/d/u/0/edit?') {
+  if(substr("$data", 0, 33) === 'https://www.google.com/maps/d/u/0') {
     $latitude = explode('ll=', $data, 2)[1];
     $longitude = explode('%2C', $data, 2)[1];
     $latitude = substr($latitude,0,10);
