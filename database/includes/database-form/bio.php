@@ -6,7 +6,7 @@ if (isMobile()) {
 <?php
 } else {
 ?>
-<textarea rows="5" cols="90" id="bio" name="bio"></textarea>
+<textarea rows="4" cols="60" id="bio" name="bio"></textarea>
 <?php
 }
 ?>

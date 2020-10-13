@@ -13,8 +13,15 @@ if(isMobile()){
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
+// SQL Database login info
+$servername = 'mysql.cmgm.gq';
+$username = 'cmgm';
+$password = 'My$QLP@$$w0rd';
+$dbname = 'cmgm';
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 include 'includes/functions/headhtml.php';
+include 'includes/functions/get_tower_pos.php';
 include 'includes/usercheck.php';
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data
@@ -25,13 +32,29 @@ if (!empty($_GET['zip'])) { $zip = $_GET['zip']; }
 if (!empty($_GET['state'])) { $state = $_GET['state']; }
 if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
-
+if (!empty($_GET['gjson_url_1'])) { $gjson_url_1 = $_GET['gjson_url_1']; }
+if (!empty($_GET['gjson_url_2'])) { $gjson_url_2 = $_GET['gjson_url_2']; }
+if (!empty($_GET['data'])) { $data = $_GET['data']; }
+if (!empty($_GET['conv_type'])) { $conv_type = $_GET['conv_type']; }
 // Warnings if cookies not set
-if (!empty($_COOKIE["api_key"])) { $api_key = $_COOKIE["api_key"]; } else {echo "WARNING: <a href="."/cookie/google-maps.php".">Google Maps API</a> key is NOT defined<br>";}
-if (!empty($_COOKIE["latitude"]) | !empty($_COOKIE["longitude"])) {
-  $cookie_latitude = $_COOKIE["latitude"];
-  $cookie_longitude = $_COOKIE["longitude"];
-} else {echo "WARNING: <a href="."/cookie/latlong.php".">Latitude/Longitude</a> key is NOT defined<br>";}
+if (!isset($usercheck_status)) {
+  if (!empty($_COOKIE["api_key"])) {
+     $api_key = $_COOKIE["api_key"];
+   } else {
+     echo "WARNING: <a href="."/cookie/google-maps.php".">Google Maps API</a> key is NOT defined<br>";
+   }
+
+   if (isset($_COOKIE["debug"])) {
+     $debug = "true";
+    }
+
+  if (!empty($_COOKIE["latitude"]) | !empty($_COOKIE["longitude"])) {
+    $cookie_latitude = $_COOKIE["latitude"];
+    $cookie_longitude = $_COOKIE["longitude"];
+  } else {
+    echo "WARNING: <a href="."/cookie/latlong.php".">Latitude/Longitude</a> key is NOT defined<br>";
+  }
+}
 
 /*
 Debug code for the cookie values
@@ -40,13 +63,7 @@ echo "Latitude: $cookie_latitude (Cookie)<br>";
 echo "Longitude: $cookie_longitude (Cookie)<br>";
 */
 
-// SQL Database login info
-$servername = 'mysql.cmgm.gq';
-$username = 'cmgm';
-$password = 'My$QLP@$$w0rd';
-$dbname = 'cmgm';
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-// the button code used in Hub*.php
+
 include 'includes/functions/hubLatLong.php'
 ?>

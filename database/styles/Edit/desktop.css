@@ -40,20 +40,20 @@ input[type=text] {
   min-width: 79px!important;
 }
 .address {
-  min-width: 130px!important;
+  min-width: 150px!important;
   max-width: 180px!important;
 }
 .state {
-  min-width: 65px!important;
-  max-width: 85px!important;
+  min-width: 35px!important;
+  max-width: 45px!important;
 }
 .zip {
-  min-width: 65px!important;
-  max-width: 75px!important;
+  min-width: 45px!important;
+  max-width: 65px!important;
 }
 .city {
-  min-width: 80px!important;
-  max-width: 90px!important;
+  min-width: 90px!important;
+  max-width: 100px!important;
 }
 .bands {
   max-width: 100px!important;
@@ -66,56 +66,46 @@ input[type=text] {
   max-width: 55px!important;
 }
 .carrier {
-  max-width: 70px!important;
+  min-width: 65px!important;
+  max-width: 75px!important;
 }
 .type {
   max-width: 90px!important;
 }
 .latitude {
-  max-width: 85px!important;
+  min-width: 80px!important;
+  max-width: 80px!important;
 }
 .longitude {
-  max-width: 85px!important;
+  min-width: 80px!important;
+  max-width: 80px!important;
 }
 .type {
   max-width: 90px!important;
 }
 .bio {
-  min-width: 600px!important;
-  max-width: 700px!important;
+  min-width: 450px!important;
+  max-width: 650px!important;
 }
 .evidence_score {
   max-width: 28px!important;
 }
 .evidence_link {
-  min-width: 310px!important;
+  min-width: 98px!important;
+  max-width: 98px!important;
 }
-.permit_cellsite {
-  max-width: 35px!important;
-}
-.permit_suspected_carrier {
-  max-width: 35px!important;
-}
-.trails_match {
-  max-width: 39px!important;
-}
-.other_carriers_dont {
-  max-width: 39px!important;
-}
-.antennas_match_carrier {
-  max-width: 39px!important;
-}
-.cellmaper_triangulation {
-  max-width: 39px!important;
-}
-.image_evidence {
-  max-width: 39px!important;
-}
-.verified_by_visit {
-  max-width: 39px!important;
-}
-.carrier_multiple {
-  max-width: 39px!important;
+.permit_cellsite,
+.permit_suspected_carrier,
+.trails_match,
+.other_carriers_dont,
+.antennas_match_carrier,
+.cellmaper_triangulation,
+.image_evidence,
+.verified_by_visit,
+.carrier_multiple,
+.sector_split_match,
+.contact_permit_carrier {
+  max-width: 42px!important;
 }
 .hide-underline {
 	   text-decoration: none;

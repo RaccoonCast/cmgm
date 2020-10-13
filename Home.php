@@ -16,6 +16,10 @@
          <input type="submit" class="submitbutton" style="color: #000000;"  value="Submit">
 		     <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
       </form>
+      <?php
+      // towerPosGet("80874","T-Mobile");
+      // echo $gt_longitude;
+      ?>
       <!-- Latitude & longitude get script -->
       <script src="js/index.js"></script>
     <div class="footer">

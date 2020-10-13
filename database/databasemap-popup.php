@@ -43,8 +43,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 20: $verified_by_visit = $value; break;
                     case 21: $carrier_multiple = $value;
                     echo nl2br("<p class=" . "widget" .">Database ID: " . $row_id . "   </p>");
-                    echo nl2br('<a target=_blank class="widget" href="Edit.php?row_id='.$row_id.'">🔧</a>');
-                    echo nl2br('<a target=_blank class="widget" href="Delete.php?row_id='.$row_id.'">❌</a>');
+                    echo nl2br('<a target=_blank class="widget widget_emote" href="Edit.php?row_id='.$row_id.'">🔧</a>');
+                    echo nl2br('<a target=_blank class="widget widget_emote" href="Delete.php?row_id='.$row_id.'">❌</a>');
                     echo ("<p>" . $carrier . "</p>");
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";

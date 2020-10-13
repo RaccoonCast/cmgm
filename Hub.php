@@ -14,7 +14,25 @@
      echo '<br> Longitude: ';
      echo $longitude;
      echo '<br> Address: ';
-     echo $address;
+     echo  $address . ', ' . $city . ', ' . $state . ' ' . $zip;
+     if(isset($debug)) {
+       echo "<br> Search Query: " . $data;
+       echo "<br> Convert Algo: " . $conv_type;
+       if(isset($gjson_url_1)) {
+         echo '<br> URL 1: ';
+         ?> <a href="<?php echo $gjson_url_1; echo "&key=" . $api_key ?>"><?php echo $gjson_url_1 ?></a>
+         <?php
+       }
+       if(isset($gjson_url_2)) {
+         if(isset($gjson_url_1)) {
+           echo '<br> URL 2: ';
+         } else {
+           echo '<br> URL 1: ';
+         }
+         ?> <a href="<?php echo $gjson_url_2; echo "&key=" . $api_key ?>"><?php echo $gjson_url_2 ?></a>
+         <?php
+       }
+     }
       hubLatLong("HubFindlater.php","#F80000","Findlater","_self");
       hubLatLong("HubDatabase.php","#00ccff","Database","_self");
       hubLatLong("cm.php","#5DC904","CellMapper","_blank");

@@ -8,12 +8,14 @@ if (isset($_COOKIE["usercheck_cookie"])) {
   $usercheck_cookie = $_COOKIE["usercheck_cookie"];
 } else {
   if ($without_extension != $page_to_ignore_on) {
+    $usercheck_status = "fail";
   echo '<meta http-equiv="refresh" content="0;URL=../cookie/verify.php" /> ';
   exit();
   }
 }
 
 if ($usercheck_cookie != $passkey && $without_extension != $page_to_ignore_on) {
+  $usercheck_status = "fail";
   echo '<meta http-equiv="refresh" content="0;URL=../cookie/verify.php" /> ';
   exit();
   }

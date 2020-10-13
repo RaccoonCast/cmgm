@@ -64,7 +64,7 @@ switch ($sepCount) {
   case 20: $verified_by_visit = $value; break;
   case 21: $carrier_multiple = $value;
 ?>
-var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id&limit=1"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
+var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id&limit=17&sql=$sql"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
 L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
 break;
             }
