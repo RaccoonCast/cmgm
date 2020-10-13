@@ -1,112 +1,54 @@
 /*STOLEN FROM FINDLATER DB*/
-body {
-  height:auto;
-  margin:0;
-  padding:0;
-  font-size:1em!important;
-}
 table {
 	border-collapse: collapse;
 	border-spacing:0;
 	padding:0;
 }
 td {
-  border
   width: auto;
   max-width: auto;
   vertical-align: top;
   padding: 0px;
   padding-top:4px;
 }
-input {
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  border-width:0px;
-  border:none;
-}
-input[type=submit] {
-    width: 12em;  height: 4em;
+label {
+  display: inline-block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  min-width: inherit;
+  text-align: left;
 }
 input[type=text] {
-    border-top: 5px solid #000;
     width: 100%;
     height: 40px;
     box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }
-/* BOX SIZING */
-.firstseen {
-  min-width: 79px!important;
-}
-.address {
-  min-width: 150px!important;
-  max-width: 180px!important;
-}
-.state {
-  min-width: 35px!important;
-  max-width: 45px!important;
-}
-.zip {
-  min-width: 45px!important;
-  max-width: 65px!important;
-}
-.city {
-  min-width: 90px!important;
-  max-width: 100px!important;
-}
-.bands {
-  max-width: 100px!important;
-}
-.row_id {
-  max-width: 75px!important;
-}
-.id {
-  min-width: 55px!important;
-  max-width: 55px!important;
-}
-.carrier {
-  min-width: 65px!important;
-  max-width: 75px!important;
-}
-.type {
-  max-width: 90px!important;
-}
-.latitude {
-  min-width: 80px!important;
-  max-width: 80px!important;
-}
-.longitude {
-  min-width: 80px!important;
-  max-width: 80px!important;
-}
-.type {
-  max-width: 90px!important;
-}
-.bio {
-  min-width: 450px!important;
-  max-width: 650px!important;
-}
-.evidence_score {
-  max-width: 28px!important;
-}
-.evidence_link {
-  min-width: 98px!important;
-  max-width: 98px!important;
-}
-.permit_cellsite,
-.permit_suspected_carrier,
-.trails_match,
-.other_carriers_dont,
-.antennas_match_carrier,
-.cellmaper_triangulation,
-.image_evidence,
-.verified_by_visit,
-.carrier_multiple,
-.sector_split_match,
-.contact_permit_carrier {
-  max-width: 42px!important;
-}
+
 .hide-underline {
 	   text-decoration: none;
+}
+#panel1 {
+ width: 33.333%;
+ float: left;
+}
+#panel2 {
+  width: 33.333%;
+  float: right;
+}
+#panel3 {
+  width: 33.333%;
+  float: right;
+}
+input[type=submit] {
+  font-size: 5em;
+  width: 100%;
+  padding-top: 400px;
+  padding-bottom: 400px;
+  margin: 0 auto;
+}
+.container {
+  ...
+  position: relative;
 }
