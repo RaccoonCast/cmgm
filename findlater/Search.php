@@ -35,7 +35,7 @@
             ?>
           </select>
 		 <p>the eNB id is</p>
-		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="30"  placeholder="" name="id"></textarea>
+		 <textarea class="fakeinput" rows="1" cols="30" maxlength="30"  placeholder="" name="id"></textarea>
 		 <br>
       <input type="submit" class="submitbutton" value="Submit">
     </form>

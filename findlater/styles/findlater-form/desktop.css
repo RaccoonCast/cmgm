@@ -2,6 +2,7 @@
 	height: 30px;
 	width: 480px;
   font-size: 1em;
+	resize: none;
 }
 .dropdown {
 	margin-top: 0px;

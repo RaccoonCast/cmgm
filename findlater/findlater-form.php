@@ -45,15 +45,15 @@
           </select>
      <div title="Make sure the address matches the one on the permit if you have a picture">
      <p>Address: </p>
-     <textarea class="fakeinput" style="resize: none;" rows="5" cols="30" maxlength="500" placeholder="" name="address"><?php if (isset($address)) echo $address?></textarea><br>
+     <textarea class="fakeinput" rows="5" cols="30" maxlength="500" placeholder="" name="address"><?php if (isset($address)) echo $address?></textarea><br>
      </div>
 		 <p>eNB ID: </p>
-		 <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="leave blank if unknown" name="id"></textarea>
+		 <textarea class="fakeinput" rows="1" cols="30" maxlength="70"  placeholder="leave blank if unknown" name="id"></textarea>
 		 <br>
 		 <p>Bands: </p>
-       <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="leave blank if not relevant" name="bands"></textarea>
+       <textarea class="fakeinput" rows="1" cols="30" maxlength="70"  placeholder="leave blank if not relevant" name="bands"></textarea>
      <p>First seen: </p>
-    <textarea  class="fakeinput" style="resize: none;" rows="1" cols="25" maxlength="40" autocomplete="one-time-code" placeholder="leave blank if not relevant" name="date"></textarea>
+    <textarea  class="fakeinput" rows="1" cols="25" maxlength="40" autocomplete="one-time-code" placeholder="leave blank if not relevant" name="date"></textarea>
     <br>
     <p>Bio: </p>
 		<?php

@@ -26,7 +26,7 @@
         </select>
 
         <p>Zoom?</p>
-        <textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="2" name="zoom" required><?php echo $textboxZoom;?></textarea>
+        <textarea class="fakeinput" rows="1" cols="30" maxlength="2" name="zoom" required><?php echo $textboxZoom;?></textarea>
        <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
        <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
    		 <br>

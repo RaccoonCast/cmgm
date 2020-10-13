@@ -1,2 +1,57 @@
-<p>eNB ID: </p>
-<textarea class="fakeinput" style="resize: none;" rows="1" cols="30" maxlength="70"  placeholder="" name="id" required></textarea>
+<div id="enbID">
+  <p>eNB ID:  <a style="white-space: nowrap; font-size: 14px;" href="#" id="extraENBID" name="id" onclick="myFunction();">Add Multiple</a></p>
+</div><br>
+<textarea class="fakeinput enbIDbox" id="enbIDbox1" rows="1" cols="30" maxlength="70" placeholder="" name="id_1"></textarea>
+<span style="display: none;" id="multipleIds">
+<textarea class="fakeinput enbIDbox" id="enbIDbox2" rows="1" cols="30" maxlength="70" placeholder="" name="id_2"></textarea>
+<br>
+<textarea class="fakeinput enbIDbox" id="enbIDbox3" rows="1" cols="30" maxlength="70" placeholder="" name="id_3"></textarea>
+<textarea class="fakeinput enbIDbox" id="enbIDbox4" rows="1" cols="30" maxlength="70" placeholder="" name="id_4"></textarea>
+<br>
+<textarea class="fakeinput enbIDbox" id="enbIDbox5" rows="1" cols="30" maxlength="70" placeholder="" name="id_5"></textarea>
+<textarea class="fakeinput enbIDbox" id="enbIDbox6" rows="1" cols="30" maxlength="70" placeholder="" name="id_6"></textarea>
+</span>
+<?php if(isMobile()){
+  ?>
+  <script>
+  function myFunction() {
+  var foo = document.getElementById("multipleIds");
+  foo.removeAttribute('style');
+
+  var doo1 = document.getElementById("enbIDbox1");
+  doo1.setAttribute('style', 'width: 50%!important;');
+  var doo2 = document.getElementById("enbIDbox2");
+  doo2.setAttribute('style', 'width: 50%!important;');
+  var doo3 = document.getElementById("enbIDbox3");
+  doo3.setAttribute('style', 'width: 50%!important;');
+  var doo4 = document.getElementById("enbIDbox4");
+  doo4.setAttribute('style', 'width: 50%!important;');
+  var doo5 = document.getElementById("enbIDbox5");
+  doo5.setAttribute('style', 'width: 50%!important;');
+  var doo6 = document.getElementById("enbIDbox6");
+  doo6.setAttribute('style', 'width: 50%!important;');
+  }
+  </script>
+  <?php
+} else {
+  ?>
+  <script>
+  function myFunction() {
+  var foo = document.getElementById("multipleIds");
+  foo.removeAttribute('style');
+
+  var doo1 = document.getElementById("enbIDbox1");
+  doo1.setAttribute('style', 'width: 12.69%!important;');
+  var doo2 = document.getElementById("enbIDbox2");
+  doo2.setAttribute('style', 'width: 12.69%!important;');
+  var doo3 = document.getElementById("enbIDbox3");
+  doo3.setAttribute('style', 'width: 12.69%!important;');
+  var doo4 = document.getElementById("enbIDbox4");
+  doo4.setAttribute('style', 'width: 12.69%!important;');
+  var doo5 = document.getElementById("enbIDbox5");
+  doo5.setAttribute('style', 'width: 12.69%!important;');
+  var doo6 = document.getElementById("enbIDbox6");
+  doo6.setAttribute('style', 'width: 12.69%!important;');
+  }
+  </script> <?php
+}

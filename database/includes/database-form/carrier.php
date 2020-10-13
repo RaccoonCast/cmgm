@@ -1,4 +1,3 @@
-<p>the carrier is</p>
 <select class="fakeinput dropdown" autocomplete="on" name="carrier">
 <?php
 if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
@@ -10,7 +9,7 @@ if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sp
 
 <!-- Multiple? -->
 
-<div style="padding: 8px ">
+<div style="padding-top: 5px; padding-bottom: 5px;">
 <input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
 <label for="multiple_carriers">Multiple carriers</label><br>
 </div>

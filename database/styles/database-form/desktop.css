@@ -1,13 +1,19 @@
 .fakeinput {
-	height: 30px;
-	width: 480px;
+	height: 25px;
+	width: 26%;
   font-size: 1em;
+	resize: none;
+	padding-bottom: 3px;
 }
+label {
+	font-size: 19px;
+}
+
 .dropdown {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	height: 40px;
-	width: 485px;
+	width: 481px;
 	color: #1e1f1e;
 }
 .submitbutton {
@@ -37,7 +43,7 @@ p {
 	margin-bottom: 6px;
 }
 body {
-  font-size: 1.5em;
+  font-size: 1.44em;
 	font-display: swap;
 	font-family: 'Regular', Fallback, sans-serif;
 }
@@ -52,4 +58,13 @@ body {
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
+}
+#enbID {text-align:left; display:inline-block;}
+
+#extraENBID a {text-decoration:none; color:#000;}}
+#multipleIds {
+	 display:inline-block;
+}
+.enbIDbox {
+	display: inline-block;
 }

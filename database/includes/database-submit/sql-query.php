@@ -3,7 +3,8 @@
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`permit_cellsite`,`permit_suspected_carrier`,
-      `trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`contact_permit_carrier`,`carrier_multiple`)
+      `trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
+      `contact_permit_carrier`,`archival_antenna_addition`,`only_reasonable_location`,`carrier_multiple`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $id)."',
                         '".mysqli_real_escape_string($conn, $carrier)."',
@@ -15,7 +16,9 @@ $sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`z
                         '".mysqli_real_escape_string($conn, $address)."',
                         '".mysqli_real_escape_string($conn, $bio)."',
                         '".mysqli_real_escape_string($conn, $evidence_score)."',
-                        '".mysqli_real_escape_string($conn, $evidence_text)."',
+                        '".mysqli_real_escape_string($conn, $evidence_link)."',
+                        '".mysqli_real_escape_string($conn, $photo_link)."',
+                        '".mysqli_real_escape_string($conn, $attached_file_link)."',
                         '".mysqli_real_escape_string($conn, $permit_cellsite)."',
                         '".mysqli_real_escape_string($conn, $permit_suspected_carrier)."',
                         '".mysqli_real_escape_string($conn, $trails_match)."',
@@ -26,6 +29,8 @@ $sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`z
                         '".mysqli_real_escape_string($conn, $verified_by_visit)."',
                         '".mysqli_real_escape_string($conn, $sector_split_match)."',
                         '".mysqli_real_escape_string($conn, $contact_permit_carrier)."',
+                        '".mysqli_real_escape_string($conn, $archival_antenna_addition)."',
+                        '".mysqli_real_escape_string($conn, $only_reasonable_location)."',
                         '".mysqli_real_escape_string($conn, $carrier_multiple)."');  ";
 
 if($dont_create == 'false') {
