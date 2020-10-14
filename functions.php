@@ -22,9 +22,10 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 include 'includes/functions/headhtml.php';
 include 'includes/functions/get_tower_pos.php';
-include 'includes/usercheck.php';
+//include 'includes/usercheck.php';
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data
+if (isset($_GET['refresh'])) { echo '<meta http-equiv="refresh" content="0;URL=../" /> '; }
 if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; }
 if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; }
 if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
@@ -37,7 +38,8 @@ if (!empty($_GET['gjson_url_2'])) { $gjson_url_2 = $_GET['gjson_url_2']; }
 if (!empty($_GET['data'])) { $data = $_GET['data']; }
 if (!empty($_GET['conv_type'])) { $conv_type = $_GET['conv_type']; }
 // Warnings if cookies not set
-if (!isset($usercheck_status)) {
+$usercheck_status = 'pass';
+if('pass' == '' . $usercheck_status . '') {
   if (!empty($_COOKIE["api_key"])) {
      $api_key = $_COOKIE["api_key"];
    } else {

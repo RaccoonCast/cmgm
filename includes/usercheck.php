@@ -1,22 +1,24 @@
 <?php
 $without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
-$page_to_ignore_on = 'Verify';
 $passkey = 'hPHXtAbNzgkvj45kctRCsVyu8vtUesGUHxa7BC3qF87aSq49mQwAM2cRD9vxvTC4EWbQkrubu6GZsqd4fKeJmZk8UsMhgHhYb6d9hU5t9kFZu6JxKf8r4j7X8YsSCpjh';
 
-
-if (isset($_COOKIE["usercheck_cookie"])) {
-  $usercheck_cookie = $_COOKIE["usercheck_cookie"];
+if ($_COOKIE["usercheck_cookie"] = $passkey) {
+  $usercheck_status = "pass";
+} elseif ($_GET["usercheck_cookie"] = $passkey) {
+  $usercheck_status = "pass";
+  ?><script>document.cookie = "usercheck_cookie=<?php echo $usercheck_cookie;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";</script><?php
 } else {
-  if ($without_extension != $page_to_ignore_on) {
-    $usercheck_status = "fail";
-  echo '<meta http-equiv="refresh" content="0;URL=../cookie/verify.php" /> ';
-  exit();
-  }
+$usercheck_status = "fail";
 }
 
-if ($usercheck_cookie != $passkey && $without_extension != $page_to_ignore_on) {
-  $usercheck_status = "fail";
-  echo '<meta http-equiv="refresh" content="0;URL=../cookie/verify.php" /> ';
-  exit();
-  }
- ?>
+if($usercheck_status = 'fail') {
+  ?>
+  <form action="" method="get" autocomplete="off">
+     <p>Passkey? </p>
+     <input type="text" name="usercheck_cookie" id="txtresult" required>
+     <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
+  </form>
+  <?php
+   exit();
+}
+?>

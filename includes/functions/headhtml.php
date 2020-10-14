@@ -1,8 +1,3 @@
-<script type="module">
-import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-const el = document.createElement('pwa-update');
-document.body.appendChild(el);
-</script>
 <title>EvilCM - <?php echo $without_extension?></title>
 <link rel="icon" type="image/png" href="/images/logo.png">
 <link rel='manifest' href='/manifest.json'>

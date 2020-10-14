@@ -16,7 +16,7 @@
       document.cookie = "api_key=<?php echo $key;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       </script>
        <?php
-     echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+     echo '<meta http-equiv="refresh" content="0;URL=../?refresh=true" /> ';
    } ?>
    </body>
 </html>

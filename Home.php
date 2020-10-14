@@ -22,9 +22,6 @@
       ?>
       <!-- Latitude & longitude get script -->
       <script src="js/index.js"></script>
-    <div class="footer">
-	 <a id="findlater">FindlaterDB</a>
-	 <a id="database">DatabaseDB</a>
- </div>
+<?php include "includes/home_footer.php"; ?>
    </body>
 </html>

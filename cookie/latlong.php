@@ -9,6 +9,7 @@
      include "../functions.php"?>
    </head>
    <body>
+     <script src="..\js\latlong-cookie.js"></script>
       <form action="latlong.php" method="get" autocomplete="off">
          <p>Latitude: </p>
          <input type="text" name="latitude" id="latitude" required>
@@ -21,6 +22,7 @@
         <option value="Verizon">Verizon</option>
         <option value="Sprint">Sprint</option>
          </select>
+         <input type="button" class="submitbutton" onclick="myFunction();" style="color: #00000;"  value="Locate">
          <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
       </form>
       <?php if (isset($_GET['latitude']) && isset($_GET['longitude']) && isset($_GET['carrier'])) { ?>
@@ -31,7 +33,7 @@
       document.cookie = "carrier=<?php echo $carrier;?>; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
       </script>
     <?php
-  echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+  echo '<meta http-equiv="refresh" content="0;URL=../?refresh" /> ';
 } ?>
    </body>
 </html>

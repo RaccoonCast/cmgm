@@ -68,14 +68,13 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     } else {
                       $beginning = "?MCC=310&MNC=260";
                     }
-                      $end = "map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-                      if (empty($id)) {
-                        echo ("<a target=_blank href=https://www.cellmapper.net/$end>CellMapper</a>");
+                      $cellmapper_net_url = "https://www.cellmapper.net/map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+                        if(!empty($id))   ?> <a href="<?php echo $cellmapper_net_url ?>"><p class="widget"><?php echo $id ?>   </p>   <?php
+                        if(!empty($id_2)) { ?> <p class="widget"><?php echo "& " . $id_2 ?></p>     <?php }
+                        if(!empty($id_3)) { ?> <p class="widget"><?php echo "& " . $id_3 ?></p>     <?php }
+                        if(!empty($id_4)) { ?> <p class="widget"><?php echo "& " . $id_4 ?></p>     <?php }
+                        if(!empty($id_5)) { ?> <p class="widget"><?php echo "& " . $id_5 ?></p></a> <?php }
                         echo "<br>";
-                      } else {
-                        echo ("<a target=_blank href=https://www.cellmapper.net/$end>" . $id . "</a>");
-                        echo "<br>";
-                      }
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
                       echo ("<p>Evidence Score: " . $evidence_score . "</p>");
@@ -95,8 +94,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
                 }
           }
-
-    }
+        }
 ?>
 </tbody>
 </table>
