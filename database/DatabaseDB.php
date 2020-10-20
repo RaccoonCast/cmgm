@@ -26,11 +26,11 @@ if (!empty($type)) {
   }
 }
 
-if (!empty($id)) {
+if (!empty($id_1)) {
   if (empty($sub2) && (empty($sub1)) ) {
-    $sub3 = "WHERE id='$id'";
+    $sub3 = "WHERE id_1='$id_1'";
   } else {
-    $sub3 = "AND id='$id'";
+    $sub3 = "AND id_1='$id_1'";
   }
 }
 

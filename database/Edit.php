@@ -128,7 +128,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
   <div id="panel1">
       <label for="row_id">Row ID</label><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>">
       <br><label for="date_added">Data Added</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
-      <br><label for="id_1">Main ID</label><input type="text" class="id_1" name="id_1" value="<?php echo $id_1>">
+      <br><label for="id_1">ID 1</label><input type="text" class="id" name="id_1" value="<?php echo $id_1?>">
       <br><label for="id_2">ID 2</label><input type="text" class="id" name="id_2" value="<?php echo $id_2?>">
       <br><label for="id_3">ID 3</label><input type="text" class="id" name="id_3" value="<?php echo $id_3?>">
       <br><label for="id_4">ID 4</label><input type="text" class="id" name="id_4" value="<?php echo $id_4?>">
