@@ -16,7 +16,7 @@
      echo '<br> Address: ';
      echo  $address . ', ' . $city . ', ' . $state . ' ' . $zip;
      if(isset($debug)) {
-       echo "<br> Search Query: " . $data;
+       if (isset($data)) echo "<br> Search Query: " . $data;
        echo "<br> Convert Algo: " . $conv_type;
        if(isset($gjson_url_1)) {
          echo '<br> URL 1: ';
