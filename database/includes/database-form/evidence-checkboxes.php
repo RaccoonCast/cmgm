@@ -20,6 +20,6 @@
    <input title="Only check if you can't find carrier name on permit" type="checkbox" id="ev10" name="contact_permit_carrier" value="true">
    <label title="Only check if you can't find carrier name on permit" for="ev10"> Contact name on permit only does permits for X carrier (+10)</label><br>
    <input type="checkbox" id="ev11" name="sector_split_match" value="true">
-   <label for="ev10"> New antennas can be seen added to the site at expected date (+3)</label><br>
+   <label for="ev11"> New antennas can be seen added to the site at expected date (+3)</label><br>
    <input type="checkbox" id="ev12" name="sector_split_match" value="true">
-   <label for="ev11"> The only possible location for the cell site (+2)</label><br>
+   <label for="ev12"> The only possible location for the cell site (+2)</label><br>

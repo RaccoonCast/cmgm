@@ -1,12 +1,18 @@
 <?php
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$date_added = date("Y-m-d");
 
-$sql = "INSERT INTO database_db (`id`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`permit_cellsite`,`permit_suspected_carrier`,
-      `trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+$sql = "INSERT INTO database_db (`date_added`,`id`,`id_2`,`id_3`,`id_4`,`id_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
+      `permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
       `contact_permit_carrier`,`archival_antenna_addition`,`only_reasonable_location`,`carrier_multiple`)
                       VALUES (
-                        '".mysqli_real_escape_string($conn, $id)."',
+                        '".mysqli_real_escape_string($conn, $date_added)."',
+                        '".mysqli_real_escape_string($conn, $id_1)."',
+                        '".mysqli_real_escape_string($conn, $id_2)."',
+                        '".mysqli_real_escape_string($conn, $id_3)."',
+                        '".mysqli_real_escape_string($conn, $id_4)."',
+                        '".mysqli_real_escape_string($conn, $id_5)."',
                         '".mysqli_real_escape_string($conn, $carrier)."',
                         '".mysqli_real_escape_string($conn, $latitude)."',
                         '".mysqli_real_escape_string($conn, $longitude)."',
@@ -40,5 +46,5 @@ if($dont_create == 'false') {
 
 //echo $sql;
 
-echo '<meta http-equiv="refresh" content="2;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 ?>

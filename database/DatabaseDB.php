@@ -12,7 +12,7 @@ $sub1 = ""; $sub2 = ""; $sub3 = "";
 if (isset($_GET['limit'])) $limit = $_GET['limit'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['type'])) $type = $_GET['type'];
-if (isset($_GET['id'])) $id = $_GET['id'];
+if (isset($_GET['id_1'])) $id_1 $_GET['id_1'];
 
 if (!empty($carrier)) {
   $sub1 = "WHERE carrier='$carrier'";
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id = $value; break;
+                    case 3:  $id_1 $value; break;
                     case 4:  $id_2 = $value; break;
                     case 5:  $id_3 = $value; break;
                     case 6:  $id_4 = $value; break;
@@ -95,7 +95,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 30:  $archival_antenna_addition = $value; break;
                     case 31:  $only_reasonable_location = $value; break;
                     case 32:  $carrier_multiple = $value;
-                    echo nl2br("<td>" . $id . "</td>");
+                    echo nl2br("<td>" . $id_1. "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$lat.'&longitude='.$long.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
                     echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');

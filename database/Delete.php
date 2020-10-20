@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id = $value; break;
+                    case 3:  $id_1 $value; break;
                     case 4:  $id_2 = $value; break;
                     case 5:  $id_3 = $value; break;
                     case 6:  $id_4 = $value; break;
@@ -107,7 +107,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 <tr>
   <td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
   <td><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>"></td>
-  <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
+  <td><input type="text" class="id_1" name="id_1" value="<?php echo $id_1?>"></td>
   <td><input type="text" class="id_2" name="id_2" value="<?php echo $id_2?>"></td>
   <td><input type="text" class="id_3" name="id_3" value="<?php echo $id_3?>"></td>
   <td><input type="text" class="id_4" name="id_4" value="<?php echo $id_4?>"></td>

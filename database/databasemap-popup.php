@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id = $value; break;
+                    case 3:  $id_1 = $value; break;
                     case 4:  $id_2 = $value; break;
                     case 5:  $id_3 = $value; break;
                     case 6:  $id_4 = $value; break;
@@ -69,7 +69,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       $beginning = "?MCC=310&MNC=260";
                     }
                       $cellmapper_net_url = "https://www.cellmapper.net/map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-                        if(!empty($id))   ?> <a href="<?php echo $cellmapper_net_url ?>"><p class="widget"><?php echo $id ?>   </p>   <?php
+                        if(!empty($id_1))   ?> <a target="_blank" href="<?php echo $cellmapper_net_url ?>"><p class="widget"><?php echo $id_1?> </p>   <?php
                         if(!empty($id_2)) { ?> <p class="widget"><?php echo "& " . $id_2 ?></p>     <?php }
                         if(!empty($id_3)) { ?> <p class="widget"><?php echo "& " . $id_3 ?></p>     <?php }
                         if(!empty($id_4)) { ?> <p class="widget"><?php echo "& " . $id_4 ?></p>     <?php }

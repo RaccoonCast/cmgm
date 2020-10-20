@@ -8,7 +8,7 @@ $row_id = $_GET['row_id'];
 
 if (isset($_GET['row_id'])) $row_id = $_GET['row_id'];
 if (isset($_GET['date_added'])) $date_added = $_GET['date_added'];
-if (isset($_GET['id'])) $id = $_GET['id'];
+if (isset($_GET['id_1'])) $id_1 $_GET['id_1'];
 if (isset($_GET['id_2'])) $id_2 = $_GET['id_2'];
 if (isset($_GET['id_3'])) $id_3 = $_GET['id_3'];
 if (isset($_GET['id_4'])) $id_4 = $_GET['id_4'];
@@ -42,7 +42,7 @@ $carrier_multiple  = $_GET['carrier_multiple'];
 $sql_edit = "UPDATE `cmgm`.`database_db`
 SET `row_id` = '".mysqli_real_escape_string($conn, $row_id)."',
 `date_added` = '".mysqli_real_escape_string($conn, $date_added)."',
-`id` = '".mysqli_real_escape_string($conn, $id)."',
+`id_1` = '".mysqli_real_escape_string($conn, $id_1)."',
 `id_2` = '".mysqli_real_escape_string($conn, $id_2)."',
 `id_3` = '".mysqli_real_escape_string($conn, $id_3)."',
 `id_4` = '".mysqli_real_escape_string($conn, $id_4)."',
@@ -93,7 +93,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id = $value; break;
+                    case 3:  $id_1 $value; break;
                     case 4:  $id_2 = $value; break;
                     case 5:  $id_3 = $value; break;
                     case 6:  $id_4 = $value; break;
@@ -128,11 +128,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
   <div id="panel1">
       <label for="row_id">Row ID</label><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>">
       <br><label for="date_added">Data Added</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
-      <br><label for="id">Main ID</label><input type="text" class="id" name="id" value="<?php echo $id?>">
-      <br><label for="id">ID 2</label><input type="text" class="id" name="id_2" value="<?php echo $id_2?>">
-      <br><label for="id">ID 3</label><input type="text" class="id" name="id_3" value="<?php echo $id_3?>">
-      <br><label for="id">ID 4</label><input type="text" class="id" name="id_4" value="<?php echo $id_4?>">
-      <br><label for="id">ID 5</label><input type="text" class="id" name="id_5" value="<?php echo $id_5?>">
+      <br><label for="id_1">Main ID</label><input type="text" class="id_1" name="id_1" value="<?php echo $id_1>">
+      <br><label for="id_2">ID 2</label><input type="text" class="id" name="id_2" value="<?php echo $id_2?>">
+      <br><label for="id_3">ID 3</label><input type="text" class="id" name="id_3" value="<?php echo $id_3?>">
+      <br><label for="id_4">ID 4</label><input type="text" class="id" name="id_4" value="<?php echo $id_4?>">
+      <br><label for="id_5">ID 5</label><input type="text" class="id" name="id_5" value="<?php echo $id_5?>">
       <br><label for="carrier">Carrier</label><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>">
       <br><label for="latitude">Latitude</label><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>">
       <br><label for="longitude">Longitude</label><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>">
