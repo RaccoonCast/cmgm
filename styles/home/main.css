@@ -10,11 +10,12 @@ p {
   margin-left: 7px;
 }
 .submitbutton {
- border-radius: 35x;
+ border-radius: 35px;
  background: #444444fb;
+ border: 2px solid #444444fb;
  padding: 20px;
- width: 150px;
- height: 20px;
+ width: 250px;
+ height: 120px;
 }
 .small-text {
   font-size: 32px;
