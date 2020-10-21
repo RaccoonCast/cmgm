@@ -91,5 +91,7 @@ $response = json_decode($response);
     if ("$directionCheck_a[0]" == "S" && "$directionCheck_b[0]" == "South") {$long_street_name = substr($long_street_name,6); }
     if ("$directionCheck_a[0]" == "W" && "$directionCheck_b[0]" == "West")  {$long_street_name = substr($long_street_name,5); }
 
+    if(!isset($number)) $number = null;
+    if(!isset($long_street_name)) $long_street_name = null;
     $address = "$number $long_street_name";
  ?>

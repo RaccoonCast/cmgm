@@ -3,7 +3,7 @@
 $date_added = date("Y-m-d");
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$sql = "INSERT INTO database_db (`date_added`,`id`,`id_2`,`id_3`,`id_4`,`id_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
+$sql = "INSERT INTO database_db (`date_added`,`id_1`,`id_2`,`id_3`,`id_4`,`id_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
       `permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
       `contact_permit_carrier`,`archival_antenna_addition`,`only_reasonable_location`,`carrier_multiple`)
                       VALUES (

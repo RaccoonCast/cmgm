@@ -8,7 +8,7 @@ $row_id = $_GET['row_id'];
 
 if (isset($_GET['row_id'])) $row_id = $_GET['row_id'];
 if (isset($_GET['date_added'])) $date_added = $_GET['date_added'];
-if (isset($_GET['id_1'])) $id_1 $_GET['id_1'];
+if (isset($_GET['id_1'])) $id_1 = $_GET['id_1'];
 if (isset($_GET['id_2'])) $id_2 = $_GET['id_2'];
 if (isset($_GET['id_3'])) $id_3 = $_GET['id_3'];
 if (isset($_GET['id_4'])) $id_4 = $_GET['id_4'];
@@ -74,11 +74,6 @@ SET `row_id` = '".mysqli_real_escape_string($conn, $row_id)."',
 `carrier_multiple` = '".mysqli_real_escape_string($conn, $carrier_multiple)."'
 WHERE row_id = $row_id";
 mysqli_query($conn, $sql_edit);
-echo $sql_edit;
-}
-
-if(isMobile()){
-  header('Location: mobile-edit.php?row_id=' . $row_id . ' ');
 }
 
 $sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
@@ -93,7 +88,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id_1 $value; break;
+                    case 3:  $id_1 = $value; break;
                     case 4:  $id_2 = $value; break;
                     case 5:  $id_3 = $value; break;
                     case 6:  $id_4 = $value; break;
@@ -127,7 +122,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 <form action="Edit.php" id="form<?php echo $row_id; ?>" method="get">
   <div id="panel1">
       <label for="row_id">Row ID</label><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>">
-      <br><label for="date_added">Data Added</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
+      <br><label for="date_added">Date Added</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
       <br><label for="id_1">ID 1</label><input type="text" class="id" name="id_1" value="<?php echo $id_1?>">
       <br><label for="id_2">ID 2</label><input type="text" class="id" name="id_2" value="<?php echo $id_2?>">
       <br><label for="id_3">ID 3</label><input type="text" class="id" name="id_3" value="<?php echo $id_3?>">

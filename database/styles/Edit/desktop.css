@@ -30,15 +30,15 @@ input[type=text] {
 	   text-decoration: none;
 }
 #panel1 {
- width: 33.333%;
+ width: 40%;
  float: left;
 }
 #panel2 {
-  width: 33.333%;
-  float: right;
+  width: 40%;
+  float: left;
 }
 #panel3 {
-  width: 33.333%;
+  width: 20%;
   float: right;
 }
 input[type=submit] {

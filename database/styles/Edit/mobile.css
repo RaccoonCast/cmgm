@@ -43,8 +43,8 @@ input[type=text] {
 input[type=submit] {
   font-size: 5em;
   width: 100%;
-  padding-top: 400px;
-  padding-bottom: 400px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   margin: 0 auto;
 }
 .container {

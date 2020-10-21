@@ -8,16 +8,17 @@
    </head>
    <body class="flex">
      <?php
+     if(!isset($address)) $address = null;
+     if(!isset($city)) $city = null;
+     if(!isset($state)) $state = null;
+     if(!isset($zip)) $zip = null;
      if (!isset($_GET['permit_redirect'])) {
-     echo ' Latitude: ';
-     echo $latitude;
-     echo '<br> Longitude: ';
-     echo $longitude;
-     echo '<br> Address: ';
-     echo  $address . ', ' . $city . ', ' . $state . ' ' . $zip;
+     echo ' Latitude: ' . $latitude;
+     echo '<br> Longitude: ' . $longitude;
+     echo '<br> Address: '. $address . ', ' . $city . ', ' . $state . ' ' . $zip;
      if(isset($debug)) {
        if (isset($data)) echo "<br> Search Query: " . $data;
-       echo "<br> Convert Algo: " . $conv_type;
+       if(isset($conv_type)) echo "<br> Convert Algo: " . $conv_type;
        if(isset($gjson_url_1)) {
          echo '<br> URL 1: ';
          ?> <a href="<?php echo $gjson_url_1; echo "&key=" . $api_key ?>"><?php echo $gjson_url_1 ?></a>
