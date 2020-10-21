@@ -21,6 +21,7 @@ $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 include 'includes/functions/headhtml.php';
+include 'includes/functions/redir.php';
 include 'includes/functions/get_tower_pos.php';
 //include 'includes/usercheck.php';
 

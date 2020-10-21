@@ -13,18 +13,12 @@
   // San Fernando: la city
   // Check what city we in and redirect to their page
   if (isset($_GET['permit_redirect'])) {
-  if ("$city" == "Glendale") {
-    echo '<meta http-equiv="Refresh" content="0; url=https://csi.glendaleca.gov/csipropertyportal/" />';
-  } elseif ("$city" == "Los Angeles") {
-    echo '<meta http-equiv="Refresh" content="0; url=http://ladbsdoc.lacity.org/idispublic/" />';
-  } elseif ("$city" == "Long Beach") {
-    echo '<meta http-equiv="Refresh" content="0; url=http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress" />';
-  } elseif ("$city" == "Burbank") {
-    echo '<meta http-equiv="Refresh" content="0; url=https://permit.burbankca.gov/epalspi/" />';
-  } elseif ("$city" == "San Francisco") {
-    echo '<meta http-equiv="Refresh" content="0; url=https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery" />';
-  } elseif ("$city" == "Pasadena") {
-    echo '<meta http-equiv="Refresh" content="0; url=https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx" />';
+  if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal/","0");
+  } elseif ("$city" == "Los Angeles") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
+  } elseif ("$city" == "Long Beach") { redir("http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress","0");
+  } elseif ("$city" == "Burbank") { redir("https://permit.burbankca.gov/epalspi/","0");
+  } elseif ("$city" == "San Francisco") { redir("https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery","0");
+  } elseif ("$city" == "Pasadena") { redir("https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx","0");
   } else {
     echo "QUERY: $url";
     echo "$city not listed";

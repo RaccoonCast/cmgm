@@ -3,10 +3,8 @@
 <a id="database">DatabaseDB</a>
 </div>
 <script>
-function myFunction() {
-  if (navigator.geolocation) {
+if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-  }
 
 function showPosition(position) {
   var href_fl = "findlater/FindlaterDB.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
