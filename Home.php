@@ -15,8 +15,8 @@
       } ?>
         <!--- Submit & Locate buttons -->
         <span class="buttons">
-         <input type="submit" class="submitbutton" style="color: #000000;"  value="Submit">
-		     <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
+            <input type="submit" class="submitbutton" style="color: #000000;"  value="Submit">
+		      <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
        </span>
       </form>
       <!-- Latitude & longitude get script -->

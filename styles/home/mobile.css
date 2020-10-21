@@ -29,3 +29,8 @@ margin: 0;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
