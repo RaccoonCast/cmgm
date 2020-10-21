@@ -37,3 +37,6 @@ margin: 0;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+.buttons {
+  padding-left: 10px;
+}
