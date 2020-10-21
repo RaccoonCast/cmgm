@@ -49,8 +49,8 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
     <th>Address</th>
     <th>Edit</th>
     <th>Bio</th>
-    <th>Evidence Score</th>
-    <th>Evidence</th>
+    <th>EV</th>
+    <th>Score</th>
 </tr>
 </thead>
 <tbody>
@@ -100,11 +100,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
                     echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');
                     echo nl2br('<center><a class="hide-underline" href="Delete.php?row_id='.$row_id.'">❌</a></center></td>');
-                    echo nl2br("<td>" . $bio . "</td>");
-                    echo nl2br("<td>" . $evidence_score . "</td>");
+                    echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
                        $evidence_link = "uploads/$evidence_link";
                     }
+                    echo nl2br("<td>" . $evidence_score . "</td>");
                     echo nl2br("<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>");
                   }
             }

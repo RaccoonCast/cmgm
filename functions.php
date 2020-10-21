@@ -16,7 +16,7 @@ if(isMobile()){
 // SQL Database login info
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
-$password = 'My$QLP@$$w0rd';
+$password = file_get_contents('./secret-sql-login.txt', true);
 $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
