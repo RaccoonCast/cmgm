@@ -1,0 +1,11 @@
+/* Applies to the entire body of the HTML document (except where overridden by more specific
+selectors). */
+body {
+  background-color: rgb(250, 250, 250);
+  font-family: 'Manrope';font-size: 22px;
+}
+
+p1 {
+  color: rgba(209, 37, 37, 0.973);
+  margin-left: 20px;
+}

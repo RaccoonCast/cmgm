@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+   <link href='https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>   
+   <link rel="stylesheet" href="styles\home\desktop.css">
 	  <?php include "functions.php"?>
    </head>
    <body>
