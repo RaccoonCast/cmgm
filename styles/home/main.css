@@ -8,11 +8,18 @@ body {
 p {
   color: rgb(102, 101, 101);
   margin-left: 40px;
-} 
+}
 .submitbutton {
  border-radius: 35x;
  background: #444444fb;
- padding: 20px; 
+ padding: 20px;
  width: 150px;
- height: 20px; 
+ height: 20px;
+}
+.small-text {
+  font-size: 32px;
+}
+.same-line {
+  display: inline-block;
+  vertical-align: text-top;
 }

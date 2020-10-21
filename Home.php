@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-   <link href='https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>   
-   <link rel="stylesheet" href="styles\home\main.css">
+   <link href='https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>
 	  <?php include "functions.php"?>
    </head>
    <body>
       <form action="convert.php" method="get" autocomplete="off">
-         <p>Enter Location:</p>
+         <p class="same-line">Enter Location:<p class="small-text same-line" onclick="alert('What can you enter?\n\nCellMapper.NET URLs\n\Latitude,Longitude \(38.896,-77.036)\nGoogle Maps URLS\n\Building Address\nBuilding Name\nDMS Coordinates')">?</p></p>
         <?php
         // Check if latitude & Longitude cookies exist - if they do don't require box to be filled - if they don't require box be filled
         if (isset($_COOKIE["latitude"]) | isset($_COOKIE["longitude"])) { ?>

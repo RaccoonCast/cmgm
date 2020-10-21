@@ -13,6 +13,8 @@ if(isMobile()){
 } else {
   echo '<link rel="stylesheet" href="styles/' . $without_extension . '/desktop.css">';
 }
+echo '<link rel="stylesheet" href="styles/' . $without_extension . '/main.css">';
+
 // SQL Database login info
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
