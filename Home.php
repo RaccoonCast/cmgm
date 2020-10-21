@@ -2,12 +2,12 @@
 <html lang="en">
    <head>
    <link href='https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>   
-   <link rel="stylesheet" href="styles\home\desktop.css">
+   <link rel="stylesheet" href="styles\home\main.css">
 	  <?php include "functions.php"?>
    </head>
    <body>
       <form action="convert.php" method="get" autocomplete="off">
-         <p>Convert cm/gm/latlong</p>
+         <p>Enter Location:</p>
         <?php
         // Check if latitude & Longitude cookies exist - if they do don't require box to be filled - if they don't require box be filled
         if (isset($_COOKIE["latitude"]) | isset($_COOKIE["longitude"])) { ?>
