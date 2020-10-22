@@ -3,7 +3,7 @@
   border-radius: 15px;
   background: #444444fb;
   border: none;
-  width: 48.5%;
+  width: 48.8%;
   height: 69px;
 }
 /* Input textbox */
@@ -11,11 +11,10 @@
   border-radius: 17px;
   background-color: #505050;
   border: 2px solid #505050;
-  width: 90%; /* this should look gay as fuck take screenshot of it zack */
+  width: 97.6%;
 }
 input {
   height: 102px;
-  width: 96%;
   font-size: 1.8em!important;
 }
 p {
@@ -39,11 +38,6 @@ margin: 0;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
 .buttons {
-padding-top: 18px; 
+padding-top: 15px;
 }
