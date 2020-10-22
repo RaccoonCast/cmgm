@@ -1,9 +1,17 @@
+/* Submit & Locate button */
 .submitbutton {
-  color: #000000;
-  background-color: #4CAF50;
-  width: 49%;
-  max-width: auto;
-  height: 107px;
+  border-radius: 15px;
+  background: #444444fb;
+  border: none;
+  width: 48.5%;
+  height: 69px;
+}
+/* Input textbox */
+#txtresult {
+  border-radius: 17px;
+  background-color: #505050;
+  border: 2px solid #505050;
+  width: 90%; /* this should look gay as fuck take screenshot of it zack */
 }
 input {
   height: 102px;
@@ -12,6 +20,8 @@ input {
 }
 p {
 font-size: 2em;
+margin-block-start: 0em;
+margin-block-end: 0.3em;
 }
 body {
 	font-display: swap;
@@ -33,4 +43,7 @@ input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+.buttons {
+padding-top: 18px; 
 }
