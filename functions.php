@@ -18,7 +18,8 @@ echo '<link rel="stylesheet" href="styles/' . $without_extension . '/main.css">'
 // SQL Database login info
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
-$password = file_get_contents('./secret-sql-login.txt', true);
+$siteroot = $_SERVER['DOCUMENT_ROOT'];
+$password = file_get_contents("secret-sql-login.hiddenpass", true);
 $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
