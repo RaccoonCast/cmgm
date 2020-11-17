@@ -1,17 +1,5 @@
-p {
-	padding: 0em;
-	margin: 0em;
-}
-
-.body::-webkit-scrollbar {
-    display: none;
-}
 body {
-font-size: 0.95em;
-}
-.widget {
-	display: inline;
-  text-decoration: none;
+	font-size: 0.95em;
 }
 .widget_emote {
 		font-size: 18px;

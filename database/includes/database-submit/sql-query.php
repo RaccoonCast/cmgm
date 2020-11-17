@@ -46,5 +46,5 @@ if($dont_create == 'false') {
 
 //echo $sql;
 
-echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="1;URL=../" /> ';
 ?>

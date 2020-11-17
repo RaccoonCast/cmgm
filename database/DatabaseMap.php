@@ -75,7 +75,7 @@ switch ($sepCount) {
   case 31:  $only_reasonable_location = $value; break;
   case 32:  $carrier_multiple = $value;
 ?>
-var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id&limit=17&sql=$sql"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
+var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
 L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
 break;
             }

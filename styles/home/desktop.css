@@ -21,6 +21,7 @@
   height: 100px;
 }
 input {
+    font-size: 1.8em!important;
 }
 p {
 font-size: 3em;
