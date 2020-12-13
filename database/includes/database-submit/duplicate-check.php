@@ -12,9 +12,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     foreach ($row as $field => $value) {
       $sepCount = ($colCount++);
                   switch ($sepCount) {
-                    case 3: $carrier = $value; break;
-                    case 4: $latitude = $value;  break;
-                    case 5: $longitude = $value;
+                    case 8: $carrier = $value; break;
+                    case 9: $latitude = $value;  break;
+                    case 10: $longitude = $value;
                   }
                 }
               }

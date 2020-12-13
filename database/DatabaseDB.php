@@ -105,7 +105,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                        $evidence_link = "uploads/$evidence_link";
                     }
                     echo nl2br("<td>" . $evidence_score . "</td>");
-                    echo nl2br("<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>");
+                    if (!empty($evidence_link)) {
+                      echo nl2br("<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>");
+                    }
                   }
             }
 echo "</tr>";

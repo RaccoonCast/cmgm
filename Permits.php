@@ -3,8 +3,17 @@
   if (isset($_GET['permit_redirect'])) {
   if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal/","0");
   } elseif ("$city" == "Temple City") { redir("https://templecity.quickbase.com/db/bph9nwjs2?a=q&qid=1","0");
-  } elseif ("$city" == "Compton") { redir("https://www.citizenserve.com/cityofcompton","0");
+  } elseif ("$city" == "Glendora") { redir("https://etrakit.ci.glendora.ca.us/etrakit3/Search/permit.aspx","0");
+  } elseif ("$city" == "Compton") { redir("https://www.citizenserve.com/Portal/PortalController?Action=showHomePage&ctzPagePrefix=Portal_&installationID=202&original_iid=0&original_contactID=0","0");
   } elseif ("$city" == "Santa Ana") { redir("http://apps.santa-ana.org/property-info/","0");
+  } elseif ("$city" == "Torrance") {
+    echo "The majority of shit is under LA County.";
+    echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
+    redir("https://aca.torranceca.gov/citizenaccess/default.aspx","4");
+  } elseif ("$city" == "Gardena") {
+    echo "The majority of shit is under LA County.";
+    echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
+    redir("https://www.cityofgardena.org/building-permit-issued/","4");
   } elseif ("$city" == "Los Angeles") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
   } elseif ("$city" == "San Fernando") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
   } elseif ("$city" == "Wilmington") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
