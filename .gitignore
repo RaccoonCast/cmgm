@@ -1,5 +1,6 @@
 AutoUpdateCMGM*
 beta/
 secret-sql-login.txt
-database\uploads\*
+database\uploads\*.*
+\u\*.*
 secret-sql-login.hiddenpass
