@@ -5,7 +5,6 @@ $url = "database-form.php?latitude=$latitude&longitude=$longitude&address=$addre
 <form action="<?php $url?>" name="image_upload" method="post">
 <input type="hidden" name="file" id="base64_file_form" />
   <div id="picture" ></div>
-</div>
 </form>
 
 <?php

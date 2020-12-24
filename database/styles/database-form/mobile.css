@@ -43,3 +43,24 @@ body {
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+/* footer */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.footerlink {
+ color: #babab8;
+ font-size: 18px;
+ }
+footer {
+	border-top: 3px solid #a6a6a4;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 3px;
+  background-color: #d4d3d2;
+}
+#map {
+	padding-bottom: 12px;
+}

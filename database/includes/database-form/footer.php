@@ -5,9 +5,11 @@
    $dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude&zoom=19";
    $gmlink = "../gmaps.php?latitude=$latitude&longitude=$longitude";
    ?>
-   <div class="footer">
    <script src="../js/permit-copy.js"></script>
-   <a target="_blank" onclick="copyToClipboard('<?php echo $address;?>')" href="<?php echo $pmlink?>">Permits</a>
-   <a target="_blank" href="<?php echo $dblink?>" target="_blank">DatabaseMap</a>
-   <a target="_blank" href="<?php echo $gmlink?>" target="_blank">Google Maps</a>
+
+   <footer>
+     <a class="footerlink" onclick="copyToClipboard('<?php echo $address;?>')" href="<?php echo $pmlink?>">Permits</a>
+     <a class="footerlink" target="_blank" href="<?php echo $dblink?>">Database Map</a>
+     <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">Google Maps</a>
+  </footer>
  </div>

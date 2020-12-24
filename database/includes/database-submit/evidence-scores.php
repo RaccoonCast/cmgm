@@ -16,7 +16,7 @@ if(isset($_GET['image_evidence'])) $image_evidence = $_GET['image_evidence'];
 if(isset($_GET['verified_by_visit'])) $verified_by_visit = $_GET['verified_by_visit'];
 if(isset($_GET['sector_split_match'])) $sector_split_match = $_GET['sector_split_match'];
 if(isset($_GET['contact_permit_carrier'])) $contact_permit_carrier = $_GET['contact_permit_carrier'];
-if(isset($_GET['archival_antenna_addition'])) $archival_antenna_addition = $_GET['contact_permit_carrier'];
+if(isset($_GET['archival_antenna_addition'])) $archival_antenna_addition = $_GET['archival_antenna_addition'];
 if(isset($_GET['only_reasonable_location'])) $only_reasonable_location = $_GET['only_reasonable_location'];
 
 // Change the unchecked checkboxes to false so we don't have NULL.

@@ -15,17 +15,13 @@ if(isMobile()){
 }
 echo '<link rel="stylesheet" href="styles/' . $without_extension . '/main.css">';
 
-// SQL Database login info
-$servername = 'mysql.cmgm.gq';
-$username = 'cmgm';
-$siteroot = $_SERVER['DOCUMENT_ROOT'];
-$password = file_get_contents("secret-sql-login.hiddenpass", true);
-$dbname = 'cmgm';
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
+include 'includes/functions/sqlpw.php';
 include 'includes/functions/headhtml.php';
 include 'includes/functions/redir.php';
-include 'includes/functions/get_tower_pos.php';
+include 'includes/functions/towerInfoGet.php';
+include 'includes/functions/calculateEV.php';
+include 'includes/functions/recalculateEVs.php';
+include 'includes/functions/mapWithPin.php';
 //include 'includes/usercheck.php';
 
 // if latitude & longitude & carrier are set in URL bar create PHP variable with data

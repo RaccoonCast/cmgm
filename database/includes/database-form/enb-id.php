@@ -41,17 +41,17 @@
   foo.removeAttribute('style');
 
   var doo1 = document.getElementById("enbIDbox1");
-  doo1.setAttribute('style', 'width: 12.69%!important;');
+  doo1.setAttribute('style', 'width: 15.75%!important;');
   var doo2 = document.getElementById("enbIDbox2");
-  doo2.setAttribute('style', 'width: 12.69%!important;');
+  doo2.setAttribute('style', 'width: 15.75%!important;');
   var doo3 = document.getElementById("enbIDbox3");
-  doo3.setAttribute('style', 'width: 12.69%!important;');
+  doo3.setAttribute('style', 'width: 15.75%!important;');
   var doo4 = document.getElementById("enbIDbox4");
-  doo4.setAttribute('style', 'width: 12.69%!important;');
+  doo4.setAttribute('style', 'width: 15.75%!important;');
   var doo5 = document.getElementById("enbIDbox5");
-  doo5.setAttribute('style', 'width: 12.69%!important;');
+  doo5.setAttribute('style', 'width: 15.75%!important;');
   var doo6 = document.getElementById("enbIDbox6");
-  doo6.setAttribute('style', 'width: 12.69%!important;');
+  doo6.setAttribute('style', 'width: 15.75%!important;');
   }
   </script> <?php
 }
