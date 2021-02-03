@@ -1,6 +1,6 @@
 <?php
 function recalculatEVs($limit) {
-$sql = "SELECT id_1,carrier FROM database_db LIMIT $limit;";
+$sql = "SELECT LTE_1,carrier FROM database_db LIMIT $limit;";
 include 'sqlpw.php';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $result = mysqli_query($conn, $sql);

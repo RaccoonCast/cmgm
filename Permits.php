@@ -33,6 +33,8 @@
   } elseif ("$city" == "Garden Grove") { redir("https://ch.ci.garden-grove.ca.us/permitsoft/permits/search","0");
   } elseif ("$city" == "San Jose") { redir("https://sjpermits.org/permits/general/combinedquery.asp","0");
   } elseif ("$city" == "Beverly Hills") { redir("https://cs.beverlyhills.org/cs/","0");
+  } elseif ("$city" == "Santa Clarita") { redir("https://aca-prod.accela.com/SANTACLARITA/Default.aspx","0");
+  } elseif ("$city" == "Sacramento" ) { redir("https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME","0");
   } elseif ("$city" == "Santa Monica") {
     echo "Active permits only.";
     redir("https://www.smgov.net/Departments/PCD/Permits/Active-Building-Permits/","2");

@@ -1,10 +1,10 @@
 <?php
 if(isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-if(isset($_GET['id_1'])) $id_1 = $_GET['id_1'];
-if(isset($_GET['id_2'])) $id_2 = $_GET['id_2'];
-if(isset($_GET['id_3'])) $id_3 = $_GET['id_3'];
-if(isset($_GET['id_4'])) $id_4 = $_GET['id_4'];
-if(isset($_GET['id_5'])) $id_5 = $_GET['id_5'];
+if(isset($_GET['LTE_1'])) $LTE_1 = $_GET['LTE_1'];
+if(isset($_GET['LTE_2'])) $LTE_2 = $_GET['LTE_2'];
+if(isset($_GET['LTE_3'])) $LTE_3 = $_GET['LTE_3'];
+if(isset($_GET['LTE_4'])) $LTE_4 = $_GET['LTE_4'];
+if(isset($_GET['LTE_5'])) $LTE_5 = $_GET['LTE_5'];
 if(isset($_GET['bio'])) $bio = $_GET['bio'];
 if(isset($_GET['evidence_link'])) $evidence_link = $_GET['evidence_link'];
 if(isset($_GET['address'])) $address = $_GET['address'];

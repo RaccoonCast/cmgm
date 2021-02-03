@@ -4,3 +4,4 @@ secret-sql-login.txt
 database/uploads
 u/*.*
 secret-sql-login.hiddenpass
+includes/functions/id_list.txt

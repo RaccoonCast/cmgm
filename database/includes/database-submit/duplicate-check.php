@@ -2,7 +2,7 @@
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND id_1 = '$id_1')";
+$sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND lte_1 = '$LTE_1')";
 
 $result = mysqli_query($conn, $sql);
 

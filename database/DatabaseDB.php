@@ -12,7 +12,7 @@ $sub1 = ""; $sub2 = ""; $sub3 = "";
 if (isset($_GET['limit'])) $limit = $_GET['limit'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['type'])) $type = $_GET['type'];
-if (isset($_GET['id_1'])) $id_1 = $_GET['id_1'];
+if (isset($_GET['LTE_1'])) $LTE_1 = $_GET['LTE_1'];
 
 if (!empty($carrier)) {
   $sub1 = "WHERE carrier='$carrier'";
@@ -26,18 +26,23 @@ if (!empty($type)) {
   }
 }
 
-if (!empty($id_1)) {
+if (!empty($LTE_1)) {
   if (empty($sub2) && (empty($sub1)) ) {
-    $sub3 = "WHERE id_1='$id_1'";
+    $sub3 = "WHERE lte_1='$LTE_1'";
   } else {
-    $sub3 = "AND id_1='$id_1'";
+    $sub3 = "AND lte_1='$LTE_1'";
   }
 }
 
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
-$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db $sub1 $sub2 $sub3 ORDER BY distance LIMIT $limit";
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
+cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
+contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
+
+$sql = "SELECT DISTINCT $database_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db $sub1 $sub2 $sub3 ORDER BY distance LIMIT $limit";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 
 ?>
@@ -65,11 +70,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id_1 = $value; break;
-                    case 4:  $id_2 = $value; break;
-                    case 5:  $id_3 = $value; break;
-                    case 6:  $id_4 = $value; break;
-                    case 7:  $id_5 = $value; break;
+                    case 3:  $LTE_1 = $value; break;
+                    case 4:  $LTE_2 = $value; break;
+                    case 5:  $LTE_3 = $value; break;
+                    case 6:  $LTE_4 = $value; break;
+                    case 7:  $LTE_5 = $value; break;
                     case 8:  $carrier = $value; break;
                     case 9:  $latitude = $value; break;
                     case 10:  $longitude = $value; break;
@@ -95,7 +100,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 30:  $archival_antenna_addition = $value; break;
                     case 31:  $only_reasonable_location = $value; break;
                     case 32:  $carrier_multiple = $value;
-                    echo nl2br("<td>" . $id_1. "</td>");
+                    echo nl2br("<td>" . $LTE_1. "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Hub.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
                     echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');

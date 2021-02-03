@@ -8,11 +8,11 @@ $row_id = $_GET['row_id'];
 
 if (isset($_GET['row_id'])) $row_id = $_GET['row_id'];
 if (isset($_GET['date_added'])) $date_added = $_GET['date_added'];
-if (isset($_GET['id_1'])) $id_1 = $_GET['id_1'];
-if (isset($_GET['id_2'])) $id_2 = $_GET['id_2'];
-if (isset($_GET['id_3'])) $id_3 = $_GET['id_3'];
-if (isset($_GET['id_4'])) $id_4 = $_GET['id_4'];
-if (isset($_GET['id_5'])) $id_5 = $_GET['id_5'];
+if (isset($_GET['LTE_1'])) $LTE_1 = $_GET['LTE_1'];
+if (isset($_GET['LTE_2'])) $LTE_2 = $_GET['LTE_2'];
+if (isset($_GET['LTE_3'])) $LTE_3 = $_GET['LTE_3'];
+if (isset($_GET['LTE_4'])) $LTE_4 = $_GET['LTE_4'];
+if (isset($_GET['LTE_5'])) $LTE_5 = $_GET['LTE_5'];
 if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
@@ -42,11 +42,11 @@ $carrier_multiple  = $_GET['carrier_multiple'];
 $sql_edit = "UPDATE `cmgm`.`database_db`
 SET `row_id` = '".mysqli_real_escape_string($conn, $row_id)."',
 `date_added` = '".mysqli_real_escape_string($conn, $date_added)."',
-`id_1` = '".mysqli_real_escape_string($conn, $id_1)."',
-`id_2` = '".mysqli_real_escape_string($conn, $id_2)."',
-`id_3` = '".mysqli_real_escape_string($conn, $id_3)."',
-`id_4` = '".mysqli_real_escape_string($conn, $id_4)."',
-`id_5` = '".mysqli_real_escape_string($conn, $id_5)."',
+`LTE_1` = '".mysqli_real_escape_string($conn, $LTE_1)."',
+`LTE_2` = '".mysqli_real_escape_string($conn, $LTE_2)."',
+`LTE_3` = '".mysqli_real_escape_string($conn, $LTE_3)."',
+`LTE_4` = '".mysqli_real_escape_string($conn, $LTE_4)."',
+`LTE_5` = '".mysqli_real_escape_string($conn, $LTE_5)."',
 `carrier` = '".mysqli_real_escape_string($conn, $carrier)."',
 `latitude` = '".mysqli_real_escape_string($conn, $latitude)."',
 `longitude` = '".mysqli_real_escape_string($conn, $longitude)."',
@@ -75,8 +75,12 @@ SET `row_id` = '".mysqli_real_escape_string($conn, $row_id)."',
 WHERE row_id = $row_id";
 mysqli_query($conn, $sql_edit);
 }
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
+cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
+contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
 
-$sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
+$sql = "SELECT $database_get_list FROM database_db WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
 
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
@@ -88,11 +92,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id_1 = $value; break;
-                    case 4:  $id_2 = $value; break;
-                    case 5:  $id_3 = $value; break;
-                    case 6:  $id_4 = $value; break;
-                    case 7:  $id_5 = $value; break;
+                    case 3:  $LTE_1 = $value; break;
+                    case 4:  $LTE_2 = $value; break;
+                    case 5:  $LTE_3 = $value; break;
+                    case 6:  $LTE_4 = $value; break;
+                    case 7:  $LTE_5 = $value; break;
                     case 8:  $carrier = $value; break;
                     case 9:  $latitude = $value; break;
                     case 10:  $longitude = $value; break;
@@ -123,11 +127,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
   <div id="panel1">
       <label for="row_id">Row ID</label><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>">
       <br><label for="date_added">Date Added</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
-      <br><label for="id_1">ID 1</label><input type="text" class="id" name="id_1" value="<?php echo $id_1?>">
-      <br><label for="id_2">ID 2</label><input type="text" class="id" name="id_2" value="<?php echo $id_2?>">
-      <br><label for="id_3">ID 3</label><input type="text" class="id" name="id_3" value="<?php echo $id_3?>">
-      <br><label for="id_4">ID 4</label><input type="text" class="id" name="id_4" value="<?php echo $id_4?>">
-      <br><label for="id_5">ID 5</label><input type="text" class="id" name="id_5" value="<?php echo $id_5?>">
+      <br><label for="LTE_1">ID 1</label><input type="text" class="id" name="LTE_1" value="<?php echo $LTE_1?>">
+      <br><label for="LTE_2">ID 2</label><input type="text" class="id" name="LTE_2" value="<?php echo $LTE_2?>">
+      <br><label for="LTE_3">ID 3</label><input type="text" class="id" name="LTE_3" value="<?php echo $LTE_3?>">
+      <br><label for="LTE_4">ID 4</label><input type="text" class="id" name="LTE_4" value="<?php echo $LTE_4?>">
+      <br><label for="LTE_5">ID 5</label><input type="text" class="id" name="LTE_5" value="<?php echo $LTE_5?>">
       <br><label for="carrier">Carrier</label><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>">
       <br><label for="latitude">Latitude</label><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>">
       <br><label for="longitude">Longitude</label><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>">

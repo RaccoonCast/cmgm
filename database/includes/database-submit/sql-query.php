@@ -3,16 +3,16 @@
 $date_added = date("Y-m-d");
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$sql = "INSERT INTO database_db (`date_added`,`id_1`,`id_2`,`id_3`,`id_4`,`id_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
+$sql = "INSERT INTO database_db (`date_added`,`lte_1`,`lte_2`,`lte_3`,`lte_4`,`lte_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
       `permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
       `contact_permit_carrier`,`archival_antenna_addition`,`only_reasonable_location`,`carrier_multiple`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
-                        '".mysqli_real_escape_string($conn, $id_1)."',
-                        '".mysqli_real_escape_string($conn, $id_2)."',
-                        '".mysqli_real_escape_string($conn, $id_3)."',
-                        '".mysqli_real_escape_string($conn, $id_4)."',
-                        '".mysqli_real_escape_string($conn, $id_5)."',
+                        '".mysqli_real_escape_string($conn, $LTE_1)."',
+                        '".mysqli_real_escape_string($conn, $LTE_2)."',
+                        '".mysqli_real_escape_string($conn, $LTE_3)."',
+                        '".mysqli_real_escape_string($conn, $LTE_4)."',
+                        '".mysqli_real_escape_string($conn, $LTE_5)."',
                         '".mysqli_real_escape_string($conn, $carrier)."',
                         '".mysqli_real_escape_string($conn, $latitude)."',
                         '".mysqli_real_escape_string($conn, $longitude)."',

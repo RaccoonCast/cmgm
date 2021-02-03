@@ -16,8 +16,12 @@ if (isset($_GET['delete_confirmed'])) {
   mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
   echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 }
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
+cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
+contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
 
-$sql = "SELECT * FROM database_db WHERE row_id = $row_id;";
+$sql = "SELECT $database_get_list FROM database_db WHERE row_id = $row_id;";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -31,10 +35,10 @@ $result = mysqli_query($conn, $sql);
   <th>RowID</th>
   <th>Date Added</th>
   <th>ID</th>
-  <th>ID_2</th>
-  <th>ID_3</th>
-  <th>ID_4</th>
-  <th>ID_5</th>
+  <th>LTE_2</th>
+  <th>LTE_3</th>
+  <th>LTE_4</th>
+  <th>LTE_5</th>
   <th>Carrier</th>
   <th>Latitude</th>
   <th>Longitude</th>
@@ -73,11 +77,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                   switch ($sepCount) {
                     case 1:  $row_id = $value; break;
                     case 2:  $date_added = $value; break;
-                    case 3:  $id_1 = $value; break;
-                    case 4:  $id_2 = $value; break;
-                    case 5:  $id_3 = $value; break;
-                    case 6:  $id_4 = $value; break;
-                    case 7:  $id_5 = $value; break;
+                    case 3:  $LTE_1 = $value; break;
+                    case 4:  $LTE_2 = $value; break;
+                    case 5:  $LTE_3 = $value; break;
+                    case 6:  $LTE_4 = $value; break;
+                    case 7:  $LTE_5 = $value; break;
                     case 8:  $carrier = $value; break;
                     case 9:  $latitude = $value; break;
                     case 10:  $longitude = $value; break;
@@ -107,11 +111,11 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 <tr>
   <td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
   <td><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>"></td>
-  <td><input type="text" class="id_1" name="id_1" value="<?php echo $id_1?>"></td>
-  <td><input type="text" class="id_2" name="id_2" value="<?php echo $id_2?>"></td>
-  <td><input type="text" class="id_3" name="id_3" value="<?php echo $id_3?>"></td>
-  <td><input type="text" class="id_4" name="id_4" value="<?php echo $id_4?>"></td>
-  <td><input type="text" class="id_5" name="id_5" value="<?php echo $id_5?>"></td>
+  <td><input type="text" class="LTE_1" name="LTE_1" value="<?php echo $LTE_1?>"></td>
+  <td><input type="text" class="LTE_2" name="LTE_2" value="<?php echo $LTE_2?>"></td>
+  <td><input type="text" class="LTE_3" name="LTE_3" value="<?php echo $LTE_3?>"></td>
+  <td><input type="text" class="LTE_4" name="LTE_4" value="<?php echo $LTE_4?>"></td>
+  <td><input type="text" class="LTE_5" name="LTE_5" value="<?php echo $LTE_5?>"></td>
   <td><input type="text" class="carrier" name="carrier" value="<?php echo $carrier?>"></td>
   <td><input type="text" class="latitude" name="latitude" value="<?php echo $latitude?>"></td>
   <td><input type="text" class="longitude" name="longitude" value="<?php echo $longitude?>"></td>

@@ -16,7 +16,7 @@
          <p>Longitude: </p>
          <input type="text" name="longitude" id="longitude" required>
          <p>Carrier: </p>
-         <select class="fakeinput dropdown" autocomplete="on" name="carrier">
+         <select class="custominput dropdown" autocomplete="on" name="carrier">
         <option value="T-Mobile">T-Mobile</option>
         <option value="ATT">AT&T</option>
         <option value="Verizon">Verizon</option>

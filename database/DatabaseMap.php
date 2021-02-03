@@ -33,7 +33,13 @@ long = <?php echo $longitude?>;
 
   include 'includes/databasemap/get-get-queries.php';
 
-$sql = "SELECT * FROM database_db $sub1 $sub2";
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
+cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
+contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
+
+$sql = "SELECT $database_get_list FROM database_db $sub1 $sub2";
+
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
 
@@ -44,11 +50,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 switch ($sepCount) {
   case 1:  $row_id = $value; break;
   case 2:  $date_added = $value; break;
-  case 3:  $id_1 = $value; break;
-  case 4:  $id_2 = $value; break;
-  case 5:  $id_3 = $value; break;
-  case 6:  $id_4 = $value; break;
-  case 7:  $id_5 = $value; break;
+  case 3:  $LTE_1 = $value; break;
+  case 4:  $LTE_2 = $value; break;
+  case 5:  $LTE_3 = $value; break;
+  case 6:  $LTE_4 = $value; break;
+  case 7:  $LTE_5 = $value; break;
   case 8:  $carrier = $value; break;
   case 9:  $lat = $value; break;
   case 10:  $long = $value; break;

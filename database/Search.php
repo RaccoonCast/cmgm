@@ -13,7 +13,7 @@
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
 		       <p>the carrier is</p>
-           <select class="fakeinput dropdown" autocomplete="on" name="carrier">
+           <select class="custominput dropdown" autocomplete="on" name="carrier">
              <option value=""> </option>
            <?php
             if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
@@ -23,7 +23,7 @@
             ?>
           </select>
 		 <p>the eNB id is</p>
-		 <textarea class="fakeinput" rows="1" cols="30" maxlength="30"  placeholder="" name="id_1"></textarea>
+		 <textarea class="custominput" rows="1" cols="30" maxlength="30"  placeholder="" name="LTE_1"></textarea>
 		 <br>
       <input type="submit" class="submitbutton" value="Submit">
     </form>
