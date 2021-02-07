@@ -6,7 +6,7 @@
      <?php include '../functions.php';?>
    </head>
    <body>
-     <div style="margin: 8px;">
+     <div class="body">
      <?php
 
      // Ctrl+v paste images
@@ -15,15 +15,8 @@
       // The cell site at? ... Make sure latitude and longitude show up in get query
       include  "includes/database-form/cellsite-at.php";
 
-      echo '<div id="map" position="relative;">';
-
-      if(isMobile()){
-        mapWithPin($latitude,$longitude,"21","380px","150px");
-      } else {
-        mapWithPin($latitude,$longitude,"21","480px","300px");
-      }
-
-      echo '</div>';
+      // Map with
+      include  "includes/database-form/mapWithPin.php";
 
       // The carrier is...? Multiple?
       include  "includes/database-form/carrier.php";

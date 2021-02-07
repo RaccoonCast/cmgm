@@ -10,8 +10,7 @@
 
    <footer>
      <a class="footerlink" onclick="copyToClipboard('<?php echo $address;?>')" href="<?php echo $pmlink?>">Permits</a>
-     <a class="footerlink" target="_blank" href="<?php echo $dblink?>">Database Map</a>
-     <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">Google Maps</a>
-     <a class="footerlink" target="_blank" href="<?php echo $gm2link?>">LA Permits Map</a>
+     <a class="footerlink" target="_blank" href="<?php echo $dblink?>">Maps</a>
+     <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">GMaps</a>
+     <a class="footerlink" target="_blank" href="<?php echo $gm2link?>">Permits Map</a>
   </footer>
- </div>

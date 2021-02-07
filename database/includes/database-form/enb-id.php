@@ -1,15 +1,13 @@
 <div id="enbID">
   <p>eNB ID:  <a style="white-space: nowrap; font-size: 14px;" href="#" id="extraENBID" name="id" onclick="myFunction();">Add Multiple</a></p>
-</div><br>
-<textarea class="custominput enbIDbox" id="enbIDbox1" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_1"></textarea>
+</div>
+<textarea class="custominput inlineBlock" id="enbIDbox1" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_1"></textarea>
 <span style="display: none;" id="multipleIds">
-<textarea class="custominput enbIDbox" id="enbIDbox2" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_2"></textarea>
-<br>
-<textarea class="custominput enbIDbox" id="enbIDbox3" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_3"></textarea>
-<textarea class="custominput enbIDbox" id="enbIDbox4" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_4"></textarea>
-<br>
-<textarea class="custominput enbIDbox" id="enbIDbox5" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_5"></textarea>
-<textarea class="custominput enbIDbox" id="enbIDbox6" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_6"></textarea>
+<textarea class="custominput inlineBlock" id="enbIDbox2" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_2"></textarea><br>
+<textarea class="custominput inlineBlock" id="enbIDbox3" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_3"></textarea>
+<textarea class="custominput inlineBlock" id="enbIDbox4" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_4"></textarea><br>
+<textarea class="custominput inlineBlock" id="enbIDbox5" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_5"></textarea>
+<textarea class="custominput inlineBlock" id="enbIDbox6" rows="1" cols="30" maxlength="7" placeholder="" name="LTE_6"></textarea>
 </span>
 <?php if(isMobile()){
   ?>
