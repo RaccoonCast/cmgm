@@ -3,9 +3,9 @@
    <head>
      <?php include "functions.php";
      if(isMobile()){
-       echo '<link rel="stylesheet" href="styles/Hub/mobile.css">';
+       echo '<link rel="stylesheet" href="styles/Home/mobile.css">';
      } else {
-       echo '<link rel="stylesheet" href="styles/Hub/desktop.css">';
+       echo '<link rel="stylesheet" href="styles/Home/desktop.css">';
      }
      ?>
    </head>
