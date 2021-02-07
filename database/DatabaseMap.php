@@ -33,7 +33,7 @@ long = <?php echo $longitude?>;
 
   include 'includes/databasemap/get-get-queries.php';
 
-$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,verified,evidence_score,
 evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
 contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
@@ -63,26 +63,28 @@ switch ($sepCount) {
   case 13:  $state = $value; break;
   case 14:  $address = $value; break;
   case 15:  $bio = $value; break;
-  case 16:  $evidence_score = $value; break;
-  case 17:  $evidence_link = $value; break;
-  case 18:  $photo_link = $value; break;
-  case 19:  $attached_file_link = $value; break;
-  case 20:  $permit_cellsite = $value; break;
-  case 21:  $permit_suspected_carrier = $value; break;
-  case 22:  $trails_match = $value; break;
-  case 23:  $other_carriers_dont = $value; break;
-  case 24:  $antennas_match_carrier = $value; break;
-  case 25:  $cellmapper_triangulation = $value; break;
-  case 26:  $image_evidence = $value; break;
-  case 27:  $verified_by_visit = $value; break;
-  case 28:  $sector_split_match = $value; break;
-  case 29:  $contact_permit_carrier = $value; break;
-  case 30:  $archival_antenna_addition = $value; break;
-  case 31:  $only_reasonable_location = $value; break;
-  case 32:  $carrier_multiple = $value;
+  case 16:  $verified = $value; break;
+  case 17:  $evidence_score = $value; break;
+  case 18:  $evidence_link = $value; break;
+  case 19:  $photo_link = $value; break;
+  case 20:  $attached_file_link = $value; break;
+  case 21:  $permit_cellsite = $value; break;
+  case 22:  $permit_suspected_carrier = $value; break;
+  case 23:  $trails_match = $value; break;
+  case 24:  $other_carriers_dont = $value; break;
+  case 25:  $antennas_match_carrier = $value; break;
+  case 26:  $cellmapper_triangulation = $value; break;
+  case 27:  $image_evidence = $value; break;
+  case 28:  $verified_by_visit = $value; break;
+  case 29:  $sector_split_match = $value; break;
+  case 30:  $contact_permit_carrier = $value; break;
+  case 31:  $archival_antenna_addition = $value; break;
+  case 32:  $only_reasonable_location = $value; break;
+  case 33:  $carrier_multiple = $value;
+
 ?>
 var customPopup = "<?php $url = "databasemap-popup.php?row_id=$row_id"; echo '<iframe frameBorder=\"0\" src=\"'.$url.'\">';?>";
-L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: icon}).bindPopup(customPopup).addTo(mymap); <?php
+L.marker([<?php echo $lat;?>,<?php echo $long;?>], {icon: <?php echo $verified ?>Verified}).bindPopup(customPopup).addTo(mymap); <?php
 break;
             }
     }
