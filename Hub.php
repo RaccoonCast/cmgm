@@ -34,7 +34,7 @@
          <?php
        }
      }
-      hubLatLong("HubFindlater.php","#F80000","Findlater","_self");
+    //  hubLatLong("HubFindlater.php","#F80000","Findlater","_self");
       hubLatLong("HubDatabase.php","#00ccff","Database","_self");
       hubLatLong("cm.php","#5DC904","CellMapper","_blank");
       hubLatLong("gmaps.php","#4185FA","Google Maps","_blank");
