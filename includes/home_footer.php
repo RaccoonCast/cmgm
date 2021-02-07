@@ -1,18 +1,27 @@
-<div class="footer">
-<a id="findlater">FindlaterDB</a>
-<a id="database">DatabaseDB</a>
-</div>
-<script>
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+<footer>
+    <a class="footerlink" id="database">Database</a>
+</footer>
 
-function showPosition(position) {
-  var href_fl = "findlater/FindlaterDB.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
-  var href_db = "database/DatabaseDB.php?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
-  var yourElement_fl = document.getElementById("findlater");
-  var yourElement_db = document.getElementById("database");
-  yourElement_fl.setAttribute("href", href_fl);
-  yourElement_db.setAttribute("href", href_db);
+<script>
+// this will get overwritten if GPS is working
+var cookie_latitude = "<?php echo $cookie_latitude?>"
+var cookie_longitude = "<?php echo $cookie_longitude?>"
+
+var href_db = "database/DatabaseDB.php?latitude=" + cookie_latitude + "&longitude=" + cookie_longitude;
+var yourElement_db = document.getElementById("database");
+yourElement_db.setAttribute("href", href_db);
+
+
+if (navigator.geolocation) {
+  function showPosition(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var href_db = "database/DatabaseDB.php?latitude=" + latitude + "&longitude=" + longitude;
+    var yourElement_db = document.getElementById("database");
+    yourElement_db.setAttribute("href", href_db);
+  }
+  navigator.geolocation.getCurrentPosition(showPosition);
 }
-}
+
+
 </script>
