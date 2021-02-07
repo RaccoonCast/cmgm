@@ -1,43 +1,21 @@
-/* Submit & Locate button */
+.flex {
+padding-top: 10px;
+padding-bottom: 10px;
+text-align: center;
+}
 .submitbutton {
-  border-radius: 15px;
-  background: #444444fb;
-  border: none;
-  width: 48.8%;
-  height: 69px;
+  width: 85%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-size: 2em;
 }
-/* Input textbox */
-#txtresult {
-  border-radius: 17px;
-  background-color: #505050;
-  border: 2px solid #505050;
-  width: 97.6%;
+.special-button {
+  width: 42.4%;
+  padding: 12px;
+  font-size: 1.85em;
 }
-input {
-  height: 102px;
-  font-size: 1.8em!important;
-}
-p {
-font-size: 2em;
-margin-block-start: 0em;
-margin-block-end: 0.3em;
-}
-body {
-	font-display: swap;
-	font-family: 'Regular', Fallback, sans-serif;
-}
-form {
-margin-top: 3px !important;
-margin: 0;
-}
-.footer {
-  font-size: 1.5em;
-  position: fixed;
-  top: 96%;
-  left: 56%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-.buttons {
-padding-top: 15px;
+.textbox {
+  width: 77.55%;
+  padding: 12px;
+  font-size: 2em;
 }

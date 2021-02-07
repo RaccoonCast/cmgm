@@ -1,7 +1,7 @@
 <?php
    $latitude = substr("$latitude", 0, 9);
    $longitude = substr("$longitude", 0, 10);
-   $pmlink = "../Hub.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
+   $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
    $dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude&zoom=19";
    $gm2link = "https://www.google.com/maps/d/u/0/viewer?hl=en&mid=1_69xTUt-g1MITj7lMs1oaCwKl1YuQ4nh&ll=$latitude%2C$longitude&z=19";
    $gmlink = "../gmaps.php?latitude=$latitude&longitude=$longitude";

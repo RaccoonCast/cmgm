@@ -60,7 +60,7 @@ $longitude = substr($longitude,0,10);
 if(!isset($gjson_url_1)) $gjson_url_1 = null;
 if(!isset($zip)) $zip = null;
 if(!isset($address)) $address = null;
-echo '<meta http-equiv="refresh" content="0; url=Hub.php
+echo '<meta http-equiv="refresh" content="0; url=Home.php
 ?latitude=' . $latitude .
 '&longitude=' . $longitude .
 '&carrier=' . $carrier .

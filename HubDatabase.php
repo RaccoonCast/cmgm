@@ -19,7 +19,7 @@
        hubLatLong("database/Search.php","#e31bdc","Search","_self");
        hubLatLong("database/DatabaseMap.php","#E9A623","Database Map","_blank");
        hubLatLong("comparison-mode/index.php","#6aa3a3","Comparison Mode","_self");
-       hubLatLong("\Hub.php","#00000","Back","_self");
+       hubLatLong("\Home.php","#00000","Back","_self");
      }
 ?>
 <!-- Put latitude & longitude & carrier & zoom from URL bar into next form automatically -->
