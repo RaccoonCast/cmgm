@@ -70,15 +70,17 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       $beginning = "?MCC=310&MNC=410";
                     } elseif ("$carrier" == "Verizon") {
                       $beginning = "?MCC=311&MNC=480";
-                    } else {
-                      $beginning = "?MCC=310&MNC=260";
                     }
+
+                      if (empty($LTE_1)) $LTE_1 = "CellMapper";
+
                       $cellmapper_net_url = "https://www.cellmapper.net/map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-                        if(!empty($LTE_1))   ?> <a target="_blank" href="<?php echo $cellmapper_net_url ?>"><p class="widget"><?php echo $LTE_1?> </p>   <?php
-                        if(!empty($LTE_2)) { ?> <p class="widget"><?php echo "& " . $LTE_2 ?></p>     <?php }
-                        if(!empty($LTE_3)) { ?> <p class="widget"><?php echo "& " . $LTE_3 ?></p>     <?php }
-                        if(!empty($LTE_4)) { ?> <p class="widget"><?php echo "& " . $LTE_4 ?></p>     <?php }
-                        if(!empty($LTE_5)) { ?> <p class="widget"><?php echo "& " . $LTE_5 ?></p></a> <?php }
+                        if(!empty($LTE_1)) ?> <a class="widget" target="_blank" href="<?php echo $cellmapper_net_url ?>"><?php echo $LTE_1?><?php
+                        if(!empty($LTE_2)) { echo " & " . $LTE_2; }
+                        if(!empty($LTE_3)) { echo " & " . $LTE_3; }
+                        if(!empty($LTE_4)) { echo " & " . $LTE_4; }
+                        if(!empty($LTE_5)) { echo " & " . $LTE_5; }
+                        if(!empty($LTE_6)) { echo " & " . $LTE_6; } ?> </a> <?php
                         echo "<br>";
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
