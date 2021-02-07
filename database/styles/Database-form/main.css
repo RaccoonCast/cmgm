@@ -1,0 +1,31 @@
+/* footer */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.footerlink {
+ color: #babab8;
+ font-size: 18px;
+ padding-left: 19px;
+ }
+footer {
+	border-top: 2px solid #a6a6a4;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 6px;
+  background-color: #dededc;
+}
+/* font face and the code to make shit on the same line */
+@font-face {
+	font-family: 'Regular';
+	src: URL('../styles/fonts/lato-Regular.ttf') format('truetype');
+}
+.inlineBlock {
+	display: inline-block;
+}
+body {
+	font-display: swap;
+	font-family: 'Regular', Fallback, sans-serif;
+}

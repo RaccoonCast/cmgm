@@ -1,12 +1,10 @@
 .custominput {
 	height: 25px;
 	width: 100%;
-  font-size: 1em;
 	resize: none;
+  font-size: 1em;
 }
 .dropdown {
-	margin-top: 0px;
-	margin-bottom: 0px;
 	height: 35px;
 	width: 100%;
 }
@@ -27,39 +25,11 @@ p {
 }
 body {
   font-size: 1.1em;
-	font-display: swap;
-	font-family: 'Regular', Fallback, sans-serif;
-}
-@font-face {
-	font-family: 'Regular';
-	src: URL('../styles/fonts/lato-Regular.ttf') format('truetype');
-}
-.footer {
-  font-size: 1.5em;
-  position: fixed;
-  top: 97%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-/* footer */
-html, body {
-    margin: 0;
-    padding: 0;
-}
-.footerlink {
- color: #babab8;
- font-size: 18px;
- }
-footer {
-	border-top: 3px solid #a6a6a4;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 3px;
-  background-color: #d4d3d2;
 }
 #map {
 	padding-bottom: 12px;
+}
+/* Margin for the page so it doesn't look squeezed, remember we turned off margin for the footer */
+.body {
+	margin: 5px;
 }
