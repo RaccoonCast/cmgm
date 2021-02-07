@@ -17,16 +17,6 @@
         <div class="buttons">
             <input type="submit" class="submitbutton" id="homepage-submit-button"  style="color: #000000;"  value="Submit">
 		      <input type="button" class="submitbutton" value="Locate" style="color: #00000;" onclick="myFunction()">
-          <!-- beta testing -->
-          <?php
-          $gt_latitude = towerInfoGet("latitude","80874","T-Mobile");
-          $gt_zip = towerInfoGet("zip","80874","T-Mobile");
-          // $gt_ev = calculateEV("ev","87651","T-Mobile");
-          // recalculatEVs("4,1");
-
-          // $gt_evidence_score = calculateEV("175059","T-Mobile");
-          // echo $gt_ev;
-          ?>
    </div>
       </form>
       <!-- Latitude & longitude get script -->

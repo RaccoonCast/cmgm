@@ -33,7 +33,7 @@ body {
 }
 @font-face {
 	font-family: 'Regular';
-	src: URL('../font/lato-Regular.ttf') format('truetype');
+	src: URL('../styles/fonts/lato-Regular.ttf') format('truetype');
 }
 .footer_link {
   font-size: 1.5em;
@@ -43,32 +43,3 @@ body {
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
-input.date{
-
-  float:left;
-	position: relative;
-  height: 25px;
-	padding-top: 10px;
-	width: 100%;
-	color: transparent;
-}
-input.date:before {
-	color: #009e00;
-  font-size: 1em;
-	content: attr(data-date);
-}
-input.date::-webkit-datetime-edit, input.date::-webkit-inner-spin-button, input.date::-webkit-clear-button {
-	display: none;
-}
-input.date::-webkit-calendar-picker-indicator {
-  width: 25px;
-	top: 10px;
-  height: 25px;
-  position: absolute;
-	right: 0;
-	color: black;
-	opacity: 1;
-}
-
-
-/* INPUT DATE */

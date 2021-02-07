@@ -7,7 +7,7 @@ $username = 'cmgm';
 $password = 'My$QLP@$$w0rd';
 $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$gt_sql = "SELECT latitude,longitude FROM database_db WHERE id='$gt_id' AND carrier='$gt_carrier'";
+$gt_sql = "SELECT latitude,longitude FROM database_db WHERE LTE_1ss='$gt_id' AND carrier='$gt_carrier'";
 $result = mysqli_query($conn, $gt_sql);
       while ($row = mysqli_fetch_assoc($result)) {
 
