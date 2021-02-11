@@ -33,3 +33,9 @@ body {
 .body {
 	margin: 5px;
 }
+.carrier-custom-width {
+	width: 32.25%!important;
+}
+.cellsite-type-custom-width {
+	width: 66.25%!important;
+}
