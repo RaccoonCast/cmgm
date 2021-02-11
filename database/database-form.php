@@ -36,7 +36,7 @@
       // Bio/extra notes?
       include "includes/database-form/bio.php";
 
-      ?> <input type="submit" class="submitbutton" value="Submit"></div> <?php
+      ?> <input type="submit" class="submitbutton" value="Submit"></div><br><br> <?php
 
       // Get footer
       include  "includes/database-form/footer.php";

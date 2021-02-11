@@ -1,15 +1,15 @@
 .custominput {
 	height: 22px;
-	width: 32%;
+	width: 48.25%;
   font-size: 1em;
 	resize: none;
 	padding-bottom: 3px;
 }
 .carrier-custom-width {
-	width: 8%!important;
+	width: 12.25%!important;
 }
 .cellsite-type-custom-width {
-	width: 24%!important;
+	width: 36.25%!important;
 }
 label {
 	font-size: 17px;
