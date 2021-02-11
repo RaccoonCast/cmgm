@@ -1,18 +1,28 @@
 <?php
-// Create connection
+
 $date_added = date("Y-m-d");
 
+// Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$sql = "INSERT INTO database_db (`date_added`,`lte_1`,`lte_2`,`lte_3`,`lte_4`,`lte_5`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,`photo_link`,`attached_file_link`,
-      `permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,
-      `contact_permit_carrier`,`archival_antenna_addition`,`only_reasonable_location`,`carrier_multiple`)
+$sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`lte_1`,`lte_2`,`lte_3`,`lte_4`,`lte_5`,`lte_6`,`nr_1`,`nr_2`,`pci_match`,
+      `id_pattern_match`,`sector_match`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`evidence_score`,`evidence_link`,
+      `photo_link`,`attached_file_link`,`permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,
+      `cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`contact_permit_carrier`,`archival_antenna_addition`,
+      `only_reasonable_location`,`carrier_multiple`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
+                        '".mysqli_real_escape_string($conn, $cellsite_type)."',
                         '".mysqli_real_escape_string($conn, $LTE_1)."',
                         '".mysqli_real_escape_string($conn, $LTE_2)."',
                         '".mysqli_real_escape_string($conn, $LTE_3)."',
                         '".mysqli_real_escape_string($conn, $LTE_4)."',
                         '".mysqli_real_escape_string($conn, $LTE_5)."',
+                        '".mysqli_real_escape_string($conn, $LTE_6)."',
+                        '".mysqli_real_escape_string($conn, $NR_1)."',
+                        '".mysqli_real_escape_string($conn, $NR_2)."',
+                        '".mysqli_real_escape_string($conn, $pci_match)."',
+                        '".mysqli_real_escape_string($conn, $id_pattern_match)."',
+                        '".mysqli_real_escape_string($conn, $sector_match)."',
                         '".mysqli_real_escape_string($conn, $carrier)."',
                         '".mysqli_real_escape_string($conn, $latitude)."',
                         '".mysqli_real_escape_string($conn, $longitude)."',
@@ -44,7 +54,5 @@ if($dont_create == 'false') {
   mysqli_close($conn);
   }
 
-//echo $sql;
-
-echo '<meta http-equiv="refresh" content="1;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 ?>

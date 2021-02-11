@@ -5,7 +5,7 @@ if('ATT' == '' . $carrier . '') { echo '<option selected="selected" value="ATT">
 if('Verizon' == '' . $carrier . '') { echo '<option selected="selected" value="Verizon">Verizon</option>';} else { echo '<option value="Verizon">Verizon</option>';}
 if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
 ?>
-</select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type">
+</select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
 <option style="display:none" disabled selected="selected"></option>
 <option value="macro">Macro tower</option>
 <option value="micro">Micro tower</option>
@@ -15,6 +15,7 @@ if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sp
 <option value="monopine">Monopine</option>
 <option value="pole">Pole</option>
 <option value="utility">Power line structure</option>
+<option value="unknown">Unknown</option>
 </select>
 <!-- Multiple? -->
 
