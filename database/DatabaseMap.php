@@ -33,12 +33,14 @@ long = <?php echo $longitude?>;
 
   include 'includes/databasemap/get-get-queries.php';
 
+$database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
+
 $database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,verified,evidence_score,
 evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
 contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
 
-$sql = "SELECT $database_get_list FROM database_db $sub1 $sub2";
+$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $sub1 $sub2 ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
