@@ -3,9 +3,10 @@
   <meta charset="utf-8">
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-   <?php include '../functions.php';
+   <?php
    $zoom = 14;
-   if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
+   include '../functions.php';
+   include 'includes/databasemap/get-get-queries.php';
    ?>
 </head>
 <body class="body">
@@ -31,11 +32,10 @@ long = <?php echo $longitude?>;
     include 'includes/databasemap/iconsize-desktop.php';
   }
 
-  include 'includes/databasemap/get-get-queries.php';
 
 $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,verified,evidence_score,
+$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,current_state,evidence_score,
 evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
 contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
