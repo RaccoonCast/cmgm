@@ -1,10 +1,10 @@
-var verifiedVerified = L.icon({
+var unverifiedVerified = L.icon({
     iconUrl: '../images/red.png',
     iconSize: [20, 20], // size of the icon
     popupAnchor: [0, -15]
 });
 
-var unverifiedVerified = L.icon({
+var verifiedVerified = L.icon({
     iconUrl: '../images/green.png',
     iconSize: [20, 20], // size of the icon
     popupAnchor: [0, -15]
