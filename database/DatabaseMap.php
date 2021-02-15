@@ -7,6 +7,8 @@
    $zoom = 14;
    include '../functions.php';
    include 'includes/databasemap/get-get-queries.php';
+   if (empty($limit)) $limit = "250";
+   // todo: sep limit for mobile/desktop
    ?>
 </head>
 <body class="body">
@@ -35,10 +37,7 @@ long = <?php echo $longitude?>;
 
 $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,status,evidence_score,
-evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
-cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
-contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
+$database_get_list = "row_id,latitude,longitude,status";
 
 $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $sub1 $sub2 ORDER BY distance LIMIT $limit";
 
@@ -51,38 +50,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 switch ($sepCount) {
   case 1:  $row_id = $value; break;
-  case 2:  $date_added = $value; break;
-  case 3:  $LTE_1 = $value; break;
-  case 4:  $LTE_2 = $value; break;
-  case 5:  $LTE_3 = $value; break;
-  case 6:  $LTE_4 = $value; break;
-  case 7:  $LTE_5 = $value; break;
-  case 8:  $carrier = $value; break;
-  case 9:  $lat = $value; break;
-  case 10:  $long = $value; break;
-  case 11:  $city = $value; break;
-  case 12:  $zip = $value; break;
-  case 13:  $state = $value; break;
-  case 14:  $address = $value; break;
-  case 15:  $bio = $value; break;
-  case 16:  $verified = $value; break;
-  case 17:  $evidence_score = $value; break;
-  case 18:  $evidence_link = $value; break;
-  case 19:  $photo_link = $value; break;
-  case 20:  $attached_file_link = $value; break;
-  case 21:  $permit_cellsite = $value; break;
-  case 22:  $permit_suspected_carrier = $value; break;
-  case 23:  $trails_match = $value; break;
-  case 24:  $other_carriers_dont = $value; break;
-  case 25:  $antennas_match_carrier = $value; break;
-  case 26:  $cellmapper_triangulation = $value; break;
-  case 27:  $image_evidence = $value; break;
-  case 28:  $verified_by_visit = $value; break;
-  case 29:  $sector_split_match = $value; break;
-  case 30:  $contact_permit_carrier = $value; break;
-  case 31:  $archival_antenna_addition = $value; break;
-  case 32:  $only_reasonable_location = $value; break;
-  case 33:  $carrier_multiple = $value;
+  case 2:  $lat = $value; break;
+  case 3:  $long = $value; break;
+  case 4:  $status = $value;
 
 ?>
 var customPopup = "<?php echo '<iframe frameBorder=\"0\" src=\"databasemap-popup.php?row_id='.$row_id.'\">';?>";
