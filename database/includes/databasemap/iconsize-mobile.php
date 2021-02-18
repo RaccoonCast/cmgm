@@ -1,11 +1,17 @@
-var unverifiedVerified = L.icon({
+var unverified = L.icon({
     iconUrl: '../images/red.png',
     iconSize: [16, 16], // size of the icon
     popupAnchor: [0, -15]
 });
 
-var verifiedVerified = L.icon({
+var verified = L.icon({
     iconUrl: '../images/green.png',
+    iconSize: [16, 16], // size of the icon
+    popupAnchor: [0, -15]
+});
+
+var special = L.icon({
+    iconUrl: '../images/yellow.png',
     iconSize: [16, 16], // size of the icon
     popupAnchor: [0, -15]
 });
