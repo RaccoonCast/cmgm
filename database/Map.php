@@ -21,8 +21,8 @@ lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
 
-function marker(latitude,longitude,status,row_id) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"databasemap-popup.php?row_id=' + row_id + '\">';
+function marker(latitude,longitude,status,id) {
+  var customPopup = '<iframe frameBorder=\"0\" src=\"databasemap-popup.php?id=' + id + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
@@ -48,7 +48,7 @@ function marker(latitude,longitude,status,row_id) {
 
 $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-$database_get_list = "row_id,latitude,longitude,status";
+$database_get_list = "id,latitude,longitude,status";
 
 $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $sub1 $sub2 ORDER BY distance LIMIT $limit";
 
@@ -60,17 +60,13 @@ while ($row = mysqli_fetch_assoc($result)) {
       $sepCount = ($colCount++);
 
 switch ($sepCount) {
-  case 1:  $row_id = $value; break;
+  case 1:  $id = $value; break;
   case 2:  $lat = $value; break;
   case 3:  $long = $value; break;
   case 4:  $status = $value;
 
 ?>
-<?php if (empty($status)) {
-  $status = "unverified";
-}
-?>
-marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $row_id?>);
+marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
 
 <?php
 break;
