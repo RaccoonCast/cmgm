@@ -37,7 +37,7 @@ if (!empty($LTE_1)) {
 if (isset($_GET['latitude'])) $latitude = $_GET['latitude'];
 if (isset($_GET['longitude'])) $longitude = $_GET['longitude'];
 
-$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+$database_get_list = "id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
 evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
 contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
@@ -68,7 +68,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
       $sepCount = ($colCount++);
 
                   switch ($sepCount) {
-                    case 1:  $row_id = $value; break;
+                    case 1:  $id = $value; break;
                     case 2:  $date_added = $value; break;
                     case 3:  $LTE_1 = $value; break;
                     case 4:  $LTE_2 = $value; break;
@@ -103,8 +103,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo nl2br("<td>" . $LTE_1. "</td>");
                     echo nl2br("<td>" . $carrier . "</td>");
                     echo nl2br('<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>');
-                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?row_id='.$row_id.'">🔧</a></center>');
-                    echo nl2br('<center><a class="hide-underline" href="Delete.php?row_id='.$row_id.'">❌</a></center></td>');
+                    echo nl2br('<td><center><a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a></center>');
+                    echo nl2br('<center><a class="hide-underline" href="Delete.php?id='.$id.'">❌</a></center></td>');
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
                        $evidence_link = "uploads/$evidence_link";
