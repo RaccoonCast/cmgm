@@ -7,26 +7,26 @@
 <body>
 <?php
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$row_id = $_GET['row_id'];
+$id = $_GET['id'];
 
 // THIS CODE ONLY GETS RUN AFTER CONFIRMATION
 
 if (isset($_GET['delete_confirmed'])) {
-  $sql = "DELETE FROM `cmgm`.`database_db` WHERE  `row_id`=" . $row_id . ";";
+  $sql = "DELETE FROM `cmgm`.`database_db` WHERE  `id`=" . $id . ";";
   mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
   echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 }
-$database_get_list = "row_id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
+$database_get_list = "id,date_added,lte_1,lte_2,lte_3,lte_4,lte_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
 evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
 contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
 
-$sql = "SELECT $database_get_list FROM database_db WHERE row_id = $row_id;";
+$sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
 ?>
 
 <form action="Delete.php" id="form1" method="get">
-  <input type="hidden" name="row_id" value="<?php echo $row_id?>">
+  <input type="hidden" name="id" value="<?php echo $id?>">
   <input type="hidden" name="delete_confirmed" value="true">
   <table border="0">
 <table border="0">
@@ -75,7 +75,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
     foreach ($row as $field => $value) {
       $sepCount = ($colCount++);
                   switch ($sepCount) {
-                    case 1:  $row_id = $value; break;
+                    case 1:  $id = $value; break;
                     case 2:  $date_added = $value; break;
                     case 3:  $LTE_1 = $value; break;
                     case 4:  $LTE_2 = $value; break;
@@ -109,7 +109,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 32:  $carrier_multiple = $value;
 ?>
 <tr>
-  <td><input type="text" class="row_id" name="row_id" value="<?php echo $row_id?>"></td>
+  <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
   <td><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>"></td>
   <td><input type="text" class="LTE_1" name="LTE_1" value="<?php echo $LTE_1?>"></td>
   <td><input type="text" class="LTE_2" name="LTE_2" value="<?php echo $LTE_2?>"></td>

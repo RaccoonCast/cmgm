@@ -1,7 +1,7 @@
 <?php
 // Cast's Awesome API (CAAPI)
-$db_get_list = "row_id,latitude,longitude";
-$db_variables = "row_id > 0";
+$db_get_list = "id,latitude,longitude";
+$db_variables = "id > 0";
 include '../includes/functions/sqlpw.php';
 
 foreach($_GET as $key => $value){
