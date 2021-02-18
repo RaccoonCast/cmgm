@@ -25,6 +25,7 @@
   } elseif ("$city" == "Pasadena") { redir("https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx","0");
   } elseif ("$city" == "Paramount") { redir("https://paramount.portal.iworq.net/paramount/permits/600","0");
   } elseif ("$city" == "San Diego") { redir("https://opendsd.sandiego.gov/web/approvals/","0");
+  } elseif ("$city" == "San Gabriel") { redir("http://blrenewals.sangabrielcity.com/weblink/browse.aspx?dbid=0","0");
   } elseif ("$city" == "Whittier") {
     echo "The majority of shit is under LA County.";
     echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
