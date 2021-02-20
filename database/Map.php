@@ -8,6 +8,7 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script><?php
    $zoom = 14;
+   if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
    include '../functions.php';
    include 'includes/map/get-get-queries.php';
    if (empty($limit)) $limit = "250";

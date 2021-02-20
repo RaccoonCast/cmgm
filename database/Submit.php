@@ -6,7 +6,7 @@ include "../functions.php";
 include  "includes/submit/get-textbox-values.php";
 
 // Check if data already in database
-include  "includes/submit/dup-check.php";
+include  "includes/submit/duplicate-check.php";
 
 // Calculate evidence scores
 include  "includes/submit/evidence-scores.php";
