@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 }
               }
 
-$dblink = "DatabaseMap.php?latitude=$latitude&longitude=$longitude&carrier=$carrier";
+$dblink = "map.php?latitude=$latitude&longitude=$longitude&carrier=$carrier";
 
 
 if (!mysqli_num_rows($result) == 0) {

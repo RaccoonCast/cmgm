@@ -9,7 +9,7 @@
     crossorigin=""></script><?php
    $zoom = 14;
    include '../functions.php';
-   include 'includes/databasemap/get-get-queries.php';
+   include 'includes/map/get-get-queries.php';
    if (empty($limit)) $limit = "250";
    // todo: sep limit for mobile/desktop
    ?>
@@ -22,7 +22,7 @@ long = <?php echo $longitude?>;
 
 
 function marker(latitude,longitude,status,id) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"databasemap-popup.php?id=' + id + '\">';
+  var customPopup = '<iframe frameBorder=\"0\" src=\"map-popup.php?id=' + id + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
@@ -40,9 +40,9 @@ function marker(latitude,longitude,status,id) {
 
  <?php
   if(isMobile()){
-    include 'includes/databasemap/iconsize-mobile.php';
+    include 'includes/map/iconsize-mobile.php';
   } else {
-    include 'includes/databasemap/iconsize-desktop.php';
+    include 'includes/map/iconsize-desktop.php';
   }
 
 

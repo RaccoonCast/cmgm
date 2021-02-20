@@ -11,15 +11,16 @@
    </head>
    <body class="flex">
      <?php
-     if (empty($latitude)) {
-       header('Location: https://cmgm.gq/');
-     } else {
+     include "includes/functions/prettyInfoDisplay.php";
+     if (!empty($latitude)) {
        //The buttons
-       hubLatLong("database/database-form.php","#F80000","Database","_self");
+       hubLatLong("database/form.php","#F80000","Database","_self");
        hubLatLong("database/Search.php","#e31bdc","Search","_self");
-       hubLatLong("database/DatabaseMap.php","#E9A623","Database Map","_blank");
+       hubLatLong("database/map.php","#E9A623","Database Map","_blank");
        hubLatLong("comparison-mode/index.php","#6aa3a3","Comparison Mode","_self");
-       hubLatLong("\Home.php","#00000","Back","_self");
+       hubLatLong("..\Home.php","#00000","Back","_self");
+     } else {
+       header('Location: https://cmgm.gq/');
      }
 ?>
 <!-- Put latitude & longitude & carrier & zoom from URL bar into next form automatically -->
