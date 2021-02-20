@@ -1,5 +1,5 @@
 <?php
-$url = "database-form.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
+$url = "Form.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
 
  ?>
 <form action="<?php $url?>" name="image_upload" method="post">

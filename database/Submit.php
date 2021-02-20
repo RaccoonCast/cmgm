@@ -2,15 +2,15 @@
 // Regular functions
 include "../functions.php";
 
-// Get textbox values from database-form.php
-include  "includes/database-submit/get-textbox-values.php";
+// Get textbox values from form.php
+include  "includes/submit/get-textbox-values.php";
 
 // Check if data already in database
-include  "includes/database-submit/dup-check.php";
+include  "includes/submit/dup-check.php";
 
 // Calculate evidence scores
-include  "includes/database-submit/evidence-scores.php";
+include  "includes/submit/evidence-scores.php";
 
 // Compute SQL queries
-include  "includes/database-submit/sql-query.php";
+include  "includes/submit/sql-query.php";
 ?>

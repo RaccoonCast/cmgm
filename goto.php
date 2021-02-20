@@ -7,6 +7,7 @@ if (!empty($_GET['state'])) { $state = $_GET['state']; }
 if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
 if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
+  echo 'ERROR: $goto_page variable was not set.';
   die();
 }
 if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
@@ -27,4 +28,5 @@ latitude=' . $latitude .
 '">';
 } else {
   echo 'ERROR: "' . $goto_page . '" does not have a specified redirect page.';
+  die();
 }

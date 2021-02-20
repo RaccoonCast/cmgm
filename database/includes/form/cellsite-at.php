@@ -6,7 +6,7 @@ echo '<a style="display: inline-block;" title="' . $address . ', ' . $city . ', 
 ?>
 <p style="display: inline-block;">,</p>
 <p style="display: inline-block;"> it is a</p>
-   <form action="database-submit.php" method="get">
+   <form action="Submit.php" method="get">
 <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
 <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
 <input type="hidden" name="zip" value="<?php echo $zip;?>">
