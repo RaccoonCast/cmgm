@@ -1,7 +1,8 @@
 <?php
+include 'includes/functions/sqlpw.php';
+include 'includes/allow_addr/checkIP.php';
 include 'includes/functions/isMobile.php';
 include 'includes/functions/css.php';
-include 'includes/functions/sqlpw.php';
 include 'includes/functions/headhtml.php';
 include 'includes/functions/redir.php';
 include 'includes/functions/towerInfoGet.php';
