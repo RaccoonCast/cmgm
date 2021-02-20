@@ -13,7 +13,8 @@ function showPosition(position) {
 
 function locateMe() {
 
-<?php if (isset($cookie_location) & isset($cookie_longitude)) { ?>
+<?php
+if (isset($cookie_latitude) && isset($cookie_longitude)) { ?>
   function error(err) {
   var cookie_latitude = "<?php echo $cookie_latitude?>"
   var cookie_longitude = "<?php echo $cookie_longitude?>"

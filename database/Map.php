@@ -23,7 +23,7 @@ long = <?php echo $longitude?>;
 
 
 function marker(latitude,longitude,status,id) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"map-popup.php?id=' + id + '\">';
+  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
