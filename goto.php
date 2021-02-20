@@ -9,15 +9,15 @@ if (!empty($_GET['address'])) { $address = $_GET['address']; }
 if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
   die();
 }
-if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php";
-if ($goto_page == "CellMapper") $goto_page_URL = "cm.php";
-if ($goto_page == "Google Maps") $goto_page_URL = "gmaps.php";
-if ($goto_page == "LA Permit Map") $goto_page_URL = "gmaps-special.php";
-if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php";
-if ($goto_page == "Home") $goto_page_URL = "Home.php";
+if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
+if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
+if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
+if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
+if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
+if ($goto_page == "Home") $goto_page_URL = "Home.php?";
 if (isset($goto_page_URL)) {
 echo '<meta http-equiv="refresh" content="0; url=' . $goto_page_URL . '
-?latitude=' . $latitude .
+latitude=' . $latitude .
 '&longitude=' . $longitude .
 '&carrier=' . $carrier .
 '&address=' . $address .
