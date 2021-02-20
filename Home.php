@@ -20,7 +20,7 @@
          <input type="textbox" name="data" onClick="changeFormAction();" onfocusout="submit()" id="txtresult" class="textbox"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
-         <input type="hidden" name="carrier" value="<?php if (isset($_GET['carrier'])) echo $carrier;?>">
+         <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
          <input type="hidden" name="address" value="<?php echo $address;?>">
          <input type="hidden" name="zip" value="<?php echo $zip;?>">
          <input type="hidden" name="city" value="<?php echo $city;?>">

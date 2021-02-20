@@ -22,12 +22,12 @@ elseif( strpos($data, ',') !== false ) { include "includes/convert/lat,long.php"
 include 'includes/convert/google-maps-conversion.php';
 
 // Misc code, trim lat&long, get carrier from cookie if set, prevent warnings if certain variables aren't set (They don't need to be)
-if(!isset($carrier)) $carrier = $_COOKIE["carrier"];
+if(!isset($carrier)) if(isset($_COOKIE["carrier"])) $carrier = $_COOKIE["carrier"];
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
-if(!isset($gjson_url_1)) $gjson_url_1 = null;
-if(!isset($zip)) $zip = null;
-if(!isset($address)) $address = null;
+if(empty($carrier)) $carrier = null;
+if(empty($zip)) $zip = null;
+if(empty($address)) $address = null;
 
 // URL Builder 3.0 /s
 echo '<meta http-equiv="refresh" content="0; url=' . $goto_page . '
@@ -38,8 +38,6 @@ echo '<meta http-equiv="refresh" content="0; url=' . $goto_page . '
 '&zip=' . $zip .
 '&city=' . $city .
 '&state=' . $state .
-'&gjson_url_1=' . $gjson_url_1 .
-'&gjson_url_2=' . $gjson_url_2 .
 '&data=' . $data .
 '&conv_type=' . $conv_type .
 '">';

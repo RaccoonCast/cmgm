@@ -5,3 +5,5 @@ database/uploads
 u/*.*
 secret-sql-login.hiddenpass
 includes/functions/id_list.txt
+secret-ip-whitelist-pass.hiddenpass
+maps_api_key.hiddenpass

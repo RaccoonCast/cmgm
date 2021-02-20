@@ -16,6 +16,11 @@ if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_pag
 if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
 if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
 if ($goto_page == "Home") $goto_page_URL = "Home.php?";
+if(empty($carrier)) $carrier = null;
+if(empty($zip)) $zip = null;
+if(empty($address)) $address = null;
+
+
 if (isset($goto_page_URL)) {
 echo '<meta http-equiv="refresh" content="0; url=' . $goto_page_URL . '
 latitude=' . $latitude .

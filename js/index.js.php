@@ -13,12 +13,19 @@ function showPosition(position) {
 
 function locateMe() {
 
-function error(err) {
+<?php if (isset($cookie_location) & isset($cookie_longitude)) { ?>
+  function error(err) {
   var cookie_latitude = "<?php echo $cookie_latitude?>"
   var cookie_longitude = "<?php echo $cookie_longitude?>"
   var url = "convert.php?data=" + cookie_latitude + "," + cookie_longitude;
   window.location = url;
-}
+} <?php
+} else { ?>
+  var cookie_latitude = "38.89951743540001"
+  var cookie_longitude = "-77.03655226691319"
+  var url = "convert.php?data=" + cookie_latitude + "," + cookie_longitude;
+  window.location = url; <?php
+}?>
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(showPosition_2, error);

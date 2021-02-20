@@ -8,8 +8,6 @@ if (!empty($_GET['zip'])) { $zip = $_GET['zip']; }
 if (!empty($_GET['state'])) { $state = $_GET['state']; }
 if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
-if (!empty($_GET['gjson_url_1'])) { $gjson_url_1 = $_GET['gjson_url_1']; }
-if (!empty($_GET['gjson_url_2'])) { $gjson_url_2 = $_GET['gjson_url_2']; }
 if (!empty($_GET['data'])) { $data = $_GET['data']; }
 if (!empty($_GET['conv_type'])) { $conv_type = $_GET['conv_type']; }
 ?>
