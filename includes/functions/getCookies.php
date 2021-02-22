@@ -1,7 +1,5 @@
 <?php
 // Warnings if cookies not set
-if (isset($_COOKIE["debug"])) $debug = "true";
-
 if (empty($maps_api_key)) {
 } else {
   if (!isset($maps_api_key)) $maps_api_key = $_COOKIE["api_key"];

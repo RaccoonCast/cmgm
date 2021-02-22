@@ -1,4 +1,10 @@
-<select class="custominput carrier-custom-width dropdown" autocomplete="on" name="carrier">
+<select class="custominput status-custom-width dropdown" autocomplete="on" name="status" required>
+<option value="verified">Verified</option>
+<option value="unverified">Unverified</option>
+<option value="unverified">Unmapped</option>
+<option value="special">Special</option>
+<option value="weird">Weird</option>
+</select><select class="custominput carrier-custom-width dropdown" autocomplete="on" name="carrier">
 <?php
 if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
 if('ATT' == '' . $carrier . '') { echo '<option selected="selected" value="ATT">AT&T</option>';} else { echo '<option value="ATT">AT&T</option>';}
@@ -22,6 +28,6 @@ if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sp
 <div style="padding-top: 5px; padding-bottom: 5px;">
 <input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
 <label for="multiple_carriers">Multiple carriers</label><br>
-<input type="checkbox" id="status" name="status" value="true" checked>
+<input type="checkbox" id="status" name="status" value="verified" checked>
 <label for="status">Verified</label><br>
 </div>

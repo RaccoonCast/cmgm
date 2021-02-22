@@ -2,6 +2,15 @@
 
 $date_added = date("Y-m-d");
 
+
+if(empty($pci_match)) $pci_match = null;
+if(empty($id_pattern_match)) $id_pattern_match = null;
+if(empty($sector_split_match)) $sector_split_match = null;
+if(empty($photo_link)) $photo_link = null;
+if(empty($sector_match)) $sector_match = null;
+if(empty($attached_file_link)) $attached_file_link = null;
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`lte_1`,`lte_2`,`lte_3`,`lte_4`,`lte_5`,`lte_6`,`nr_1`,`nr_2`,`pci_match`,
@@ -50,10 +59,8 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`lte_1`,`lte_2`,`l
                         '".mysqli_real_escape_string($conn, $only_reasonable_location)."',
                         '".mysqli_real_escape_string($conn, $carrier_multiple)."');  ";
 
-if($dont_create == 'false') {
-  mysqli_query($conn, $sql);
-  mysqli_close($conn);
-  }
+mysqli_query($conn, $sql);
+mysqli_close($conn);
 
 echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 ?>

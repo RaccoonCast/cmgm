@@ -5,11 +5,14 @@
 	resize: none;
 	padding-bottom: 3px;
 }
+.status-custom-width {
+	width: 6.96969%!important;
+}
 .carrier-custom-width {
-	width: 12.25%!important;
+	width: 8.25%!important;
 }
 .cellsite-type-custom-width {
-	width: 36.25%!important;
+	width: 33.25%!important;
 }
 label {
 	font-size: 17px;

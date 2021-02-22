@@ -9,7 +9,7 @@
    <body>
       <?php
          ?>
-      <form action="DatabaseDB.php" method="get">
+      <form action="DB.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
 		       <p>the carrier is</p>

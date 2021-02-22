@@ -5,7 +5,7 @@ $cmlink = "https://www.cellmapper.net/map?latitude=$latitude&longitude=$longitud
 echo '<a style="display: inline-block;" title="' . $address . ', ' . $city . ', ' . $state . ' ' . $zip . '" href="'.$cmlink.'" target="_blank">' . substr($latitude, 0, 7) . ' '  . substr($longitude, 0, 9) . '</a>';
 ?>
 <p style="display: inline-block;">,</p>
-<p style="display: inline-block;"> it is a</p>
+<p style="display: inline-block;"> there is a</p>
    <form action="Submit.php" method="get">
 <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
 <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
