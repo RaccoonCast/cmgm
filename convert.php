@@ -39,5 +39,4 @@ echo '<meta http-equiv="refresh" content="0; url=' . $goto_page . '
 '&city=' . $city .
 '&state=' . $state .
 '&data=' . $data .
-'&conv_type=' . $conv_type .
 '">';

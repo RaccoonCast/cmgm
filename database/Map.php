@@ -8,11 +8,13 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script><?php
    $zoom = 14;
-   if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
    include '../functions.php';
+   if(isMobile()){
+     $limit = "385";
+   } else {
+     $limit = "775";
+   }
    include 'includes/map/get-get-queries.php';
-   if (empty($limit)) $limit = "250";
-   // todo: sep limit for mobile/desktop
    ?>
 </head>
 <body class="body">

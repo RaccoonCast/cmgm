@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <?php
-  include '../functions.php';
-   ?>
+  <?php include '../functions.php' ?>
+  <script src="../js/redirAtPos.js"></script>
 </head>
 <body class="body">
 <?php
@@ -94,6 +93,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                         echo ("<a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>");
                         echo "<br>";
                       }
+                      echo ('<a href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18" target="_top">View map here</a>');
+                      // todo:// find some to auto populate fields like carrier, status similiar to how we do for api/getTowers.php
+                      echo "<br>";
                       if (!empty($bio)) {
                       echo ("<p>" . $bio . "</p>");
                     }
