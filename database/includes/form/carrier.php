@@ -20,7 +20,10 @@ if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sp
 <option value="monopalm">Monopalm</option>
 <option value="monopine">Monopine</option>
 <option value="pole">Pole</option>
-<option value="utility">Power line structure</option>
+<option value="water_tower">Water tower</option>
+<option value="guyed_tower">Guyed tower</option>
+<option value="utility">Large power line structure</option>
+<option value="other">Other</option>
 <option value="unknown">Unknown</option>
 </select>
 <!-- Multiple? -->
