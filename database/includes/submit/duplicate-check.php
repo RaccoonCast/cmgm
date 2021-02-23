@@ -4,7 +4,7 @@ if(!isset($_GET['status'])) $status = "unverifed";
 if ($status == "verified") {
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND lte_1 = '$LTE_1')";
+$sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND LTE_1 = '$LTE_1')";
 
 $result = mysqli_query($conn, $sql);
 

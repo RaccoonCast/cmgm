@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 }
 
 // Database column names
-$list = array('date_added', 'lte_1', 'lte_2', 'lte_3', 'lte_4', 'lte_5', 'lte_6', 'nr_1', 'nr_2', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state',
+$list = array('date_added', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'nr_1', 'nr_2', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state',
 'address', 'bio', 'evidence_score', 'evidence_link', 'photo_link', 'attached_file_link', 'permit_cellsite', 'permit_suspected_carrier',
 'trails_match', 'other_carriers_dont', ' antennas_match_carrier', 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit',
 'sector_split_match', 'contact_permit_carrier', 'archival_antenna_addition', 'only_reasonable_location', 'carrier_multiple');
