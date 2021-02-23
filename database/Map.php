@@ -51,7 +51,7 @@ $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIA
 
 $database_get_list = "id,latitude,longitude,status";
 
-$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $sub1 $sub2 ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {

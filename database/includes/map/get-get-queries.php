@@ -1,19 +1,11 @@
 <?php
-$sub1 = ""; $sub2 = "";
-if (isset($_GET['carrier'])) $carrier = $_GET['carrier'];
-if (isset($_GET['LTE_1'])) $LTE_1 = $_GET['LTE_1'];
-if (isset($_GET['limit'])) $limit = $_GET['limit'];
-if (isset($_GET['zoom'])) $zoom = $_GET['zoom'];
+$db_variables = "id > 0";
 
-if (!empty($carrier)) {
-  $sub1 = "WHERE carrier='$carrier'";
-}
-
-if (!empty($LTE_1)) {
-  if (empty($sub1)) {
-    $sub2 = "WHERE LTE_1='$LTE_1'";
+foreach($_GET as $key => $value){
+  if ($key == "latitude" OR $key == "longitude" OR $key == "address" OR $key == "zip" OR $key == "city" OR $key == "state") {
+    ${$key} = $value;
   } else {
-    $sub2 = "AND LTE_1='$LTE_1'";
+    $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
   }
 }
 ?>
