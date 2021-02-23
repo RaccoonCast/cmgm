@@ -1,6 +1,6 @@
 <?php
 // SQL Login Information
-include "../includes/functions/sqlpw.php";
+include "../includes/functions/basic-functions.php";
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
 } else {

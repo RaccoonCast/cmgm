@@ -22,7 +22,7 @@ if($gt_antennas_match_carrier == 'true') $gt_evidence_score = ($gt_evidence_scor
 if($gt_cellmapper_triangulation == 'true') $gt_evidence_score = ($gt_evidence_score) + (2);
 if($gt_image_evidence == 'true') $gt_evidence_score = ($gt_evidence_score) + (10);
 if($gt_verified_by_visit == 'true') $gt_evidence_score = ($gt_evidence_score) + (5);
-if($gt_sector_split_match == 'true') $gt_evidence_score = ($gt_evidence_score) + (7 );
+if($gt_sector_split_match == 'true') $gt_evidence_score = ($gt_evidence_score) + (7);
 if($gt_contact_permit_carrier == 'true') $gt_evidence_score = ($gt_evidence_score) + (10);
 if($gt_archival_antenna_addition == 'true') $gt_evidence_score = ($gt_evidence_score) + (3);
 if($gt_only_reasonable_location == 'true') $gt_evidence_score = ($gt_evidence_score) + (3);

@@ -1,18 +1,8 @@
-.flex {
-padding-top: 10px;
-padding-bottom: 10px;
-text-align: center;
-}
 .submitbutton {
   width: 85%;
   padding-top: 25px;
   padding-bottom: 25px;
   font-size: 2em;
-}
-.special-button {
-  width: 42.4%;
-  padding: 12px;
-  font-size: 1.85em;
 }
 .textbox {
   width: 77.55%;

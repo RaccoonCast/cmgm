@@ -1,6 +1,6 @@
 <?php
 // Regular functions
-include "../functions.php";
+include "../includes/functions/basic-functions.php";
 
 // Get textbox values from form.php
 include  "includes/submit/get-textbox-values.php";

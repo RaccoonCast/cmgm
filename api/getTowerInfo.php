@@ -1,6 +1,6 @@
 <?php
 // Cast's Awesome API (CAAPI)
-include '../includes/functions/sqlpw.php';
+include '../includes/functions/basic-functions.php';
 
 $database_get_list = $_GET['properties'];
 $database_id = $_GET['id'];

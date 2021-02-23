@@ -2,7 +2,7 @@
 if (file_exists("id_list.txt")) {
   unlink("id_list.txt");
 }
-include 'sqlpw.php';
+include 'basic-functions.php';
 include 'redir.php';
 
 $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6 FROM database_db;";

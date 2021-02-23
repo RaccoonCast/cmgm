@@ -1,6 +1,4 @@
 <?php
-
-
 function towerPosGet($gt_id,$gt_carrier) {
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
@@ -21,7 +19,6 @@ $result = mysqli_query($conn, $gt_sql);
             }
           }
         }
-//echo $gt_longitude;
 return $gt_longitude;
 }
 ?>

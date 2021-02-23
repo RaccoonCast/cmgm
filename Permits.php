@@ -1,5 +1,4 @@
-<script src="js/permit-copy.js"></script>
-  <?php
+<?php
   if (isset($_GET['permit_redirect'])) {
   if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal/","0");
   } elseif ("$city" == "Temple City") { redir("https://templecity.quickbase.com/db/bph9nwjs2?a=q&qid=1","0");

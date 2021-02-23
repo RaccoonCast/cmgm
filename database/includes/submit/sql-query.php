@@ -1,7 +1,5 @@
 <?php
-
 $date_added = date("Y-m-d");
-
 
 if(empty($pci_match)) $pci_match = null;
 if(empty($id_pattern_match)) $id_pattern_match = null;
@@ -9,7 +7,6 @@ if(empty($sector_split_match)) $sector_split_match = null;
 if(empty($photo_link)) $photo_link = null;
 if(empty($sector_match)) $sector_match = null;
 if(empty($attached_file_link)) $attached_file_link = null;
-
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

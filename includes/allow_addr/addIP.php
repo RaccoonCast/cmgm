@@ -7,7 +7,7 @@ if (isset($_POST['pass']) & isset($_POST['ip'])) {
   $password = $_POST['pass'];
   $add_ip = $_POST['ip'];
   if ($password == $the_password) {
-    include '../functions/sqlpw.php';
+    include '../functions/basic-functions.php';
     $sql = "INSERT INTO allowIP (`allowIP`) VALUES ('".mysqli_real_escape_string($conn, $get_ip)."');  ";
       mysqli_query($conn, $sql);
       mysqli_close($conn);
