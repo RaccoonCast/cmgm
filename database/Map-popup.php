@@ -42,10 +42,10 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18:  $evidence_link = $value; break;
                     case 19:  $photo_link = $value; break;
                     case 20:  $attached_file_link = $value;
-                    echo nl2br("<p class=" . "widget" .">Database ID: " . $id . "   </p>");
+                    echo nl2br("<p class=" . "widget" . ">" . $carrier . " ( DB ID: " . $id . " )</p>");
+                    echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18">🌎</a>');
                     echo nl2br('<a target=_blank class="widget widget_emote" href="Edit.php?id='.$id.'">🔧</a>');
-                    echo nl2br('<a target=_blank class="widget widget_emote" href="Delete.php?id='.$id.'">❌</a>');
-                    echo ("<p>" . $carrier . "</p>");
+                    echo nl2br('<a target=_blank class="widget widget_emote" href="Delete.php?id='.$id.'">❌</a><br>');
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
                     } elseif ("$carrier" == "Sprint") {
@@ -69,9 +69,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
                       $recalcEV = calculateEV($LTE_1,$carrier);
-                      echo ("<p>Evidence Score: " . $evidence_score . "</p>");
-                      echo ("<p>Recalculated EV Score: " . $recalcEV . "</p>");
-
+                      if (!empty($recalcEV)) {
+                      echo ("<p>Evidence Score: " . $recalcEV . " ( Old: " . $evidence_score . " )</p>");
+                      }
 
                       if(substr($evidence_link, 0, 14) == "image-evidence") {
                          $evidence_link = "uploads/$evidence_link";
@@ -81,9 +81,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                         echo ("<a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>");
                         echo "<br>";
                       }
-                      echo ('<a href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18" target="_top">View map here</a>');
                       // todo:// find some to auto populate fields like carrier, status similiar to how we do for api/getTowers.php
-                      echo "<br>";
                       if (!empty($bio)) {
                       echo ("<p>" . $bio . "</p>");
                     }

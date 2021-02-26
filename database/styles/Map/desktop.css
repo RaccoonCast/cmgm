@@ -15,3 +15,17 @@ padding:0;
 .body::-webkit-scrollbar {
     display: none;
 }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-content, iframe {
+	min-height: 180px!important;
+	max-width: 280px!important;
+}
+.leaflet-popup-content-wrapper {
+    padding: 0.04%;
+    text-align: left;
+    border-radius: 7px;
+}
+.leaflet-popup-content {
+    margin: 6px 9px;
+    line-height: 1.4;
+}

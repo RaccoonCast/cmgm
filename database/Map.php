@@ -26,7 +26,7 @@ long = <?php echo $longitude?>;
 
 function marker(latitude,longitude,status,id,url_suffix) {
   var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + url_suffix + '\">';
-  L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup).addTo(mymap).on('click', function(e) {
+  L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup,customOptions).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
 }
@@ -40,6 +40,12 @@ function marker(latitude,longitude,status,id,url_suffix) {
       zoomOffset: 0,
       accessToken: 'pk.eyJ1IjoicmFjY29vbmNhc3QiLCJhIjoiY2s3YjZ0cDViMDM3ODNncnlwdWY5M2VudCJ9.X_icvui90_cQLuP3VjG7BA'
   }).addTo(mymap);
+
+  // specify popup options
+  var customOptions =
+      {
+      'className' : 'custom'
+      }
 
  <?php
   if(isMobile()){
