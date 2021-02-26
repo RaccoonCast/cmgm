@@ -1,4 +1,5 @@
 <?php
+include 'includes/functions/sqlpw.php';
 include 'includes/functions/basic-functions.php';
 include 'includes/allow_addr/checkIP.php';
 include 'includes/functions/css.php';

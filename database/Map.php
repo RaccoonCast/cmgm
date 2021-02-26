@@ -24,8 +24,8 @@ lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
 
-function marker(latitude,longitude,status,id) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + '\">';
+function marker(latitude,longitude,status,id,url_suffix) {
+  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + url_suffix + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
@@ -69,7 +69,7 @@ switch ($sepCount) {
   case 4:  $status = $value;
 
 ?>
-marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
+marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo $url_suffix ?>");
 
 <?php
 break;

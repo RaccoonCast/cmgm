@@ -1,8 +1,9 @@
 <?php
 function towerPosGet($gt_id,$gt_carrier) {
+$siteroot = $_SERVER['DOCUMENT_ROOT'];
 $servername = 'mysql.cmgm.gq';
 $username = 'cmgm';
-$password = 'My$QLP@$$w0rd';
+$password = file_get_contents($siteroot . "/secret-sql-login.hiddenpass", true);
 $dbname = 'cmgm';
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $gt_sql = "SELECT latitude,longitude FROM database_db WHERE LTE_1ss='$gt_id' AND carrier='$gt_carrier'";
