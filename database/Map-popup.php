@@ -11,7 +11,6 @@ $id = $_GET['id'];
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
 evidence_link,photo_link,attached_file_link";
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
 

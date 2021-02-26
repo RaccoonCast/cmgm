@@ -9,7 +9,6 @@ if(empty($sector_match)) $sector_match = null;
 if(empty($attached_file_link)) $attached_file_link = null;
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
       `id_pattern_match`,`sector_match`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_score`,`evidence_link`,
       `photo_link`,`attached_file_link`,`permit_cellsite`,`permit_suspected_carrier`,`trails_match`,`other_carriers_dont`,`antennas_match_carrier`,

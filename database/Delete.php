@@ -6,7 +6,6 @@
 </head>
 <body>
 <?php
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 $id = $_GET['id'];
 
 // THIS CODE ONLY GETS RUN AFTER CONFIRMATION

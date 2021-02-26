@@ -3,7 +3,6 @@
 <?php include "../functions.php"; ?>
 </head>
 <?php
-$conn = mysqli_connect($servername, $username, $password, $dbname);
 $id = $_GET['id'];
 
 if (isset($latitude)) {

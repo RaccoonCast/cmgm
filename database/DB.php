@@ -5,20 +5,17 @@
 </head>
 <body>
 <?php
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
 $limit = 600;
 
 $db_variables = "id > 0";
 
 foreach($_GET as $key => $value){
-  if ($key == "latitude" OR $key == "longitude" OR $key == "LTE_1" OR $key == "carrier") {
+  if ($key == "latitude" OR $key == "longitude") {
     ${$key} = $value;
   } else {
     $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
   }
 }
-
 $database_get_list = "id,LTE_1,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,evidence_link";
 
 $sql = "SELECT DISTINCT $database_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
@@ -59,7 +56,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 10:  $bio = $value; break;
                     case 11:  $evidence_score = $value; break;
                     case 12:  $evidence_link = $value;
-                    echo "<td>" . $LTE_1. "</td>";
+                    echo "<td>" . $LTE_1 . "</td>";
                     echo "<td>" . $carrier . "</td>";
                     echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
                     echo '<td style="text-align: center;"><a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a><br>';
