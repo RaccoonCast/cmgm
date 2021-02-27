@@ -16,9 +16,9 @@ if (isset($_GET['delete_confirmed'])) {
   echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 }
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
-evidence_link,photo_link,attached_file_link,permit_cellsite,permit_suspected_carrier,trails_match,other_carriers_dont, antennas_match_carrier,
+evidence_link,photo_link,attached_file_link,permit_score,trails_match,carriers_dont_trail_match, antennas_match_carrier,
 cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,
-contact_permit_carrier,archival_antenna_addition,only_reasonable_location,carrier_multiple";
+archival_antenna_addition,only_reasonable_location,alt_carriers_here";
 
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -93,19 +93,17 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 17:  $evidence_link = $value; break;
                     case 18:  $photo_link = $value; break;
                     case 19:  $attached_file_link = $value; break;
-                    case 20:  $permit_cellsite = $value; break;
-                    case 21:  $permit_suspected_carrier = $value; break;
-                    case 22:  $trails_match = $value; break;
-                    case 23:  $other_carriers_dont = $value; break;
-                    case 24:  $antennas_match_carrier = $value; break;
-                    case 25:  $cellmapper_triangulation = $value; break;
-                    case 26:  $image_evidence = $value; break;
-                    case 27:  $verified_by_visit = $value; break;
-                    case 28:  $sector_split_match = $value; break;
-                    case 29:  $contact_permit_carrier = $value; break;
-                    case 30:  $archival_antenna_addition = $value; break;
-                    case 31:  $only_reasonable_location = $value; break;
-                    case 32:  $carrier_multiple = $value;
+                    case 20:  $permit_score = $value; break;
+                    case 21:  $trails_match = $value; break;
+                    case 22:  $carriers_dont_trail_match = $value; break;
+                    case 23:  $antennas_match_carrier = $value; break;
+                    case 24:  $cellmapper_triangulation = $value; break;
+                    case 25:  $image_evidence = $value; break;
+                    case 26:  $verified_by_visit = $value; break;
+                    case 27:  $sector_split_match = $value; break;
+                    case 28:  $archival_antenna_addition = $value; break;
+                    case 29:  $only_reasonable_location = $value; break;
+                    case 30:  $alt_carriers_here = $value;
 ?>
 <tr>
   <td><input type="text" class="id" name="id" value="<?php echo $id?>"></td>
@@ -127,10 +125,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
   <td><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"></td>
   <td><input type="text" class="photo_link" name="photo_link" value="<?php echo $photo_link?>"></td>
   <td><input type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>"></td>
-  <td><input type="text" class="permit_cellsite" name="permit_cellsite" value="<?php echo $permit_cellsite?>"></td>
-  <td><input type="text" class="permit_suspected_carrier" name="permit_suspected_carrier" value="<?php echo $permit_suspected_carrier?>"></td>
+  <td><input type="text" class="permit_score" name="permit_score" value="<?php echo $permit_score?>"></td>
   <td><input type="text" class="trails_match" name="trails_match" value="<?php echo $trails_match?>"></td>
-  <td><input type="text" class="other_carriers_dont" name="other_carriers_dont" value="<?php echo $other_carriers_dont?>"></td>
+  <td><input type="text" class="carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>"></td>
   <td><input type="text" class="antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>"></td>
   <td><input type="text" class="cellmapper_triangulation" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>"></td>
   <td><input type="text" class="image_evidence" name="image_evidence" value="<?php echo $image_evidence?>"></td>
@@ -139,7 +136,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
   <td><input type="text" class="contact_permit_carrier" name="contact_permit_carrier" value="<?php echo $contact_permit_carrier?>"></td>
   <td><input type="text" class="archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>"></td>
   <td><input type="text" class="only_reasonable_location" name="only_reasonable_location" value="<?php echo $only_reasonable_location?>"></td>
-  <td><input type="text" class="carrier_multiple" name="carrier_multiple" value="<?php echo $carrier_multiple?>"></td>
+  <td><input type="text" class="alt_carriers_here" name="alt_carriers_here" value="<?php echo $alt_carriers_here?>"></td>
  <?php
                                 break;
                           }

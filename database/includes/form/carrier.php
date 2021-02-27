@@ -27,8 +27,3 @@ if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sp
 <option value="unknown">Unknown</option>
 </select>
 <!-- Multiple? -->
-
-<div style="padding-top: 5px; padding-bottom: 5px;">
-<input type="checkbox" id="multiple_carriers" name="carrier_multiple" value="true">
-<label for="multiple_carriers">Multiple carriers</label>
-</div>
