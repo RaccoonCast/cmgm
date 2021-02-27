@@ -52,5 +52,5 @@ if ("$carrier" == "T-Mobile") {
 if (isset($_GET['zoom'])) {
 ?>
 <a href="https://www.cellmapper.net/map<?php echo $beginning?>&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&zoom=<?php echo $zoom?>&showTowerLabels=false&clusterEnabled=false">CellMapper</a>
-<a href="https://cmgm.gq/database/map.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&zoom=<?php echo $zoom?>">Database Map</a>
+<a href="https://cmgm.gq/database/Map.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&zoom=<?php echo $zoom?>">Database Map</a>
 <?php } ?>
