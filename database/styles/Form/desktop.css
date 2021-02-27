@@ -38,10 +38,17 @@ p {
 body {
   font-size: 1.35em;
 }
+output {
+	font-size: 0.75em;
+}
 #map {
 	float: right;
 }
 /* Margin for the page so it doesn't look squeezed, remember we turned off margin for the footer */
 .body {
 	margin: 8px;
+}
+input[type=range]
+{
+    width: 95px !important;
 }
