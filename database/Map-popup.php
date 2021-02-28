@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       }
 
                       if (!empty($evidence_link)) {
-                        echo ("<br><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a><br>");
+                        echo ("<a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a><br>");
                       }
                       // todo:// find some to auto populate fields like carrier, status similiar to how we do for api/getTowers.php
                       if (!empty($bio)) {

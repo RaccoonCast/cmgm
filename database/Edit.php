@@ -52,7 +52,8 @@ $result->close(); $conn->close();
   <div id="panel1">
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
     <label for="date_added">Creation Date</label><input type="text" class="date_added" name="date_added" value="<?php echo $date_added?>">
-    <br><label for="cellsite_type">Type of cellsite</label><input type="text" class="cellsite_type" name="cellsite_type" value="<?php echo $cellsite_type?>">
+    <br><label for="cellsite_type">Type of cellsite</label>
+    <input type="text" class="cellsite_type" name="cellsite_type" value="<?php echo $cellsite_type?>">
     <br><label for="LTE_1">eNB ID (1)</label><input type="text" class="LTE_1" name="LTE_1" value="<?php echo $LTE_1?>">
     <br><label for="LTE_2">eNB ID (2)</label><input type="text" class="LTE_2" name="LTE_2" value="<?php echo $LTE_2?>">
     <br><label for="LTE_3">eNB ID (3)</label><input type="text" class="LTE_3" name="LTE_3" value="<?php echo $LTE_3?>">
@@ -70,10 +71,10 @@ $result->close(); $conn->close();
     <br><label for="city">City</label><input type="text" class="city" name="city" value="<?php echo $city?>">
     <br><label for="zip">Zip</label><input type="text" class="zip" name="zip" value="<?php echo $zip?>">
     <br><label for="state">State</label><input type="text" class="state" name="state" value="<?php echo $state?>">
-    <br><label for="address">Address</label><input type="text" class="address" name="address" value="<?php echo $address?>">
   </div>
-<div id="panel2">
-    <label for="bio">Bio</label><input type="text" class="bio" name="bio" value="<?php echo $bio?>">
+  <div id="panel2">
+    <label for="address">Address</label><input type="text" class="address" name="address" value="<?php echo $address?>">
+    <br><label for="bio">Bio</label><input type="text" class="bio" name="bio" value="<?php echo $bio?>">
     <br><label for="tags">Tags</label><input type="text" class="tags" name="tags" value="<?php echo $tags?>">
     <br><label for="status">Status</label><input type="text" class="status" name="status" value="<?php echo $status?>">
     <br><label for="evidence_link">Evidence Link</label><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">

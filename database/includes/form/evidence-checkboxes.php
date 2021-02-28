@@ -1,24 +1,44 @@
 <br>
-    <!-- NEW - sliders -->
-    <input type="range" value="0" min="0" max="3" oninput="this.nextElementSibling.value = this.value">
+    <!-- How many other carriers have equipment here too? -->
+    <input name="alt_carriers_here" type="range" value="0" min="0" max="3" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label> other carriers have antennas here too</label><br>
-    <input type="range" value="0" min="0" max="3" step="1" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- How many recognizable antenna upgrades can be seen -->
+    <input name="archival_antenna_addition" type="range" value="0" min="0" max="3" step="1" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label> expected antennas upgrades can be seen for specified carrier</label><br><p></p>
-    <input type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Permit matches carrier -->
+    <input name="permit_score" type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that the permit/document <abbr title="If it does not list the exact carrier do 10%">matches</abbr> the carrier</label><br>
-    <input type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Trails match? -->
+    <input name="trails_match" type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that trails match suspected location with the suspected carrier</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Trails rule other carriers? -->
+    <input name="carriers_dont_trail_match" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that trails rule-out other carriers</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Antennas match carrier -->
+    <input name="antennas_match_carrier" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that antennas look like suspected carrier</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- CellMapper triangulates near the location -->
+    <input name="cellmapper_triangulation" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that cellmapper <abbr title="Higher percent - triangulated cellsite is really close&#013;Lower percent  - triangulated cellsite is somewhat close">triangulates</abbr> close to the suspected location</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" step="20" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- A sticker/plate/sign/etc visible on the site has carrier name/contact information -->
+    <input name="image_evidence" type="range" value="0" min="0" step="10" max="100" step="20" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that identifier at the site with carrier name/info</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- The cellsite was visited, and was verified -->
+    <input name="verified_by_visit" type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that location is accurate from on-site testing</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Sector's split apart where the site is? -->
+    <input name="sector_split_match" type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that sectors split apart where the cellsite is</label><br>
-    <input type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
+
+    <!-- Only possible location -->
+    <input name="only_reasonable_location" type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
     <output>0</output><label>% sure that this is the only possible location for the cell site</label><br>

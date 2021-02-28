@@ -1,18 +1,12 @@
 <?php
 $date_added = date("Y-m-d");
-
-if(empty($pci_match)) $pci_match = null;
-if(empty($id_pattern_match)) $id_pattern_match = null;
-if(empty($sector_split_match)) $sector_split_match = null;
-if(empty($photo_link)) $photo_link = null;
-if(empty($sector_match)) $sector_match = null;
-if(empty($attached_file_link)) $attached_file_link = null;
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Create connection
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
-      `id_pattern_match`,`sector_match`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_score`,`evidence_link`,
+      `id_pattern_match`,`sector_match`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_link`,
       `photo_link`,`attached_file_link`,`permit_score`,`trails_match`,`carriers_dont_trail_match`,`antennas_match_carrier`,
-      `cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`contact_permit_carrier`,`archival_antenna_addition`,
+      `cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
       `only_reasonable_location`,`alt_carriers_here`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
@@ -37,7 +31,6 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $address)."',
                         '".mysqli_real_escape_string($conn, $bio)."',
                         '".mysqli_real_escape_string($conn, $status)."',
-                        '".mysqli_real_escape_string($conn, $evidence_score)."',
                         '".mysqli_real_escape_string($conn, $evidence_link)."',
                         '".mysqli_real_escape_string($conn, $photo_link)."',
                         '".mysqli_real_escape_string($conn, $attached_file_link)."',
@@ -49,7 +42,6 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $image_evidence)."',
                         '".mysqli_real_escape_string($conn, $verified_by_visit)."',
                         '".mysqli_real_escape_string($conn, $sector_split_match)."',
-                        '".mysqli_real_escape_string($conn, $contact_permit_carrier)."',
                         '".mysqli_real_escape_string($conn, $archival_antenna_addition)."',
                         '".mysqli_real_escape_string($conn, $only_reasonable_location)."',
                         '".mysqli_real_escape_string($conn, $alt_carriers_here)."');  ";
@@ -57,5 +49,5 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
 mysqli_query($conn, $sql);
 mysqli_close($conn);
 
-echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="15;URL=../" /> ';
 ?>

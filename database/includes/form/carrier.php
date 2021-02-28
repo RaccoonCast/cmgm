@@ -5,12 +5,10 @@
 <option value="special">Special</option>
 <option value="weird">Weird</option>
 </select><select class="custominput carrier-custom-width dropdown" autocomplete="on" name="carrier">
-<?php
-if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
-if('ATT' == '' . $carrier . '') { echo '<option selected="selected" value="ATT">AT&T</option>';} else { echo '<option value="ATT">AT&T</option>';}
-if('Verizon' == '' . $carrier . '') { echo '<option selected="selected" value="Verizon">Verizon</option>';} else { echo '<option value="Verizon">Verizon</option>';}
-if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
-?>
+<option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
+<option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
+<option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
+<option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
 </select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
 <option style="display:none" disabled selected="selected"></option>
 <option value="macro">Macro tower</option>
