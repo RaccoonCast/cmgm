@@ -12,6 +12,10 @@ $db_variables = "id > 0";
 foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude") {
     ${$key} = $value;
+  } elseif ($key == "id") {
+    ${$key} = $value;
+    $id = str_replace(' ', '', $id);
+    $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id' AND " . $db_variables;
   } else {
     $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
   }

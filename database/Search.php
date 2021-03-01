@@ -22,8 +22,8 @@
             if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
             ?>
           </select>
-		 <p>the eNB id is</p>
-		 <textarea class="custominput" rows="1" cols="30" maxlength="30" name="LTE_1"></textarea>
+		 <p>the LTE/NR id is</p>
+		 <input class="custominput" maxlength="30" name="id"></textarea>
 		 <br>
       <input type="submit" class="submitbutton" value="Submit">
     </form>
