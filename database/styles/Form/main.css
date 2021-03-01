@@ -18,14 +18,9 @@ footer {
   background-color: #dededc;
 }
 /* font face and the code to make shit on the same line */
-@font-face {
-	font-family: 'Regular';
-	src: URL('../styles/fonts/lato-Regular.ttf') format('truetype');
-}
 .inlineBlock {
 	display: inline-block;
 }
 body {
 	font-display: swap;
-	font-family: 'Regular', Fallback, sans-serif;
 }

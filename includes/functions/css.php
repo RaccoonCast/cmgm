@@ -16,4 +16,6 @@ if(isMobile()){
   css("desktop",$without_extension);
 }
 css("main",$without_extension);
+
+echo '<link rel="stylesheet" href="/styles/font.css">';
 ?>
