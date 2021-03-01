@@ -30,7 +30,7 @@ $sql_edit = rtrim($sql_edit,', ');
 $sql_edit = $sql_edit . " WHERE id = $id";
 
 mysqli_query($conn, $sql_edit);
-//redir("Edit.php?id=" . $id . "","0");
+redir("Edit.php?id=" . $id . "","0");
 }
 
 $database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,

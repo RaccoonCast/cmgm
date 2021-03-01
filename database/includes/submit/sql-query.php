@@ -49,5 +49,5 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
 mysqli_query($conn, $sql);
 mysqli_close($conn);
 
-echo '<meta http-equiv="refresh" content="15;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
 ?>
