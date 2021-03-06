@@ -16,8 +16,8 @@
     <output>0</output><label>% sure that trails match suspected location with the suspected carrier</label><br>
 
     <!-- Trails rule other carriers? -->
-    <input name="carriers_dont_trail_match" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label>% sure that trails rule-out other carriers</label><br>
+    <input name="carriers_dont_trail_match" type="range" value="0" min="0" step="1" max="3" oninput="this.nextElementSibling.value = this.value">
+    <output>0</output><label> carriers that don't rule-out other carriers</label><br>
 
     <!-- Antennas match carrier -->
     <input name="antennas_match_carrier" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">

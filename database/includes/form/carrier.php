@@ -23,6 +23,7 @@
 <option value="water_tower">Water tower</option>
 <option value="guyed_tower">Guyed tower</option>
 <option value="utility">Large power line structure</option>
+<option value="clock">Clock tower</option>
 <option value="other">Other</option>
 <option value="unknown">Unknown</option>
 </select>
