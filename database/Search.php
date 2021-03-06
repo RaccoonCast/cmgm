@@ -23,7 +23,7 @@
             ?>
           </select>
 		 <p>the LTE/NR id is</p>
-		 <input class="custominput" maxlength="30" name="id"></textarea>
+		 <input class="custominput" maxlength="30" name="id">
 		 <br>
       <input type="submit" class="submitbutton" value="Submit">
     </form>
