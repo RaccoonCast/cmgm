@@ -6,7 +6,10 @@ function css($type,$file) {
   if ($file == "HubDatabase") $file = "Home";
   if (file_exists('styles/' . $file . '/' . $type . '.css')) {
    echo '<link rel="stylesheet" href="styles/' . $file . '/' . $type . '.css">';
- }
+  }
+  if (file_exists('styles/' . $type . '.css')) {
+     echo '<link rel="stylesheet" href="styles/' . $type . '.css">';
+  }  
 }
 
 // Use Mobile CSS if on Mobile and use Desktop if on Desktop (OBVSLY)
@@ -16,6 +19,7 @@ if(isMobile()){
   css("desktop",$without_extension);
 }
 css("main",$without_extension);
+
 
 echo '<link rel="stylesheet" href="/styles/font.css">';
 ?>
