@@ -4,7 +4,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Create connection
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
-      `id_pattern_match`,`sector_match`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_link`,
+      `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_link`,
       `photo_link`,`attached_file_link`,`permit_score`,`trails_match`,`carriers_dont_trail_match`,`antennas_match_carrier`,
       `cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
       `only_reasonable_location`,`alt_carriers_here`)
@@ -22,6 +22,7 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $pci_match)."',
                         '".mysqli_real_escape_string($conn, $id_pattern_match)."',
                         '".mysqli_real_escape_string($conn, $sector_match)."',
+                        '".mysqli_real_escape_string($conn, $other_user_map_primary)."',
                         '".mysqli_real_escape_string($conn, $carrier)."',
                         '".mysqli_real_escape_string($conn, $latitude)."',
                         '".mysqli_real_escape_string($conn, $longitude)."',
