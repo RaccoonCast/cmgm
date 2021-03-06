@@ -5,7 +5,7 @@ function calculateEV($id,$carrier) {
   $ev = 0;
   $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_6='$id'";
   $database_get_list = "permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,image_evidence,
-  verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here";
+  verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,other_user_map_primary";
   $sql = "SELECT $database_get_list FROM database_db WHERE $db_variables";
   $result = mysqli_query($conn, $sql);
   while ($row = mysqli_fetch_assoc($result)) {
@@ -25,7 +25,8 @@ function calculateEV($id,$carrier) {
     case 8:  $sector_split_match = $value; break;
     case 9:  $archival_antenna_addition = $value; break;
     case 10:  $only_reasonable_location = $value; break;
-    case 11:  $alt_carriers_here = $value;
+    case 11:  $alt_carriers_here = $value; break;
+    case 12:  $other_user_map_primary = $value;
 
     // permit score
     if ($permit_score >= 10 && ($permit_score < 40)) $ev += 1; // have a permit but no carrier name
@@ -107,6 +108,9 @@ function calculateEV($id,$carrier) {
       if ($only_reasonable_location >= 65 && ($only_reasonable_location < 85)) $ev += 5;
       if ($only_reasonable_location >= 85 ) $ev += 7;
     }
+
+    // other user map primary
+    if ($other_user_map_primary == "true") $ev += 10;
 
     break;
               }

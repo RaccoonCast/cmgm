@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo "<td>" . $carrier . "</td>";
                     echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
                     echo '<td style="text-align: center;"><a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a><br>';
-                    echo '<a class="hide-underline" href="Delete.php?id='.$id.'">❌</a></td>';
+                    echo '<a class="hide-underline" href="Delete.php?id='.$id.'">✂️</a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
                        $evidence_link = "uploads/$evidence_link";
