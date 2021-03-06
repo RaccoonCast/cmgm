@@ -1,7 +1,7 @@
 .custominput {
-	height: 22px;
+	height: 27px;
 	width: 48.25%;
-  font-size: 1em;
+  font-size: 0.95em;
 	resize: none;
 	padding-bottom: 3px;
 }
@@ -15,7 +15,7 @@
 	width: 33.25%!important;
 }
 label {
-	font-size: 17px;
+	font-size: 16px;
 }
 .dropdown {
 	height: 35px;
@@ -29,14 +29,13 @@ label {
 }
 textarea {
   padding-top: 8px;
-  font-size: 1em!important;
 }
 p {
-	margin-top: 4px;
-	margin-bottom: 4px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 body {
-  font-size: 1.35em;
+  font-size: 1.33em;
 }
 output {
 	font-size: 0.75em;
