@@ -39,7 +39,7 @@
       ?> <input type="submit" class="submitbutton" value="Submit"></div><br><br> <?php
 
       // Get footer
-      include  "includes/form/footer.php";
+      include  "includes/footer.php";
       ?>
 
       <!-- Ladies and gentleman.. I would like to introduce you to... THE BUTTON?!?! -->
