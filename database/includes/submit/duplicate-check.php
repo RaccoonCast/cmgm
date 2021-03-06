@@ -3,7 +3,7 @@
 if(!isset($_GET['status'])) $status = "unverifed";
 if ($status == "verified") {
 
-$sql = "SELECT * FROM database_db WHERE (carrier = '$carrier' AND LTE_1 = '$LTE_1')";
+$sql = "SELECT id,carrier,latitude,longitude FROM database_db WHERE (carrier = '$carrier' AND LTE_1 = '$LTE_1')";
 
 $result = mysqli_query($conn, $sql);
 
@@ -14,14 +14,14 @@ while ($row = mysqli_fetch_assoc($result)) {
       $sepCount = ($colCount++);
                   switch ($sepCount) {
                     case 1: $id = $value; break;
-                    case 15: $carrier = $value; break;
-                    case 16: $latitude = $value;  break;
-                    case 17: $longitude = $value;
+                    case 2: $carrier = $value; break;
+                    case 3: $latitude = $value;  break;
+                    case 4: $longitude = $value;
                   }
                 }
               }
 
-$dblink = "map.php?latitude=$latitude&longitude=$longitude&carrier=$carrier&zoom=17";
+$dblink = "Map.php?latitude=$latitude&longitude=$longitude&carrier=$carrier&zoom=17";
 
 
 if (!mysqli_num_rows($result) == 0) {
