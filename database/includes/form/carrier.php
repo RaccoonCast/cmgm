@@ -1,4 +1,5 @@
 <select class="custominput status-custom-width dropdown" autocomplete="on" name="status" required>
+<option style="display:none" disabled selected="selected"></option>
 <option value="verified">Verified</option>
 <option value="unverified">Unverified</option>
 <option value="unverified">Unmapped</option>
@@ -9,6 +10,7 @@
 <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
 <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
 <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
+<option <?php if($carrier == "Unknown") echo 'selected="selected"';?> value="Unknown">Unknown</option>
 </select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
 <option style="display:none" disabled selected="selected"></option>
 <option value="macro">Macro tower</option>
