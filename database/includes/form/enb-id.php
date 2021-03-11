@@ -6,7 +6,7 @@
 <label for="pci_match">PCIs match on all IDs</label><br>
 <input type="checkbox" id="other_user_map_primary" name="other_user_map_primary" value="true">
 <label for="other_user_map_primary">Other user located primary ID</label><br>
-<input type="checkbox" id="id_pattern_match" name="id_pattern_match" value="verified">
+<input type="checkbox" id="id_pattern_match" name="id_pattern_match" value="true">
 <label for="id_pattern_match">ID pattern on all IDs</label><br>
 <input style="margin-bottom: 12px;" type="checkbox" id="sector_match" name="sector_match" value="true">
 <label for="sector_match">Sector match on all IDs</label>
