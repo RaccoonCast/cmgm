@@ -37,9 +37,9 @@
        <input type="hidden" name="permit_redirect" value="true">
        <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
      </form>
-     <form>
+
        <input onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')" style="color: #ffb700" type="submit" class="submitbutton" value="Copy">
-     </form>
+
     <?php }?>
 <script src="js/copy.js"></script>
    </body>
