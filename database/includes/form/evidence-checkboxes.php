@@ -17,7 +17,7 @@
 
     <!-- Trails rule other carriers? -->
     <input name="carriers_dont_trail_match" type="range" value="0" min="0" step="1" max="3" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label> carriers that don't rule-out other carriers</label><br>
+    <output>0</output><label> carriers that CellMapper data/trails rules out.</label><br>
 
     <!-- Antennas match carrier -->
     <input name="antennas_match_carrier" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">

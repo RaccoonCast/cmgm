@@ -32,7 +32,7 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
     <th>LTE #</th>
     <th>Carrier</th>
     <th>Address</th>
-    <th>Edit</th>
+    <th>Widgets</th>
     <th>Bio</th>
     <th>EV</th>
     <th>Score</th>
@@ -63,7 +63,10 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo "<td>" . $LTE_1 . "</td>";
                     echo "<td>" . $carrier . "</td>";
                     echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
-                    echo '<td style="text-align: center;"><a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a><br>';
+                    $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
+                    echo '<td style="text-align: center;"><a class="hide-underline" href="SupplID.php?id='.$id.'">🌎</a>';
+                    echo '<a class="hide-underline" href="' . $db_map_link . '">➕</a><br>';
+                    echo '<a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a>';
                     echo '<a class="hide-underline" href="Delete.php?id='.$id.'">✂️</a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {

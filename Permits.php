@@ -42,8 +42,7 @@
     echo "Firefox 31 - 32 Bit required.";
     redir("http://64.60.71.37/AppNet/Login.aspx?username=public&password=public","2");
   } else {
-    echo "QUERY: $url";
-    echo "$city not listed";
+    echo "$city does not have a permit search page listed.";
   }
 }
 ?>

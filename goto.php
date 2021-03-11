@@ -14,10 +14,11 @@ if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=c
 if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
 if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
 if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
-if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
 if ($goto_page == "Home") $goto_page_URL = "Home.php?";
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
+if(empty($city)) $city = null;
+if(empty($state)) $state = null;
 if(empty($address)) $address = null;
 
 
