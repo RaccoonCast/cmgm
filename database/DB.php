@@ -64,8 +64,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo "<td>" . $carrier . "</td>";
                     echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
                     $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
-                    echo '<td style="text-align: center;"><a class="hide-underline" href="SupplID.php?id='.$id.'">🌎</a>';
-                    echo '<a class="hide-underline" href="' . $db_map_link . '">➕</a><br>';
+                    echo '<td style="text-align: center;"><a class="hide-underline" href="SupplID.php?id='.$id.'">➕</a>';
+                    echo '<a class="hide-underline" href="' . $db_map_link . '">🌎</a><br>';
                     echo '<a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a>';
                     echo '<a class="hide-underline" href="Delete.php?id='.$id.'">✂️</a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
