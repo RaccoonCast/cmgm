@@ -5,7 +5,7 @@
 </head>
 <body>
 <?php
-$limit = 600;
+$limit = 2000;
 
 $db_variables = "id > 0";
 
@@ -22,8 +22,12 @@ foreach($_GET as $key => $value){
 }
 $database_get_list = "id,LTE_1,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,evidence_link";
 
-$sql = "SELECT DISTINCT $database_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $database_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_variables AND ID >1000 ORDER BY distance LIMIT $limit";
+$sql = "SELECT $database_get_list FROM database_db LIMIT 10000";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
+
+
+
 
 ?>
 <table border="1">
@@ -70,12 +74,23 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     echo '<a class="hide-underline" href="Delete.php?id='.$id.'">✂️</a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
-                       $evidence_link = "uploads/$evidence_link";
+
+                      $evidence_link = "uploads/$evidence_link";
+                      if (file_exists($evidence_link)) {
+                        echo "<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>";
+                      } else {
+                        echo "<td>ERROR: Evidence is missing.</td>";
+                      }
+
+
+                    } else {
+                      if (!empty($evidence_link)) {
+                        echo "<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>";
+                      } else {
+                        echo "<td></td>";
+                      }
                     }
                     echo "<td>" . $evidence_score . "</td>";
-                    if (!empty($evidence_link)) {
-                      echo "<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>";
-                    }
                   }
             }
 echo "</tr>";
