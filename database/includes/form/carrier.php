@@ -2,7 +2,7 @@
 <option style="display:none" disabled selected="selected"></option>
 <option value="verified">Verified</option>
 <option value="unverified">Unverified</option>
-<option value="unverified">Unmapped</option>
+<option value="unmapped">Unmapped</option>
 <option value="special">Special</option>
 <option value="weird">Weird</option>
 </select><select class="custominput carrier-custom-width dropdown" autocomplete="on" name="carrier">
@@ -15,8 +15,8 @@
 <option style="display:none" disabled selected="selected"></option>
 <option value="macro">Macro tower</option>
 <option value="micro">Micro tower</option>
-<option value="in_rooftop">Internal Rooftop</option>
-<option value="ex_rooftop">External Rooftop</option>
+<option value="conc_rooftop">Concealed Rooftop</option>
+<option value="unconc_rooftop">Unconcealed Rooftop</option>
 <option value="monopalm">Monopalm</option>
 <option value="monopine">Monopine</option>
 <option value="pole">Pole</option>
@@ -24,6 +24,7 @@
 <option value="guyed_tower">Guyed tower</option>
 <option value="utility">Large power line structure</option>
 <option value="clock">Clock tower</option>
+<option value="disguised">Disguised structure</option>
 <option value="other">Other</option>
 <option value="unknown">Unknown</option>
 </select>
