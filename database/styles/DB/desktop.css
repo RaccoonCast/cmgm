@@ -10,7 +10,7 @@ table {
 	padding:0;
 }
 td {
-  min-width: 60px;
+  min-width: 50px;
   width: auto;
   max-width: auto;
   vertical-align: top;
@@ -20,8 +20,17 @@ tr:nth-child(even) {
   background: #ededed;
 }
 .address {
-  min-width: 160px!important;
+  min-width: 210px!important;
 }
 .hide-underline {
 	   text-decoration: none;
+}
+.widget {
+  font-size: 19px;
+}
+.widget-td {
+  width: 103px!important;
+}
+.lte {
+  max-width: 20px!important;
 }
