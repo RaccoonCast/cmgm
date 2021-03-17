@@ -31,7 +31,7 @@
       include  "includes/form/enb-id.php";
 
       // Get textbox values from form.php
-      include  "includes/form/evidence-checkboxes.php";
+      include  "includes/form/checkboxes-n-stuff.php";
 
       // Bio/extra notes?
       include "includes/form/bio.php";

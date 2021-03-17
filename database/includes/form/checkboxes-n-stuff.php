@@ -1,7 +1,7 @@
 <br>
     <!-- How many other carriers have equipment here too? -->
     <input name="alt_carriers_here" type="range" value="0" min="0" max="3" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label> other carriers have antennas here too</label><br>
+    <output>0</output><label> other carrier(s) have antenna(s) here too</label><br>
 
     <!-- How many recognizable antenna upgrades can be seen -->
     <input name="archival_antenna_addition" type="range" value="0" min="0" max="3" step="1" oninput="this.nextElementSibling.value = this.value">
@@ -9,7 +9,7 @@
 
     <!-- Permit matches carrier -->
     <input name="permit_score" type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label>% sure that the permit/document <abbr title="If it does not list the exact carrier do 10%">matches</abbr> the carrier</label><br>
+    <output>0</output><label>% sure that the permit/document the carrier at this address.</label><br>
 
     <!-- Trails match? -->
     <input name="trails_match" type="range" value="0" min="0" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
