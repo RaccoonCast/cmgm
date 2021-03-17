@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <?php include '../functions.php';?>
+  <?php include '../functions.php';
+  if (!isset($_GET['latitude'])) $latitude = "38.89951743540001";
+  if (!isset($_GET['longitude'])) $longitude = "-77.03655226691319";
+  ?>
 </head>
 <body>
 <?php
@@ -22,12 +25,10 @@ foreach($_GET as $key => $value){
 }
 $database_get_list = "id,LTE_1,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,evidence_link";
 
-$sql = "SELECT DISTINCT $database_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_variables AND ID >1000 ORDER BY distance LIMIT $limit";
-$sql = "SELECT $database_get_list FROM database_db LIMIT 10000";
+$sql = "SELECT DISTINCT $database_get_list,
+(3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE
+FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
-
-
-
 
 ?>
 <table border="1">
@@ -64,14 +65,14 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 10:  $bio = $value; break;
                     case 11:  $evidence_score = $value; break;
                     case 12:  $evidence_link = $value;
-                    echo "<td>" . $LTE_1 . "</td>";
+                    echo "<td class=" . "lte" . " id=" . $id . ">" . $LTE_1 . "</td>";
                     echo "<td>" . $carrier . "</td>";
                     echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
                     $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
-                    echo '<td style="text-align: center;"><a class="hide-underline" href="SupplID.php?id='.$id.'">➕</a>';
-                    echo '<a class="hide-underline" href="' . $db_map_link . '">🌎</a><br>';
-                    echo '<a class="hide-underline" href="Edit.php?id='.$id.'">🔧</a>';
-                    echo '<a class="hide-underline" href="Delete.php?id='.$id.'">✂️</a></td>';
+                    echo '<td class="widget-td" style="text-align: center;"><a class="hide-underline widget" href="SupplID.php?id='.$id.'">➕</a>';
+                    echo '<a class="hide-underline widget" href="' . $db_map_link . '">🌎</a>';
+                    echo '<a class="hide-underline widget" href="Edit.php?id='.$id.'">🔧</a>';
+                    echo '<a class="hide-underline widget" href="Delete.php?id='.$id.'">✂️</a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
 
