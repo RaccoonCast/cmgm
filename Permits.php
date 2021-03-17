@@ -17,6 +17,7 @@
   } elseif ("$city" == "Los Angeles") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
   } elseif ("$city" == "Culver City") { redir("https://data.culvercity.org/Permits/Building-Safety-Permits/qew5-a3up/data","0");
   } elseif ("$city" == "San Fernando") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
+  } elseif ("$city" == "Chino Hills") { redir("https://publicportal.chinohills.org/WebLink/Welcome.aspx","0");
   } elseif ("$city" == "Wilmington") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
   } elseif ("$city" == "Chicago") { redir("https://webapps1.chicago.gov/buildingpermit/search/applicationsearch.do","0");
   } elseif ("$city" == "Anaheim") { redir("http://permits.anaheim.net/tm_bin/tmw_cmd.pl?tmw_cmd=StatusQueryFormbld","0");
