@@ -1,6 +1,6 @@
 <?php
 $date_added = date("Y-m-d");
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $db_username, $password, $dbname);
 
 // Create connection
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
