@@ -65,14 +65,17 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 10:  $bio = $value; break;
                     case 11:  $evidence_score = $value; break;
                     case 12:  $evidence_link = $value;
-                    echo "<td class=" . "lte" . " id=" . $id . ">" . $LTE_1 . "</td>";
-                    echo "<td>" . $carrier . "</td>";
-                    echo '<td class="address"><a href="/Home.php?latitude='.$latitude.'&longitude='.$longitude.'">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
                     $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
-                    echo '<td class="widget-td" style="text-align: center;"><a class="hide-underline widget" href="SupplID.php?id='.$id.'">➕</a>';
-                    echo '<a class="hide-underline widget" href="' . $db_map_link . '">🌎</a>';
-                    echo '<a class="hide-underline widget" href="Edit.php?id='.$id.'">🔧</a>';
-                    echo '<a class="hide-underline widget" href="Delete.php?id='.$id.'">✂️</a></td>';
+                    $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
+                    $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
+                    echo "<td class=" . "lte" . " id=" . $id . "><a href=" . "$cmlink" .">" . $LTE_1 . "</td>";
+                    echo "<td>" . $carrier . "</td>";
+                    echo '<td class="address"><a href="' . $gmlink . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
+                    echo '<td class="widget-td" style="text-align: center;"><a class="hide-underline widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
+                    echo '<a class="hide-underline widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
+                    echo '<a class="hide-underline widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
+                    echo '<a class="hide-underline widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
+                    echo '<a class="hide-underline widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
                     echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
                     if(substr($evidence_link, 0, 14) == "image-evidence") {
 

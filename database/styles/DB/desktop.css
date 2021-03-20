@@ -29,8 +29,11 @@ tr:nth-child(even) {
   font-size: 19px;
 }
 .widget-td {
-  width: 103px!important;
+  width: 135px!important;
 }
 .lte {
   max-width: 20px!important;
+}
+.bio {
+  max-width: 33cm;
 }

@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18:  $evidence_link = $value; break;
                     case 19:  $photo_link = $value; break;
                     case 20:  $attached_file_link = $value;
-                    echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?id=" . $id . ">#" . $id . "</a> </p>");
+                    echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&id=" . $id . ">#" . $id . "</a> </p>");
                     echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18">🌎</a>');
                     echo nl2br('<a target=_blank class="widget widget_emote" href="Edit.php?id='.$id.'">🔧</a>');
                     echo nl2br('<a class="widget widget_emote" href="Delete.php?redirPage=Map-popup&id='.$id.'">✂️</a><br>');
