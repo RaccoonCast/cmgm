@@ -2,7 +2,10 @@
 include 'functions.php';
 $data = $_GET['data'];
 if (isset($_GET['goto_page'])) $goto_page = $_GET['goto_page'];
-if (!isset($_GET['goto_page'])) $goto_page_URL = "Home.php?";
+if (!isset($_GET['goto_page'])) {
+  $goto_page_URL = "Home.php?";
+  $goto_page = null;
+}
 if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
 if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
 if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
@@ -21,7 +24,9 @@ elseif(strpos($data, ',') !== false ) { include "includes/convert/lat,long.php";
 include 'includes/convert/google-maps-conversion.php';
 
 // Misc code, trim lat&long, get carrier from cookie if set, prevent warnings if certain variables aren't set (They don't need to be)
-if(!isset($carrier)) if(isset($_COOKIE["carrier"])) $carrier = $_COOKIE["carrier"];
+if(!isset($carrier)) if(isset($_COOKIE["carrier"])) {
+  $carrier = $_COOKIE["carrier"];
+}
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
 if(empty($carrier)) $carrier = null;
