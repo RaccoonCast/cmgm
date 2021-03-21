@@ -18,9 +18,9 @@ label {
   min-width: inherit;
   text-align: left;
 }
-input[type=text],option,select {
+input[type=text] {
     width: 100%;
-    height: 34px;
+    height: 40px;
     box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
@@ -30,35 +30,25 @@ input[type=text],option,select {
 	   text-decoration: none;
 }
 #panel1 {
- width: 50%;
+ width: 40%;
  float: left;
 }
 #panel2 {
-  width: 50%;
+  width: 40%;
   float: left;
 }
-
-option,select {font-size: 1.1em;}
+#panel3 {
+  width: 20%;
+  float: right;
+}
 input[type=submit] {
-  font-size: 3em;
+  font-size: 5em;
   width: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 400px;
+  padding-bottom: 400px;
   margin: 0 auto;
 }
 .container {
+  ...
   position: relative;
 }
-.ib {display:inline-block}
-.idList { width: 12.5%!important; }
-.addresslistA { width: 56%!important; }
-.addresslistB { width: 21%!important; }
-.addresslistC { width: 10%!important; }
-.addresslistD { width: 13%!important; }
-.mutliIdParamsA { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsB { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsC { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsD { width: 25%!important; padding-bottom: 5px:}
-.latlongList { width: 50%!important; }
-.tf1 {width: 30%!important;}
-.tf2 {width: 70%!important;}
