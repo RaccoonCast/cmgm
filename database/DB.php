@@ -35,12 +35,12 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
 <thead>
 <tr>
   <th>LTE #</th>
-  <?php if(!$isMobile == "true") {?><th>Carrier</th> <?php } ?>
+  <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
   <th>Address</th>
-  <?php if(!$isMobile == "true") {?><th>Widgets</th> <?php } ?>
+  <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
   <th>Bio</th>
   <th>EV</th>
-  <?php if(!$isMobile == "true") {?><th>Score</th> <?php } ?>
+  <?php if($isMobile != "true") {?><th>Score</th> <?php } ?>
 </tr>
 </thead>
 <tbody>
@@ -106,21 +106,21 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       if(substr($evidence_link, 0, 14) == "image-evidence") {
                         if (file_exists($evidence_link)) {
                         if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
-                        if(!$isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+                        if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
                       } else {
                         if($isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing";
-                        if(!$isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing</td>";
+                        if($isMobile != "true") echo "<td class=" . "ev" . ">Evidence is missing</td>";
                       }
                     } else {
                       if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
-                      if(!$isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+                      if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
                     }
                     } else {
-                    if(!$isMobile == "true") echo "<td class=" . "ev" . "></td>";
+                    if($isMobile != "true") echo "<td class=" . "ev" . "></td>";
                     }
 
                     if($isMobile == "true") echo "<br>Score: " . $evidence_score . "</td>";
-                    if(!$isMobile == "true") echo "<td>" . $evidence_score . "</td>";
+                    if($isMobile != "true") echo "<td>" . $evidence_score . "</td>";
                   }
             }
 echo "</tr>";
