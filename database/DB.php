@@ -104,7 +104,7 @@ while($row = $result->fetch_assoc()) {
       }
       }
       }
-
+include "includes/footer.php";
 ?>
 </tbody>
 </table>

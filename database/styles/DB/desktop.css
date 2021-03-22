@@ -35,3 +35,4 @@ tr:nth-child(even) {
 .bio {
   max-width: 33cm;
 }
+.carrier {min-width: 1.7cm;}

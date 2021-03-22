@@ -134,5 +134,6 @@ $result->close(); $conn->close();
 </table>
 <input type="submit" class="submitbutton" value="Submit">
 </form>
+<?php include "includes/footer.php"; ?>
 </body>
 </html>
