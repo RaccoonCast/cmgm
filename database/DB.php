@@ -65,26 +65,20 @@ while($row = $result->fetch_assoc()) {
           echo '<td class="address"><a href="' . $gmlink . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
         }
 
+          if($isMobile == "true") if (!empty($bio)) echo nl2br("<td class=" . "bio" . ">" . $bio . "<br><br>");
+          if($isMobile == "true") if (empty($bio)) echo nl2br("<td class=" . "bio" . ">");
+          if($isMobile != "true") echo nl2br("<td class=" . "widget-td" . " style=" . "text-align: center;" . ">");
+          echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
+          echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
+          echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
+          echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
+          echo '<a class="widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
 
-        // start widget echo
-        if($isMobile == "true"){
-          echo nl2br("<td class=" . "bio" . ">" . $bio);
-          if (!empty($bio)) echo '<br>';
-          echo '<div class="widget-td">';
-          echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
-          echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
-          echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
-          echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
-          echo '<a class="widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
-          } else {
-          echo '<td class="widget-td" style="text-align: center;">';
-          echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
-          echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
-          echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
-          echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
-          echo '<a class="widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
-          echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
+          if($isMobile != "true") {
+            if (!empty($bio)) echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
+            if (empty($bio)) echo nl2br("<td></td>");
           }
+
         if(substr($evidence_link, 0, 14) == "image-evidence") $evidence_link = "uploads/$evidence_link";
 
         if (isset($evidence_link)) {
