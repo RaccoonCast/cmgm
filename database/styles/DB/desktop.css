@@ -22,11 +22,9 @@ tr:nth-child(even) {
 .address {
   min-width: 210px!important;
 }
-.hide-underline {
-	   text-decoration: none;
-}
 .widget {
   font-size: 19px;
+  text-decoration: none;
 }
 .widget-td {
   width: 135px!important;

@@ -8,7 +8,7 @@
 </head>
 <body>
 <?php
-$limit = 2000;
+$limit = "500";
 
 $db_variables = "id > 0";
 
@@ -34,13 +34,13 @@ $result = mysqli_query($conn, $sql); // First parameter is just return of "mysql
 <table border="1">
 <thead>
 <tr>
-    <th>LTE #</th>
-    <th>Carrier</th>
-    <th>Address</th>
-    <th>Widgets</th>
-    <th>Bio</th>
-    <th>EV</th>
-    <th>Score</th>
+  <th>LTE #</th>
+  <?php if(!$isMobile == "true") {?><th>Carrier</th> <?php } ?>
+  <th>Address</th>
+  <?php if(!$isMobile == "true") {?><th>Widgets</th> <?php } ?>
+  <th>Bio</th>
+  <th>EV</th>
+  <?php if(!$isMobile == "true") {?><th>Score</th> <?php } ?>
 </tr>
 </thead>
 <tbody>
@@ -68,33 +68,59 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
                     $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
                     $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
-                    echo "<td class=" . "lte" . " id=" . $id . "><a href=" . "$cmlink" .">" . $LTE_1 . "</td>";
-                    echo "<td>" . $carrier . "</td>";
-                    echo '<td class="address"><a href="' . $gmlink . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
-                    echo '<td class="widget-td" style="text-align: center;"><a class="hide-underline widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
-                    echo '<a class="hide-underline widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
-                    echo '<a class="hide-underline widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
-                    echo '<a class="hide-underline widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
-                    echo '<a class="hide-underline widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
-                    echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
-                    if(substr($evidence_link, 0, 14) == "image-evidence") {
-
-                      $evidence_link = "uploads/$evidence_link";
-                      if (file_exists($evidence_link)) {
-                        echo "<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>";
-                      } else {
-                        echo "<td>ERROR: Evidence is missing.</td>";
-                      }
-
-
+                    if($isMobile == "true") {
+                    echo "<td class=" . "lte" . " id=" . $id . ">" . $carrier . "<br><a href=" . "$cmlink" .">" . $LTE_1 . "</a></td>";
                     } else {
-                      if (!empty($evidence_link)) {
-                        echo "<td><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</p></td>";
-                      } else {
-                        echo "<td></td>";
-                      }
+                    echo "<td class=" . "lte" . " id=" . $id . "><a href=" . "$cmlink" .">" . $LTE_1 . "</a></td>";
+                    echo "<td class=" . "carrier" . ">" . $carrier . "</td>";
                     }
-                    echo "<td>" . $evidence_score . "</td>";
+                    if($isMobile == "true"){
+                      echo '<td class="address"><a href="' . $gmlink . '">' . $address . '</a></td>';
+                    } else {
+                      echo '<td class="address"><a href="' . $gmlink . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
+                    }
+
+
+                    // start widget echo
+                    if($isMobile == "true"){
+                      echo nl2br("<td class=" . "bio" . ">" . $bio);
+                      if (!empty($bio)) echo '<br>';
+                      echo '<div class="widget-td">';
+                      echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
+                      echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
+                      echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
+                      echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
+                      echo '<a class="widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
+                      } else {
+                      echo '<td class="widget-td" style="text-align: center;">';
+                      echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
+                      echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
+                      echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
+                      echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
+                      echo '<a class="widget" href="Reader.php?back_url=DB&id='.$id.'"><abbr title="View all info">🔍</abbr></a></td>';
+                      echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
+                      }
+                    if(substr($evidence_link, 0, 14) == "image-evidence") $evidence_link = "uploads/$evidence_link";
+
+                    if (isset($evidence_link)) {
+                      if(substr($evidence_link, 0, 14) == "image-evidence") {
+                        if (file_exists($evidence_link)) {
+                        if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
+                        if(!$isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+                      } else {
+                        if($isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing";
+                        if(!$isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing</td>";
+                      }
+                    } else {
+                      if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
+                      if(!$isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+                    }
+                    } else {
+                    if(!$isMobile == "true") echo "<td class=" . "ev" . "></td>";
+                    }
+
+                    if($isMobile == "true") echo "<br>Score: " . $evidence_score . "</td>";
+                    if(!$isMobile == "true") echo "<td>" . $evidence_score . "</td>";
                   }
             }
 echo "</tr>";
