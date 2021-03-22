@@ -13,7 +13,7 @@ if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
 if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
 if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
 if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
-if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
+if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
 if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
 if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Home") $goto_page_URL = "Home.php?";

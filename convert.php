@@ -9,7 +9,7 @@ if (!isset($_GET['goto_page'])) {
 if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
 if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
 if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
-if ($goto_page == "Database") $goto_page_URL = "HubDatabase.php?";
+if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
 
 // If not set get location from cookies
 if (empty($data)) { include "includes/convert/cookie-location.php"; }
