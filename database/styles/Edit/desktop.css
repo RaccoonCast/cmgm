@@ -49,16 +49,13 @@ input[type=submit] {
 .container {
   position: relative;
 }
-.ib {display:inline-block}
 .idList { width: 12.5%!important; }
 .addresslistA { width: 56%!important; }
 .addresslistB { width: 21%!important; }
 .addresslistC { width: 10%!important; }
 .addresslistD { width: 13%!important; }
-.mutliIdParamsA { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsB { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsC { width: 25%!important; padding-bottom: 5px:}
-.mutliIdParamsD { width: 25%!important; padding-bottom: 5px:}
 .latlongList { width: 50%!important; }
-.tf1 {width: 30%!important;}
-.tf2 {width: 70%!important;}
+.tf_a1 {width: 30%!important;}
+.tf_a2 {width: 70%!important;}
+.tf_b1 {width: 70%!important;}
+.tf_b2 {width: 30%!important;}
