@@ -28,7 +28,7 @@ foreach($_GET as $key => $value){
 
 
 ?>
-<table border="1">
+<table  style="margin-bottom: 1cm" border="1">
 <thead>
 <tr>
   <th>LTE #</th>
@@ -105,9 +105,9 @@ while($row = $result->fetch_assoc()) {
       }
       }
       }
-include "includes/footer.php";
 ?>
 </tbody>
 </table>
+<?php include "includes/footer.php"; ?>
 </body>
 </html>
