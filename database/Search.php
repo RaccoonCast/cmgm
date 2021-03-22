@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en-us">
    <head>
-      <?php include '../functions.php';?>
+      <?php include '../functions.php';
+      if(empty($carrier)) $carrier = null;
+      ?>
       <link rel="stylesheet" href="styles/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="icon" type="image/png" href="/logo.png">
@@ -13,7 +15,7 @@
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
         <p>Cell site type is</p>
-        <select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
+        <select class="custominput cellsite-type-custom-width dropdown" name="cellsite_type">
         <option style="display:none" disabled selected="selected"></option>
         <option value="macro">Macro tower</option>
         <option value="micro">Micro tower</option>
@@ -32,13 +34,11 @@
         </select>
 		       <p>the carrier is</p>
            <select class="custominput dropdown" autocomplete="on" name="carrier">
-             <option value="">All</option>
-           <?php
-            if('T-Mobile' == '' . $carrier . '') { echo '<option selected="selected" value="T-Mobile">T-Mobile</option>';} else { echo '<option value="T-Mobile">T-Mobile</option>';}
-            if('ATT' == '' . $carrier . '') { echo '<option selected="selected" value="ATT">AT&T</option>';} else { echo '<option value="ATT">AT&T</option>';}
-            if('Verizon' == '' . $carrier . '') { echo '<option selected="selected" value="Verizon">Verizon</option>';} else { echo '<option value="Verizon">Verizon</option>';}
-            if('Sprint' == '' . $carrier . '') { echo '<option selected="selected" value="Sprint">Sprint</option>';} else { echo '<option value="Sprint">Sprint</option>';}
-            ?>
+             <option <?php if(empty($carrier)) echo 'selected="selected"';?> value=""></option>
+             <option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
+             <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
+             <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
+             <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
           </select>
 		 <p>the LTE/NR id is</p>
 		 <input class="custominput" maxlength="30" name="id">
