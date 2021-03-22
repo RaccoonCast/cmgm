@@ -45,7 +45,6 @@ foreach($_GET as $key => $value){
 $sql = "SELECT DISTINCT *,
 (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE
 FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
-echo $sql;
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {

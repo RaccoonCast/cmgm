@@ -1,6 +1,6 @@
 <?php
 $ip = $_SERVER["REMOTE_ADDR"];
-$sql = "SELECT * FROM allowIP WHERE allowIP = '$ip'";
+$sql = "SELECT userIP FROM userID WHERE userIP = '$ip'";
 
 $result = mysqli_query($conn, $sql); // First parameter is just return of "mysqli_connect()" function
 while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
