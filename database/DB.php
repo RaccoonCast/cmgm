@@ -16,14 +16,15 @@ foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
     ${$key} = $value;
   } elseif ($key == "id") {
+    if (!empty($value)) {
     ${$key} = $value;
     $id = str_replace(' ', '', $id);
     $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id' AND " . $db_variables;
+  }
   } else {
     $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
   }
 }
-$database_get_list = "id,LTE_1,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,evidence_link,other_user_map_primary,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here";
 
 
 ?>
@@ -41,9 +42,10 @@ $database_get_list = "id,LTE_1,carrier,latitude,longitude,city,zip,state,address
 </thead>
 <tbody>
 <?php
-$sql = "SELECT DISTINCT $database_get_list,
+$sql = "SELECT DISTINCT *,
 (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE
 FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
+echo $sql;
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {

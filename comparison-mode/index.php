@@ -9,7 +9,7 @@
   if (isset($_GET['zoom'])) {
     $textboxZoom = $zoom;
   } else {
-    $textboxZoom = 13;
+    $textboxZoom = 14;
   }
   ?>
    </head>

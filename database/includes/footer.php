@@ -7,6 +7,10 @@
    $db_list_link = "../goto.php?goto_page=DB&latitude=$latitude&longitude=$longitude";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
    $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
+   if(empty($zip)) $zip = null;
+   if(empty($city)) $city = null;
+   if(empty($state)) $state = null;
+   if(empty($address)) $address = null;
    ?>
 
    <footer>

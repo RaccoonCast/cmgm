@@ -12,6 +12,24 @@
       <form action="DB.php" method="get">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+        <p>Cell site type is</p>
+        <select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
+        <option style="display:none" disabled selected="selected"></option>
+        <option value="macro">Macro tower</option>
+        <option value="micro">Micro tower</option>
+        <option value="conc_rooftop">Concealed Rooftop</option>
+        <option value="unconc_rooftop">Unconcealed Rooftop</option>
+        <option value="monopalm">Monopalm</option>
+        <option value="monopine">Monopine</option>
+        <option value="pole">Pole</option>
+        <option value="water_tower">Water tower</option>
+        <option value="guyed_tower">Guyed tower</option>
+        <option value="utility">Large power line structure</option>
+        <option value="clock">Clock tower</option>
+        <option value="disguised">Disguised structure</option>
+        <option value="other">Other</option>
+        <option value="unknown">Unknown</option>
+        </select>
 		       <p>the carrier is</p>
            <select class="custominput dropdown" autocomplete="on" name="carrier">
              <option value="">All</option>
@@ -24,8 +42,7 @@
           </select>
 		 <p>the LTE/NR id is</p>
 		 <input class="custominput" maxlength="30" name="id">
-		 <br>
-      <input type="submit" class="submitbutton" value="Submit">
+     <input type="submit" class="submitbutton" value="Submit">
     </form>
     <?php
     // Get footer
