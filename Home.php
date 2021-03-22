@@ -28,7 +28,7 @@
          <input type="submit" class="submitbutton" style="color:#00ccff" name="goto_page" value="Database" /> <br>
          <input type="submit" class="submitbutton" style="color:#5DC904" name="goto_page" value="CellMapper" /><br>
          <input type="submit" class="submitbutton" style="color:#4185FA" name="goto_page" value="Google Maps" /><br>
-         <input type="submit" class="submitbutton" style="color:#B17DC9" name="goto_page" value="LA Permit Map" /><br>
+         <!-- <input type="submit" class="submitbutton" style="color:#B17DC9" name="goto_page" value="LA Permit Map" /><br> -->
      </form>
      <form target="_blank" action="Home.php" method="get">
        <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
