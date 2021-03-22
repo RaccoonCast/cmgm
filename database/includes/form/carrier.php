@@ -6,6 +6,8 @@
 <option value="special">Special</option>
 <option value="weird">Weird</option>
 </select><select class="custominput carrier-custom-width dropdown" autocomplete="on" name="carrier">
+<?php if (!isset($carrier)) { $carrier = null; ?>
+<option style="display:none" disabled selected="selected"></option> <?php } ?>
 <option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
 <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
 <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
