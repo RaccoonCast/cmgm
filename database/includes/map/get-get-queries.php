@@ -8,8 +8,10 @@ foreach($_GET as $key => $value){
     ${$key} = $value;
   } elseif(!empty($value)) {
 
-
+    if ($key != "id") {
     $url_suffix = $url_suffix . "&" . $key . "=" . $value;
+    }
+
     $trimChar = substr($value, 1);
     if ($value[0] == "!"){
     $db_variables = "NOT " . $key . ' = "'.$trimChar.'" AND ' . $db_variables;

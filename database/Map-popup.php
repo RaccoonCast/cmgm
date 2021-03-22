@@ -9,7 +9,7 @@
 $id = $_GET['id'];
 
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
-evidence_link,photo_link,attached_file_link";
+evidence_link,photo_link,attached_file_link,street_view_url";
 
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -41,11 +41,15 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 17:  $evidence_score = $value; break;
                     case 18:  $evidence_link = $value; break;
                     case 19:  $photo_link = $value; break;
-                    case 20:  $attached_file_link = $value;
+                    case 20:  $attached_file_link = $value; break;
+                    case 21:  $street_view_url = $value;
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&id=" . $id . ">#" . $id . "</a> </p>");
-                    echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18">🌎</a>');
-                    echo nl2br('<a target=_blank class="widget widget_emote" href="Edit.php?id='.$id.'">🔧</a>');
-                    echo nl2br('<a class="widget widget_emote" href="Delete.php?redirPage=Map-popup&id='.$id.'">✂️</a><br>');
+                    echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18"><abbr title="Google Maps">🌎</abbr></a>');
+                    if (isset($street_view_url)) {
+                      echo nl2br('<a target=_blank class="widget widget_emote" href="'.$street_view_url.'"><abbr title="Street View">🚗</abbr></a>');
+                    }
+                    echo nl2br('<a target=_blank class="widget widget_emote" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>');
+                    echo nl2br('<a class="widget widget_emote" href="Delete.php?redirPage=Map-popup&id='.$id.'"><abbr title="Delete">✂️</a><br>');
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
                     } elseif ("$carrier" == "Sprint") {
