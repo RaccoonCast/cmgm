@@ -38,14 +38,21 @@ verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_l
 
 // todo:// add edit_history, edit_lock(IPs, name?)
 
+$counter=0;
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value)
         $$key = $value;
+        $counter++;
 }
 
+if ($counter==0) {
+  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
+  redir("Edit.php?id=$id","0");
+  die();
+}
 $result->close(); $conn->close();
 ?>
 <form action="Edit.php" autocomplete="off" id="form<?php echo $id; ?>" method="get">
