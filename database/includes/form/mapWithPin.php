@@ -2,9 +2,9 @@
 echo '<div id="map" position="relative;">';
 
 if(isMobile()){
-  mapWithPin($latitude,$longitude,"20","380px","150px");
+  mapWithPin($latitude,$longitude,"17","380px","150px","25");
 } else {
-  mapWithPin($latitude,$longitude,"18","720px","460px");
+  mapWithPin($latitude,$longitude,"17","720px","460px","80");
 }
 
 echo '</div>';
