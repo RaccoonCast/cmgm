@@ -83,6 +83,7 @@ break;
     }
 }
 ?>
+<?php if (isset($marker_latitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);"; ?>
 </script>
 <?php include "includes/footer.php"; ?>
 </body>

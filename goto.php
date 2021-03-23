@@ -18,7 +18,7 @@ if ($goto_page == "Google Maps") {
 }
 if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
-if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
+if ($goto_page == "Maps") $goto_page_URL = "database/Map.php?";
 if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Home") $goto_page_URL = "Home.php?";
 if(empty($carrier)) $carrier = null;
@@ -29,8 +29,8 @@ if(empty($address)) $address = null;
 
 $suffix_part_b = '&address=' . $address . '&zip=' . $zip . '&city=' . $city .'&state=' . $state;
 $suffix_part_a = '&carrier=' . $carrier;
-if ($goto_page == "DB") { $suffix_part_b = null; }
-if ($goto_page == "Map") $suffix_part_b = null;
+if ($goto_page == "DB") $suffix_part_b = null;
+if ($goto_page == "Maps") $suffix_part_b = null;
 
 if (isset($goto_page_URL)) {
 $the_URL = "$goto_page_URL" . "latitude=$latitude&longitude=$longitude" . "$suffix_part_a" . "$suffix_part_b";

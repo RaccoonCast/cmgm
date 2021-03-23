@@ -2,6 +2,20 @@
     $ev = 0;
 
     // permit score
+    if (!isset($permit_score)) $permit_score = null;
+    if (!isset($trails_match)) $trails_match = null;
+    if (!isset($alt_carriers_here)) $alt_carriers_here = null;
+    if (!isset($antennas_match_carrier)) $antennas_match_carrier = null;
+    if (!isset($cellmapper_triangulation)) $cellmapper_triangulation = null;
+    if (!isset($image_evidence)) $image_evidence = null;
+    if (!isset($verified_by_visit)) $verified_by_visit = null;
+    if (!isset($sector_split_match)) $sector_split_match = null;
+    if (!isset($verified_by_visit)) $verified_by_visit = null;
+    if (!isset($verified_by_visit)) $verified_by_visit = null;
+    if (!isset($archival_antenna_addition)) $archival_antenna_addition = null;
+    if (!isset($only_reasonable_location )) $only_reasonable_location = null;
+    if (!isset($permit_score)) $permit_score = null;
+    if (!isset($other_user_map_primary)) $other_user_map_primary  = null;
     if ($permit_score >= 10 && ($permit_score < 40)) $ev += 1; // have a permit but no carrier name
     if ($permit_score >= 40 && ($permit_score < 60)) $ev += 2; // have ev with a nearby address match
     if ($permit_score >= 60 && ($permit_score < 75)) $ev += 5; // have ev with address match - ish

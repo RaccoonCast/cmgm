@@ -58,6 +58,8 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       $beginning = "?MCC=310&MNC=410";
                     } elseif ("$carrier" == "Verizon") {
                       $beginning = "?MCC=311&MNC=480";
+                    } else {
+                      $beginning = "?MCC=310&MNC=260";
                     }
 
                       if (empty($LTE_1)) $LTE_1 = "CellMapper";

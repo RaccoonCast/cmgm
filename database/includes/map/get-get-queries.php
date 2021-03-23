@@ -4,7 +4,7 @@ $url_suffix = null;
 
 foreach($_GET as $key => $value){
 
-  if ($key == "latitude" OR $key == "longitude" OR $key == "address" OR $key == "zip" OR $key == "city" OR $key == "state" OR $key == "zoom" OR $key == "limit") {
+  if ($key == "latitude" OR $key == "longitude" OR $key == "address" OR $key == "zip" OR $key == "city" OR $key == "state" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude") {
     ${$key} = $value;
   } elseif(!empty($value)) {
 

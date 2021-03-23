@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-     <?php include "../functions.php"; ?>
+      <?php
+      include "../functions.php";
+      ?>
    </head>
    <body>
-     <div class="flex">
-   <?php
-     include "../includes/functions/prettyInfoDisplay.php";
-     //The buttons
-     hubLatLong("Form.php","#F80000","Form","_self");
-     hubLatLong("Search.php","#e31bdc","Search","_self");
-     hubLatLong("Map.php","#E9A623","Map","_blank");
-     // hubLatLong("database/CLI.php","#29b30b","CLI Beta","_blank");
-     // hubLatLong("..\comparison-mode/index.php","#6aa3a3","Comparison Mode","_self");
-     hubLatLong("..\Home.php","#00000","Back","_self");
-     echo '</div>';
-     include "includes/footer.php";
-?>
+     <form class="flex" id="form" action="../goto.php" method="get" autocomplete="off">
+         <?php include  "../includes/functions/prettyInfoDisplay.php" ?>
+         <br><input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+         <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
+         <input type="hidden" name="address" value="<?php echo $address;?>">
+         <input type="hidden" name="zip" value="<?php echo $zip;?>">
+         <input type="hidden" name="city" value="<?php echo $city;?>">
+         <input type="hidden" name="state" value="<?php echo $state;?>">
+         <input type="submit" class="submitbutton" style="color:#F80000" name="goto_page" value="Form" /> <br>
+         <input type="submit" class="submitbutton" style="color:#e31bdc" name="goto_page" value="Search" /><br>
+         <input type="submit" class="submitbutton" style="color:#E9A623" name="goto_page" value="Maps" /><br>
+         <!-- <input type="submit" class="submitbutton" style="color:#B17DC9" name="goto_page" value="LA Permit Map" /><br> -->
+       </form>
+     <?php include "includes/footer.php"; ?>
    </body>
 </html>
