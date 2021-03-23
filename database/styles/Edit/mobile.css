@@ -39,16 +39,16 @@ input[type=submit] {
 .container {
   position: relative;
 }
-.idList { width: 25%!important; }
 .addresslistA { width: 49%!important; }
 .addresslistB { width: 23%!important; }
 .addresslistC { width: 13%!important; }
 .addresslistD { width: 15%!important; }
 .latlongList { width: 50%!important; }
-.tf_a1 {width: 50%!important;}
-.tf_a2 {width: 50%!important;}
-.tf_b1 {width: 75%!important;}
-.tf_b2 {width: 25%!important;}
+.mutli-id-params1 {width: 50%!important;}
+.mutli-id-params2 {width: 50%!important;}
+.ev_data1 {width: 75%!important;}
+.ev_data2 {width: 25%!important;}
+.lte-nr2 { width: 25%!important; }
 body{
         margin: 4px;
         padding: 0px;
