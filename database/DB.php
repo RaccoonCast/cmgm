@@ -22,7 +22,7 @@ foreach($_GET as $key => $value){
     $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id' AND " . $db_variables;
   }
   } else {
-    if (!$key == 'carrier') if (empty($value)) {
+    if (!empty($value)) {
       $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
     }
   }
