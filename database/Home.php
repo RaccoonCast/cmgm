@@ -17,7 +17,8 @@
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="submit" class="submitbutton" style="color:#F80000" name="goto_page" value="Form" /> <br>
          <input type="submit" class="submitbutton" style="color:#e31bdc" name="goto_page" value="Search" /><br>
-         <input type="submit" class="submitbutton" style="color:#E9A623" name="goto_page" value="Maps" /><br>
+         <input type="submit" class="submitbutton" style="color:#E9A623" name="goto_page" value="Map" /><br>
+         <input type="submit" class="submitbutton" style="color:#000000" name="goto_page" value="Back" /><br>
          <!-- <input type="submit" class="submitbutton" style="color:#B17DC9" name="goto_page" value="LA Permit Map" /><br> -->
        </form>
      <?php include "includes/footer.php"; ?>
