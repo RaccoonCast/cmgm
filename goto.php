@@ -29,7 +29,7 @@ if(empty($address)) $address = null;
 
 $suffix_part_b = '&address=' . $address . '&zip=' . $zip . '&city=' . $city .'&state=' . $state;
 $suffix_part_a = '&carrier=' . $carrier;
-if ($goto_page == "DB") { $suffix_part_a = null; $suffix_part_b = null; }
+if ($goto_page == "DB") { $suffix_part_b = null; }
 if ($goto_page == "Map") $suffix_part_b = null;
 
 if (isset($goto_page_URL)) {

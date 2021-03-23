@@ -1,4 +1,6 @@
 <?php
+echo "whoops";
+die();
 // SQL Login Information
 include "../includes/functions/sqlpw.php";
 

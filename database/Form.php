@@ -3,6 +3,7 @@
    <head>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/pasteimages.js"></script>
+     <script src="../js/database.js"></script>
      <?php include '../functions.php';?>
    </head>
    <body>

@@ -1,4 +1,4 @@
-<select class="custominput status-custom-width dropdown" autocomplete="on" name="status" required>
+<select onClick="lte_1Reqd()" id="status" class="custominput status-custom-width dropdown" autocomplete="on" name="status" required>
 <option style="display:none" disabled selected="selected"></option>
 <option value="verified">Verified</option>
 <option value="unverified">Unverified</option>
