@@ -9,7 +9,6 @@
 <body>
 <?php
 $limit = "500";
-
 $db_variables = "id > 0";
 
 foreach($_GET as $key => $value){
@@ -27,29 +26,29 @@ foreach($_GET as $key => $value){
     }
   }
 }
-
-
-?>
-<table  style="margin-bottom: 1cm" border="1">
-<thead>
-<tr>
-  <th>LTE #</th>
-  <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
-  <th>Address</th>
-  <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
-  <th>Bio</th>
-  <th>EV</th>
-  <?php if($isMobile != "true") {?><th>Score</th> <?php } ?>
-</tr>
-</thead>
-<tbody>
-<?php
 $sql = "SELECT DISTINCT *,
 (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE
 FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
 $result = mysqli_query($conn,$sql);
+$counter=0;
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
+      $counter++;
+      if ($counter==1) { ?>
+        <table border="1">
+        <thead>
+        <tr>
+          <th>LTE #</th>
+          <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
+          <th>Address</th>
+          <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
+          <th>Bio</th>
+          <th>EV</th>
+          <?php if($isMobile != "true") {?><th>Score</th> <?php } ?>
+        </tr>
+        </thead>
+        <tbody> <?php
+      }
       $$key = $value;
       if ($key == "alt_carriers_here") {
         echo "<tr>";
@@ -107,6 +106,10 @@ while($row = $result->fetch_assoc()) {
       }
       }
       }
+      if($counter==0){
+      echo "No results found.";
+      redir("Search.php?latitude=$latitude&longitude=$longitude","1");
+    } else {}
 ?>
 </tbody>
 </table>
