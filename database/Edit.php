@@ -34,7 +34,7 @@ redir("Edit.php?id=" . $id . "","0");
 $database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
 pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_link,photo_link,
 attached_file_link,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,image_evidence,
-verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock";
+verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
 
 // todo:// add edit_history, edit_lock(IPs, name?)
 
@@ -120,6 +120,7 @@ $result->close(); $conn->close();
     <label for="evidence_link">Evidence Link</label><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
     <label for="photo_link">Photo link</label><input type="text" class="photo_link" name="photo_link" value="<?php echo $photo_link?>">
     <label for="attached_file_link">Attached file link</label><input type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
+    <label for="street_view_url">Street view URL</label><input type="text" class="street_view_url" name="street_view_url" value="<?php echo $street_view_url?>">
     <br><label class="ev_data1" for="permit_score">Permit Score</label><input type="text" class="ev_data2 permit_score" name="permit_score" value="<?php echo $permit_score?>">
     <br><label class="ev_data1" for="trails_match">Trails Match</label><input type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">
     <br><label class="ev_data1" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="ev_data2 carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
