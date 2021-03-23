@@ -16,6 +16,7 @@
          <input type="hidden" name="city" value="<?php echo $city;?>">
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="submit" class="submitbutton" style="color:#F80000" name="goto_page" value="Form" /> <br>
+         <input type="submit" class="submitbutton" style="color:#18d9c9" name="goto_page" value="Upload" /><br>
          <input type="submit" class="submitbutton" style="color:#e31bdc" name="goto_page" value="Search" /><br>
          <input type="submit" class="submitbutton" style="color:#E9A623" name="goto_page" value="Map" /><br>
          <input type="submit" class="submitbutton" style="color:#000000" name="goto_page" value="Back" /><br>
