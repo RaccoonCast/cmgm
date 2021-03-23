@@ -1,4 +1,8 @@
 <?php
+   if(empty($zip)) $zip = null;
+   if(empty($city)) $city = null;
+   if(empty($state)) $state = null;
+   if(empty($address)) $address = null;
    $latitude = substr("$latitude", 0, 9);
    $longitude = substr("$longitude", 0, 10);
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
@@ -7,10 +11,6 @@
    $db_list_link = "../goto.php?goto_page=DB&latitude=$latitude&longitude=$longitude";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
    $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
-   if(empty($zip)) $zip = null;
-   if(empty($city)) $city = null;
-   if(empty($state)) $state = null;
-   if(empty($address)) $address = null;
    ?>
 
    <footer>
