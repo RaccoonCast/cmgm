@@ -1,7 +1,7 @@
 <?php
 // basic basic functions
 function redir($page,$time) {
-echo '<meta http-equiv="Refresh" content="' . $time . '; url=' . $page . '"';
+echo '<meta http-equiv="Refresh" content="' . $time . '; url=' . $page . '">';
 }
 
 // The mobile detection function
