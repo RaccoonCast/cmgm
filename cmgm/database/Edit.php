@@ -1,14 +1,20 @@
+<?php
+header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <head>
 <?php include "../functions.php"; ?>
 </head>
 <?php
-$id = $_GET['id'];
+if (isset($_GET['id_search'])) $id = $_GET['id_search'];
+if (isset($_GET['id'])) $id = $_GET['id'];
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_link', 'photo_link', 'attached_file_link', 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier',
 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
-'alt_carriers_here');
+'alt_carriers_here','street_view_url');
 
 if (isset($latitude)) {
 /// Database column names
@@ -48,7 +54,7 @@ while($row = $result->fetch_assoc()) {
         $counter++;
 }
 
-if ($counter==0) {
+if ($counter==0 OR isset($_GET['id_search'])) {
   $id = mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
   redir("Edit.php?id=$id","0");
   die();
