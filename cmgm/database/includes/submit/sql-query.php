@@ -4,10 +4,10 @@ $conn = mysqli_connect($servername, $db_username, $password, $dbname);
 
 // Create connection
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
-      `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`status`,`evidence_link`,
+      `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`tags`,`status`,`evidence_link`,
       `photo_link`,`attached_file_link`,`permit_score`,`trails_match`,`carriers_dont_trail_match`,`antennas_match_carrier`,
       `cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
-      `only_reasonable_location`,`alt_carriers_here`)
+      `only_reasonable_location`,`alt_carriers_here`,`street_view_url`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
                         '".mysqli_real_escape_string($conn, $cellsite_type)."',
@@ -31,6 +31,7 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $state)."',
                         '".mysqli_real_escape_string($conn, $address)."',
                         '".mysqli_real_escape_string($conn, $bio)."',
+                        '".mysqli_real_escape_string($conn, $tags)."',
                         '".mysqli_real_escape_string($conn, $status)."',
                         '".mysqli_real_escape_string($conn, $evidence_link)."',
                         '".mysqli_real_escape_string($conn, $photo_link)."',
@@ -45,10 +46,11 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $sector_split_match)."',
                         '".mysqli_real_escape_string($conn, $archival_antenna_addition)."',
                         '".mysqli_real_escape_string($conn, $only_reasonable_location)."',
-                        '".mysqli_real_escape_string($conn, $alt_carriers_here)."');  ";
+                        '".mysqli_real_escape_string($conn, $alt_carriers_here)."',
+                        '".mysqli_real_escape_string($conn, $street_view_url)."');  ";
 
 mysqli_query($conn, $sql);
 mysqli_close($conn);
 
-echo '<meta http-equiv="refresh" content="0;URL=../" /> ';
+echo '<meta http-equiv="refresh" content="150;URL=../" /> ';
 ?>

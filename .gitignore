@@ -8,3 +8,4 @@ cmgm/includes/functions/id_list.txt
 cmgm/secret-ip-whitelist-pass.hiddenpass
 cmgm/maps_api_key.hiddenpass
 cmgm/database/shh.php
+cmgm/test.php
