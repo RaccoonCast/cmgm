@@ -68,3 +68,5 @@ input[type=submit] {
 .status-custom-width {width: 15%!important}
 .carrier-custom-width {width: 45%!important}
 .type-custom-width {width: 40%!important}
+.street_view_url_label {width: 25%!important;}
+.street_view_url_box {width: 75%!important;}

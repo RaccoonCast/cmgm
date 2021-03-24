@@ -107,18 +107,19 @@ $result->close(); $conn->close();
     <br><label class="mutli-id-params1" for="other_user_map_primary">Other user mapped primary</label><input type="text" class="mutli-id-params2 other_user_map_primary" name="other_user_map_primary" value="<?php echo $sector_match?>">
 
     <br><label class="latlong1" for="latitude">Latitude/Longitude</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="text" class="IB latlong2 latlongList" id="latitude" value="<?php echo $latitude?>" placeholder="Latitude" name="latitude"><input
-    type="text" class="IB latlong2 latlongList" id="longitude" value="<?php echo $longitude?>" placeholder="Longitude" name="longitude">
+    type="text" class="inline-block latlong2 latlongList" id="latitude" value="<?php echo $latitude?>" placeholder="Latitude" name="latitude"><input
+    type="text" class="inline-block latlong2 latlongList" id="longitude" value="<?php echo $longitude?>" placeholder="Longitude" name="longitude">
 
     <label class="addr1" for="address">Address</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="text" class="IB addresslistA" id="address" value="<?php echo $address?>" placeholder="Address" name="address"><input
-    type="text" class="IB addresslistB" id="city" value="<?php echo $city?>" placeholder="City" name="city"><input
-    type="text" class="IB addresslistC" id="state" value="<?php echo $state?>" placeholder="State" name="state"><input
-    type="text" class="IB addresslistD" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
+    type="text" class="inline-block addresslistA" id="address" value="<?php echo $address?>" placeholder="Address" name="address"><input
+    type="text" class="inline-block addresslistB" id="city" value="<?php echo $city?>" placeholder="City" name="city"><input
+    type="text" class="inline-block addresslistC" id="state" value="<?php echo $state?>" placeholder="State" name="state"><input
+    type="text" class="inline-block addresslistD" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
+    <label class="ID street_view_url_label" for="street_view_url">Street view URL</label><input type="text" class="street_view_url_box" name="street_view_url" value="<?php echo $street_view_url?>">
 
     <br><label for="bio">Bio</label><br>
     <?php if ($isMobile !="true") { ?>
-    <textarea rows="12" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
+    <textarea rows="13" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
     <textarea rows="6" cols="50" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
 
     <label class="tags1" for="tags">Tags</label><input type="text" class="tags2" name="tags" value="<?php echo $tags?>">
@@ -127,7 +128,6 @@ $result->close(); $conn->close();
     <label for="evidence_link">Evidence Link</label><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
     <label for="photo_link">Photo link</label><input type="text" class="photo_link" name="photo_link" value="<?php echo $photo_link?>">
     <label for="attached_file_link">Attached file link</label><input type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
-    <label for="street_view_url">Street view URL</label><input type="text" class="street_view_url" name="street_view_url" value="<?php echo $street_view_url?>">
     <br><label class="ev_data1" for="permit_score">Permit Score</label><input type="text" class="ev_data2 permit_score" name="permit_score" value="<?php echo $permit_score?>">
     <br><label class="ev_data1" for="trails_match">Trails Match</label><input type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">
     <br><label class="ev_data1" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="ev_data2 carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
@@ -136,7 +136,7 @@ $result->close(); $conn->close();
     <br><label class="ev_data1" for="image_evidence"><abbr title="(1-100)&#013;0 being none&#013;100 being perfect)">Image evidence</abbr></label><input type="text" class="ev_data2 image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
     <br><label class="ev_data1" for="verified_by_visit"><abbr title="(1-100)&#013;0 being not at all&#013;100 very thorough)">Verified by visit</abbr></label><input type="text" class="ev_data2 verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
     <br><label class="ev_data1" for="sector_split_match"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly)">Sector split match</abbr></label><input type="text" class="ev_data2 sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>">
-    <br><label class="ev_data1" for="archival_antenna_addition">Number of visibile antenna modifications</abbr></label><input type="text" class="ev_data2 archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>">
+    <br><label class="ev_data1" for="archival_antenna_addition">Number of visinline-blockile antenna modifications</abbr></label><input type="text" class="ev_data2 archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>">
     <br><label class="ev_data1" for="only_reasonable_location"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly)">Only reasonable location</abbr></label><input type="text" class="ev_data2 only_reasonable_location" name="only_reasonable_location" value="<?php echo $only_reasonable_location?>">
     <br><label class="ev_data1" for="alt_carriers_here">Number of other carriers here</label><input type="text" class="ev_data2 alt_carriers_here" name="alt_carriers_here" value="<?php echo $alt_carriers_here?>">
     </div>
