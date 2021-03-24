@@ -1,11 +1,11 @@
-cmgm/AutoUpdateCMGM*
-cmgm/beta/
-cmgm/secret-sql-login.txt
+# hah no
+*.hiddenpass
+
+# misuse of github storage
 cmgm/database/uploads
 cmgm/u/*.*
-cmgm/secret-sql-login.hiddenpass
 cmgm/includes/functions/id_list.txt
-cmgm/secret-ip-whitelist-pass.hiddenpass
-cmgm/maps_api_key.hiddenpass
+
+# temp files
 cmgm/database/shh.php
 cmgm/test.php

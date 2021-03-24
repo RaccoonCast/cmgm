@@ -14,7 +14,6 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
     }
 if (isset($IPfromDB)) {
-  $maps_api_key = "AIzaSyAhNIGTtBPudtLxXejJfRkcT4aVwATAYs8";
   $maps_api_key = file_get_contents($siteroot . "/maps_api_key.hiddenpass", true);
 }
 ?>
