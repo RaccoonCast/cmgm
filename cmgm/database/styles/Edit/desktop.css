@@ -1,4 +1,8 @@
 /*STOLEN FROM FINDLATER DB*/
+body {
+	margin: 6px;
+	margin-top: 2px;
+}
 table {
 	border-collapse: collapse;
 	border-spacing:0;
