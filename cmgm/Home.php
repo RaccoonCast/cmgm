@@ -8,13 +8,12 @@
         die();
       }
       include "functions.php";
-      include "permits.php";
       ?>
    </head>
    <body class="flex">
      <?php include "includes/functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="goto.php" method="get" autocomplete="off">
-         <input type="textbox" name="data" onClick="changeFormAction();" onfocusout="submit()" id="txtresult" class="textbox"><br>
+         <input type="textbox" name="data" oninput="changeFormAction();" id="txtresult" class="textbox"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
@@ -22,20 +21,15 @@
          <input type="hidden" name="zip" value="<?php if (!empty($_GET['zip'])) echo $zip;?>">
          <input type="hidden" name="city" value="<?php if (!empty($_GET['city'])) echo $city;?>">
          <input type="hidden" name="state" value="<?php if (!empty($_GET['state'])) echo $state;?>">
-         <input type="submit" class="submitbutton" style="color:#00ccff" name="goto_page" value="Database" /> <br>
-         <input type="submit" class="submitbutton" style="color:#5DC904" name="goto_page" value="CellMapper" /><br>
-         <input type="submit" class="submitbutton" style="color:#4185FA" name="goto_page" value="Google Maps" /><br>
-         <!-- <input type="submit" class="submitbutton" style="color:#B17DC9" name="goto_page" value="LA Permit Map" /><br> -->
+         <input type="submit" class="submitbutton" style="color:#D93A6C" name="goto_page" value="Database" /> <br>
+         <input type="submit" class="submitbutton" style="color:#33D333" name="goto_page" value="CellMapper" /><br>
+         <input type="submit" class="submitbutton" style="color:#5695F6" name="goto_page" value="Google Maps" /><br>
      </form>
-     <form target="_blank" action="Home.php" method="get">
-       <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
-       <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
+     <form target="_blank" action="Permits.php" method="get">
        <input type="hidden" name="city" value="<?php echo $city;?>">
-       <input type="hidden" name="permit_redirect" value="true">
-       <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
+       <input type="submit" onfocusin="submitPermit()" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
      </form>
-
-       <input onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')" style="color: #ffb700" type="submit" class="submitbutton" value="Copy">
-<script src="js/copy.js"></script>
+       <input onfocusin="submitCopyLatLong()" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')" style="color: #ba03fc" type="submit" class="submitbutton" value="Settings">
+       <script src="js/copy.js"></script>
    </body>
 </html>

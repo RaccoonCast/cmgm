@@ -40,8 +40,6 @@ function showPosition_2(position) {
 function changeFormAction() {
   document.getElementById("form").setAttribute('action', 'convert.php');
 }
-function submit() {
-  document.getElementById("form").submit();
-}
+
 </script>
 <?php
