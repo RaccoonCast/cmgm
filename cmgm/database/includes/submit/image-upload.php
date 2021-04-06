@@ -28,6 +28,6 @@ if (isset($_POST['base64_file'])) {
   imagejpeg($bg, $fileNoExtension . ".jpg", $quality);
   imagedestroy($bg);
   unlink($file);
-  $link = 'image-evidence-' . $randomString . '.jpg';
+  $evidence_link = 'image-evidence-' . $randomString . '.jpg';
 }
 ?>
