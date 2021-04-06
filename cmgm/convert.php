@@ -6,9 +6,8 @@ if (!isset($_GET['goto_page'])) {
   $goto_page_URL = "Home.php?";
   $goto_page = null;
 }
-if ($goto_page == "CellMapper") $goto_page_URL = "basic-redirect.php?goto_page=cm&";
-if ($goto_page == "Google Maps") $goto_page_URL = "basic-redirect.php?goto_page=gm&";
-if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
+if ($goto_page == "CellMapper") $goto_page_URL = "goto.php?goto_page=CellMapper&";
+if ($goto_page == "Google Maps") $goto_page_URL = "goto.php?goto_page=Google Maps&";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
 
 // If not set get location from cookies
@@ -32,6 +31,8 @@ $longitude = substr($longitude,0,10);
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
 if(empty($address)) $address = null;
+if(empty($city)) $city = null;
+if(empty($state)) $state = null;
 
 // URL Builder 3.0 /s
 echo '<meta http-equiv="refresh" content="0; url=' . $goto_page_URL . '
@@ -42,5 +43,4 @@ latitude=' . $latitude .
 '&zip=' . $zip .
 '&city=' . $city .
 '&state=' . $state .
-'&data=' . $data .
 '">';
