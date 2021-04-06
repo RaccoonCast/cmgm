@@ -17,8 +17,8 @@ td {
 }
 label {
   display: inline-block;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   min-width: inherit;
   text-align: left;
 }
@@ -60,17 +60,20 @@ input[type=submit] {
 .latlongList { width: 50%!important; }
 .mutli-id-params1 {width: 25%!important;}
 .mutli-id-params2 {width: 75%!important;}
-.ev_data1 {width: 70%!important;}
+.ev_data1 {width: 38%!important;}
 .addr1 {width: 25%!important;}
-.ev_data2 {width: 30%!important;}
+.ev_data2 {width: 62%!important;}
 .lte-nr1 {width: 25%!important;}
 .lte-nr2 {width: 9.375%!important;}
 .tags1 {width: 6%!important;}
 .tags2 {width: 93.5%!important;}
 .latlong1 {width: 25%!important;}
 .latlong2 {width: 37.5%!important;}
-.status-custom-width {width: 15%!important}
-.carrier-custom-width {width: 45%!important}
-.type-custom-width {width: 40%!important}
+.status-custom-width {width: 17%!important}
+.carrier-custom-width {width: 18%!important}
+.celsite_type1 {width: 25%!important;}
+.type-custom-width {width: 40%!important;}
 .street_view_url_label {width: 25%!important;}
 .street_view_url_box {width: 75%!important;}
+.photo_link {width:50%!important;}
+.photo_link_link {padding-left:0.55em; padding-right: 0.55em;}

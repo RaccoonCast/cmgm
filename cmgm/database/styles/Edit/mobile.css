@@ -49,6 +49,7 @@ input[type=submit] {
 .ev_data1 {width: 75%!important;}
 .ev_data2 {width: 25%!important;}
 .lte-nr2 { width: 25%!important; }
+.photo_link_link {padding-left:0.6em; padding-right: 0.6em; font-size: 1.1em;}
 body{
         margin: 4px;
         padding: 0px;

@@ -9,7 +9,7 @@
 $id = $_GET['id'];
 
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,
-evidence_link,photo_link,attached_file_link,street_view_url";
+evidence_link,photo_link_a,photo_link_b,photo_link_c,photo_link_d,attached_file_link,street_view_url";
 
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
