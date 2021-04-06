@@ -7,7 +7,7 @@ $list = array('latitude', 'longitude', 'carrier', 'cellsite_type', 'LTE_1', 'LTE
 
 // Infix for the Build-A-Query
 foreach ($list as $value) {
-      if(isset($_GET[$value])) {
+      if(isset($_POST[$value])) {
         ${$value} = $_POST[$value];
       } else {
         ${$value} = null;
