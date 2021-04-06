@@ -21,10 +21,10 @@
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
-         <input type="hidden" name="address" value="<?php echo $address;?>">
-         <input type="hidden" name="zip" value="<?php echo $zip;?>">
-         <input type="hidden" name="city" value="<?php echo $city;?>">
-         <input type="hidden" name="state" value="<?php echo $state;?>">
+         <input type="hidden" name="address" value="<?php if (!empty($_GET['address'])) echo $address;?>">
+         <input type="hidden" name="zip" value="<?php if (!empty($_GET['zip'])) echo $zip;?>">
+         <input type="hidden" name="city" value="<?php if (!empty($_GET['city'])) echo $city;?>">
+         <input type="hidden" name="state" value="<?php if (!empty($_GET['state'])) echo $state;?>">
          <input type="submit" class="submitbutton" style="color:#00ccff" name="goto_page" value="Database" /> <br>
          <input type="submit" class="submitbutton" style="color:#5DC904" name="goto_page" value="CellMapper" /><br>
          <input type="submit" class="submitbutton" style="color:#4185FA" name="goto_page" value="Google Maps" /><br>
