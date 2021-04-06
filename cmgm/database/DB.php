@@ -70,7 +70,6 @@ while($row = $result->fetch_assoc()) {
           if($isMobile == "true") if (!empty($bio)) echo nl2br("<td class=" . "bio" . ">" . $bio . "<br><br>");
           if($isMobile == "true") if (empty($bio)) echo nl2br("<td class=" . "bio" . ">");
           if($isMobile != "true") echo nl2br("<td class=" . "widget-td" . " style=" . "text-align: center;" . ">");
-          echo '<a class="widget" href="SupplID.php?id='.$id.'"><abbr title="Add extra IDs">➕</abbr></a>';
           echo '<a class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
           echo '<a class="widget" href="Edit.php?id='.$id.'"><abbr title="Edit">🔧</abbr></a>';
           echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
