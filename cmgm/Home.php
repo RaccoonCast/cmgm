@@ -2,17 +2,17 @@
 <html lang="en">
    <head>
       <?php
+      include "js/index.js.php";
+      if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) {
+        echo '<script>locateMe()</script>';
+        die();
+      }
       include "functions.php";
       include "permits.php";
-      include "js/index.js.php";
       ?>
    </head>
    <body class="flex">
      <?php
-  if (!isset($latitude) OR !isset($longitude)) {
-    echo '<script>locateMe()</script>';
-    die();
-  }
      if (!isset($_GET['permit_redirect'])) {
      include "includes/functions/prettyInfoDisplay.php"
  ?>
