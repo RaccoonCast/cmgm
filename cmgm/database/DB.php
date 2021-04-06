@@ -107,7 +107,8 @@ while($row = $result->fetch_assoc()) {
       }
       }
       if($counter==0){
-      echo "No results found.";
+      ?> <br> <?php
+      echo " No results found.";
       redir("Search.php?latitude=$latitude&longitude=$longitude","1");
     } else {}
 ?>
