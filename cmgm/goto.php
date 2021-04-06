@@ -1,4 +1,11 @@
 <?php
+if(empty($type)) $type = null;
+if(empty($carrier)) $carrier = null;
+if(empty($zip)) $zip = null;
+if(empty($city)) $city = null;
+if(empty($state)) $state = null;
+if(empty($address)) $address = null;
+
 foreach($_GET as $key => $value) ${$key} = $value;
 if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
   echo 'ERROR: $goto_page variable was not set.';
@@ -10,32 +17,26 @@ if ($goto_page == "CellMapper") {
   if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
   if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
   if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
-  if ("$carrier" == "Verizon&") $beginning = "MCC=311&MNC=480&";
+  if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
+  if ("$type" == "LTE") $beginning = $beginning . "type=LTE&";
+  if ("$type" == "NR") $beginning = $beginning . "type=NR&";
   $the_URL = "https://www.cellmapper.net/map?$beginning" . "latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
 }
-if ($goto_page == "Google Maps") {
- $the_URL = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
-}
-if ($goto_page == "LA Permit Map") $goto_page_URL = "basic-redirect.php?goto_page=permit-map&";
+if ($goto_page == "Google Maps") $the_URL = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
 if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
 if ($goto_page == "Form") $goto_page_URL = "database/Form.php?";
 if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
-if ($goto_page == "Back") $goto_page_URL = "Home.php?";
-if ($goto_page == "Home") $goto_page_URL = "Home.php?";
+if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "Home.php?";
 if ($goto_page == "Upload") $goto_page_URL = "database/upload/Upload.php?";
-if(empty($carrier)) $carrier = null;
-if(empty($zip)) $zip = null;
-if(empty($city)) $city = null;
-if(empty($state)) $state = null;
-if(empty($address)) $address = null;
 
 $suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
 $suffix_part_b = "&carrier=$carrier";
 $suffix_part_a = "latitude=$latitude&longitude=$longitude";
+
 if ($goto_page == "DB") $suffix_part_c = null;
-if ($goto_page == "Maps") $suffix_part_c = null;
+if ($goto_page == "Map") { $suffix_part_c = null; }
 if ($goto_page == "Search") $suffix_part_c = null;
 if ($goto_page == "Upload") { $suffix_part_a = null; $suffix_part_b = null; $suffix_part_c = null; }
 
