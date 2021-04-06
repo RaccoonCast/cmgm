@@ -53,7 +53,7 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $street_view_url)."');  ";
 
 mysqli_query($conn, $sql);
-$id = mysqli_fetch_array(mysqli_query($conn, "SELECT max(id) FROM database_db"))['id'];
+$id = mysqli_fetch_array(mysqli_query($conn, "SELECT max(id) FROM database_db"))['max(id)'];
 mysqli_close($conn);
 
 echo '<meta http-equiv="refresh" content="0;URL=Edit.php?id='.$id.'" /> ';
