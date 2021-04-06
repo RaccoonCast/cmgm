@@ -8,7 +8,7 @@
    <body>
      <form class="flex" id="form" action="../goto.php" method="get" autocomplete="off">
          <?php include  "../includes/functions/prettyInfoDisplay.php" ?>
-         <br><input type="hidden" name="latitude" value="<?php echo $latitude;?>">
+         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
          <input type="hidden" name="address" value="<?php echo $address;?>">

@@ -21,15 +21,14 @@
          <input type="hidden" name="zip" value="<?php if (!empty($_GET['zip'])) echo $zip;?>">
          <input type="hidden" name="city" value="<?php if (!empty($_GET['city'])) echo $city;?>">
          <input type="hidden" name="state" value="<?php if (!empty($_GET['state'])) echo $state;?>">
-         <input type="submit" class="submitbutton" style="color:#D93A6C" name="goto_page" value="Database" /> <br>
-         <input type="submit" class="submitbutton" style="color:#33D333" name="goto_page" value="CellMapper" /><br>
-         <input type="submit" class="submitbutton" style="color:#5695F6" name="goto_page" value="Google Maps" /><br>
+         <input type="submit" class="submitbutton" style="color:#D93A6C" name="goto_page" value="Database"> <br>
+         <input type="submit" class="submitbutton" style="color:#33D333" name="goto_page" value="CellMapper"><br>
+         <input type="submit" class="submitbutton" style="color:#5695F6" name="goto_page" value="Google Maps"><br>
+         <input type="submit" class="submitbutton" style="color:#BA03FC" name="goto_page" value="Settings"><br>
      </form>
      <form target="_blank" action="Permits.php" method="get">
        <input type="hidden" name="city" value="<?php echo $city;?>">
-       <input type="submit" onfocusin="submitPermit()" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
+       <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits">
      </form>
-       <input onfocusin="submitCopyLatLong()" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')" style="color: #ba03fc" type="submit" class="submitbutton" value="Settings">
-       <script src="js/copy.js"></script>
    </body>
 </html>
