@@ -47,7 +47,9 @@
   } else {
     echo "$city does not have a permit search page listed.";
   }
+  die();
 }
+
 ?>
 </body>
 </html>

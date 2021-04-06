@@ -12,10 +12,7 @@
       ?>
    </head>
    <body class="flex">
-     <?php
-     if (!isset($_GET['permit_redirect'])) {
-     include "includes/functions/prettyInfoDisplay.php"
- ?>
+     <?php include "includes/functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="goto.php" method="get" autocomplete="off">
          <input type="textbox" name="data" onClick="changeFormAction();" onfocusout="submit()" id="txtresult" class="textbox"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
@@ -39,8 +36,6 @@
      </form>
 
        <input onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')" style="color: #ffb700" type="submit" class="submitbutton" value="Copy">
-
-    <?php }?>
 <script src="js/copy.js"></script>
    </body>
 </html>
