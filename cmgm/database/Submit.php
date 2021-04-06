@@ -1,4 +1,7 @@
 <?php
+
+include  "includes/submit/image-upload.php";
+
 // SQL Login Information
 include "../includes/functions/sqlpw.php";
 

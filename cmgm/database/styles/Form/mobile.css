@@ -1,41 +1,31 @@
-.custominput {
+p { margin-top: 3px; margin-bottom: 3px;}
+output { font-size: 0.72em; }
+#map { padding-bottom: 12px; }
+input[type=range] { width: 95px !important; }
+label { font-size: 15px;}
+.trim-id-width {width:48%;}
+
+/* Margin for the page so it doesn't look squeezed, remember we turned off margin for the footer */
+.body { font-size: 1.1em; margin: 8px; }
+
+/*  Custom widths for the top dropbowns */
+.status-custom-width { width: 6.96969%!important; }
+.carrier-custom-width { width: 32.25%!important; }
+.cellsite-type-custom-width { width: 66.25%!important; }
+.dropdown { height: 33px; }
+
+.ci {
+	padding-top: 8px;
+	padding-bottom: 3px;
 	height: 25px;
-	width: 100%;
+	width: 48.25%;
+	font-size: 1em;
 	resize: none;
-  font-size: 1em;
-}
-.dropdown {
-	height: 35px;
-	width: 100%;
 }
 .submitbutton {
 	display: block;
   font-size: 0.85em;
-  width: 105px;
-  height: 45px;
-  color: #00000
-}
-textarea {
-  padding-top: 10px;
-  font-size: 1em!important;
-}
-p {
-	margin-top: 6px;
-	margin-bottom: 6px;
-}
-body {
-  font-size: 1.1em;
-}
-#map {
-	padding-bottom: 12px;
-}
-/* Margin for the page so it doesn't look squeezed, remember we turned off margin for the footer */
-.body {
-	margin: 5px;
-}
-.carrier-custom-width {
-	width: 32.25%!important;
-}
-.cellsite-type-custom-width {
-	width: 66.25%!important;
+  width: 115px;
+  height: 40px;
+  color: #00000;
 }

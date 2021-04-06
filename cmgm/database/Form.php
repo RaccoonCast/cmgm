@@ -9,33 +9,32 @@
    <body>
      <div class="body">
      <?php
+     // The cell site at? ... Make sure latitude and longitude show up in get query
+     include  "includes/form/cellsite-at.php";
 
      // Ctrl+v paste images
      include  "includes/form/upload-form.php";
-
-      // The cell site at? ... Make sure latitude and longitude show up in get query
-      include  "includes/form/cellsite-at.php";
 
       // Map with
       include  "includes/form/mapWithPin.php";
 
       // The carrier is...? Multiple?
-      include  "includes/form/carrier.php";
+      include  "includes/form/dropdowns-carrier-info.php";
 
       // Evidence...?
       include  "includes/form/evidence.php";
 
       // Google Maps convert latitude and longitude to Physical Address
-      include  "includes/form/google-maps.php";
+      include  "includes/form/box-address.php";
 
       // eNB ID...?
       include  "includes/form/enb-id.php";
 
       // Get textbox values from form.php
-      include  "includes/form/checkboxes-n-stuff.php";
+      include  "includes/form/evidence-stuff.php";
 
       // Bio/extra notes?
-      include "includes/form/bio.php";
+      include "includes/form/bio-n-etc.php";
 
       ?> <input type="submit" class="submitbutton" value="Submit"></div><br><br> <?php
 
