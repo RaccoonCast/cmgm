@@ -1,8 +1,13 @@
 <?php
 // Cast's Awesome API (CAAPI)
-include '../includes/functions/basic-functions.php';
+include '../includes/functions/sqlpw.php';
 
-$database_get_list = $_GET['properties'];
+if (isset($_GET['properties'])) {
+  $database_get_list = $_GET['properties'];
+} else {
+  $database_get_list = "*";
+}
+
 $database_id = $_GET['id'];
 
 $sql = "SELECT $database_get_list FROM database_db WHERE id=" . "$database_id" . "";

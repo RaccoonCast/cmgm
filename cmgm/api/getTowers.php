@@ -2,7 +2,7 @@
 // Cast's Awesome API (CAAPI)
 $db_get_list = "id,latitude,longitude";
 $db_variables = "id > 0";
-include '../includes/functions/basic-functions.php';
+include '../includes/functions/sqlpw.php';
 
 foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
