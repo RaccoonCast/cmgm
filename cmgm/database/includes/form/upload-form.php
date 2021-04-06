@@ -1,4 +1,8 @@
 <?php
+if(empty($zip)) $zip = null;
+if(empty($address)) $address = null;
+if(empty($city)) $city = null;
+if(empty($state)) $state = null;
 $url = "Form.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
 
  ?>
