@@ -2,8 +2,8 @@
 <html lang="en">
    <head>
       <?php
-      include "js/index.js.php";
       include "functions.php";
+      include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) {
         echo '<script>locateMe()</script>';
         die();

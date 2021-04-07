@@ -14,11 +14,11 @@ function showPosition(position) {
 function locateMe() {
 
 <?php
-if (isset($cookie_latitude) && isset($cookie_longitude)) { ?>
+if (isset($default_latitude) && isset($default_longitude)) { ?>
 function error(err) {
-var cookie_latitude = "<?php echo $cookie_latitude?>";
-var cookie_longitude = "<?php echo $cookie_longitude?>";
-var url = "convert.php?data=" + cookie_latitude + "," + cookie_longitude;
+var db_latitude = "<?php echo $default_latitude?>";
+var db_longitude = "<?php echo $default_longitude?>";
+var url = "convert.php?data=" + db_latitude + "," + db_longitude;
 window.location = url;
 } <?php } else { ?>
 function error(err) {

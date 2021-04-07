@@ -147,7 +147,7 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
     <label class="mutli-id-params1" for="pci_match">PCI match with all IDs</label><input type="text" class="mutli-id-params2 pci_match" name="pci_match" value="<?php echo $pci_match?>">
     <label class="mutli-id-params1" for="id_pattern_match">ID pattern with all IDs</label><input type="text" class="mutli-id-params2 id_pattern_match" name="id_pattern_match" value="<?php echo $id_pattern_match?>">
     <label class="mutli-id-params1" for="sector_match">Similiar sectors with all IDs</label><input type="text" class="mutli-id-params2 sector_match" name="sector_match" value="<?php echo $sector_match?>">
-    <label class="mutli-id-params1" for="other_user_map_primary">Other user mapped primary</label><input type="text" class="mutli-id-params2 other_user_map_primary" name="other_user_map_primary" value="<?php echo $sector_match?>">
+    <label class="mutli-id-params1" for="other_user_map_primary">Other user mapped primary</label><input type="text" class="mutli-id-params2 other_user_map_primary" name="other_user_map_primary" value="<?php echo $other_user_map_primary?>">
 
     <label class="latlong1" for="latitude"><a target="_blank" href="../goto.php?goto_page=CellMapper&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>">Latitude/Longitude</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="inline-block latlong2 latlongList" id="latitude" value="<?php echo $latitude?>" placeholder="Latitude" name="latitude"><input

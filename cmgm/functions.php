@@ -11,7 +11,6 @@ include 'includes/functions/calculateEV.php';
 include 'includes/functions/recalculateEVs.php';
 include 'includes/functions/mapWithPin.php';
 include 'includes/functions/getGetVars.php';
-include 'includes/functions/getCookies.php';
 include 'includes/functions/hubLatLong.php';
 include 'js/consoleLogLatLong.js.php';
 ?>
