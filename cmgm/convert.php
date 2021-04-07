@@ -18,8 +18,7 @@ elseif(substr("$data", 0, 26) === 'https://www.cellmapper.net'){ include "includ
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') { include "includes/convert/google-maps-url-conversion.php"; }
 // Comma Seperator
 elseif(strpos($data, ',') !== false ) { include "includes/convert/lat,long.php"; }
-
-// Google Maps search for the entered data
+// NOTHING? Google Maps search for the entered data
 include 'includes/convert/google-maps-conversion.php';
 
 // Misc code, trim lat&long, get carrier from cookie if set, prevent warnings if certain variables aren't set (They don't need to be)

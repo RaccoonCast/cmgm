@@ -30,6 +30,7 @@ if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "Home.php?";
 if ($goto_page == "Upload") $goto_page_URL = "database/upload/Upload.php?";
+if ($goto_page == "Settings") $goto_page_URL = "database/useridsys/Edit.php?";
 
 $suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
 $suffix_part_b = "&carrier=$carrier";

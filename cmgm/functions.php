@@ -1,6 +1,7 @@
 <?php
 include 'includes/functions/sqlpw.php';
-include 'includes/allow_addr/checkIP.php';
+include 'includes/useridsys/native.php';
+//include 'includes/allow_addr/checkIP.php';
 //include 'includes/useridsys/create.php';
 include 'includes/functions/basic-functions.php';
 include 'includes/functions/css.php';
