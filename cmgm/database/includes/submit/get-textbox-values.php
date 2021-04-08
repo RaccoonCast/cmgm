@@ -15,6 +15,7 @@ foreach ($list as $value) {
       // echo "$value" . ": " . ${$value};
       // echo "<br>";
 }
+// die();
 // Remove spaces
 $LTE_1 = str_replace(' ', '', $LTE_1);
 $LTE_2 = str_replace(' ', '', $LTE_2);

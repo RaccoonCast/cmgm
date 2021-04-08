@@ -107,7 +107,7 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
     <option style="display:none" disabled selected="selected"></option>
     <option <?php if($status == "verified") echo 'selected="selected"';?>value="verified">Verified</option>
     <option <?php if($status == "unverified") echo 'selected="selected"';?>value="unverified">Unverified</option>
-    <option <?php if($status == "Unmapped") echo 'selected="selected"';?>value="unmapped">Unmapped</option>
+    <option <?php if($status == "unmapped") echo 'selected="selected"';?>value="unmapped">Unmapped</option>
     <option <?php if($status == "special") echo 'selected="selected"';?>value="special">Special</option>
     <option <?php if($status == "weird") echo 'selected="selected"';?>value="weird">Weird</option>
     </select><select autocomplete="on" class="type-custom-width" name="cellsite_type" required>
@@ -180,8 +180,8 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
     <br><label class="ev_data1" for="trails_match">Trails Match</label><input type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">
     <br><label class="ev_data1" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="ev_data2 carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
     <br><label class="ev_data1" for="antennas_match_carrier"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Antennas match carrier</abbr></label><input type="text" class="ev_data2 antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
-    <br><label class="ev_data1" for="cellmapper_triangulation"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">CellMapper Triangulation</abbr></label><input type="text" class="ev_data2 cellmapper_triangulation" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>">
-    <br><label class="ev_data1" for="image_evidence"><abbr title="(1-100)&#013;0 being none&#013;100 being perfect)">Image evidence</abbr></label><input type="text" class="ev_data2 image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
+    <br><label class="ev_data1" for="cellmapper_triangulation"><abbr title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#013;&#013;(1-100)&#013;0 being very far away&#013;100 being very closely">CellMapper Triangulation</abbr></label><input type="text" class="ev_data2 cellmapper_triangulation" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>">
+    <br><label class="ev_data1" for="image_evidence"><abbr title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#013;&#013;(1-100)&#013;0 being none&#013;100 being perfect)">On-site image evidence</abbr></label><input type="text" class="ev_data2 image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
     <br><label class="ev_data1" for="verified_by_visit"><abbr title="(1-100)&#013;0 being not at all&#013;100 very thorough">Verified by visit</abbr></label><input type="text" class="ev_data2 verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
     <br><label class="ev_data1" for="sector_split_match"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Sector split match</abbr></label><input type="text" class="ev_data2 sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>">
     <br><label class="ev_data1" for="archival_antenna_addition">Number of visible antenna modifications</abbr></label><input type="text" class="ev_data2 archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>">

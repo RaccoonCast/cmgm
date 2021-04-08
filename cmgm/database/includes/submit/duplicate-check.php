@@ -1,6 +1,6 @@
 <?php
 // Create connection
-if(!isset($_GET['status'])) $status = "unverifed";
+if(!isset($_POST['status'])) $status = "unverifed";
 if ($status == "verified") {
 
 $sql = "SELECT id,carrier,latitude,longitude FROM database_db WHERE (carrier = '$carrier' AND LTE_1 = '$LTE_1')";
