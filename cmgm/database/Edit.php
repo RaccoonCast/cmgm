@@ -63,16 +63,16 @@ if ($counter==0 OR isset($_GET['id_search'])) {
 $result->close(); $conn->close();
 
 if(substr($evidence_link, 0, 14) == "image-evidence") {
-    if (file_exists("uploads/" . $evidence_link)) {$evidence_link_label = '<a target="_blank" href=uploads/' . "$evidence_link" . '>Evidence Link</a>';
+    if (file_exists("uploads/" . $evidence_link)) {$evidence_link_label = '<a target="_blank" href=uploads/' . "$evidence_link" . '>Evidence</a>';
     } else {$evidence_link_label = "Evidence is missing";}
-    } elseif(!empty($evidence_link)) {$evidence_link_label = '<a target="_blank" href=' . "$evidence_link" . '>Evidence Link</a>';}
-    else {$evidence_link_label = "Evidence Link";}
+  } elseif(!empty($evidence_link)) {$evidence_link_label = '<a target="_blank" href=' . "$evidence_link" . '>Evidence</a>';}
+    else {$evidence_link_label = "Evidence";}
 
 if(substr($photo_link_a, 0, 6) == "image-") {
     if (file_exists("uploads/" . $photo_link_a)) {$photo_link_a_label = 'Photo Link <a  class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_a" . '>1</a>';
     } else {$photo_link_a_label = "1st is missing!";}
     } elseif(!empty($photo_link_a)) {$photo_link_a_label = 'Photo Link <a class="photo_link_link" target="_blank" href=' . "$photo_link_a" . '>1</a>';}
-    else {$photo_link_a_label = "Photo Link(s)";}
+    else {$photo_link_a_label = "Photos";}
 
 if(substr($photo_link_b, 0, 6) == "image-") {
     if (file_exists("uploads/" . $photo_link_b)) {$photo_link_b_label = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_b" . '>2</a>';
@@ -96,7 +96,7 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
     if (file_exists("uploads/" . $attached_file_link)) {$attached_file_link_label = '<a target="_blank" href=uploads/' . "$attached_file_link" . '>Attached file link</a>';
     } else {$attached_file_link_label = "Attached file is missing";}
     } elseif(!empty($attached_file_link)) {$attached_file_link_label = '<a target="_blank" href=' . "$attached_file_link" . '>Attached file Link</a>';}
-    else {$attached_file_link = null;}
+    else {$attached_file_link_label = "Attached files";}
 ?>
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
   <div id="panel1">
@@ -168,14 +168,24 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
     <label class="tags1" for="tags">Tags</label><input type="text" class="tags2" name="tags" value="<?php echo $tags?>">
   </div>
   <div id="panel2">
-    <label for="evidence_link"><?php echo $evidence_link_label?></label><input type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
-    <label for="photo_link"><?php echo $photo_link_a_label; echo $photo_link_b_label; echo $photo_link_c_label; echo $photo_link_d_label;?></label><br><input
+    <label class="evidence_link_label" for="evidence_link"><?php echo $evidence_link_label?></label><input
+    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"><input
+    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
+
+    <label class="attached_file_link_label" for="attached_file_link"><?php echo $attached_file_link_label;?></label><input
+    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>"><input
+    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
+
+    <label class="photo_link_label" for="photo_link"><?php echo $photo_link_a_label; echo $photo_link_b_label; echo $photo_link_c_label; echo $photo_link_d_label;?></label><input
     type="text" class="photo_link" name="photo_link_a" value="<?php echo $photo_link_a?>"><input
     type="text" class="photo_link" name="photo_link_b" value="<?php echo $photo_link_b?>"><input
     type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
     type="text" class="photo_link" name="photo_link_d" value="<?php echo $photo_link_d?>">
 
-    <label for="attached_file_link">Attached file link</label><input type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
     <br><label class="ev_data1" for="permit_score">Permit Score</label><input type="text" class="ev_data2 permit_score" name="permit_score" value="<?php echo $permit_score?>">
     <br><label class="ev_data1" for="trails_match">Trails Match</label><input type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">
     <br><label class="ev_data1" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="ev_data2 carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
