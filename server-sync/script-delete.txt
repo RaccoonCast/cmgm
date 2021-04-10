@@ -1,2 +1,4 @@
 open sftp://%username%:%password%@%ip%:%port%
-synchronize  -delete remote d:\cmgm\cmgm /home/spane2003/cmgm.gq -filemask="| .well-known/"
+option batch continue
+synchronize -delete both d:\cmgm\cmgm /home/spane2003/cmgm.gq -filemask="| .well-known/"
+keepuptodate -delete d:\cmgm\cmgm /home/spane2003/cmgm.gq -filemask="| .well-known/"
