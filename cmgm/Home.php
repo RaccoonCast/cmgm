@@ -25,7 +25,7 @@
          <input type="submit" class="submitbutton" style="color:#33D333" name="goto_page" value="CellMapper"><br>
          <input type="submit" class="submitbutton" style="color:#5695F6" name="goto_page" value="Google Maps"><br>
      </form>
-     <form target="_blank" action="Permits.php" method="get">
+     <form target="_blank" action="permits.php" method="get">
        <input type="hidden" name="city" value="<?php echo $city;?>">
        <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits"><br>
      </form>
