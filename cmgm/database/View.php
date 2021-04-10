@@ -1,0 +1,179 @@
+<?php
+header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+header('Pragma: no-cache'); ?>
+<!DOCTYPE html>
+<head>
+<?php include "../functions.php"; ?>
+</head>
+<?php
+if (isset($_GET['id_search'])) $id = $_GET['id_search'];
+if (isset($_GET['id'])) $id = $_GET['id'];
+if (isset($_POST['id'])) $id = $_POST['id'];
+
+$database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
+pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_link,photo_link_a,
+photo_link_b,photo_link_c,photo_link_d,attached_file_link,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
+image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
+
+// todo:// add edit_history, edit_lock(IPs, name?)
+
+$counter=0;
+$sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
+$result = mysqli_query($conn,$sql);
+
+while($row = $result->fetch_assoc()) {
+    foreach ($row as $key => $value)
+        $$key = $value;
+        $counter++;
+}
+
+if ($counter==0 OR isset($_GET['id_search'])) {
+  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
+  redir("Edit.php?id=$id","0");
+  die();
+}
+$result->close(); $conn->close();
+
+if(substr($evidence_link, 0, 14) == "image-evidence") {
+    if (file_exists("uploads/" . $evidence_link)) {$evidence_link_p = '<a target="_blank" href=uploads/' . "$evidence_link" . '>Evidence</a>';
+    } else {$evidence_link_p = "Evidence is missing";}
+  } elseif(!empty($evidence_link)) {$evidence_link_p = '<a target="_blank" href=' . "$evidence_link" . '>Evidence</a>';}
+    else {$evidence_link_p = "Evidence";}
+
+if(substr($photo_link_a, 0, 6) == "image-") {
+    if (file_exists("uploads/" . $photo_link_a)) {$photo_link_a_p = 'Photo Link <a  class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_a" . '>1</a>';
+    } else {$photo_link_a_p = "1st is missing!";}
+    } elseif(!empty($photo_link_a)) {$photo_link_a_p = 'Photo Link <a class="photo_link_link" target="_blank" href=' . "$photo_link_a" . '>1</a>';}
+    else {$photo_link_a_p = "Photos";}
+
+if(substr($photo_link_b, 0, 6) == "image-") {
+    if (file_exists("uploads/" . $photo_link_b)) {$photo_link_b_p = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_b" . '>2</a>';
+    } else {$photo_link_b_p = "2nd is missing!";}
+    } elseif(!empty($photo_link_b)) {$photo_link_b_p = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_b" . '>2</a>';}
+    else {$photo_link_b_p = null;}
+
+  if(substr($photo_link_c, 0, 6) == "image-") {
+    if (file_exists("uploads/" . $photo_link_c)) {$photo_link_c_p = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_c" . '>3</a>';
+    } else {$photo_link_c_p = "3rd is missing!";}
+    } elseif(!empty($photo_link_c)) {$photo_link_c_p = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_c" . '>3</a>';}
+    else {$photo_link_c_p = null;}
+
+  if(substr($photo_link_d, 0, 6) == "image-") {
+    if (file_exists("uploads/" . $photo_link_d)) {$photo_link_d_p = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_d" . '>4</a>';
+    } else {$photo_link_d_p = "4th is missing!";}
+    } elseif(!empty($photo_link_d)) {$photo_link_d_p = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_d" . '>4</a>';}
+    else {$photo_link_d_p = null;}
+
+if(substr($attached_file_link, 0, 5) == "misc-") {
+    if (file_exists("uploads/" . $attached_file_link)) {$attached_file_link_p = '<a target="_blank" href=uploads/' . "$attached_file_link" . '>Attached file link</a>';
+    } else {$attached_file_link_p = "Attached file is missing";}
+    } elseif(!empty($attached_file_link)) {$attached_file_link_p = '<a target="_blank" href=' . "$attached_file_link" . '>Attached file Link</a>';}
+    else {$attached_file_link_p = "Attached files";}
+?>
+  <div id="panel1">
+    <p type="hidden" class="id" name="id" value="<?php echo $id?>">
+    <p type="hidden" class="date_added" name="date_added" value="<?php echo $date_added?>">
+    <p class="celsite_type1" for="cellsite_type">Type of cellsite</p><?php if ($isMobile =="true") { ?><br><?php } ?><select
+    class="status-custom-width" autocomplete="on" name="status" required>
+    <option style="display:none" disabled selected="selected"></option>
+    <option <?php if($status == "verified") echo 'selected="selected"';?>value="verified">Verified</option>
+    <option <?php if($status == "unverified") echo 'selected="selected"';?>value="unverified">Unverified</option>
+    <option <?php if($status == "unmapped") echo 'selected="selected"';?>value="unmapped">Unmapped</option>
+    <option <?php if($status == "special") echo 'selected="selected"';?>value="special">Special</option>
+    <option <?php if($status == "weird") echo 'selected="selected"';?>value="weird">Weird</option>
+    </select><select autocomplete="on" class="type-custom-width" name="cellsite_type" required>
+    <option style="display:none" disabled selected="selected"></option>
+    <option <?php if($cellsite_type == "macro") echo 'selected="selected"';?> value="macro">Macro tower</option>
+    <option <?php if($cellsite_type == "micro") echo 'selected="selected"';?> value="micro">Micro tower</option>
+    <option <?php if($cellsite_type == "conc_rooftop") echo 'selected="selected"';?> value="conc_rooftop">Concealed Rooftop</option>
+    <option <?php if($cellsite_type == "unconc_rooftop") echo 'selected="selected"';?> value="unconc_rooftop">Unconcealed Rooftop</option>
+    <option <?php if($cellsite_type == "monopalm") echo 'selected="selected"';?> value="monopalm">Monopalm</option>
+    <option <?php if($cellsite_type == "monopine") echo 'selected="selected"';?> value="monopine">Monopine</option>
+    <option <?php if($cellsite_type == "pole") echo 'selected="selected"';?> value="pole">Pole</option>
+    <option <?php if($cellsite_type == "water_tower") echo 'selected="selected"';?> value="water_tower">Water tower</option>
+    <option <?php if($cellsite_type == "guyed_tower") echo 'selected="selected"';?> value="guyed_tower">Guyed tower</option>
+    <option <?php if($cellsite_type == "utility") echo 'selected="selected"';?> value="utility">Large power line structure</option>
+    <option <?php if($cellsite_type == "clock") echo 'selected="selected"';?> value="clock">Clock tower</option>
+    <option <?php if($cellsite_type == "disguised") echo 'selected="selected"';?> value="disguised">Disguised structure</option>
+    <option <?php if($cellsite_type == "other") echo 'selected="selected"';?> value="other">Other</option>
+    <option <?php if($cellsite_type == "unknown") echo 'selected="selected"';?> value="unknown">Unknown</option>
+    </select><select class="carrier-custom-width" autocomplete="on" name="carrier">
+    <option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
+    <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
+    <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
+    <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
+    <option <?php if($carrier == "Unknown") echo 'selected="selected"';?> value="Unknown">Unknown</option>
+    </select>
+    <p class="lte-nr1" for="LTE_1"><a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=LTE&goto_page=CellMapper">LTE</a>/<a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=NR&goto_page=CellMapper">NR</a> IDs</p><?php if ($isMobile =="true") { ?><br><?php } ?><p
+    type="text" class="lte-nr2" id="LTE_1" value="<?php echo $LTE_1?>" placeholder="LTE_1" name="LTE_1"><p
+    type="text" class="lte-nr2" id="LTE_2" value="<?php echo $LTE_2?>" placeholder="LTE_2" name="LTE_2"><p
+    type="text" class="lte-nr2" id="LTE_3" value="<?php echo $LTE_3?>" placeholder="LTE_3" name="LTE_3"><p
+    type="text" class="lte-nr2" id="LTE_4" value="<?php echo $LTE_4?>" placeholder="LTE_4" name="LTE_4"><p
+    type="text" class="lte-nr2" id="LTE_5" value="<?php echo $LTE_5?>" placeholder="LTE_5" name="LTE_5"><p
+    type="text" class="lte-nr2" id="LTE_6" value="<?php echo $LTE_6?>" placeholder="LTE_6" name="LTE_6"><p
+    type="text" class="lte-nr2" id="NR_1" value="<?php echo $NR_1?>" placeholder="NR_1" name="NR_1"><p
+    type="text" class="lte-nr2" id="NR_2" value="<?php echo $NR_2?>" placeholder="NR_2" name="NR_2">
+
+
+    <p class="mutli-id-params1">PCI match with all IDs</p><p><?php echo $pci_match?></p>
+    <p class="mutli-id-params1">ID pattern with all IDs</p><p><?php echo $id_pattern_match?></p>
+    <p class="mutli-id-params1">Similiar sectors with all IDs</p><p><?php echo $sector_match?></p>
+    <p class="mutli-id-params1">Other user mapped primary</p><p><?php echo $other_user_map_primary?></p>
+
+    <p>Latitude/Longitude</p><?php if ($isMobile =="true") { ?><br><?php } ?>
+    <p><?php echo $latitude?></p>
+    <p><?php echo $longitude?></p>
+
+    <p class="addr1" for="address"><a target="_blank" href="../goto.php?goto_page=Google Maps&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>">Address</a></p><?php if ($isMobile =="true") { ?><br><?php } ?><p
+    type="text" class="inline-block addresslistA" id="address" value="<?php echo $address?>" placeholder="Address" name="address"><p
+    type="text" class="inline-block addresslistB" id="city" value="<?php echo $city?>" placeholder="City" name="city"><p
+    type="text" class="inline-block addresslistC" id="state" value="<?php echo $state?>" placeholder="State" name="state"><p
+    type="text" class="inline-block addresslistD" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
+    <p class="ID street_view_url_p" for="street_view_url"><a target="_blank" href="<?php if (!empty($street_view_url)) { echo $street_view_url;}?>">Street view URL</a></p><p type="text" class="street_view_url_box" name="street_view_url" value="<?php echo $street_view_url?>">
+
+    <br><p for="bio">Bio</p><br>
+    <?php if ($isMobile !="true") { ?>
+    <textarea rows="14" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
+    <textarea rows="6" cols="50" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
+
+    <p class="tags1" for="tags">Tags</p><p type="text" class="tags2" name="tags" value="<?php echo $tags?>">
+  </div>
+  <div id="panel2">
+    <p class="evidence_link_p" for="evidence_link"><?php echo $evidence_link_p?></p><p
+    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"><p
+    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
+
+    <p class="attached_file_link_p" for="attached_file_link"><?php echo $attached_file_link_p;?></p><p
+    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>"><p
+    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
+
+    <p class="photo_link_p" for="photo_link"><?php echo $photo_link_a_p; echo $photo_link_b_p; echo $photo_link_c_p; echo $photo_link_d_p;?></p><p
+    type="text" class="photo_link" name="photo_link_a" value="<?php echo $photo_link_a?>"><p
+    type="text" class="photo_link" name="photo_link_b" value="<?php echo $photo_link_b?>"><p
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><p
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><p
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><p
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><p
+    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><p
+    type="text" class="photo_link" name="photo_link_d" value="<?php echo $photo_link_d?>">
+
+    <br><p class="ev_data1" for="permit_score">Permit Score</p><p type="text" class="ev_data2 permit_score" name="permit_score" value="<?php echo $permit_score?>">
+    <br><p class="ev_data1" for="trails_match">Trails Match</p><p type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">
+    <br><p class="ev_data1" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</p><p type="text" class="ev_data2 carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
+    <br><p class="ev_data1" for="antennas_match_carrier"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Antennas match carrier</abbr></p><p type="text" class="ev_data2 antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
+    <br><p class="ev_data1" for="cellmapper_triangulation"><abbr title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#013;&#013;(1-100)&#013;0 being very far away&#013;100 being very closely">CellMapper Triangulation</abbr></p><p type="text" class="ev_data2 cellmapper_triangulation" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>">
+    <br><p class="ev_data1" for="image_evidence"><abbr title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#013;&#013;(1-100)&#013;0 being none&#013;100 being perfect)">On-site image evidence</abbr></p><p type="text" class="ev_data2 image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
+    <br><p class="ev_data1" for="verified_by_visit"><abbr title="(1-100)&#013;0 being not at all&#013;100 very thorough">Verified by visit</abbr></p><p type="text" class="ev_data2 verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
+    <br><p class="ev_data1" for="sector_split_match"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Sector split match</abbr></p><p type="text" class="ev_data2 sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>">
+    <br><p class="ev_data1" for="archival_antenna_addition">Number of visible antenna modifications</abbr></p><p type="text" class="ev_data2 archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>">
+    <br><p class="ev_data1" for="only_reasonable_location"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Only reasonable location</abbr></p><p type="text" class="ev_data2 only_reasonable_location" name="only_reasonable_location" value="<?php echo $only_reasonable_location?>">
+    <br><p class="ev_data1" for="alt_carriers_here">Number of other carriers here</p><p type="text" class="ev_data2 alt_carriers_here" name="alt_carriers_here" value="<?php echo $alt_carriers_here?>">
+    </div>
+</tbody>
+</table>
+<script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
+<?php include "includes/footer.php"; ?>
+</body>
+</html>
