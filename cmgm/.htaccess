@@ -2,10 +2,6 @@
 DirectoryIndex Home.php
 LimitRequestBody 9999999999
 
-RewriteEngine On
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-
 <Files ~ "\.hiddenpass$">  
 Order Allow,Deny
 Deny from All
