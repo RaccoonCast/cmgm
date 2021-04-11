@@ -80,20 +80,20 @@ while($row = $result->fetch_assoc()) {
             if (empty($bio)) echo nl2br("<td></td>");
           }
 
-        if(substr($evidence_link, 0, 14) == "image-evidence") $evidence_link = "uploads/$evidence_link";
+        if(substr($evidence_a, 0, 14) == "image-evidence") $evidence_a = "uploads/$evidence_a";
 
-        if (isset($evidence_link)) {
-          if(substr($evidence_link, 0, 14) == "image-evidence") {
-            if (file_exists($evidence_link)) {
-            if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
-            if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+        if (isset($evidence_a)) {
+          if(substr($evidence_a, 0, 14) == "image-evidence") {
+            if (file_exists($evidence_a)) {
+            if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a>";
+            if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a></td>";
           } else {
             if($isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing";
             if($isMobile != "true") echo "<td class=" . "ev" . ">Evidence is missing</td>";
           }
         } else {
-          if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a>";
-          if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_link" . ">Evidence</a></td>";
+          if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a>";
+          if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a></td>";
         }
         } else {
         if($isMobile != "true") echo "<td class=" . "ev" . "></td>";

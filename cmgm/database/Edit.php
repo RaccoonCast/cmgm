@@ -152,8 +152,8 @@ if (!empty($$value)) {
     <textarea rows="6" cols="50" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
 
     <label class="tags1" for="tags">Tags</label><input type="text" class="tags2" name="tags" value="<?php echo $tags?>">
-  </div>
-  <div id="panel2">
+    </div>
+    <div id="panel2">
     <label class="evidence_label" for="evidence_a">Evidence <span style="float: right"><?php echo $evidence_a_label?><?php echo $evidence_b_label?></span></label><input
     type="text" class="evidence" name="evidence_a" value="<?php echo $evidence_a?>"><input
     type="text" class="evidence" name="evidence_b" value="<?php echo $evidence_b?>">

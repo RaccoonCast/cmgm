@@ -4,8 +4,8 @@ $conn = mysqli_connect($servername, $db_username, $password, $dbname);
 
 // Create connection
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
-  `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`tags`,`status`,`evidence_link`,
-  `photo_link_a`,`photo_link_b`,`photo_link_c`,`photo_link_d`,`attached_file_link`,`permit_score`,`trails_match`,`carriers_dont_trail_match`,
+  `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`tags`,`status`,`evidence_a`,
+  `photo_a`,`photo_b`,`photo_c`,`photo_d`,`attached_link`,`permit_score`,`trails_match`,`carriers_dont_trail_match`,
   `antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
   `only_reasonable_location`,`alt_carriers_here`,`street_view_url`)
                       VALUES (
@@ -33,12 +33,12 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`L
                         '".mysqli_real_escape_string($conn, $bio)."',
                         '".mysqli_real_escape_string($conn, $tags)."',
                         '".mysqli_real_escape_string($conn, $status)."',
-                        '".mysqli_real_escape_string($conn, $evidence_link)."',
-                        '".mysqli_real_escape_string($conn, $photo_link_a)."',
-                        '".mysqli_real_escape_string($conn, $photo_link_b)."',
-                        '".mysqli_real_escape_string($conn, $photo_link_c)."',
-                        '".mysqli_real_escape_string($conn, $photo_link_d)."',
-                        '".mysqli_real_escape_string($conn, $attached_file_link)."',
+                        '".mysqli_real_escape_string($conn, $evidence_a)."',
+                        '".mysqli_real_escape_string($conn, $photo_a)."',
+                        '".mysqli_real_escape_string($conn, $photo_b)."',
+                        '".mysqli_real_escape_string($conn, $photo_c)."',
+                        '".mysqli_real_escape_string($conn, $photo_d)."',
+                        '".mysqli_real_escape_string($conn, $attached_link)."',
                         '".mysqli_real_escape_string($conn, $permit_score)."',
                         '".mysqli_real_escape_string($conn, $trails_match)."',
                         '".mysqli_real_escape_string($conn, $carriers_dont_trail_match)."',
