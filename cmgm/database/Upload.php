@@ -32,10 +32,9 @@
             $newfilename = round(microtime(true)) . '.' . end($temp);
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $filePath)) {
               ?>
-              <p onclick="copyToClipboard('<?php echo $filename; ?>.<?php echo $filetype; ?>')">It has been uploaded as <?php echo $filename?>.<?php echo $filetype?>, click me to copy.</p>
+              <p onclick="copyToClipboard('<?php echo $filename; ?>.<?php echo $fileType; ?>')">It has been uploaded as <?php echo $filename?>.<?php echo $fileType?>, click me to copy.</p>
               <?php
               echo "<br>";
-              redir("Upload.php","30");
             } else {
               echo "Sorry, there was an error uploading your file.";
             }
@@ -65,5 +64,6 @@
         ?>
         <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
       </form>
+      <?php include "includes/footer.php"; ?>
    </body>
 </html>
