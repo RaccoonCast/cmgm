@@ -78,10 +78,11 @@ input[type=submit] {
 .street_view_url_label {width: 25%!important;}
 .street_view_url_box {width: 75%!important;}
 
-.photo_link {width:42.5%!important; float: right;}
-.evidence_link {width:42.5%!important;}
-.attached_file_link {width:42.5%!important;}
+.photo {width:44%!important;}
+.evidence {width:44%!important;}
+.attached {width:44%!important;}
 
-.photo_link_label {width:15%!important;}
-.evidence_link_label {width:15%!important;}
-.attached_file_link_label {width:15%!important;}
+label[class*="photo_label"] {width:12%!important;}
+label[class*="evidence_label"] {width:12%!important;}
+label[class*="attached_label"] {width:12%!important;}
+.pad5px {padding-left: 5px; padding-right: 5px; text-align: right}

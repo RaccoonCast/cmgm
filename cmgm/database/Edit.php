@@ -13,8 +13,9 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
-'evidence_link', 'photo_link_a', 'photo_link_b', 'photo_link_c', 'photo_link_d', 'attached_file_link', 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier',
-'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
+'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f',
+'attached_a', 'attached_b', 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
+'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
 'alt_carriers_here','street_view_url');
 
 if (isset($_POST['id'])) {
@@ -39,14 +40,15 @@ redir("Edit.php?id=" . $id . "","100");
 }
 
 $database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
-pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_link,photo_link_a,
-photo_link_b,photo_link_c,photo_link_d,attached_file_link,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
+pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_a,evidence_b,photo_a,
+photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
 image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
 
 // todo:// add edit_history, edit_lock(IPs, name?)
 
 $counter=0;
 $sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
+// echo $sql;
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -62,41 +64,25 @@ if ($counter==0 OR isset($_GET['id_search'])) {
 }
 $result->close(); $conn->close();
 
-if(substr($evidence_link, 0, 14) == "image-evidence") {
-    if (file_exists("uploads/" . $evidence_link)) {$evidence_link_label = '<a target="_blank" href=uploads/' . "$evidence_link" . '>Evidence</a>';
-    } else {$evidence_link_label = "Evidence is missing";}
-  } elseif(!empty($evidence_link)) {$evidence_link_label = '<a target="_blank" href=' . "$evidence_link" . '>Evidence</a>';}
-    else {$evidence_link_label = "Evidence";}
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'evidence_a', 'evidence_b');
 
-if(substr($photo_link_a, 0, 6) == "image-") {
-    if (file_exists("uploads/" . $photo_link_a)) {$photo_link_a_label = 'Photo Link <a  class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_a" . '>1</a>';
-    } else {$photo_link_a_label = "1st is missing!";}
-    } elseif(!empty($photo_link_a)) {$photo_link_a_label = 'Photo Link <a class="photo_link_link" target="_blank" href=' . "$photo_link_a" . '>1</a>';}
-    else {$photo_link_a_label = "Photos";}
+foreach ($foreachList as &$value) {
+$val = $value . "_label";
+$link_suffix = ucfirst(substr($value,-1));
 
-if(substr($photo_link_b, 0, 6) == "image-") {
-    if (file_exists("uploads/" . $photo_link_b)) {$photo_link_b_label = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_b" . '>2</a>';
-    } else {$photo_link_b_label = "2nd is missing!";}
-    } elseif(!empty($photo_link_b)) {$photo_link_b_label = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_b" . '>2</a>';}
-    else {$photo_link_b_label = null;}
+if (!empty($$value)) {
+    if(substr($$value,0,4)=="http"){
+      $$val = '<a class="pad5px" target="_blank" href=' . $$value . '>' . $link_suffix . '</a>';
+    } elseif (file_exists("uploads/" . ($$value))){
+      $$val = '<a class="pad5px" target="_blank" href=uploads/' . $$value . '>' . $link_suffix . '</a>';
+    } else {
+      $$val = $value . " missing";
+    }
+  } else {
+    $$val = null;
+  }
+}
 
-  if(substr($photo_link_c, 0, 6) == "image-") {
-    if (file_exists("uploads/" . $photo_link_c)) {$photo_link_c_label = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_c" . '>3</a>';
-    } else {$photo_link_c_label = "3rd is missing!";}
-    } elseif(!empty($photo_link_c)) {$photo_link_c_label = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_c" . '>3</a>';}
-    else {$photo_link_c_label = null;}
-
-  if(substr($photo_link_d, 0, 6) == "image-") {
-    if (file_exists("uploads/" . $photo_link_d)) {$photo_link_d_label = '<a class="photo_link_link" target="_blank" href=uploads/' . "$photo_link_d" . '>4</a>';
-    } else {$photo_link_d_label = "4th is missing!";}
-    } elseif(!empty($photo_link_d)) {$photo_link_d_label = '<a class="photo_link_link" target="_blank" href=' . "$photo_link_d" . '>4</a>';}
-    else {$photo_link_d_label = null;}
-
-if(substr($attached_file_link, 0, 5) == "misc-") {
-    if (file_exists("uploads/" . $attached_file_link)) {$attached_file_link_label = '<a target="_blank" href=uploads/' . "$attached_file_link" . '>Attached file link</a>';
-    } else {$attached_file_link_label = "Attached file is missing";}
-    } elseif(!empty($attached_file_link)) {$attached_file_link_label = '<a target="_blank" href=' . "$attached_file_link" . '>Attached file Link</a>';}
-    else {$attached_file_link_label = "Attached files";}
 ?>
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
   <div id="panel1">
@@ -162,29 +148,29 @@ if(substr($attached_file_link, 0, 5) == "misc-") {
 
     <br><label for="bio">Bio</label><br>
     <?php if ($isMobile !="true") { ?>
-    <textarea rows="14" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
+    <textarea rows="10" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
     <textarea rows="6" cols="50" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
 
     <label class="tags1" for="tags">Tags</label><input type="text" class="tags2" name="tags" value="<?php echo $tags?>">
   </div>
   <div id="panel2">
-    <label class="evidence_link_label" for="evidence_link"><?php echo $evidence_link_label?></label><input
-    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>"><input
-    type="text" class="evidence_link" name="evidence_link" value="<?php echo $evidence_link?>">
+    <label class="evidence_label" for="evidence_a">Evidence <span style="float: right"><?php echo $evidence_a_label?><?php echo $evidence_b_label?></span></label><input
+    type="text" class="evidence" name="evidence_a" value="<?php echo $evidence_a?>"><input
+    type="text" class="evidence" name="evidence_b" value="<?php echo $evidence_b?>">
 
-    <label class="attached_file_link_label" for="attached_file_link"><?php echo $attached_file_link_label;?></label><input
-    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>"><input
-    type="text" class="attached_file_link" name="attached_file_link" value="<?php echo $attached_file_link?>">
+    <label class="attached_label" for="attached_a">Extras <span style="float: right"><?php echo $attached_a_label;?><?php echo $attached_b_label;?></span></label><input
+    type="text" class="attached" name="attached_a" value="<?php echo $attached_a?>"><input
+    type="text" class="attached" name="attached_b" value="<?php echo $attached_a?>">
 
-    <label class="photo_link_label" for="photo_link"><?php echo $photo_link_a_label; echo $photo_link_b_label; echo $photo_link_c_label; echo $photo_link_d_label;?></label><input
-    type="text" class="photo_link" name="photo_link_a" value="<?php echo $photo_link_a?>"><input
-    type="text" class="photo_link" name="photo_link_b" value="<?php echo $photo_link_b?>"><input
-    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
-    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
-    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
-    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
-    type="text" class="photo_link" name="photo_link_c" value="<?php echo $photo_link_c?>"><input
-    type="text" class="photo_link" name="photo_link_d" value="<?php echo $photo_link_d?>">
+    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_a_label; echo $photo_b_label;?></span></label><input
+    type="text" class="photo" name="photo_a" value="<?php echo $photo_a?>"><input
+    type="text" class="photo" name="photo_b" value="<?php echo $photo_b?>">
+    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_c_label; echo $photo_d_label;?></span></label><input
+    type="text" class="photo" name="photo_c" value="<?php echo $photo_c?>"><input
+    type="text" class="photo" name="photo_d" value="<?php echo $photo_d?>">
+    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_e_label; echo $photo_f_label;?></span></label><input
+    type="text" class="photo" name="photo_e" value="<?php echo $photo_e?>"><input
+    type="text" class="photo" name="photo_f" value="<?php echo $photo_f?>">
 
     <br><label class="ev_data1" for="permit_score">Permit Score</label><input type="text" class="ev_data2 permit_score" name="permit_score" value="<?php echo $permit_score?>">
     <br><label class="ev_data1" for="trails_match">Trails Match</label><input type="text" class="ev_data2 trails_match" name="trails_match" value="<?php echo $trails_match?>">

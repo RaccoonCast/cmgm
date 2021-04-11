@@ -74,7 +74,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                         echo "<br>";
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
-                      $recalcEV = calculateEV($LTE_1,$carrier);
+                      $recalcEV = calculateEV($id,$carrier);
                       if (!empty($recalcEV)) {
                       echo "<p>Evidence Score: " . $recalcEV . "";
                       }

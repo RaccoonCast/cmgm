@@ -34,7 +34,7 @@ while($row = $result->fetch_assoc()) {
       }
 
 
-$recalcEV = calculateEV($LTE_1,$carrier);
+$recalcEV = calculateEV($id,$carrier);
 if (!empty($recalcEV)) {
 if (!empty($evidence_score)) {
 echo "old_evidence_score: " . $evidence_score . "";
