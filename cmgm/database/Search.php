@@ -42,6 +42,8 @@
           </select>
 		 <p>the LTE/NR id is</p>
 		 <input class="custominput" maxlength="30" name="id">
+		 <p>has file</p>
+		 <input class="custominput" maxlength="45" name="fileSearch">
      <input type="submit" class="submitbutton" value="Submit">
     </form>
     <?php

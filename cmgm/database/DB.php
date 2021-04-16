@@ -20,6 +20,12 @@ foreach($_GET as $key => $value){
     $id = str_replace(' ', '', $id);
     $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id' AND " . $db_variables;
   }
+} elseif ($key == "fileSearch") {
+    if (!empty($value)) {
+    ${$key} = $value;
+    $fs = str_replace(' ', '', $fileSearch);
+    $db_variables = "evidence_a='$fs' OR evidence_b='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR attached_a='$fs' OR attached_b='$fs' AND " . $db_variables;
+  }
   } else {
     if (!empty($value)) {
       $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
