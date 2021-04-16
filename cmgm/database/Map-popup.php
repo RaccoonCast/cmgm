@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 18:  $evidence_a = $value; break;
                     case 19:  $street_view_url = $value;
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&id=" . $id . ">#" . $id . "</a> </p>");
-                    echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18"><abbr title="Google Maps">🌎</abbr></a>');
+                    echo nl2br('<a target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18"><abbr title="View map here">🌎</abbr></a>');
                     if (isset($street_view_url)) {
                       echo nl2br('<a target=_blank class="widget widget_emote" href="'.$street_view_url.'"><abbr title="Street View">🚗</abbr></a>');
                     }
