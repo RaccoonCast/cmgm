@@ -12,9 +12,9 @@ if (isset($_GET['id_search'])) $id = $_GET['id_search'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
-'id_pattern_match', 'sector_match', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
-'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f',
-'attached_a', 'attached_b', 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
+'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
+'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b',
+'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
 'alt_carriers_here','street_view_url');
 
@@ -36,7 +36,6 @@ $sql_edit = rtrim($sql_edit,', ');
 $sql_edit = $sql_edit . " WHERE id = $id";
 
 mysqli_query($conn, $sql_edit);
-redir("Edit.php?id=" . $id . "","100");
 }
 
 $database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
@@ -160,7 +159,7 @@ if (!empty($$value)) {
 
     <label class="attached_label" for="attached_a">Extras <span style="float: right"><?php echo $attached_a_label;?><?php echo $attached_b_label;?></span></label><input
     type="text" class="attached" name="attached_a" value="<?php echo $attached_a?>"><input
-    type="text" class="attached" name="attached_b" value="<?php echo $attached_a?>">
+    type="text" class="attached" name="attached_b" value="<?php echo $attached_b?>">
 
     <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_a_label; echo $photo_b_label;?></span></label><input
     type="text" class="photo" name="photo_a" value="<?php echo $photo_a?>"><input
@@ -186,7 +185,9 @@ if (!empty($$value)) {
     </div>
 </tbody>
 </table>
-<input style="margin-bottom: 1.5cm" type="submit" class="submitbutton" value="Submit">
+<input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Submit">
+<a href="?id=<?php echo --$id; ?>">Prev</a>
+<a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>">Next</a>
 </form>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <?php include "includes/footer.php"; ?>
