@@ -4,6 +4,7 @@ include 'includes/useridsys/native.php';
 //include 'includes/allow_addr/checkIP.php';
 //include 'includes/useridsys/create.php';
 include 'includes/functions/basic-functions.php';
+?> <script src="/js/copyToClipboard.js"></script> <?php
 include 'includes/functions/css.php';
 include 'includes/functions/headhtml.php';
 include 'includes/functions/towerInfoGet.php';
