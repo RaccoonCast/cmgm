@@ -11,6 +11,8 @@ while($row = $result->fetch_assoc()) {
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/maps_api_key.hiddenpass", true);
 
 if (!isset($userIP)) {
+  redir("/includes/useridsys/newIP.php",0);
+  die();
   $userID = substr(str_shuffle(md5(time())),0,32);
   $username = $userID;
   $userIP = $_SERVER["REMOTE_ADDR"];
