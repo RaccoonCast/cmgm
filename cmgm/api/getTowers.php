@@ -3,6 +3,7 @@
 $db_get_list = "id,latitude,longitude";
 $db_variables = "id > 0";
 include '../includes/functions/sqlpw.php';
+include '../includes/useridsys/native.php';
 
 foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {

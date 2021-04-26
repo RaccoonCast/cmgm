@@ -5,7 +5,7 @@
       include "functions.php";
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) {
-        echo '<script>locateMe()</script>';
+        include "js/locationNotKnown.js.php";
         die();
       }
       ?>

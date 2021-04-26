@@ -1,6 +1,7 @@
 <?php
 $id = $_GET['id'];
 include "../includes/functions/sqlpw.php";
+include '../includes/useridsys/native.php';
 include "../includes/functions/calculateEV.php";
 if ($_GET['show_empty_fields'] == 'true') {
   $show_empty_fields = "true";

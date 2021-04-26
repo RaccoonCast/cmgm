@@ -1,6 +1,7 @@
 <?php
 // Cast's Awesome API (CAAPI)
 include '../includes/functions/sqlpw.php';
+include '../includes/useridsys/native.php';
 
 if (isset($_GET['properties'])) {
   $database_get_list = $_GET['properties'];
