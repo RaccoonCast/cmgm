@@ -1,8 +1,6 @@
 <script>
 function error(err) {
-var db_latitude = "<?php echo $default_latitude?>";
-var db_longitude = "<?php echo $default_longitude?>";
-window.location = "convert.php?data=" + db_latitude + "," + db_longitude;
+window.location = "<?php convert($default_latitude,$default_longitude); ?>";
 }
 
 if (navigator.geolocation) {

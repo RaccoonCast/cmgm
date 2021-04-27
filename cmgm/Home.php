@@ -5,6 +5,7 @@
       include "functions.php";
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) {
+        include "convert-func.php";
         include "js/locationNotKnown.js.php";
         die();
       }
