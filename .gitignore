@@ -1,7 +1,9 @@
-AutoUpdateCMGM*
-beta/
-secret-sql-login.txt
-database/uploads
-u/*.*
-secret-sql-login.hiddenpass
-includes/functions/id_list.txt
+# hah no
+*.hiddenpass
+
+# misuse of github storage
+cmgm/database/uploads
+cmgm/u/*.*
+cmgm/includes/functions/id_list.txt
+
+# temp files

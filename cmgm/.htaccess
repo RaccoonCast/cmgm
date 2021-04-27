@@ -1,0 +1,8 @@
+#Alternate default index pages
+DirectoryIndex Home.php
+LimitRequestBody 9999999999
+
+<Files ~ "\.hiddenpass$">  
+Order Allow,Deny
+Deny from All
+</Files>

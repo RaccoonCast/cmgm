@@ -1,0 +1,38 @@
+body {
+  height:auto;
+  margin:0;
+  padding:0;
+  font-size:1em!important;
+}
+table {
+	border-collapse: collapse;
+	border-spacing:0;
+	padding:0;
+}
+td {
+  min-width: 50px;
+  width: auto;
+  max-width: auto;
+  vertical-align: top;
+  padding: 4px;
+}
+tr:nth-child(even) {
+  background: #ededed;
+}
+.address {
+  min-width: 210px!important;
+}
+.widget {
+  font-size: 19px;
+  text-decoration: none;
+}
+.widget-td {
+  width: 135px!important;
+}
+.lte {
+  max-width: 20px!important;
+}
+.bio {
+  max-width: 33cm;
+}
+.carrier {min-width: 1.7cm;}

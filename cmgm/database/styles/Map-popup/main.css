@@ -1,0 +1,14 @@
+.widget {
+	display: inline;
+  text-decoration: none!important;
+}
+p {
+	padding: 0em;
+	margin: 0em;
+}
+.body::-webkit-scrollbar {
+    display: none;
+}
+abbr[title] {
+    text-decoration: none !important;
+}

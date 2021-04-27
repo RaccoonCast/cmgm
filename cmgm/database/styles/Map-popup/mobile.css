@@ -1,0 +1,17 @@
+body {
+	font-size: 0.85em;
+}
+.widget_emote {
+		font-size: 25px;
+}
+.widget {
+	display: inline;
+  text-decoration: none;
+}
+p {
+	padding: 0em;
+	margin: 0em;
+}
+.body::-webkit-scrollbar {
+    display: none;
+}
