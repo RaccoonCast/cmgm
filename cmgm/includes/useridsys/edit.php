@@ -2,9 +2,7 @@
 <html lang="en">
    <head>
      <?php
-     include "../functions/sqlpw.php";
-     include "../functions/basic-functions.php";
-     include "native.php";
+     include "../../functions.php";
 
      $list_of_vars = array('username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme');
 
