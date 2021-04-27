@@ -64,7 +64,7 @@ header('Pragma: no-cache'); ?>
    </head>
    <body>
      <form id="form" action="newIP.php" method="post" autocomplete="off">
-       <p>This IP address is not recnogized, please enter magical password.</p>
+       <p>Your IP address <?php echo $ip; ?> is not recnogized, please enter magical password.</p>
          <input type="textbox" name="password" class="textbox">
          <input type="submit" class="submitbutton" value="Submit">
      </form>
