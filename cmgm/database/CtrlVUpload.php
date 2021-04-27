@@ -20,9 +20,9 @@
        $img = str_replace(' ', '+', $img);
        $data = base64_decode($img);
        $randomString = substr(str_shuffle(md5(time())),0,25);
-       $file = UPLOAD_DIR . 'image-evidence-' . $randomString . '.png';
-       $fileNoExtension = UPLOAD_DIR . 'image-evidence-' . $randomString;
-       $link = 'image-evidence-' . $randomString . '.png';
+       $file = UPLOAD_DIR . $filenameType . $randomString . '.png';
+       $fileNoExtension = UPLOAD_DIR . $filenameType . $randomString;
+       $link = $filenameType . $randomString . '.png';
        $success = file_put_contents($file, $data);
 
        $filePath = $file;
@@ -36,7 +36,7 @@
        imagejpeg($bg, $fileNoExtension . ".jpg", $quality);
        imagedestroy($bg);
        unlink($file);
-       $evidence_a = 'image-evidence-' . $randomString . '.jpg';
+       $evidence_a = $filenameType . $randomString . '.jpg';
        echo $evidence_a;
      }
       ?>
@@ -49,10 +49,6 @@
       // Get footer
       include  "includes/footer.php";
       ?>
-
-      <!-- Ladies and gentleman.. I would like to introduce you to... THE BUTTON?!?! -->
-
-
     </form>
    </body>
 </html>
