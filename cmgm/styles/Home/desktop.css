@@ -1,10 +1,16 @@
 .submitbutton {
-  width: 30%;
+  width: 35%;
   padding: 12px;
-  font-size: 3.35em;
+  font-size: 3em;
 }
 .textbox {
-  width: 28.7%;
+  width: 33.52%;
   padding: 12px;
   font-size: 2.25em;
+}
+.width-50 {
+  width: 17.5%!important;
+}
+.width-25 {
+  width: 8.75%!important;
 }

@@ -104,7 +104,7 @@ while($row = $result->fetch_assoc()) {
         } else {
         if($isMobile != "true") echo "<td class=" . "ev" . "></td>";
         }
-        include '../includes/functions/EV-math.php';
+        include '../includes/functions/calculateEV-math.php';
         if($isMobile == "true") echo "<br>Score: " . $ev . "</td>";
         if($isMobile != "true") echo "<td>" . $ev . "</td>";
         echo "</tr>";

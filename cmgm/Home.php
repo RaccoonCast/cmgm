@@ -11,7 +11,7 @@
       ?>
    </head>
    <body class="flex">
-     <?php include "includes/functions/prettyInfoDisplay.php"; ?>
+     <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="goto.php" method="get" autocomplete="off">
          <input type="textbox" name="data" oninput="changeFormAction();" id="txtresult" class="textbox"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
@@ -21,13 +21,12 @@
          <input type="hidden" name="zip" value="<?php if (!empty($_GET['zip'])) echo $zip;?>">
          <input type="hidden" name="city" value="<?php if (!empty($_GET['city'])) echo $city;?>">
          <input type="hidden" name="state" value="<?php if (!empty($_GET['state'])) echo $state;?>">
-         <input type="submit" class="submitbutton" style="color:#D93A6C" name="goto_page" value="Database"> <br>
+         <input type="submit" class="submitbutton width-50" style="color:#D93A6C" name="goto_page" value="Database"><input
+         type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto_page" value="Form"><input
+         type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto_page" value="Map"> <br>
          <input type="submit" class="submitbutton" style="color:#33D333" name="goto_page" value="CellMapper"><br>
-         <input type="submit" class="submitbutton" style="color:#5695F6" name="goto_page" value="Google Maps"><br>
-     </form>
-     <form target="_blank" action="permits.php" method="get">
-       <input type="hidden" name="city" value="<?php echo $city;?>">
-       <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton" style="color: #00e3e0;" value="Permits"><br>
+         <input type="submit" class="submitbutton width-50" style="color:#5695F6" name="goto_page" value="Google Maps"><input
+         type="submit" class="submitbutton width-50" style="color:#5695F6" name="goto_page" value="Street View"><br>
      </form>
      <form id="form" action="goto.php" method="get" autocomplete="off">
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">

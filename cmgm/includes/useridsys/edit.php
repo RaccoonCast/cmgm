@@ -27,7 +27,7 @@
 
      mysqli_query($conn, $sql_edit);
 
-     redir("Edit.php","0");
+     redir("/Home.php","0");
      }
      ?>
    </head>
