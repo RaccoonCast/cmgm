@@ -39,6 +39,33 @@ function marker(latitude,longitude,status,id,url_suffix) {
       accessToken: 'pk.eyJ1IjoicmFjY29vbmNhc3QiLCJhIjoiY2s3YjZ0cDViMDM3ODNncnlwdWY5M2VudCJ9.X_icvui90_cQLuP3VjG7BA'
   }).addTo(mymap);
 
+  function updateURL() {
+      newLat = mymap.getCenter().lat;
+      newLong = mymap.getCenter().lng;
+      newZoom = mymap.getZoom()
+      carrier = "<?php echo $carrier; ?>";
+      tags = "<?php echo $url_suffix; ?>";
+      baseURL = "<?php $siteUrl; ?>";
+
+      var URI =  baseURL + "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
+      console.log(URI);
+      history.pushState("obj", "", URI);
+      location.reload(true);
+  }
+
+  function myTimer() {
+    mymap.on('moveend', updateURL); {
+       var bounds = mymap.getBounds();
+    };
+  }
+
+  var myVar = setInterval(myTimer, 1);
+  // var myVar2 = setInterval(refresher, 5000);
+
+  function refresher() {
+    location.reload(true);
+  }
+
   // specify popup options
   var customOptions =
       {

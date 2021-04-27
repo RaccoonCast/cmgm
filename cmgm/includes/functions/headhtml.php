@@ -7,3 +7,11 @@
 <meta name="theme-color" content="#fff"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+<?php
+if ($_SERVER['SERVER_NAME'] == 'cmgm.gq') {
+  $urlPrefix = "https://";
+} else {
+  $urlPrefix = "http://";
+}
+$siteUrl = $urlPrefix . ' ' . $_SERVER['SERVER_NAME'];
+?>
