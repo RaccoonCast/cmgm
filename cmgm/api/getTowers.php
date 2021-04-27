@@ -20,11 +20,21 @@ $sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS
 
 $arr = array();
 if ($result = $conn->query($sql)) {
-
-    while($row = $result->fetch_array(MYSQLI_ASSOC)) {
-            $arr[] = $row;
-    }
-     echo json_encode($arr);
+  if ($result->num_rows > 0) {
+              $arr = [];
+              $inc = 0;
+              while ($row = $result->fetch_assoc()) {
+                  # code...
+                  $jsonArrayObject = (array('lat' => $row["latitude"], 'lon' => $row["longitude"], 'id' => $row["id"]));
+                  $arr[$inc] = $jsonArrayObject;
+                  $inc++;
+              }
+              $json_array = json_encode($arr);
+              echo $json_array;
+          }
+          else{
+              echo "0 results";
+          }
 }
 
 $result->close(); $conn->close();
