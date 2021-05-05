@@ -50,7 +50,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
       var URI =  baseURL + "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
       console.log(URI);
       history.pushState("obj", "", URI);
-      location.reload(true);
+      //location.reload(true);
   }
 
   function myTimer() {
