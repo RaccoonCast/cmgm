@@ -9,6 +9,14 @@ if (!isset($_GET['goto_page'])) {
 if ($goto_page == "CellMapper") $goto_page_URL = "goto.php?goto_page=CellMapper&";
 if ($goto_page == "Google Maps") $goto_page_URL = "goto.php?goto_page=Google Maps&";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
+if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
+if ($goto_page == "Form") $goto_page_URL = "database/Form.php?";
+if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
+if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
+if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "Home.php?";
+if ($goto_page == "Permits") $goto_page_URL = "permits.php?";
+if ($goto_page == "Upload") $goto_page_URL = "database/Upload.php?";
+if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Edit.php?";
 
 // If not set get location from cookies
 if (empty($data)) { include "includes/convert/cookie-location.php"; }
