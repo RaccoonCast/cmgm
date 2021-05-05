@@ -66,7 +66,6 @@ header('Pragma: no-cache'); ?>
                           mysqli_query($conn, $sql);
                           mysqli_close($conn);
 
-                          die();
                           redir($_SERVER['REQUEST_URI'],"0");
       }
        ?>
