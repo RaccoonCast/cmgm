@@ -1,4 +1,6 @@
 <?php
+include '../includes/functions/mapWithPin.php';
+
 echo '<div id="map" position="relative;">';
 
 if(isMobile()){
