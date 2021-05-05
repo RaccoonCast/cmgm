@@ -14,7 +14,7 @@ $longitude = $response->results[0]->geometry->location->lng;
 $conv_type = "Google Search";
 curl_close($ch);
 
-if (!isset($latitude) OR !isset($longitude)) include "includes/convert/dmstodec.php";
+if (empty($latitude) OR empty($longitude)) include "includes/convert/dmstodec.php";
 }
 
 include "includes/convert/get-address-for-loc.php";

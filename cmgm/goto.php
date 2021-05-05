@@ -29,7 +29,7 @@ if ($goto_page == "Form") $goto_page_URL = "database/Form.php?";
 if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "Home.php?";
-if ($goto_page == "Permits") $goto_page_URL = "Permits.php?";
+if ($goto_page == "Permits") $goto_page_URL = "permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "database/Upload.php?";
 if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Edit.php?";
 
