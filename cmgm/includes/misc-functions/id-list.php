@@ -32,7 +32,7 @@ if (!empty($LTE_5)) file_put_contents('id_list.txt', $LTE_5."\n",FILE_APPEND);
 if (!empty($LTE_6)) file_put_contents('id_list.txt', $LTE_6."\n",FILE_APPEND);
 if (!empty($NR_1)) file_put_contents('id_list.txt', $NR_1."\n",FILE_APPEND);
 if (!empty($NR_2)) file_put_contents('id_list.txt', $NR_2."\n",FILE_APPEND);
-redir("id_list.txt","0"); break;
+break;
            }
    }
 }

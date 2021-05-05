@@ -67,7 +67,7 @@ header('Pragma: no-cache'); ?>
                           mysqli_close($conn);
 
                           die();
-                          redir("/Home.php","110");
+                          redir($_SERVER['REQUEST_URI'],"0");
       }
        ?>
    </head>
