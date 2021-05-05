@@ -42,7 +42,6 @@ header('Pragma: no-cache'); ?>
       if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
         $userID = substr(str_shuffle(md5(time())),0,32);
         ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
-
         $username = $userID;
         $userIP = $_SERVER["REMOTE_ADDR"];
         $gmaps_api_key_access = "false";
@@ -67,6 +66,7 @@ header('Pragma: no-cache'); ?>
                           mysqli_close($conn);
 
                           redir($_SERVER['REQUEST_URI'],"0");
+                          die();
       }
        ?>
    </head>

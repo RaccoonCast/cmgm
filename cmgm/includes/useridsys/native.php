@@ -17,7 +17,7 @@ if (!isset($userIP)) {
     $check_userID = @mysqli_fetch_array(mysqli_query($conn, "SELECT userID FROM userID WHERE userID='$cookie_userID'"))['userID'];
     if ($check_userID == $cookie_userID) mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
   } else {
-    include "includes/useridsys/newIP.php";
+    include "newIP.php";
   }
 
 }
