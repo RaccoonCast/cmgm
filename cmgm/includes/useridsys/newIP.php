@@ -6,9 +6,15 @@ header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
+     <script>
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+     </script>
       <?php
-      include "../functions/sqlpw.php";
-      include "../functions/basic-functions.php";
 
       $siteroot = $_SERVER['DOCUMENT_ROOT'];
       if ($siteroot == "/home/spane2003/cmgm.gq") {
@@ -22,7 +28,7 @@ header('Pragma: no-cache'); ?>
       $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
       $result = mysqli_query($conn,$sql);
       while($row = $result->fetch_assoc()) { foreach ($row as $key => $value) {$$key = $value;} }
-      if (isset($userIP)) { redir("/Home.php","0"); die(); }
+      if (isset($userIP)) { redir($_SERVER['REQUEST_URI'],"0"); die(); }
 
 
       $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
@@ -35,6 +41,8 @@ header('Pragma: no-cache'); ?>
             }
       if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
         $userID = substr(str_shuffle(md5(time())),0,32);
+        ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
+
         $username = $userID;
         $userIP = $_SERVER["REMOTE_ADDR"];
         $gmaps_api_key_access = "false";
@@ -57,16 +65,18 @@ header('Pragma: no-cache'); ?>
                           '".mysqli_real_escape_string($conn, $gmaps_util)."');  ";
                           mysqli_query($conn, $sql);
                           mysqli_close($conn);
-                          redir("/Home.php","0");
+
                           die();
+                          redir("/Home.php","110");
       }
        ?>
    </head>
    <body>
-     <form id="form" action="newIP.php" method="post" autocomplete="off">
+     <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
        <p>Your IP address <?php echo $ip; ?> is not recnogized, please enter magical password.</p>
          <input type="textbox" name="password" class="textbox">
          <input type="submit" class="submitbutton" value="Submit">
+         <?php die(); ?>
      </form>
    </body>
 </html>

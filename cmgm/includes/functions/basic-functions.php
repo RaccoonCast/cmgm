@@ -13,4 +13,6 @@ if(isMobile()) {
 } else {
   $isMobile = "false";
 }
+
+$curr_userIP = $_SERVER["REMOTE_ADDR"];
 ?>
