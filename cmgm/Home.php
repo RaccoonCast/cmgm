@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+     <script src="/js/copyToClipboard.js"></script>
       <?php
       include "functions.php";
       include "js/index.js.php";
@@ -12,7 +13,15 @@
       ?>
    </head>
    <body class="flex">
-     <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
+     <?php include "includes/misc-functions/prettyInfoDisplay.php";
+
+
+     $included_files = get_included_files();
+
+     //foreach ($included_files as $filename) {
+    //    echo "$filename";
+    //    echo "<br>";
+     //}?>
      <form id="form" action="goto.php" method="get" autocomplete="off">
          <input type="textbox" name="data" oninput="changeFormAction();" id="txtresult" class="textbox"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">

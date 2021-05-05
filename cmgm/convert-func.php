@@ -1,7 +1,7 @@
 <?php
 function convert($latitude,$longitude) {
 include SITE_ROOT . "/includes/functions/sqlpw.php";
-include SITE_ROOT . "/includes/useridsys/native.php";
+
 include SITE_ROOT . "/includes/convert/get-address-for-loc.php";
 
 if ($latitude == 'unknown') $latitude = $default_latitude;

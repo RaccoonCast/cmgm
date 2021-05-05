@@ -37,7 +37,7 @@ header('Pragma: no-cache'); ?>
         ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
         $username = $userID;
         $userIP = $_SERVER["REMOTE_ADDR"];
-        $gmaps_api_key_access = "false";
+        $gmaps_api_key_access = "true";
         $default_carrier = null;
         $default_latitude = "38.89951743540001";
         $default_longitude = "-77.03655226691319";

@@ -13,15 +13,14 @@ if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
+if (isset($_POST['id'])) {
+/// Database column names
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b',
 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
 'alt_carriers_here','street_view_url');
-
-if (isset($_POST['id'])) {
-/// Database column names
 
 // Prefix for the Build-A-Query
 $sql_edit = "UPDATE database_db SET ";
@@ -105,7 +104,6 @@ if (!empty($$value)) {
     $$val = null;
   }
 }
-
 ?>
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
   <div id="panel1">

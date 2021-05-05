@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+     <script src="/js/copyToClipboard.js"></script>
       <?php
       include "../functions.php";
       ?>

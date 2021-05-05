@@ -12,7 +12,7 @@
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
    $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
    ?>
-
+   <script src="../js/copyToClipboard.js"></script>
    <footer>
      <a class="footerlink" onclick="copyToClipboard('<?php echo $address;?>')" href="<?php echo $pmlink?>">Permits</a>
      <a class="footerlink" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>

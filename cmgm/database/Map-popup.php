@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <?php include '../functions.php' ?>
+  <?php
+  include '../functions.php';
+  include "../includes/functions/calculateEV.php";
+  ?>
   <script src="../js/redirAtPos.js"></script>
 </head>
 <body class="body">
