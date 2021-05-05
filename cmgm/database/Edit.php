@@ -9,6 +9,8 @@ header('Pragma: no-cache'); ?>
 </head>
 <?php
 if (isset($_GET['id_search'])) $id = $_GET['id_search'];
+if (isset($_GET['back'])) $back_num = $_GET['back'];
+if (isset($_GET['next'])) $next_num = $_GET['next'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
@@ -56,12 +58,34 @@ while($row = $result->fetch_assoc()) {
         $counter++;
 }
 
+// Not found? Ok... let's try some things.
+
 if ($counter==0 OR isset($_GET['id_search'])) {
-  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
-  redir("Edit.php?id=$id","0");
+  if (isset($_GET['next'])) {
+    $id++;
+    $next_num++;
+    redir("Edit.php?id=$id&next=$next_num","0");
+    die();
+  }
+  if (isset($_GET['back'])) {
+    $id--;
+    $back_num++;
+    redir("Edit.php?id=$id&back=$back_num","0");
+    die();
+  }
+  $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
+  if (empty($new_id)) {
+    echo "No results found."; ?>
+    <br><br><a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
+    <a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a> <?php
+    die();
+  }
+  redir("Edit.php?id=$new_id","0");
   die();
 }
 $result->close(); $conn->close();
+
+// Generate Links for File Attaches
 
 $foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'evidence_a', 'evidence_b');
 
@@ -186,8 +210,8 @@ if (!empty($$value)) {
 </tbody>
 </table>
 <input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Submit">
-<a href="?id=<?php echo --$id; ?>">Prev</a>
-<a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>">Next</a>
+<a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
+<a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a>
 </form>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <?php include "includes/footer.php"; ?>
