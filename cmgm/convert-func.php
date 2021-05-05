@@ -1,8 +1,8 @@
 <?php
 function convert($latitude,$longitude) {
-include "includes/functions/sqlpw.php";
-include "includes/useridsys/native.php";
-include "includes/convert/get-address-for-loc.php";
+include SITE_ROOT . "/includes/functions/sqlpw.php";
+include SITE_ROOT . "/includes/useridsys/native.php";
+include SITE_ROOT . "/includes/convert/get-address-for-loc.php";
 
 if ($latitude == 'unknown') $latitude = $default_latitude;
 if ($longitude == 'unknown') $longitude = $default_longitude;

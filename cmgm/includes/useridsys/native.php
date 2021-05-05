@@ -1,5 +1,6 @@
 <?php
 $ip = $_SERVER["REMOTE_ADDR"];
+include SITE_ROOT . "/includes/functions/sqlpw.php";
 $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
