@@ -1,33 +1,35 @@
 <?php
-$ip = $_SERVER["REMOTE_ADDR"];
+$curr_userIP = $_SERVER["REMOTE_ADDR"];
 include SITE_ROOT . "/includes/functions/sqlpw.php";
-$sql = "SELECT * FROM userID WHERE userIP = '$ip'";
+
+// Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
+if (isset($_COOKIE['userID'])) $cookie_userID = $_COOKIE['userID'];
+
+// Get userID data SQL for user with the browser's IP or the browser's userID cookie.
+$sql = "SELECT debug_flag,id,userID,userIP,username,gmaps_api_key_access,default_carrier,default_latitude,default_longitude,theme,gmaps_util FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
-        $$key = $value;
+      $$key = $value;
+      if ($debug_flag == "high") {
+        echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
+      }
         }
       }
+
+// If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
+if (!isset($userIP)) {
+  include "newIP.php";
+}
+
+// If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the current IP.
+if ($curr_userIP != $userIP) {
+  mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
+}
+
+// Renew the cookie.
+?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
 $result->close();
 
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/maps_api_key.hiddenpass", true);
-
-if (!isset($userIP)) {
-
-  if (isset($_COOKIE['userID'])) {
-    $cookie_userID = $_COOKIE['userID'];
-    $check_userID = @mysqli_fetch_array(mysqli_query($conn, "SELECT userID FROM userID WHERE userID='$cookie_userID'"))['userID'];
-      if ($check_userID == $cookie_userID) {
-        mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
-        // Renew cookie.
-        ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
-      } else {
-        include "newIP.php";
-      }
-
-  } else {
-    include "newIP.php";
-  }
-
-}
 ?>
