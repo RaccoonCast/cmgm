@@ -16,7 +16,7 @@ if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "Home.php?";
 if ($goto_page == "Permits") $goto_page_URL = "permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "database/Upload.php?";
-if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Edit.php?";
+if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Settings.php?";
 
 // If not set get location from cookies
 if (empty($data)) { include "includes/convert/cookie-location.php"; }
