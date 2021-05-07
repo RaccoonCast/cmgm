@@ -6,7 +6,7 @@ if(empty($city)) $city = null;
 if(empty($state)) $state = null;
 if(empty($address)) $address = null;
 
-foreach($_GET as $key => $value) ${$key} = $value;
+if (!isset($latitude) && !isset($longitude)) foreach($_GET as $key => $value) ${$key} = $value;
 if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
   echo 'ERROR: $goto_page variable was not set.';
   die();
@@ -23,6 +23,7 @@ if ($goto_page == "CellMapper") {
   $the_URL = "https://www.cellmapper.net/map?$beginning" . "latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
 }
 if ($goto_page == "Google Maps") $the_URL = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
+if ($goto_page == "Street View") $the_URL = "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
 if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
 if ($goto_page == "Form") $goto_page_URL = "database/Form.php?";
