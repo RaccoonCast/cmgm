@@ -22,7 +22,7 @@ if (!isset($userIP)) {
   include "newIP.php";
 }
 
-// If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the current IP.
+// If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
 if ($curr_userIP != $userIP) {
   mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
 }

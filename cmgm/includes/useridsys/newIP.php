@@ -38,13 +38,14 @@ header('Pragma: no-cache'); ?>
         $username = $userID;
         $userIP = $_SERVER["REMOTE_ADDR"];
         $gmaps_api_key_access = "true";
-        $default_carrier = null;
+        $default_carrier = "ATT";
         $default_latitude = "38.89951743540001";
         $default_longitude = "-77.03655226691319";
         $theme = "white";
         $gmaps_util = "0";
+        $debug_flag = "false";
 
-        $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util)
+        $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag)
                         VALUES (
                           '".mysqli_real_escape_string($conn, $userID)."',
                           '".mysqli_real_escape_string($conn, $username)."',
@@ -54,7 +55,8 @@ header('Pragma: no-cache'); ?>
                           '".mysqli_real_escape_string($conn, $default_latitude)."',
                           '".mysqli_real_escape_string($conn, $default_longitude)."',
                           '".mysqli_real_escape_string($conn, $theme)."',
-                          '".mysqli_real_escape_string($conn, $gmaps_util)."');  ";
+                          '".mysqli_real_escape_string($conn, $gmaps_util)."',
+                          '".mysqli_real_escape_string($conn, $debug_flag)."');  ";
                           mysqli_query($conn, $sql);
                           mysqli_close($conn);
 
