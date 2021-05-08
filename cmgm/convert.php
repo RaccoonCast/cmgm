@@ -3,8 +3,9 @@ include 'functions.php';
 $data = $_GET['data'];
 if (isset($_GET['goto_page'])) $goto_page = $_GET['goto_page'];
 if (!isset($_GET['goto_page'])) {
-  $goto_page = "Home.php?";
+  $goto_page = "Home";
 }
+
 // If not set get location from cookies
 if (empty($data)) { include "includes/convert/cookie-location.php"; }
 // CellMapper URL Conversion

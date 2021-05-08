@@ -5,12 +5,14 @@ if(empty($zip)) $zip = null;
 if(empty($city)) $city = null;
 if(empty($state)) $state = null;
 if(empty($address)) $address = null;
-
+if (isset($_GET['goto_page'])) $goto_page = $_GET['goto_page'];
 if (!isset($latitude) && !isset($longitude)) foreach($_GET as $key => $value) ${$key} = $value;
-if (!empty($_GET['goto_page'])) { $goto_page = $_GET['goto_page']; } else {
+
+if (empty($goto_page)) {
   echo 'ERROR: $goto_page variable was not set.';
   die();
 }
+
 if ($goto_page == "CellMapper") {
   $beginning = null;
   if (!isset($carrier)) $carrier = null;

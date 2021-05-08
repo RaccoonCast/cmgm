@@ -4,7 +4,7 @@ include SITE_ROOT . "/includes/useridsys/native.php";
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 include SITE_ROOT . "/includes/convert/get-address-for-loc.php";
-
+$goto_page = "Home";
 
 if ($latitude == 'unknown') $latitude = $default_latitude;
 if ($longitude == 'unknown') $longitude = $default_longitude;
