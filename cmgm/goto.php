@@ -24,7 +24,7 @@ if ($goto_page == "CellMapper") {
   if ("$type" == "NR") $beginning = $beginning . "type=NR&";
   $the_URL = "https://www.cellmapper.net/map?$beginning" . "latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
 }
-if ($goto_page == "Testmap") {
+if ($goto_page == "Beta") {
   $beginning = null;
   if (!isset($carrier)) $carrier = null;
   if ("$carrier" == "T-Mobile") $beginning = "310/260";

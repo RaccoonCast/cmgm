@@ -28,7 +28,7 @@
          type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto_page" value="Form"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto_page" value="Map"> <br>
          <input type="submit" class="submitbutton width-75" style="color:#33D333" name="goto_page" value="CellMapper"><input
-         type="submit" class="submitbutton width-25" style="color:#33D333" name="goto_page" value="Testmap"><br>
+         type="submit" class="submitbutton width-25" style="color:#33D333" name="goto_page" value="Beta"><br>
          <input type="submit" class="submitbutton width-50" style="color:#5695F6" name="goto_page" value="Google Maps"><input
          type="submit" class="submitbutton width-50" style="color:#5695F6" name="goto_page" value="Street View"><br>
      </form>
