@@ -37,7 +37,7 @@
 
     <!-- Sector's split apart where the site is? -->
     <input name="sector_split_match" type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label>% sure that sectors split apart where the cellsite is</label><br>
+    <output>0</output><label>% sure that sectors split apart at cell site location</label><br>
 
     <!-- Only possible location -->
     <input name="only_reasonable_location" type="range" value="0" min="0" step="10" max="100" step="10" oninput="this.nextElementSibling.value = this.value">

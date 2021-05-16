@@ -11,6 +11,7 @@
    $db_list_link = "../goto.php?goto_page=DB&latitude=$latitude&longitude=$longitude";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
    $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
+   $uplink = "../goto.php?goto_page=Upload&latitude=$latitude&longitude=$longitude";
    ?>
    <script src="../js/copyToClipboard.js"></script>
    <footer>
@@ -19,5 +20,6 @@
      <a class="footerlink" target="_blank" href="<?php echo $db_list_link?>">DB-List</a>
      <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">DB-Maps</a>
      <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">Google Maps</a>
+     <a class="footerlink" target="_blank" href="<?php echo $uplink?>">Upload</a>
      <!-- <a class="footerlink" target="_blank" href="<?php // echo $gm2link?>">Permits Map</a> -->
   </footer>

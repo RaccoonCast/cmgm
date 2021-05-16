@@ -215,6 +215,7 @@ if (!empty($$value)) {
 <a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
 <a style="padding-bottom: 2.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a>
 <?php
+$id++;
 if (!isset($carrier)) $carrier = null;
 $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier;
 echo '<a class="widget" href="Reader.php?back_url=Edit&id='.$id.'"><abbr title="View all info">🔍</abbr></a>';
