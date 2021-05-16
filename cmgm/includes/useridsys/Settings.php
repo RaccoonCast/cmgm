@@ -35,11 +35,11 @@
 
      // if debug flag is high don't go back to home page.
      if ($debug_flag == "meduim") {
-       redir("/Home.php","2");
+       redir("/convert.php?data=$default_latitude,$default_longitude","2");
      } elseif ($debug_flag == "low") {
-       redir("/Home.php","1");
+       redir("/convert.php?data=$default_latitude,$default_longitude","1");
      } elseif ($debug_flag == "off") {
-       redir("/Home.php","0");
+       redir("/convert.php?data=$default_latitude,$default_longitude","0");
      }
      }
      ?>
