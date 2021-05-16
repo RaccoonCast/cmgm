@@ -58,6 +58,12 @@ while($row = $result->fetch_assoc()) {
         $counter++;
 }
 
+// if (!empty($cellsite_type)) {
+//   $id++;
+//   redir("Edit.php?id=$id","0");
+//   die();
+// }
+
 // Not found? Ok... let's try some things.
 
 if ($counter==0 OR isset($_GET['id_search'])) {

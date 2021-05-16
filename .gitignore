@@ -7,3 +7,4 @@ cmgm/u/*.*
 cmgm/includes/functions/id_list.txt
 
 # temp files
+php/$error-log.log
