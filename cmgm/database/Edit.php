@@ -165,7 +165,7 @@ if (!empty($$value)) {
     type="text" class="inline-block addresslistB" id="city" value="<?php echo $city?>" placeholder="City" name="city"><input
     type="text" class="inline-block addresslistC" id="state" value="<?php echo $state?>" placeholder="State" name="state"><input
     type="text" class="inline-block addresslistD" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
-    <label class="ID street_view_url_label" for="street_view_url"><a target="_blank" href="<?php if (!empty($street_view_url)) { echo $street_view_url;}?>">Street view URL</a></label><input type="text" class="street_view_url_box" name="street_view_url" value="<?php echo $street_view_url?>">
+    <label class="ID street_view_url_label" for="street_view_url"><a target="_blank" href="<?php if (!empty($street_view_url)) { echo $street_view_url;} else { echo "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";  }?>">Street view URL</a></label><input type="text" class="street_view_url_box" name="street_view_url" value="<?php echo $street_view_url?>">
 
     <br><label for="bio">Bio</label><br>
     <?php if ($isMobile !="true") { ?>
