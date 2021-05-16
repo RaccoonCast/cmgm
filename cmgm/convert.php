@@ -1,6 +1,8 @@
 <?php
 include 'functions.php';
 $data = $_GET['data'];
+$data = str_replace("\xc2\xa0", ' ', $data);
+
 if (isset($_GET['goto_page'])) $goto_page = $_GET['goto_page'];
 if (!isset($_GET['goto_page'])) {
   $goto_page = "Home";
