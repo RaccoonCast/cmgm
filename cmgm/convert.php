@@ -11,7 +11,7 @@ if (!isset($_GET['goto_page'])) {
 // If not set get location from cookies
 if (empty($data)) { include "includes/convert/cookie-location.php"; }
 // CellMapper URL Conversion
-elseif(substr("$data", 0, 26) === 'https://www.cellmapper.net'){ include "includes/convert/cellmapper.net.php"; }
+elseif(substr("$data", 0, 26) === 'https://www.cellmapper.net') { include "includes/convert/cellmapper.net.php"; }
 // Google Maps URL Conversion
 elseif(substr("$data", 0, 28) === 'https://www.google.com/maps/') { include "includes/convert/google-maps-url-conversion.php"; }
 // Comma Seperator

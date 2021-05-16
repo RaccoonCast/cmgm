@@ -1,55 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-us">
    <head>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/pasteimages.js"></script>
-      <?php
-      include "../functions.php";
-      if (isset($_POST['type'])) $filenameType = $_POST['type'];
-
-      if ($siteroot == "/home/spane2003/cmgm.gq") {
-        define('UPLOAD_DIR', $siteroot . '/database/uploads/');
-      } else {
-        define('UPLOAD_DIR', $siteroot . '\database\uploads\\');
-      }
-
-      if (isset($_POST['base64_file'])) {
-        include "includes/upload/ctrlv.php";
-      } elseif (isset($_POST['type'])) {
-        include "includes/upload/file-select.php";
-        }
-      ?>
+     <?php include '../functions.php';?>
    </head>
    <body>
-      <form action="Upload.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="file" id="base64_file_form" />
-          <div id="picture" ></div>
-        Select file to upload (Max: 10MB)<br><br>
-        <select name="type" required>
-          <option style="display:none" disabled selected="selected"></option>
-          <option value="image-evidence">Image evidence</option>
-          <option value="image">Image of cell site</option>
-          <option value="photo">High Quality Image of cell site</option>
-          <option value="misc">Miscellaneous</option>
-        </select>
-        <input type="file" name="fileToUpload" id="fileToUpload" required>
-        <input type="submit" value="Upload Image" name="submit">
-        <?php if (isset($finishedFilename)) { ?>
-          <p onclick="copyToClipboard('<?php echo $finishedFilename; ?>')">It has been uploaded as <?php echo $finishedFilename; ?>, click to copy.</p>
-        <?php } ?>
+     <?php
+     @$type = $_POST['type'];
+     
+     if (isset($_POST['base64_file'])) {
+       if ($debug_flag != "off") echo "Ctrl+V upload attempting...";
+       include "includes/upload/ctrlv.php";
+     } elseif(isset($_POST['type'])) {
+       if ($debug_flag != "off") echo "File select upload attempting...";
+       include "includes/upload/file-select.php";
+     } else {
+       if ($debug_flag != "off") echo "No file to upload has been found. (don't worry if you haven't tried yet.)";
+     }
+      ?>
+     <div class="body">
+          <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="file" id="base64_file_form" />
+              <div id="picture" ></div><br>
+              Select file to upload (Max: 10MB)<br><br>
+              <select name="type">
+                <option style="display:none" disabled selected="selected"></option>
+                <option value="image-evidence">Image evidence</option>
+                <option value="image">Image of cell site</option>
+                <option value="photo">High Quality Image of cell site</option>
+                <option value="misc">Miscellaneous</option>
+              </select>
+              <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
+              <?php if (isset($finishedFilename)) { ?>
+                <p onclick="copyToClipboard('<?php echo $finishedFilename; ?>')">It has been uploaded as <?php echo $finishedFilename; ?>, click to copy.</p>
+              <?php } ?>
 
-        <!-- Misc -->
-
-        <br><br><br><br><br><br><br><p>File name examples </p><hr>
-        <?php
-        $randomString = $randomString = substr(str_shuffle(md5(time())),0,25);
-        echo "image-evidence-" . $randomString . ".pdf";
-        ?> <br><br> <?php
-        $randomString = $randomString = substr(str_shuffle(md5(time())),0,25);
-        echo "image-" . $randomString . ".jpg";
-        ?>
-        <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
-      </form>
-      <?php include "includes/footer.php"; ?>
+      <?php
+      // Get footer
+      include  "includes/footer.php";
+      ?>
+    </form>
    </body>
 </html>

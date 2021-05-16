@@ -3,7 +3,7 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-$filename = $filenameType . "-" . substr(str_shuffle(md5(time())),0,25);
+$filename = $type . "-" . substr(str_shuffle(md5(time())),0,25);
 $filePath = "$target_dir" . "$filename.$fileType";
 
 // Check file size
