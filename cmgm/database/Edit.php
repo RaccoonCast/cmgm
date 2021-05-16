@@ -5,8 +5,9 @@ header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <head>
-<?php include "../functions.php"; ?>
-</head>
+<?php
+$titleOverride = "true";
+include "../functions.php"; ?>
 <?php
 if (isset($_GET['id_search'])) $id = $_GET['id_search'];
 if (isset($_GET['back'])) $back_num = $_GET['back'];
@@ -15,7 +16,7 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
 if (isset($_POST['id'])) {
 /// Database column names
-$list_of_vars = array('id', 'date_added', 'cellsite_type', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
+$list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b',
 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
@@ -39,7 +40,7 @@ $sql_edit = $sql_edit . " WHERE id = $id";
 mysqli_query($conn, $sql_edit);
 }
 
-$database_get_list = "id,date_added,cellsite_type,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
+$database_get_list = "id,date_added,cellsite_type,concealed,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
 pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_a,evidence_b,photo_a,
 photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
 image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
@@ -105,10 +106,14 @@ if (!empty($$value)) {
   }
 }
 ?>
+<title>EvilCM - Edit (<?php echo $LTE_1; ?>)</title>
+</head>
+<body>
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
   <div id="panel1">
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo $date_added?>">
+
     <label class="celsite_type1" for="cellsite_type">Type of cellsite</label><?php if ($isMobile =="true") { ?><br><?php } ?><select
     class="status-custom-width" autocomplete="on" name="status" required>
     <option style="display:none" disabled selected="selected"></option>
@@ -117,22 +122,23 @@ if (!empty($$value)) {
     <option <?php if($status == "unmapped") echo 'selected="selected"';?>value="unmapped">Unmapped</option>
     <option <?php if($status == "special") echo 'selected="selected"';?>value="special">Special</option>
     <option <?php if($status == "weird") echo 'selected="selected"';?>value="weird">Weird</option>
-    </select><select autocomplete="on" class="type-custom-width" name="cellsite_type" required>
+    </select><select class="dropdown-concealed-cw" autocomplete="on" name="concealed" required>
     <option style="display:none" disabled selected="selected"></option>
-    <option <?php if($cellsite_type == "macro") echo 'selected="selected"';?> value="macro">Macro tower</option>
-    <option <?php if($cellsite_type == "micro") echo 'selected="selected"';?> value="micro">Micro tower</option>
-    <option <?php if($cellsite_type == "conc_rooftop") echo 'selected="selected"';?> value="conc_rooftop">Concealed Rooftop</option>
-    <option <?php if($cellsite_type == "unconc_rooftop") echo 'selected="selected"';?> value="unconc_rooftop">Unconcealed Rooftop</option>
+    <option <?php if($concealed == "true") echo 'selected="selected"';?>value="true">Concealed</option>
+    <option <?php if($concealed == "false") echo 'selected="selected"';?>value="false">Unconcealed</option>
+    </select><select autocomplete="on" class="dropdown-cellsite-type-cw" name="cellsite_type" required>
+    <option style="display:none" disabled selected="selected"></option>
+    <option <?php if($cellsite_type == "tower") echo 'selected="selected"';?> value="tower">Tower</option>
+    <option <?php if($cellsite_type == "rooftop") echo 'selected="selected"';?> value="rooftop">Rooftop</option>
+    <option <?php if($cellsite_type == "tank") echo 'selected="selected"';?> value="tank">Tank</option>
+    <option <?php if($cellsite_type == "utility_small") echo 'selected="selected"';?> value="utility_small">Utility Pole</option>
+    <option <?php if($cellsite_type == "utility_big") echo 'selected="selected"';?> value="utility_big">Utility Tower</option>
     <option <?php if($cellsite_type == "monopalm") echo 'selected="selected"';?> value="monopalm">Monopalm</option>
     <option <?php if($cellsite_type == "monopine") echo 'selected="selected"';?> value="monopine">Monopine</option>
+    <option <?php if($cellsite_type == "tree") echo 'selected="selected"';?> value="misc-tree">Misc tree</option>
     <option <?php if($cellsite_type == "pole") echo 'selected="selected"';?> value="pole">Pole</option>
-    <option <?php if($cellsite_type == "water_tower") echo 'selected="selected"';?> value="water_tower">Water tower</option>
-    <option <?php if($cellsite_type == "guyed_tower") echo 'selected="selected"';?> value="guyed_tower">Guyed tower</option>
-    <option <?php if($cellsite_type == "utility") echo 'selected="selected"';?> value="utility">Large power line structure</option>
-    <option <?php if($cellsite_type == "clock") echo 'selected="selected"';?> value="clock">Clock tower</option>
     <option <?php if($cellsite_type == "disguised") echo 'selected="selected"';?> value="disguised">Disguised structure</option>
-    <option <?php if($cellsite_type == "other") echo 'selected="selected"';?> value="other">Other</option>
-    <option <?php if($cellsite_type == "unknown") echo 'selected="selected"';?> value="unknown">Unknown</option>
+    <option <?php if($cellsite_type == "other") echo 'selected="selected"';?> value="other">Other/Uknown</option>
     </select><select class="carrier-custom-width" autocomplete="on" name="carrier">
     <option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
     <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>

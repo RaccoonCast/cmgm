@@ -13,21 +13,22 @@
 <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
 <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
 <option <?php if($carrier == "Unknown") echo 'selected="selected"';?> value="Unknown">Unknown</option>
+</select><select class="custominput concealed-custom-width dropdown" autocomplete="on" name="concealed" required>
+<option style="display:none" disabled selected="selected"></option>
+<option <?php if($concealed == "true") echo 'selected="selected"';?>value="true">Concealed</option>
+<option <?php if($concealed == "false") echo 'selected="selected"';?>value="false">Unconcealed</option>
 </select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
 <option style="display:none" disabled selected="selected"></option>
-<option value="macro">Macro tower</option>
-<option value="micro">Micro tower</option>
-<option value="conc_rooftop">Concealed Rooftop</option>
-<option value="unconc_rooftop">Unconcealed Rooftop</option>
+<option value="tower">Tower</option>
+<option value="rooftop">Rooftop</option>
+<option value="tank">Tank</option>
+<option value="utility_small">Utility Pole</option>
+<option value="utility_big">Utility Tower</option>
 <option value="monopalm">Monopalm</option>
 <option value="monopine">Monopine</option>
+<option value="misc-tree">Misc tree</option>
 <option value="pole">Pole</option>
-<option value="water_tower">Water tower</option>
-<option value="guyed_tower">Guyed tower</option>
-<option value="utility">Large power line structure</option>
-<option value="clock">Clock tower</option>
 <option value="disguised">Disguised structure</option>
-<option value="other">Other</option>
-<option value="unknown">Unknown</option>
+<option value="other">Other/Uknown</option>
 </select>
 <!-- Multiple? -->

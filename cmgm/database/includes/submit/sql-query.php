@@ -3,13 +3,14 @@ $date_added = date("Y-m-d");
 $conn = mysqli_connect($servername, $db_username, $password, $dbname);
 
 // Create connection
-$sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
+$sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`concealed`, `LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
   `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`tags`,`status`,`evidence_a`,
   `permit_score`, `trails_match`,`carriers_dont_trail_match`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
   `only_reasonable_location`,`alt_carriers_here`,`street_view_url`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
                         '".mysqli_real_escape_string($conn, $cellsite_type)."',
+                        '".mysqli_real_escape_string($conn, $concealed)."',
                         '".mysqli_real_escape_string($conn, $LTE_1)."',
                         '".mysqli_real_escape_string($conn, $LTE_2)."',
                         '".mysqli_real_escape_string($conn, $LTE_3)."',

@@ -1,4 +1,6 @@
-<title>EvilCM - <?php echo $without_extension?></title>
+<?php if (!isset($titleOverride)) { ?>
+  <title>EvilCM - <?php echo $without_extension?></title>
+<?php } ?>
 <link rel="icon" type="image/png" href="/images/logo.png">
 <link rel='manifest' href='/manifest.json'>
 <link rel="apple-touch-icon" href="images/icons-192.png">
