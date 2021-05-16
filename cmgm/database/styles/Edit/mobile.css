@@ -1,15 +1,6 @@
-/*STOLEN FROM FINDLATER DB*/
-table {
-	border-collapse: collapse;
-	border-spacing:0;
-	padding:0;
-}
-td {
-  width: auto;
-  max-width: auto;
-  vertical-align: top;
-  padding: 0px;
-  padding-top:4px;
+body {
+	margin: 4px;
+	padding: 0px;
 }
 label {
   display: inline-block;
@@ -26,9 +17,6 @@ input[type=text] {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }
-.hide-underline {
-	   text-decoration: none;
-}
 input[type=submit] {
   font-size: 2em;
   width: 100%;
@@ -36,21 +24,27 @@ input[type=submit] {
   padding-bottom: 25px;
   margin: 0 auto;
 }
-.container {
-  position: relative;
-}
-.addresslistA { width: 49%!important; }
-.addresslistB { width: 23%!important; }
-.addresslistC { width: 13%!important; }
-.addresslistD { width: 15%!important; }
-.latlongList { width: 50%!important; }
-.mutli-id-params1 {width: 50%!important;}
-.mutli-id-params2 {width: 50%!important;}
-.ev_data1 {width: 75%!important;}
-.ev_data2 {width: 25%!important;}
-.lte-nr2 { width: 25%!important; }
+/* Address boxes */  /* TEXTBOX */
+.addr_address_cw { width: 49%!important; }
+.addr_city_cw { width: 23%!important; }
+.addr_state_cw { width: 13%!important; }
+.addr_zip_cw { width: 15%!important; }
 
-body{
-        margin: 4px;
-        padding: 0px;
-    }
+/* Cellsite location latitude - longitude */  /* TEXTBOX */
+.latitude_longitude_cw { width: 50%!important; }
+
+/* ID Params (pci match, sector match, etc) */  /* LABEL */
+.id_params_label {width: 50%!important;}
+/* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
+.id_params_cw {width: 50%!important;}
+
+/* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
+.evidence_scores_label {width: 80%!important;}
+/* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
+.evidence_scores_cw {width: 20%!important;}
+
+/* LTE/NR ids */  /* TEXTBOXES */
+.lte_nr_cw { width: 25%!important; }
+
+/* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
+.pad-small-link {padding-left: 20px; padding-right: 20px; text-align: right}

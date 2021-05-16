@@ -95,9 +95,9 @@ $link_suffix = ucfirst(substr($value,-1));
 
 if (!empty($$value)) {
     if(substr($$value,0,4)=="http"){
-      $$val = '<a class="pad5px" target="_blank" href=' . $$value . '>' . $link_suffix . '</a>';
+      $$val = '<a class="pad-small-link" target="_blank" href=' . $$value . '>' . $link_suffix . '</a>';
     } elseif (file_exists("uploads/" . ($$value))){
-      $$val = '<a class="pad5px" target="_blank" href=uploads/' . $$value . '>' . $link_suffix . '</a>';
+      $$val = '<a class="pad-small-link" target="_blank" href=uploads/' . $$value . '>' . $link_suffix . '</a>';
     } else {
       $$val = $value . " missing";
     }
@@ -199,12 +199,12 @@ if (!empty($$value)) {
     type="text" class="photo_cw" name="photo_e" value="<?php echo $photo_e?>"><input
     type="text" class="photo_cw" name="photo_f" value="<?php echo $photo_f?>">
 
-    <br><label class="evidence_scores_label" for="permit_score">Permit Score</label><input type="text" class="evidence_scores_cw permit_score" name="permit_score" value="<?php echo $permit_score?>">
-    <br><label class="evidence_scores_label" for="trails_match">Trails Match</label><input type="text" class="evidence_scores_cw trails_match" name="trails_match" value="<?php echo $trails_match?>">
-    <br><label class="evidence_scores_label" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="evidence_scores_cw carriers_dont_trail_match" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
-    <br><label class="evidence_scores_label" for="antennas_match_carrier"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Antennas match carrier</abbr></label><input type="text" class="evidence_scores_cw antennas_match_carrier" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
-    <br><label class="evidence_scores_label" for="cellmapper_triangulation"><abbr title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#013;&#013;(1-100)&#013;0 being very far away&#013;100 being very closely">CellMapper Triangulation</abbr></label><input type="text" class="evidence_scores_cw cellmapper_triangulation" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>">
-    <br><label class="evidence_scores_label" for="image_evidence"><abbr title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#013;&#013;(1-100)&#013;0 being none&#013;100 being perfect)">On-site image evidence</abbr></label><input type="text" class="evidence_scores_cw image_evidence" name="image_evidence" value="<?php echo $image_evidence?>">
+    <br><label class="evidence_scores_label" for="permit_score">Permit Score</label><input type="text" class="evidence_scores_cw" name="permit_score" value="<?php echo $permit_score?>">
+    <br><label class="evidence_scores_label" for="trails_match">Trails Match</label><input type="text" class="evidence_scores_cw" name="trails_match" value="<?php echo $trails_match?>">
+    <br><label class="evidence_scores_label" for="carriers_dont_trail_match">Number of carriers CellMapper data rules out</label><input type="text" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo $carriers_dont_trail_match?>">
+    <br><label class="evidence_scores_label" for="antennas_match_carrier"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Antennas match carrier</abbr></label><input type="text" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo $antennas_match_carrier?>">
+    <br><label class="evidence_scores_label" for="cellmapper_triangulation"><abbr title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#013;&#013;(1-100)&#013;0 being very far away&#013;100 being very closely">CellMapper Triangulation</abbr></label><input type="text" class="evidence_scores_cw" name="cellmapper_triangulation" value="<?php echo $cellmapper_triangulation?>">
+    <br><label class="evidence_scores_label" for="image_evidence"><abbr title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#013;&#013;(1-100)&#013;0 being none&#013;100 being perfect)">On-site image evidence</abbr></label><input type="text" class="evidence_scores_cw" name="image_evidence" value="<?php echo $image_evidence?>">
     <br><label class="evidence_scores_label" for="verified_by_visit"><abbr title="(1-100)&#013;0 being not at all&#013;100 very thorough">Verified by visit</abbr></label><input type="text" class="evidence_scores_cw verified_by_visit" name="verified_by_visit" value="<?php echo $verified_by_visit?>">
     <br><label class="evidence_scores_label" for="sector_split_match"><abbr title="(1-100)&#013;0 being not at all&#013;100 being perfectly">Sector split match</abbr></label><input type="text" class="evidence_scores_cw sector_split_match" name="sector_split_match" value="<?php echo $sector_split_match?>">
     <br><label class="evidence_scores_label" for="archival_antenna_addition">Number of visible antenna modifications</abbr></label><input type="text" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo $archival_antenna_addition?>">
@@ -215,7 +215,7 @@ if (!empty($$value)) {
 </table>
 <input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Submit">
 <a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
-<a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a>
+<a style="padding-bottom: 2.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a>
 </form>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <?php include "includes/footer.php"; ?>

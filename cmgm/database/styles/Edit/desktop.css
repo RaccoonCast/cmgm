@@ -1,19 +1,6 @@
-/*STOLEN FROM FINDLATER DB*/
 body {
 	margin: 6px;
 	margin-top: 2px;
-}
-table {
-	border-collapse: collapse;
-	border-spacing:0;
-	padding:0;
-}
-td {
-  width: auto;
-  max-width: auto;
-  vertical-align: top;
-  padding: 0px;
-  padding-top:4px;
 }
 label {
   display: inline-block;
@@ -28,10 +15,6 @@ input[type=text],option,select {
     box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
-}
-
-.hide-underline {
-	   text-decoration: none;
 }
 #panel1 {
  width: 50%;
@@ -50,10 +33,7 @@ input[type=submit] {
   padding-bottom: 60px;
   margin: 0 auto;
 }
-.container {
-  position: relative;
-}
-/* Cellsite type info dropdowns */  /* LABEL*/
+/* Cellsite type info dropdowns */  /* LABEL */
 .cellsite_type_label {width: 25%!important;}
 /* Cellsite type info dropdowns */  /* DROPDOWN */
 .cellsite_type_cw {width: 18.75%!important;}
@@ -61,12 +41,12 @@ input[type=submit] {
 .carrier_cw {width: 18.75%!important}
 .status_cw {width: 18.75%!important}
 
-/* Cellsite location latitude - longitude */  /* LABEL*/
+/* Cellsite location latitude - longitude */  /* LABEL */
 .latitude_longitude_label {width: 25%!important;}
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_cw { width: 37.5%!important; }
 
-/* Address boxes */  /* LABEL*/
+/* Address boxes */  /* LABEL */
 .addr_label {width: 25%!important;}
 /* Address boxes */  /* TEXTBOX */
 .addr_address_cw { width: 37%!important; }
@@ -74,38 +54,39 @@ input[type=submit] {
 .addr_state_cw { width: 8%!important; }
 .addr_zip_cw { width: 10%!important; }
 
-/* LTE/NR ids */  /* LABEL*/
+/* LTE/NR ids */  /* LABEL */
 .lte_nr_label {width: 25%!important;}
 /* LTE/NR ids */  /* TEXTBOXES */
 .lte_nr_cw {width: 9.375%!important;}
 
-/* Evidence labels, (permit score, trails match, etc) */  /* LABEL*/
-.evidence_label {width:12%!important;}
+/* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
+.evidence_scores_label {width:38%!important;}
 /* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
 .evidence_scores_cw {width: 62%!important;}
 
-/* ID Params (pci match, sector match, etc) */  /* LABEL*/
+/* ID Params (pci match, sector match, etc) */  /* LABEL */
 .id_params_label {width: 25%!important;}
 /* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
 .id_params_cw {width: 75%!important;}
 
-/* Street view */  /* LABEL*/
+/* Street view */  /* LABEL */
 .street_view_label {width: 25%!important;}
 /* Street view */  /* TEXTBOX */
 .street_view_cw {width: 75%!important;}
 
-/* Tags */  /* LABEL*/
+/* Tags */  /* LABEL */
 .tags_label {width: 6%!important;}
 /* Tags */  /* TEXTBOX */
 .tags_cw {width: 93.5%!important;}
 
-/* Photo / Evidence / Attached */  /* LABEL*/
+/* Photo / Evidence / Attached */  /* LABEL */
 .photo_label {width:12%!important;}
-.evidence_scores_label {width: 38%!important;}
+.evidence_label {width: 12%!important;}
 .attached_label {width:12%!important;}
 /* Photo / Evidence / Attached */  /* TEXTBOX */
 .photo_cw {width:44%!important;}
 .evidence_cw {width:44%!important;}
 .attached_cw {width:44%!important;}
 
-.pad5px {padding-left: 5px; padding-right: 5px; text-align: right}
+/* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
+.pad-small-link {padding-left: 5px; padding-right: 5px; text-align: right}
