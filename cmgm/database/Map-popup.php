@@ -10,7 +10,7 @@
 </head>
 <body class="body">
 <?php
-$id = $_GET['id'];
+$id = $_GET['mp-id'];
 
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,bio,evidence_score,evidence_a,street_view_url";
 

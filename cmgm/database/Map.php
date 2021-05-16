@@ -45,9 +45,8 @@ function marker(latitude,longitude,status,id,url_suffix) {
       newZoom = mymap.getZoom()
       carrier = "<?php echo $carrier; ?>";
       tags = "<?php echo $url_suffix; ?>";
-      baseURL = "<?php $siteUrl; ?>";
 
-      var URI =  baseURL + "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
+      var URI = "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
       console.log(URI);
       history.pushState("obj", "", URI);
       //location.reload(true);

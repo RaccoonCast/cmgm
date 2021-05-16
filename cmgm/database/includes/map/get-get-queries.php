@@ -10,7 +10,7 @@ foreach($_GET as $key => $value){
     $db_variables = $key . ' like "%'.$value.'%" AND ' . $db_variables;
   } elseif(!empty($value)) {
 
-    if ($key != "id") {
+    if ($key != "mp-id") {
     $url_suffix = $url_suffix . "&" . $key . "=" . $value;
     }
 
