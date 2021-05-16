@@ -6,7 +6,7 @@
   <?php
    $zoom = 14;
    include '../functions.php';
-   
+
    if(isMobile()){
      $limit = "385";
    } else {
@@ -23,7 +23,7 @@ long = <?php echo $longitude?>;
 
 
 function marker(latitude,longitude,status,id,url_suffix) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + url_suffix + '\">';
+  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + '&url_suffix=' + url_suffix + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup,customOptions).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });
@@ -108,7 +108,9 @@ break;
     }
 }
 ?>
-<?php if (isset($marker_latitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);"; ?>
+<?php
+// Code for the marker on Form.
+if (isset($marker_latitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);"; ?>
 </script>
 <?php if (!isset($marker_latitude))include "includes/footer.php"; ?>
 </body>
