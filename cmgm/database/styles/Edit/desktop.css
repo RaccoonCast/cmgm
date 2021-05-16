@@ -90,3 +90,13 @@ input[type=submit] {
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 5px; padding-right: 5px; text-align: right}
+
+/* WIDGET AND NO TEXT DECORAITON!!! */
+.widget {
+	float: right;
+  font-size: 40px;
+  text-decoration: none!important;
+}
+abbr {
+	text-decoration: none!important;
+}

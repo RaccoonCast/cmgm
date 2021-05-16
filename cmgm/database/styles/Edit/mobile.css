@@ -33,6 +33,23 @@ input[type=submit] {
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_cw { width: 50%!important; }
 
+/* Cellsite type info dropdowns */  /* LABEL */
+.cellsite_type_label {width: 100%!important;}
+/* Cellsite type info dropdowns */  /* DROPDOWN */
+.status_cw {width: 21%!important }
+.concealed_cw {width: 24%!important}
+.cellsite_type_cw {width: 34%!important;}
+.carrier_cw {width: 21%!important}
+
+/* Custom styling to make everything fit on one line */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 0px 8px 2px;
+    border: none;
+}
+
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
 .id_params_label {width: 50%!important;}
 /* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
@@ -48,3 +65,15 @@ input[type=submit] {
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 20px; padding-right: 20px; text-align: right}
+
+/* WIDGET AND NO TEXT DECORAITON!!! */
+.widget {
+	float: right;
+  font-size: 25px;
+  margin-left: 12px;
+  margin-right: 12px;
+  text-decoration: none;
+}
+abbr {
+	text-decoration: none!important;
+}

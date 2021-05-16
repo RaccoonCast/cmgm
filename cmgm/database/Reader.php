@@ -15,6 +15,7 @@ if (isset($_GET['back_url'])) {
 } else {
   $back = "Home";
 }
+if ($back == "Edit") $back_url = "Edit.php?id=" . $id;
 if ($back == "Map-popup") $back_url = "Map-popup.php?id=" . $id;
 if ($back == "DB") $back_url = "DB.php#" . $id ;
 if ($back == "Home") $back_url = "\Home.php";
