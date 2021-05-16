@@ -62,14 +62,12 @@ while($row = $result->fetch_assoc()) {
 
 if ($counter==0 OR isset($_GET['id_search'])) {
   if (isset($_GET['next'])) {
-    $id++;
-    $next_num++;
+    $id++; $next_num++;
     redir("Edit.php?id=$id&next=$next_num","0");
     die();
   }
   if (isset($_GET['back'])) {
-    $id--;
-    $back_num++;
+    $id--; $back_num++;
     redir("Edit.php?id=$id&back=$back_num","0");
     die();
   }
