@@ -53,42 +53,59 @@ input[type=submit] {
 .container {
   position: relative;
 }
-/* labels */
-.celsite_type1 {width: 25%!important;}
-.lte-nr1 {width: 25%!important;}
-.files1 {width: 10%!important;}
-.tags1 {width: 6%!important;}
-.latlong1 {width: 25%!important;}
-.street_view_url_label {width: 25%!important;}
+/* Cellsite type info dropdowns */  /* LABEL*/
+.cellsite_type_label {width: 25%!important;}
+/* Cellsite type info dropdowns */  /* DROPDOWN */
+.cellsite_type_cw {width: 18.75%!important;}
+.concealed_cw {width: 18.75%!important}
+.carrier_cw {width: 18.75%!important}
+.status_cw {width: 18.75%!important}
 
-/* inputs */
-.dropdown-cellsite-type-cw {width: 18.75%!important;}
-.dropdown-concealed-cw {width: 18.75%!important}
-.carrier-custom-width {width: 18.75%!important}
-.status-custom-width {width: 18.75%!important}
-.addresslistA { width: 36%!important; }
-.addresslistB { width: 21%!important; }
-.addresslistC { width: 8%!important; }
-.addresslistD { width: 10%!important; }
-.latlongList { width: 50%!important; }
-.lte-nr2 {width: 9.375%!important;}
+/* Cellsite location latitude - longitude */  /* LABEL*/
+.latitude_longitude_label {width: 25%!important;}
+/* Cellsite location latitude - longitude */  /* TEXTBOX */
+.latitude_longitude_cw { width: 37.5%!important; }
 
-.mutli-id-params1 {width: 25%!important;}
-.mutli-id-params2 {width: 75%!important;}
-.ev_data1 {width: 38%!important;}
-.addr1 {width: 25%!important;}
-.ev_data2 {width: 62%!important;}
-.files2 {width: 90%!important;}
-.tags2 {width: 93.5%!important;}
-.latlong2 {width: 37.5%!important;}
-.street_view_url_box {width: 75%!important;}
+/* Address boxes */  /* LABEL*/
+.addr_label {width: 25%!important;}
+/* Address boxes */  /* TEXTBOX */
+.addr_address_cw { width: 37%!important; }
+.addr_city_cw { width: 20%!important; }
+.addr_state_cw { width: 8%!important; }
+.addr_zip_cw { width: 10%!important; }
 
-/* Photo / Evidence / Attached */
-.photo {width:44%!important;}
-.evidence {width:44%!important;}
-.attached {width:44%!important;}
+/* LTE/NR ids */  /* LABEL*/
+.lte_nr_label {width: 25%!important;}
+/* LTE/NR ids */  /* TEXTBOXES */
+.lte_nr_cw {width: 9.375%!important;}
 
-label[class*="photo_label"] {width:12%!important;}
-label[class*="evidence_label"] {width:12%!important;}
-label[class*="attached_label"] {width:12%!important;}
+/* Evidence labels, (permit score, trails match, etc) */  /* LABEL*/
+.evidence_label {width:12%!important;}
+/* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
+.evidence_scores_cw {width: 62%!important;}
+
+/* ID Params (pci match, sector match, etc) */  /* LABEL*/
+.id_params_label {width: 25%!important;}
+/* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
+.id_params_cw {width: 75%!important;}
+
+/* Street view */  /* LABEL*/
+.street_view_label {width: 25%!important;}
+/* Street view */  /* TEXTBOX */
+.street_view_cw {width: 75%!important;}
+
+/* Tags */  /* LABEL*/
+.tags_label {width: 6%!important;}
+/* Tags */  /* TEXTBOX */
+.tags_cw {width: 93.5%!important;}
+
+/* Photo / Evidence / Attached */  /* LABEL*/
+.photo_label {width:12%!important;}
+.evidence_scores_label {width: 38%!important;}
+.attached_label {width:12%!important;}
+/* Photo / Evidence / Attached */  /* TEXTBOX */
+.photo_cw {width:44%!important;}
+.evidence_cw {width:44%!important;}
+.attached_cw {width:44%!important;}
+
 .pad5px {padding-left: 5px; padding-right: 5px; text-align: right}
