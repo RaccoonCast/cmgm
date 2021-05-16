@@ -3,7 +3,12 @@ $curr_userIP = $_SERVER["REMOTE_ADDR"];
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
-if (isset($_COOKIE['userID'])) $cookie_userID = $_COOKIE['userID'];
+if (isset($_COOKIE['userID'])) {
+  $cookie_userID = $_COOKIE['userID'];
+} else {
+  $cookie_userID = null;
+}
+
 
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
 $sql = "SELECT debug_flag,id,userID,userIP,username,gmaps_api_key_access,default_carrier,default_latitude,default_longitude,theme,gmaps_util FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
