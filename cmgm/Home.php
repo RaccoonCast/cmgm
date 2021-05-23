@@ -11,13 +11,12 @@
         include "js/locationNotKnown.js.php";
         die();
       }
-      if (empty($address) OR $address = " ") echo "<title>Home</title>";
+      if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
    </head>
    <body class="flex">
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
-
      <form id="form" action="goto.php" method="get" autocomplete="off">
        <div class="buttons">
          <input type="textbox" name="data" oninput="changeFormAction();" id="txtresult" class="textbox width-100"><br>

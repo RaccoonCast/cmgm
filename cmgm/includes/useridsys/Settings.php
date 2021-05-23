@@ -5,7 +5,7 @@
      <?php
      include "../../functions.php";
 
-     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme');
+     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'prefLocType');
 
      if (isset($_POST['default_latitude'])) {
      /// Database column names
@@ -73,6 +73,11 @@
           <option <?php if($debug_flag == "low") echo 'selected="selected" ';?>value="low">low</option>
           <option <?php if($debug_flag == "meduim") echo 'selected="selected" ';?>value="meduim">meduim</option>
           <option <?php if($debug_flag == "high") echo 'selected="selected" ';?>value="high">high</option>
+        </select>
+        <p>Preferred Location Type: </p>
+        <select class="custominput dropdown" autocomplete="on" name="prefLocType">
+          <option <?php if($prefLocType == "settings") echo 'selected="selected" ';?>value="settings">Settings</option>
+          <option <?php if($prefLocType == "gps") echo 'selected="selected" ';?>value="gps">GPS</option>
         </select>
         <br>
         <br>

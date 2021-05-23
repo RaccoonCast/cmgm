@@ -5,7 +5,7 @@
       <?php
       $titleOverride = "true";
       include "../functions.php";
-      if (empty($address) OR $address = " ") echo "<title>Home</title>";
+      if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
    </head>

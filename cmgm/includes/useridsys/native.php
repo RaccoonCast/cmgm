@@ -11,12 +11,12 @@ if (isset($_COOKIE['userID'])) {
 
 
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
-$sql = "SELECT debug_flag,id,userID,userIP,username,gmaps_api_key_access,default_carrier,default_latitude,default_longitude,theme,gmaps_util FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
+$sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
       $$key = $value;
-      if ($debug_flag == "high") {
+      if (@$debug_flag == "high") {
         echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
       }
         }
