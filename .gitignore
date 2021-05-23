@@ -8,3 +8,6 @@ cmgm/includes/functions/id_list.txt
 
 # temp files
 php/$error-log.log
+*.ini
+cmgm/favicon.gif
+cmgm/favicon.ico
