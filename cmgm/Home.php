@@ -3,6 +3,7 @@
    <head>
      <script src="/js/copyToClipboard.js"></script>
       <?php
+      $titleOverride = "true";
       include "functions.php";
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) {
@@ -10,6 +11,8 @@
         include "js/locationNotKnown.js.php";
         die();
       }
+      if (empty($address) OR $address = " ") echo "<title>Home</title>";
+      if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
    </head>
    <body class="flex">
