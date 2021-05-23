@@ -1,18 +1,20 @@
 .submitbutton {
   width: 35%;
   padding: 12px;
-  font-size: 3em;
+  font-size: 1.85em;
 }
 input,option,select {
   width: 35%;
   padding: 12px;
-  font-size: 1em;
-  box-sizing: border-box;
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing: border-box;
+  font-size: 0.7em;
+}
+option,select {
+  width: 35%;
+  font-size: 0.9em;
+  padding: 12px;
 }
 body {
-  font-size: 1.1em;
+  font-size: 1.4em;
 }
 .width-50 {
   width: 17.5%!important;

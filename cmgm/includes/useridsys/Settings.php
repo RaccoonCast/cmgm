@@ -45,7 +45,7 @@
      }
      ?>
    </head>
-   <body>
+   <body style="text-align: center;">
      <form action="Settings.php" method="post" autocomplete="off">
         <p>Username: </p>
         <input type="text" value="<?php echo $username; ?>" name="username" id="username" required>
@@ -63,16 +63,16 @@
         </select>
         <p>Theme: </p>
         <select class="custominput dropdown" autocomplete="on" name="theme">
-          <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
-          <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
           <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Original</option>
+          <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
+          <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
         </select>
         <p>Debug Flag: </p>
         <select class="custominput dropdown" autocomplete="on" name="debug_flag">
-          <option <?php if($debug_flag == "high") echo 'selected="selected" ';?>value="high">high</option>
-          <option <?php if($debug_flag == "meduim") echo 'selected="selected" ';?>value="meduim">meduim</option>
-          <option <?php if($debug_flag == "low") echo 'selected="selected" ';?>value="low">low</option>
           <option <?php if($debug_flag == "off") echo 'selected="selected" ';?>value="off">off</option>
+          <option <?php if($debug_flag == "low") echo 'selected="selected" ';?>value="low">low</option>
+          <option <?php if($debug_flag == "meduim") echo 'selected="selected" ';?>value="meduim">meduim</option>
+          <option <?php if($debug_flag == "high") echo 'selected="selected" ';?>value="high">high</option>
         </select>
         <br>
         <br>
