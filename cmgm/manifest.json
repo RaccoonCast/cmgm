@@ -1,21 +1,30 @@
 {
-  "short_name": "Evil CM",
-  "name": "Evil CM",
-  "icons": [
-    {
-      "src": "images/icons-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "images/icons-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "background_color": "#fff",
-  "display": "fullscreen",
-  "scope": "/",
-  "theme_color": "#000",
-  "start_url": "/Home.php"
+    "dir": "ltr",
+    "lang": "en",
+    "name": "Evil CM",
+    "short_name": "CMGM",
+    "scope": "/",
+    "display": "standalone",
+    "start_url": "/",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "description": "",
+    "orientation": "any",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+      {
+        "src": "images/icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "any"
+      },
+      {
+        "src": "images/icons-512.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "any"
+      }
+    ],
+    "url": "https://cmgm.gq"
 }
