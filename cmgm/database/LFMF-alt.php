@@ -8,9 +8,7 @@ $list = null;
 </head>
 <?php
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
-//Get a list of file paths using the glob function.
 $sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,attached_c FROM database_db";
-
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -18,6 +16,7 @@ while($row = $result->fetch_assoc()) {
     $list = $value . " " . $list;
 }
 
+//Get a list of file paths using the glob function.
 $fileList = glob('uploads/*.*');
 
 foreach($fileList as $filename){
