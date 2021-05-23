@@ -39,6 +39,7 @@ if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal
 } elseif ("$city" == "San Jose") { redir("https://sjpermits.org/permits/general/combinedquery.asp","0");
 } elseif ("$city" == "Beverly Hills") { redir("https://cs.beverlyhills.org/cs/","0");
 } elseif ("$city" == "Santa Clarita") { redir("https://aca-prod.accela.com/SANTACLARITA/Default.aspx","0");
+} elseif ("$city" == "Yorba Linda") { redir("https://aca-prod.accela.com/YORBALINDA/Cap/CapHome.aspx?module=Building&TabName=Building&TabList=Home%7C0%7CBuilding%7C1%7CCode%7C2%7CEngineering%7C3%7CPlanning%7C4%7CCurrentTabIndex%7C1","0");
 } elseif ("$city" == "Sacramento" ) { redir("https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME","0");
 } elseif ("$city" == "Santa Monica") {
   echo "Active permits only.";
