@@ -25,7 +25,7 @@ foreach($fileList as $filename){
   // If X was not found in list remove it.
   if (!strpos($list, $output)) {
     unlink('uploads/' . $output . '');
-    echo $output . " deleted <br>"; 
+    echo $output . " deleted. <br>"; 
   }
 }
 ?>
