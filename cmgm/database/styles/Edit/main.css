@@ -5,3 +5,7 @@ input[type=text],option,select,.bio {
 		-webkit-box-sizing:border-box;
 		-moz-box-sizing: border-box;
 }
+.error {
+  text-decoration: none;
+  color: red;
+}

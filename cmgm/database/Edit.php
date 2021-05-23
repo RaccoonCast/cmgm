@@ -18,7 +18,7 @@ if (isset($_POST['id'])) {
 /// Database column names
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
-'evidence_a', 'evidence_b', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b',
+'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b', 'attached_c',
 'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
 'alt_carriers_here','street_view_url');
@@ -41,8 +41,8 @@ mysqli_query($conn, $sql_edit);
 }
 
 $database_get_list = "id,date_added,cellsite_type,concealed,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
-pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_a,evidence_b,photo_a,
-photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
+pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_a,evidence_b,evidence_c,photo_a,
+photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,attached_c,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
 image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
 
 // todo:// add edit_history, edit_lock(IPs, name?)
@@ -91,7 +91,7 @@ $result->close(); $conn->close();
 
 // Generate Links for File Attaches
 
-$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'evidence_a', 'evidence_b');
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'attached_c', 'evidence_a', 'evidence_b', 'evidence_c');
 
 foreach ($foreachList as &$value) {
 $val = $value . "_label";
@@ -103,7 +103,7 @@ if (!empty($$value)) {
     } elseif (file_exists("uploads/" . ($$value))){
       $$val = '<a class="pad-small-link" target="_blank" href=uploads/' . $$value . '>' . $link_suffix . '</a>';
     } else {
-      $$val = $value . " missing";
+      $$val = '<a class="pad-small-link error" title="' . $value . ' is missing." target="_blank" href="#">' . $link_suffix . '</a>';
     }
   } else {
     $$val = null;
@@ -179,26 +179,27 @@ if (!empty($$value)) {
 
       <label class="tags_label" for="tags">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo $tags?>">
     <?php if ($isMobile !="true") { ?>
-    <textarea rows="12" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
+    <textarea rows="10" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
     <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
 
     </div>
     <div id="panel2">
-    <label class="evidence_label" for="evidence_a">Evidence <span style="float: right"><?php echo $evidence_a_label?><?php echo $evidence_b_label?></span></label><input
+    <label class="evidence_label" for="evidence_a">Evidence <span style="float: right"><?php echo $evidence_a_label?><?php echo $evidence_b_label?><?php echo $evidence_c_label?></span></label><input
     type="text" class="evidence_cw" name="evidence_a" value="<?php echo $evidence_a?>"><input
-    type="text" class="evidence_cw" name="evidence_b" value="<?php echo $evidence_b?>">
+    type="text" class="evidence_cw" name="evidence_b" value="<?php echo $evidence_b?>"><input
+    type="text" class="evidence_cw" name="evidence_c" value="<?php echo $evidence_c?>">
 
-    <label class="attached_label" for="attached_a">Extras <span style="float: right"><?php echo $attached_a_label;?><?php echo $attached_b_label;?></span></label><input
+    <label class="attached_label" for="attached_a">Extras <span style="float: right"><?php echo $attached_a_label;?><?php echo $attached_b_label;?><?php echo $attached_c_label;?></span></label><input
     type="text" class="attached_cw" name="attached_a" value="<?php echo $attached_a?>"><input
-    type="text" class="attached_cw" name="attached_b" value="<?php echo $attached_b?>">
+    type="text" class="attached_cw" name="attached_b" value="<?php echo $attached_b?>"><input
+    type="text" class="attached_cw" name="attached_c" value="<?php echo $attached_c?>">
 
-    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_a_label; echo $photo_b_label;?></span></label><input
+    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_a_label; echo $photo_b_label; echo $photo_c_label;?></span></label><input
     type="text" class="photo_cw" name="photo_a" value="<?php echo $photo_a?>"><input
-    type="text" class="photo_cw" name="photo_b" value="<?php echo $photo_b?>">
-    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_c_label; echo $photo_d_label;?></span></label><input
-    type="text" class="photo_cw" name="photo_c" value="<?php echo $photo_c?>"><input
-    type="text" class="photo_cw" name="photo_d" value="<?php echo $photo_d?>">
-    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_e_label; echo $photo_f_label;?></span></label><input
+    type="text" class="photo_cw" name="photo_b" value="<?php echo $photo_b?>"><input
+    type="text" class="photo_cw" name="photo_c" value="<?php echo $photo_c?>">
+    <label class="photo_label" for="photo">Photos <span style="float: right"><?php echo $photo_d_label; echo $photo_e_label; echo $photo_f_label;?></span></label><input
+    type="text" class="photo_cw" name="photo_d" value="<?php echo $photo_d?>"><input
     type="text" class="photo_cw" name="photo_e" value="<?php echo $photo_e?>"><input
     type="text" class="photo_cw" name="photo_f" value="<?php echo $photo_f?>">
 

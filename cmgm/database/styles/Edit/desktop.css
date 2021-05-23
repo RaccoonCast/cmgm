@@ -74,16 +74,16 @@ input[type=submit] {
 .tags_cw {width: 75%!important;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
-.photo_label {width:12%!important;}
-.evidence_label {width: 12%!important;}
-.attached_label {width:12%!important;}
+.photo_label {width:14%!important;}
+.evidence_label {width: 14%!important;}
+.attached_label {width:14%!important;}
 /* Photo / Evidence / Attached */  /* TEXTBOX */
-.photo_cw {width:44%!important;}
-.evidence_cw {width:44%!important;}
-.attached_cw {width:44%!important;}
+.photo_cw {width:28.6666%!important;}
+.evidence_cw {width:28.6666%!important;}
+.attached_cw {width:28.6666%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
-.pad-small-link {padding-left: 5px; padding-right: 5px; text-align: right}
+.pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
