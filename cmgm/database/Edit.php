@@ -224,9 +224,9 @@ if (!empty($$value)) {
 $id++;
 if (!isset($carrier)) $carrier = null;
 $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier;
-echo '<a class="widget" href="Reader.php?back_url=Edit&id='.$id.'"><abbr title="View all info">🔍</abbr></a>';
-echo '<a class="widget" href="Delete.php?id='.$id.'"><abbr title="Delete">✂️</abbr></a>';
-echo '<a target="_blank" class="widget" href="' . $db_map_link . '"><abbr title="View on Database Map">🌎</abbr></a>';
+echo '<a class="widget" title="View all info" href="Reader.php?back_url=Edit&id='.$id.'">🔍</a>';
+echo '<a class="widget" title="Delete" href="Delete.php?id='.$id.'">✂️</a>';
+echo '<a target="_blank" title="View on Database Map" class="widget" href="' . $db_map_link . '">🌎</a>';
 ?>
 </form>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
