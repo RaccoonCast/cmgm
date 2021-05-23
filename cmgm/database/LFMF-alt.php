@@ -23,7 +23,10 @@ foreach($fileList as $filename){
   $output = str_replace("uploads/", "", $filename);
 
   // If X was not found in list remove it.
-  if (!strpos($list, $output)) unlink('uploads/' . $output . '');
+  if (!strpos($list, $output)) {
+    unlink('uploads/' . $output . '');
+    echo $output . " deleted <br>"; 
+  }
 }
 ?>
 </body>

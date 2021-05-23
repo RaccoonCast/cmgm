@@ -70,6 +70,7 @@ header('Pragma: no-cache'); ?>
        <p>Your IP address <?php echo $ip; ?> is not recnogized, please enter magical password.</p>
          <input type="textbox" name="password" class="textbox">
          <input type="submit" class="submitbutton" value="Submit">
+         <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
          <?php die(); ?>
      </form>
    </body>
