@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+     <script src="../../js/latlong-settings.js"></script>
      <?php
      include "../../functions.php";
 
@@ -49,9 +50,9 @@
         <p>Username: </p>
         <input type="text" value="<?php echo $username; ?>" name="username" id="username" required>
         <p>Latitude: </p>
-        <input type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" id="default_latitude" required>
+        <input type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" id="latitude" required>
         <p>Longitude: </p>
-        <input type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" id="default_longitude" required>
+        <input type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" id="longitude" required>
         <p>Carrier: </p>
         <select class="custominput dropdown" autocomplete="on" name="default_carrier">
           <option style="display:none" disabled <?php if(empty($default_carrier)) echo 'selected="selected" ';?>></option>
@@ -75,8 +76,8 @@
         </select>
         <br>
         <br>
-        <input type="button" class="submitbutton" onclick="myFunction();" style="color: #00000;"  value="Locate">
-        <input type="submit" class="submitbutton" style="color: #00000;"  value="Submit">
+        <input type="button" class="width-50 submitbutton" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
+        type="submit" class="width-50 submitbutton" style="color: #00000;"  value="Submit">
      </form>
    </body>
 </html>
