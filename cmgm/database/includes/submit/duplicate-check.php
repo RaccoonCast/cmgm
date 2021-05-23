@@ -1,7 +1,16 @@
 <?php
 // Create connection
-if(!isset($_POST['status'])) $status = "unverifed";
-if ($status == "verified") {
+if (empty($LTE_1)) {
+  echo "Error, " . "LTE_1" . " variable was not set."
+  ?><br><br><button onclick="window.history.go(-1)">Return</button><?php
+  die();
+}
+if (empty($status)) {
+  echo "Error, tower status variable was not set."
+  ?><br><br><button onclick="window.history.go(-1)">Return</button><?php
+  die();
+}
+if ($status == "verified" && isset($LTE_1)) {
 
 $sql = "SELECT id,carrier,latitude,longitude FROM database_db WHERE (carrier = '$carrier' AND LTE_1 = '$LTE_1')";
 
