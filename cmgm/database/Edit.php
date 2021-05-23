@@ -121,34 +121,34 @@ if (!empty($$value)) {
     <label class="cellsite_type_label" for="cellsite_type">Type of cellsite</label><?php if ($isMobile =="true") { ?><br><?php } ?><select
     class="status_cw" autocomplete="on" name="status" required>
     <option style="display:none" disabled selected="selected"></option>
-    <option <?php if($status == "verified") echo 'selected="selected"';?>value="verified">Verified</option>
-    <option <?php if($status == "unverified") echo 'selected="selected"';?>value="unverified">Unverified</option>
-    <option <?php if($status == "unmapped") echo 'selected="selected"';?>value="unmapped">Unmapped</option>
-    <option <?php if($status == "special") echo 'selected="selected"';?>value="special">Special</option>
-    <option <?php if($status == "weird") echo 'selected="selected"';?>value="weird">Weird</option>
+    <option <?php if($status == "verified") echo "selected"?> value="verified">Verified</option>
+    <option <?php if($status == "unverified") echo "selected"?> value="unverified">Unverified</option>
+    <option <?php if($status == "unmapped") echo "selected"?> value="unmapped">Unmapped</option>
+    <option <?php if($status == "special") echo "selected"?> value="special">Special</option>
+    <option <?php if($status == "weird") echo "selected"?> value="weird">Weird</option>
     </select><select class="concealed_cw" autocomplete="on" name="concealed" required>
     <option style="display:none" disabled selected="selected"></option>
-    <option <?php if($concealed == "true") echo 'selected="selected"';?>value="true">Concealed</option>
-    <option <?php if($concealed == "false") echo 'selected="selected"';?>value="false">Unconcealed</option>
+    <option <?php if($concealed == "true") echo 'selected ';?>value="true">Concealed</option>
+    <option <?php if($concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
     </select><select autocomplete="on" class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" disabled selected="selected"></option>
-    <option <?php if($cellsite_type == "tower") echo 'selected="selected"';?> value="tower">Tower</option>
-    <option <?php if($cellsite_type == "rooftop") echo 'selected="selected"';?> value="rooftop">Rooftop</option>
-    <option <?php if($cellsite_type == "tank") echo 'selected="selected"';?> value="tank">Tank</option>
-    <option <?php if($cellsite_type == "utility_small") echo 'selected="selected"';?> value="utility_small">Utility Pole</option>
-    <option <?php if($cellsite_type == "utility_big") echo 'selected="selected"';?> value="utility_big">Utility Tower</option>
-    <option <?php if($cellsite_type == "monopalm") echo 'selected="selected"';?> value="monopalm">Monopalm</option>
-    <option <?php if($cellsite_type == "monopine") echo 'selected="selected"';?> value="monopine">Monopine</option>
-    <option <?php if($cellsite_type == "tree") echo 'selected="selected"';?> value="misc-tree">Misc tree</option>
-    <option <?php if($cellsite_type == "pole") echo 'selected="selected"';?> value="pole">Pole</option>
-    <option <?php if($cellsite_type == "disguised") echo 'selected="selected"';?> value="disguised">Disguised structure</option>
-    <option <?php if($cellsite_type == "other") echo 'selected="selected"';?> value="other">Other/Uknown</option>
+    <option <?php if($cellsite_type == "tower") echo "selected"?> value="tower">Tower</option>
+    <option <?php if($cellsite_type == "rooftop") echo "selected"?> value="rooftop">Rooftop</option>
+    <option <?php if($cellsite_type == "tank") echo "selected"?> value="tank">Tank</option>
+    <option <?php if($cellsite_type == "utility_small") echo "selected"?> value="utility_small">Utility Pole</option>
+    <option <?php if($cellsite_type == "utility_big") echo "selected"?> value="utility_big">Utility Tower</option>
+    <option <?php if($cellsite_type == "monopalm") echo "selected"?> value="monopalm">Monopalm</option>
+    <option <?php if($cellsite_type == "monopine") echo "selected"?> value="monopine">Monopine</option>
+    <option <?php if($cellsite_type == "tree") echo "selected"?> value="misc-tree">Misc tree</option>
+    <option <?php if($cellsite_type == "pole") echo "selected"?> value="pole">Pole</option>
+    <option <?php if($cellsite_type == "disguised") echo "selected"?> value="disguised">Disguised structure</option>
+    <option <?php if($cellsite_type == "other") echo "selected"?> value="other">Other/Uknown</option>
     </select><select class="carrier_cw" autocomplete="on" name="carrier">
-    <option <?php if($carrier == "T-Mobile") echo 'selected="selected"';?> value="T-Mobile">T-Mobile</option>
-    <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
-    <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
-    <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
-    <option <?php if($carrier == "Unknown") echo 'selected="selected"';?> value="Unknown">Unknown</option>
+    <option <?php if($carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
+    <option <?php if($carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
+    <option <?php if($carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
+    <option <?php if($carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
+    <option <?php if($carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=LTE&goto_page=CellMapper">LTE</a>/<a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=NR&goto_page=CellMapper">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="lte_nr_cw" id="LTE_1" value="<?php echo $LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
@@ -177,12 +177,11 @@ if (!empty($$value)) {
     type="text" class="inline-block addr_zip_cw" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
     <label class="ID street_view_label" for="street_view_url"><a target="_blank" href="<?php if (!empty($street_view_url)) { echo $street_view_url;} else { echo "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";  }?>">Street view URL</a></label><input type="text" class="street_view_cw" name="street_view_url" value="<?php echo $street_view_url?>">
 
-    <br><label for="bio">Bio</label><br>
+      <label class="tags_label" for="tags">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo $tags?>">
     <?php if ($isMobile !="true") { ?>
-    <textarea rows="10" cols="120" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
-    <textarea rows="6" cols="50" class="bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
+    <textarea rows="12" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo $bio?></textarea><br> <?php } else { ?>
+    <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo $bio?></textarea><br> <?php } ?>
 
-    <label class="tags_label" for="tags">Tags</label><input type="text" class="tags_cw" name="tags" value="<?php echo $tags?>">
     </div>
     <div id="panel2">
     <label class="evidence_label" for="evidence_a">Evidence <span style="float: right"><?php echo $evidence_a_label?><?php echo $evidence_b_label?></span></label><input

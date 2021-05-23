@@ -33,10 +33,10 @@ input[type=submit] {
 /* Cellsite type info dropdowns */  /* LABEL */
 .cellsite_type_label {width: 100%!important;}
 /* Cellsite type info dropdowns */  /* DROPDOWN */
-.status_cw {width: 21%!important }
-.concealed_cw {width: 24%!important}
+.status_cw {width: 21%!important; }
+.concealed_cw {width: 24%!important;}
 .cellsite_type_cw {width: 34%!important;}
-.carrier_cw {width: 21%!important}
+.carrier_cw {width: 21%!important; }
 
 /* Custom styling to make everything fit on one line */
 select {
@@ -44,7 +44,9 @@ select {
     -moz-appearance: none;
     appearance: none;
     padding: 8px 0px 8px 2px;
+		margin: 0px;
     border: none;
+		background-color: lightgrey;
 }
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
@@ -62,6 +64,11 @@ select {
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 20px; padding-right: 20px; text-align: right}
+
+/* Tags */  /* LABEL */
+.tags_label {width: 15%!important;}
+/* Tags */  /* TEXTBOX */
+.tags_cw {width: 85%!important;}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {

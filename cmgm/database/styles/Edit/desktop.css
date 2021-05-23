@@ -12,9 +12,11 @@ input[type=text],option,select {
 		padding: 4px;
 		margin: 0px;
 }
+@media (orientation: landscape) {
 /* Panels (split page in half) */
 #panel1 { width: 49.93%; float: left; }
 #panel2 { width: 49.93%; float: right; }
+}
 
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
@@ -67,9 +69,9 @@ input[type=submit] {
 .street_view_cw {width: 75%!important;}
 
 /* Tags */  /* LABEL */
-.tags_label {width: 6%!important;}
+.tags_label {width: 25%!important;}
 /* Tags */  /* TEXTBOX */
-.tags_cw {width: 94%!important;}
+.tags_cw {width: 75%!important;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
 .photo_label {width:12%!important;}
