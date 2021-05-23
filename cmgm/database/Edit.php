@@ -67,12 +67,12 @@ while($row = $result->fetch_assoc()) {
 // Not found? Ok... let's try some things.
 
 if ($counter==0 OR isset($_GET['id_search'])) {
-  if (isset($_GET['next'])) {
+  if (@$next_num < 15 & isset($next_num)) {
     $id++; $next_num++;
     redir("Edit.php?id=$id&next=$next_num","0");
     die();
   }
-  if (isset($_GET['back'])) {
+  if (@$back_num < 15 & isset($back_num)) {
     $id--; $back_num++;
     redir("Edit.php?id=$id&back=$back_num","0");
     die();
