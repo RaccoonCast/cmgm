@@ -1,2 +1,7 @@
 .inline-block {display:inline-block; }
-.bio {width:99%; resize: none;}
+.bio {width:100%; resize: none;}
+input[type=text],option,select,.bio {
+		box-sizing: border-box;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing: border-box;
+}
