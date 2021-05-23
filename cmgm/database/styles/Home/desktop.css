@@ -1,23 +1,29 @@
 .submitbutton {
-  width: 35%;
   padding: 12px;
   font-size: 3em;
 }
-.width-80 {
-  width: 28%!important;
+.textbox {
+  padding: 12px;
+  font-size: 2.25em;
+}
+.buttons {
+  margin:0 auto;
+  text-align: center;
+  width: 100%; max-width: 25cm;
 }
 .width-75 {
-  width: 26.25%!important;
-}
-.width-60 {
-  width: 21%!important;
+width: 100%;
+max-width: 75%;
 }
 .width-50 {
-  width: 17.5%!important;
+width: 100%;
+max-width: 50%;
 }
 .width-25 {
-  width: 8.75%!important;
+width: 100%;
+max-width: 25%;
 }
-.width-20 {
-  width: 7%!important;
+.width-100 {
+  width: 100%;
+  max-width: 100%;
 }
