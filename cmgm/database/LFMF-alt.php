@@ -2,23 +2,34 @@
 <head>
 <?php
 include "../functions.php";
-include "../sqlpw.php";
 $missing = "";
 ?>
 </head>
 <?php
+$database_get_list = "evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,attached_c";
+
+// todo:// add edit_history, edit_lock(IPs, name?)
+$list = null;
+$counter=0;
+$sql = "SELECT $database_get_list FROM database_db";
+// echo $sql;
+$result = mysqli_query($conn,$sql);
+
+while($row = $result->fetch_assoc()) {
+    foreach ($row as $key => $value)
+    $list = $value . " " . $list;
+}
+
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
 //Get a list of file paths using the glob function.
 $fileList = glob('uploads/*.*');
 
 //Loop through the array that glob returned.
 foreach($fileList as $filename){
-   $output = str_replace("uploads/", "", $filename);
-   $check = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE evidence_a='$output' OR evidence_b='$output' OR evidence_c='$output' OR photo_a='$output' OR photo_b='$output' OR photo_c='$output' OR photo_d='$output' OR photo_e='$output' OR photo_f='$output' OR attached_a='$output' OR attached_b='$output' OR attached_c='$output'"))['id'];
-   if (!isset($check)) {
-     // echo '<a href="uploads/' . $output . '">' . $output . '</a> does not exist in SQL DB<br>';
-     unlink('uploads/' . $output . '');
-   }
+  $output = str_replace("uploads/", "", $filename);
+  if (!strpos($list, $output)) {
+    unlink('uploads/' . $output . '');
+  }
 }
 ?>
 </body>
