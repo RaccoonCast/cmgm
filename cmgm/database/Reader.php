@@ -3,23 +3,16 @@ define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
 include "../includes/functions/sqlpw.php";
 include '../includes/useridsys/native.php';
-$id = $_GET['id'];
 include "../includes/functions/calculateEV.php";
-if (@$_GET['show_empty_fields'] == 'true') {
-  $show_empty_fields = "true";
-} else {
-  $show_empty_fields = "false";
-}
-if (isset($_GET['back_url'])) {
-  $back = $_GET['back_url'];
-} else {
-  $back = "Home";
-}
+include "includes/map/get-get-queries.php";
+@$id = $_GET['id'];
+@$id = $_GET['mp-id'];
+@$show_empty_fields = $_GET['show_empty_fields'];
+@$back = $_GET['back_url'];
 if ($back == "Edit") $back_url = "Edit.php?id=" . $id;
-if ($back == "Map-popup") $back_url = "Map-popup.php?id=" . $id;
+if ($back == "Map-popup") $back_url = "Map-popup.php?mp-id=" . $id . $url_suffix;
 if ($back == "DB") $back_url = "DB.php#" . $id ;
-if ($back == "Home") $back_url = "\Home.php";
-
+if ($back == "Home" OR !isset($back)) $back_url = "\Home.php";
 
 $sql = "SELECT * FROM database_db WHERE id = $id;";
 $result = mysqli_query($conn,$sql);
@@ -37,7 +30,6 @@ while($row = $result->fetch_assoc()) {
         }
       }
 
-
 $recalcEV = calculateEV($id,$carrier);
 if (!empty($recalcEV)) {
 if (!empty($evidence_score)) {
@@ -47,13 +39,8 @@ echo "<br>";
 echo "new_evidence_score: " . $recalcEV . "";
 }
 ?>
-<br>
-<br>
+<br><br>
 <a href="<?php echo $back_url ?>">Back</a><br>
 <?php if ($show_empty_fields == 'false') { ?>
-  <a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=true">Show empty fields</a>
-<?php } else {
-  ?>
-    <a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=false">Don't show empty fields</a>
-  <?php
-} ?>
+<a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=true">Show empty fields</a><?php } else { ?>
+<a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=false">Don't show empty fields</a><?php } ?>
