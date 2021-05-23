@@ -6,67 +6,30 @@ $missing = "";
 ?>
 </head>
 <?php
-$sql = "SELECT id,evidence_a,evidence_b,attached_a,attached_b,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM database_db";
+// Let's Find Missing Files (LFMF)
+$sql = "SELECT id,evidence_a,evidence_b,evidence_c,attached_a,attached_b,attached_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM database_db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value)
         $$key = $value;
-        if(substr($evidence_a, 0, 14) == "image-evidence") {
-            if (file_exists("uploads/" . $evidence_a)) {$evidence_a_label = '<a target="_blank" href=uploads/' . "$evidence_a" . '>Evidence Link</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($evidence_a)) {$evidence_a_label = '<a target="_blank" href=' . "$evidence_a" . '>Evidence Link</a>';}
-            else {$evidence_a_label = "Evidence Link";}
+        if (!empty($evidende_a) && substr($evidence_a, 0, 4) != "http") { if (!file_exists("uploads/" . $evidence_c)) $missing = $missing . " $id - EVIDENCE_A<br>"; }
+        if (!empty($evidence_b) && substr($evidence_b, 0, 4) != "http") { if (!file_exists("uploads/" . $evidence_c)) $missing = $missing . " $id - EVIDENCE_B<br>"; }
+        if (!empty($evidence_c) && substr($evidence_c, 0, 4) != "http") { if (!file_exists("uploads/" . $evidence_c)) $missing = $missing . " $id - EVIDENCE_C<br>"; }
 
-        if(substr($evidence_b, 0, 14) == "image-evidence") {
-            if (file_exists("uploads/" . $evidence_b)) {$evidence_b_label = '<a target="_blank" href=uploads/' . "$evidence_b" . '>Evidence Link</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($evidence_b)) {$evidence_b_label = '<a target="_blank" href=' . "$evidence_b" . '>Evidence Link</a>';}
-            else {$evidence_b_label = "Evidence Link";}
+        if (!empty($photo_a) && substr($photo_a, 0, 4) != "http") if (!file_exists("uploads/" . $photo_a)) $missing = $missing . " $id - PHOTO_A<br>";
+        if (!empty($photo_b) && substr($photo_b, 0, 4) != "http") if (!file_exists("uploads/" . $photo_b)) $missing = $missing . " $id - PHOTO_B<br>";
+        if (!empty($photo_c) && substr($photo_c, 0, 4) != "http") if (!file_exists("uploads/" . $photo_c)) $missing = $missing . " $id - PHOTO_C<br>";
+        if (!empty($photo_d) && substr($photo_d, 0, 4) != "http") if (!file_exists("uploads/" . $photo_d)) $missing = $missing . " $id - PHOTO_D<br>";
+        if (!empty($photo_e) && substr($photo_e, 0, 4) != "http") if (!file_exists("uploads/" . $photo_e)) $missing = $missing . " $id - PHOTO_E<br>";
+        if (!empty($photo_f) && substr($photo_f, 0, 4) != "http") if (!file_exists("uploads/" . $photo_f)) $missing = $missing . " $id - PHOTO_F<br>";
 
-        if(substr($photo_a, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_a)) {$photo_a_label = 'Photo Link <a  class="photo_link" target="_blank" href=uploads/' . "$photo_a" . '>1</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_a)) {$photo_a_label = 'Photo Link <a class="photo_link" target="_blank" href=' . "$photo_a" . '>1</a>';}
-            else {$photo_a_label = "Photo Link(s)";}
-        if(substr($photo_b, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_b)) {$photo_b_label = '<a class="photo_link" target="_blank" href=uploads/' . "$photo_b" . '>2</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_b)) {$photo_b_label = '<a class="photo_link" target="_blank" href=' . "$photo_b" . '>2</a>';}
-            else {$photo_b_label = null;}
-          if(substr($photo_c, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_c)) {$photo_c_label = '<a class="photo_link" target="_blank" href=uploads/' . "$photo_c" . '>3</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_c)) {$photo_c_label = '<a class="photo_link" target="_blank" href=' . "$photo_c" . '>3</a>';}
-            else {$photo_c_label = null;}
-          if(substr($photo_d, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_d)) {$photo_d_label = '<a class="photo_link" target="_blank" href=uploads/' . "$photo_d" . '>4</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_d)) {$photo_d_label = '<a class="photo_link" target="_blank" href=' . "$photo_d" . '>4</a>';}
-            else {$photo_d_label = null;}
-          if(substr($photo_e, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_e)) {$photo_e_label = '<a class="photo_link" target="_blank" href=uploads/' . "$photo_e" . '>4</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_e)) {$photo_e_label = '<a class="photo_link" target="_blank" href=' . "$photo_e" . '>4</a>';}
-            else {$photo_e_label = null;}
-          if(substr($photo_f, 0, 6) == "image-") {
-            if (file_exists("uploads/" . $photo_f)) {$photo_f_label = '<a class="photo_link" target="_blank" href=uploads/' . "$photo_f" . '>4</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($photo_f)) {$photo_f_label = '<a class="photo_link" target="_blank" href=' . "$photo_f" . '>4</a>';}
-            else {$photo_f_label = null;}
-            
-        if(substr($attached_a, 0, 5) == "misc-") {
-            if (file_exists("uploads/" . $attached_a)) {$attached_a_label = '<a target="_blank" href=uploads/' . "$attached_a" . '>Attached file link</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($attached_a)) {$attached_a_label = '<a target="_blank" href=' . "$attached_a" . '>Attached file Link</a>';}
-            else {$attached_a = null;}
-        if(substr($attached_b, 0, 5) == "misc-") {
-            if (file_exists("uploads/" . $attached_b)) {$attached_b_label = '<a target="_blank" href=uploads/' . "$attached_b" . '>Attached file link</a>';
-            } else {$missing = $missing . " $id";}
-            } elseif(!empty($attached_b)) {$attached_b_label = '<a target="_blank" href=' . "$attached_b" . '>Attached file Link</a>';}
-            else {$attached_b = null;}
+        if (!empty($attached_a) && substr($attached_a, 0, 4) != "http") if (!file_exists("uploads/" . $attached_a)) $missing = $missing . " $id - ATTACHED_A<br>";
+        if (!empty($attached_b) && substr($attached_b, 0, 4) != "http") if (!file_exists("uploads/" . $attached_b)) $missing = $missing . " $id - ATTACHED_B<br>";
+        if (!empty($attached_c) && substr($attached_c, 0, 4) != "http") if (!file_exists("uploads/" . $attached_c)) $missing = $missing . " $id - ATTACHED_C<br>";
+
 }
-echo "The following IDs have missing EV: " . $missing;
+echo "The following IDs have missing EV: <br>" . $missing;
 $result->close(); $conn->close();
 ?>
 </body>
