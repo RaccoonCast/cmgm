@@ -36,5 +36,5 @@ if ($curr_userIP != $userIP) {
 ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
 $result->close();
 
-if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/maps_api_key.hiddenpass", true);
+if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/secret_maps_api_key.hiddenpass", true);
 ?>

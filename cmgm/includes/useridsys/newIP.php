@@ -11,9 +11,11 @@ header('Pragma: no-cache'); ?>
 
       $siteroot = $_SERVER['DOCUMENT_ROOT'];
       if ($siteroot == "/home/spane2003/cmgm.gq") {
-        $secret_pass = file_get_contents($siteroot . "/secret-ip-whitelist-pass.hiddenpass", true);
+        $secret_pass = file_get_contents($siteroot . "/secret_ip_whitelist_pass.hiddenpass", true);
+        $ipinfo_token = file_get_contents($siteroot . "/secret_ipinfo_token.hiddenpass", true);
       } else {
-        $secret_pass = file_get_contents($siteroot . "\secret-ip-whitelist-pass.hiddenpass", true);
+        $secret_pass = file_get_contents($siteroot . "\secret_ip_whitelist_pass.hiddenpass", true);
+        $ipinfo_token = file_get_contents($siteroot . "\secret_ipinfo_token.hiddenpass", true);
       }
 
       // Check Real Quick if IP is in there to verify it's not.
@@ -33,14 +35,20 @@ header('Pragma: no-cache'); ?>
               }
             }
       if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
+        $url = 'ipinfo.io/' . $curr_userIP . '?token=' . $ipinfo_token;
+        $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $response = json_decode(curl_exec($ch));
+        $loc = $response->loc;
+        $result_ipinfo = explode(",", $loc);
+
         $userID = substr(str_shuffle(md5(time())),0,32);
         ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
         $username = $userID;
         $userIP = $_SERVER["REMOTE_ADDR"];
         $gmaps_api_key_access = "true";
         $default_carrier = "ATT";
-        $default_latitude = "38.89951743540001";
-        $default_longitude = "-77.03655226691319";
+        $default_latitude = trim($result_ipinfo[0]);
+        $default_longitude = trim($result_ipinfo[1]);
         $theme = "white";
         $gmaps_util = "0";
         $debug_flag = "false";
