@@ -14,12 +14,6 @@ input,option,select {
 body {
   font-size: 1.1em;
 }
-.width-75 {
-  width: 26.25%!important;
-}
 .width-50 {
   width: 50%!important;
-}
-.width-25 {
-  width: 8.75%!important;
 }
