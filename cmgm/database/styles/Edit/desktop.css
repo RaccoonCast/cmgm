@@ -17,14 +17,19 @@ input[type=text],option,select {
 #panel1 { width: 49.93%; float: left; }
 #panel2 { width: 49.93%; float: right; }
 }
-
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
 abbr {text-decoration: none!important;}
-input[type=submit] {
+.submitbutton {
   font-size: 3em;
   width: 100%;
   padding: 60px;
+}
+.small-submitbutton {
+  font-size: 1em;
+	height: 34px;
+	padding: 2px;
+	margin: 0px;
 }
 
 /* Cellsite type info dropdowns */  /* LABEL */

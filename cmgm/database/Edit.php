@@ -14,6 +14,15 @@ if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
+if (empty($id)) {
+  ?>
+  <form action="Edit.php" autocomplete="off" method="get">
+  <input type="text" class="id_input" value="" placeholder="Any LTE/NR ID" name="id"><input
+  type="submit" class="small-submitbutton" value="Submit">
+  </form>
+  <?php
+  die();
+}
 if (isset($_POST['id'])) {
 /// Database column names
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
@@ -151,14 +160,14 @@ if (!empty($$value)) {
     <option <?php if($carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=LTE&goto_page=CellMapper">LTE</a>/<a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=NR&goto_page=CellMapper">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="text" class="lte_nr_cw" id="LTE_1" value="<?php echo $LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
-    type="text" class="lte_nr_cw" id="LTE_2" value="<?php echo $LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
-    type="text" class="lte_nr_cw" id="LTE_3" value="<?php echo $LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
-    type="text" class="lte_nr_cw" id="LTE_4" value="<?php echo $LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
-    type="text" class="lte_nr_cw" id="LTE_5" value="<?php echo $LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
-    type="text" class="lte_nr_cw" id="LTE_6" value="<?php echo $LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
-    type="text" class="lte_nr_cw" id="NR_1" value="<?php echo $NR_1?>" placeholder="NR_1" name="NR_1"><input
-    type="text" class="lte_nr_cw" id="NR_2" value="<?php echo $NR_2?>" placeholder="NR_2" name="NR_2">
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_1" value="<?php echo $LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_2" value="<?php echo $LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_3" value="<?php echo $LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_4" value="<?php echo $LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_5" value="<?php echo $LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="LTE_6" value="<?php echo $LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="NR_1" value="<?php echo $NR_1?>" placeholder="NR_1" name="NR_1"><input
+    type="text" class="lte_nr_cw" maxlength="7" id="NR_2" value="<?php echo $NR_2?>" placeholder="NR_2" name="NR_2">
 
 
     <label class="id_params_label" for="pci_match">PCI match with all IDs</label><input type="text" class="id_params_cw pci_match" name="pci_match" value="<?php echo $pci_match?>">
@@ -223,7 +232,7 @@ if (!empty($$value)) {
 <?php
 $id++;
 if (!isset($carrier)) $carrier = null;
-$db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier;
+$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier;
 echo '<a class="widget" title="View all info" href="Reader.php?back_url=Edit&id='.$id.'">🔍</a>';
 echo '<a class="widget" title="Delete" href="Delete.php?id='.$id.'">✂️</a>';
 echo '<a target="_blank" title="View on Database Map" class="widget" href="' . $db_map_link . '">🌎</a>';
