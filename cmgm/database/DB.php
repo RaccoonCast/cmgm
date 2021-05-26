@@ -58,7 +58,7 @@ while($row = $result->fetch_assoc()) {
       $$key = $value;
       if ($key == "alt_carriers_here") {
         echo "<tr>";
-        $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18";
+        $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&back=DB";
         $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
         $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
         if($isMobile == "true") {

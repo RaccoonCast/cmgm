@@ -232,7 +232,7 @@ if (!empty($$value)) {
 <?php
 $id++;
 if (!isset($carrier)) $carrier = null;
-$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier;
+$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier . "&back=Edit.php?id=" . $id;
 echo '<a class="widget" title="View all info" href="Reader.php?back_url=Edit&id='.$id.'">🔍</a>';
 echo '<a class="widget" title="Delete" href="Delete.php?id='.$id.'">✂️</a>';
 echo '<a target="_blank" title="View on Database Map" class="widget" href="' . $db_map_link . '">🌎</a>';

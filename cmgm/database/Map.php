@@ -13,14 +13,26 @@
      $limit = "775";
    }
    include 'includes/map/get-get-queries.php';
+   if (substr($back, 0, 4) == "Edit") {
+     $back_url = $back;
+   } elseif (substr($back, 0, 4) == "Home") {
+     $back_url = "../Home.php";
+   } elseif (substr($back, 0, 2) == "DB") {
+     $back_url = "DB.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier;
+   }
    ?>
 </head>
 <body class="body">
 <div id="mapid"></div>
+<button class="special_button" id="backButton"><div class="buttonContainer"><?php if(isMobile()) { echo "⬅"; } else {echo "🔙";} ?></div></button>
+<button class="special_button" id="refreshButton"><div class="buttonContainer">🔃</div></button>
 <script>
 lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
+document.getElementById('refreshButton').addEventListener('click', () => location.reload());
+
+document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo $back_url; ?>"));
 
 function marker(latitude,longitude,status,id,url_suffix) {
   var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?mp-id=' + id + '&url_suffix=' + url_suffix + '\">';
@@ -57,6 +69,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
        var bounds = mymap.getBounds();
     };
   }
+
 
   var myVar = setInterval(myTimer, 1);
   // var myVar2 = setInterval(refresher, 5000);
@@ -100,7 +113,6 @@ switch ($sepCount) {
 
 ?>
 marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo $url_suffix ?>");
-
 <?php
 break;
             }

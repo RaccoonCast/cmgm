@@ -1,0 +1,23 @@
+#refreshButton {top: 121px;}
+#backButton {top: 79px;}
+.special_button {
+	position: absolute;
+	left: 17px;
+  border: 0;
+  padding: 0px 0px 0px 0px;
+	background: none;
+	font-size: 180%;
+	width: 35px;
+	height: 35px;
+	vertical-align: bottom;
+	z-index: 400;
+}
+.special_button:hover{
+    opacity: 0.8;
+    cursor: pointer;
+	}
+.buttonContainer {
+  top: -3px;
+  left: -10px;
+  position: relative;
+}

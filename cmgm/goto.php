@@ -38,7 +38,7 @@ if ($goto_page == "Beta") {
 if ($goto_page == "Google Maps") $the_URL = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") $the_URL = "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
 if ($goto_page == "Database") $goto_page_URL = "database/Home.php?";
-if ($goto_page == "Map") $goto_page_URL = "database/Map.php?";
+if ($goto_page == "Map") $goto_page_URL = "database/Map.php?back=Home&";
 if ($goto_page == "Form") $goto_page_URL = "database/Form.php?";
 if ($goto_page == "DB") $goto_page_URL = "database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "database/Search.php?";
