@@ -13,11 +13,11 @@
      $limit = "775";
    }
    include 'includes/map/get-get-queries.php';
-   if (substr($back, 0, 4) == "Edit") {
+   if (@substr($back, 0, 4) == "Edit") {
      $back_url = $back;
-   } elseif (substr($back, 0, 4) == "Home") {
+   } elseif (@substr($back, 0, 4) == "Home") {
      $back_url = "../Home.php";
-   } elseif (substr($back, 0, 2) == "DB") {
+   } elseif (@substr($back, 0, 2) == "DB") {
      $back_url = "DB.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier;
    }
    ?>
@@ -32,7 +32,7 @@ long = <?php echo $longitude?>;
 
 document.getElementById('refreshButton').addEventListener('click', () => location.reload());
 
-document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo $back_url; ?>"));
+document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo @$back_url; ?>"));
 
 function marker(latitude,longitude,status,id,url_suffix) {
   var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?mp-id=' + id + '&url_suffix=' + url_suffix + '\">';

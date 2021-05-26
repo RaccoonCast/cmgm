@@ -21,3 +21,6 @@
   left: -10px;
   position: relative;
 }
+.leaflet-control-attribution {
+  display: none;
+}

@@ -14,12 +14,13 @@
    $uplink = "../goto.php?goto_page=Upload&latitude=$latitude&longitude=$longitude";
    ?>
    <script src="../js/copyToClipboard.js"></script>
+   <div id="footerContainer">
    <footer>
-     <a class="footerlink" onclick="copyToClipboard('<?php echo $address;?>')" href="<?php echo $pmlink?>">Permits</a>
-     <a class="footerlink" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
-     <a class="footerlink" target="_blank" href="<?php echo $db_list_link?>">DB-List</a>
-     <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">DB-Maps</a>
+     <a class="footerlink footer_link_first" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
+     <a class="footerlink" target="_blank" href="<?php echo $db_list_link?>">DB</a>
+     <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">Map</a>
      <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">Google Maps</a>
      <a class="footerlink" target="_blank" href="<?php echo $uplink?>">Upload</a>
      <!-- <a class="footerlink" target="_blank" href="<?php // echo $gm2link?>">Permits Map</a> -->
   </footer>
+  </div>
