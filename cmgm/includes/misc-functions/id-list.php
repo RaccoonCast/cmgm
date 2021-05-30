@@ -2,9 +2,9 @@
 if (file_exists("id_list.txt")) {
   unlink("id_list.txt");
 }
+
 include '../functions/sqlpw.php';
 include '../functions/basic-functions.php';
-include '../useridsys/native.php';
 
 $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2 FROM database_db;";
 $result = mysqli_query($conn, $sql);

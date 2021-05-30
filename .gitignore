@@ -11,3 +11,4 @@ php/$error-log.log
 *.ini
 cmgm/favicon.gif
 cmgm/favicon.ico
+cmgm/includes/misc-functions/id_list.txt
