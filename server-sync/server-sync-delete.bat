@@ -14,4 +14,4 @@ if %errorlevel% == 2 exit
 echo.Okay... You asked for it.
 echo.
 for /f "tokens=1,2 delims==" %%G in (login-creds.hiddenpass) do set %%G=%%H
-WinSCP.com /script=script-delete.txt
+"C:\Program Files (x86)\WinSCP\WinSCP.com" /script=script-delete.txt
