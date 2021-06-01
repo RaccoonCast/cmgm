@@ -23,8 +23,8 @@ if (empty($id)) {
   <?php
   die();
 }
-if (isset($_POST['id'])) {
 /// Database column names
+// todo:// add edit_history, edit_lock(IPs, name?)
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b', 'attached_c',
@@ -32,71 +32,46 @@ $list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1',
 'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
 'alt_carriers_here','street_view_url');
 
-// Prefix for the Build-A-Query
+// Prefixes for the Build-A-Queries
 $sql_edit = "UPDATE database_db SET ";
+$sql_read = "SELECT ";
 
-// Infix for the Build-A-Query
+// Infixes for the Build-A-Queries
 foreach ($list_of_vars as $value) {
-      ${$value} = $_POST[$value];
-      $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, ${$value})."', ";
+      if (isset($_POST['id'])) {
+        ${$value} = $_POST[$value];
+        $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, ${$value})."', ";
+      }
+      $sql_read = $sql_read . $value . ",";
     }
-// Remove last comma for the Build-A-Query
+// Remove last comma from the Build-A-Queries
 $sql_edit = rtrim($sql_edit,', ');
+$sql_read = rtrim($sql_read, ',');
 
-// Add suffix for the Build-A-Query
+// Add suffixes for the Build-A-Query
 $sql_edit = $sql_edit . " WHERE id = $id";
+$sql_read = $sql_read . " FROM database_db WHERE id = $id;";
 
-mysqli_query($conn, $sql_edit);
-}
+// Edit
+if (isset($_POST['id'])) mysqli_query($conn, $sql_edit);
 
-$database_get_list = "id,date_added,cellsite_type,concealed,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2,
-pci_match,id_pattern_match,sector_match,other_user_map_primary,carrier,latitude,longitude,city,zip,state,address,bio,tags,status,evidence_a,evidence_b,evidence_c,photo_a,
-photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,attached_c,permit_score,trails_match,carriers_dont_trail_match,antennas_match_carrier,cellmapper_triangulation,
-image_evidence,verified_by_visit,sector_split_match,archival_antenna_addition,only_reasonable_location,alt_carriers_here,edit_history,edit_lock,street_view_url";
-
-// todo:// add edit_history, edit_lock(IPs, name?)
-
-$counter=0;
-$sql = "SELECT $database_get_list FROM database_db WHERE id = $id;";
-// echo $sql;
-$result = mysqli_query($conn,$sql);
-
-while($row = $result->fetch_assoc()) {
-    foreach ($row as $key => $value)
-        $$key = $value;
-        $counter++;
-}
-
-// if (!empty($cellsite_type)) {
-//   $id++;
-//   redir("Edit.php?id=$id","0");
-//   die();
-// }
+// Read
+$sql_read_result = mysqli_query($conn,$sql_read);
+while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
 
 // Not found? Ok... let's try some things.
 
-if ($counter==0 OR isset($_GET['id_search'])) {
-  if (@$next_num < 15 & isset($next_num)) {
-    $id++; $next_num++;
-    redir("Edit.php?id=$id&next=$next_num","0");
-    die();
-  }
-  if (@$back_num < 15 & isset($back_num)) {
-    $id--; $back_num++;
-    redir("Edit.php?id=$id&back=$back_num","0");
-    die();
-  }
-  $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id'];
-  if (empty($new_id)) {
-    echo "No results found."; ?>
-    <br><br><a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
-    <a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a> <?php
-    die();
-  }
-  redir("Edit.php?id=$new_id","0");
+if (!isset($status) OR isset($_GET['id_search'])) {
+  if (@$back_num < 15 & isset($back_num)) redir("Edit.php?id=" . $id-- . "&back=" . $back_num++ . "","0"); // back
+  if (@$back_num < 15 & isset($back_num)) redir("Edit.php?id=" . $id++ . "&next=" . $next_num++ . "","0"); // next
+  $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id']; // id search
+  if (!empty($new_id)) redir("Edit.php?id=$new_id","0"); // redir to searched ID ?>
+
+  No results found.
+  <br><br><a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
+  <a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a> <?php
   die();
 }
-$result->close(); $conn->close();
 
 // Generate Links for File Attaches
 

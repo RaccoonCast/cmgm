@@ -2,6 +2,7 @@
 // basic basic functions
 function redir($page,$time) {
 echo '<meta http-equiv="Refresh" content="' . $time . '; url=' . $page . '">';
+die();
 }
 
 // The mobile detection function
@@ -16,7 +17,7 @@ if(isMobile()) {
 
 $curr_userIP = $_SERVER["REMOTE_ADDR"];
 
-// Auto-include CSS 
+// Auto-include CSS
 // Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
 $without_extension = ucfirst(basename($_SERVER['PHP_SELF'],'.php'));
 function css($type,$file) {
