@@ -25,7 +25,7 @@
 
     <!-- CellMapper triangulates near the location -->
     <input name="cellmapper_triangulation" type="range" value="0" min="0" step="10" max="100" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output><label>% sure that cellmapper <abbr title="Higher percent - triangulated cellsite is really close&#013;Lower percent  - triangulated cellsite is somewhat close">triangulates</abbr> close to the suspected location</label><br>
+    <output>0</output><label>% sure that cellmapper <abbr title="Higher percent - triangulated cellsite is really close&#10;Lower percent  - triangulated cellsite is somewhat close">triangulates</abbr> close to the suspected location</label><br>
 
     <!-- A sticker/plate/sign/etc visible on the site has carrier name/contact information -->
     <input name="image_evidence" type="range" value="0" min="0" step="10" max="100" step="20" oninput="this.nextElementSibling.value = this.value">

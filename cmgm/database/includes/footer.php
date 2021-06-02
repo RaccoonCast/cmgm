@@ -10,7 +10,7 @@
    $db_map_link = "../goto.php?goto_page=Map&latitude=$latitude&longitude=$longitude";
    $db_list_link = "../goto.php?goto_page=DB&latitude=$latitude&longitude=$longitude";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
-   $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
+   $gmlink = "../goto.php?goto_page=Google%20Maps&latitude=$latitude&longitude=$longitude";
    $uplink = "../goto.php?goto_page=Upload&latitude=$latitude&longitude=$longitude";
    ?>
    <script src="../js/copyToClipboard.js"></script>

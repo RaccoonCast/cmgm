@@ -19,7 +19,7 @@
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="goto.php" method="get" autocomplete="off">
        <div class="buttons">
-         <input type="textbox" name="data" oninput="changeFormAction();" id="txtresult" class="textbox width-100"><br>
+         <input type="text" name="data" oninput="changeFormAction();" id="txtresult" class="textbox width-100"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" name="carrier" value="<?php if (!empty($_GET['carrier'])) echo $carrier;?>">
