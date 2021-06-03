@@ -15,8 +15,8 @@
 <option <?php if($carrier == "Unknown") echo 'selected="selected"';?> value="Unknown">Unknown</option>
 </select><select class="custominput concealed-custom-width dropdown" autocomplete="on" name="concealed" required>
 <option style="display:none" disabled selected="selected"></option>
-<option <?php if($concealed == "true") echo 'selected="selected"';?>value="true">Concealed</option>
-<option <?php if($concealed == "false") echo 'selected="selected"';?>value="false">Unconcealed</option>
+<option value="true">Concealed</option>
+<option value="false">Unconcealed</option>
 </select><select class="custominput cellsite-type-custom-width dropdown" autocomplete="on" name="cellsite_type" required>
 <option style="display:none" disabled selected="selected"></option>
 <option value="tower">Tower</option>
