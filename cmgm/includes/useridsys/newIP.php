@@ -6,7 +6,6 @@ header('Pragma: no-cache'); ?>
 <title>Unrecongized Device</title>
 <script src="/js/setCookie.js"></script>
 <?php
-
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 if ($siteroot == "/home/spane2003/cmgm.gq") {
   $secret_pass = file_get_contents($siteroot . "/secret_ip_whitelist_pass.hiddenpass", true);
@@ -22,7 +21,6 @@ $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) { foreach ($row as $key => $value) {$$key = $value;} }
 if (isset($userIP)) { redir($_SERVER['REQUEST_URI'],"0"); }
-
 
 $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
 $result = mysqli_query($conn,$sql);
@@ -49,8 +47,8 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $default_longitude = trim($result_ipinfo[1]);
   $theme = "white";
   $gmaps_util = "0";
-  $debug_flag = "false";
-  $debug_flag = "settings";
+  $debug_flag = "off";
+  $prefLocType = "settings";
 
   $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag, prefLocType)
                   VALUES (
@@ -63,7 +61,8 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     '".mysqli_real_escape_string($conn, $default_longitude)."',
                     '".mysqli_real_escape_string($conn, $theme)."',
                     '".mysqli_real_escape_string($conn, $gmaps_util)."',
-                    '".mysqli_real_escape_string($conn, $debug_flag)."');  ";
+                    '".mysqli_real_escape_string($conn, $debug_flag)."',
+                    '".mysqli_real_escape_string($conn, $prefLocType)."');  ";
                     mysqli_query($conn, $sql);
                     mysqli_close($conn);
 
@@ -73,7 +72,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
    </head>
    <body>
      <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
-       <p>Your IP address <?php echo $ip; ?> is not recnogized, please enter magical password.</p>
+       <p>Your IP address <?php echo $ip; ?> is not recongized, please enter magical password.</p>
          <input type="text" name="password" class="textbox">
          <input type="submit" class="submitbutton" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
