@@ -18,10 +18,27 @@ tr:nth-child(even) {
   background: #ededed;
 }
 .bio {
-  word-break: break-all;
-  min-width: inherit;
+  overflow-wrap: break-word;
   font-size: 0.85em;
-  max-width: 14cm!important;
+  min-width: inherit;
+  max-width: 40%;
+  width: 100%;
+}
+.bio-text {
+   max-width: 30ch;
+}
+.ev {
+  max-width: 4%;
+  width: 100%;
+}
+.lte {
+  max-width: 14%;
+  width: 100%;
+}
+.address {
+  font-size: 0.85em;
+  max-width: 15%;
+  width: 100%;
 }
 .widget {
   font-size: 15px;
@@ -29,12 +46,12 @@ tr:nth-child(even) {
   margin-right: 7px;
   text-decoration: none;
 }
+
 .widget-td {
   padding: 0px!important;
   margin: 0px!important;
 }
 .carrier {font-size: 0.85em; min-width: 0.9cm;}
-.address {font-size: 0.85em; max-width: 1.5cm;}
 .ev {min-width: 1.4cm;}
 td {
   padding: 3px;
