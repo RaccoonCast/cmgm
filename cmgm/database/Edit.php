@@ -124,7 +124,17 @@ if (empty($street_view_url_a) && empty($street_view_url_b) && empty($street_view
     <option <?php if($carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
     <option <?php if($carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select>
-    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=LTE&goto_page=CellMapper">LTE</a>/<a target="_blank" href="../goto.php?latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>&carrier=<?php echo $carrier?>&type=NR&goto_page=CellMapper">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+
+    <?php
+    if (!isset($carrier)) $carrier = null;
+    if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
+    if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
+    if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
+    if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
+    $cellmapper_link_lte = "https://www.cellmapper.net/map?$beginning"  . "type=LTE&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+    $cellmapper_link_nr = "https://www.cellmapper.net/map?$beginning"  . "type=NR&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+    ?>
+    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo $cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo $cellmapper_link_nr;?>">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="lte_nr_cw" maxlength="7" id="LTE_1" value="<?php echo $LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
     type="text" class="lte_nr_cw" maxlength="7" id="LTE_2" value="<?php echo $LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
     type="text" class="lte_nr_cw" maxlength="7" id="LTE_3" value="<?php echo $LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
@@ -140,11 +150,11 @@ if (empty($street_view_url_a) && empty($street_view_url_b) && empty($street_view
     <label class="id_params_label">Sector matchs</label><input type="text" class="id_params_cw sector_match" name="sector_match" value="<?php echo $sector_match?>">
     <label class="id_params_label">Primary already located</label><input type="text" class="id_params_cw other_user_map_primary" name="other_user_map_primary" value="<?php echo $other_user_map_primary?>">
 
-    <label class="latitude_longitude_label" for="latitude"><a target="_blank" href="../goto.php?goto_page=CellMapper&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>">Latitude/Longitude</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="latitude_longitude_label" for="latitude"><a target="_blank" href="<?php echo $cellmapper_link_lte;?>">Latitude/Longitude</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="inline-block latitude_longitude_cw" id="latitude" value="<?php echo $latitude?>" placeholder="Latitude" name="latitude"><input
     type="text" class="inline-block latitude_longitude_cw" id="longitude" value="<?php echo $longitude?>" placeholder="Longitude" name="longitude">
 
-    <label class="addr_label" for="address"><a target="_blank" href="../goto.php?goto_page=Google%20Maps&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>">Address</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="addr_label" for="address"><a target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude; ?>,<?php echo $longitude; ?>&zoom=20&basemap=satellite">Address</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="inline-block addr_address_cw" id="address" value="<?php echo $address?>" placeholder="Address" name="address"><input
     type="text" class="inline-block addr_city_cw" id="city" value="<?php echo $city?>" placeholder="City" name="city"><input
     type="text" class="inline-block addr_state_cw" id="state" value="<?php echo $state?>" placeholder="State" name="state"><input
