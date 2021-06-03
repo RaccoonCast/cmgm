@@ -4,6 +4,7 @@ function DMStoDEC($deg,$min,$sec) {
   return $deg+((($min*60)+($sec))/3600);
 }
 if (substr("$data", 11, 1) === 'N') {
+$data = str_replace(',', '', $data);
 // 40-40-54.4 N (40) (40) (54.4) (N) AND 34-05-50.9 N (34) (05) (50.9) (N)
 $deg1 = substr($data,0,2);
 $min1 = substr($data,3,2);
