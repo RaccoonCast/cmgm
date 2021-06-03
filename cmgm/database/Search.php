@@ -27,7 +27,7 @@
         <option value="pole">Pole</option>
         <option value="disguised">Disguised structure</option>
         <option value="other">Other/Uknown</option>
-        </select><br><label>Concealment</label><select class="custominput" autocomplete="on" name="concealed" required>
+        </select><br><label>Concealment</label><select class="custominput" autocomplete="on" name="concealed">
         <option style="display:none" disabled selected="selected"></option>
         <option value="true">Concealed</option>
         <option value="false">Unconcealed</option>
