@@ -1,7 +1,4 @@
 <?php
-if (!isset($default_latitude)) $default_latitude = "38.89951743540001";
-if (!isset($default_longitude)) $default_longitude = "-77.03655226691319";
-
 if (!isset($conv_type)) {
 // Google Maps search for the entered data (Burger King -> find closest burger king's LAT,LONG (from favorite location))
 $data = str_replace(' ', '+', $data);

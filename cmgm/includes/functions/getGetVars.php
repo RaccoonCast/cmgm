@@ -7,8 +7,7 @@ if (!empty($_GET['latitude'])) { $latitude = $_GET['latitude']; }
 if (!empty($_GET['longitude'])) { $longitude = $_GET['longitude']; }
 if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
 // didn't work? ok...
-if (!isset($latitude)) if (isset($default_latitude)) { $latitude = $default_latitude; } else { $default_latitude = "38.89951535140072"; $latitude = $default_latitude; }
-if (!isset($longitude)) if (isset($default_longitude)) { $longitude = $default_longitude; } else { $default_longitude = "-77.03656463746842"; $longitude = $default_longitude; }
+if (!isset($latitude)) if (isset($default_latitude) && isset($default_longitude)) { $latitude = $default_latitude; $longitude = $default_longitude; } 
 if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; } else { $default_carrier = "ATT"; $carrier = $default_carrier; }
 
 if (!empty($_GET['zip'])) { $zip = $_GET['zip']; }
