@@ -13,7 +13,6 @@
    $gmlink = "../goto.php?goto_page=Google%20Maps&latitude=$latitude&longitude=$longitude";
    $uplink = "../goto.php?goto_page=Upload&latitude=$latitude&longitude=$longitude";
    ?>
-   <script src="../js/copyToClipboard.js"></script>
    <div id="footerContainer">
    <footer>
      <a class="footerlink footer_link_first" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
