@@ -3,7 +3,7 @@
 
 # misuse of github storage
 cmgm/database/uploads
-cmgm/u/*.*
+cmgm/u/*
 cmgm/includes/functions/id_list.txt
 
 # temp files
