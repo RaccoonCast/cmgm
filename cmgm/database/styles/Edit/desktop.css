@@ -4,13 +4,14 @@ body {
 }
 label {
   display: inline-block;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 input[type=text],option,select {
     height: 34px;
 		padding: 4px;
 		margin: 0px;
+		border: 1px solid;
 }
 @media (orientation: landscape) {
 /* Panels (split page in half) */
@@ -25,58 +26,64 @@ abbr {text-decoration: none!important;}
   width: 100%;
   padding: 60px;
 }
+.warning {
+	font-size: 1.15em;
+}
+.id_input {
+	font-size: 1.6em;
+	height: 73px!important;
+	padding: 2px;
+	margin: 0px;
+}
 .small-submitbutton {
-  font-size: 1em;
-	height: 34px;
+	font-size: 1.6em;
+	height: 73px;
+	width: 120px;
 	padding: 2px;
 	margin: 0px;
 }
 
 /* Cellsite type info dropdowns */  /* LABEL */
-.cellsite_type_label {width: 25%!important;}
+.cellsite_type_label {max-width: 25%; width: 100%}
 /* Cellsite type info dropdowns */  /* DROPDOWN */
-.cellsite_type_cw {width: 18.75%!important;}
-.concealed_cw {width: 18.75%!important}
-.carrier_cw {width: 18.75%!important}
-.status_cw {width: 18.75%!important}
+.cellsite_type_cw {max-width: 18.75%!important; width: 100%}
+.concealed_cw {max-width: 18.75%!important; width: 100%}
+.carrier_cw {max-width: 18.75%!important; width: 100%}
+.status_cw {max-width: 18.75%!important; width: 100%}
 
 /* Cellsite location latitude - longitude */  /* LABEL */
-.latitude_longitude_label {width: 25%!important;}
+.latitude_longitude_label {max-width: 25%; width: 100%}
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_cw { width: 37.5%!important; }
 
 /* Address boxes */  /* LABEL */
-.addr_label {width: 25%!important;}
+.addr_label {max-width: 25%; width: 100%}
 /* Address boxes */  /* TEXTBOX */
-.addr_address_cw { width: 37%!important; }
-.addr_city_cw { width: 20%!important; }
-.addr_state_cw { width: 8%!important; }
-.addr_zip_cw { width: 10%!important; }
+.addr_address_cw { max-width: 34%!important; width: 100%}
+.addr_city_cw { max-width: 22%!important; width: 100%}
+.addr_state_cw { max-width: 8.75%!important; width: 100%}
+.addr_zip_cw { max-width: 10.25%!important; width: 100%}
 
 /* LTE/NR ids */  /* LABEL */
-.lte_nr_label {width: 25%!important;}
+.lte_nr_label {max-width: 25%; width: 100%}
 /* LTE/NR ids */  /* TEXTBOXES */
 .lte_nr_cw {width: 9.375%!important;}
 
-/* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
-.evidence_scores_label {width:38%!important;}
-/* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
-.evidence_scores_cw {width: 62%!important;}
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
-.id_params_label {width: 25%!important;}
-/* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
-.id_params_cw {width: 75%!important;}
+.id_params_label {max-width: 25%; width: 100%}
+/* ID Params (pci match, sector match, etc) */  /* TEXTBOX */
+.id_params_cw {max-width: 75%!important; width: 100%;}
 
-/* Street view */  /* LABEL */
-.street_view_label {width: 25%!important;}
-/* Street view */  /* TEXTBOX */
-.street_view_cw {width: 75%!important;}
+/* STREET VIEW URL */  /* LABEL */
+.street_view_url_label {max-width: 25%; width: 100%}
+/* STREET VIEW URL */  /* TEXTBOX */
+.street_view_url_cw {max-width: 18.75%; width: 100%; font-size: 0.80em;}
 
 /* Tags */  /* LABEL */
-.tags_label {width: 25%!important;}
+.tags_label {max-width: 25%; width: 100%}
 /* Tags */  /* TEXTBOX */
-.tags_cw {width: 75%!important;}
+.tags_cw {max-width: 75%!important; width: 100%;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
 .photo_label {width:14%!important;}
@@ -87,6 +94,11 @@ abbr {text-decoration: none!important;}
 .evidence_cw {width:28.6666%!important;}
 .attached_cw {width:28.6666%!important;}
 
+/* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
+.evidence_scores_label {width:38%!important;}
+/* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
+.evidence_scores_cw {width: 62%!important;}
+
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right}
 
@@ -95,4 +107,8 @@ abbr {text-decoration: none!important;}
 	float: right;
   font-size: 40px;
   text-decoration: none!important;
+}
+a[href^="?id="] {
+	display: inline-block;
+	padding-bottom: 10px;
 }

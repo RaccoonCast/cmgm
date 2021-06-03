@@ -15,68 +15,56 @@ if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
-if (empty($id)) {
-  ?>
-  <form action="Edit.php" autocomplete="off" method="get">
-  <input type="text" class="id_input" value="" placeholder="Any LTE/NR ID" name="id"><input
-  type="submit" class="small-submitbutton" value="Submit">
-  </form>
-  <?php
-  die();
-}
+
 /// Database column names
 // todo:// add edit_history, edit_lock(IPs, name?)
 $list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
-'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b', 'attached_c',
-'permit_score', 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier','cellmapper_triangulation',
-'image_evidence', 'verified_by_visit', 'sector_split_match', 'archival_antenna_addition', 'only_reasonable_location',
-'alt_carriers_here','street_view_url');
-
-// Prefixes for the Build-A-Queries
-$sql_edit = "UPDATE database_db SET ";
-$sql_read = "SELECT ";
-
-// Infixes for the Build-A-Queries
-foreach ($list_of_vars as $value) {
-      if (isset($_POST['id'])) {
-        ${$value} = $_POST[$value];
-        $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, ${$value})."', ";
-      }
-      $sql_read = $sql_read . $value . ",";
-    }
-// Remove last comma from the Build-A-Queries
-$sql_edit = rtrim($sql_edit,', ');
-$sql_read = rtrim($sql_read, ',');
-
-// Add suffixes for the Build-A-Query
-$sql_edit = $sql_edit . " WHERE id = $id";
-$sql_read = $sql_read . " FROM database_db WHERE id = $id;";
-
-// Edit
-if (isset($_POST['id'])) mysqli_query($conn, $sql_edit);
+'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b', 'attached_c','permit_score',
+'trails_match', 'carriers_dont_trail_match','antennas_match_carrier', 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match',
+'archival_antenna_addition', 'only_reasonable_location', 'alt_carriers_here','street_view_url_a','street_view_url_b','street_view_url_c','street_view_url_d');
 
 // Read
+$sql_read = "SELECT ";
+foreach ($list_of_vars as $value) $sql_read = $sql_read . $value . ",";
+$sql_read = rtrim($sql_read, ',') . " FROM database_db WHERE id = $id;";
 $sql_read_result = mysqli_query($conn,$sql_read);
-while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
+if (!empty($id)) while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
 
+// Edit
+$sql_edit = "UPDATE database_db SET ";
+
+// Add all the edited fields to the $sql_edit query.
+if (isset($_POST['id'])) foreach ($list_of_vars as $value) {
+        if (strpos($value, 'street_view_url') === false OR empty($_POST[$value])) {
+          if ($_POST[$value] != ${$value}) $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, $_POST[$value])."', ";
+          } else {
+            if ("https://" . $_POST[$value] != ${$value}) $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, "https://" . str_replace("https://", "",$_POST[$value]))."', ";
+          }
+          ${$value} = $_POST[$value];
+          if (strpos($value, 'street_view_url') !== false) if (!empty($_POST[$value])) ${$value} = "https://" . str_replace("https://", "",$_POST[$value]);
+    }
+
+// Remove last comma from the query.
+$sql_edit = rtrim($sql_edit,', ') . " WHERE id = $id";
+
+if (strlen($sql_edit) != 37) mysqli_query($conn, $sql_edit);
 // Not found? Ok... let's try some things.
 
 if (!isset($status) OR isset($_GET['id_search'])) {
-  if (@$back_num < 15 & isset($back_num)) redir("Edit.php?id=" . $id-- . "&back=" . $back_num++ . "","0"); // back
-  if (@$back_num < 15 & isset($back_num)) redir("Edit.php?id=" . $id++ . "&next=" . $next_num++ . "","0"); // next
-  $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id']; // id search
-  if (!empty($new_id)) redir("Edit.php?id=$new_id","0"); // redir to searched ID ?>
+   if (@$back_num < 15 & isset($back_num)) redir("Edit.php?id=" . --$id . "&back=" . ++$back_num . "","0"); // back
+   if (@$next_num < 15 & isset($next_num)) redir("Edit.php?id=" . ++$id . "&next=" . ++$next_num . "","0"); // next
+   if (!empty($id)) $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id'"))['id']; // id search
+   if (!empty($new_id)) redir("Edit.php?id=$new_id","0"); // redir to searched ID
 
-  No results found.
-  <br><br><a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
-  <a style="margin-bottom: 1.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a> <?php
+  include "includes/edit/id_input.php";
+  include "includes/edit/prev_next.php";
   die();
 }
 
 // Generate Links for File Attaches
 
-$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'attached_c', 'evidence_a', 'evidence_b', 'evidence_c');
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'attached_c', 'evidence_a', 'evidence_b', 'evidence_c', 'street_view_url_a', 'street_view_url_b', 'street_view_url_c', 'street_view_url_d');
 
 foreach ($foreachList as &$value) {
 $val = $value . "_label";
@@ -94,6 +82,7 @@ if (!empty($$value)) {
     $$val = null;
   }
 }
+if (empty($street_view_url_a) && empty($street_view_url_b) && empty($street_view_url_c) && empty($street_view_url_d)) $street_view_url_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . $latitude. ',' . $longitude . '">A</a>';
 ?>
 <title>EvilCM - Edit (<?php echo $LTE_1; ?>)</title>
 </head>
@@ -105,18 +94,18 @@ if (!empty($$value)) {
 
     <label class="cellsite_type_label">Type of cellsite</label><?php if ($isMobile =="true") { ?><br><?php } ?><select
     class="status_cw" autocomplete="on" name="status" required>
-    <option style="display:none" disabled value=""></option>
+    <option style="display:none" value=""></option>
     <option <?php if($status == "verified") echo "selected"?> value="verified">Verified</option>
     <option <?php if($status == "unverified") echo "selected"?> value="unverified">Unverified</option>
     <option <?php if($status == "unmapped") echo "selected"?> value="unmapped">Unmapped</option>
     <option <?php if($status == "special") echo "selected"?> value="special">Special</option>
     <option <?php if($status == "weird") echo "selected"?> value="weird">Weird</option>
     </select><select class="concealed_cw" autocomplete="on" name="concealed" required>
-    <option style="display:none" disabled value=""></option>
+    <option style="display:none" value=""></option>
     <option <?php if($concealed == "true") echo 'selected ';?>value="true">Concealed</option>
     <option <?php if($concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
     </select><select autocomplete="on" class="cellsite_type_cw" name="cellsite_type" required>
-    <option style="display:none" disabled value=""></option>
+    <option style="display:none" value=""></option>
     <option <?php if($cellsite_type == "tower") echo "selected"?> value="tower">Tower</option>
     <option <?php if($cellsite_type == "rooftop") echo "selected"?> value="rooftop">Rooftop</option>
     <option <?php if($cellsite_type == "tank") echo "selected"?> value="tank">Tank</option>
@@ -148,8 +137,8 @@ if (!empty($$value)) {
 
     <label class="id_params_label">PCI match with all IDs</label><input type="text" class="id_params_cw pci_match" name="pci_match" value="<?php echo $pci_match?>">
     <label class="id_params_label">ID pattern with all IDs</label><input type="text" class="id_params_cw id_pattern_match" name="id_pattern_match" value="<?php echo $id_pattern_match?>">
-    <label class="id_params_label">Similiar sectors with all IDs</label><input type="text" class="id_params_cw sector_match" name="sector_match" value="<?php echo $sector_match?>">
-    <label class="id_params_label">Other user mapped primary</label><input type="text" class="id_params_cw other_user_map_primary" name="other_user_map_primary" value="<?php echo $other_user_map_primary?>">
+    <label class="id_params_label">Sector matchs</label><input type="text" class="id_params_cw sector_match" name="sector_match" value="<?php echo $sector_match?>">
+    <label class="id_params_label">Primary already located</label><input type="text" class="id_params_cw other_user_map_primary" name="other_user_map_primary" value="<?php echo $other_user_map_primary?>">
 
     <label class="latitude_longitude_label" for="latitude"><a target="_blank" href="../goto.php?goto_page=CellMapper&latitude=<?php echo $latitude?>&longitude=<?php echo $longitude?>">Latitude/Longitude</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="inline-block latitude_longitude_cw" id="latitude" value="<?php echo $latitude?>" placeholder="Latitude" name="latitude"><input
@@ -160,7 +149,12 @@ if (!empty($$value)) {
     type="text" class="inline-block addr_city_cw" id="city" value="<?php echo $city?>" placeholder="City" name="city"><input
     type="text" class="inline-block addr_state_cw" id="state" value="<?php echo $state?>" placeholder="State" name="state"><input
     type="text" class="inline-block addr_zip_cw" id="zip" value="<?php echo $zip?>" placeholder="Zip" name="zip">
-    <label class="ID street_view_label"><a target="_blank" href="<?php if (!empty($street_view_url)) { echo $street_view_url;} else { echo "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude"; }?>">Street view URL</a></label><input type="text" class="street_view_cw" name="street_view_url" value="<?php echo $street_view_url?>">
+
+    <label class="street_view_url_label">Street view URL <span style="float: right"><?php echo $street_view_url_a_label; echo $street_view_url_b_label; echo $street_view_url_c_label; echo $street_view_url_d_label; ?></span></label><input
+    type="text" class="inline-block street_view_url_cw" name="street_view_url_a" value="<?php echo str_replace("https://", "",$street_view_url_a); ?>"><input
+    type="text" class="inline-block street_view_url_cw" name="street_view_url_b" value="<?php echo str_replace("https://", "",$street_view_url_b); ?>"><input
+    type="text" class="inline-block street_view_url_cw" name="street_view_url_c" value="<?php echo str_replace("https://", "",$street_view_url_c); ?>"><input
+    type="text" class="inline-block street_view_url_cw" name="street_view_url_d" value="<?php echo str_replace("https://", "",$street_view_url_d); ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo $tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -218,21 +212,18 @@ if (!empty($$value)) {
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
     type="text" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo $only_reasonable_location?>">
 
-    <br><label class="evidence_scores_label">Number of other carriers here</label><input
+    <br><label class="evidence_scores_label">Number of other carriers here<span style="float: right; font-size: 0.85em;">(<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>)</span></label><input
     type="text" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo $alt_carriers_here?>">
     </div>
-<input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Submit">
-<a href="?id=<?php echo --$id; ?>&back=1">Prev</a>
-<a style="padding-bottom: 2.5cm" href="?id=<?php echo 2+$id; ?>&next=1">Next</a>
+<input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Save">
+</form>
 <?php
-$id++;
-if (!isset($carrier)) $carrier = null;
-$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . $carrier . "&back=Edit.php?id=" . $id;
+$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier . "&back=Edit.php?id=" . $id;
 echo '<a class="widget" title="View all info" href="Reader.php?back_url=Edit&id='.$id.'">🔍</a>';
 echo '<a class="widget" title="Delete" href="Delete.php?id='.$id.'">✂️</a>';
 echo '<a target="_blank" title="View on Database Map" class="widget" href="' . $db_map_link . '">🌎</a>';
+include "includes/edit/prev_next.php";
 ?>
-</form>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <?php include "includes/footer.php"; ?>
 </body>
