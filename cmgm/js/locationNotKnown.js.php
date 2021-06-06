@@ -1,6 +1,5 @@
 <script>
 function error(err) {
-window.location = "<?php ob_start(); $url = convert($default_latitude,$default_longitude); ob_end_clean(); echo $url;?>";
 }
 
 if (navigator.geolocation) {
@@ -8,10 +7,6 @@ if (navigator.geolocation) {
 }
 
 function showPosition(position) {
-    <?php if($prefLocType == "gps") {
-      echo 'window.location = "convert.php?data=" + position.coords.latitude + "," + position.coords.longitude;';
-    } elseif ($prefLocType == "settings") {?>
-      window.location = "<?php ob_start(); $url = convert($default_latitude,$default_longitude); ob_end_clean(); echo $url;?>"; <?php
-    } ?>
-  }
+      echo 'window.location = "Home.php?goto=HomeSmart&data=" + position.coords.latitude + "," + position.coords.longitude;';
+    }
 </script>
