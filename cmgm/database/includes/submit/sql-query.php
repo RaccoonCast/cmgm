@@ -6,7 +6,7 @@ $conn = mysqli_connect($servername, $db_username, $password, $dbname);
 $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`concealed`, `LTE_1`,`LTE_2`,`LTE_3`,`LTE_4`,`LTE_5`,`LTE_6`,`nr_1`,`nr_2`,`pci_match`,
   `id_pattern_match`,`sector_match`,`other_user_map_primary`,`carrier`,`latitude`,`longitude`,`city`,`zip`,`state`,`address`,`bio`,`tags`,`status`,`evidence_a`,
   `permit_score`, `trails_match`,`carriers_dont_trail_match`,`antennas_match_carrier`,`cellmapper_triangulation`,`image_evidence`,`verified_by_visit`,`sector_split_match`,`archival_antenna_addition`,
-  `only_reasonable_location`,`alt_carriers_here`,`street_view_url`)
+  `only_reasonable_location`,`alt_carriers_here`,`street_view_url_a`)
                       VALUES (
                         '".mysqli_real_escape_string($conn, $date_added)."',
                         '".mysqli_real_escape_string($conn, $cellsite_type)."',
@@ -45,7 +45,7 @@ $sql = "INSERT INTO database_db (`date_added`,`cellsite_type`,`concealed`, `LTE_
                         '".mysqli_real_escape_string($conn, $archival_antenna_addition)."',
                         '".mysqli_real_escape_string($conn, $only_reasonable_location)."',
                         '".mysqli_real_escape_string($conn, $alt_carriers_here)."',
-                        '".mysqli_real_escape_string($conn, $street_view_url)."');  ";
+                        '".mysqli_real_escape_string($conn, $street_view_url_a)."');  ";
 
 mysqli_query($conn, $sql);
 $id = mysqli_fetch_array(mysqli_query($conn, "SELECT max(id) FROM database_db"))['max(id)'];
