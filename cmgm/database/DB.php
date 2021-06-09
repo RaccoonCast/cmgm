@@ -1,40 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <?php include '../functions.php';
-  if (!isset($_GET['latitude'])) $latitude = "38.89951743540001";
-  if (!isset($_GET['longitude'])) $longitude = "-77.03655226691319";
+  <?php
+  include '../functions.php';
+  if (!isset($_GET['latitude'])) $latitude = $default_latitude;
+  if (!isset($_GET['longitude'])) $longitude = $default_longitude;
+  include "includes/DB/search.php";
   ?>
 </head>
 <body>
 <?php
-$limit = "500";
-$db_variables = "id > 0";
 
-foreach($_GET as $key => $value){
-  if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
-    ${$key} = $value;
-  } elseif ($key == "id") {
-    if (!empty($value)) {
-    ${$key} = $value;
-    $id = str_replace(' ', '', $id);
-    $db_variables = "LTE_1='$id' OR LTE_2='$id' OR LTE_3='$id' OR LTE_4='$id' OR LTE_5='$id' OR LTE_5='$id' OR LTE_6='$id' OR NR_1='$id' OR NR_2='$id' AND " . $db_variables;
-  }
-} elseif ($key == "fileSearch") {
-    if (!empty($value)) {
-    ${$key} = $value;
-    $fs = str_replace(' ', '', $fileSearch);
-    $db_variables = "evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR attached_a='$fs' OR attached_b='$fs' OR attached_c='$fs' AND " . $db_variables;
-  }
-  } else {
-    if (!empty($value)) {
-      $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
-    }
-  }
-}
-$sql = "SELECT DISTINCT *,
-(3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE
-FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db " . @$db_variables . " ORDER BY distance LIMIT $limit";
+if (isset($_GET['showsql'])) echo $sql;
 $result = mysqli_query($conn,$sql);
 $counter=0;
 while($row = $result->fetch_assoc()) {
@@ -56,7 +34,7 @@ while($row = $result->fetch_assoc()) {
         <tbody> <?php
       }
       $$key = $value;
-      if ($key == "alt_carriers_here") {
+      if ($key == "DISTANCE") {
         echo "<tr>";
         $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&back=DB";
         $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
@@ -77,14 +55,9 @@ while($row = $result->fetch_assoc()) {
           if($isMobile == "true") if (empty($bio)) echo nl2br("<td class=" . "bio" . "><div class=" . "bio-text" . "></div>");
           if($isMobile != "true") echo nl2br("<td class=" . "widget-td" . " style=" . "text-align: center;" . ">");
 
-          ?>
-          <div class="widget-box">
-          <a class="widget" href="<?php echo $db_map_link; ?>"><abbr title="View on Database Map">🌎</abbr></a>
-          <a class="widget" href="Edit.php?id=<?php echo $id; ?>"><abbr title="Edit">🔧</abbr></a>
-          <a class="widget" href="Delete.php?id=<?php echo $id; ?>"><abbr title="Delete">✂️</abbr></a>
-          <a class="widget" href="Reader.php?back_url=DB&id=<?php echo $id; ?>"><abbr title="View all info">🔍</abbr></a></td>
-          </div>
-          <?php
+          ?><div class="widget-box"><?php
+          include SITE_ROOT . "/includes/widgets/widgets.php";
+          ?></td></div><?php
 
           if($isMobile != "true") {
             if (!empty($bio)) echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
