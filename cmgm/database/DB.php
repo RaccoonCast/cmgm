@@ -66,7 +66,7 @@ while($row = $result->fetch_assoc()) {
 
         if(substr($evidence_a, 0, 14) == "image-evidence") $evidence_a = "uploads/$evidence_a";
 
-        if (isset($evidence_a)) {
+        if (!empty($evidence_a)) {
           if(substr($evidence_a, 0, 14) == "image-evidence") {
             if (file_exists($evidence_a)) {
             if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a>";
