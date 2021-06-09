@@ -13,7 +13,7 @@ if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
 if (!empty($_GET['data'])) { $data = $_GET['data']; }
 if (!empty($_GET['conv_type'])) { $conv_type = $_GET['conv_type']; }
-if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; } else { $default_carrier = "ATT"; $carrier = $default_carrier; }
+if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; } 
 
 // get latitude from POST
 if (!empty($_POST['latitude'])) { $latitude = $_POST['latitude']; }
