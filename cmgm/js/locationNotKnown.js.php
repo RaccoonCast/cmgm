@@ -1,5 +1,6 @@
 <script>
 function error(err) {
+  window.location = "/?q=" + position.coords.latitude + "," + position.coords.longitude;
 }
 
 if (navigator.geolocation) {
@@ -7,6 +8,6 @@ if (navigator.geolocation) {
 }
 
 function showPosition(position) {
-      echo 'window.location = "Home.php?goto=HomeSmart&data=" + position.coords.latitude + "," + position.coords.longitude;';
+      window.location = "/?q=" + position.coords.latitude + "," + position.coords.longitude;
     }
 </script>

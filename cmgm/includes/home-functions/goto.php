@@ -32,7 +32,7 @@ if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
 if ($goto_page == "Form") $goto_page_URL = "/database/Form.php?";
 if ($goto_page == "DB") $goto_page_URL = "/database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
-if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/Home.php?";
+if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";
 if ($goto_page == "Permits") $goto_page_URL = "permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "database/Upload.php?";
 if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Settings.php?";
@@ -47,6 +47,5 @@ if ($goto_page == "Search") $suffix_part_c = null;
 if ($goto_page == "Upload") { $suffix_part_b = null; $suffix_part_c = null; }
 
 return "$goto_page_URL" . "$suffix_part_a" . "$suffix_part_b" . "$suffix_part_c";
-return $the_URL;
 }
 ?>

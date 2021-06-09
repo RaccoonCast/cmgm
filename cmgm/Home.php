@@ -15,7 +15,7 @@
    </head>
    <body class="flex">
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
-     <form id="form" action="Home.php" method="post" autocomplete="off">
+     <form id="form" action="/" method="post" autocomplete="off">
        <div class="buttons">
          <input type="text" name="data" oninput="changeFormAction();" id="txtresult" class="textbox width-100"><br>
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
@@ -27,8 +27,8 @@
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="hidden" id="rerunData" name="rerunData" value="false">
 
-         <input type="submit" class="submitbutton width-50" style="color:#D93A6C" name="goto" value="Database"><input
-         type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Form"><input
+         <input type="submit" class="submitbutton width-50" style="color:#D93A6C" onclick="changeF('database/Home.php');" name="goto" value="Database"><input
+         type="submit" class="submitbutton width-25" style="color:#D93A6C" onclick="changeF('database/Form.php');" name="goto" value="Form"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Map"><br>
          <input type="submit" class="submitbutton width-75" style="color:#33D333" name="goto" value="CellMapper"><input
          type="submit" class="submitbutton width-25" style="color:#33D333" name="goto" value="Beta"><br>
