@@ -5,7 +5,7 @@
       <?php
       $titleOverride = "true";
       include "../functions.php";
-      include "../includes/misc-functions/goto.php";
+      include "../includes/home-functions/goto.php";
       if (isset($_POST['goto'])) redir(function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,@$goto,NULL),"0");
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
