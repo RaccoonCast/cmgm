@@ -6,12 +6,17 @@
    $latitude = substr("$latitude", 0, 9);
    $longitude = substr("$longitude", 0, 10);
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
-   $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
-   $db_map_link = "../goto.php?goto_page=Map&latitude=$latitude&longitude=$longitude";
-   $db_list_link = "../goto.php?goto_page=DB&latitude=$latitude&longitude=$longitude";
+   if (!isset($carrier)) $carrier = null;
+   if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
+   if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
+   if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
+   if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
+   $cmlink = "https://www.cellmapper.net/map?$beginning"  . "type=LTE&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+   $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
+   $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
-   $gmlink = "../goto.php?goto_page=Google%20Maps&latitude=$latitude&longitude=$longitude";
-   $uplink = "../goto.php?goto_page=Upload&latitude=$latitude&longitude=$longitude";
+   $gmlink = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude";
+   $uplink = "Upload.php?latitude=$latitude&longitude=$longitude";
    ?>
    <div id="footerContainer">
    <footer>
