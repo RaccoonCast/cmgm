@@ -55,7 +55,6 @@ function marker(latitude,longitude,status,id,url_suffix) {
       newLat = mymap.getCenter().lat;
       newLong = mymap.getCenter().lng;
       newZoom = mymap.getZoom()
-      carrier = "<?php echo $carrier; ?>";
       tags = "<?php echo $url_suffix; ?>";
 
       var URI = "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
