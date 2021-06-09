@@ -36,11 +36,11 @@
 
      // if debug flag is high don't go back to home page.
      if ($debug_flag == "meduim") {
-       redir("/Home.php?data=$default_latitude,$default_longitude&goto=HomeSmart","2");
+       redir("/?q=$default_latitude,$default_longitude","2");
      } elseif ($debug_flag == "low") {
-       redir("/Home.php?data=$default_latitude,$default_longitude&goto=HomeSmart","1");
+       redir("/?q=$default_latitude,$default_longitude","1");
      } elseif ($debug_flag == "off") {
-       redir("/Home.php?data=$default_latitude,$default_longitude&goto=HomeSmart","0");
+       redir("/?q=$default_latitude,$default_longitude","0");
      }
      }
      ?>
