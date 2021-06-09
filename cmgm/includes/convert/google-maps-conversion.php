@@ -10,9 +10,5 @@ $response = json_decode(curl_exec($ch));
 @$longitude = $response->results[0]->geometry->location->lng;
 $conv_type = "Google Search";
 curl_close($ch);
-
-if (empty($latitude) OR empty($longitude)) include "includes/convert/dmstodec.php";
 }
-
-include "includes/convert/get-address-for-loc.php";
- ?>
+?>
