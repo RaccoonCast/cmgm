@@ -44,14 +44,12 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 17:  $evidence_score = $value; break;
                     case 18:  $evidence_a = $value; break;
                     case 19:  $street_view_url_a = $value;
-                    echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&id=" . $id . ">#" . $id . "</a> </p>");
-                    if (isset($street_view_url_a)) {
-                      echo nl2br('<a target=_blank class="widget widget_emote" href="'.$street_view_url_a.'"><abbr title="Street View">🚗</abbr></a>');
-                    }
-                    echo nl2br('<a title="View map here" target="_top" class="widget widget_emote" href="Map.php?latitude=' . $latitude . '&longitude=' . $longitude . '&zoom=18' . $url_suffix . '">🌎</a>');
-                    echo nl2br('<a title="Edit" target="_blank" class="widget widget_emote" href="Edit.php?id='.$id.'">🔧</a>');
-                    echo nl2br('<a title="Delete" class="widget widget_emote" href="Delete.php?redirPage=Map-popup&id='.$id.'">✂️</a>');
-                    echo nl2br('<a title="View all info" class="widget widget_emote" href="Reader.php?back_url=Map-popup&mp-id='.$id . $url_suffix . '">🔍</a><br>');
+
+                    echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&mp-id=" . $id . ">#" . $id . "</a> </p>");
+                    $no_reader = "true";
+                    include "../includes/widgets/widgets.php";
+                    ?> <br> <?php
+
                      if ("$carrier" == "T-Mobile") {
                       $beginning = "?MCC=310&MNC=260";
                     } elseif ("$carrier" == "Sprint") {
@@ -61,7 +59,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     } elseif ("$carrier" == "Verizon") {
                       $beginning = "?MCC=311&MNC=480";
                     } else {
-                      $beginning = "?MCC=310&MNC=260";
+                      $beginning = "?MCC=310&MNC=410";
                     }
 
                       if (empty($LTE_1)) $LTE_1 = "CellMapper";

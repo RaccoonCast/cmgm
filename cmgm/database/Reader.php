@@ -9,9 +9,9 @@ include "includes/map/get-get-queries.php";
 @$id = $_GET['mp-id'];
 @$show_empty_fields = $_GET['show_empty_fields'];
 @$back = $_GET['back_url'];
-if ($back == "Edit") $back_url = "Edit.php?id=" . $id;
-if ($back == "Map-popup") $back_url = "Map-popup.php?mp-id=" . $id . $url_suffix;
-if ($back == "DB") $back_url = "DB.php#" . $id ;
+if ($back == "/database/Edit.php") $back_url = "Edit.php?id=" . $id;
+if ($back == "/database/Map-popup.php") $back_url = "Map-popup.php?mp-id=" . $id . $url_suffix;
+if ($back == "/database/DB.php") $back_url = "DB.php#" . $id ;
 if ($back == "Home" OR !isset($back)) $back_url = "\Home.php";
 
 $sql = "SELECT * FROM database_db WHERE id = $id;";

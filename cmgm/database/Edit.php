@@ -228,10 +228,8 @@ if (empty($street_view_url_a) && empty($street_view_url_b) && empty($street_view
 <input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="Save">
 </form>
 <?php
-$db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier . "&back=Edit.php?id=" . $id;
-echo '<a class="widget" title="View all info" href="Reader.php?back_url=Edit&id='.$id.'">🔍</a>';
-echo '<a class="widget" title="Delete" href="Delete.php?id='.$id.'">✂️</a>';
-echo '<a target="_blank" title="View on Database Map" class="widget" href="' . $db_map_link . '">🌎</a>';
+$no_edit = "true";
+include "../includes/widgets/widgets.php";
 include "includes/edit/prev_next.php";
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
