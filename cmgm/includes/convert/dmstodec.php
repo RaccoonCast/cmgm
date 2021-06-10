@@ -5,9 +5,7 @@ function DMStoDEC($deg,$min,$sec) {
 preg_match_all('!\d+\.*\d*!', $data, $out);
 $latitude = DMStoDec($out[0][0],$out[0][1],$out[0][2]);
 $longitude = DMStoDec($out[0][3],$out[0][4],$out[0][5]);
-if (!is_numeric(@$latitude) OR !is_numeric(@$longitude)) {
-  $conv_type = "DMS Coordinates";
-}
+if (is_numeric(@$latitude) && is_numeric(@$longitude)) $conv_type = "DMS Coordinates";
 if(strpos($data, "S") !== false) $latitude = "-".$latitude;
 if(strpos($data, "W") !== false) $longitude = "-".$longitude;
 
