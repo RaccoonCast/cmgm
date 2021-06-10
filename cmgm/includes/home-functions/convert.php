@@ -10,6 +10,7 @@ if ($data == "defaultLoc") {
   $longitude = $default_longitude;
   $conv_type = "Default Location";
 }
+
 // CellMapper URL Conversion
 if(substr("$data", 0, 26) == 'https://www.cellmapper.net' && !isset($conv_type)) include SITE_ROOT . "/includes/convert/cellmapper.net.php";
 // Google Maps URL Conversion

@@ -6,12 +6,14 @@
       $titleOverride = "true";
       include "../functions.php";
       include "../js/index.js.php";
-      include SITE_ROOT . "/includes/home-functions/convert.php";
       if (isset($_POST['no_home_smart'])) {
         include SITE_ROOT . "/includes/home-functions/goto.php";
         redir(function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,@$_POST['goto'],NULL),"0");
       }
-      if (!empty($_POST['data'])) [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert($_POST['data'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+      if (!empty($_POST['data'])) {
+        include SITE_ROOT . "/includes/home-functions/convert.php";
+        [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert($_POST['data'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+      }
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
@@ -28,7 +30,7 @@
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="hidden" name="no_home_smart" value="true">
          <div class="buttons">
-         <input type="submit" class="width-50 submitbutton" style="color:#F80000" name="goto" value="Form" /><input
+         <input type="submit" class="width-50 submitbutton" style="color:#F80000" onclick="changeF('Form.php','Form');" name="goto" value="Form" /><input
          type="submit" class="submitbutton width-50" style="color:#E9A623" name="goto" value="Map" /><br>
          <input type="submit" class="submitbutton width-100" style="color:#e31bdc" name="goto" value="Search" /><br>
          <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton width-100" style="color: #6be63e;" name="goto_page" value="Permits"><br>

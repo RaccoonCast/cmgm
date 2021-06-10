@@ -4,7 +4,11 @@
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/pasteimages.js"></script>
      <script src="../js/database.js"></script>
-     <?php include '../functions.php';?>
+     <?php include '../functions.php';
+     if (!empty($_POST['data'])) {
+       include SITE_ROOT . "/includes/home-functions/convert.php";
+       [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert($_POST['data'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+     }?>
    </head>
    <body>
      <div class="body">
