@@ -1,7 +1,6 @@
 <?php
 function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier) {
 include SITE_ROOT . "/includes/functions/getGetVars.php";
-echo $goto;
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 include SITE_ROOT . "/includes/home-functions/goto.php";
 
@@ -23,7 +22,6 @@ if (!isset($conv_type)) include SITE_ROOT . "/includes/convert/dmstodec.php";
 if (!isset($conv_type)) include SITE_ROOT . "/includes/convert/google-maps-conversion.php";
 // Get address info for location
 include SITE_ROOT . "/includes/convert/get-address-for-loc.php";
-echo $latitude;
 
 $latitude = substr($latitude,0,10);
 $longitude = substr($longitude,0,10);
