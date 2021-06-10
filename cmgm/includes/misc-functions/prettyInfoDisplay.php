@@ -18,7 +18,7 @@ Latitude: <?php if (isset($latitude)) echo $latitude ?>
 <!-- LATITUDE / LONGITUDE -->
 
 <!-- SEARCH QUERY -->
-<?php if (isset($data)) echo 'Search Query: ' . $data; ?>
+<?php if (isset($data)) echo 'Search Query: ' . $data . "<br>"; ?>
 <!-- SEARCH QUERY -->
 <?php
 if(isset($url_1)) { ?> URL 1: <a target="_blank" href="<?php echo $url_1; ?>"><?php echo strtok($url_1, '&'); ?></a><br> <?php }

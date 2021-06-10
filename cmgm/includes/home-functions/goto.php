@@ -7,6 +7,11 @@ if(empty($city)) $city = null;
 if(empty($state)) $state = null;
 if(empty($address)) $address = null;
 
+if (isset($_GET['goto'])) $goto = @$_GET['goto'];
+if (isset($_POST['goto'])) $goto = @$_POST['goto'];
+if (isset($_GET['data'])) $data = @$_GET['data'];
+if (isset($_POST['data'])) $data = @$_POST['data'];
+
 if ($goto_page == "CellMapper") {
   if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
   if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
