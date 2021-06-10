@@ -6,7 +6,10 @@
       $titleOverride = "true";
       include "../functions.php";
       include SITE_ROOT . "/includes/home-functions/convert.php";
-      if (isset($_POST['no_home_smart'])) redir(function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,@$goto,NULL),"0");
+      if (isset($_POST['no_home_smart'])) {
+        include SITE_ROOT . "/includes/home-functions/goto.php";
+        redir(function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,@$goto,NULL),"0");
+      }
       [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert($_POST['data'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
