@@ -28,7 +28,7 @@
          <input type="hidden" id="rerunData" name="rerunData" value="false">
 
          <input type="submit" class="submitbutton width-50" style="color:#D93A6C" onclick="changeF('database/Home.php');" name="goto" value="Database"><input
-         type="submit" class="submitbutton width-25" style="color:#D93A6C" onclick="changeF('database/Form.php');" name="goto" value="Form"><input
+         type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Form"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Map"><br>
          <input type="submit" class="submitbutton width-75" style="color:#33D333" name="goto" value="CellMapper"><input
          type="submit" class="submitbutton width-25" style="color:#33D333" name="goto" value="Beta"><br>

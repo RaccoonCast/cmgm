@@ -13,7 +13,7 @@ if (!empty($_GET['city'])) { $city = $_GET['city']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
 if (!empty($_GET['data'])) { $data = $_GET['data']; }
 if (!empty($_GET['conv_type'])) { $conv_type = $_GET['conv_type']; }
-if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; } 
+if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; }
 
 // get latitude from POST
 if (!empty($_POST['latitude'])) { $latitude = $_POST['latitude']; }
@@ -29,8 +29,4 @@ if (!empty($_POST['conv_type'])) { $conv_type = $_POST['conv_type']; }
 
 @define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
-if (isset($_GET['goto'])) $goto = @$_GET['goto'];
-if (isset($_POST['goto'])) $goto = @$_POST['goto'];
-if (isset($_GET['data'])) $data = @$_GET['data'];
-if (isset($_POST['data'])) $data = @$_POST['data'];
 ?>

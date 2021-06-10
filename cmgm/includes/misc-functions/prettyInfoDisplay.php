@@ -20,6 +20,9 @@ Latitude: <?php if (isset($latitude)) echo $latitude ?>
 <!-- SEARCH QUERY -->
 <?php if (isset($data)) echo 'Search Query: ' . $data; ?>
 <!-- SEARCH QUERY -->
-
+<?php
+if(isset($url_1)) { ?> URL 1: <a target="_blank" href="<?php echo $url_1; ?>"><?php echo strtok($url_1, '&'); ?></a><br> <?php }
+if(isset($url_2)) { ?> URL 2: <a target="_blank" href="<?php echo $url_2; ?>"><?php echo strtok($url_2, '&'); ?></a><br> <?php }
+if(isset($conv_type)) { ?> Conv Type: <?php echo $conv_type; ?><br> <?php } ?>
 <br>
 <script src="/js/copy.js"></script>

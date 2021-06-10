@@ -18,7 +18,7 @@ if (@$_POST['rerunData'] == "false" && $goto != "HomeSmart") {
 // General shortlink
 if (isset($_GET['q'])) {
   if ($debug_flag != "off") echo "locfinder: direct-search";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert($_GET['q'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert($_GET['q'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
 }
 
 // No location specifeid? Use GPS
@@ -30,12 +30,12 @@ if ($prefLocType == "gps" && !isset($latitude) && !isset($data)) {
 // No location specifeid? Use default lat,long.
 if ($prefLocType == "settings" && !isset($data) && !isset($goto)) {
   if ($debug_flag != "off") echo "locfinder: $" . "data variable not specified, defaulting to default_lat/long";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
 }
 
 // Still no location? Let's assume GPS failed...
 if (!isset($latitude)) {
   if ($debug_flag != "off") echo "locfinder: failed to get gps location, retrieving default loc";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
 }
 ?>
