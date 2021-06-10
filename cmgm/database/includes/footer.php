@@ -3,10 +3,10 @@
    if(empty($city)) $city = null;
    if(empty($state)) $state = null;
    if(empty($address)) $address = null;
-   $latitude = substr("$latitude", 0, 9);
-   $longitude = substr("$longitude", 0, 10);
+   @$latitude = substr("$latitude", 0, 9);
+   @$longitude = substr("$longitude", 0, 10);
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
-   if (!isset($carrier)) $carrier = null;
+   if (!isset($carrier)) $carrier = $default_carrier;
    if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
    if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
    if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
