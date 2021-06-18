@@ -27,7 +27,7 @@
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="hidden" id="rerunData" name="rerunData" value="false">
 
-         <input type="submit" class="submitbutton width-50" style="color:#D93A6C" id="Home" onclick="changeF('database/Home.php','Home');" name="goto" value="Database"><input
+         <input type="submit" class="submitbutton width-50" style="color:#D93A6C" id="Home" name="goto" value="Database"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Form"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" id="map" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Map",NULL) ?>,'map');" name="goto" value="Map"><br>
          <input type="submit" class="submitbutton width-75" style="color:#33D333" id="cellmapper" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"CellMapper",NULL) ?>','CellMapper');" name="goto" value="CellMapper"><input
