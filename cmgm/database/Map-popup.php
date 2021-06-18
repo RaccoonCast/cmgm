@@ -47,6 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&mp-id=" . $id . ">#" . $id . "</a> </p>");
                     $no_reader = "true";
+                    $no_new = "true";
                     include "../includes/widgets/widgets.php";
                     ?> <br> <?php
 

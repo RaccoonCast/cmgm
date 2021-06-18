@@ -34,7 +34,7 @@ if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
 if ($goto_page == "Database") $goto_page_URL = "/database/Home.php?";
 if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
-if ($goto_page == "Form") $goto_page_URL = "/database/Form.php?";
+if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";
 if ($goto_page == "DB") $goto_page_URL = "/database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";

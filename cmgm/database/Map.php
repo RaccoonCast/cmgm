@@ -24,16 +24,18 @@
 </head>
 <body class="body">
 <div id="mapid"></div>
+<?php if (!isset($marker_latitude)) { ?>
 <button class="special_button" id="backButton"><div class="buttonContainer"><?php if(isMobile()) { echo "⬅"; } else {echo "🔙";} ?></div></button>
 <button class="special_button" id="refreshButton"><div class="buttonContainer">🔃</div></button>
+<?php } ?>
 <script>
 lat = <?php echo $latitude?>;
 long = <?php echo $longitude?>;
 
-document.getElementById('refreshButton').addEventListener('click', () => location.reload());
-
-document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo @$back_url; ?>"));
-
+<?php if (!isset($marker_latitude)) { ?>
+  document.getElementById('refreshButton').addEventListener('click', () => location.reload());
+  document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo @$back_url; ?>"));
+<?php } ?>
 function marker(latitude,longitude,status,id,url_suffix) {
   var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?mp-id=' + id + '&url_suffix=' + url_suffix + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup,customOptions).addTo(mymap).on('click', function(e) {

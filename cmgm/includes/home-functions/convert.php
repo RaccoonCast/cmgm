@@ -2,7 +2,7 @@
 function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier) {
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
-include SITE_ROOT . "/includes/home-functions/goto.php";
+include_once SITE_ROOT . "/includes/home-functions/goto.php";
 
 // If not set get location from DB
 if ($data == "defaultLoc") {

@@ -7,7 +7,7 @@
       include "functions.php";
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) include "includes/home-functions/page-handler.php";
-
+      include_once SITE_ROOT . "/includes/home-functions/goto.php";
 
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
@@ -28,7 +28,7 @@
          <input type="hidden" id="rerunData" name="rerunData" value="false">
 
          <input type="submit" class="submitbutton width-50" style="color:#D93A6C" id="Home" onclick="changeF('database/Home.php','Home');" name="goto" value="Database"><input
-         type="submit" class="submitbutton width-25" style="color:#D93A6C" onclick="changeF('database/Form.php','Form');" name="goto" value="Form"><input
+         type="submit" class="submitbutton width-25" style="color:#D93A6C" name="goto" value="Form"><input
          type="submit" class="submitbutton width-25" style="color:#D93A6C" id="map" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Map",NULL) ?>,'map');" name="goto" value="Map"><br>
          <input type="submit" class="submitbutton width-75" style="color:#33D333" id="cellmapper" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"CellMapper",NULL) ?>','CellMapper');" name="goto" value="CellMapper"><input
          type="submit" class="submitbutton width-25" style="color:#33D333" id="beta" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Beta",NULL) ?>,'beta');" name="goto" value="Beta"><br>

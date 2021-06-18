@@ -9,18 +9,19 @@ if (isset($_COOKIE['userID'])) {
   $cookie_userID = null;
 }
 
-
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
 $sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
-      $$key = $value;
-      if (@$debug_flag == "high") {
-        echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
-      }
+      if ($key != "id") {
+        $$key = $value;
+        if (@$debug_flag == "high") {
+          echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
         }
       }
+    }
+  }
 
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {

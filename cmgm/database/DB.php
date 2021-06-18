@@ -56,6 +56,7 @@ while($row = $result->fetch_assoc()) {
           if($isMobile != "true") echo nl2br("<td class=" . "widget-td" . " style=" . "text-align: center;" . ">");
 
           ?><div class="widget-box"><?php
+          $no_new = "true";
           include SITE_ROOT . "/includes/widgets/widgets.php";
           ?></td></div><?php
 
