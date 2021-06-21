@@ -6,12 +6,13 @@
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
   include "includes/DB/search.php";
+  include "../includes/home-functions/goto.php";
   ?>
 </head>
 <body>
 <?php
 
-$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db " . @$db_variables . " ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ".@$db_variables." ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo $sql;
 $result = mysqli_query($conn,$sql);
 $counter=0;
@@ -24,7 +25,7 @@ while($row = $result->fetch_assoc()) {
         <tr>
           <th>LTE #</th>
           <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
-          <th>Address</th>
+          <th>Address</th> 
           <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
           <th>Bio</th>
           <th>EV</th>
@@ -36,32 +37,34 @@ while($row = $result->fetch_assoc()) {
       $$key = $value;
       if ($key == "DISTANCE") {
         echo "<tr>";
-        $db_map_link = "https://cmgm.gq/database/Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&back=DB";
-        $cmlink = "../goto.php?goto_page=CellMapper&latitude=$latitude&longitude=$longitude";
-        $gmlink = "../goto.php?goto_page=Google Maps&latitude=$latitude&longitude=$longitude";
+        $db_map_link = "https://cmgm.gq/database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
+        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL);
+        $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL);
+
         if($isMobile == "true") {
-        echo "<td class=" . "lte" . " id=" . $id . ">" . $carrier . "<br><a href=" . "$cmlink" .">" . $LTE_1 . "</a></td>";
+        echo '<td class="lte" id="'.$id.'">'.$carrier.'<br><a href="'.$cmlink.'">$LTE_1</a></td>';
         } else {
-        echo "<td class=" . "lte" . " id=" . $id . "><a href=" . "$cmlink" .">" . $LTE_1 . "</a></td>";
-        echo "<td class=" . "carrier" . ">" . $carrier . "</td>";
-        }
-        if($isMobile == "true"){
-          echo '<td class="address"><a href="' . $gmlink . '">' . $address . '</a></td>';
-        } else {
-          echo '<td class="address"><a href="' . $gmlink . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a></td>';
+        echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
+        echo '<td class="carrier">"'.$carrier.'"</td>';
         }
 
-          if($isMobile == "true") if (!empty($bio)) echo nl2br("<td class=" . "bio" . "><div class=" . "bio-text" . ">" . $bio . "</div>");
-          if($isMobile == "true") if (empty($bio)) echo nl2br("<td class=" . "bio" . "><div class=" . "bio-text" . "></div>");
-          if($isMobile != "true") echo nl2br("<td class=" . "widget-td" . " style=" . "text-align: center;" . ">");
+        if($isMobile == "true"){
+          echo '<td class="address"><a href="'.$gmlink.'">'.$address.'</a></td>';
+        } else {
+          echo '<td class="address"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td>';
+        }
+
+          if($isMobile == "true") if (!empty($bio)) echo nl2br("<td class="."bio"."><div class="."bio-text".">".$bio."</div>");
+          if($isMobile == "true") if (empty($bio)) echo nl2br("<td class="."bio"."><div class="."bio-text"."></div>");
+          if($isMobile != "true") echo nl2br("<td class="."widget-td"." style="."text-align: center;".">");
 
           ?><div class="widget-box"><?php
           $no_new = "true";
-          include SITE_ROOT . "/includes/widgets/widgets.php";
+          include SITE_ROOT."/includes/widgets/widgets.php";
           ?></td></div><?php
 
           if($isMobile != "true") {
-            if (!empty($bio)) echo nl2br("<td class=" . "bio" . ">" . $bio . "</td>");
+            if (!empty($bio)) echo nl2br("<td class="."bio".">".$bio."</td>");
             if (empty($bio)) echo nl2br("<td></td>");
           }
 
@@ -70,23 +73,23 @@ while($row = $result->fetch_assoc()) {
         if (!empty($evidence_a)) {
           if(substr($evidence_a, 0, 14) == "image-evidence") {
             if (file_exists($evidence_a)) {
-            if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a>";
-            if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a></td>";
+            if($isMobile == "true") echo "<td class="."ev"."><a target="."_blank"." href="."$evidence_a".">Evidence</a>";
+            if($isMobile != "true") echo "<td class="."ev"."><a target="."_blank"." href="."$evidence_a".">Evidence</a></td>";
           } else {
-            if($isMobile == "true") echo "<td class=" . "ev" . ">Evidence is missing";
-            if($isMobile != "true") echo "<td class=" . "ev" . ">Evidence is missing</td>";
+            if($isMobile == "true") echo "<td class="."ev".">Evidence is missing";
+            if($isMobile != "true") echo "<td class="."ev".">Evidence is missing</td>";
           }
         } else {
-          if($isMobile == "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a>";
-          if($isMobile != "true") echo "<td class=" . "ev" . "><a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a></td>";
+          if($isMobile == "true") echo "<td class="."ev"."><a target="."_blank"." href="."$evidence_a".">Evidence</a>";
+          if($isMobile != "true") echo "<td class="."ev"."><a target="."_blank"." href="."$evidence_a".">Evidence</a></td>";
         }
         } else {
-        if($isMobile != "true") echo "<td class=" . "ev" . "></td>";
+        if($isMobile != "true") echo "<td class="."ev"."></td>";
         }
         include '../includes/functions/calculateEV-math.php';
-        if($isMobile == "true") echo "<br>Score: " . $ev . "</td>";
-        if($isMobile != "true") echo "<td>" . $ev . "</td>";
-        echo "</tr>";
+        if($isMobile == "true") echo "<br>Score: ".$ev."</td>";
+        if($isMobile != "true") echo "<td>".$ev."</td>";
+        echo "</tr>"."\n";
       }
       }
       }
