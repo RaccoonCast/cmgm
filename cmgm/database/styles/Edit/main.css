@@ -1,5 +1,5 @@
 .inline-block {display:inline-block; }
-.bio {width:100%; resize: none;}
+.bio,.edit_history {width:100%; resize: none;}
 input[type=text],option,select,.bio {
 		box-sizing: border-box;
 		-webkit-box-sizing:border-box;
@@ -8,4 +8,7 @@ input[type=text],option,select,.bio {
 .error {
   text-decoration: none;
   color: red;
+}
+.widget_holder {
+	float: right;
 }

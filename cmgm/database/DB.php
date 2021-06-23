@@ -25,7 +25,7 @@ while($row = $result->fetch_assoc()) {
         <tr>
           <th>LTE #</th>
           <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
-          <th>Address</th> 
+          <th>Address</th>
           <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
           <th>Bio</th>
           <th>EV</th>
@@ -45,7 +45,7 @@ while($row = $result->fetch_assoc()) {
         echo '<td class="lte" id="'.$id.'">'.$carrier.'<br><a href="'.$cmlink.'">$LTE_1</a></td>';
         } else {
         echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
-        echo '<td class="carrier">"'.$carrier.'"</td>';
+        echo '<td class="carrier">'.$carrier.'</td>';
         }
 
         if($isMobile == "true"){

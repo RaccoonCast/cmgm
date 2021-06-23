@@ -1,5 +1,5 @@
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
-  <div id="panel1">
+  <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo $date_added?>">
@@ -38,15 +38,13 @@
     </select>
 
     <?php
-    if (!isset($_GET['new'])) {
-      if (!isset($carrier)) $carrier = null;
-      if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-      if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
-      if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
-      if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
-      $cellmapper_link_lte = "https://www.cellmapper.net/map?$beginning"  . "type=LTE&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-      $cellmapper_link_nr = "https://www.cellmapper.net/map?$beginning"  . "type=NR&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
-    }
+      if (isset($_GET['new'])) $beginning = null;
+      if (@$carrier == "T-Mobile") $beginning = "MCC=310&MNC=260&";
+      if (@$carrier == "Sprint") $beginning = "MCC=310&MNC=120&";
+      if (@$carrier == "ATT") $beginning = "MCC=310&MNC=410&";
+      if (@$carrier == "Verizon") $beginning = "MCC=311&MNC=480&";
+      if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = "https://www.cellmapper.net/map?$beginning"  . "type=LTE&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+      if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = "https://www.cellmapper.net/map?$beginning"  . "type=NR&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
     ?>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="text" class="lte_nr_cw" maxlength="7" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
@@ -69,16 +67,16 @@
     type="text" class="inline-block latitude_longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
 
     <label class="addr_label" for="address"><a target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo @$latitude; ?>,<?php echo @$longitude; ?>&zoom=20&basemap=satellite">Address</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="text" class="inline-block addr_address_cw" id="address" value="<?php echo @$address?>" placeholder="Address" name="address"><input
-    type="text" class="inline-block addr_city_cw" id="city" value="<?php echo @$city?>" placeholder="City" name="city"><input
-    type="text" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
-    type="text" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
+    type="text" autocomplete="chrome-off" class="inline-block addr_address_cw" id="address" value="<?php echo @$address?>" placeholder="Address" name="address"><input
+    type="text" autocomplete="chrome-off" class="inline-block addr_city_cw" id="city" value="<?php echo @$city?>" placeholder="City" name="city"><input
+    type="text" autocomplete="chrome-off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
+    type="text" autocomplete="chrome-off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="street_view_url_label">Street view URL <span style="float: right"><?php echo @$street_view_url_a_label; echo @$street_view_url_b_label; echo @$street_view_url_c_label; echo @$street_view_url_d_label; ?></span></label><input
-    type="text" class="inline-block street_view_url_cw" name="street_view_url_a" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
-    type="text" class="inline-block street_view_url_cw" name="street_view_url_b" value="<?php echo str_replace("https://", "",@$street_view_url_b); ?>"><input
-    type="text" class="inline-block street_view_url_cw" name="street_view_url_c" value="<?php echo str_replace("https://", "",@$street_view_url_c); ?>"><input
-    type="text" class="inline-block street_view_url_cw" name="street_view_url_d" value="<?php echo str_replace("https://", "",@$street_view_url_d); ?>">
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_a" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_b" value="<?php echo str_replace("https://", "",@$street_view_url_b); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_c" value="<?php echo str_replace("https://", "",@$street_view_url_c); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_d" value="<?php echo str_replace("https://", "",@$street_view_url_d); ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -86,7 +84,7 @@
     <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea><br> <?php } ?>
 
     </div>
-    <div id="panel2">
+    <div class="panel2">
     <label class="evidence_label">Evidence <span style="float: right"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
     type="text" class="evidence_cw" name="evidence_a" value="<?php echo @$evidence_a?>"><input
     type="text" class="evidence_cw" name="evidence_b" value="<?php echo @$evidence_b?>"><input
@@ -105,8 +103,8 @@
     type="text" class="photo_cw" name="photo_d" value="<?php echo @$photo_d?>"><input
     type="text" class="photo_cw" name="photo_e" value="<?php echo @$photo_e?>"><input
     type="text" class="photo_cw" name="photo_f" value="<?php echo @$photo_f?>">
-
-    <br><label class="evidence_scores_label">Permit Score</label><input
+    <div class="panel1">
+    <label class="evidence_scores_label">Permit Score</label><input
     type="text" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
 
     <br><label class="evidence_scores_label">Trails Match</label><input
@@ -123,8 +121,9 @@
 
     <br><label title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
     type="text" class="evidence_scores_cw" name="image_evidence" value="<?php echo @$image_evidence?>">
-
-    <br><label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
+    </div>
+    <div class="panel2">
+    <label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
     type="text" class="evidence_scores_cw verified_by_visit" name="verified_by_visit" value="<?php echo @$verified_by_visit?>">
 
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
@@ -136,10 +135,16 @@
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
     type="text" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
-    <br><label class="evidence_scores_label">Number of other carriers here<span style="float: right; font-size: 0.85em;">(<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>)</span></label><input
+    <br><label class="evidence_scores_label">Number of other carriers here</label><input
     type="text" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
+
+    <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
+    type="text" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>
     </div>
-    <?php
-    if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="<?php echo $submit_label?>">
+    <?php if ($isMobile !="true") { ?>
+    <textarea rows="10" cols="120" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } else { ?>
+    <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
+    </div>
+    <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
+<?php if (!isset($delete)) { ?><input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="<?php echo $submit_label?>"> <?php } ?>
 </form>

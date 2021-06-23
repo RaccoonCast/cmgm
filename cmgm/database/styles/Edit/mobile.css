@@ -76,7 +76,6 @@ select {
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
-	float: right;
   font-size: 25px;
   margin-left: 12px;
   margin-right: 12px;

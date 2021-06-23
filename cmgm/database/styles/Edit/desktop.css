@@ -15,8 +15,8 @@ input[type=text],option,select {
 }
 @media (orientation: landscape) {
 /* Panels (split page in half) */
-#panel1 { width: 49.93%; float: left; }
-#panel2 { width: 49.93%; float: right; }
+.panel1 { width: 49.93%; float: left; }
+.panel2 { width: 49.93%; float: right; }
 }
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
@@ -95,18 +95,17 @@ abbr {text-decoration: none!important;}
 .attached_cw {width:28.6666%!important;}
 
 /* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
-.evidence_scores_label {width:38%!important;}
+.evidence_scores_label {width:80%!important;}
 /* Evidence labels, (permit score, trails match, etc) */  /* TEXTBOXES */
-.evidence_scores_cw {width: 62%!important;}
+.evidence_scores_cw {width: 20%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
-	float: right;
-  font-size: 40px;
-  text-decoration: none!important;
+	font-size: 40px;
+	text-decoration: none!important;
 }
 a[href^="?id="] {
 	display: inline-block;
