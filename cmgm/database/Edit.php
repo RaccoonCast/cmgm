@@ -23,7 +23,7 @@ if (isset($_GET['delete'])) $delete = $_GET['delete'];
 if (isset($_POST['delete'])) $delete = $_POST['delete'];
 
 /// Database column names - todo:// edit_lock(IPs, name?)
-$list_of_vars = array('id', 'date_added', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
+$list_of_vars = array('id', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','attached_a', 'attached_b', 'attached_c','permit_score',
 'trails_match', 'carriers_dont_trail_match','antennas_match_carrier', 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match',
@@ -43,8 +43,8 @@ include "includes/edit/the_edit_code.php";
 if (!isset($status) OR isset($_GET['id_search'])) include "includes/edit/missing_id.php";
 
 // If delete tag is specified
-if ($delete == "true") delete($id,"true",$redirPage,$conn);
-if ($delete == "false") delete($id,"false",$redirPage,$conn);
+if (@$delete == "true") delete($id,"true",$redirPage,$conn);
+if (@$delete == "false") delete($id,"false",$redirPage,$conn);
 if (isset($delete)) $no_delete = "true"; // widget hide delete option
 
 // Create links for street_view_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
