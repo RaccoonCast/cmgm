@@ -1,6 +1,6 @@
 <?php
 // Generate Links for File Attaches
-$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'attached_a', 'attached_b', 'attached_c', 'evidence_a', 'evidence_b', 'evidence_c', 'street_view_url_a', 'street_view_url_b', 'street_view_url_c', 'street_view_url_d');
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'evidence_a', 'evidence_b', 'evidence_c', 'street_view_url_a', 'street_view_url_b', 'street_view_url_c', 'street_view_url_d');
 
 foreach ($foreachList as &$value) {
 
@@ -14,7 +14,22 @@ if (!empty($$value)) {
     elseif (file_exists("uploads/" . ($$value))) {$$val = '<a class="pad-small-link" target="_blank" href="uploads/' . $$value . '">' . $link_suffix . '</a>';}
     else {$$val = '<a class="pad-small-link error" title="' . $value . ' is missing." target="_blank" href="#">' . $link_suffix . '</a>';}
     } else { $$val = null; }
+
+if (strpos($value, 'photo') !== false && !empty($$value)) {
+  if($isMobile == "false") {
+    $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.'</span>';
+    $photo_link_linklabel_b = '<span style="float: right">'.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
+  } else {
+    $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
+  }
 }
+
+
+
+}
+
+
+
 if (empty($street_view_url_a) && empty($street_view_url_b) && empty($street_view_url_c) && empty($street_view_url_d)) $street_view_url_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
 if (isset($_GET['new'])) { echo '<title>EvilCM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>EvilCM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>EvilCM - Edit (Unknown)</title>'; }
 ?>

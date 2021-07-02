@@ -4,7 +4,7 @@
     "name": "Evil CM",
     "short_name": "CMGM",
     "scope": "/",
-    "display": "standalone",
+    "display": "minimal-ui",
     "start_url": "/",
     "background_color": "#fff",
     "theme_color": "#fff",

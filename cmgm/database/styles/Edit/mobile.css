@@ -76,9 +76,9 @@ select {
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
-  font-size: 25px;
-  margin-left: 12px;
-  margin-right: 12px;
+  font-size: 22px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-decoration: none;
 }
 abbr {

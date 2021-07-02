@@ -1,4 +1,5 @@
 <form action="Edit.php?id=<?php echo $id?>" autocomplete="off" id="form<?php echo $id; ?>" method="post">
+  <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
@@ -73,10 +74,10 @@
     type="text" autocomplete="chrome-off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="street_view_url_label">Street view URL <span style="float: right"><?php echo @$street_view_url_a_label; echo @$street_view_url_b_label; echo @$street_view_url_c_label; echo @$street_view_url_d_label; ?></span></label><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_a" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_b" value="<?php echo str_replace("https://", "",@$street_view_url_b); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_c" value="<?php echo str_replace("https://", "",@$street_view_url_c); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_d" value="<?php echo str_replace("https://", "",@$street_view_url_d); ?>">
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_a" placeholder="STREET_VIEW_URL_A" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_b" placeholder="STREET_VIEW_URL_B" value="<?php echo str_replace("https://", "",@$street_view_url_b); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_c" placeholder="STREET_VIEW_URL_C" value="<?php echo str_replace("https://", "",@$street_view_url_c); ?>"><input
+    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_d" placeholder="STREET_VIEW_URL_D" value="<?php echo str_replace("https://", "",@$street_view_url_d); ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -86,23 +87,23 @@
     </div>
     <div class="panel2">
     <label class="evidence_label">Evidence <span style="float: right"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
-    type="text" class="evidence_cw" name="evidence_a" value="<?php echo @$evidence_a?>"><input
-    type="text" class="evidence_cw" name="evidence_b" value="<?php echo @$evidence_b?>"><input
-    type="text" class="evidence_cw" name="evidence_c" value="<?php echo @$evidence_c?>">
+    type="text" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
+    type="text" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
+    type="text" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="attached_label">Extras <span style="float: right"><?php echo @$attached_a_label;?><?php echo @$attached_b_label;?><?php echo @$attached_c_label;?></span></label><input
-    type="text" class="attached_cw" name="attached_a" value="<?php echo @$attached_a?>"><input
-    type="text" class="attached_cw" name="attached_b" value="<?php echo @$attached_b?>"><input
-    type="text" class="attached_cw" name="attached_c" value="<?php echo @$attached_c?>">
+    <label class="extra_label">Extras <span style="float: right"><?php echo @$extra_a_label;?><?php echo @$extra_b_label;?><?php echo @$extra_c_label;?></span></label><input
+    type="text" class="extra_cw" name="extra_a" placeholder="EXTRA_A" placeholder="PHOTO_A"value="<?php echo @$extra_a?>"><input
+    type="text" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
+    type="text" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
 
-    <label class="photo_label">Photos <span style="float: right"><?php echo @$photo_a_label; echo @$photo_b_label; echo @$photo_c_label;?></span></label><input
-    type="text" class="photo_cw" name="photo_a" value="<?php echo @$photo_a?>"><input
-    type="text" class="photo_cw" name="photo_b" value="<?php echo @$photo_b?>"><input
-    type="text" class="photo_cw" name="photo_c" value="<?php echo @$photo_c?>">
-    <label class="photo_label">Photos <span style="float: right"><?php echo @$photo_d_label; echo @$photo_e_label; echo @$photo_f_label;?></span></label><input
-    type="text" class="photo_cw" name="photo_d" value="<?php echo @$photo_d?>"><input
-    type="text" class="photo_cw" name="photo_e" value="<?php echo @$photo_e?>"><input
-    type="text" class="photo_cw" name="photo_f" value="<?php echo @$photo_f?>">
+    <label class="photo_label">Photos <?php echo @$photo_link_linklabel_a; ?></label><input
+    type="text" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
+    type="text" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
+    type="text" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
+    <?php if($isMobile == "false") {?><label class="photo_label">Photos <?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
+    type="text" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
+    type="text" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
+    type="text" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
     <div class="panel1">
     <label class="evidence_scores_label">Permit Score</label><input
     type="text" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
@@ -110,8 +111,6 @@
     <br><label class="evidence_scores_label">Trails Match</label><input
     type="text" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
 
-    <br><label class="evidence_scores_label">Number of carriers CellMapper data rules out</label><input
-    type="text" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">
 
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
     type="text" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
@@ -121,12 +120,13 @@
 
     <br><label title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
     type="text" class="evidence_scores_cw" name="image_evidence" value="<?php echo @$image_evidence?>">
-    </div>
-    <div class="panel2">
+
     <label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
     type="text" class="evidence_scores_cw verified_by_visit" name="verified_by_visit" value="<?php echo @$verified_by_visit?>">
+    </div>
+    <div class="panel2">
 
-    <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
+    <label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
     type="text" class="evidence_scores_cw sector_split_match" name="sector_split_match" value="<?php echo @$sector_split_match?>">
 
     <br><label class="evidence_scores_label">Number of visible antenna modifications</label><input
@@ -134,6 +134,9 @@
 
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
     type="text" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
+
+    <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label">Number of carriers that data rules out.</label><input
+    type="text" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">
 
     <br><label class="evidence_scores_label">Number of other carriers here</label><input
     type="text" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
@@ -146,5 +149,6 @@
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
     <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete)) { ?><input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="<?php echo $submit_label?>"> <?php } ?>
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" type="submit" class="submitbutton" value="<?php echo $submit_label?>"> <?php } ?>
+<?php if (@$padlock == "true") echo '</fieldset>'; ?>
 </form>

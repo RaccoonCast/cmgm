@@ -13,7 +13,7 @@ input[type=text],option,select {
 		margin: 0px;
 		border: 1px solid;
 }
-@media (orientation: landscape) {
+@media (min-width:1700px) {
 /* Panels (split page in half) */
 .panel1 { width: 49.93%; float: left; }
 .panel2 { width: 49.93%; float: right; }
@@ -86,13 +86,13 @@ abbr {text-decoration: none!important;}
 .tags_cw {max-width: 75%!important; width: 100%;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
-.photo_label {width:14%!important;}
-.evidence_label {width: 14%!important;}
-.attached_label {width:14%!important;}
+.photo_label {width:14%!important; font-size: 0.95em;}
+.evidence_label {width: 14%!important; font-size: 0.95em;}
+.extra_label {width:14%!important; font-size: 0.95em;}
 /* Photo / Evidence / Attached */  /* TEXTBOX */
 .photo_cw {width:28.6666%!important;}
 .evidence_cw {width:28.6666%!important;}
-.attached_cw {width:28.6666%!important;}
+.extra_cw {width:28.6666%!important;}
 
 /* Evidence labels, (permit score, trails match, etc) */  /* LABEL */
 .evidence_scores_label {width:80%!important;}
@@ -100,7 +100,7 @@ abbr {text-decoration: none!important;}
 .evidence_scores_cw {width: 20%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
-.pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right}
+.pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right; font-size: 1.1em; }
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {

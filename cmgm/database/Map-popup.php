@@ -46,7 +46,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 19:  $street_view_url_a = $value;
 
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&mp-id=" . $id . ">#" . $id . "</a> </p>");
-                    $no_reader = "true"; $no_new = "true";
+                    $no_reader = "true";
                     $redirPage = "Map-popup";
                     include "../includes/widgets/widgets.php";
                     ?> <br> <?php

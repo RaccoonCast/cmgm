@@ -42,7 +42,7 @@ while($row = $result->fetch_assoc()) {
         $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL);
 
         if($isMobile == "true") {
-        echo '<td class="lte" id="'.$id.'">'.$carrier.'<br><a href="'.$cmlink.'">$LTE_1</a></td>';
+        echo '<td class="lte" id="'.$id.'">'.$carrier.'<br><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
         } else {
         echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
         echo '<td class="carrier">'.$carrier.'</td>';
@@ -59,7 +59,6 @@ while($row = $result->fetch_assoc()) {
           if($isMobile != "true") echo nl2br("<td class="."widget-td"." style="."text-align: center;".">");
 
           ?><div class="widget-box"><?php
-          $no_new = "true";
           include SITE_ROOT."/includes/widgets/widgets.php";
           ?></td></div><?php
 

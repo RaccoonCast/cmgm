@@ -12,7 +12,7 @@ foreach($_GET as $key => $value){
     if (!empty($value)) {
     ${$key} = $value;
     $fs = str_replace(' ', '', $fileSearch);
-    $db_variables = "AND evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR attached_a='$fs' OR attached_b='$fs' OR attached_c='$fs'" . $db_variables;
+    $db_variables = "AND evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR extra_a='$fs' OR extra_b='$fs' OR extra_c='$fs'" . $db_variables;
   }
 } elseif ($key == "street_view") {
     ${$key} = $value;

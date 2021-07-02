@@ -13,7 +13,7 @@ die();
 if ($_POST['opt'] == 'Missing File Search'){
 // Let's Find Missing Files (LFMF)
 echo "The following IDs have missing EV: <br>";
-$sql = "SELECT id,evidence_a,evidence_b,evidence_c,attached_a,attached_b,attached_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM database_db";
+$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM database_db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -30,16 +30,16 @@ while($row = $result->fetch_assoc()) {
         if (!empty($photo_e) && substr($photo_e, 0, 4) != "http" && !file_exists("uploads/" . $photo_e)) echo " $id - PHOTO_E<br>";
         if (!empty($photo_f) && substr($photo_f, 0, 4) != "http" && !file_exists("uploads/" . $photo_f)) echo " $id - PHOTO_F<br>";
 
-        if (!empty($attached_a) && substr($attached_a, 0, 4) != "http" && !file_exists("uploads/" . $attached_a)) echo " $id - ATTACHED_A<br>";
-        if (!empty($attached_b) && substr($attached_b, 0, 4) != "http" && !file_exists("uploads/" . $attached_b)) echo " $id - ATTACHED_B<br>";
-        if (!empty($attached_c) && substr($attached_c, 0, 4) != "http" && !file_exists("uploads/" . $attached_c)) echo " $id - ATTACHED_C<br>";
+        if (!empty($extra_a) && substr($extra_a, 0, 4) != "http" && !file_exists("uploads/" . $extra_a)) echo " $id - extra_A<br>";
+        if (!empty($extra_b) && substr($extra_b, 0, 4) != "http" && !file_exists("uploads/" . $extra_b)) echo " $id - extra_B<br>";
+        if (!empty($extra_c) && substr($extra_c, 0, 4) != "http" && !file_exists("uploads/" . $extra_c)) echo " $id - extra_C<br>";
 
 }
 $result->close(); $conn->close();
 } elseif ($_POST['opt'] == 'Remove unused files') {
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
 $list = null;
-$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,attached_a,attached_b,attached_c FROM database_db";
+$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c FROM database_db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
