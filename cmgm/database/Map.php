@@ -112,9 +112,9 @@ switch ($sepCount) {
   case 3:  $long = $value; break;
   case 4:  $status = $value;
 
-?>
+if (!empty($lat) && !empty($long) && !empty($status)) {?>
 marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo $url_suffix ?>");
-<?php
+<?php }
 break;
             }
     }
