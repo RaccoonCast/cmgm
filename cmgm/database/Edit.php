@@ -6,6 +6,7 @@ header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="../js/copyToClipboard.js"></script>
 <?php
 $titleOverride = "true";
 include "../functions.php";
