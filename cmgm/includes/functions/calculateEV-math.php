@@ -34,7 +34,7 @@
     if ($trails_match >= 85 ) $ev += 6;
 
     // carrier's don't trail match
-    if ($alt_carriers_here == "0") {
+    if ($alt_carriers_here == "0" OR empty($alt_carriers_here)) {
     if ($carriers_dont_trail_match == 1) $ev += 1;
     if ($carriers_dont_trail_match == 2) $ev += 3;
     if ($carriers_dont_trail_match == 3) $ev += 8;
@@ -84,8 +84,9 @@
     if ($archival_antenna_addition >= 3 ) $ev += 11;
 
     // only reasonable location
-    if ($permit_score < 40) {
-      if ($only_reasonable_location >= 15 && ($only_reasonable_location < 45)) $ev += 2;
+    if ($permit_score < 40 OR empty($permit_score)) {
+      if ($only_reasonable_location >= 15 && ($only_reasonable_location < 45)) $ev += 1;
+      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 85)) $ev += 2;
       if ($only_reasonable_location >= 85 ) $ev += 3;
     } elseif ($permit_score >= 40 && ($permit_score < 60)) {
       if ($only_reasonable_location >= 15 && ($only_reasonable_location < 45)) $ev += 1;
