@@ -16,6 +16,8 @@ if(substr("$data", 0, 26) == 'https://www.cellmapper.net' && !isset($conv_type))
 // Google Maps URL Conversion
 if(substr("$data", 0, 28) == 'https://www.google.com/maps/' && !isset($conv_type)) include SITE_ROOT . "/includes/convert/google-maps-url-conversion.php";
 // Comma Seperator
+if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include SITE_ROOT . "/includes/convert/lat,long-mod.php";
+// Comma Seperator
 if(strpos($data, ',') !== false && !isset($conv_type)) include SITE_ROOT . "/includes/convert/lat,long.php";
 // DMS TO DEC
 if (!isset($conv_type)) include SITE_ROOT . "/includes/convert/dmstodec.php";
