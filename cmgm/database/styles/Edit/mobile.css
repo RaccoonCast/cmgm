@@ -1,18 +1,23 @@
 body {
-	margin: 4px;
+	margin: 3px;
 	padding: 0px;
 }
 label {
   display: inline-block;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   min-width: inherit;
   text-align: left;
 	font-size: 0.83em;
 }
 input[type=text] {
     width: 100%;
-    height: 30px;
+    height: 25px;
+		border-radius: 0px;
+		border-width: 1px;
+		border-color: lightgrey;
+		border-style:solid;
+
 }
 input[type=submit] {
   font-size: 2em;
@@ -25,22 +30,29 @@ input[type=submit] {
 	width: 100%!important;
 	height: 1.5cm!important;
 }
+.addr_label {display: none;}
+.latitude_longitude_label {display: none;}
+.lte_nr_label { display: none; }
+
 /* Address boxes */  /* TEXTBOX */
-.addr_address_cw { width: 49%!important; }
-.addr_city_cw { width: 23%!important; }
-.addr_state_cw { width: 13%!important; }
+.addr_address_cw { width: 50%!important; }
+.addr_city_cw { width: 24%!important; }
+.addr_state_cw { width: 11%!important; }
 .addr_zip_cw { width: 15%!important; }
 
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_cw { width: 50%!important; }
 
 /* Cellsite type info dropdowns */  /* LABEL */
-.cellsite_type_label {width: 100%!important;}
+.cellsite_type_label {display: none;}
 /* Cellsite type info dropdowns */  /* DROPDOWN */
 .status_cw {width: 21%!important; }
 .concealed_cw {width: 24%!important;}
 .cellsite_type_cw {width: 34%!important;}
 .carrier_cw {width: 21%!important; }
+
+.street_view_url_label {max-width: 100%; width: 100%}
+.street_view_url_cw {max-width: 50%; width: 100%; font-size: 0.75em;}
 
 /* Custom styling to make everything fit on one line */
 select {
@@ -49,8 +61,11 @@ select {
     appearance: none;
     padding: 8px 0px 8px 2px;
 		margin: 0px;
-    border: none;
-		background-color: lightgrey;
+		border-radius: 0px;
+		border-width: 1px;
+		border-color: #dbdbdb;
+		background-color: #dbdbdb;
+
 }
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
@@ -70,9 +85,11 @@ select {
 .pad-small-link {padding-left: 20px; padding-right: 20px; text-align: right}
 
 /* Tags */  /* LABEL */
-.tags_label {width: 15%!important;}
+.tags_label {width: 16%!important;}
 /* Tags */  /* TEXTBOX */
-.tags_cw {width: 85%!important;}
+.tags_cw {width: 84%!important;}
+
+.edit_history {font-size: 0.6em;}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {

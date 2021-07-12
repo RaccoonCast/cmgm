@@ -3,9 +3,9 @@
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
-    <input type="hidden" class="date_added" name="date_added" value="<?php echo $date_added?>">
+    <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
 
-    <label class="cellsite_type_label">Type of cellsite</label><?php if ($isMobile =="true") { ?><br><?php } ?><select
+    <label class="cellsite_type_label">Type of cellsite</label><select
     class="status_cw" autocomplete="on" name="status" required>
     <option style="display:none" value=""></option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
@@ -82,8 +82,8 @@
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
-    <textarea rows="10" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea><br> <?php } else { ?>
-    <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea><br> <?php } ?>
+    <textarea rows="10" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } else { ?>
+    <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } ?>
 
     </div>
     <div class="panel2">

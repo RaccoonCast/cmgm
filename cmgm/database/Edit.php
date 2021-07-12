@@ -74,7 +74,7 @@ echo '</div>';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
-<div style="padding-bottom: 85px" class="pre_footer"></div>
+<div style="padding-bottom: 70px" class="pre_footer"></div>
 <?php include "includes/footer.php"; ?>
 </body>
 </html>
