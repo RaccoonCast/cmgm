@@ -10,7 +10,7 @@ label {
   text-align: left;
 	font-size: 0.83em;
 }
-input[type=text],input[type=number] {
+input[type=text],input[type=number],select {
     width: 100%;
     height: 25px;
 		border-radius: 0px;
@@ -19,7 +19,7 @@ input[type=text],input[type=number] {
 		border-style:solid;
 
 }
-input[type=submit] {
+.submitbutton {
   font-size: 2em;
   width: 100%;
   padding-top: 25px;
@@ -55,17 +55,19 @@ input[type=submit] {
 .street_view_url_cw {max-width: 50%; width: 100%; font-size: 0.75em;}
 
 /* Custom styling to make everything fit on one line */
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
+.status_cw,.concealed_cw,.cellsite_type_cw,.carrier_cw {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	  height: 32px;
     appearance: none;
-    padding: 8px 0px 8px 2px;
-		margin: 0px;
-		border-radius: 0px;
-		border-width: 1px;
+    padding: 4px 0px 8px 2px;
 		border-color: #dbdbdb;
 		background-color: #dbdbdb;
-
+}
+select {
+	margin: 0px;
+	border-radius: 0px;
+	border-width: 1px;
 }
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */

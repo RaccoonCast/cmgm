@@ -57,13 +57,28 @@
     type="number" class="lte_nr_cw" maxlength="7" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
     type="number" class="lte_nr_cw" maxlength="7" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
+    <div class="panel1">
+    <label class="id_params_label">PCI match with all IDs</label><select class="id_params_cw" name="pci_match"><option style="display:none" value=""></option>
+    <option <?php if(@$pci_match == "true") echo "selected"?> value="true">true</option>
+    <option <?php if(@$pci_match == "false") echo "selected"?> value="false">false</option>
+    <option <?php if(@$pci_match == "partial") echo "selected"?> value="partial">partial</option></select>
+    <label class="id_params_label">ID pattern with all IDs</label><select class="id_params_cw" name="id_pattern_match"><option style="display:none" value=""></option>
+    <option <?php if(@$id_pattern_match == "true") echo "selected"?> value="true">true</option>
+    <option <?php if(@$id_pattern_match == "false") echo "selected"?> value="false">false</option>
+    <option <?php if(@$id_pattern_match == "partial") echo "selected"?> value="partial">partial</option></select>
 
-    <label class="id_params_label">PCI match with all IDs</label><input type="text" class="id_params_cw pci_match" name="pci_match" value="<?php echo @$pci_match?>">
-    <label class="id_params_label">ID pattern with all IDs</label><input type="text" class="id_params_cw id_pattern_match" name="id_pattern_match" value="<?php echo @$id_pattern_match?>">
-    <label class="id_params_label">Sector matches</label><input type="text" class="id_params_cw sector_match" name="sector_match" value="<?php echo @$sector_match?>">
-    <label class="id_params_label">Primary already located</label><input type="text" class="id_params_cw other_user_map_primary" name="other_user_map_primary" value="<?php echo @$other_user_map_primary?>">
+    </div><div class="panel2">
+    <label class="id_params_label">Sector matches</label><select class="id_params_cw" name="sector_match"><option style="display:none" value=""></option>
+    <option <?php if(@$sector_match == "true") echo "selected"?> value="true">true</option>
+    <option <?php if(@$sector_match == "false") echo "selected"?> value="false">false</option>
+    <option <?php if(@$sector_match == "partial") echo "selected"?> value="partial">partial</option></select>
+    <label class="id_params_label">Primary already located</label><select class="id_params_cw" name="other_user_map_primary"><option style="display:none" value=""></option>
+    <option <?php if(@$other_user_map_primary == "true") echo "selected"?> value="true">true</option>
+    <option <?php if(@$other_user_map_primary == "false") echo "selected"?> value="false">false</option>
+    <option <?php if(@$other_user_map_primary == "partial") echo "selected"?> value="partial">partial</option></select>
+    </div>
 
-    <label class="latitude_longitude_label" for="latitude"><span style="float: right"><a href="#" class="pad-small-link" onclick="copyToClipboard('<?php echo $latitude . ","; ?><?php echo $longitude; ?>')">Copy</a></span><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Latitude/Longitude</a></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="latitude_longitude_label" for="latitude"><span style="float: right"><a href="#" class="pad-small-link" onclick="copyToClipboard('<?php echo $latitude . ","; ?><?php echo $longitude; ?>')">Copy</a></span><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Latitude/Longitude</a></label><input
     type="text" class="inline-block latitude_longitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude"><input
     type="text" class="inline-block latitude_longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
 
