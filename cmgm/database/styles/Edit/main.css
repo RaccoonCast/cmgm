@@ -1,6 +1,6 @@
 .inline-block {display:inline-block; }
 .bio,.edit_history {width:100%; resize: none;}
-input[type=text],option,select,.bio,.edit_history  {
+input[type=text],input[type=number],option,select,.bio,.edit_history  {
 		box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -11,4 +11,17 @@ input[type=text],option,select,.bio,.edit_history  {
 }
 .widget_holder {
 	float: right;
+}
+
+/* Copied from W3Schools - Remove up/down buttons in input type number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
