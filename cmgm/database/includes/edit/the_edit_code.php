@@ -1,4 +1,7 @@
 <?php
+// Remove non-numeric characters from IDs.
+foreach (array('LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2') as &$value) ${$value} = preg_replace("/[^0-9]/", "", $$value );
+
 // Edit
 $sql_edit = "UPDATE database_db SET ";
 $vals = "$";
