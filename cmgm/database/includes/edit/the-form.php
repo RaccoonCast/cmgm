@@ -120,45 +120,44 @@
     type="text" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
     type="text" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
     type="text" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
-    <div class="panel1">
+    <div class="_panel1">
     <label class="evidence_scores_label">Permit Score</label><input
     type="text" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
 
     <br><label class="evidence_scores_label">Trails Match</label><input
-    type="text" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
-
+    type="number" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
 
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
-    type="text" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
+    type="number" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
 
     <br><label title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#10;&#10;(1-100)&#10;0 being very far away&#10;100 being very closely" class="evidence_scores_label">CellMapper Triangulation</label><input
-    type="text" class="evidence_scores_cw" name="cellmapper_triangulation" value="<?php echo @$cellmapper_triangulation?>">
+    type="number" class="evidence_scores_cw" name="cellmapper_triangulation" value="<?php echo @$cellmapper_triangulation?>">
 
-    <br><label title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
-    type="text" class="evidence_scores_cw" name="image_evidence" value="<?php echo @$image_evidence?>">
+    </div><div class="_panel2">
+    <label title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
+    type="number" class="evidence_scores_cw" name="image_evidence" value="<?php echo @$image_evidence?>">
 
-    <label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
-    type="text" class="evidence_scores_cw verified_by_visit" name="verified_by_visit" value="<?php echo @$verified_by_visit?>">
-    </div>
-    <div class="panel2">
+    <br><label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
+    type="number" class="evidence_scores_cw verified_by_visit" name="verified_by_visit" value="<?php echo @$verified_by_visit?>">
 
-    <label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
-    type="text" class="evidence_scores_cw sector_split_match" name="sector_split_match" value="<?php echo @$sector_split_match?>">
+    <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
+    type="number" class="evidence_scores_cw sector_split_match" name="sector_split_match" value="<?php echo @$sector_split_match?>">
 
-    <br><label class="evidence_scores_label">Number of visible antenna modifications</label><input
-    type="text" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
+    <br><label class="evidence_scores_label"># of visible antenna modifs</label><input
+    type="number" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
-    <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
+    </div><div class="_panel3">
+    <label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
     type="text" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
-    <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label">Number of carriers that data rules out.</label><input
-    type="text" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">
+    <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input
+    type="number" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">
 
-    <br><label class="evidence_scores_label">Number of other carriers here</label><input
-    type="text" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
+    <br><label class="evidence_scores_label"># of other carriers here</label><input
+    type="number" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
 
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
-    type="text" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>
+    type="number" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>
     </div>
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } else { ?>

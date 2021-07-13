@@ -58,18 +58,17 @@ input[type=text],input[type=number],select {
 .status_cw,.concealed_cw,.cellsite_type_cw,.carrier_cw {
 		-webkit-appearance: none;
 		-moz-appearance: none;
-	  height: 32px;
-    appearance: none;
-    padding: 4px 0px 8px 2px;
+		appearance: none;
+		padding: 3px 0px 4px 2px;
 		border-color: #dbdbdb;
 		background-color: #dbdbdb;
 }
 select {
+	background-color: #fff;
 	margin: 0px;
 	border-radius: 0px;
 	border-width: 1px;
 }
-
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
 .id_params_label {width: 50%!important;}
 /* ID Params (pci match, sector match, etc) */  /* CHECKBOXES */
