@@ -22,7 +22,7 @@
           <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file to upload (Max: 10MB)<br><br>
+              Select file <a style="text-decoration: none; cursor: text; color: black;" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
               <select name="type">
                 <option value="image-evidence" selected="selected">Image evidence</option>
                 <option value="image">Image of cell site</option>
