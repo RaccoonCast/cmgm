@@ -73,7 +73,7 @@ echo '<div class="widget_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "../includes/widgets/widgets.php";
 echo '</div>';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") echo "Or..."; include "includes/edit/id_input_2.php";
+if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <div style="padding-bottom: 70px" class="pre_footer"></div>
