@@ -7,6 +7,7 @@
 <input type="submit" style="width: 145px;" name="opt" value="Missing File Search">
 <input type="submit" style="width: 145px;" name="opt" value="Remove unused files">
 <input type="submit" style="width: 145px;" name="opt" value="Show unused DB IDs">
+<input type="submit" style="width: 145px;" name="opt" value="Show uploads filesize">
 </form>
 <?php
 die();
@@ -68,7 +69,19 @@ foreach($fileList as $filename){
   while($row = $result->fetch_assoc()) {
       foreach ($row as $key => $value) echo $value . "<br>";
   }
-}
+} elseif ($_POST['opt'] == 'Show uploads filesize') {
+        $size=array_sum(array_map('filesize', glob("uploads/*.*")));
+        function formatBytes($size, $precision = 2)
+        {
+        $base = log($size, 1000);
+        $suffixes = array('', 'KB', 'MB', 'GG', 'TB');
+
+        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+        }
+
+        echo "Upload folder filesize: " . formatBytes($size);
+        // 23.81M
+  }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
 <input type="submit" style="width: 145px;" name="back" value="Back">
