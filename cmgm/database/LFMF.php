@@ -6,6 +6,7 @@
 <form action="LFMF.php" method="post" autocomplete="off">
 <input type="submit" style="width: 145px;" name="opt" value="Missing File Search">
 <input type="submit" style="width: 145px;" name="opt" value="Remove unused files">
+<input type="submit" style="width: 145px;" name="opt" value="Show unused DB IDs">
 </form>
 <?php
 die();
@@ -60,6 +61,13 @@ foreach($fileList as $filename){
     echo $output . "<br>";
   }
 }
+} elseif ($_POST['opt'] == 'Show unused DB IDs') {
+  $sql = "SELECT t1.id + 1 FROM database_db t1 WHERE NOT EXISTS (SELECT * FROM database_db t2 WHERE t2.id = t1.id + 1)";
+  $result = mysqli_query($conn,$sql);
+
+  while($row = $result->fetch_assoc()) {
+      foreach ($row as $key => $value) echo $value . "<br>";
+  }
 }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
