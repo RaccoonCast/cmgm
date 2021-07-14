@@ -33,7 +33,7 @@
          <input type="submit" class="width-50 submitbutton" style="color:#F80000" name="goto" value="Form" /><input
          type="submit" class="submitbutton width-50" style="color:#E9A623" name="goto" value="Map" /><br>
          <input type="submit" class="submitbutton width-100" style="color:#e31bdc" name="goto" value="Search" /><br>
-         <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton width-100" style="color: #6be63e;" name="goto_page" value="Permits"><br>
+         <input type="submit" onclick="copyToClipboard('<?php echo $address;?>')" class="submitbutton width-100" style="color: #6be63e;" name="goto" value="Permits"><br>
          <input type="submit" class="submitbutton width-100" style="color:#36a1ff" name="goto" value="Upload" /><br>
          <input type="submit" class="submitbutton width-100" style="color:#000000" onclick="changeF('../');" name="goto" value="Back" />
        </div>

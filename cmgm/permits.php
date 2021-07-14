@@ -25,6 +25,7 @@ if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal
 } elseif ("$city" == "Anaheim") { redir("http://permits.anaheim.net/tm_bin/tmw_cmd.pl?tmw_cmd=StatusQueryFormbld","0");
 } elseif ("$city" == "Long Beach") { redir("http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress","0");
 } elseif ("$city" == "Burbank") { redir("https://permit.burbankca.gov/epalspi/","0");
+} elseif ("$city" == "Tucson") { redir("https://www.tucsonaz.gov/PRO/pdsd/","0");
 } elseif ("$city" == "San Francisco") { redir("https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery","0");
 } elseif ("$city" == "Pasadena") { redir("https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx","0");
 } elseif ("$city" == "Paramount") { redir("https://paramount.portal.iworq.net/paramount/permits/600","0");
