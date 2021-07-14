@@ -59,6 +59,8 @@ abbr {text-decoration: none!important;}
 .latitude_longitude_label {max-width: 25%; width: 100%}
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_cw { width: 37.5%!important; }
+/* Cellsite location latitude - longitude */  /* LINK */
+.latitude_longitude_link { float: right; }
 
 /* Address boxes */  /* LABEL */
 .addr_label {max-width: 25%; width: 100%}
@@ -67,6 +69,8 @@ abbr {text-decoration: none!important;}
 .addr_city_cw { max-width: 22%!important; width: 100%}
 .addr_state_cw { max-width: 8.75%!important; width: 100%}
 .addr_zip_cw { max-width: 10.25%!important; width: 100%}
+/* ADDRESS BOXES */ /* LINK */
+.addr_link { float: right; }
 
 /* LTE/NR ids */  /* LABEL */
 .lte_nr_label {max-width: 25%; width: 100%}

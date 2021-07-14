@@ -67,7 +67,7 @@ include "includes/edit/file_attach_link_gen.php";
 <body>
 <?php
 // THE FORM
-include "includes/edit/the-form.php";
+include "includes/edit/the_form.php";
 $no_edit = "true";
 echo '<div class="widget_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "../includes/widgets/widgets.php";

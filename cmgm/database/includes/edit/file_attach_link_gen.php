@@ -10,8 +10,8 @@ $val = $value . "_label";
 $link_suffix = ucfirst(substr($value,-1));
 
 if (!empty($$value)) {
-    if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
-    elseif (file_exists("uploads/" . ($$value))) {$$val = '<a class="pad-small-link" target="_blank" href="uploads/' . $$value . '">' . $link_suffix . '</a>';}
+    if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
+    elseif (file_exists("uploads/" . ($$value))) {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="uploads/' . $$value . '">' . $link_suffix . '</a>';}
     else {$$val = '<a class="pad-small-link error" title="' . $value . ' is missing." target="_blank" href="#">' . $link_suffix . '</a>';}
     } else { $$val = null; }
 
