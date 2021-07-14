@@ -10,6 +10,11 @@ foreach($_GET as $key => $value){
     elseif ($key == "tags") {
     $url_suffix = $url_suffix . "&" . $key . "=" . $value;
     $db_variables = $key . ' like "%'.$value.'%" AND ' . $db_variables;
+    } elseif ($key == "date") {
+    $trimChar = substr($value, 1);
+    $url_suffix = $url_suffix . "&" . $key . "=" . $value;
+    if ($value[0] == ">") $db_variables = "date_added" . ' >= "'.$trimChar.'" AND ' . $db_variables;
+    elseif ($value[0] == "<") $db_variables = "date_added" . ' <= "'.$trimChar.'" AND ' . $db_variables;
     } elseif(!empty($value)) {
 
     if ($key != "mp-id") {
