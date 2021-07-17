@@ -1,54 +1,84 @@
+<!DOCTYPE HTML>
+<head>
+  <script src="/js/redir.js"></script>
+  <script src="/js/copyToClipboard.js"></script>
+  <?php
+  include 'functions.php';
+
+  if(isMobile()){
+    css("mobile","Home");
+  } else {
+    css("desktop","Home");
+  }
+  ?>
+</head>
+<html>
+<body class="flex">
 <?php
-include "includes/functions/basic-functions.php";
+
+function button($address,$button_text,$link) { ?>
+  <div id="form" action="" method="post" autocomplete="off">
+    <div class="buttons">
+      <?php
+      echo $address . "<br>";
+      echo $button_text . "<br>";
+      echo $link . "<br>" . "<br>";
+      ?>
+      <input type="submit" class="submitbutton width-50" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
+    </div>
+  </div> <?php
+  die();
+}
+
 if (isset($_GET['city'])) $city = $_GET['city'];
 
-if ("$city" == "Glendale") { redir("https://csi.glendaleca.gov/csipropertyportal/","0");
-} elseif ("$city" == "Temple City") { redir("https://templecity.quickbase.com/db/bph9nwjs2?a=q&qid=1","0");
-} elseif ("$city" == "Boston") { redir("https://scerisecm.boston.gov/ScerIS/CmPublic/#/SearchCriteria?f=11","0");
-} elseif ("$city" == "Glendora") { redir("https://etrakit.ci.glendora.ca.us/etrakit3/Search/permit.aspx","0");
-} elseif ("$city" == "Compton") { redir("https://www.citizenserve.com/Portal/PortalController?Action=showHomePage&ctzPagePrefix=Portal_&installationID=202&original_iid=0&original_contactID=0","0");
-} elseif ("$city" == "Santa Ana") { redir("http://apps.santa-ana.org/property-info/","0");
-} elseif ("$city" == "San Fernando") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
-} elseif ("$city" == "Chino Hills") { redir("https://publicportal.chinohills.org/WebLink/Welcome.aspx","0");
-} elseif ("$city" == "Wilmington") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
-} elseif ("$city" == "Chicago") { redir("https://webapps1.chicago.gov/buildingpermit/search/applicationsearch.do","0");
-} elseif ("$city" == "Anaheim") { redir("http://permits.anaheim.net/tm_bin/tmw_cmd.pl?tmw_cmd=StatusQueryFormbld","0");
-} elseif ("$city" == "Long Beach") { redir("http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress","0");
-} elseif ("$city" == "Burbank") { redir("https://permit.burbankca.gov/epalspi/","0");
-} elseif ("$city" == "Tucson") { redir("https://www.tucsonaz.gov/PRO/pdsd/","0");
-} elseif ("$city" == "San Francisco") { redir("https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery","0");
-} elseif ("$city" == "Pasadena") { redir("https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx","0");
-} elseif ("$city" == "Paramount") { redir("https://paramount.portal.iworq.net/paramount/permits/600","0");
-} elseif ("$city" == "San Diego") { redir("https://opendsd.sandiego.gov/web/approvals/","0");
-} elseif ("$city" == "Phoenix") { redir("https://apps-secure.phoenix.gov/PDD/Search/Permits","0");
-} elseif ("$city" == "San Gabriel") { redir("http://blrenewals.sangabrielcity.com/weblink/browse.aspx?dbid=0","0");
-} elseif ("$city" == "Garden Grove") { redir("https://ch.ci.garden-grove.ca.us/permitsoft/permits/search","0");
-} elseif ("$city" == "San Jose") { redir("https://sjpermits.org/permits/general/combinedquery.asp","0");
-} elseif ("$city" == "Beverly Hills") { redir("https://cs.beverlyhills.org/cs/","0");
-} elseif ("$city" == "Santa Clarita") { redir("https://aca-prod.accela.com/SANTACLARITA/Default.aspx","0");
-} elseif ("$city" == "Yorba Linda") { redir("https://aca-prod.accela.com/YORBALINDA/Cap/CapHome.aspx?module=Building&TabName=Building&TabList=Home%7C0%7CBuilding%7C1%7CCode%7C2%7CEngineering%7C3%7CPlanning%7C4%7CCurrentTabIndex%7C1","0");
-} elseif ("$city" == "Culver City") { redir("https://data.culvercity.org/Permits/Building-Safety-Permits/qew5-a3up/data","0");
-} elseif ("$city" == "Sacramento" ) { redir("https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME","0");
-} elseif ("$city" == "West Hollywood") { redir("https://permits.weho.org/etrakit3/Search/permit.aspx","0");
-} elseif ("$city" == "Los Angeles") { redir("http://ladbsdoc.lacity.org/idispublic/","0");
+if ("$city" == "Glendale") { button($address,"Glendale","https://csi.glendaleca.gov/csipropertyportal/");
+} elseif ("$city" == "Temple City") { button($address,"Temple City","https://templecity.quickbase.com/db/bph9nwjs2?a=q&qid=1");
+} elseif ("$city" == "Boston") { button($address,"Boston","https://scerisecm.boston.gov/ScerIS/CmPublic/#/SearchCriteria?f=11");
+} elseif ("$city" == "Glendora") { button($address,"Glendora","https://etrakit.ci.glendora.ca.us/etrakit3/Search/permit.aspx");
+} elseif ("$city" == "Compton") { button($address,"Compton","https://www.citizenserve.com/Portal/PortalController?Action=showHomePage&ctzPagePrefix=Portal_&installationID=202&original_iid=0&original_contactID=0");
+} elseif ("$city" == "Santa Ana") { button($address,"Santa Ana","http://apps.santa-ana.org/property-info/");
+} elseif ("$city" == "San Fernando") { button($address,"San Fernando","http://ladbsdoc.lacity.org/idispublic/");
+} elseif ("$city" == "Chino Hills") { button($address,"Chino Hills","https://publicportal.chinohills.org/WebLink/Welcome.aspx");
+} elseif ("$city" == "Wilmington") { button($address,"Wilmington","http://ladbsdoc.lacity.org/idispublic/");
+} elseif ("$city" == "Chicago") { button($address,"Chicago","https://webapps1.chicago.gov/buildingpermit/search/applicationsearch.do");
+} elseif ("$city" == "Anaheim") { button($address,"Anaheim","http://permits.anaheim.net/tm_bin/tmw_cmd.pl?tmw_cmd=StatusQueryFormbld");
+} elseif ("$city" == "Long Beach") { button($address,"Long Beach","http://citydocs.longbeach.gov/WebLink8/CustomSearch.aspx?SearchName=SearchbyAddress");
+} elseif ("$city" == "Burbank") { button($address,"Burbank","https://permit.burbankca.gov/epalspi/");
+} elseif ("$city" == "Tucson") { button($address,"Tucson","https://www.tucsonaz.gov/PRO/pdsd/");
+} elseif ("$city" == "San Francisco") { button($address,"San Francisco","https://dbiweb.sfgov.org/dbipts/default.aspx?page=AddressQuery");
+} elseif ("$city" == "Pasadena") { button($address,"Pasadena","https://eservices.cityofpasadena.net/iwrplandev/PropertySearch.aspx");
+} elseif ("$city" == "Paramount") { button($address,"Paramount","https://paramount.portal.iworq.net/paramount/permits/600");
+} elseif ("$city" == "San Diego") { button($address,"San Diego","https://opendsd.sandiego.gov/web/approvals/");
+} elseif ("$city" == "Phoenix") { button($address,"Phoenix","https://apps-secure.phoenix.gov/PDD/Search/Permits");
+} elseif ("$city" == "San Gabriel") { button($address,"San Gabriel","http://blrenewals.sangabrielcity.com/weblink/browse.aspx?dbid=0");
+} elseif ("$city" == "Garden Grove") { button($address,"Garden Grove","https://ch.ci.garden-grove.ca.us/permitsoft/permits/search");
+} elseif ("$city" == "San Jose") { button($address,"San Jose","https://sjpermits.org/permits/general/combinedquery.asp");
+} elseif ("$city" == "Beverly Hills") { button($address,"Beverly Hills","https://cs.beverlyhills.org/cs/");
+} elseif ("$city" == "Santa Clarita") { button($address,"Santa Clarita","https://aca-prod.accela.com/SANTACLARITA/Default.aspx");
+} elseif ("$city" == "Yorba Linda") { button($address,"Yorba Linda","https://aca-prod.accela.com/YORBALINDA/Cap/CapHome.aspx?module=Building&TabName=Building&TabList=Home%7C0%7CBuilding%7C1%7CCode%7C2%7CEngineering%7C3%7CPlanning%7C4%7CCurrentTabIndex%7C1");
+} elseif ("$city" == "Culver City") { button($address,"Culver City","https://data.culvercity.org/Permits/Building-Safety-Permits/qew5-a3up/data");
+} elseif ("$city" == "Sacramento") { button($address,"Sacramento","https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME");
+} elseif ("$city" == "West Hollywood") { button($address,"West Hollywood","https://permits.weho.org/etrakit3/Search/permit.aspx");
+} elseif ("$city" == "Los Angeles") { button($address,"Los Angeles","http://ladbsdoc.lacity.org/");
 } elseif ("$city" == "Torrance") {
-  echo "The majority of shit is under LA County.";
-  echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
-  redir("https://aca.torranceca.gov/citizenaccess/default.aspx","4");
+  echo "The majority of permits are filed under Los Angeles County.";
+  button($address,"Los Angeles County","https://dpw.lacounty.gov/bsd/bpv/");
+  button($address,"Torrance","https://aca.torranceca.gov/citizenaccess/default.aspx");
 } elseif ("$city" == "Santa Monica") {
   echo "Active permits only.";
-  redir("https://www.smgov.net/Departments/PCD/Permits/Active-Building-Permits/","2");
+  button($address,"Santa Monica","https://www.smgov.net/Departments/PCD/Permits/Active-Building-Permits/");
 } elseif ("$city" == "Gardena") {
-  echo "The majority of shit is under LA County.";
-  echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
-  redir("https://www.cityofgardena.org/building-permit-issued/","4");
+  echo "The majority of permits are filed under Los Angeles County.";
+  button($address,"Los Angeles County","https://dpw.lacounty.gov/bsd/bpv/");
+  button($address,"Gardena","https://www.cityofgardena.org/building-permit-issued/");
 } elseif ("$city" == "Monrovia") {
   echo "Firefox 31 - 32 Bit required.";
-  redir("http://64.60.71.37/AppNet/Login.aspx?username=public&password=public","2");
+  button($address,"Monrovia","http://64.60.71.37/AppNet/Login.aspx?username=public&password=public");
 } elseif ("$city" == "Whittier") {
-  echo "The majority of shit is under LA County.";
-  echo '<a href="https://dpw.lacounty.gov/bsd/bpv/">Im not gonna stop you</a>';
-  redir("https://aca-prod.accela.com/WHITTIER/Cap/CapHome.aspx?module=Building&TabName=Home","4");
+  echo "The majority of permits are filed under Los Angeles County.";
+  button($address,"Los Angeles County","https://dpw.lacounty.gov/bsd/bpv/");
+  button($address,"Whittier","https://aca-prod.accela.com/WHITTIER/Cap/CapHome.aspx?module=Building&TabName=Home");
 } else {
   echo "$city does not have a permit search page listed.";
 }

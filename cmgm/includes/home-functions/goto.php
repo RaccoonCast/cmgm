@@ -32,7 +32,7 @@ if ($goto_page == "Beta") {
 }
 if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
-if ($goto_page == "Database") $goto_page_URL = "/database/Home.php?";
+
 if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
 if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";
 if ($goto_page == "DB") $goto_page_URL = "/database/DB.php?";
@@ -42,9 +42,9 @@ if ($goto_page == "Permits") $goto_page_URL = "../permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "/database/Upload.php?";
 if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Settings.php?";
 
-$suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
-$suffix_part_b = "&carrier=$carrier";
-$suffix_part_a = "latitude=$latitude&longitude=$longitude";
+if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
+if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
+if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
 
 if ($goto_page == "DB") $suffix_part_c = null;
 if ($goto_page == "Map") { $suffix_part_c = null; }
