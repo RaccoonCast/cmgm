@@ -5,14 +5,14 @@
   include '../functions.php';
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
-  include "includes/DB/search.php";
+  include "includes/DB-filter.php";
   include "../includes/home-functions/goto.php";
   ?>
 </head>
 <body>
 <?php
 
-$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ".@$db_variables." ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ".@$db_vars." ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo $sql;
 $result = mysqli_query($conn,$sql);
 $counter=0;

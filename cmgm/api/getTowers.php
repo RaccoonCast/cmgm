@@ -1,7 +1,7 @@
 <?php
 // Cast's Awesome API (CAAPI)
 $db_get_list = "id,latitude,longitude";
-$db_variables = "id > 0";
+$db_vars = "id > 0";
 include '../includes/functions/sqlpw.php';
 include '../includes/useridsys/native.php';
 
@@ -10,13 +10,13 @@ foreach($_GET as $key => $value){
     ${$key} = $value;
   } else {
     $db_get_list = $db_get_list . "," . $key;
-    $db_variables = $key . ' = "'.$value.'" AND ' . $db_variables;
+    $db_vars = $key . ' = "'.$value.'" AND ' . $db_vars;
   }
 }
 
 if (empty($limit)) $limit = "1";
 
-$sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_variables ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_vars ORDER BY distance LIMIT $limit";
 
 $arr = array();
 if ($result = $conn->query($sql)) {

@@ -61,8 +61,8 @@
      <br><label class="label">Tag Search</label><input class="custominput" maxlength="45" name="tags">
      <br><label class="label">Limits results to</label><input class="custominput" maxlength="45" value="500" name="limit">
      <label class="label">Has Street View:</label><div class="wrapper-73">
-     <input type="radio" id="street_view_true" name="street_view" value="true"><label for="street_view_true">true</label>
-     <input type="radio" id="street_view_false" name="street_view" value="false"><label for="street_view_false">false</label>
+     <input type="radio" id="street_view_true" name="has_street_view" value="true"><label for="street_view_true">true</label>
+     <input type="radio" id="street_view_false" name="has_street_view" value="false"><label for="street_view_false">false</label>
      </div>
      <br><label></label><input type="submit" class="submitbutton custominput" value="Submit">
    </div>
