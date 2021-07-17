@@ -12,7 +12,7 @@
    } else {
      $limit = "775";
    }
-   include 'includes/map/get-get-queries.php';
+   include 'includes/DB-filter.php';
    if (@substr($back, 0, 4) == "Edit") {
      $back_url = $back;
    } elseif (@substr($back, 0, 4) == "Home") {
@@ -57,7 +57,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
       newLat = mymap.getCenter().lat;
       newLong = mymap.getCenter().lng;
       newZoom = mymap.getZoom()
-      tags = "<?php echo $url_suffix; ?>";
+      tags = "<?php echo @$url_suffix; ?>";
 
       var URI = "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
       console.log(URI);
@@ -97,7 +97,7 @@ $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIA
 
 $database_get_list = "id,latitude,longitude,status";
 
-$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db WHERE $db_vars ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $db_vars ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
@@ -113,7 +113,7 @@ switch ($sepCount) {
   case 4:  $status = $value;
 
 if (!empty($lat) && !empty($long) && !empty($status)) {?>
-marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo $url_suffix ?>");
+marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo @$url_suffix ?>");
 <?php }
 break;
             }
