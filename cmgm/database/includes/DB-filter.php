@@ -10,7 +10,7 @@
     elseif ($value[0] == "!") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
     elseif ($value[0] == ">") { $db_vars = " AND ". $key . ' > '.$trimChar . @$db_vars; }
     elseif ($value[0] == "<") { $db_vars = " AND ". $key . ' < '.$trimChar . @$db_vars; }
-    elseif ($key == "fileSearch") { $db_vars = " AND evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR extra_a='$fs' OR extra_b='$fs' OR extra_c='$fs'" . @db_variables; }
+    elseif ($key == "fileSearch") { $db_vars = " AND evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR extra_a='$fs' OR extra_b='$fs' OR extra_c='$fs'" . @$db_vars; }
     elseif ($key == "has_street_view") { if ($value == "true") $db_vars =  "AND street_view_url_a != '' " . @$db_vars; }
     elseif ($key == "has_street_view") { if ($value == "false") $db_vars = " AND street_view_url_a = '' " . @$db_vars; }
     elseif ($key == "address") { $db_vars = " AND " . $key . ' like "%'.$value.'%"' . @$db_vars; }
