@@ -34,8 +34,8 @@
          type="submit" class="submitbutton width-50" style="color:#E9A623" id="upload" onclick="changeF('database/Upload.php','Upload');" name="Upload" value="Upload"><input
          type="submit" class="submitbutton width-75" style="color:#33D333" id="cellmapper" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"CellMapper",NULL) ?>','CellMapper');" name="goto" value="CellMapper"><input
          type="submit" class="submitbutton width-25" style="color:#33D333" id="beta" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Beta",NULL) ?>','beta');" name="goto" value="Beta"><input
-         type="submit" class="submitbutton width-50" style="color:#5695F6" id="googlemaps" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Google Maps",NULL) ?>','googlemaps');" name="goto" value="Google Maps"><input
-         type="submit" class="submitbutton width-50" style="color:#5695F6" id="streetview" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Street View",NULL) ?>','streetview');" name="goto" value="Street View"><input
+         type="submit" class="submitbutton width-50" style="color:#5695F6" id="googlemaps" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Google Maps",NULL) ?>','googlemaps');" name="goto" value="Google Maps"><input
+         type="submit" class="submitbutton width-50" style="color:#5695F6" id="streetview" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Street View",NULL) ?>','streetview');" name="goto" value="Street View"><input
          type="submit" class="submitbutton width-100" style="color:#6be63e" id="permits" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL) ?>','permits');" name="goto" value="Permits">
      </form>
      <form id="form" action="Home.php" method="post" autocomplete="off">

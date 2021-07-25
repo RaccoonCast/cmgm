@@ -15,4 +15,7 @@ function changeF(redirect,page) {
   document.getElementById("form").setAttribute('action', redirect);
 }
 
+function redir(page) {
+  window.location.href = page;
+}
 </script>
