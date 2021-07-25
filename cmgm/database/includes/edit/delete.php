@@ -2,11 +2,12 @@
 if ($delete_conf == "true") {
   mysqli_query($conn, "DELETE from database_db WHERE id='$id'"); // First parameter is just return of "mysqli_connect()" function
   if ($redirPage == "Map-popup") {
-    echo "Deletion successful, refresh page to show changes.";
+    echo "Deletion successful, refresh Map to update.";
+    die();
   }
   if ($redirPage == "Edit") {
-    echo "Attempting to redirect to edit page for ID $id, should fail to find.";
-    redir("Edit.php?id=$id",2);
+    echo "Redirecting to home page.";
+    redir("../",1);
   }
   if ($redirPage != "Map-popup") redir("../",0);
 }
