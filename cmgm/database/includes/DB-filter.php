@@ -7,7 +7,7 @@
   if (!empty($value)) {
     if ($key != "latitude" && $key != "longitude" && $key != "zoom" && $key != "mp-id") @$url_suffix = @$url_suffix . "&" . $key . "=" . $value;
     if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back") { ${$key} = $value; }
-    elseif ($value[0] == "!") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'" AND ' . @$db_vars; }
+    elseif ($value[0] == "!") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
     elseif ($value[0] == ">") { $db_vars = " AND ". $key . ' > '.$trimChar . @$db_vars; }
     elseif ($value[0] == "<") { $db_vars = " AND ". $key . ' < '.$trimChar . @$db_vars; }
     elseif ($key == "fileSearch") { $db_vars = " AND evidence_a='$fs' OR evidence_b='$fs' OR evidence_c='$fs' OR photo_a='$fs' OR photo_b='$fs' OR photo_c='$fs' OR photo_d='$fs' OR photo_e='$fs' OR photo_f='$fs' OR extra_a='$fs' OR extra_b='$fs' OR extra_c='$fs'" . @db_variables; }
