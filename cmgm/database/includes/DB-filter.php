@@ -17,7 +17,7 @@
     elseif ($key == "tags") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
     elseif ($key == "date") { if ($value[0] == ">") $db_vars = "AND date_added" . ' >= "'.$trimChar.'"' . @$db_vars; }
     elseif ($key == "date") { if ($value[0] == "<") $db_vars = "AND date_added" . ' <= "'.$trimChar.'"' . @$db_vars; }
-    elseif ($key == "id") { $db_vars = "AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR NR_1 = '$id' OR NR_2 = '$id') " . @$db_vars; }
+    elseif ($key == "id") { $db_vars = "AND (id = '$value' OR LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR NR_1 = '$value' OR NR_2 = '$value') " . @$db_vars; }
     else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
   }
 }
