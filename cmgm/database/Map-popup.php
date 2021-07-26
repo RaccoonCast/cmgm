@@ -4,7 +4,6 @@
   <?php
   include '../functions.php';
   include "../includes/functions/calculateEV.php";
-  include "includes/map/get-get-queries.php";
   ?>
   <script src="../js/redirAtPos.js"></script>
 </head>
@@ -47,23 +46,17 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
 
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&mp-id=" . $id . ">#" . $id . "</a> </p>");
                     $no_reader = "true";
+                    $no_map = "true";
                     $redirPage = "Map-popup";
                     include "../includes/widgets/widgets.php";
                     ?> <br> <?php
 
-                     if ("$carrier" == "T-Mobile") {
-                      $beginning = "?MCC=310&MNC=260";
-                    } elseif ("$carrier" == "Sprint") {
-                      $beginning = "?MCC=310&MNC=120";
-                    } elseif ("$carrier" == "ATT") {
-                      $beginning = "?MCC=310&MNC=410";
-                    } elseif ("$carrier" == "Verizon") {
-                      $beginning = "?MCC=311&MNC=480";
-                    } else {
-                      $beginning = "?MCC=310&MNC=410";
-                    }
+                     if ("$carrier" == "T-Mobile") $beginning = "?MCC=310&MNC=260";
+                     if ("$carrier" == "Sprint") $beginning = "?MCC=310&MNC=120";
+                     if ("$carrier" == "ATT") $beginning = "?MCC=310&MNC=410";
+                     if ("$carrier" == "Verizon") $beginning = "?MCC=311&MNC=480";
 
-                      if (empty($LTE_1)) $LTE_1 = "CellMapper";
+                    if (empty($LTE_1)) $LTE_1 = "CellMapper";
 
                       $cellmapper_net_url = "https://www.cellmapper.net/map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
                         if(!empty($LTE_1)) ?> <a class="widget" target="_blank" href="<?php echo $cellmapper_net_url ?>"><?php echo $LTE_1?><?php
@@ -71,7 +64,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                         if(!empty($LTE_3)) { echo " & " . $LTE_3; }
                         if(!empty($LTE_4)) { echo " & " . $LTE_4; }
                         if(!empty($LTE_5)) { echo " & " . $LTE_5; }
-                        if(!empty($LTE_6)) { echo " & " . $LTE_6; } ?> </a> <?php
+                        if(!empty($LTE_6)) { echo " & " . $LTE_6; }
+                        if(!empty($NR_1)) { echo " & " . $NR_1; }
+                        if(!empty($NR_2)) { echo " & " . $NR_2; } ?> </a> <?php
                         echo "<br>";
 
                       echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');

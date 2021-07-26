@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="includes/Map/ol.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="crossorigin=""></script>
   <?php
@@ -23,7 +24,8 @@
    ?>
 </head>
 <body class="body">
-<div id="mapid"></div>
+<div id="sidebar"><?php include "includes/Map/sidebar.php"?></div>
+<div id="map"><div id="mapid"></div>
 <?php if (!isset($marker_latitude)) { ?>
 <button class="special_button" id="backButton"><div class="buttonContainer"><?php if(isMobile()) { echo "⬅"; } else {echo "🔙";} ?></div></button>
 <button class="special_button" id="refreshButton"><div class="buttonContainer">🔃</div></button>
@@ -113,7 +115,7 @@ switch ($sepCount) {
   case 4:  $status = $value;
 
 if (!empty($lat) && !empty($long) && !empty($status)) {?>
-marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>,"<?php echo @$url_suffix ?>");
+marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
 <?php }
 break;
             }
@@ -125,5 +127,6 @@ break;
 if (isset($marker_latitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);"; ?>
 </script>
 <?php if (!isset($marker_latitude))include "includes/footer.php"; ?>
+</div>
 </body>
 </html>
