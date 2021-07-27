@@ -27,7 +27,7 @@
         <option value="pole">Pole</option>
         <option value="disguised">Disguised structure</option>
         <option value="other">Other/Uknown</option>
-        </select><br><label class="label"s>Concealment</label><select class="custominput" autocomplete="on" name="concealed">
+        </select><br><label class="label">Concealment</label><select class="custominput" autocomplete="on" name="concealed">
         <option selected="selected" value="">Unconcealed/Concealed</option>
         <option value="true">Concealed</option>
         <option value="false">Unconcealed</option>
@@ -50,7 +50,8 @@
              <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
           </select>
 		 <br><label class="label">LTE/NR id</label><input
-     class="custominput" maxlength="30" name="id">
+     class="custominput" maxlength="30" name="id"><br><label class="label">Creation Date</label><input
+     class="custominput" maxlength="11" name="date">
 		 <br><label class="label">File</label><input class="custominput small-text" maxlength="55" name="fileSearch">
 		 <br><label class="label">Address (of site)</label><input class="custominput" maxlength="50" placeholder="Address" autocomplete="chrome-off" name="address"><input
      class="custominput" maxlength="25" placeholder="City" autocomplete="chrome-off" name="city"><input
@@ -64,7 +65,11 @@
      <input type="radio" id="street_view_true" name="has_street_view" value="true"><label for="street_view_true">true</label>
      <input type="radio" id="street_view_false" name="has_street_view" value="false"><label for="street_view_false">false</label>
      </div>
-     <br><label></label><input type="submit" class="submitbutton custominput" value="Submit">
+     <p>
+       > = more than/after<br>
+       < = less than/before
+     </p>
+     <label></label><input type="submit" class="submitbutton custominput" value="Submit">
    </div>
     </form>
     <?php
