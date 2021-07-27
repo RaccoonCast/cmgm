@@ -16,6 +16,6 @@ $temp = explode(".", $_FILES["fileToUpload"]["name"]);
 $newfilename = round(microtime(true)) . '.' . end($temp);
 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $filePath)) {
 $finishedFilename = $filename . "." . $fileType;
-redir ("Upload.php?finishedFilename=$finishedFilename",0);
+redir ("Upload.php?finishedFilename=$finishedFilename&type=$type",0);
 }
 ?>
