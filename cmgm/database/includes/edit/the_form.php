@@ -129,14 +129,14 @@
     <br><label class="evidence_scores_label">Trails Match</label><input
     type="number"  max="100" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
 
-    <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
+    <br><label title="Antennas look like <?php echo $carrier;?>?&#10;(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
     type="number" max="100" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
 
-    <br><label title="CellMapper Triangulation: how close the CellMapper estimated location is to the actual location.&#10;&#10;(1-100)&#10;0 being very far away&#10;100 being very closely" class="evidence_scores_label">CellMapper Triangulation</label><input
+    <br><label title="How close the CellMapper estimated location is to the actual location.&#10;&#10;(1-100)&#10;0 being very far away&#10;100 being very closely" class="evidence_scores_label">CellMapper Triangulation</label><input
     type="number" max="100" class="evidence_scores_cw" name="cellmapper_triangulation" value="<?php echo @$cellmapper_triangulation?>">
 
     </div><div class="_panel2">
-    <label title="On-site image evidence: a piece of equipment with a sticker on it that has the carrier name.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
+    <label title="A piece of equipment with a sticker on it that has the carrier name or carrier-specific contact info.&#10;&#10;(1-100)&#10;0 being none&#10;100 being perfect)" class="evidence_scores_label">On-site image evidence</label><input
     type="number"  max="100" class="evidence_scores_cw" name="image_evidence" value="<?php echo @$image_evidence?>">
 
     <br><label title="(1-100)&#10;0 being not at all&#10;100 very thorough" class="evidence_scores_label">Verified by visit</label><input
@@ -149,7 +149,7 @@
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     </div><div class="_panel3">
-    <label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Only reasonable location</label><input
+    <label title="Most of the surrounding buildings residential?&#10;All other towers for this carrier in the area already located?&#10;&#10;(1-100)&#10;0 being not reasonable at all to assume this location&#10;100 being very reasonable to assume this location" class="evidence_scores_label">Only reasonable location</label><input
     type="text" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input
