@@ -27,3 +27,9 @@ var unmapped = L.icon({
     iconSize: [15, 15], // size of the icon
     popupAnchor: [0, -11]
 });
+
+var wip = L.icon({
+    iconUrl: '../images/yellow.png',
+    iconSize: [15, 15], // size of the icon
+    popupAnchor: [0, -11]
+});

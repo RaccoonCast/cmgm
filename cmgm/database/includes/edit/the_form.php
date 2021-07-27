@@ -9,6 +9,7 @@
     class="status_cw" autocomplete="on" name="status" required>
     <option style="display:none" value=""></option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
+    <option <?php if(@$status == "wip") echo "selected"?> value="wip">WIP</option>
     <option <?php if(@$status == "unverified") echo "selected"?> value="unverified">Unverified</option>
     <option <?php if(@$status == "unmapped") echo "selected"?> value="unmapped">Unmapped</option>
     <option <?php if(@$status == "special") echo "selected"?> value="special">Special</option>

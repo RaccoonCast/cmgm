@@ -35,6 +35,7 @@
         class="custominput cellsite-type-custom-width dropdown" name="status">
         <option selected="selected" value="">All</option>
         <option value="verified" selected="selected">Verified</option>
+        <option value="wip">WIP</option>
         <option value="unverified">Unverified</option>
         <option value="unmapped">Unmapped</option>
         <option value="special">Special</option>
