@@ -48,7 +48,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
   var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], <?php echo $zoom;?>);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      maxZoom: 19,
+      maxZoom: 18,
       minZoom: 7,
       tileSize: 256,
       zoomOffset: 0,

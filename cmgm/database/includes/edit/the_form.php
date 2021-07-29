@@ -86,10 +86,10 @@
 
     <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo @$latitude; ?>,<?php echo @$longitude; ?>&zoom=20&basemap=satellite">Address</a>
     <span class="addr_link"><a href="#" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></label><input
-    type="text" autocomplete="chrome-off" class="inline-block addr_address_cw" id="address" value="<?php echo @$address?>" placeholder="Address" name="address"><input
-    type="text" autocomplete="chrome-off" class="inline-block addr_city_cw" id="city" value="<?php echo @$city?>" placeholder="City" name="city"><input
-    type="text" autocomplete="chrome-off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
-    type="text" autocomplete="chrome-off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
+    type="text" autocomplete="off" class="inline-block addr_address_cw" id="address" value="<?php echo @$address?>" placeholder="Address" name="address"><input
+    type="text" autocomplete="off" class="inline-block addr_city_cw" id="city" value="<?php echo @$city?>" placeholder="City" name="city"><input
+    type="text" autocomplete="off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
+    type="text" autocomplete="off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="street_view_url_label">Street view URL <span style="float: right"><?php echo @$street_view_url_a_label; echo @$street_view_url_b_label; echo @$street_view_url_c_label; echo @$street_view_url_d_label; ?></span></label><input
     type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_a" placeholder="STREET_VIEW_URL_A" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
@@ -145,12 +145,12 @@
     <br><label title="(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Sector split match</label><input
     type="number" max="100" class="evidence_scores_cw sector_split_match" name="sector_split_match" value="<?php echo @$sector_split_match?>">
 
-    <br><label class="evidence_scores_label"># of visible antenna modifs</label><input
-    type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
-
-    </div><div class="_panel3">
     <label title="Most of the surrounding buildings residential?&#10;All other towers for this carrier in the area already located?&#10;&#10;(1-100)&#10;0 being not reasonable at all to assume this location&#10;100 being very reasonable to assume this location" class="evidence_scores_label">Only reasonable location</label><input
     type="text" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
+
+    </div><div class="_panel3">
+    <label class="evidence_scores_label"># of visible antenna modifs</label><input
+    type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input
     type="number" max="3" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">

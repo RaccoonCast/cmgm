@@ -1,11 +1,12 @@
- <?php
- foreach($_GET as $key => $value){
-  @$id = str_replace(' ', '', $value);
-  @$fs = str_replace(' ', '', $fileSearch);
-  @$trimChar = substr($value, 1);
+<?php
+foreach($_GET as $key => $value){
+@$id = str_replace(' ', '', $value);
+@$fs = str_replace(' ', '', $fileSearch);
+@$trimChar = substr($value, 1);
 
-  if (!empty($value)) {
+if (!empty($value) OR $value == "NULL") {
     if ($key != "latitude" && $key != "longitude" && $key != "zoom" && $key != "mp-id") @$url_suffix = @$url_suffix . "&" . $key . "=" . $value;
+    if ($value == "NULL") $value = null;
     if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back") { ${$key} = $value; }
     elseif ($key == "date" && $value[0] == ">") { $db_vars = "AND date_added" . ' >= "'.$trimChar.'"' . @$db_vars; }
     elseif ($key == "date" && $value[0] == "<") { $db_vars = "AND date_added" . ' <= "'.$trimChar.'"' . @$db_vars; }
