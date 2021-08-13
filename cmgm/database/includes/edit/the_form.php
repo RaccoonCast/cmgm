@@ -9,7 +9,7 @@
     class="status_cw" autocomplete="on" name="status" required>
     <option style="display:none" value=""></option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
-    <option <?php if(@$status == "wip") echo "selected"?> value="wip">WIP</option>
+    <option <?php if(@$status == "wip") echo "selected"?> value="wip"><?php if ($isMobile =="true") { echo "Verified+WIP"; } else { echo "Verified and WIP";} ?></option>
     <option <?php if(@$status == "unverified") echo "selected"?> value="unverified">Unverified</option>
     <option <?php if(@$status == "unmapped") echo "selected"?> value="unmapped">Unmapped</option>
     <option <?php if(@$status == "special") echo "selected"?> value="special">Special</option>
@@ -91,11 +91,11 @@
     type="text" autocomplete="off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <label class="street_view_url_label">Street view URL <span style="float: right"><?php echo @$street_view_url_a_label; echo @$street_view_url_b_label; echo @$street_view_url_c_label; echo @$street_view_url_d_label; ?></span></label><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_a" placeholder="STREET_VIEW_URL_A" value="<?php echo str_replace("https://", "",@$street_view_url_a); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_b" placeholder="STREET_VIEW_URL_B" value="<?php echo str_replace("https://", "",@$street_view_url_b); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_c" placeholder="STREET_VIEW_URL_C" value="<?php echo str_replace("https://", "",@$street_view_url_c); ?>"><input
-    type="text" class="inline-block street_view_url_cw" autocomplete="chrome-off" name="street_view_url_d" placeholder="STREET_VIEW_URL_D" value="<?php echo str_replace("https://", "",@$street_view_url_d); ?>">
+    <label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_a_label; echo @$street_view_b_label; echo @$street_view_c_label; echo @$street_view_d_label; ?></span></label><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -126,10 +126,10 @@
     <label class="evidence_scores_label">Permit Score</label><input
     type="text"  max="100" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
 
-    <br><label class="evidence_scores_label">Trails Match</label><input
+    <br><label title="(1-100)&#10;Consistent bright green trails?&#10;Dense trails?&#10;Fade to dark green with distance as expected?&#10;All of this should affect the number." class="evidence_scores_label">Trails Match</label><input
     type="number"  max="100" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
 
-    <br><label title="Antennas look like <?php echo $carrier;?>?&#10;(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
+    <br><label title="Antennas look like other <?php echo $carrier;?> setups?&#10;(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
     type="number" max="100" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
 
     <br><label title="How close the CellMapper estimated location is to the actual location.&#10;&#10;(1-100)&#10;0 being very far away&#10;100 being very closely" class="evidence_scores_label">CellMapper Triangulation</label><input
@@ -149,13 +149,13 @@
     type="text" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     </div><div class="_panel3">
-    <label class="evidence_scores_label"># of visible antenna modifs</label><input
+    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10" class="evidence_scores_label"># of visible antenna modifs</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input
-    type="number" max="3" class="evidence_scores_cw" name="carriers_dont_trail_match" value="<?php echo @$carriers_dont_trail_match?>">
+    type="number" max="3" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
-    <br><label class="evidence_scores_label"># of other carriers here</label><input
+    <br><label title="(0-3)&#10;Number of other carriers at this location/address&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
     type="number" max="3" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
 
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input

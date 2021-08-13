@@ -12,7 +12,7 @@
 <body>
 <?php
 
-$sql = "SELECT DISTINCT street_view_url_a,
+$sql = "SELECT DISTINCT street_view_a,
 (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude))))
 AS DISTANCE FROM database_db ".@$db_vars." ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo $sql . "<br>";
@@ -21,7 +21,7 @@ $counter=0; $counter_10=-1;
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
       $$key = $value;
-      if (!empty($street_view_url_a)) {
+      if (!empty($street_view_a)) {
         $counter++;  $counter_10++;
         if ($counter_10 == "10") {
           echo "<br>";
@@ -29,7 +29,7 @@ while($row = $result->fetch_assoc()) {
         }
         if (strlen($counter) == 1) $counter = "00" . $counter;
         if (strlen($counter) == 2) $counter = "0" . $counter;
-        echo '<a href="https://'.str_replace("https://", "",$street_view_url_a).'">'.$counter.'</a> ';
+        echo '<a href="https://'.str_replace("https://", "",$street_view_a).'">'.$counter.'</a> ';
       }
   }
 }

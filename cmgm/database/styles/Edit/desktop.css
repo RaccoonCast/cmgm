@@ -84,9 +84,9 @@ abbr {text-decoration: none!important;}
 .id_params_cw {max-width: 50%!important; width: 100%;}
 
 /* STREET VIEW URL */  /* LABEL */
-.street_view_url_label {max-width: 25%; width: 100%}
+.street_view_label {max-width: 25%; width: 100%}
 /* STREET VIEW URL */  /* TEXTBOX */
-.street_view_url_cw {max-width: 18.75%; width: 100%; font-size: 0.80em;}
+.street_view_cw {max-width: 18.75%; width: 100%; font-size: 0.80em;}
 
 /* Tags */  /* LABEL */
 .tags_label {max-width: 25%; width: 100%}
