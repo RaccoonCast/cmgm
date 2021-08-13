@@ -34,16 +34,14 @@
     if ($trails_match >= 85 ) $ev += 6;
 
     // carrier's don't trail match
-    if ($alt_carriers_here == "0" OR empty($alt_carriers_here)) {
-    if ($carriers_dont_trail_match == 1) $ev += 1;
-    if ($carriers_dont_trail_match == 2) $ev += 3;
-    if ($carriers_dont_trail_match == 3) $ev += 8;
-    }
+    if ($carriers_ruled_out == 1) $ev += 1;
+    if ($carriers_ruled_out == 2) $ev += 3;
+    if ($carriers_ruled_out == 3) $ev += 8;
 
     // alt carriers here
-    if ($alt_carriers_here == "1") $ev += 1;
-    if ($alt_carriers_here == "2") $ev += 2;
-    if ($alt_carriers_here == "3") $ev += 3;
+    // if ($alt_carriers_here == "1") $ev += 1;
+    // if ($alt_carriers_here == "2") $ev += 2;
+    // if ($alt_carriers_here == "3") $ev += 3;
 
     // antennas match carrier
     if ($antennas_match_carrier >= 1 && ($antennas_match_carrier < 20)) $ev += 1;
