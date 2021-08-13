@@ -29,7 +29,7 @@ var unmapped = L.icon({
 });
 
 var wip = L.icon({
-    iconUrl: '../images/yellow.png',
-    iconSize: [15, 15], // size of the icon
+    iconUrl: '../images/light-green.png',
+    iconSize: [17, 17], // size of the icon
     popupAnchor: [0, -11]
 });
