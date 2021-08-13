@@ -37,7 +37,7 @@ if ("$city" == "Glendale") { button($address,"Glendale","https://csi.glendaleca.
 } elseif ("$city" == "Boston") { button($address,"Boston","https://scerisecm.boston.gov/ScerIS/CmPublic/#/SearchCriteria?f=11");
 } elseif ("$city" == "Glendora") { button($address,"Glendora","https://etrakit.ci.glendora.ca.us/etrakit3/Search/permit.aspx");
 } elseif ("$city" == "Compton") { button($address,"Compton","https://www.citizenserve.com/Portal/PortalController?Action=showHomePage&ctzPagePrefix=Portal_&installationID=202&original_iid=0&original_contactID=0");
-} elseif ("$city" == "Santa Ana") { button($address,"Santa Ana","http://apps.santa-ana.org/property-info/");
+} elseif ("$city" == "Santa Ana") { button($address,"Santa Ana","https://www.santa-ana.org/pb/property-information-search");
 } elseif ("$city" == "San Fernando") { button($address,"San Fernando","http://ladbsdoc.lacity.org/idispublic/");
 } elseif ("$city" == "Chino Hills") { button($address,"Chino Hills","https://publicportal.chinohills.org/WebLink/Welcome.aspx");
 } elseif ("$city" == "Wilmington") { button($address,"Wilmington","http://ladbsdoc.lacity.org/idispublic/");
@@ -60,7 +60,9 @@ if ("$city" == "Glendale") { button($address,"Glendale","https://csi.glendaleca.
 } elseif ("$city" == "Culver City") { button($address,"Culver City","https://data.culvercity.org/Permits/Building-Safety-Permits/qew5-a3up/data");
 } elseif ("$city" == "Sacramento") { button($address,"Sacramento","https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME");
 } elseif ("$city" == "West Hollywood") { button($address,"West Hollywood","https://permits.weho.org/etrakit3/Search/permit.aspx");
+} elseif ("$city" == "Oakland") { button($address,"Oakland","https://aca-prod.accela.com/oakland/customization/common/launchpad.aspx");
 } elseif ("$city" == "Los Angeles") { button($address,"Los Angeles","http://ladbsdoc.lacity.org/");
+} elseif ("$city" == "Thousand Oaks") { button($address,"Thousand Oaks","https://thou-egov.aspgov.com/Click2GovBP/index.html");
 } elseif ("$city" == "Torrance") {
   echo "The majority of permits are filed under Los Angeles County.";
   button($address,"Los Angeles County","https://dpw.lacounty.gov/bsd/bpv/");
