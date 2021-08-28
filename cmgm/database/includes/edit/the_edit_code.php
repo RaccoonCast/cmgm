@@ -17,9 +17,9 @@ if (isset($id)) $vals = rtrim($vals,', $');
 
 if (strlen($sql_edit) != 23) {
   date_default_timezone_set("America/Los_Angeles");
-  if (isset($_POST['new'])) $edit_history = date("Y-m-d H:i:s") . " PST: User $username ($userIP) created.";
+  if (isset($_POST['new'])) $edit_history = date("Y-m-d H:i:s") . " PST: $username ($userIP) created.";
   if (isset($edit_history)) $edit_history .= "\r\n";
-  $sql_edit .= " edit_history = '$edit_history" . date("Y-m-d H:i:s") . " PST: User $username ($userIP) edited $vals.' WHERE id = $id";
+  $sql_edit .= " edit_history = '$edit_history" . date("Y-m-d H:i:s") . " PST: $username ($userIP) edited $vals.' WHERE id = $id";
   mysqli_query($conn, $sql_edit);
 
   include "read_data.php";
