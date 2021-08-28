@@ -36,7 +36,8 @@
          type="submit" class="submitbutton width-25" style="color:#33D333" id="beta" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Beta",NULL) ?>','beta');" name="goto" value="Beta"><input
          type="submit" class="submitbutton width-50" style="color:#5695F6" id="googlemaps" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Google Maps",NULL) ?>','googlemaps');" name="goto" value="Google Maps"><input
          type="submit" class="submitbutton width-50" style="color:#5695F6" id="streetview" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Street View",NULL) ?>','streetview');" name="goto" value="Street View"><input
-         type="submit" class="submitbutton width-100" style="color:#6be63e" id="permits" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL) ?>','permits');" name="goto" value="Permits">
+         type="submit" class="submitbutton width-50" style="color:#6be63e" id="permits" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL) ?>','permits');" name="goto" value="Permits"><input
+         type="submit" class="submitbutton width-50" style="color:#6be63e" id="antennasearch" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"AntennaSearch.com",NULL) ?>','permits');" name="goto" value="<?php if ($isMobile =="true") { echo "AntennaSearch"; } else { echo "AntennaSearch.com";} ?>">
      </form>
      <form id="form" action="Home.php" method="post" autocomplete="off">
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">

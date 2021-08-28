@@ -10,6 +10,7 @@ function changeFormAction() {
   document.getElementById("database").removeAttribute("onclick");
   document.getElementById("googlemaps").removeAttribute("onclick");
   document.getElementById("streetview").removeAttribute("onclick");
+  document.getElementById("antennasearch").removeAttribute("onclick");
 }
 function changeF(redirect,page) {
   document.getElementById("form").setAttribute('action', redirect);
