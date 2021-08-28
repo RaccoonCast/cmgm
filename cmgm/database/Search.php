@@ -52,7 +52,7 @@
           </select>
 		 <br><label class="label">LTE/NR id</label><input
      class="custominput" maxlength="30" name="id"><br><label class="label">Creation Date</label><input
-     class="custominput" maxlength="11" name="date">
+     class="custominput" maxlength="11" placeholder="1/20/2009" name="date">
 		 <br><label class="label">File</label><input class="custominput small-text" maxlength="55" name="fileSearch">
 		 <br><label class="label">Address (of site)</label><input class="custominput" maxlength="50" placeholder="Address" autocomplete="chrome-off" name="address"><input
      class="custominput" maxlength="25" placeholder="City" autocomplete="chrome-off" name="city"><input
