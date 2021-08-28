@@ -20,9 +20,10 @@ $sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,photo
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
-    foreach ($row as $key => $value)
+    foreach ($row as $key => $value) {
         $$key = $value;
-        if (!empty($evidende_a) && substr($evidence_a, 0, 4) != "http" && !file_exists("uploads/" . $evidence_a)) echo " $id - EVIDENCE_A<br>";
+
+        if (!empty($evidence_a) && substr($evidence_a, 0, 4) != "http" && !file_exists("uploads/" . $evidence_a)) echo " $id - EVIDENCE_A<br>";
         if (!empty($evidence_b) && substr($evidence_b, 0, 4) != "http" && !file_exists("uploads/" . $evidence_b)) echo " $id - EVIDENCE_B<br>";
         if (!empty($evidence_c) && substr($evidence_c, 0, 4) != "http" && !file_exists("uploads/" . $evidence_c)) echo " $id - EVIDENCE_C<br>";
 
@@ -33,11 +34,11 @@ while($row = $result->fetch_assoc()) {
         if (!empty($photo_e) && substr($photo_e, 0, 4) != "http" && !file_exists("uploads/" . $photo_e)) echo " $id - PHOTO_E<br>";
         if (!empty($photo_f) && substr($photo_f, 0, 4) != "http" && !file_exists("uploads/" . $photo_f)) echo " $id - PHOTO_F<br>";
 
-        if (!empty($extra_a) && substr($extra_a, 0, 4) != "http" && !file_exists("uploads/" . $extra_a)) echo " $id - extra_A<br>";
-        if (!empty($extra_b) && substr($extra_b, 0, 4) != "http" && !file_exists("uploads/" . $extra_b)) echo " $id - extra_B<br>";
-        if (!empty($extra_c) && substr($extra_c, 0, 4) != "http" && !file_exists("uploads/" . $extra_c)) echo " $id - extra_C<br>";
-
-}
+        if (!empty($extra_a) && substr($extra_a, 0, 4) != "http" && !file_exists("uploads/" . $extra_a)) echo " $id - EXTRA_A<br>";
+        if (!empty($extra_b) && substr($extra_b, 0, 4) != "http" && !file_exists("uploads/" . $extra_b)) echo " $id - EXTRA_B<br>";
+        if (!empty($extra_c) && substr($extra_c, 0, 4) != "http" && !file_exists("uploads/" . $extra_c)) echo " $id - EXTRA_C<br>";
+        if ($key != "id")$$key = null;
+} }
 $result->close(); $conn->close();
 } elseif ($_POST['opt'] == 'Remove unused files') {
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
