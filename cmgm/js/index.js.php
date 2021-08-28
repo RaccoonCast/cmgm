@@ -2,6 +2,7 @@
 <script>
 function changeFormAction() {
   document.getElementById("rerunData").setAttribute('value', 'true');
+  document.getElementById("form").removeAttribute("onclick");
   document.getElementById("map").removeAttribute("onclick");
   document.getElementById("permits").removeAttribute("onclick");
   document.getElementById("cellmapper").removeAttribute("onclick");

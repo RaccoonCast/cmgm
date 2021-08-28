@@ -33,9 +33,9 @@ if ($goto_page == "Beta") {
 if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
 
-if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
-if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";
-if ($goto_page == "DB") $goto_page_URL = "/database/DB.php?";
+if ($goto_page == "DB-Map") $goto_page_URL = "/database/Map.php?back=Home&";
+if ($goto_page == "DB-Form") $goto_page_URL = "/database/Edit.php?new&";
+if ($goto_page == "DB-Edit") $goto_page_URL = "/database/DB.php?";
 if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";
 if ($goto_page == "Permits") $goto_page_URL = "../permits.php?";
