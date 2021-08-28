@@ -8,6 +8,7 @@
 <input type="submit" style="width: 145px;" name="opt" value="Remove unused files">
 <input type="submit" style="width: 145px;" name="opt" value="Show unused DB IDs">
 <input type="submit" style="width: 145px;" name="opt" value="Show uploads filesize">
+<input type="submit" style="width: 145px;" name="opt" value="PCI matcher">
 </form>
 <?php
 die();
@@ -81,7 +82,9 @@ foreach($fileList as $filename){
 
         echo "Upload folder filesize: " . formatBytes($size);
         // 23.81M
-  }
+  } elseif ($_POST['opt'] == 'PCI matcher') {
+        redir("..\includes\misc-functions\pci-match.php?carrier=$default_carrier","0");
+    }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
 <input type="submit" style="width: 145px;" name="back" value="Back">
