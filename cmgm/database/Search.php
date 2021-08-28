@@ -25,7 +25,7 @@
         <option value="monopine">Monopine</option>
         <option value="misc-tree">Misc tree</option>
         <option value="pole">Pole</option>
-        <option value="disguised">Disguised structure</option>
+        <option value="structure">Disguised structure</option>
         <option value="other">Other/Uknown</option>
         </select><br><label class="label">Concealment</label><select class="custominput" autocomplete="on" name="concealed">
         <option selected="selected" value="">Unconcealed/Concealed</option>

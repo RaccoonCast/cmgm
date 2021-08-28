@@ -29,7 +29,7 @@
     <option <?php if(@$cellsite_type == "monopine") echo "selected"?> value="monopine">Monopine</option>
     <option <?php if(@$cellsite_type == "misc-tree") echo "selected"?> value="misc-tree">Misc tree</option>
     <option <?php if(@$cellsite_type == "pole") echo "selected"?> value="pole">Pole</option>
-    <option <?php if(@$cellsite_type == "disguised") echo "selected"?> value="disguised">Disguised structure</option>
+    <option <?php if(@$cellsite_type == "structure") echo "selected"?> value="structure">Structure mount</option>
     <option <?php if(@$cellsite_type == "other") echo "selected"?> value="other">Other/Uknown</option>
     </select><select class="carrier_cw" autocomplete="on" name="carrier">
     <option <?php if(@$carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
