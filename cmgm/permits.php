@@ -24,7 +24,7 @@ function button($address,$button_text,$link) { ?>
       echo $button_text . "<br>";
       echo $link . "<br>" . "<br>";
       ?>
-      <input type="submit" class="submitbutton width-50" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
+      <input type="submit" class="sb w-50" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
     </div>
   </div> <?php
   die();

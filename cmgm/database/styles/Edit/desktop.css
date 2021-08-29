@@ -25,7 +25,7 @@ input[type=text],input[type=number],option,select {
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
 abbr {text-decoration: none!important;}
-.submitbutton {
+.sb {
   font-size: 3em;
   width: 100%;
   padding: 60px;
@@ -39,7 +39,7 @@ abbr {text-decoration: none!important;}
 	padding: 2px;
 	margin: 0px;
 }
-.small-submitbutton {
+.small-sb {
 	font-size: 1.6em;
 	height: 73px;
 	width: 120px;

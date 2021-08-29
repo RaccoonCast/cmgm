@@ -1,4 +1,4 @@
-.submitbutton {
+.sb {
   width: 35%;
   padding: 12px;
   font-size: 1.85em;
@@ -16,6 +16,6 @@ option,select {
 body {
   font-size: 1.4em;
 }
-.width-50 {
+.w-50 {
   width: 17.5%!important;
 }

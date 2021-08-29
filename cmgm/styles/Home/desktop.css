@@ -1,4 +1,4 @@
-.submitbutton {
+.sb {
   padding: 12px;
   font-size: 3em;
 }
@@ -12,15 +12,15 @@
   width: 100%; max-width: 25cm;
 }
 @media (min-width: 670px) {
-  .width-75 {width: 75%;max-width: 100%;}
-  .width-50 {width: 50%;max-width: 100%;}
-  .width-25 {width: 25%;max-width: 100%;}
-  .width-33 {width: 33.33333%;max-width: 100%;}
-  .width-100 {width: 100%;max-width: 100%}
+  .w-75 {width: 75%;max-width: 100%;}
+  .w-50 {width: 50%;max-width: 100%;}
+  .w-25 {width: 25%;max-width: 100%;}
+  .w-33 {width: 33.33333%;max-width: 100%;}
+  .w-100 {width: 100%;max-width: 100%}
 }
 @media (max-width: 669px) {
-  .width-75 {width: 100%;max-width: 100%;}
-  .width-50 {width: 100%;max-width: 100%;}
-  .width-25 {width: 100%;max-width: 100%;}
-  .width-100 {width: 100%;max-width: 100%}
+  .w-75 {width: 100%;max-width: 100%;}
+  .w-50 {width: 100%;max-width: 100%;}
+  .w-25 {width: 100%;max-width: 100%;}
+  .w-100 {width: 100%;max-width: 100%}
 }

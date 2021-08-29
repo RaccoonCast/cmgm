@@ -70,7 +70,7 @@
        > = more than/after<br>
        < = less than/before
      </p>
-     <label></label><input type="submit" class="submitbutton custominput" value="Submit">
+     <label></label><input type="submit" class="sb custominput" value="Submit">
    </div>
     </form>
     <?php

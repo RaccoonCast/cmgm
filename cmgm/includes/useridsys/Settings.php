@@ -55,8 +55,8 @@ header("Pragma: no-cache");
         <p>Username: </p>
         <input type="text" value="<?php echo $username; ?>" name="username" id="username" required>
         <p>Latitude/Longitude: </p>
-        <input type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="width-50" id="latitude" required><input
-        type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="width-50" id="longitude" required>
+        <input type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
+        type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
         <p>Carrier: </p>
         <select class="custominput dropdown" autocomplete="on" name="default_carrier">
           <option style="display:none" disabled <?php if(empty($default_carrier)) echo 'selected="selected" ';?>></option>
@@ -85,8 +85,8 @@ header("Pragma: no-cache");
         </select>
         <br>
         <br>
-        <input type="button" class="width-50 submitbutton" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
-        type="submit" class="width-50 submitbutton" style="color: #00000;"  value="Submit">
+        <input type="button" class="w-50 sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
+        type="submit" class="w-50 sb" style="color: #00000;"  value="Submit">
      </form>
    </body>
 </html>

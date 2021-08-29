@@ -19,7 +19,7 @@ input[type=text],input[type=number],select {
 		border-style:solid;
 
 }
-.submitbutton {
+.sb {
   font-size: 2em;
   width: 100%;
   padding-top: 25px;

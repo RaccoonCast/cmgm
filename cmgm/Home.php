@@ -17,7 +17,7 @@
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="/" method="post" autocomplete="off">
        <div class="buttons">
-         <input type="text" name="data" oninput="changeFormAction();" id="txtresult" class="textbox width-100">
+         <input type="text" name="data" oninput="changeFormAction();" id="txtresult" class="textbox w-100">
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" name="carrier" value="<?php echo $carrier;?>">
@@ -26,23 +26,23 @@
          <input type="hidden" name="city" value="<?php echo $city;?>">
          <input type="hidden" name="state" value="<?php echo $state;?>">
          <input type="hidden" id="rerunData" name="rerunData" value="false"><input
-         type="submit" class="submitbutton width-33" style="color:#D93A6C" id="DB-Form" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"DB-Form",NULL) ?>,'DB-Form');"value="DB-Form"><input
-         type="submit" class="submitbutton width-33" style="color:#D93A6C" id="DB-Edit" name="goto" onclick="changeF('/database/Edit.php?id=<?php echo $latitude . "," . $longitude;?>','DB-Edit');" value="DB-Edit"><input
-         type="submit" class="submitbutton width-33" style="color:#D93A6C" id="DB-Map" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"DB-Map",NULL) ?>','DB-Map');" name="goto" value="DB-Map"><input
-         type="submit" class="submitbutton width-50" style="color:#e31bdc" id="Search" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Search",NULL) ?>','Search');" name="goto" value="Search"><input
-         type="submit" class="submitbutton width-50" style="color:#E9A623" id="Upload" onclick="changeF('database/Upload.php','Upload');" name="Upload" value="Upload"><input
-         type="submit" class="submitbutton width-50" style="color:#33D333" id="CellMapper" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"CellMapper",NULL) ?>','CellMapper');" name="goto" value="CellMapper"><input
-         type="submit" class="submitbutton width-50" style="color:#33D333" id="Beta" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Beta",NULL) ?>','Beta');" name="goto" value="Beta"><input
-         type="submit" class="submitbutton width-50" style="color:#5695F6" id="GoogleMaps" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Google Maps",NULL) ?>','googlemaps');" name="goto" value="Google Maps"><input
-         type="submit" class="submitbutton width-50" style="color:#5695F6" id="StreetView" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Street View",NULL) ?>','streetview');" name="goto" value="Street View"><input
-         type="submit" class="submitbutton width-50" style="color:#6be63e" id="Permits" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL) ?>','permits');" name="goto" value="Permits"><input
-         type="submit" class="submitbutton width-50" style="color:#6be63e" id="AntennaSearch" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"AntennaSearch",NULL) ?>','antennasearch');" name="goto" value="<?php if ($isMobile =="true") { echo "AntennaSearch"; } else { echo "AntennaSearch.com";} ?>">
+         type="submit" class="sb w-33" style="color:#D93A6C" id="link01" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"DB-Form",NULL) ?>');"value="DB-Form"><input
+         type="submit" class="sb w-33" style="color:#D93A6C" id="link02" name="goto" onclick="changeF('/database/Edit.php?id=<?php echo $latitude . "," . $longitude;?>','DB-Edit');" value="DB-Edit"><input
+         type="submit" class="sb w-33" style="color:#D93A6C" id="link03" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"DB-Map",NULL) ?>');" value="DB-Map"><input
+         type="submit" class="sb w-50" style="color:#E31BDC" id="link04" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Search",NULL) ?>'');" value="Search"><input
+         type="submit" class="sb w-50" style="color:#E9A623" id="link05" name="goto" onclick="changeF('database/Upload.php','Upload');" name="Upload" value="Upload"><input
+         type="submit" class="sb w-50" style="color:#33D333" id="link06" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"CellMapper",NULL) ?>');" value="CellMapper"><input
+         type="submit" class="sb w-50" style="color:#33D333" id="link07" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Beta",NULL) ?>');" value="Beta"><input
+         type="submit" class="sb w-50" style="color:#5695F6" id="link08" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Google Maps",NULL) ?>');" value="Google Maps"><input
+         type="submit" class="sb w-50" style="color:#5695F6" id="link09" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Street View",NULL) ?>');" value="Street View"><input
+         type="submit" class="sb w-50" style="color:#6BE63E" id="link10" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL) ?>');" value="Permits"><input
+         type="submit" class="sb w-50" style="color:#6BE63E" id="link11" name="goto" onclick="changeF('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"AntennaSearch",NULL) ?>');" value="AntennaSearch">
      </form>
      <form id="form" action="Home.php" method="post" autocomplete="off">
          <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
          <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
          <input type="hidden" id="rerunData" name="rerunData" value="false">
-         <input type="submit" class="submitbutton width-100" style="color:#BA03FC" name="goto" value="Settings">
+         <input type="submit" class="sb w-100" style="color:#BA03FC" name="goto" value="Settings">
        </div>
      </form>
    </body>

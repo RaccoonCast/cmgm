@@ -69,7 +69,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
      <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
        <p>Your IP address <?php echo $ip; ?> is not recongized, please enter magical password.</p>
          <input type="text" name="password" class="textbox">
-         <input type="submit" class="submitbutton" value="Submit">
+         <input type="submit" class="sb" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
      </form>
    </body>
