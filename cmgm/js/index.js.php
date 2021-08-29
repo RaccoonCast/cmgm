@@ -1,7 +1,6 @@
 <?php ?>
 <script>
 function changeFormAction() {
-  document.getElementById("rerunData").setAttribute('value', 'true');
   document.getElementById("link01").removeAttribute("onclick");
   document.getElementById("link02").removeAttribute("onclick");
   document.getElementById("link03").removeAttribute("onclick");
@@ -13,7 +12,7 @@ function changeFormAction() {
   document.getElementById("link10").removeAttribute("onclick");
   document.getElementById("link11").removeAttribute("onclick");
 }
-function changeF(redirect,page) {
+function changeF(redirect) {
   document.getElementById("form").setAttribute('action', redirect);
 }
 
