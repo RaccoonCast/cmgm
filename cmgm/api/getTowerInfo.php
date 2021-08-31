@@ -1,5 +1,6 @@
 <?php
 // Cast's Awesome API (CAAPI)
+define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 include '../includes/functions/sqlpw.php';
 include '../includes/useridsys/native.php';
 
