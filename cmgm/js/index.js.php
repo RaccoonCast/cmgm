@@ -27,12 +27,9 @@ function changeFormAction() {
 
   document.getElementById("link10").removeAttribute("onclick");
   document.getElementById("link10").setAttribute('type', 'submit');
-  
+
   document.getElementById("link11").removeAttribute("onclick");
   document.getElementById("link11").setAttribute('type', 'submit');
-}
-function changeF(redirect) {
-  document.getElementById("form").setAttribute('action', redirect);
 }
 
 function redir(page) {
