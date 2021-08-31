@@ -8,7 +8,7 @@ if (!empty($_POST['data'])) {
   $cellmapper_dataArr = explode(', ' , $cellmapper_data);
 
   include "../../database/includes/DB-filter.php";
-  include '../functions/sqlpw.php';
+  include '../../functions.php';
 
   $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2 FROM database_db $db_vars";
   $result = mysqli_query($conn, $sql);
@@ -16,14 +16,18 @@ if (!empty($_POST['data'])) {
   $cmgm_data = substr($cmgm_data, 2);
   $cmgm_dataArr = explode(', ', $cmgm_data);
   $result = array_intersect($cellmapper_dataArr, $cmgm_dataArr);
-  asort($result);
-  foreach($result as $value) echo $value . "<br />\n";
+  foreach($result as $value) {
+    $id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM database_db WHERE LTE_1='$value' OR LTE_2='$value' OR LTE_3='$value' OR LTE_4='$value' OR LTE_5='$value' OR LTE_5='$value' OR LTE_6='$value' OR NR_1='$value' OR NR_2='$value'"))['id'];
+    $idList = @$idList . "," . $id;
+  }
+  $idList = substr($idList, 1);
+  redir("..\..\database\Map.php?latitude=$default_latitude&longitude=$default_longitude&idlist=$idList","0");
 } else {
 // get latitude from URL
 if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
 ?>
 
- <form action="pci-match.php?carrier=<?php echo $carrier; ?>" method="post">
+ <form action="PCI-match.php?carrier=<?php echo $carrier; ?>" method="post">
    <textarea name="data" rows="50" cols="150"></textarea>
    <br>
    <input type="submit">

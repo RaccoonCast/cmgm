@@ -84,7 +84,7 @@ foreach($fileList as $filename){
         echo "Upload folder filesize: " . formatBytes($size);
         // 23.81M
   } elseif ($_POST['opt'] == 'PCI matcher') {
-        redir("..\includes\misc-functions\pci-match.php?carrier=$default_carrier","0");
+        redir("..\includes\misc-functions\PCI-match.php?carrier=$default_carrier","0");
     }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
