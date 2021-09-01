@@ -14,7 +14,7 @@ if (isset($_GET['new'])) {
     if (!empty($latitude) && !empty($longitude)) @redir("Edit.php?id=" . @mysqli_fetch_array(mysqli_query($conn,"SELECT DISTINCT id, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ORDER BY distance LIMIT 1"))['id'],"0");
   }
   include "includes/edit/id_input_1.php";
-  include "includes/edit/prev_next.php";
+
   die();
 }
 ?>
