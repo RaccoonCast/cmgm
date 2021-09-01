@@ -101,10 +101,13 @@ select {
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
   font-size: 22px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 14px;
+  margin-right: 14px;
   text-decoration: none;
 }
 abbr {
 	text-decoration: none!important;
+}
+.map_holder {
+	width: 100%;
 }

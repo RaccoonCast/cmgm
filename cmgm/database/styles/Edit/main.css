@@ -9,7 +9,7 @@ input[type=text],input[type=number],option,select,.bio,.edit_history  {
   text-decoration: none;
   color: red;
 }
-.widget_holder {
+.map_holder {
 	float: right;
 }
 

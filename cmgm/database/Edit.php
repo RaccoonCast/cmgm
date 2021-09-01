@@ -69,11 +69,11 @@ include "includes/edit/file_attach_link_gen.php";
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";
-echo '<div class="widget_holder">';
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "../includes/widgets/widgets.php";
-echo '</div>';
+include "includes/edit/mapWithPin.php";
+echo '<div class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
+echo '</div>'
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <div style="padding-bottom: 70px" class="pre_footer"></div>

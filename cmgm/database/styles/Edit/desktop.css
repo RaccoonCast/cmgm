@@ -112,10 +112,15 @@ abbr {text-decoration: none!important;}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
-	font-size: 40px;
+	font-size: 34px;
 	text-decoration: none!important;
 }
 a[href^="?id="] {
 	display: inline-block;
 	padding-bottom: 10px;
 }
+@media (max-width: 2560px) and (min-width: 1921px) { .edit_utilitiy_holder {	width: 16%;} }
+@media (max-width: 2559px) and (min-width: 1920px) { .edit_utilitiy_holder {	width: 22%;} }
+@media (max-width: 1919px) and (min-width: 1441px) { .edit_utilitiy_holder {	width: 25%;} }
+@media (max-width: 1440px) and (min-width: 1000px) { .edit_utilitiy_holder {	width: 31%;} }
+@media (max-width: 100px) and (min-width: 1439px)  { .edit_utilitiy_holder {	width: 38%;} }
