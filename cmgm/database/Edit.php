@@ -71,7 +71,6 @@ include "includes/edit/the_form.php";
 $no_edit = "true";
 include "includes/edit/mapWithPin.php";
 echo '<div class="edit_utilitiy_holder">';
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "../includes/widgets/widgets.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
 echo '</div>'
