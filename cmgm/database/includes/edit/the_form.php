@@ -62,21 +62,24 @@
     <label class="id_params_label">PCI match with all IDs</label><select class="id_params_cw" name="pci_match"><option style="display:none" value=""></option>
     <option <?php if(@$pci_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected"?> value="false">false</option>
-    <option <?php if(@$pci_match == "partial") echo "selected"?> value="partial">partial</option></select>
+    <option <?php if(@$pci_match == "partial") echo "selected"?> value="partial">partial</option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
     <label class="id_params_label">ID pattern with all IDs</label><select class="id_params_cw" name="id_pattern_match"><option style="display:none" value=""></option>
     <option <?php if(@$id_pattern_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$id_pattern_match == "false") echo "selected"?> value="false">false</option>
-    <option <?php if(@$id_pattern_match == "partial") echo "selected"?> value="partial">partial</option></select>
+    <option <?php if(@$id_pattern_match == "partial") echo "selected"?> value="partial">partial</option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
 
     </div><div class="panel2">
     <label class="id_params_label">Sector matches</label><select class="id_params_cw" name="sector_match"><option style="display:none" value=""></option>
     <option <?php if(@$sector_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$sector_match == "false") echo "selected"?> value="false">false</option>
-    <option <?php if(@$sector_match == "partial") echo "selected"?> value="partial">partial</option></select>
+    <option <?php if(@$sector_match == "partial") echo "selected"?> value="partial">partial</option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
     <label class="id_params_label">Primary already located</label><select class="id_params_cw" name="other_user_map_primary"><option style="display:none" value=""></option>
     <option <?php if(@$other_user_map_primary == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$other_user_map_primary == "false") echo "selected"?> value="false">false</option>
-    <option <?php if(@$other_user_map_primary == "partial") echo "selected"?> value="partial">partial</option></select>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
     </div>
 
     <label class="latitude_longitude_label" for="latitude">
