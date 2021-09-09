@@ -68,7 +68,8 @@
     // verified by visit
     if ($verified_by_visit >= 10 && ($verified_by_visit < 30)) $ev += 1;
     if ($verified_by_visit >= 30 && ($verified_by_visit < 60)) $ev += 3;
-    if ($verified_by_visit >= 60 && ($verified_by_visit < 90)) $ev += 6;
+    if ($verified_by_visit >= 60 && ($verified_by_visit < 80)) $ev += 6;
+    if ($verified_by_visit >= 80 && ($verified_by_visit < 100)) $ev += 8;
     if ($verified_by_visit >= 100) $ev += 10;
 
     // sector split match
