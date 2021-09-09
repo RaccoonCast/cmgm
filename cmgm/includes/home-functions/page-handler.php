@@ -5,7 +5,7 @@ if (!isset($carrier)) $carrier = $default_latitude;
 // IF DATA HAS BEEN ENTERED IN THE FIELD - we need to A) convert & redirect to page
 if (@$_POST['goto'] != "HomeSmart" && isset($_POST['data'])) {
   if ($debug_flag != "off") echo "locfinder: $" . "data variable search <br>";
-  if (@$_POST['goto'] != "DB-Edit") redir(convert($data,@$_POST['goto'],$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier),"0");
+  if (@$_POST['goto'] != "DB-Edit") redir(convert($data,@$_POST['goto'],$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier),"0");
   if (@$_POST['goto'] == "DB-Edit") redir("database\Edit.php?id=$data","0");
 }
 
@@ -13,7 +13,7 @@ if (@$_POST['goto'] != "HomeSmart" && isset($_POST['data'])) {
 // cmgm.gq/?q=McDonalds, utilize google maps API search for "McDonalds"
 if (isset($_GET['q'])) {
   if ($debug_flag != "off") echo "locfinder: direct-search <br>";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert($_GET['q'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert($_GET['q'],"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier);
   $data = $_GET['q'];
 }
 
@@ -28,13 +28,13 @@ if ($prefLocType == "gps" && !isset($latitude) && !isset($data)) {
 // cmgm.gq, account settings specify... use default lat,long
 if ($prefLocType == "settings" && !isset($data)) {
   if ($debug_flag != "off") echo "locfinder: $" . "data variable not specified, defaulting to default_lat/long <br>";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier);
 }
 
 // Still no location? Let's assume GPS failed...
 // cmgm.gq, account settings specify use GPS however GPS failed... use default lat/long
 if (!isset($latitude) OR !isset($longitude)) {
   if ($debug_flag != "off") echo "locfinder: failed to get gps location, retrieving default loc <br>";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userIP,$default_carrier);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier);
 }
 ?>
