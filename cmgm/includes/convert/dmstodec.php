@@ -1,4 +1,7 @@
 <?php
+// lazy fix for a bug i cba explaining
+$data = str_replace('NAD 83', '', $data);
+
 function DMStoDEC($deg,$min,$sec) {
   return $deg+((($min*60)+($sec))/3600);
 }
