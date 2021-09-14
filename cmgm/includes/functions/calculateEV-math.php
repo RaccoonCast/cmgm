@@ -81,9 +81,9 @@
 
 
     // archival antenna addition
-    if ($archival_antenna_addition >= 1 && ($archival_antenna_addition < 2)) $ev += 4;
-    if ($archival_antenna_addition >= 2 && ($archival_antenna_addition < 3)) $ev += 6;
-    if ($archival_antenna_addition >= 3 ) $ev += 10;
+    if ($archival_antenna_addition >= 1 && ($archival_antenna_addition < 2)) $ev += 3;
+    if ($archival_antenna_addition >= 2 && ($archival_antenna_addition < 3)) $ev += 5;
+    if ($archival_antenna_addition >= 3 ) $ev += 8;
 
     // only reasonable location
     if ($permit_score < 40 OR empty($permit_score)) {

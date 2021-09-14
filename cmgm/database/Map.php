@@ -9,9 +9,9 @@
    include '../functions.php';
 
    if(isMobile()){
-     $limit = "355";
+     $limit = "300";
    } else {
-     $limit = "650";
+     $limit = "5xs30";
    }
    include 'includes/DB-filter.php';
    if (@substr($back, 0, 4) == "Edit") {
