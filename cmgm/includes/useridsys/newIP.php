@@ -2,7 +2,7 @@
 <script src="/js/setCookie.js"></script>
 <?php
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
-if ($siteroot == "/home/spane2003/cmgm.gq") {
+if ($siteroot == "/home/spane2003/cmgm.ml") {
   $secret_pass = file_get_contents($siteroot . "/secret_ip_whitelist_pass.hiddenpass", true);
   $ipinfo_token = file_get_contents($siteroot . "/secret_ipinfo_token.hiddenpass", true);
 } else {

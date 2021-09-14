@@ -37,7 +37,7 @@ while($row = $result->fetch_assoc()) {
       $$key = $value;
       if ($key == "DISTANCE") {
         echo "<tr>";
-        $db_map_link = "https://cmgm.gq/database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
+        $db_map_link = "https://cmgm.ml/database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
         $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL);
         $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL);
 

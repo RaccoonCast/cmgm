@@ -17,7 +17,7 @@ document.body.appendChild(el);
 <link rel="preconnect" href="https://fonts.gstatic.com">
 
 <?php
-if ($_SERVER['SERVER_NAME'] == 'cmgm.gq') {
+if ($_SERVER['SERVER_NAME'] == 'cmgm.ml') {
   $urlPrefix = "https://";
 } else {
   $urlPrefix = "http://";
