@@ -1,4 +1,4 @@
 open sftp://%username%:%password%@%ip%:%port%
 option batch continue
-synchronize both d:\cmgm\cmgm /home/spane2003/cmgm.gq -filemask="| .well-known/"
-keepuptodate d:\cmgm\cmgm /home/spane2003/cmgm.gq -filemask="| .well-known/"
+synchronize both d:\cmgm\cmgm /home/spane2003/cmgm.ml -filemask="| .well-known/"
+keepuptodate d:\cmgm\cmgm /home/spane2003/cmgm.ml -filemask="| .well-known/"
