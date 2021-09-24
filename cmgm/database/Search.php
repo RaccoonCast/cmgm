@@ -11,7 +11,7 @@
    <body>
       <?php
          ?>
-      <form autocomplete="off" action="DB.php" method="get">
+      <form autocomplete="off"  method="get">
         <div class="buttons">
           <h3>Search</h3><label class="label">Cell Site Type</label><select
         class="custominput cellsite-type-custom-width dropdown" name="cellsite_type">
@@ -70,7 +70,8 @@
        > = more than/after<br>
        < = less than/before
      </p>
-     <label></label><input type="submit" class="sb custominput" value="Submit">
+     <label></label><input type="submit" formaction="DB.php" class="sb custominput" value="Submit on DB">
+     <label></label><input type="submit" formaction="Map.php" class="sb custominput" value="Submit on Map">
    </div>
     </form>
     <?php
