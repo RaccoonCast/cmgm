@@ -17,8 +17,8 @@ if (!empty($value) OR $value == "NULL") {
   elseif ($key == "date" && $value[0] == ">") { $db_vars = " AND date_added" . ' >= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
   elseif ($key == "date" && $value[0] == "<") { $db_vars = " AND date_added" . ' <= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
   elseif ($key == "date") { $db_vars = " AND date_added" . ' = "'.date("Y-m-d", strtotime($value)).'"' . @$db_vars; }
-  elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND street-view_a != '' " . @$db_vars;
-  elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND street-view_a = '' " . @$db_vars;
+  elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND street_view_a != '' " . @$db_vars;
+  elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND street_view_a = '' " . @$db_vars;
   elseif ($value[0] == "!") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
   elseif ($value[0] == ">") { $db_vars = " AND ". $key . ' > '.$trimChar . @$db_vars; }
   elseif ($value[0] == "<") { $db_vars = " AND ". $key . ' < '.$trimChar . @$db_vars; }
