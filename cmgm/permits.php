@@ -33,6 +33,7 @@ function button($address,$button_text,$link) { ?>
 if (isset($_GET['city'])) $city = $_GET['city'];
 
 if ("$city" == "Glendale") { button($address,"Glendale","https://csi.glendaleca.gov/csipropertyportal/");
+} elseif ("$city" == "Buena Park") { button($address,"Buena Park","http://weblink.buenapark.com/public/Browse.aspx?startid=31798");
 } elseif ("$city" == "Temple City") { button($address,"Temple City","https://templecity.quickbase.com/db/bph9nwjs2?a=q&qid=1");
 } elseif ("$city" == "Boston") { button($address,"Boston","https://scerisecm.boston.gov/ScerIS/CmPublic/#/SearchCriteria?f=11");
 } elseif ("$city" == "Glendora") { button($address,"Glendora","https://etrakit.ci.glendora.ca.us/etrakit3/Search/permit.aspx");
