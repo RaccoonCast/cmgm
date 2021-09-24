@@ -4,7 +4,7 @@ $sql_edit = "UPDATE database_db SET ";
 $vals = "$";
 
 // Add all the edited fields to the $sql_edit query.
-if (isset($_POST['id'])) foreach ($list_of_vars as $value) {
+if (isset($_POST['edittag'])) foreach ($list_of_vars as $value) {
     if (@$_POST[@$value] != @${$value} && @$value != "edit_history" && @$value != "edit_lock") {
       if (strpos($value, 'street_view') === false) $sql_edit .= "$value = '".mysqli_real_escape_string($conn, $_POST[$value])."', ";
       if (strpos($value, 'street_view') !== false) $sql_edit .= "$value = '".mysqli_real_escape_string($conn, str_replace("https://", "",$_POST[$value]))."', ";

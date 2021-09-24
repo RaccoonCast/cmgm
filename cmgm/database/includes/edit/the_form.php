@@ -169,6 +169,6 @@
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
     <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" type="submit" class="sb" value="<?php echo $submit_label?>"> <?php } ?>
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" name="edittag" type="submit" class="sb" value="<?php echo $submit_label?>"> <?php } ?>
 <?php if (@$padlock == "true") echo '</fieldset>'; ?>
 </form>
