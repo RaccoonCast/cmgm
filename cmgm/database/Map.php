@@ -11,7 +11,7 @@
    if(isMobile()){
      $limit = "300";
    } else {
-     $limit = "5xs30";
+     $limit = "530";
    }
    include 'includes/DB-filter.php';
    if (@substr($back, 0, 4) == "Edit") {
@@ -48,7 +48,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
   var mymap = L.map('mapid').setView([<?php echo $latitude;?>,<?php echo $longitude;?>], <?php echo $zoom;?>);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      maxZoom: 18,
+      maxZoom: 19,
       minZoom: 5,
       tileSize: 256,
       zoomOffset: 0,
@@ -100,7 +100,7 @@ $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIA
 $database_get_list = "id,latitude,longitude,status";
 
 $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $db_vars ORDER BY distance LIMIT $limit";
-if (isset($_GET['showsql'])) echo $sql;
+if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL;
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
 
