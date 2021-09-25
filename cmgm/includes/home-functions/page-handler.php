@@ -5,8 +5,8 @@ if (!isset($carrier)) $carrier = $default_latitude;
 // IF DATA HAS BEEN ENTERED IN THE FIELD - we need to A) convert & redirect to page
 if (@$_POST['goto'] != "HomeSmart" && isset($_POST['data'])) {
   if ($debug_flag != "off") echo "locfinder: $" . "data variable search <br>";
-  if (@$_POST['goto'] != "DB-Edit") redir(convert($data,@$_POST['goto'],$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier),"0");
-  if (@$_POST['goto'] == "DB-Edit") redir("database\Edit.php?id=$data","0");
+  if (@$_POST['goto'] != "Edit") redir(convert($data,@$_POST['goto'],$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier),"0");
+  if (@$_POST['goto'] == "Edit") redir("database\Edit.php?id=$data","0");
 }
 
 // General shortlink
