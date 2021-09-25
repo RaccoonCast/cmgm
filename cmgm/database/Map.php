@@ -20,6 +20,8 @@
      $back_url = "../Home.php";
    } elseif (@substr($back, 0, 2) == "DB") {
      $back_url = "DB.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier;
+   } elseif (@substr($back, 0, 4) == "Search") {
+     $back_url = "../Search.php";
    }
    ?>
 </head>
