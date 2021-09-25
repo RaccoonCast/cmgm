@@ -24,3 +24,8 @@
   .w-25 {width: 100%;max-width: 100%;}
   .w-100 {width: 100%;max-width: 100%}
 }
+input[type=text],input[type=number],input,option,select,.bio,.edit_history  {
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+}
