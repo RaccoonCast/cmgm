@@ -13,11 +13,10 @@ input[type=text],input[type=number],option,select {
 		margin: 0px;
 		border: 1px solid;
 }
-@media (min-width:1700px) {
+@media (min-width:1599px) {
 /* Panels (split page in half) */
 .panel1 { width: 49.93%; float: left; }
 .panel2 { width: 49.93%; float: right; }
-
 ._panel1 { width: 33.33%; float: left; }
 ._panel2 { width: 33.33%; float: left; }
 ._panel3 { width: 33.33%; float: right; }
