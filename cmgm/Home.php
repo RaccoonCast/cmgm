@@ -9,7 +9,7 @@
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) include "includes/home-functions/page-handler.php";
       include_once SITE_ROOT . "/includes/home-functions/goto.php";
-      
+
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
@@ -26,7 +26,7 @@
          <input type="hidden" name="zip" value="<?php echo $zip;?>">
          <input type="hidden" name="city" value="<?php echo $city;?>">
          <input type="hidden" name="state" value="<?php echo $state;?>">
-         <input type="hidden" id="rerunData" name="rerunData" value="false"><input
+         <input type="hidden" value="false"><input
          type="button" class="sb w-33" style="color:#FF0000" id="link01" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Form",NULL) ?>');"value="Form"><input
          type="button" class="sb w-33" style="color:#FF0000" id="link02" name="goto" onclick="redir('/database/Edit.php?id=<?php echo $latitude . "," . $longitude;?>');" value="Edit"><input
          type="button" class="sb w-33" style="color:#FF0000" id="link03" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Map",NULL) ?>');" value="Map"><input
