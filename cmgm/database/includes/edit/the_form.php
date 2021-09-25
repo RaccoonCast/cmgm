@@ -6,7 +6,7 @@
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
 
     <label class="cellsite_type_label">Type of cellsite</label><select
-    class="status_cw" autocomplete="on" name="status" required>
+    class="status_cw" autocomplete="on" onClick="lte_1Reqd()" id="status" name="status" required>
     <option style="display:none" value=""></option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
     <option <?php if(@$status == "wip") echo "selected"?> value="wip"><?php if ($isMobile =="true") { echo "Verified+WIP"; } else { echo "Verified and WIP";} ?></option>

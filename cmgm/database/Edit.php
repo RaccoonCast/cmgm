@@ -8,6 +8,7 @@ header('Pragma: no-cache'); ?>
 <head>
 <meta http-equiv="Cache-Control" content="private, no-store" />
 <script src="../js/copyToClipboard.js"></script>
+<script src="../js/database.js"></script>
 <?php
 $titleOverride = "true";
 include "../functions.php";

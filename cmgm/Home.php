@@ -1,6 +1,4 @@
-<?php
-header("Cache-Control: no-store, max-age=0");
-?>
+<?php header("Cache-Control: no-store, max-age=0"); ?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -11,7 +9,7 @@ header("Cache-Control: no-store, max-age=0");
       include "js/index.js.php";
       if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) include "includes/home-functions/page-handler.php";
       include_once SITE_ROOT . "/includes/home-functions/goto.php";
-
+      
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
       ?>
