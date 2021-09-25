@@ -1,4 +1,5 @@
 <title>Unrecongized Device</title>
+<META name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <script src="/js/setCookie.js"></script>
 <?php
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
@@ -67,8 +68,9 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
    </head>
    <body>
      <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
-       <p>Your IP address <?php echo $ip; ?> is not recongized, please enter magical password.</p>
-         <input type="text" name="password" class="textbox">
+       <p>IP address <?php echo $ip; ?> isn't recongized.</p>
+       <p>Please enter magical password.</p>
+         <input type="password" name="password" class="textbox">
          <input type="submit" class="sb" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
      </form>
