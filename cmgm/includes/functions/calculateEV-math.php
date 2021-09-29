@@ -54,10 +54,10 @@
     if ($cellmapper_triangulation >= 20 && ($cellmapper_triangulation < 60)) $ev += 2;
     if ($cellmapper_triangulation >= 60 && ($cellmapper_triangulation < 80)) $ev += 3;
     if ($cellmapper_triangulation >= 80 && ($cellmapper_triangulation < 100)) $ev += 4;
-    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 10;
-    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 8;
-    if ($only_reasonable_location < 80) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 6;
-    if ($only_reasonable_location < 80) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 5;
+    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 5;
+    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 4;
+    if ($only_reasonable_location < 80) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 3;
+    if ($only_reasonable_location < 80) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 2;
 
     // image evidence
     if ($image_evidence >= 45 && ($image_evidence < 65)) $ev += 4;
