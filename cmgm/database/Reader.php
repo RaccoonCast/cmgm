@@ -4,7 +4,6 @@ $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
 include "../includes/functions/sqlpw.php";
 include '../includes/useridsys/native.php';
 include "../includes/functions/calculateEV.php";
-include "includes/map/get-get-queries.php";
 @$id = $_GET['id'];
 @$id = $_GET['mp-id'];
 @$show_empty_fields = $_GET['show_empty_fields'];
