@@ -1,5 +1,5 @@
 <?php if (!isset($titleOverride)) { ?>
-  <title>EvilCM - <?php echo $without_extension?></title>
+  <title>CMGM - <?php echo $without_extension?></title>
 <?php } ?>
 <link rel="icon" type="image/png" href="/images/logo.png">
 <script type="module">

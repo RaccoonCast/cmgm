@@ -32,5 +32,5 @@ if (strpos($value, 'photo') !== false && !empty($$value)) {
 
 
 if (empty($street_view_a) && empty($street_view_b) && empty($street_view_c) && empty($street_view_d)) $street_view_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
-if (isset($_GET['new'])) { echo '<title>EvilCM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>EvilCM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>EvilCM - Edit (Unknown)</title>'; }
+if (isset($_GET['new'])) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
 ?>
