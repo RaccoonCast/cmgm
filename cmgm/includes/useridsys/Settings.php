@@ -72,7 +72,7 @@ header("Pragma: no-cache");
           <option <?php if($debug_flag == "0") echo 'selected="selected" ';?>value="0">off</option>
           <option <?php if($debug_flag == "1") echo 'selected="selected" ';?>value="1">low</option>
           <option <?php if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
-          <option <?php if( == "3") echo 'selected="selected" ';?>value="3">high</option>
+          <option <?php if($debug_flag == "3") echo 'selected="selected" ';?>value="3">high</option>
         </select>
         <p>Preferred Location Type: </p>
         <select class="custominput dropdown" autocomplete="on" name="prefLocType">
