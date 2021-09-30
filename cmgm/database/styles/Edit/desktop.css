@@ -17,9 +17,9 @@ input[type=text],input[type=number],option,select {
 /* Panels (split page in half) */
 .panel1 { width: 49.93%; float: left; }
 .panel2 { width: 49.93%; float: right; }
-._panel1 { width: 33.33%; float: left; }
-._panel2 { width: 33.33%; float: left; }
-._panel3 { width: 33.33%; float: right; }
+._panel1 { width: 33%; float: left; padding-right: 0.5%; }
+._panel2 { width: 33%; float: left; padding-right: 0.5%; }
+._panel3 { width: 33%; float: right; }
 }
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
@@ -92,9 +92,9 @@ abbr {text-decoration: none!important;}
 .tags_cw {max-width: 75%!important; width: 100%;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
-.photo_label {width:14%!important; font-size: 0.95em;}
-.evidence_label {width: 14%!important; font-size: 0.95em;}
-.extra_label {width:14%!important; font-size: 0.95em;}
+.photo_label {width:14%!important; }
+.evidence_label {width: 14%!important; }
+.extra_label {width:14%!important; }
 /* Photo / Evidence / Attached */  /* TEXTBOX */
 .photo_cw {width:28.6666%!important;}
 .evidence_cw {width:28.6666%!important;}
