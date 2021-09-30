@@ -4,15 +4,15 @@ body {
 }
 label {
   display: inline-block;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 4.5px;
+  padding-bottom: 4.5px;
   min-width: inherit;
   text-align: left;
 	font-size: 0.83em;
 }
 input[type=text],input[type=number],select {
     width: 100%;
-    height: 25px;
+    height: 28px;
 		border-radius: 0px;
 		border-width: 1px;
 		border-color: lightgrey;
