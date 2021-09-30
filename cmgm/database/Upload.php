@@ -11,10 +11,10 @@
      @$type = $_POST['type'];
 
      if (isset($_POST['base64_file'])) {
-       if ($debug_flag != "off") echo "Ctrl+V upload attempting... <br>";
+       if ($debug_flag != "0") echo "Ctrl+V upload attempting... <br>";
        include "includes/upload/ctrlv.php";
      } elseif(isset($_POST['type'])) {
-       if ($debug_flag != "off") echo "File select upload attempting... <br>";
+       if ($debug_flag != "0") echo "File select upload attempting... <br>";
        include "includes/upload/file-select.php";
      }
       ?>

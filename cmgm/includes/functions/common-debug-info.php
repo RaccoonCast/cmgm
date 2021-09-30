@@ -1,5 +1,5 @@
 <?php
-if ($debug_flag == "high") {
+if ($debug_flag == "3") {
   echo "<br>";
   echo basename(__FILE__) . ": " . "Included files: " . "<br>";
   $included_files = get_included_files();

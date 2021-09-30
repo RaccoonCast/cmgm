@@ -25,7 +25,7 @@ header("Pragma: no-cache");
            ${$value} = $_POST[$value];
            $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, ${$value})."', ";
 
-           if ($debug_flag == "high" OR $debug_flag == "meduim") {
+           if ($debug_flag > 1) {
              echo "<br>" . basename(__FILE__) . ": " . "Setting " . $value . " to have value '" . $_POST[$value] . "' in SQL DB for $userID";
            }
 
@@ -40,13 +40,9 @@ header("Pragma: no-cache");
      mysqli_query($conn, $sql_edit);
 
      // if debug flag is high don't go back to home page.
-     if ($debug_flag == "meduim") {
-       redir("/?q=$default_latitude,$default_longitude","2");
-     } elseif ($debug_flag == "low") {
-       redir("/?q=$default_latitude,$default_longitude","1");
-     } elseif ($debug_flag == "off") {
-       redir("/?q=$default_latitude,$default_longitude","0");
-     }
+     if ($debug_flag == 2) redir("/?q=$default_latitude,$default_longitude","2");
+     if ($debug_flag == 1) redir("/?q=$default_latitude,$default_longitude","1");
+     if ($debug_flag == 0) redir("/?q=$default_latitude,$default_longitude","0");
      }
      ?>
    </head>
@@ -73,10 +69,10 @@ header("Pragma: no-cache");
         </select>
         <p>Debug Flag: </p>
         <select class="custominput dropdown" autocomplete="on" name="debug_flag">
-          <option <?php if($debug_flag == "off") echo 'selected="selected" ';?>value="off">off</option>
-          <option <?php if($debug_flag == "low") echo 'selected="selected" ';?>value="low">low</option>
-          <option <?php if($debug_flag == "meduim") echo 'selected="selected" ';?>value="meduim">meduim</option>
-          <option <?php if($debug_flag == "high") echo 'selected="selected" ';?>value="high">high</option>
+          <option <?php if($debug_flag == "0") echo 'selected="selected" ';?>value="0">off</option>
+          <option <?php if($debug_flag == "1") echo 'selected="selected" ';?>value="1">low</option>
+          <option <?php if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
+          <option <?php if( == "3") echo 'selected="selected" ';?>value="3">high</option>
         </select>
         <p>Preferred Location Type: </p>
         <select class="custominput dropdown" autocomplete="on" name="prefLocType">

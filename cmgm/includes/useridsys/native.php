@@ -16,7 +16,7 @@ while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
       if ($key != "id") {
         $$key = $value;
-        if (@$debug_flag == "high") {
+        if (@$debug_flag == "3") {
           echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
         }
       }

@@ -43,7 +43,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $default_longitude = trim($result_ipinfo[1]);
   $theme = "white";
   $gmaps_util = "0";
-  $debug_flag = "off";
+  $debug_flag = "0";
   $prefLocType = "settings";
 
   $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag, prefLocType)
