@@ -26,9 +26,17 @@ input[type=text],input[type=number],select {
   padding-bottom: 25px;
   margin: 0 auto;
 }
+.small-sb {
+  font-size: 1.3em;
+  width: 50%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin: 0 auto;
+}
 .id_input {
 	width: 100%!important;
-	height: 1.5cm!important;
+	height: 2cm!important;
+	font-size: 2em!important;
 }
 #addr_gmaps {display: none;}
 #latlong_cmlink {display: none;}
