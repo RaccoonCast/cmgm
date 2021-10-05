@@ -18,6 +18,12 @@
     <option style="display:none" value=""></option>
     <option <?php if(@$concealed == "true") echo 'selected ';?>value="true">Concealed</option>
     <option <?php if(@$concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
+    </select><select class="carrier_cw" autocomplete="on" name="carrier">
+    <option <?php if(@$carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
+    <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
+    <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
+    <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
+    <option <?php if(@$carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select><select autocomplete="on" class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" value=""></option>
     <option <?php if(@$cellsite_type == "tower") echo "selected"?> value="tower">Tower</option>
@@ -31,12 +37,6 @@
     <option <?php if(@$cellsite_type == "pole") echo "selected"?> value="pole">Pole</option>
     <option <?php if(@$cellsite_type == "structure") echo "selected"?> value="structure">Structure mount</option>
     <option <?php if(@$cellsite_type == "other") echo "selected"?> value="other">Other/Uknown</option>
-    </select><select class="carrier_cw" autocomplete="on" name="carrier">
-    <option <?php if(@$carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
-    <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
-    <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
-    <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
-    <option <?php if(@$carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select>
 
     <?php
@@ -49,43 +49,46 @@
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = "https://www.cellmapper.net/map?$beginning"  . "type=NR&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
     ?>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
-    type="number" class="lte_nr_cw" maxlength="7" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
+    type="number" class="lte_cw" maxlength="7" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
+    type="number" class="lte_cw" maxlength="7" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
+    type="number" class="lte_cw" maxlength="7" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
+    type="number" class="lte_cw" maxlength="7" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
+    type="number" class="lte_cw" maxlength="7" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
+    type="number" class="lte_cw" maxlength="7" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
+    type="number" class="nr_cw" maxlength="7" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
+    type="number" class="nr_cw" maxlength="7" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
-    <div class="panel1">
-    <label class="id_params_label">PCI match with all IDs</label><select class="id_params_cw" name="pci_match"><option style="display:none" value=""></option>
+
+    <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
+    <option  disabled selected>PCIs match:</option>
+    <option style="display:none" value=""></option>
     <option <?php if(@$pci_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected"?> value="false">false</option>
     <option <?php if(@$pci_match == "partial") echo "selected"?> value="partial">partial</option>
-    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
-    <label class="id_params_label">ID pattern with all IDs</label><select class="id_params_cw" name="id_pattern_match"><option style="display:none" value=""></option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select><select class="id_params_cw" name="id_pattern_match">
+    <option  disabled selected>ID Pattern Match: </option>
+    <option style="display:none" value=""></option>
     <option <?php if(@$id_pattern_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$id_pattern_match == "false") echo "selected"?> value="false">false</option>
     <option <?php if(@$id_pattern_match == "partial") echo "selected"?> value="partial">partial</option>
-    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
-
-    </div><div class="panel2">
-    <label class="id_params_label">Sector matches</label><select class="id_params_cw" name="sector_match"><option style="display:none" value=""></option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select><select class="id_params_cw" name="sector_match">
+    <option  disabled selected>Sectors match: </option>
+    <option style="display:none" value=""></option>
     <option <?php if(@$sector_match == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$sector_match == "false") echo "selected"?> value="false">false</option>
     <option <?php if(@$sector_match == "partial") echo "selected"?> value="partial">partial</option>
-    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
-    <label class="id_params_label">Primary already located</label><select class="id_params_cw" name="other_user_map_primary"><option style="display:none" value=""></option>
+    <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select><select class="id_params_cw_longer" name="other_user_map_primary">
+    <option  disabled selected>Primary already located: </option>
+    <option style="display:none" value=""></option>
     <option <?php if(@$other_user_map_primary == "true") echo "selected"?> value="true">true</option>
     <option <?php if(@$other_user_map_primary == "false") echo "selected"?> value="false">false</option>
     <?php if (isset($_GET['new'])) echo '<option selected value=""></option></select>'; ?></select>
-    </div>
+
 
     <label class="latitude_longitude_label" for="latitude">
     <span class="latitude_longitude_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $latitude . ","; ?><?php echo $longitude; ?>')">Copy</a></span><a id="latlong_cmlink" target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Latitude/Longitude</a></label><input
-    type="text" class="inline-block latitude_cw latitude_longitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude"><input
-    type="text" class="inline-block longitude_cw latitude_longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
+    type="text" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude"><input
+    type="text" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
 
     <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo @$latitude; ?>,<?php echo @$longitude; ?>&zoom=20&basemap=satellite">Address</a>
     <span class="addr_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></label><input
@@ -94,11 +97,20 @@
     type="text" autocomplete="off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_a_label; echo @$street_view_b_label; echo @$street_view_c_label; echo @$street_view_d_label; ?></span></label><input
+    <label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_a; ?></span></label><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_a_date" placeholder="DATE" value="<?php echo $street_view_a_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_b_date" placeholder="DATE" value="<?php echo $street_view_b_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
-    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>">
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_c_date" placeholder="DATE" value="<?php echo $street_view_c_date ?>">
+    <?php if($isMobile == "false") {?><label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_d_date" placeholder="DATE" value="<?php echo $street_view_d_date ?>"><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_e_date" placeholder="DATE" value="<?php echo $street_view_e_date ?>"><input
+    type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_f_date" placeholder="DATE" value="<?php echo $street_view_f_date ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>

@@ -34,7 +34,8 @@ $list_of_vars = array('id', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE
 'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
 'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','extra_a', 'extra_b', 'extra_c','permit_score','trails_match',
 'carriers_ruled_out','antennas_match_carrier', 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match','archival_antenna_addition',
-'only_reasonable_location', 'alt_carriers_here', 'edit_history', 'edit_lock', 'street_view_a', 'street_view_b', 'street_view_c', 'street_view_d');
+'only_reasonable_location', 'alt_carriers_here', 'edit_history', 'edit_lock', 'street_view_a', 'street_view_a_date', 'street_view_b', 'street_view_b_date',
+'street_view_c', 'street_view_c_date', 'street_view_d', 'street_view_d_date', 'street_view_e', 'street_view_e_date', 'street_view_f', 'street_view_f_date');
 
 // If $POST_NEW is set create a new DB wherever an ID is available.
 if (isset($_POST['new'])) include "includes/edit/create_new.php";
@@ -70,7 +71,7 @@ include "includes/edit/file_attach_link_gen.php";
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";
-include "includes/edit/mapWithPin.php";
+if (!empty($latitude)) include "includes/edit/mapWithPin.php";
 echo '<div class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
