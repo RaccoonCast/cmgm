@@ -15,14 +15,9 @@ if (!empty($$value)) {
     elseif (file_exists("uploads/" . ($$value))) {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="uploads/' . $$value . '">' . $link_suffix . '</a>';}
     else {$$val = '<a class="pad-small-link error" title="' . $value . ' is missing." target="_blank" href="#">' . $link_suffix . '</a>';}
     } else { $$val = null; }
-
-if (strpos($value, 'photo') !== false && !empty($$value)) {
-
 }
 
-
-
-}
+if (empty($street_view_a) && empty($street_view_b) && empty($street_view_c) && empty($street_view_d)) $street_view_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
 
 if($isMobile == "false") {
   $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.'</span>';
@@ -34,6 +29,5 @@ if($isMobile == "false") {
   $street_view_linklabel_a = '<span style="float: right">'.@$street_view_a_label.@$street_view_b_label.@$street_view_c_label.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label.'</span>';
 }
 
-if (empty($street_view_a) && empty($street_view_b) && empty($street_view_c) && empty($street_view_d)) $street_view_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
 if (isset($_GET['new'])) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
 ?>

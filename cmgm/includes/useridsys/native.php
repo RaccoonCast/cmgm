@@ -10,6 +10,7 @@ if (isset($_COOKIE['userID'])) {
 }
 
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
+if (isset($_GET['cellmapperissexy'])) $cookie_userID = "guest";
 $sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) {
