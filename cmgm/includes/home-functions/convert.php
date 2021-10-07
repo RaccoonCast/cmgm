@@ -1,5 +1,5 @@
 <?php
-function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier) {
+function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom) {
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 include_once SITE_ROOT . "/includes/home-functions/goto.php";
@@ -31,5 +31,5 @@ $longitude = substr($longitude,0,10);
 
 if ($goto == "HomeSmart") return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
 
-return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$state,@$goto,@$conv_type,@$url_1,@$url_2);
+return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$state,@$goto,@$conv_type,@$url_1,@$url_2,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
 }
