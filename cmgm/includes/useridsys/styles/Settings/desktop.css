@@ -3,19 +3,24 @@
   padding: 12px;
   font-size: 1.85em;
 }
-input,option,select {
+input[type=select],input[type=text],option,select {
   width: 35%;
   padding: 12px;
-  font-size: 0.7em;
+  font-size: 1em;
 }
-option,select {
-  width: 35%;
-  font-size: 0.9em;
-  padding: 12px;
+select {
+  height: 2.15em;
+  padding: 0.3em;
+}
+input[type=checkbox] {
+  margin-top: 1.45em; margin-bottom: 1.45em; margin-left: 2em;
 }
 body {
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 .w-50 {
   width: 17.5%!important;
+}
+p {
+  margin: 0.75em;
 }

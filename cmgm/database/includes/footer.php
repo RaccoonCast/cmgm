@@ -7,11 +7,7 @@
    @$longitude = substr("$longitude", 0, 10);
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
    if (!isset($carrier)) $carrier = $default_carrier;
-   if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-   if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
-   if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
-   if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
-   $cmlink = "https://www.cellmapper.net/map?$beginning"  . "type=LTE&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+   $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
    $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
    $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";

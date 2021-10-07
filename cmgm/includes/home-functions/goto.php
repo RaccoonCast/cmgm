@@ -1,5 +1,5 @@
 <?php
-function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto_page,$conv_type) {
+function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto_page,$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc) {
 if(empty($type)) $type = "LTE";
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
@@ -13,13 +13,8 @@ if (isset($_GET['data'])) $data = @$_GET['data'];
 if (isset($_POST['data'])) $data = @$_POST['data'];
 
 if ($goto_page == "CellMapper") {
-  if ("$carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-  if ("$carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
-  if ("$carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
-  if ("$carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
-  if ("$type" == "LTE") $beginning = $beginning . "type=LTE&";
-  if ("$type" == "NR") $beginning = $beginning . "type=NR&";
-  return "https://www.cellmapper.net/map?$beginning" . "latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+  $var = cellmapperLink($latitude,$longitude,"18",$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
+  return $var;
 }
 if ($goto_page == "Beta") {
   if ("$carrier" == "T-Mobile") $beginning = "310/260";

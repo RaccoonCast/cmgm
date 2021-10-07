@@ -51,14 +51,9 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     include "../includes/widgets/widgets.php";
                     ?> <br> <?php
 
-                     if ("$carrier" == "T-Mobile") $beginning = "?MCC=310&MNC=260";
-                     if ("$carrier" == "Sprint") $beginning = "?MCC=310&MNC=120";
-                     if ("$carrier" == "ATT") $beginning = "?MCC=310&MNC=410";
-                     if ("$carrier" == "Verizon") $beginning = "?MCC=311&MNC=480";
-
                     if (empty($LTE_1)) $LTE_1 = "CellMapper";
 
-                      $cellmapper_net_url = "https://www.cellmapper.net/map$beginning&latitude=$latitude&longitude=$longitude&zoom=18&showTowerLabels=false";
+                      $cellmapper_net_url = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
                         if(!empty($LTE_1)) ?> <a class="widget" target="_blank" href="<?php echo $cellmapper_net_url ?>"><?php echo $LTE_1?><?php
                         if(!empty($LTE_2)) { echo " & " . $LTE_2; }
                         if(!empty($LTE_3)) { echo " & " . $LTE_3; }
@@ -89,9 +84,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                         echo ("<a target=" . "_blank" . " href=" . "$evidence_a" . ">Evidence</a><br>");
                       }
                       // todo:// find some to auto populate fields like carrier, status similiar to how we do for api/getTowers.php
-                      if (!empty($bio)) {
-                      echo ("<p>" . $bio . "</p>");
-                      }
+                      echo nl2br(@$bio);
                       break;
 
                 }

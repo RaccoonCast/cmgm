@@ -44,9 +44,12 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $theme = "white";
   $gmaps_util = "0";
   $debug_flag = "0";
-  $prefLocType = "settings";
+  $cm_mapType = "osm_street";
+  $cm_groupTowers = "false";
+  $cm_showLabels = "true";
+  $cm_showLowAcc = "true";
 
-  $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag, prefLocType)
+  $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag, cm_mapType, cm_groupTowers, cm_showLabels, cm_showLowAcc, prefLocType)
                   VALUES (
                     '".mysqli_real_escape_string($conn, $userID)."',
                     '".mysqli_real_escape_string($conn, $username)."',
@@ -57,7 +60,10 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     '".mysqli_real_escape_string($conn, $default_longitude)."',
                     '".mysqli_real_escape_string($conn, $theme)."',
                     '".mysqli_real_escape_string($conn, $gmaps_util)."',
-                    '".mysqli_real_escape_string($conn, $debug_flag)."',
+                    '".mysqli_real_escape_string($conn, $cm_mapType)."',
+                    '".mysqli_real_escape_string($conn, $cm_groupTowers)."',
+                    '".mysqli_real_escape_string($conn, $cm_showLabels)."',
+                    '".mysqli_real_escape_string($conn, $cm_showLowAcc)."',
                     '".mysqli_real_escape_string($conn, $prefLocType)."');  ";
                     mysqli_query($conn, $sql);
                     mysqli_close($conn);

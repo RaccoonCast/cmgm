@@ -10,7 +10,7 @@ header("Pragma: no-cache");
      <?php
      include "../../functions.php";
 
-     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'prefLocType');
+     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'cm_mapType', 'cm_groupTowers', 'cm_showLabels', 'cm_showLowAcc', 'cm_zoom', 'prefLocType');
 
      if (isset($_POST['default_latitude'])) {
      /// Database column names
@@ -20,7 +20,7 @@ header("Pragma: no-cache");
 
      // Infix for the Build-A-Query
      foreach ($list_of_vars as $value) {
-       if (!empty($_POST[$value])) {
+       if (isset($_POST[$value])) {
 
            ${$value} = $_POST[$value];
            $sql_edit = $sql_edit . "$value = '".mysqli_real_escape_string($conn, ${$value})."', ";
@@ -79,10 +79,42 @@ header("Pragma: no-cache");
           <option <?php if($prefLocType == "settings") echo 'selected="selected" ';?>value="settings">Settings</option>
           <option <?php if($prefLocType == "gps") echo 'selected="selected" ';?>value="gps">GPS</option>
         </select>
+        <p>CellMapper Link: </p>
+        <select class="custominput dropdown" autocomplete="on" name="cm_mapType">
+          <option <?php if($cm_mapType == "osm_street") echo 'selected="selected" ';?>value="osm_street">OpenStreetMaps</option>
+          <option <?php if($cm_mapType == "esri_satellite") echo 'selected="selected" ';?>value="esri_satellite">ESRI Satellite</option>
+          <option <?php if($cm_mapType == "esri_topo") echo 'selected="selected" ';?>value="esri_topo">ESRI Topographical</option>
+          <option <?php if($cm_mapType == "usgs_satellite") echo 'selected="selected" ';?>value="usgs_satellite">USGS Satellite</option>
+        </select><br>
+        <!-- GROUP TOWERS -->
+        <input type="hidden" name="cm_groupTowers" value="false">
+        <input type="checkbox" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>>
+        <label for="cm_groupTowers"> Group Towers</label>
+
+        <!-- SHOW LABELS -->
+        <input type="hidden" name="cm_showLabels" value="false">
+        <input type="checkbox" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>>
+        <label for="cm_showLabels"> Show Labels</label>
+
+        <!-- SHOW LOW ACCURACY -->
+        <input type="hidden" name="cm_showLowAcc" value="false">
+        <input type="checkbox" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>>
+        <label for="cm_showLowAcc"> Show Low Accuracy</label>
+
+        <!-- CM ZOOM -->
+        <br><label for="cm_zoom">Zoom: </label><input type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
+
+        <p>Google Maps Link: </p>
         <br>
         <br>
         <input type="button" class="w-50 sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
         type="submit" class="w-50 sb" style="color: #00000;"  value="Submit">
      </form>
    </body>
+   <script>
+   var slider = document.getElementById("cm_zoom");
+   var output = document.getElementById("cm_zoomVal");
+   output.innerHTML = slider.value;
+   slider.oninput = function() {output.innerHTML = this.value;}
+   </script>
 </html>
