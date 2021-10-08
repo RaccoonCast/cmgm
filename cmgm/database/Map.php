@@ -26,7 +26,7 @@
    ?>
 </head>
 <body class="body">
-<div id="sidebar"><?php include "includes/Map/sidebar.php"?></div>
+<div id="sidebar"><?php // include "includes/Map/sidebar.php"?></div>
 <div id="map"><div id="mapid"></div>
 <?php if (!isset($marker_latitude)) { ?>
 <button class="special_button" id="backButton"><div class="buttonContainer"><?php if(isMobile()) { echo "⬅"; } else {echo "🔙";} ?></div></button>

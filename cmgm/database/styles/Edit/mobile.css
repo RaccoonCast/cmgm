@@ -41,6 +41,7 @@ input[type=text],input[type=number],select {
 #addr_gmaps {display: none;}
 #latlong_cmlink {display: none;}
 .lte_nr_label { display: none; }
+.pci_label { display: none; }
 
 /* Address boxes */  /* TEXTBOX */
 .addr_label { width: 8.8%!important;  padding: none!important; }
@@ -96,6 +97,7 @@ select {
 
 /* LTE/NR ids */  /* TEXTBOXES */
 .nr_cw,.lte_cw { width: 25%!important; }
+.pci_cw {width: 14.2857142857%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {padding: 4px 15px 4px 20px; text-align: right}
