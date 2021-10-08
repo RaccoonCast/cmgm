@@ -45,7 +45,7 @@ if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing."
 if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,$redirPage,$conn,$userID);
 
 // SQL Edit Code
-if ($padlock == "false" && !empty($id)) include "includes/edit/the_edit_code.php";
+if ($padlock == "false") include "includes/edit/the_edit_code.php";
 
 // Not found? Ok... let's try some things.
 if (!isset($status) OR isset($_GET['id_search'])) include "includes/edit/missing_id.php";
