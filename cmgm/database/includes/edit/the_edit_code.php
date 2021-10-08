@@ -2,16 +2,15 @@
 // Edit
 $sql_edit = "UPDATE database_db SET ";
 $vals = "$";
-
-// Add all the edited fields to the $sql_edit query.
-if (isset($_POST['edittag'])) foreach ($list_of_vars as $value) {
-    if (@$_POST[@$value] != @${$value} && @$value != "edit_history" && @$value != "edit_lock") {
-      if (strpos($value, 'street_view') === false) $sql_edit .= "$value = '".mysqli_real_escape_string($conn, $_POST[$value])."', ";
-      if (strpos($value, 'street_view') !== false) $sql_edit .= "$value = '".mysqli_real_escape_string($conn, str_replace("https://", "",$_POST[$value]))."', ";
-      @$vals .= $value . ", $";
-    }
-    ${$value} = @$_POST[$value];
+if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
+  if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id") {
+   if (strpos($key, 'street_view') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
+   if (strpos($key, 'street_view') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
+   @$vals .= $key . ", $";
   }
+  ${$value} = @$_POST[$value];
+}
+
 // Remove last comma from the query.
 if (isset($id)) $vals = rtrim($vals,', $');
 

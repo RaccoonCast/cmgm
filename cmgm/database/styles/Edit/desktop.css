@@ -77,6 +77,12 @@ abbr {text-decoration: none!important;}
 .lte_cw {width: 9.1666%!important;}
 .nr_cw {width: 10%!important;}
 
+/* PCIs  */  /* LABEL */
+.pci_label {max-width: 25%; width: 100%}
+/* PCIs */  /* TEXTBOXES */
+.pci_cw {width: 5.76923076923%!important;}
+
+
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
 .id_params_label {max-width: 25%; width: 100%}

@@ -58,6 +58,20 @@
     type="number" class="nr_cw" maxlength="7" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
     type="number" class="nr_cw" maxlength="7" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
+    <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
+    type="number" class="pci_cw" maxlength="7" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13">
 
     <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
     <option  disabled selected>PCIs match:</option>
@@ -99,18 +113,18 @@
 
     <label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_a; ?></span></label><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_a_date" placeholder="DATE" value="<?php echo $street_view_a_date ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_b_date" placeholder="DATE" value="<?php echo $street_view_b_date ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_c_date" placeholder="DATE" value="<?php echo $street_view_c_date ?>">
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
     <?php if($isMobile == "false") {?><label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_d_date" placeholder="DATE" value="<?php echo $street_view_d_date ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_e_date" placeholder="DATE" value="<?php echo $street_view_e_date ?>"><input
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
-    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_f_date" placeholder="DATE" value="<?php echo $street_view_f_date ?>">
+    type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -128,6 +142,10 @@
     type="text" class="extra_cw" name="extra_a" placeholder="EXTRA_A" placeholder="PHOTO_A"value="<?php echo @$extra_a?>"><input
     type="text" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
     type="text" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
+    <?php if($isMobile == "false") {?><label class="extra_label">Extras <?php echo @$extras_link_linklabel_b; ?></span></label><?php } ?><input
+    type="text" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
+    type="text" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
+    type="text" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
 
     <label class="photo_label">Photos <?php echo @$photo_link_linklabel_a; ?></label><input
     type="text" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input

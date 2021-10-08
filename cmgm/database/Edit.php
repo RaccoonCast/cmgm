@@ -29,14 +29,6 @@ if (isset($_POST['delete'])) $delete = $_POST['delete'];
 if (isset($_GET['lock_status']))  $lock_status = $_GET['lock_status'];
 if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
 
-/// Database column names - todo:// edit_lock(IPs, name?)
-$list_of_vars = array('id', 'cellsite_type', 'concealed', 'LTE_1', 'LTE_2', 'LTE_3', 'LTE_4', 'LTE_5', 'LTE_6', 'NR_1', 'NR_2', 'pci_match',
-'id_pattern_match', 'sector_match', 'other_user_map_primary', 'carrier', 'latitude', 'longitude', 'city', 'zip', 'state', 'address', 'bio', 'tags', 'status',
-'evidence_a', 'evidence_b', 'evidence_c', 'photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f','extra_a', 'extra_b', 'extra_c','permit_score','trails_match',
-'carriers_ruled_out','antennas_match_carrier', 'cellmapper_triangulation', 'image_evidence', 'verified_by_visit', 'sector_split_match','archival_antenna_addition',
-'only_reasonable_location', 'alt_carriers_here', 'edit_history', 'edit_lock', 'street_view_a', 'street_view_a_date', 'street_view_b', 'street_view_b_date',
-'street_view_c', 'street_view_c_date', 'street_view_d', 'street_view_d_date', 'street_view_e', 'street_view_e_date', 'street_view_f', 'street_view_f_date');
-
 // If $POST_NEW is set create a new DB wherever an ID is available.
 if (isset($_POST['new'])) include "includes/edit/create_new.php";
 

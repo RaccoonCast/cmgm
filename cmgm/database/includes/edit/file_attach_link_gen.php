@@ -1,6 +1,6 @@
 <?php
 // Generate Links for File Attaches
-$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'evidence_a', 'evidence_b', 'evidence_c', 'street_view_a', 'street_view_b', 'street_view_c', 'street_view_d', 'street_view_e', 'street_view_f');
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c', 'street_view_a', 'street_view_b', 'street_view_c', 'street_view_d', 'street_view_e', 'street_view_f');
 
 foreach ($foreachList as &$value) {
 
@@ -22,11 +22,16 @@ if (empty($street_view_a) && empty($street_view_b) && empty($street_view_c) && e
 if($isMobile == "false") {
   $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.'</span>';
   $photo_link_linklabel_b = '<span style="float: right">'.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
+
+  $extra_linklabel_a = '<span style="float: right">'.@$extra_a_label.@$extra_b_label.@$extra_c_label.'</span>';
+  $extra_linklabel_b = '<span style="float: right">'.@$extra_d_label.@$extra_e_label.@$extra_f_label.'</span>';
+
   $street_view_linklabel_a = '<span style="float: right">'.@$street_view_a_label.@$street_view_b_label.@$street_view_c_label.'</span>';
   $street_view_linklabel_b = '<span style="float: right">'.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label.'</span>';
 } else {
   $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
   $street_view_linklabel_a = '<span style="float: right">'.@$street_view_a_label.@$street_view_b_label.@$street_view_c_label.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label.'</span>';
+  $extra_linklabel_a = '<span style="float: right">'.@$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label.'</span>';
 }
 
 if (isset($_GET['new'])) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
