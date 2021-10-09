@@ -23,6 +23,7 @@
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
     <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
     <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
+    <option <?php if(@$carrier == "Sprint_Keep") echo "selected"?> value="Sprint_Keep">Sprint Keep</option>
     <option <?php if(@$carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select><select autocomplete="on" class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" value=""></option>
@@ -139,11 +140,11 @@
     type="text" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
     type="text" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="extra_label">Extras <span style="float: right"><?php echo @$extra_a_label;?><?php echo @$extra_b_label;?><?php echo @$extra_c_label;?></span></label><input
+    <label class="extra_label">Extras <span style="float: right"><?php echo @$extra_linklabel_a ?></span></label><input
     type="text" class="extra_cw" name="extra_a" placeholder="EXTRA_A" placeholder="PHOTO_A"value="<?php echo @$extra_a?>"><input
     type="text" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
     type="text" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
-    <?php if($isMobile == "false") {?><label class="extra_label">Extras <?php echo @$extras_link_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="extra_label">Extras <?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
     type="text" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
     type="text" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
     type="text" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">

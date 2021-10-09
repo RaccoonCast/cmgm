@@ -3,7 +3,7 @@
 $sql_edit = "UPDATE database_db SET ";
 $vals = "$";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
-  if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id") {
+  if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added") {
    if (strpos($key, 'street_view') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
    if (strpos($key, 'street_view') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
    @$vals .= $key . ", $";
