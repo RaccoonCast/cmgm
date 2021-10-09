@@ -41,11 +41,6 @@
     </select>
 
     <?php
-      if (isset($_GET['new'])) $beginning = null;
-      if (@$carrier == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-      if (@$carrier == "Sprint") $beginning = "MCC=310&MNC=120&";
-      if (@$carrier == "ATT") $beginning = "MCC=310&MNC=410&";
-      if (@$carrier == "Verizon") $beginning = "MCC=311&MNC=480&";
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
     ?>
