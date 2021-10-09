@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 19:  $street_view_a = $value;
 
                     // just pretty it up
-                    if ($carrier == "Sprint_Keep") $carrier = "Sprint Keep";
+                    if ($carrier == "Sprint_keep") $carrier = "Sprint Keep";
 
                     echo nl2br("<p class=" . "widget" . ">" . $carrier . " <a href=" . "Reader.php?back_url=Map-popup&mp-id=" . $id . ">#" . $id . "</a> </p>");
                     $no_reader = "true";

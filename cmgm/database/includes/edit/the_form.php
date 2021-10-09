@@ -23,7 +23,7 @@
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
     <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
     <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
-    <option <?php if(@$carrier == "Sprint_Keep") echo "selected"?> value="Sprint_Keep">Sprint Keep</option>
+    <option <?php if(@$carrier == "Sprint_keep") echo "selected"?> value="Sprint_keep">Sprint Keep</option>
     <option <?php if(@$carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
     </select><select autocomplete="on" class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" value=""></option>
