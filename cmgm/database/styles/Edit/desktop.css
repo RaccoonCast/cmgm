@@ -44,6 +44,9 @@ abbr {text-decoration: none!important;}
 	padding: 12px;
 	margin: 0px;
 }
+.sub_links {
+	float: right;
+}
 
 /* Cellsite type info dropdowns */  /* LABEL */
 .cellsite_type_label {max-width: 25%; width: 100%}

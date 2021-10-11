@@ -108,14 +108,14 @@
     type="text" autocomplete="off" class="inline-block addr_state_cw" id="state" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="off" class="inline-block addr_zip_cw" id="zip" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_a; ?></span></label><input
+    <label class="street_view_label">Street view URL <span class="sub_links"><?php echo @$street_view_linklabel_a; ?></span></label><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
     type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
     type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
     type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
-    <?php if($isMobile == "false") {?><label class="street_view_label">Street view URL <span style="float: right"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="street_view_label">Street view URL <span class="sub_links"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
     type="text" class="inline-block street_view_date_cw" autocomplete="chrome-off" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
     type="text" class="inline-block street_view_cw" autocomplete="chrome-off" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
@@ -130,12 +130,12 @@
 
     </div>
     <div class="panel2">
-    <label class="evidence_label">Evidence <span style="float: right"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
+    <label class="evidence_label">Evidence <span class="sub_links"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
     type="text" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
     type="text" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
     type="text" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="extra_label">Extras <span style="float: right"><?php echo @$extra_linklabel_a ?></span></label><input
+    <label class="extra_label">Extras <span class="sub_links"><?php echo @$extra_linklabel_a ?></span></label><input
     type="text" class="extra_cw" name="extra_a" placeholder="EXTRA_A" placeholder="PHOTO_A"value="<?php echo @$extra_a?>"><input
     type="text" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
     type="text" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">

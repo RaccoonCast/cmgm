@@ -38,6 +38,11 @@ input[type=text],input[type=number],select {
 	height: 2cm!important;
 	font-size: 2em!important;
 }
+.sub_links {
+	float: right;
+	margin-right: 1em;
+}
+
 #addr_gmaps {display: none;}
 #latlong_cmlink {display: none;}
 .lte_nr_label { display: none; }

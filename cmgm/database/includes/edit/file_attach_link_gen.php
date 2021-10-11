@@ -20,18 +20,18 @@ if (!empty($$value)) {
 if (empty($street_view_a) && empty($street_view_b) && empty($street_view_c) && empty($street_view_d)) $street_view_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
 
 if($isMobile == "false") {
-  $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.'</span>';
-  $photo_link_linklabel_b = '<span style="float: right">'.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
+  $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label;
+  $photo_link_linklabel_b = @$photo_d_label.@$photo_e_label.@$photo_f_label;
 
-  $extra_linklabel_a = '<span style="float: right">'.@$extra_a_label.@$extra_b_label.@$extra_c_label.'</span>';
-  $extra_linklabel_b = '<span style="float: right">'.@$extra_d_label.@$extra_e_label.@$extra_f_label.'</span>';
+  $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label;
+  $extra_linklabel_b = @$extra_d_label.@$extra_e_label.@$extra_f_label;
 
-  $street_view_linklabel_a = '<span style="float: right">'.@$street_view_a_label.@$street_view_b_label.@$street_view_c_label.'</span>';
-  $street_view_linklabel_b = '<span style="float: right">'.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label.'</span>';
+  $street_view_linklabel_a = @$street_view_a_label.@$street_view_b_label.@$street_view_c_label;
+  $street_view_linklabel_b = @$street_view_d_label.@$street_view_e_label.@$street_view_f_label;
 } else {
-  $photo_link_linklabel_a = '<span style="float: right">'.@$photo_a_label.@$photo_b_label.@$photo_c_label.@$photo_d_label.@$photo_e_label.@$photo_f_label.'</span>';
-  $street_view_linklabel_a = '<span style="float: right">'.@$street_view_a_label.@$street_view_b_label.@$street_view_c_label.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label.'</span>';
-  $extra_linklabel_a = '<span style="float: right">'.@$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label.'</span>';
+  $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label.@$photo_d_label.@$photo_e_label.@$photo_f_label;
+  $street_view_linklabel_a = @$street_view_a_label.@$street_view_b_label.@$street_view_c_label.@$street_view_d_label.@$street_view_e_label.@$street_view_f_label;
+  $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label;
 }
 
 if (isset($_GET['new'])) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
