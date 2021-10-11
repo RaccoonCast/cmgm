@@ -1,12 +1,12 @@
 <?php
 include '../includes/functions/mapWithPin.php';
 
-echo '<div class="map_holder" position="relative;">';
+echo '<div class="map_holder">';
 
 if(isMobile()){
-  mapWithPin($latitude,$longitude,"17","100%","250px","25");
+  mapWithPin($latitude,$longitude,"17","100%","250","25");
 } else {
-  mapWithPin($latitude,$longitude,"18","780px","500px","95");
+  mapWithPin($latitude,$longitude,"18","780","500","95");
 }
 
 echo '</div>';

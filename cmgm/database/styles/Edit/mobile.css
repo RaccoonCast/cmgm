@@ -4,15 +4,15 @@ body {
 }
 label {
   display: inline-block;
-  padding-top: 4.5px;
-  padding-bottom: 4.5px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   min-width: inherit;
   text-align: left;
-	font-size: 0.83em;
+	font-size: 0.82em;
 }
-input[type=text],input[type=number],select {
+input[type=text],input[type=search],input[type=number],select {
     width: 100%;
-    height: 28px;
+    height: 31px;
 		border-radius: 0px;
 		border-width: 1px;
 		border-color: lightgrey;
@@ -40,7 +40,7 @@ input[type=text],input[type=number],select {
 }
 .sub_links {
 	float: right;
-	margin-right: 1em;
+	margin-right: 0.8em;
 }
 
 #addr_gmaps {display: none;}
@@ -105,7 +105,7 @@ select {
 .pci_cw {width: 14.2857142857%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
-.pad-small-link-mobile {padding: 4px 15px 4px 20px; text-align: right}
+.pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; text-align: right;}
 
 /* Tags */  /* LABEL */
 .tags_label {width: 16%!important;}

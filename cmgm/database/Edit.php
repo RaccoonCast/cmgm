@@ -6,7 +6,6 @@ header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Cache-Control" content="private, no-store" />
 <script src="../js/copyToClipboard.js"></script>
 <script src="../js/database.js"></script>
 <?php

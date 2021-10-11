@@ -1,5 +1,5 @@
 <?php
-echo '<div style="display: inline-block; float: right;"">';
+echo '<div style="display: inline-block; float: right;">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false" && isset($id)) include "../includes/widgets/widgets.php";
 echo '</div>';
 ?>
