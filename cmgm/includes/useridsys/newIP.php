@@ -44,6 +44,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $theme = "white";
   $gmaps_util = "0";
   $debug_flag = "0";
+  $prefLocType = "gps";
   $cm_mapType = "osm_street";
   $cm_groupTowers = "false";
   $cm_showLabels = "true";
@@ -60,6 +61,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     '".mysqli_real_escape_string($conn, $default_longitude)."',
                     '".mysqli_real_escape_string($conn, $theme)."',
                     '".mysqli_real_escape_string($conn, $gmaps_util)."',
+                    '".mysqli_real_escape_string($conn, $debug_flag)."',
                     '".mysqli_real_escape_string($conn, $cm_mapType)."',
                     '".mysqli_real_escape_string($conn, $cm_groupTowers)."',
                     '".mysqli_real_escape_string($conn, $cm_showLabels)."',
