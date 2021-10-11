@@ -71,22 +71,22 @@
     type="number" class="pci_cw" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
 
     <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?>value="">PCIs match:</option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
     <option <?php if(@$pci_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$pci_match == "partial") echo "selected" ?>value="partial">partial</option>
     </select><select class="id_params_cw" name="id_pattern_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?>value="">ID Pattern Match: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$id_pattern_match == "") echo "selected "?>value="">ID Pattern Match: </option>
     <option <?php if(@$id_pattern_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$id_pattern_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$id_pattern_match == "partial") echo "selected "?>value="partial">partial</option>
     </select><select class="id_params_cw" name="sector_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?>value="">Sectors match: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$sector_match == "") echo "selected "?>value="">Sectors match: </option>
     <option <?php if(@$sector_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$sector_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$sector_match == "partial") echo "selected "?>value="partial">partial</option>
     </select><select class="id_params_cw_longer" name="other_user_map_primary">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?>value="">Primary already located: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$other_user_map_primary == "") echo "selected "?>value="">Primary already located: </option>
     <option <?php if(@$other_user_map_primary == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$other_user_map_primary == "false") echo "selected "?>value="false">false</option>
     </select>
