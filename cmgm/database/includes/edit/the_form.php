@@ -71,22 +71,22 @@
     type="number" class="pci_cw" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
 
     <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
     <option <?php if(@$pci_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$pci_match == "partial") echo "selected" ?>value="partial">partial</option>
     </select><select class="id_params_cw" name="id_pattern_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$id_pattern_match == "") echo "selected "?>value="">ID Pattern Match: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$id_pattern_match == "") echo "selected "?>value="">ID Pattern Match: </option>
     <option <?php if(@$id_pattern_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$id_pattern_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$id_pattern_match == "partial") echo "selected "?>value="partial">partial</option>
     </select><select class="id_params_cw" name="sector_match">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$sector_match == "") echo "selected "?>value="">Sectors match: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled ";if(@$sector_match == "") echo "selected "?>value="">Sectors match: </option>
     <option <?php if(@$sector_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$sector_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$sector_match == "partial") echo "selected "?>value="partial">partial</option>
     </select><select class="id_params_cw_longer" name="other_user_map_primary">
-    <option <?php if (!isset($_GET['new'])) echo "disabled "; ?><?php if(@$other_user_map_primary == "") echo "selected "?>value="">Primary already located: </option>
+    <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$other_user_map_primary == "") echo "selected "?>value="">Primary already located: </option>
     <option <?php if(@$other_user_map_primary == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$other_user_map_primary == "false") echo "selected "?>value="false">false</option>
     </select>
@@ -105,19 +105,19 @@
     type="search" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_a; ?></span></label><input
-    type="search" class="inline-block street_view_cw" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
-    type="search" class="inline-block street_view_cw" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
-    type="search" class="inline-block street_view_cw" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
     <?php if($isMobile == "false") {?><label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
-    type="search" class="inline-block street_view_cw" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
-    type="search" class="inline-block street_view_cw" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
-    type="search" class="inline-block street_view_cw" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
-    type="search" class="inline-block street_view_date_cw" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="search" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
