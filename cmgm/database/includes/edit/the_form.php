@@ -74,7 +74,7 @@
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
     <option <?php if(@$pci_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected "?>value="false">false</option>
-    <option <?php if(@$pci_match == "partial") echo "selected" ?>value="partial">partial</option>
+    <option <?php if(@$pci_match == "partial") echo "selected " ?>value="partial">partial</option>
     </select><select class="id_params_cw" name="id_pattern_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$id_pattern_match == "") echo "selected "?>value="">ID Pattern Match: </option>
     <option <?php if(@$id_pattern_match == "true") echo "selected "?>value="true">true</option>
