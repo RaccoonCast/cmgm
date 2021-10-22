@@ -22,6 +22,7 @@ if (isset($_GET['q'])) {
 if ($prefLocType == "gps" && !isset($latitude) && !isset($data)) {
   if ($debug_flag != "0") echo "locfinder: $" . "data variable not specified, attempting gps <br>";
   include "js/locationNotKnown.js.php";
+  die();
 }
 
 // No location specifeid? Use default lat,long.
