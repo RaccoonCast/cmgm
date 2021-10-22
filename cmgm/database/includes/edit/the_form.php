@@ -93,11 +93,11 @@
 
 
     <label class="latitude_longitude_label" for="latitude">
-    <span class="latitude_longitude_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $latitude . ","; ?><?php echo $longitude; ?>')">Copy</a></span><a id="latlong_cmlink" target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Latitude/Longitude</a></label><input
+    <span class="latitude_longitude_link"><?php include "latLongMod.php"; ?></span><a id="latlong_cmlink" target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Lat/Lon</a></label><input
     type="search" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude"><input
     type="search" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
 
-    <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo @$latitude; ?>,<?php echo @$longitude; ?>&zoom=20&basemap=satellite">Address</a>
+    <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Address</a>
     <span class="addr_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label><input
     type="search" class="inline-block addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
     type="search" class="inline-block addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
