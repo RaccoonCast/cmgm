@@ -45,30 +45,30 @@
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
     ?>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="lte_cw" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
-    type="number" class="lte_cw" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
-    type="number" class="lte_cw" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
-    type="number" class="lte_cw" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
-    type="number" class="lte_cw" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
-    type="number" class="lte_cw" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
-    type="number" class="nr_cw" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
-    type="number" class="nr_cw" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
+    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
+    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
+    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
     <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="pci_cw" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
-    type="number" class="pci_cw" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
-    type="number" class="pci_cw" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
-    type="number" class="pci_cw" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4"><input
-    type="number" class="pci_cw" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5"><input
-    type="number" class="pci_cw" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
-    type="number" class="pci_cw" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
-    type="number" class="pci_cw" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
-    type="number" class="pci_cw" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><input
-    type="number" class="pci_cw" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
-    type="number" class="pci_cw" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
-    type="number" class="pci_cw" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
-    type="number" class="pci_cw" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
-    type="number" class="pci_cw" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
 
     <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
