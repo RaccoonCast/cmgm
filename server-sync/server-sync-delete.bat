@@ -1,14 +1,14 @@
 @echo off
 echo.WARNING: This will remove files from the server if they have been deleted on local.
 echo.
-timeout 2 >nul
+timeout 1 >nul
 echo.Continue?
 choice
-if %errorlevel% == 2 exit
 cls
-echo.Are you sure? 
-timeout 1 >nul
-choice 
+if %errorlevel% == 2 echo ----------------------------------------------
+if %errorlevel% == 2 echo Proceeding with delete delete mode turned off.
+if %errorlevel% == 2 echo ----------------------------------------------
+if %errorlevel% == 2 call server-sync.bat
 if %errorlevel% == 2 exit
 
 echo.Okay... You asked for it.
