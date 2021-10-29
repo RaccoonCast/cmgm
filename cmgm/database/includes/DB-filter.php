@@ -25,7 +25,7 @@ if (!empty($value) OR $value == "NULL") {
   elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
   elseif ($key == "fileSearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
   elseif ($key == "address") { $db_vars = " AND " . $key . ' like "%'.$value.'%"' . @$db_vars; }
-  elseif ($key == "tags") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
+  elseif ($key == "tags") { $db_vars = "AND (tags like '".$value.",%' OR tags like '%,".$value."' OR tags = '".$value."')" . @$db_vars; }
   elseif ($key == "carrier") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
   else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
  }
