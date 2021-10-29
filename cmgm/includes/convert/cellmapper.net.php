@@ -1,16 +1,12 @@
 <?php
-$latitude = explode('latitude=', $data, 2)[1];
-$longitude = explode('longitude=', $data, 2)[1];
-$mcc = explode('MCC=', $data, 2)[1];
-$mcc = substr($mcc,0,3);
-$mnc = explode('MNC=', $data, 2)[1];
-$mnc = substr($mnc,0,3);
-$network = "$mcc$mnc";
-if('310260' == '' . $network . '') {$carrier = "T-Mobile";}
-if('310120' == '' . $network . '') {$carrier = "Sprint";}
-if('310410' == '' . $network . '') {$carrier = "ATT";}
-if('311480' == '' . $network . '') {$carrier = "Verizon";}
-$latitude = substr($latitude,0,10);
-$longitude = substr($longitude,0,10);
+$latitude = substr(explode('latitude=', $data, 2)[1],0,12);
+$longitude = substr(explode('longitude=', $data, 2)[1],0,12);
+if (strpos($data, 'MCC=310&MNC=260') !== false) {$carrier = "T-Mobile";}
+if (strpos($data, 'MCC=310&MNC=120') !== false) {$carrier = "Sprint";}
+if (strpos($data, 'MCC=310&MNC=410') !== false) {$carrier = "ATT";}
+if (strpos($data, 'MCC=311&MNC=480') !== false) {$carrier = "Verizon";}
+if (strpos($data, 'type=LTE') !== false) {$cm_netType = "LTE";}
+if (strpos($data, 'type=NR') !== false) {$cm_netType = "NR";}
+
 $conv_type = "CellMapper";
 ?>
