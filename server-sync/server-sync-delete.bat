@@ -11,8 +11,9 @@ if %errorlevel% == 2 echo ----------------------------------------------
 if %errorlevel% == 2 call server-sync.bat
 if %errorlevel% == 2 exit
 
-echo.Okay... You asked for it.
-echo.
+echo ----------------------------------------------
+echo Proceeding with delete delete mode turned on.
+echo ----------------------------------------------
 for /f "tokens=1,2 delims==" %%G in (login-creds.hiddenpass) do set %%G=%%H
 if exist "C:\Program Files (x86)\WinSCP\WinSCP.com" call :prgexe
 if exist "%localappdata%\Programs\WinSCP\WinSCP.com" call :lclexe
