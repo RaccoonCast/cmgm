@@ -35,11 +35,7 @@
         class="custominput cellsite-type-custom-width dropdown" name="status">
         <option selected="selected" value="">All</option>
         <option value="verified" selected="selected">Verified</option>
-        <option value="wip">WIP</option>
         <option value="unverified">Unverified</option>
-        <option value="unmapped">Unmapped</option>
-        <option value="special">Special</option>
-        <option value="weird">Weird</option>
         </select>
         </select>
 		       <br><label class="label">Carrier</label><select
@@ -67,6 +63,7 @@
      <input type="radio" id="street_view_true" name="has_street_view" value="true"><label for="street_view_true">true</label>
      <input type="radio" id="street_view_false" name="has_street_view" value="false"><label for="street_view_false">false</label>
      </div>
+     <br><label class="label" for="basic">Basic Map Pins</label><div class="wrapper-73"><input type="checkbox" name="basic" value="true"></div>
      <p>
        > = more than/after<br>
        < = less than/before

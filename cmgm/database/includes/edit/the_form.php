@@ -9,11 +9,7 @@
     class="status_cw" onClick="lte_1Reqd()" id="status" name="status" required>
     <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
-    <option <?php if(@$status == "wip") echo "selected"?> value="wip"><?php if ($isMobile =="true") { echo "Verified+WIP"; } else { echo "Verified and WIP";} ?></option>
     <option <?php if(@$status == "unverified") echo "selected"?> value="unverified">Unverified</option>
-    <option <?php if(@$status == "unmapped") echo "selected"?> value="unmapped">Unmapped</option>
-    <option <?php if(@$status == "special") echo "selected"?> value="special">Special</option>
-    <option <?php if(@$status == "weird") echo "selected"?> value="weird">Weird</option>
     </select><select class="concealed_cw" name="concealed" required>
     <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$concealed == "true") echo 'selected ';?>value="true">Concealed</option>
@@ -67,6 +63,7 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
 

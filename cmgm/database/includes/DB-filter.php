@@ -7,7 +7,7 @@ if (!empty($value) OR $value == "NULL") {
   if ($key != "latitude" && $key != "longitude" && $key != "zoom" && $key != "mp-id") @$url_suffix = @$url_suffix . "&" . $key . "=" . $value;
   if ($value == "NULL") $value = null;
   if ($value == "!NULL") $trimChar = null;
-  if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back") { ${$key} = $value; }
+  if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "basic") { ${$key} = $value; }
   elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
   elseif ($key == "date" AND (strpos($value, ',') !== false)) {
       $strings = explode(',',$value);
@@ -20,7 +20,10 @@ if (!empty($value) OR $value == "NULL") {
   elseif ($key == "date") { $db_vars = " AND date_added" . ' = "'.date("Y-m-d", strtotime($value)).'"' . @$db_vars; }
   elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND street_view_a != '' " . @$db_vars;
   elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND street_view_a = '' " . @$db_vars;
-  elseif ($value[0] == "!") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
+  elseif ($value[0] == "!") {
+    if ($key == "tags") { $db_vars = "AND (tags NOT like '".$trimChar.",%' && tags NOT like '%,".$trimChar."' && tags NOT like '%,".$trimChar.",%' && NOT tags = '".$trimChar."')" . @$db_vars; }
+    elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
+  }
   elseif ($value[0] == ">") { $db_vars = " AND ". $key . ' > '.$trimChar . @$db_vars; }
   elseif ($value[0] == "<") { $db_vars = " AND ". $key . ' < '.$trimChar . @$db_vars; }
   elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }

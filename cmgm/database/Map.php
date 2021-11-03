@@ -5,6 +5,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="crossorigin=""></script>
   <?php
+    function like_match($pattern, $subject)
+    {
+        $pattern = str_replace('%', '.*', preg_quote($pattern,'/'));
+        return (bool) preg_match("/^{$pattern}$/i", $subject);
+    }
    $zoom = 14;
    include '../functions.php';
 
@@ -99,7 +104,7 @@ function marker(latitude,longitude,status,id,url_suffix) {
 
 $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-$database_get_list = "id,latitude,longitude,status";
+$database_get_list = "id,latitude,longitude,status,tags";
 
 $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $db_vars ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL;
@@ -114,7 +119,15 @@ switch ($sepCount) {
   case 1:  $id = $value; break;
   case 2:  $lat = $value; break;
   case 3:  $long = $value; break;
-  case 4:  $status = $value;
+  case 4:  $status = $value; break;
+  case 5:  $tags = $value;
+
+if (!isset($_GET['basic'])) {  
+  if (like_match('unmapped,%',$tags) == "TRUE" OR like_match('%,unmapped',$tags) == "TRUE" OR like_match('%,unmapped,%',$tags) == "TRUE" OR $tags == "unmapped") $status = "unmapped";
+  if (like_match('weird,%',$tags) == "TRUE" OR like_match('%,weird',$tags) == "TRUE" OR like_match('%,weird,%',$tags) == "TRUE" OR $tags == "weird") $status = "weird";
+  if (like_match('wip,%',$tags) == "TRUE" OR like_match('%,wip',$tags) == "TRUE" OR like_match('%,wip,%',$tags) == "TRUE" OR $tags == "wip") $status = "wip";
+  if (like_match('special,%',$tags) == "TRUE" OR like_match('%,special',$tags) == "TRUE" OR like_match('%,special,%',$tags) == "TRUE" OR $tags == "special") $status = "special";
+}
 
 if (!empty($lat) && !empty($long) && !empty($status)) {?>
 marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
