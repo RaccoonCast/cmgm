@@ -24,6 +24,7 @@
     if ($permit_score >= 100) $ev += 15;
 
     // trails match
+    if ($trails_match >= 20 && ($trails_match < 45)) $ev += 1;
     if ($trails_match >= 45 && ($trails_match < 65)) $ev += 2;
     if ($trails_match >= 65 && ($trails_match < 85)) $ev += 4;
     if ($trails_match >= 85 && ($trails_match < 100)) $ev += 6;
@@ -78,7 +79,8 @@
 
     // sector split match
     if ($sector_split_match >= 35 && ($sector_split_match < 50)) $ev += 2;
-    if ($sector_split_match >= 50 && ($sector_split_match < 75)) $ev += 4;
+    if ($sector_split_match >= 50 && ($sector_split_match < 60)) $ev += 3;
+    if ($sector_split_match >= 60 && ($sector_split_match < 75)) $ev += 4;
     if ($sector_split_match >= 75 && ($sector_split_match < 85)) $ev += 7;
     if ($sector_split_match >= 85 && ($sector_split_match < 90)) $ev += 8;
     if ($sector_split_match >= 90 && ($sector_split_match < 100)) $ev += 11;

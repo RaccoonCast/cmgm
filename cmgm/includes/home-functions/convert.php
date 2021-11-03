@@ -26,8 +26,8 @@ if (!isset($conv_type)) include SITE_ROOT . "/includes/convert/google-maps-conve
 // Get address info for location
 include SITE_ROOT . "/includes/convert/get-address-for-loc.php";
 
-$latitude = substr($latitude,0,10);
-$longitude = substr($longitude,0,10);
+$latitude = substr($latitude,0,12);
+$longitude = substr($longitude,0,12);
 
 if ($goto == "HomeSmart") return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
 

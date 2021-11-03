@@ -14,7 +14,7 @@ $response = json_decode($response);
      if ($addrComp->types[0] == 'street_number') $number = $addrComp->short_name;
      if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name;
      if ($addrComp->types[0] == 'route') $long_street_name = $addrComp->long_name;
-     if ($addrComp->types[0] == 'locality') $city = $addrComp->short_name;
+     if ($addrComp->types[0] == 'locality') $city = $addrComp->long_name;
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      }
 
