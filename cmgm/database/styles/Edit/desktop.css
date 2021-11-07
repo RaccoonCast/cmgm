@@ -99,10 +99,10 @@ abbr {text-decoration: none!important;}
 .id_params_cw_longer {max-width: 20%!important; width: 100%; font-size: 0.8em; margin: 0px; padding: 0px;}
 
 /* STREET VIEW URL */  /* LABEL */
-.street_view_label {max-width: 25%; width: 100%}
+.sv_label {max-width: 25%; width: 100%}
 /* STREET VIEW URL */  /* TEXTBOX */
-.street_view_cw {max-width: 19.5%; width: 100%; font-size: 0.80em;}
-.street_view_date_cw {max-width: 5.5%; width: 100%; font-size: 0.80em;}
+.sv_cw {max-width: 19.5%; width: 100%; font-size: 0.80em;}
+.sv_date_cw {max-width: 5.5%; width: 100%; font-size: 0.80em;}
 
 /* Tags */  /* LABEL */
 .tags_label {max-width: 25%; width: 100%}

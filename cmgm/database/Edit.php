@@ -58,7 +58,7 @@ if (!isset($status) OR isset($_GET['id_search'])) include "includes/edit/missing
 if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn);
 if ($padlock == "false") if (@$delete == "false") delete($id,"false",$redirPage,$conn);
 
-// Create links for street_view_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
+// Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
 include "includes/edit/file_attach_link_gen.php";
 ?>
 </head>

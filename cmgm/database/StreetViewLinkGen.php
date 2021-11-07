@@ -29,7 +29,7 @@ while($row = $result->fetch_assoc()) {
         }
         if (strlen($counter) == 1) $counter = "00" . $counter;
         if (strlen($counter) == 2) $counter = "0" . $counter;
-        echo '<a href="https://'.str_replace("https://", "",$street_view_a).'">'.$counter.'</a> ';
+        echo '<a href="https://'.str_replace("https://", "",$sv_a).'">'.$counter.'</a> ';
       }
   }
 }

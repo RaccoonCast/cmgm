@@ -4,7 +4,7 @@ if (@$no_reader != 'true') echo '<a class="widget widget_emote" title="View all 
 if (@$no_delete != 'true') echo '<a class="widget widget_emote" title="Delete" href="Edit.php?id='.$id.'&delete=false&redirPage='.@$redirPage.'">✂️</a>';
 if (@$no_map != 'true' && isset($db_map_link)) echo '<a target="_blank" class="widget widget_emote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
 if (@$no_edit != 'true') echo '<a class="widget widget_emote" target="_blank" title="Edit" href="Edit.php?id='.$id.'">🔧</a>';
-if (!empty($street_view_a) && @$no_street_view != 'true') echo '<a class="widget widget_emote" target="_blank" title="Street View URL" href="https://'.str_replace("https://", "",$street_view_a).'">🚗</a>';
+if (!empty($sv_a) && @$no_street_view != 'true') echo '<a class="widget widget_emote" target="_blank" title="Street View URL" href="https://'.str_replace("https://", "",$sv_a).'">🚗</a>';
 if (basename($_SERVER['SCRIPT_NAME']) == "Edit.php") {
   echo '<a class="widget widget_emote" title="View all info" href="Edit.php?new">➕</a>';
   if (empty($edit_lock)) {

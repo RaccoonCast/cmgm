@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     case 16:  $bio = $value; break;
                     case 17:  $evidence_score = $value; break;
                     case 18:  $evidence_a = $value; break;
-                    case 19:  $street_view_a = $value;
+                    case 19:  $sv_a = $value;
 
                     // just pretty it up
                     if ($carrier == "Sprint_keep") $carrier = "Sprint Keep";

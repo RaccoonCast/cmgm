@@ -95,25 +95,25 @@
 
     <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Address</a>
     <span class="addr_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label><input
-    type="search" class="inline-block addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
-    type="search" class="inline-block addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
-    type="search" class="inline-block addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
-    type="search" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
+    type="text" autocomplete="new-street-address" class="inline-block addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
+    type="text" autocomplete="new-street-address" class="inline-block addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
+    type="text" autocomplete="new-street-address" class="inline-block addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
+    type="text" autocomplete="new-street-address" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_a; ?></span></label><input
-    type="search" id="sv_a" autofill="chrome-off" class="inline-block street_view_cw sv_a" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_a" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
-    type="search" id="sv_b" autofill="chrome-off" class="inline-block street_view_cw sv_b" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_b" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
-    type="search" id="sv_c" autofill="chrome-off" class="inline-block street_view_cw sv_c" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_c" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
-    <?php if($isMobile == "false") {?><label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
-    type="search" id="sv_d" autofill="chrome-off" class="inline-block street_view_cw sv_d" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_d" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
-    type="search" id="sv_e" autofill="chrome-off" class="inline-block street_view_cw sv_e" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_e" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
-    type="search" id="sv_f" autofill="chrome-off" class="inline-block street_view_cw sv_f" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_f" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
+    <label class="sv_label">Street View<span class="sub_links"><?php echo @$sv_linklabel_a; ?></span></label><input
+    type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$sv_a); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
+    type="text" autocomplete="new-street-address" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$sv_b); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
+    type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$sv_c); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
+    <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="sub_links"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
+    type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$sv_d); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
+    type="text" autocomplete="new-street-address" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$sv_e); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_e" name="sv_e_date" placeholder="DATE" value="<?php echo @$sv_e_date ?>"><input
+    type="text" autocomplete="new-street-address" id="sv_f" class="inline-block sv_cw sv_f" name="sv_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$sv_f); ?>"><input
+    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="search" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
