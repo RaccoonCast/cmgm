@@ -3,7 +3,7 @@ foreach($_GET as $key => $value){
 @$fs = @$id = str_replace(' ', '', $value);
 @$trimChar = substr($value, 1);
 
-if (!empty($value) OR $value == "NULL") {
+if (!empty($value) OR $value == "NULL" OR $value == "0") {
   if ($key != "latitude" && $key != "longitude" && $key != "zoom" && $key != "mp-id") @$url_suffix = @$url_suffix . "&" . $key . "=" . $value;
   if ($value == "NULL") $value = null;
   if ($value == "!NULL") $trimChar = null;
