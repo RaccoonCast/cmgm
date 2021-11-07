@@ -90,8 +90,8 @@
 
     <label class="latitude_longitude_label" for="latitude">
     <span class="latitude_longitude_link"><?php include "latLongMod.php"; ?></span><a id="latlong_cmlink" target="_blank" href="<?php echo @$cellmapper_link_lte;?>">Lat/Lon</a></label><input
-    type="search" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude"><input
-    type="search" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude">
+    type="search" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
+    type="search" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required>
 
     <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Address</a>
     <span class="addr_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label><input
@@ -101,19 +101,19 @@
     type="search" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_a; ?></span></label><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
+    type="search" id="sv_a" autofill="chrome-off" class="inline-block street_view_cw sv_a" name="street_view_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$street_view_a); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_a" name="street_view_a_date" placeholder="DATE" value="<?php echo @$street_view_a_date ?>"><input
+    type="search" id="sv_b" autofill="chrome-off" class="inline-block street_view_cw sv_b" name="street_view_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$street_view_b); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_b" name="street_view_b_date" placeholder="DATE" value="<?php echo @$street_view_b_date ?>"><input
+    type="search" id="sv_c" autofill="chrome-off" class="inline-block street_view_cw sv_c" name="street_view_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$street_view_c); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_c" name="street_view_c_date" placeholder="DATE" value="<?php echo @$street_view_c_date ?>">
     <?php if($isMobile == "false") {?><label class="street_view_label">Street View<span class="sub_links"><?php echo @$street_view_linklabel_b; ?></span></label><?php } ?><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_cw" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
-    type="search" autofill="chrome-off" class="inline-block street_view_date_cw" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
+    type="search" id="sv_d" autofill="chrome-off" class="inline-block street_view_cw sv_d" name="street_view_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$street_view_d); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_d" name="street_view_d_date" placeholder="DATE" value="<?php echo @$street_view_d_date ?>"><input
+    type="search" id="sv_e" autofill="chrome-off" class="inline-block street_view_cw sv_e" name="street_view_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$street_view_e); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_e" name="street_view_e_date" placeholder="DATE" value="<?php echo @$street_view_e_date ?>"><input
+    type="search" id="sv_f" autofill="chrome-off" class="inline-block street_view_cw sv_f" name="street_view_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$street_view_f); ?>"><input
+    type="search" autofill="chrome-off" class="inline-block street_view_date_cw sv_f" name="street_view_f_date" placeholder="DATE" value="<?php echo @$street_view_f_date ?>">
 
       <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="search" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
@@ -123,27 +123,27 @@
     </div>
     <div class="panel2">
     <label class="evidence_label">Evidence <span class="sub_links"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
-    type="search" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
-    type="search" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
-    type="search" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
+    type="search" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
+    type="search" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
+    type="search" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
     <label class="extra_label">Extras <span class="sub_links"><?php echo @$extra_linklabel_a ?></span></label><input
-    type="search" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
-    type="search" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
-    type="search" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
+    type="search" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
+    type="search" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
+    type="search" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
     <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
-    type="search" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
-    type="search" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
-    type="search" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
+    type="search" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
+    type="search" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
+    type="search" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
 
     <label class="photo_label">Photos <span class="sub_links"><?php echo @$photo_link_linklabel_a; ?></span></label><input
-    type="search" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
-    type="search" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
-    type="search" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
+    type="search" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
+    type="search" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
+    type="search" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
     <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="sub_links"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
-    type="search" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
-    type="search" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
-    type="search" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
+    type="search" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
+    type="search" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
+    type="search" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
     <div class="_panel1">
     <label class="evidence_scores_label">Permit Score</label><input
     type="number" max="100" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">

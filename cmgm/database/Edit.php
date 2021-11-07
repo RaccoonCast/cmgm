@@ -13,8 +13,13 @@ $titleOverride = "true";
 include "../functions.php";
 include "../includes/useridsys/getUsername.php";
 include "includes/edit/delete.php";
-include "includes/edit/lockorunlock.php"; ?>
-<?php
+include "includes/edit/lockorunlock.php";
+
+if($isMobile == "true") { ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="../js/showAndHideEditFields.js"></script>
+<?php }
+
 if (isset($_GET['id_search'])) $id = $_GET['id_search'];
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
@@ -66,7 +71,7 @@ if (!empty($latitude)) include "includes/edit/mapWithPin.php";
 echo '<div class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
-echo '</div>'
+echo '</div>';
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <div style="padding-bottom: 70px" class="pre_footer"></div>

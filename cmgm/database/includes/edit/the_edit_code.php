@@ -19,7 +19,7 @@ if (strlen($sql_edit) != 23) {
   if (isset($_POST['new'])) $edit_history = date("Y-m-d H:i:s") . " PST: $username ($userIP) created.";
   if (isset($edit_history)) $edit_history .= "\r\n";
   $sql_edit .= " edit_history = '$edit_history" . date("Y-m-d H:i:s") . " PST: $username ($userIP) edited $vals.' WHERE id = $id";
-  mysqli_query($conn, $sql_edit);
+  if (is_numeric($_POST['latitude']) && is_numeric($_POST['longitude'])) mysqli_query($conn, $sql_edit);
 
   include "read_data.php";
 }
