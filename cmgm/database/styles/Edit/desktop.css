@@ -27,9 +27,9 @@ input[type=text],input[type=search],input[type=number],option,select {
 option,select {font-size: 1.1em;}
 abbr {text-decoration: none!important;}
 .sb {
-  font-size: 3em;
+  font-size: 2.5em;
   width: 100%;
-  padding: 60px;
+  padding: 30px;
 }
 .warning {
 	font-size: 1.15em;
@@ -42,12 +42,15 @@ abbr {text-decoration: none!important;}
 }
 .small-sb {
 	font-size: 1.6em;
-	height: 73px;
+	height: 70px;
 	padding: 12px;
 	margin: 0px;
 }
 .sub_links {
 	float: right;
+}
+::placeholder {
+  font-size: 0.91em;
 }
 
 /* Cellsite type info dropdowns */  /* LABEL */
