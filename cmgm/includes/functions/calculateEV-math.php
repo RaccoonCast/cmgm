@@ -58,6 +58,7 @@
     if ($only_reasonable_location < 80) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 2;
 
     // image evidence
+    if ($image_evidence >= 25 && ($image_evidence < 45)) $ev += 2;
     if ($image_evidence >= 45 && ($image_evidence < 65)) $ev += 4;
     if ($image_evidence >= 65 && ($image_evidence < 75)) $ev += 7;
     if ($image_evidence >= 75 && ($image_evidence < 100)) $ev += 9;
@@ -93,11 +94,13 @@
       if ($archival_antenna_addition == 2) $ev += 6;
       if ($archival_antenna_addition == 3) $ev += 9;
       if ($archival_antenna_addition == 4) $ev += 12;
+      if ($archival_antenna_addition == 5) $ev += 15;
     } else {
       if ($archival_antenna_addition == 1) $ev += 1;
       if ($archival_antenna_addition == 2) $ev += 3;
       if ($archival_antenna_addition == 3) $ev += 5;
       if ($archival_antenna_addition == 4) $ev += 7;
+      if ($archival_antenna_addition == 5) $ev += 10;
     }
 
     // only reasonable location
