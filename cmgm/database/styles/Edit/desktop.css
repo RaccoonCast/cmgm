@@ -12,7 +12,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 		padding: 4px;
 		margin: 0px;
 		border: 1px solid;
-
+		font-size: 0.81em;
 }
 
 @media (min-width:1599px) {
@@ -35,7 +35,7 @@ abbr {text-decoration: none!important;}
 	font-size: 1.15em;
 }
 .id_input {
-	font-size: 1.6em;
+	font-size: 1.6em!important;
 	height: 73px!important;
 	padding: 2px;
 	margin: 0px;
@@ -54,60 +54,61 @@ abbr {text-decoration: none!important;}
 }
 
 /* Cellsite type info dropdowns */  /* LABEL */
-.cellsite_type_label {max-width: 25%; width: 100%}
+.cellsite_type_label {max-width: 20%; width: 100%}
 /* Cellsite type info dropdowns */  /* DROPDOWN */
-.status_cw {max-width: 18.33%!important; width: 100%}
-.concealed_cw {max-width: 18.33%!important; width: 100%}
-.carrier_cw {max-width: 18.33%!important; width: 100%}
+.status_cw {max-width: 20%!important; width: 100%}
+.concealed_cw {max-width: 20%!important; width: 100%}
+.carrier_cw {max-width: 20%!important; width: 100%}
 .cellsite_type_cw {max-width: 20%!important; width: 100%}
 
 /* Cellsite location latitude - longitude */  /* LABEL */
-.latitude_longitude_label {max-width: 25%; width: 100%}
+.latitude_longitude_label {max-width: 20%; width: 100%}
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
-.latitude_cw { width: 36.66%!important; }
-.longitude_cw { width: 38.34%!important; }
+.region_lte_cw { width: 10%!important; }
+.region_nr_cw { width: 10%!important; }
+.latitude_cw { width: 10%!important; }
+.longitude_cw { width: 10%!important; }
 /* Cellsite location latitude - longitude */  /* LINK */
-.latitude_longitude_link { float: right; }
+.lmr_link { float: right; }
 
 /* Address boxes */  /* LABEL */
-.addr_label {max-width: 25%; width: 100%}
+.addr_label {max-width: 20%; width: 100%}
 /* Address boxes */  /* TEXTBOX */
-.addr_address_cw { max-width: 36.66%!important; width: 100%}
-.addr_city_cw { max-width: 22%!important; width: 100%}
-.addr_state_cw { max-width: 8.75%!important; width: 100%}
-.addr_zip_cw { max-width: 7.59%!important; width: 100%}
+.addr_address_cw { max-width: 20%!important; width: 100%;	font-size: 0.78em!important;}
+.addr_city_cw { max-width: 20%!important; width: 100%}
+.addr_state_cw { max-width: 10%!important; width: 100%}
+.addr_zip_cw { max-width: 10%!important; width: 100%}
 /* ADDRESS BOXES */ /* LINK */
 .addr_link { float: right; }
 
 /* LTE/NR ids */  /* LABEL */
-.lte_nr_label {max-width: 25%; width: 100%}
+.lte_nr_label {max-width: 20%; width: 100%}
 /* LTE/NR ids */  /* TEXTBOXES */
-.lte_cw {width: 9.1666%!important;}
+.lte_cw {width: 10%!important;}
 .nr_cw {width: 10%!important;}
 
 /* PCIs  */  /* LABEL */
-.pci_label {max-width: 25%; width: 100%}
+.pci_label {max-width: 20%; width: 100%}
 /* PCIs */  /* TEXTBOXES */
-.pci_cw {width: 5.35714285714%!important;}
+.pci_cw {width: 6.6666667%!important;}
 
 
 
 /* ID Params (pci match, sector match, etc) */  /* LABEL */
-.id_params_label {max-width: 25%; width: 100%}
+.id_params_label {max-width: 20%; width: 100%}
 /* ID Params (pci match, sector match, etc) */  /* TEXTBOX */
-.id_params_cw {max-width: 18.33%!important; width: 100%; font-size: 0.8em; margin: 0px; padding: 0px;}
-.id_params_cw_longer {max-width: 20%!important; width: 100%; font-size: 0.8em; margin: 0px; padding: 0px;}
+.id_params_cw {max-width: 20%!important; width: 100%; font-size: 0.8em; margin: 0px; padding: 0px;}
 
 /* STREET VIEW URL */  /* LABEL */
-.sv_label {max-width: 25%; width: 100%}
+.sv_label {max-width: 20%; width: 100%}
 /* STREET VIEW URL */  /* TEXTBOX */
-.sv_cw {max-width: 19.5%; width: 100%; font-size: 0.80em;}
-.sv_date_cw {max-width: 5.5%; width: 100%; font-size: 0.80em;}
+.sv_cw {max-width: 21.8666666667%; width: 100%; }
+.sv_date_cw {max-width: 4.8%; width: 100%;}
 
 /* Tags */  /* LABEL */
-.tags_label {max-width: 25%; width: 100%}
+.tags_label {max-width: 20%; width: 100%}
 /* Tags */  /* TEXTBOX */
-.tags_cw {max-width: 75%!important; width: 100%;}
+.tags_cw {max-width: 80%!important; width: 100%;}
 
 /* Photo / Evidence / Attached */  /* LABEL */
 .photo_label {width:16%!important; }
@@ -125,6 +126,8 @@ abbr {text-decoration: none!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right; font-size: 1.08em; }
+.pad-small-link-right {padding-right: 4px; text-align: right; font-size: 1.08em; }
+.pad-small-link-left {padding-left: 4px; text-align: right; font-size: 1.08em; }
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
