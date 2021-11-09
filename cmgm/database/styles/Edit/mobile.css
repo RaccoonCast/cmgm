@@ -38,7 +38,7 @@ input[type=text],input[type=search],input[type=number],select {
 	height: 2cm!important;
 	font-size: 2em!important;
 }
-.sub_links {
+.floatright {
 	float: right;
 	margin-right: 0.8em;
 }
@@ -49,17 +49,20 @@ input[type=text],input[type=search],input[type=number],select {
 .pci_label { display: none; }
 
 /* Address boxes */  /* TEXTBOX */
-.addr_label { width: 8.8%!important;  padding: none!important; }
+.addr_label { width: 0%!important;  padding: none!important; }
 /* Address boxes */  /* TEXTBOX */
-.addr_address_cw { width: 41.2%!important; }
-.addr_city_cw { width: 25%!important; }
-.addr_state_cw { width: 10%!important; }
-.addr_zip_cw { width: 15%!important; }
+.addr_address_cw { width: 45.2%!important; }
+.addr_city_cw { width: 27.8%!important; }
+.addr_state_cw { width: 11%!important; }
+.addr_zip_cw { width: 16%!important; }
+
+.pci_cw {width: 16.666666557%!important;}
+.region_cw {width: 25%!important;}
 
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
-.latitude_longitude_label { width: 8.8%!important;}
+.latitude_longitude_label { width: 0%!important;}
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
-.latitude_cw { width: 41.2%!important; }
+.latitude_cw { width: 50%!important; }
 .longitude_cw { width: 50%!important; }
 
 /* Cellsite type info dropdowns */  /* LABEL */
@@ -102,7 +105,6 @@ select {
 
 /* LTE/NR ids */  /* TEXTBOXES */
 .nr_cw,.lte_cw { width: 25%!important; }
-.pci_cw {width: 14.2857142857%!important;}
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; text-align: right;}

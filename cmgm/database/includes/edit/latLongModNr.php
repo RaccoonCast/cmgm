@@ -20,11 +20,10 @@ $modDigit = $modDigit * $multiplier;
 
 
 if (!empty($region_nr)) {
-if (isset($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
-if (isset($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
-} else {$lmr_error = true;}
-?>
+if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
+if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
+} ?>
 
-<!-- RIGHT --><a target="_blank" class="<?php if (empty($NR_1) OR isset($lmr_error)) echo 'error'?>" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a>
-<!-- LEFTT --><a target="_blank" class="pad-small-link-right <?php if (empty($NR_2) OR isset($lmr_error)) echo 'error'?>" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a>
+<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?> <a target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
+<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>" class="pad-small-link-right">2</a> <?php } ?>
 <?php }} ?>

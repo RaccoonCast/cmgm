@@ -50,9 +50,9 @@
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
-    <label class="pci_label" for="PCI_1">PCIs/Regions<span class="lmr_link"><?php include "latLongModLte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="search" class="inline-block region_lte_cw" id="region" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="search" class="inline-block region_nr_cw" id="region" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
+    <label class="pci_label" for="PCI_1">PCIs/Regions<span class="floatright"><?php include "latLongModLte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    type="search" class="inline-block region_cw" id="region" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
+    type="search" class="inline-block region_cw" id="region" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
@@ -61,9 +61,8 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9">
-
-    <label class="pci_label" for="PCI_1">PCIs<span class="lmr_link"><?php include "latLongModNr.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><label
+    class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongModNr.php"; ?></span></label><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
@@ -108,7 +107,7 @@
     type="text" autocomplete="new-street-address" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <!-- <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Address</a>
-    <span class="addr_link"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label> -->
+    <span class="floatright"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label> -->
 
     <label class="sv_label">Street View<span class="sub_links"><?php echo @$sv_linklabel_a; ?></span></label><input
     type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$sv_a); ?>"><input

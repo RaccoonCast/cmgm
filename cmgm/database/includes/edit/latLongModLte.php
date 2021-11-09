@@ -18,18 +18,18 @@ $modDigit = 0.00006;
 $modDigit = $modDigit * $multiplier;
 
 if (!empty($region_lte)) {
-if (isset($LTE_1)) $LTE_1_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_1 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
-if (isset($LTE_2)) $LTE_2_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
-if (isset($LTE_3)) $LTE_3_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_3 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
-if (isset($LTE_4)) $LTE_4_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_4 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude; // Middle
-} else {$lmr_error = true;}
-?>
+if (!empty($LTE_1)) $LTE_1_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_1 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
+if (!empty($LTE_2)) $LTE_2_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
+if (!empty($LTE_3)) $LTE_3_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_3 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
+if (!empty($LTE_4)) $LTE_4_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_4 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude; // Middle
+} ?>
 
 <a style="color: blue;" href="Edit.php?id=<?php echo $id; ?>&multiplier=<?php echo $multiplier - 0.1; ?>">-</a>
-<a style="color: blue;" href="Edit.php?id=<?php echo $id; ?>&multiplier=<?php echo $multiplier + 0.1; ?>">+</a>
+<a style="color: blue;" class="pad-small-link-right" href="Edit.php?id=<?php echo $id; ?>&multiplier=<?php echo $multiplier + 0.1; ?>">+</a>
 
-<!-- BASE -->  <a target="_blank" class="<?php if (empty($LTE_1) OR isset($lmr_error)) echo 'error'?>" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a>
-<!-- RIGHT --> <a target="_blank" class="<?php if (empty($LTE_2) OR isset($lmr_error)) echo 'error'?>" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" >2</a>
-<!-- LEFT -->  <a target="_blank" class="<?php if (empty($LTE_3) OR isset($lmr_error)) echo 'error'?>" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" >3</a>
-<!-- MIDDLE --><a target="_blank" class="pad-small-link-right <?php if (empty($LTE_4) OR isset($lmr_error)) echo 'error'?>" <?php if (empty($LTE_4) OR isset($lmr_error)) echo 'class="error"'?> href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" class="pad-small-link-right">4</a>
+
+<!-- BASE -->  <?php if (isset($LTE_1_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a> <?php } ?>
+<!-- RIGHT --> <?php if (isset($LTE_2_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" >2</a> <?php } ?>
+<!-- LEFT -->  <?php if (isset($LTE_3_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" >3</a> <?php } ?>
+<!-- MIDDLE --><?php if (isset($LTE_4_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" class="pad-small-link-right">4</a>  <?php } ?>
 <?php }} ?>
