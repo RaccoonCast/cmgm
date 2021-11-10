@@ -51,8 +51,8 @@
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
     <label class="pci_label" for="PCI_1">PCIs/Region<span class="floatright"><?php include "latLongMod/lte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="search" class="inline-block region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="search" class="inline-block region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
+    type="text" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
+    type="text" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
@@ -99,12 +99,12 @@
 
 
     <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
-    type="search" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
-    type="search" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
-    type="text" autocomplete="new-street-address" class="inline-block addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
-    type="text" autocomplete="new-street-address" class="inline-block addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
-    type="text" autocomplete="new-street-address" class="inline-block addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
-    type="text" autocomplete="new-street-address" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
+    type="text" class="latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
+    type="text" class="longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
+    type="text" autocomplete="new-street-address" class="addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
+    type="text" autocomplete="new-street-address" class="addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
+    type="text" autocomplete="new-street-address" class="addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
+    type="text" autocomplete="new-street-address" class="addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
     type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$sv_a); ?>"><input
@@ -121,7 +121,7 @@
     type="text" autocomplete="new-street-address" id="sv_f" class="inline-block sv_cw sv_f" name="sv_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$sv_f); ?>"><input
     type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
 
-      <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="search" class="tags_cw" name="tags" value="<?php echo @$tags?>">
+      <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } else { ?>
     <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } ?>
@@ -129,27 +129,27 @@
     </div>
     <div class="panel2">
     <label class="evidence_label">Evidence <span class="sub_links floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
-    type="search" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
-    type="search" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
-    type="search" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
+    type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
+    type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
+    type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
     <label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_a ?></span></label><input
-    type="search" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
-    type="search" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
-    type="search" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
+    type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
+    type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
+    type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
     <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
-    type="search" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
-    type="search" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
-    type="search" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
+    type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
+    type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
+    type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
 
     <label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
-    type="search" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
-    type="search" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
-    type="search" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
+    type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
+    type="text" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
+    type="text" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
     <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
-    type="search" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
-    type="search" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
-    type="search" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
+    type="text" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
+    type="text" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
+    type="text" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
     <div class="_panel1">
     <label class="evidence_scores_label">Permit Score</label><input
     type="number" max="100" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
