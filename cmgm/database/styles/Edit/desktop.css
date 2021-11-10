@@ -6,6 +6,7 @@ label {
   display: inline-block;
   padding-top: 5px;
   padding-bottom: 5px;
+	font-size: 0.94em;
 }
 input[type=text],input[type=search],input[type=number],option,select {
     height: 34px;
@@ -16,7 +17,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 		width: 100%;
 }
 
-@media (min-width:1599px) {
+@media (min-width:1920px) {
 /* Panels (split page in half) */
 .panel1 { width: 49.93%; float: left; }
 .panel2 { width: 49.93%; float: right; }
@@ -26,7 +27,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 }
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 option,select {font-size: 1.1em;}
-abbr {text-decoration: none!important;}
+abbr,.nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
   width: 100%;
@@ -37,7 +38,8 @@ abbr {text-decoration: none!important;}
 }
 .id_input {
 	font-size: 1.6em!important;
-	height: 73px!important;
+	height: 70px!important;
+	width: 12em!important;
 	padding: 2px;
 	margin: 0px;
 }
@@ -56,21 +58,20 @@ abbr {text-decoration: none!important;}
 
 /* Left Side Menu*/
 .cellsite_type_label, .tags_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label, .sv_label {
-	max-width: 20%; width: 100%
+	max-width: 16%; width: 100%;
 }
 
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw {max-width: 20%!important; width: 100%}
-.lte_cw, .nr_cw {width: 10%!important;}
-.region_cw { width: 10%!important; }
-.pci_cw {width: 6.6666667%!important;}
-.id_params_cw {max-width: 20%!important;  font-size: 0.8em; margin: 0px; padding: 0px;}
-.latitude_cw,.longitude_cw { max-width: 10%!important; }
-.addr_address_cw, .addr_city_cw { max-width: 20%!important; font-size: 0.78em!important; width: 100%}
-.addr_state_cw, .addr_zip_cw  { max-width: 10%!important; width: 100%}
-
-.sv_cw {max-width: 21.8666666667%;  }
-.sv_date_cw {max-width: 4.8%;}
-.tags_cw {max-width: 80%!important; }
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw {max-width: 21%!important; width: 100%}
+.lte_cw, .nr_cw {width: 10.50%!important;}
+.region_cw { width: 10.50%!important; }
+.pci_cw {width: 7%!important;}
+.id_params_cw {max-width: 21%!important;  font-size: 0.8em; margin: 0px; padding: 0px;}
+.latitude_cw,.longitude_cw { max-width: 10.5%!important; }
+.addr_address_cw, .addr_city_cw { max-width: 21%!important; font-size: 0.78em!important; width: 100%}
+.addr_state_cw, .addr_zip_cw  { max-width: 10.5%!important; width: 100%}
+.sv_cw {max-width: 23.3%;  }
+.sv_date_cw {max-width: 4.7%;}
+.tags_cw {max-width: 84%!important; }
 
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label {
@@ -86,8 +87,8 @@ abbr {text-decoration: none!important;}
 	width: 22%!important;
 }
 
-.pad-small-link {padding-left: 4px; padding-right: 4px; text-align: right; font-size: 1.08em; }
-.pad-small-link-right {padding-right: 4px; text-align: right; font-size: 1.08em; }
+.pad-small-link {padding-left: 3px; padding-right: 3px; text-align: right; font-size: 1.08em; }
+.pad-small-link-right {padding-right: 3px; text-align: right; font-size: 1.08em; }
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
