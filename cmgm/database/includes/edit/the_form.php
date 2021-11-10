@@ -40,7 +40,7 @@
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
     ?>
-    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs<span class="floatright"><?php include "latLongMod/multiplier.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
@@ -50,9 +50,9 @@
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
 
-    <label class="pci_label" for="PCI_1">PCIs/Regions<span class="floatright"><?php include "latLongModLte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="search" class="inline-block region_cw" id="region" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="search" class="inline-block region_cw" id="region" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
+    <label class="pci_label" for="PCI_1">PCIs/Region<span class="floatright"><?php include "latLongMod/lte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    type="search" class="inline-block region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
+    type="search" class="inline-block region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
@@ -62,7 +62,7 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><label
-    class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongModNr.php"; ?></span></label><input
+    class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongMod/nr.php"; ?></span></label><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
@@ -98,7 +98,7 @@
     </select>
 
 
-    <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Lat/Lon</a></label><input
+    <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
     type="search" class="inline-block latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
     type="search" class="inline-block longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
     type="text" autocomplete="new-street-address" class="inline-block addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
@@ -106,17 +106,14 @@
     type="text" autocomplete="new-street-address" class="inline-block addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="new-street-address" class="inline-block addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <!-- <label class="addr_label" for="address"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Address</a>
-    <span class="floatright"><a href="javascript:;" class="pad-small-link" onclick="copyToClipboard('<?php echo $address . ", " . $city . ", " . $state . " " . $zip; ?>')">Copy</a></span></label> -->
-
-    <label class="sv_label">Street View<span class="sub_links"><?php echo @$sv_linklabel_a; ?></span></label><input
+    <label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
     type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$sv_a); ?>"><input
     type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$sv_b); ?>"><input
     type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$sv_c); ?>"><input
     type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
-    <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="sub_links"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
     type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$sv_d); ?>"><input
     type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$sv_e); ?>"><input
@@ -131,25 +128,25 @@
 
     </div>
     <div class="panel2">
-    <label class="evidence_label">Evidence <span class="sub_links"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
+    <label class="evidence_label">Evidence <span class="sub_links floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
     type="search" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
     type="search" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
     type="search" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="extra_label">Extras <span class="sub_links"><?php echo @$extra_linklabel_a ?></span></label><input
+    <label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_a ?></span></label><input
     type="search" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
     type="search" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
     type="search" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
-    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
     type="search" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
     type="search" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
     type="search" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
 
-    <label class="photo_label">Photos <span class="sub_links"><?php echo @$photo_link_linklabel_a; ?></span></label><input
+    <label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
     type="search" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
     type="search" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
     type="search" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
-    <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="sub_links"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
     type="search" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
     type="search" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
     type="search" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
@@ -197,6 +194,6 @@
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
     <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" name="edittag" type="submit" class="sb" value="<?php echo $submit_label?>"> <?php } ?>
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" onClick="lte_1Reqd()" name="edittag" type="submit" class="sb" value="<?php echo $submit_label?>"> <?php } ?>
 <?php if (@$padlock == "true") echo '</fieldset>'; ?>
 </form>
