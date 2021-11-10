@@ -10,7 +10,6 @@ label {
 }
 input[type=text],input[type=search],input[type=number],option,select {
     height: 34px;
-    max-height: 34px;
 		padding: 4px;
 		margin: 0px;
 		border: 1px solid;
