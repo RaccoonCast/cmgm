@@ -37,5 +37,12 @@ $(function(){
     document.getElementById("region_nr").setAttribute('required', "");
   }}).keyup();
 
+  $('#sv_a').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_a_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_a_date")[0].setAttribute('required', "");}}).keyup();
+  $('#sv_b').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_b_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_b_date")[0].setAttribute('required', "");}}).keyup();
+  $('#sv_c').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_c_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_c_date")[0].setAttribute('required', "");}}).keyup();
+  $('#sv_d').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_d_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_d_date")[0].setAttribute('required', "");}}).keyup();
+  $('#sv_e').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_e_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_e_date")[0].setAttribute('required', "");}}).keyup();
+  $('#sv_f').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_f_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_f_date")[0].setAttribute('required', "");}}).keyup();
+
 });
 </script>
