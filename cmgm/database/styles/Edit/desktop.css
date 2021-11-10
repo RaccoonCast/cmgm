@@ -27,7 +27,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 ._panel3 { width: 33%; float: right; }
 }
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, {font-size: 1.1em;}
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw {font-size: 1.1em;}
 abbr, .nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
