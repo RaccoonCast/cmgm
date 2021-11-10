@@ -6,6 +6,7 @@ header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/copyToClipboard.js"></script>
 <script src="../js/database.js"></script>
 <?php
@@ -14,11 +15,7 @@ include "../functions.php";
 include "../includes/useridsys/getUsername.php";
 include "includes/edit/delete.php";
 include "includes/edit/lockorunlock.php";
-
-if($isMobile == "true") { ?>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="../js/showAndHideEditFields.js"></script>
-<?php }
+include "../js/database-edit.js.php";
 
 if (isset($_GET['id_search'])) $id = $_GET['id_search'];
 if (isset($_GET['back'])) $back_num = $_GET['back'];
