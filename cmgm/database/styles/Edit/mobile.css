@@ -56,8 +56,8 @@ input[type=text],input[type=search],input[type=number],select {
 .addr_state_cw { width: 11%!important; }
 .addr_zip_cw { width: 16%!important; }
 
-.pci_cw {width: 16.666666557%!important;}
-.region_cw {width: 25%!important;}
+.pci_cw {width: 12.5%!important;}
+.region_cw {width: 10%!important;}
 
 /* Cellsite location latitude - longitude */  /* TEXTBOX */
 .latitude_longitude_label { width: 0%!important;}
@@ -104,7 +104,7 @@ select {
 .evidence_scores_cw {width: 20%!important;}
 
 /* LTE/NR ids */  /* TEXTBOXES */
-.nr_cw,.lte_cw { width: 25%!important; }
+.nr_cw,.lte_cw { width: 20%!important; }
 
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; text-align: right;}

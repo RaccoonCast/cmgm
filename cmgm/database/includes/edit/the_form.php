@@ -1,4 +1,4 @@
-<form action="Edit.php?id=<?php echo $id?>" id="form<?php echo $id; ?>" method="post">
+<form action="Edit.php?id=<?php echo $id?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
@@ -48,11 +48,11 @@
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
-    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
-
-    <label class="pci_label" for="PCI_1">PCIs/Region<span class="floatright"><?php include "latLongMod/lte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2"><input
     type="text" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="text" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr"><input
+    type="text" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
+
+    <label class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongMod/lte.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
@@ -61,11 +61,11 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><label
-    class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongMod/nr.php"; ?></span></label><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><?php if(!isMobile()) {?><label
+    class="pci_label" for="PCI_1">PCIs<span class="floatright"><?php include "latLongMod/nr.php"; ?></span></label><?php } ?><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_15" value="<?php echo @$PCI_15?>" placeholder="PCI_15" name="PCI_15"><input
@@ -74,7 +74,10 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_18" value="<?php echo @$PCI_18?>" placeholder="PCI_18" name="PCI_18"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23"><input
+    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
 
     <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
@@ -98,7 +101,7 @@
     </select>
 
 
-    <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/@?api=1&map_action=map&center=<?php echo $latitude . "," . $longitude; ?>&zoom=20&basemap=satellite">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
+    <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/place/<?php echo $latitude.",".$longitude;?>/@<?php echo $latitude.",".$longitude;?>,20z/data=!3m1!1e3">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
     type="text" class="latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
     type="text" class="longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
     type="text" autocomplete="new-street-address" class="addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input

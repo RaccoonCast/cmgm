@@ -26,15 +26,12 @@ input[type=text],input[type=search],input[type=number],option,select {
 ._panel3 { width: 33%; float: right; }
 }
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw {font-size: 1.1em;}
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw,option {font-size: 1.1em;}
 abbr, .nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
   width: 100%;
   padding: 30px;
-}
-.warning {
-	font-size: 1.15em;
 }
 .id_input {
 	font-size: 1.6em!important;
@@ -61,9 +58,9 @@ abbr, .nounderline {text-decoration: none!important;}
 	max-width: 15%; width: 100%;
 }
 
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21.25%!important; width: 100%}
-.lte_cw, .nr_cw, .region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw  {width: 10.625%!important;}
-.pci_cw {width: 7.083%!important;}
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21.25%!important;}
+.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {width: 10.625%!important;}
+.pci_cw, .lte_cw {width: 7.083%!important;}
 .sv_cw {max-width: 23.53333%; }
 .sv_date_cw {max-width: 4.8%;}
 .tags_cw {max-width: 85%!important; }
