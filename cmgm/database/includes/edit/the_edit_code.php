@@ -16,6 +16,10 @@ if (strlen($sql_edit) != 23) {
   date_default_timezone_set("America/Los_Angeles");
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
   $sql_edit .= "edit_userid = '" . $userID . "', ";
+  // echo "Former: " . $edit_date . "<br>";
+  // echo "Current: " . date("Y-m-d H") . "<br>";
+  // echo "Former: " . $edit_userid . "<br>";
+  // echo "Current: " . $userID . "<br>";
   if (isset($_POST['new']))  $sql_edit .= " edit_history = '$edit_history" . "---------------------- " . date("Y-m-d H:i") . " | $username created ---------------------- \r\n$vals' WHERE id = $id";
 
   if (!isset($_POST['new']))  {
@@ -24,10 +28,10 @@ if (strlen($sql_edit) != 23) {
   } else {
     $sql_edit .= " edit_history = '$edit_history" . "$vals' WHERE id = $id";
   }
+  }
 
   if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
   include "read_data.php";
-  }
 
 }
 ?>
