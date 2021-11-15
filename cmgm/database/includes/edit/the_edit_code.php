@@ -16,20 +16,24 @@ if (strlen($sql_edit) != 23) {
   date_default_timezone_set("America/Los_Angeles");
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
   $sql_edit .= "edit_userid = '" . $userID . "', ";
+
   // echo "Former: " . $edit_date . "<br>";
   // echo "Current: " . date("Y-m-d H") . "<br>";
   // echo "Former: " . $edit_userid . "<br>";
   // echo "Current: " . $userID . "<br>";
-  if (isset($_POST['new']))  $sql_edit .= " edit_history = '$edit_history" . "—————————————————————— " . date("Y-m-d H:i") . " | $username created —————————————————————— \r\n$vals' WHERE id = $id";
+  if (isset($_POST['new']))  $sql_edit .= " edit_history = '$edit_history" . "—————————————————————— " . date("Y-m-d H:i") . " | $username created —————————————————————— " . PHP_EOL . "$vals' WHERE id = $id";
 
   if (!isset($_POST['new']))  {
   if ($edit_date != date("Y-m-d H") OR $edit_userid != $userID) {
-    $sql_edit .= " edit_history = '$edit_history" . "—————————————————————————— " . date("Y-m-d H:i") . " | $username —————————————————————————— \r\n$vals' WHERE id = $id";
+    $edit_history_value = "$edit_history" . "—————————————————————————— " . date("Y-m-d H:i") . " | $username ——————————————————————————" . PHP_EOL . "$vals";
+    $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
   } else {
-    $sql_edit .= " edit_history = '$edit_history" . "$vals' WHERE id = $id";
+    $edit_history_value = "$edit_history" . "$vals";
+    $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
   }
   }
-
+  // echo $sql_edit;
+  //die();
   if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
   include "read_data.php";
 
