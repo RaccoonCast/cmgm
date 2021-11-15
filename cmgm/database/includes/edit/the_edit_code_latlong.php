@@ -8,10 +8,11 @@ if ($key == "latitude" && @${@$key} != $value ) {
   if ((is_numeric($tmp_latitude)) and (is_numeric($tmp_longitude))) {
     $sql_edit .= "latitude = '".mysqli_real_escape_string($conn, $tmp_latitude)."', ";
     $sql_edit .= "longitude = '".mysqli_real_escape_string($conn, $tmp_longitude)."', ";
-    @$vals .= $key . ', $longitude';
+    @$vals .= 'Coordinates changed from "' . $latitude . ", " . $longitude . '" to "' . $tmp_latitude . ", " .$tmp_longitude . '" \r\n';
   }
 } else {
   $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
+  include "the_edit_code_history.php";
 }
 }
 ?>
