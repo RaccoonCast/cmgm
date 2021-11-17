@@ -21,7 +21,10 @@ if (strlen($sql_edit) != 23) {
   // echo "Current: " . date("Y-m-d H") . "<br>";
   // echo "Former: " . $edit_userid . "<br>";
   // echo "Current: " . $userID . "<br>";
-  if (isset($_POST['new']))  $sql_edit .= " edit_history = '$edit_history" . "—————————————————————— " . date("Y-m-d H:i") . " | $username created —————————————————————— " . PHP_EOL . "$vals' WHERE id = $id";
+  if (isset($_POST['new'])) {
+    $edit_history_value = "$edit_history" . "—————————————————————— " . date("Y-m-d H:i") . " | $username created —————————————————————— " . PHP_EOL . "$vals";
+    $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
+  }
 
   if (!isset($_POST['new']))  {
   if ($edit_date != date("Y-m-d H") OR $edit_userid != $userID) {
