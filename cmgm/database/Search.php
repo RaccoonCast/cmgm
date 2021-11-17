@@ -45,7 +45,6 @@
              <option <?php if($carrier == "ATT") echo 'selected="selected"';?> value="ATT">AT&T</option>
              <option <?php if($carrier == "Verizon") echo 'selected="selected"';?> value="Verizon">Verizon</option>
              <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
-             <option <?php if($carrier == "Sprint_keep") echo 'selected="selected"';?> value="Sprint_keep">Sprint Keep</option>
           </select>
 		 <br><label class="label">LTE/NR id</label><input
      class="custominput" maxlength="30" name="id"><br><label class="label">Creation Date</label><input

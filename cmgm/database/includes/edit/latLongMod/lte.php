@@ -8,7 +8,6 @@ $base = "https://api.cellmapper.net/v6/overrideData";
 if($carrier == "T-Mobile") $base = $base . "?MCC=310&MNC=260";
 if($carrier == "AT&T") $base = $base . "?MCC=310&MNC=410";
 if($carrier == "Sprint") $base = $base . "?MCC=310&MNC=120";
-if($carrier == "Sprint_keep") $base = $base . "?MCC=312&MNC=250";
 if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
 if (!empty($region_lte)) {

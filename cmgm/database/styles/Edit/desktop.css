@@ -59,7 +59,7 @@ abbr, .nounderline {text-decoration: none!important;}
 }
 
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21.25%!important;}
-.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {width: 10.625%!important;}
+.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.625%!important;}
 .pci_cw, .lte_cw {width: 7.083%!important;}
 .sv_cw {max-width: 23.53333%; }
 .sv_date_cw {max-width: 4.8%;}

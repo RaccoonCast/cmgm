@@ -18,7 +18,6 @@ if ($goto_page == "CellMapper") {
 if ($goto_page == "Beta") {
   if ("$carrier" == "T-Mobile") $beginning = "310/260";
   if ("$carrier" == "Sprint") $beginning = "310/120";
-  if ("$carrier" == "Sprint_keep") $beginning = "310/120";
   if ("$carrier" == "ATT") $beginning = "310/410";
   if ("$carrier" == "Verizon") $beginning = "311/480";
   if ("$cm_netType" == "LTE") $beginning = $beginning . "/LTE";
