@@ -9,13 +9,13 @@ label {
   min-width: inherit;
   text-align: left;
 	font-size: 0.82em;
+	width: 100%;
 }
 input[type=text],input[type=search],input[type=number],select {
     width: 100%;
     height: 31px;
 		border-radius: 0px;
 		border-width: 1px;
-		border-color: lightgrey;
 		border-style:solid;
 }
 .sb {
@@ -49,16 +49,14 @@ input[type=text],input[type=search],input[type=number],select {
 	display: none;
 }
 .sv_label { width: 100%;}
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw  {max-width: 50%;}
-.status_cw { width: 22%;}
-.concealed_cw { width: 26%;}
+.status_cw { max-width: 25%;} .concealed_cw { max-width: 27%;} .carrier_cw { max-width: 23%;} .cellsite_type_cw { max-width: 25%;}
 .region_cw, .addr_state_cw, .addr_zip_cw, .nr_cw, .lte_cw  {max-width: 20%;}
 .latitude_cw, .longitude_cw {max-width: 50%;}
 .pci_cw {max-width: 12.5%;}
 .addr_address_cw {max-width: 50%;} .addr_city_cw {max-width: 30%;} .addr_state_cw {max-width: 8%;} .addr_zip_cw {max-width: 12%;}
 .sv_cw {max-width: 86%; }
 .sv_date_cw {max-width: 14%;}
-.tags_cw {max-width: 85%; }
+.tags_label {max-width: 15%} .tags_cw {max-width: 85%; }
 .id_params_cw { max-width: 50%;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .photo_cw, .evidence_cw, .extra_cw {
@@ -70,16 +68,7 @@ input[type=text],input[type=search],input[type=number],select {
 .evidence_scores_cw {
 	width: 22%!important;
 }
-/* Custom styling to make everything fit on one line
-.status_cw,.concealed_cw,.cellsite_type_cw,.carrier_cw {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
-		padding: 3px 0px 4px 2px;
-
-}  */
 select {
-	background-color: #fff;
 	margin: 0px;
 	border-radius: 0px;
 	border-width: 1px;

@@ -1,0 +1,37 @@
+/* AMOLED Black ackground, white-ish text */
+body {
+  background-color: #000000;
+  color: #EFEFEF;
+}
+/*  set border-style to solid, black, 1.5 pt width, #101010 color on buttons */
+input[type=button],input[type=submit]  {
+  border-style: solid;
+  border-color: black;
+  border-width: 1.5pt;
+  background-color: #101010;
+  color: #FAFAFA;
+}
+/* remove all but bottom border */ /* set background color for textboxes */
+input[type=text],input[type=number],textarea,select,option {
+  border: 1px solid #2D2C2C!important;  /* really dark black border */
+  background-color: #111111; /* background color for inputs */
+  color: #FAFAFA; /* text color for inputs */
+}
+select:focus, textarea:focus, input:focus {
+    position: relative; /* lets box-shadow overlap other elements */
+    outline: none !important; /* remove boring outline */
+    border: 1px solid red!important; /* add red border */
+    box-shadow: 0 0 30px red; /* add box-shadow*/
+}
+/* link colors */
+a:link {color: #8ab4f8; text-decoration: none;}
+a:hover {color: #8ab4f8; text-decoration: underline;}
+a:visited {color: #c58af9;}
+a:active {color: #c58af9;}
+::placeholder {
+  color: #B2B2B2;
+}
+/* CHANGE SETTING LINK TEXT TO WHITE */
+#link12 {
+  color: #FAFAFA!important;
+}

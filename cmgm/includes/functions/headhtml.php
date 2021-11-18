@@ -1,6 +1,7 @@
 <?php if (!isset($titleOverride)) { ?>
-  <title>CMGM - <?php echo $without_extension?></title>
+  <title>CMGM - <?php echo $filename?></title>
 <?php } ?>
+<meta name="color-scheme" content="<?php if ($theme == "black") { echo 'dark'; } else {echo 'light';} ?>">
 <link rel="icon" type="image/png" href="/images/logo.png">
 <script type="module">
 import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';

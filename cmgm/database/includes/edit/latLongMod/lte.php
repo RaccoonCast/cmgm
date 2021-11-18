@@ -22,5 +22,5 @@ if (!empty($LTE_4)) $LTE_4_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Sit
 <!-- BASE -->  <?php if (isset($LTE_1_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a> <?php } ?>
 <!-- RIGHT --> <?php if (isset($LTE_2_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" >2</a> <?php } ?>
 <!-- LEFT -->  <?php if (isset($LTE_3_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" >3</a> <?php } ?>
-<!-- MIDDLE --><?php if (isset($LTE_4_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" class="pad-small-link-right">4</a>  <?php } ?>
+<!-- MIDDLE --><?php if (isset($LTE_4_mv)) { ?> <a target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" >4</a>  <?php } ?>
 <?php }} ?>

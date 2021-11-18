@@ -1,0 +1,11 @@
+.leaflet-popup-content-wrapper {
+  background: #000;
+  border-top: 2px solid red!important; /* add red border */
+  border-left: 2px solid red!important; /* add red border */
+  border-right: 2px solid red!important; /* add red border */
+  box-shadow: 0 0 6px red; /* add box-shadow*/
+}
+.leaflet-popup-tip {
+  background: #000;
+
+}

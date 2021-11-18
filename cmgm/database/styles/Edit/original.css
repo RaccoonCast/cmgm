@@ -1,0 +1,7 @@
+select {
+  	background-color: #fff;
+}
+input[type=text],input[type=search],input[type=number],select {
+		border-color: lightgrey;
+    border: 1px solid;
+}

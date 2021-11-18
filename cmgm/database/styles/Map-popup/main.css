@@ -12,3 +12,6 @@ p {
 abbr[title] {
     text-decoration: none !important;
 }
+body {
+	margin: 0px;
+}
