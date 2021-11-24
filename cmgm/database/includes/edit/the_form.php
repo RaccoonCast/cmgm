@@ -1,4 +1,4 @@
-<form action="Edit.php?id=<?php echo $id?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
+<form action="Edit.php?id=<?php echo $id; if (isset($_GET['multiplier'])) echo "&multiplier=" . $_GET['multiplier']; ?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
