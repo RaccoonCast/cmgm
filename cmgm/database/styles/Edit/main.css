@@ -7,7 +7,7 @@ input[type=text],input[type=number],option,select,.bio,.edit_history  {
 }
 .error {
   text-decoration: none;
-  color: red;
+  color: #F78A8A!important;
 }
 .map_holder {
 	float: right;
