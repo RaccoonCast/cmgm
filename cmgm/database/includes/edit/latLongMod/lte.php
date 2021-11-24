@@ -6,7 +6,7 @@ if (!empty($LTE_1) OR !empty($LTE_2) OR !empty($LTE_3) OR !empty($LTE_4)) {
 // Carrier
 $base = "https://api.cellmapper.net/v6/overrideData";
 if($carrier == "T-Mobile") $base = $base . "?MCC=310&MNC=260";
-if($carrier == "AT&T") $base = $base . "?MCC=310&MNC=410";
+if($carrier == "ATT") $base = $base . "?MCC=310&MNC=410";
 if($carrier == "Sprint") $base = $base . "?MCC=310&MNC=120";
 if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
