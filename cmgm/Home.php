@@ -18,7 +18,7 @@
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="/" method="post" autocomplete="off">
        <div class="buttons">
-        <input type="text" name="data" oninput="changeFormAction();" id="txtresult" class="textbox w-100">
+        <input type="text" name="data" value="<?php echo @$data; ?>" oninput="changeFormAction();" id="txtresult" class="textbox w-100">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
         <input type="hidden" name="carrier" value="<?php echo $carrier;?>">
