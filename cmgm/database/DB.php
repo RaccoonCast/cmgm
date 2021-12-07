@@ -27,7 +27,7 @@ while($row = $result->fetch_assoc()) {
           <?php if($isMobile != "true") {?><th>Carrier</th> <?php } ?>
           <th>Address</th>
           <?php if($isMobile != "true") {?><th>Widgets</th> <?php } ?>
-          <th>Bio</th>
+          <th>Notes</th>
           <th>EV</th>
           <?php if($isMobile != "true") {?><th>Score</th> <?php } ?>
         </tr>
@@ -54,8 +54,8 @@ while($row = $result->fetch_assoc()) {
           echo '<td class="address"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td>';
         }
 
-          if($isMobile == "true") if (!empty($bio)) echo nl2br("<td class="."bio"."><div class="."bio-text".">".$bio."</div>");
-          if($isMobile == "true") if (empty($bio)) echo nl2br("<td class="."bio"."><div class="."bio-text"."></div>");
+          if($isMobile == "true") if (!empty($notes)) echo nl2br("<td class="."notes"."><div class="."notes-text".">".$notes."</div>");
+          if($isMobile == "true") if (empty($notes)) echo nl2br("<td class="."notes"."><div class="."notes-text"."></div>");
           if($isMobile != "true") echo nl2br("<td class="."widget-td"." style="."text-align: center;".">");
 
           ?><div class="widget-box"><?php
@@ -63,8 +63,8 @@ while($row = $result->fetch_assoc()) {
           ?></td></div><?php
 
           if($isMobile != "true") {
-            if (!empty($bio)) echo nl2br("<td class="."bio".">".$bio."</td>");
-            if (empty($bio)) echo nl2br("<td></td>");
+            if (!empty($notes)) echo nl2br("<td class="."notes".">".$notes."</td>");
+            if (empty($notes)) echo nl2br("<td></td>");
           }
 
         if(substr($evidence_a, 0, 14) == "image-evidence") $evidence_a = "uploads/$evidence_a";
