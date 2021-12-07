@@ -12,7 +12,7 @@ if (isset($_GET['data'])) $data = @$_GET['data'];
 if (isset($_POST['data'])) $data = @$_POST['data'];
 
 if ($goto_page == "CellMapper") {
-  $var = cellmapperLink($latitude,$longitude,"18",$carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
+  $var = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
   return $var;
 }
 if ($goto_page == "Beta") {
@@ -34,7 +34,7 @@ if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";
 if ($goto_page == "Permits") $goto_page_URL = "../permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "/database/Upload.php?";
-if ($goto_page == "Settings") $goto_page_URL = "includes/useridsys/Settings.php?";
+if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";

@@ -22,7 +22,7 @@
           <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a style="text-decoration: none; cursor: text; color: black;" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
+              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
               <select name="type">
                 <option value="image-evidence" <?php if (@$_GET['type'] == "image-evidence") echo "selected"; ?>>Image evidence</option>
                 <option value="image" <?php if (@$_GET['type'] == "image") echo "selected"; ?>>Image of cell site</option>

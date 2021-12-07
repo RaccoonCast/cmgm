@@ -1,5 +1,6 @@
 #Alternate default index pages
 DirectoryIndex Home.php
+DirectoryIndex index.php
 LimitRequestBody 9999999999
 
 <Files ~ "\.hiddenpass$">  

@@ -1,0 +1,19 @@
+.sb {
+  width: 100%;
+  padding: 12px;
+  font-size: 2em;
+}
+input,option,select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+body {
+  font-size: 1.1em;
+}
+.w-50 {
+  width: 50%!important;
+}

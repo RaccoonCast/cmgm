@@ -6,10 +6,11 @@ header("Pragma: no-cache");
 <!DOCTYPE html>
 <html lang="en">
    <head>
-     <script src="../../js/latlong-settings.js"></script>
+     <title>CMGM - Settings</title>
+     <script src="../js/latlong-settings.js"></script>
      <?php
-     include "../../functions.php";
-
+     $titleOverride = "true";
+     include "../functions.php";
      $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'cm_mapType', 'cm_groupTowers', 'cm_showLabels', 'cm_showLowAcc', 'cm_zoom', 'prefLocType');
 
      if (isset($_POST['default_latitude'])) {
@@ -46,69 +47,69 @@ header("Pragma: no-cache");
      }
      ?>
    </head>
-   <body style="text-align: center;">
-     <form action="Settings.php" method="post" autocomplete="off">
-        <p>Username: </p>
-        <input type="text" value="<?php echo $username; ?>" name="username" id="username" required>
-        <p>Latitude/Longitude: </p>
-        <input type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
+   <body style="text-align: center;"><br>
+     <form action="../settings/" method="post" autocomplete="off">
+        <label class="label">Username: </label><input
+        type="text" value="<?php echo $username; ?>" name="username" id="username" required>
+        <label class="label">Latitude/Longitude: </label><input
+        type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
         type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
-        <p>Carrier: </p>
-        <select class="custominput dropdown" autocomplete="on" name="default_carrier">
+        <label class="label">Carrier: </label><select
+        class="custominput dropdown" autocomplete="on" name="default_carrier">
           <option style="display:none" disabled <?php if(empty($default_carrier)) echo 'selected="selected" ';?>></option>
           <option <?php if($default_carrier == "T-Mobile") echo 'selected="selected" ';?>value="T-Mobile">T-Mobile</option>
           <option <?php if($default_carrier == "ATT") echo 'selected="selected" ';?>value="ATT">AT&T</option>
           <option <?php if($default_carrier == "Verizon") echo 'selected="selected" ';?>value="Verizon">Verizon</option>
           <option <?php if($default_carrier == "Sprint") echo 'selected="selected" ';?>value="Sprint">Sprint</option>
         </select>
-        <p>Theme: </p>
-        <select class="custominput dropdown" autocomplete="on" name="theme">
+        <label class="label">Theme: </label><select
+        class="custominput dropdown" autocomplete="on" name="theme">
           <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Original</option>
           <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
           <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
         </select>
-        <p>Debug Flag: </p>
-        <select class="custominput dropdown" autocomplete="on" name="debug_flag">
+        <label class="label">Debug Flag: </label><select
+        class="custominput dropdown" autocomplete="on" name="debug_flag">
           <option <?php if($debug_flag == "0") echo 'selected="selected" ';?>value="0">off</option>
           <option <?php if($debug_flag == "1") echo 'selected="selected" ';?>value="1">low</option>
           <option <?php if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
           <option <?php if($debug_flag == "3") echo 'selected="selected" ';?>value="3">high</option>
         </select>
-        <p>Preferred Location Type: </p>
-        <select class="custominput dropdown" autocomplete="on" name="prefLocType">
+        <label class="label">Preferred Location Type: </label><select
+        class="custominput dropdown" autocomplete="on" name="prefLocType">
           <option <?php if($prefLocType == "settings") echo 'selected="selected" ';?>value="settings">Settings</option>
           <option <?php if($prefLocType == "gps") echo 'selected="selected" ';?>value="gps">GPS</option>
         </select>
-        <p>CellMapper Link: </p>
-        <select class="custominput dropdown" autocomplete="on" name="cm_mapType">
+        <label class="label">CellMapper Link Maptype: </label><select
+        class="custominput dropdown" autocomplete="on" name="cm_mapType">
           <option <?php if($cm_mapType == "osm_street") echo 'selected="selected" ';?>value="osm_street">OpenStreetMaps</option>
           <option <?php if($cm_mapType == "esri_satellite") echo 'selected="selected" ';?>value="esri_satellite">ESRI Satellite</option>
           <option <?php if($cm_mapType == "esri_topo") echo 'selected="selected" ';?>value="esri_topo">ESRI Topographical</option>
           <option <?php if($cm_mapType == "usgs_satellite") echo 'selected="selected" ';?>value="usgs_satellite">USGS Satellite</option>
-        </select><br>
+        </select>
         <!-- GROUP TOWERS -->
-        <input type="hidden" name="cm_groupTowers" value="false">
-        <input type="checkbox" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>>
-        <label for="cm_groupTowers"> Group Towers</label>
+        <label class="label">CellMapper Link Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Group pins</label><input
+        type="hidden" name="cm_groupTowers" value="false"><input
+        type="checkbox" id="cm_groupTowers" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>>
 
         <!-- SHOW LABELS -->
-        <input type="hidden" name="cm_showLabels" value="false">
-        <input type="checkbox" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>>
-        <label for="cm_showLabels"> Show Labels</label>
+        <label for="cm_showLabels"> | eNB labels</label><input
+        type="hidden" name="cm_showLabels" value="false"><input
+        type="checkbox" id="cm_showLabels" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>>
 
         <!-- SHOW LOW ACCURACY -->
-        <input type="hidden" name="cm_showLowAcc" value="false">
-        <input type="checkbox" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>>
-        <label for="cm_showLowAcc"> Show Low Accuracy</label>
+        <label for="cm_showLowAcc"> | Low Accuracy</label><input
+        type="hidden" name="cm_showLowAcc" value="false"><input
+        type="checkbox" id="cm_showLowAcc" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>>
 
         <!-- CM ZOOM -->
-        <br><label for="cm_zoom">Zoom: </label><input type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
+        <label for="cm_zoom"> | Zoom: </label><input type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span></div>
 
-        <p>Google Maps Link: </p>
+        <!-- <label>Google Maps Link: </label> -->
         <br>
         <br>
-        <input type="button" class="w-50 sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
-        type="submit" class="w-50 sb" style="color: #00000;"  value="Submit">
+        <input type="button" class="sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
+        type="submit" class="sb" style="color: #00000;"  value="Submit">
      </form>
    </body>
    <script>
