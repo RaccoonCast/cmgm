@@ -2,3 +2,10 @@ footer {
 	border-top: 2px solid #a6a6a4;
   background-color: #dededc;
 }
+select {
+  	background-color: #fff;
+}
+input[type=text],input[type=search],input[type=number],select {
+		border-color: lightgrey;
+    border: 1px solid;
+}

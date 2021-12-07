@@ -22,14 +22,14 @@ function changeFormAction() {
   document.getElementById("link08").removeAttribute("onclick");
   document.getElementById("link08").setAttribute('type', 'submit');
 
-  document.getElementById("link09").removeAttribute("onclick");
-  document.getElementById("link09").setAttribute('type', 'submit');
-
   document.getElementById("link10").removeAttribute("onclick");
   document.getElementById("link10").setAttribute('type', 'submit');
 
   document.getElementById("link11").removeAttribute("onclick");
   document.getElementById("link11").setAttribute('type', 'submit');
+
+  document.getElementById("link12").removeAttribute("onclick");
+  document.getElementById("link12").setAttribute('type', 'submit');
 }
 
 function redir(page) {

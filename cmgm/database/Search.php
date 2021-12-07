@@ -47,17 +47,17 @@
              <option <?php if($carrier == "Sprint") echo 'selected="selected"';?> value="Sprint">Sprint</option>
           </select>
 		 <br><label class="label">LTE/NR id</label><input
-     class="custominput" maxlength="30" name="id"><br><label class="label">Creation Date</label><input
-     class="custominput" maxlength="11" placeholder="1/20/2009" name="date">
-		 <br><label class="label">File</label><input class="custominput small-text" maxlength="55" name="fileSearch">
-		 <br><label class="label">Address (of site)</label><input class="custominput" maxlength="50" placeholder="Address" autocomplete="chrome-off" name="address"><input
-     class="custominput" maxlength="25" placeholder="City" autocomplete="chrome-off" name="city"><input
-     class="custominput" maxlength="5" placeholder="Zip" autocomplete="chrome-off" name="zip"><input
-     class="custominput" maxlength="20" placeholder="State" autocomplete="chrome-off" name="state">
-		 <br><label class="label">Near lat/long</label><input class="latlong custominput" maxlength="45" value="<?php echo $latitude;?>" name="latitude"><input
-     class="latlong custominput" maxlength="45" value="<?php echo $longitude?>" name="longitude">
-     <br><label class="label">Tag Search</label><input class="custominput" maxlength="45" name="tags">
-     <br><label class="label">Limits results to</label><input class="custominput" maxlength="45" value="500" name="limit">
+     class="custominput" type="text" maxlength="30" name="id"><br><label class="label">Creation Date</label><input
+     class="custominput" type="text" maxlength="11" placeholder="1/20/2009" name="date">
+		 <br><label class="label">File</label><input type="text" class="custominput small-text" maxlength="55" name="fileSearch">
+		 <br><label class="label">Address (of site)</label><input type="text" class="custominput" maxlength="50" placeholder="Address" autocomplete="chrome-off" name="address"><input
+     class="custominput" type="text" maxlength="25" placeholder="City" autocomplete="chrome-off" name="city"><input
+     class="custominput" type="text" maxlength="5" placeholder="Zip" autocomplete="chrome-off" name="zip"><input
+     class="custominput" type="text" maxlength="20" placeholder="State" autocomplete="chrome-off" name="state">
+		 <br><label class="label">Near lat/long</label><input type="text" class="latlong custominput" maxlength="45" value="<?php echo $latitude;?>" name="latitude"><input
+     type="text" class="latlong custominput" maxlength="45" value="<?php echo $longitude?>" name="longitude">
+     <br><label class="label">Tag Search</label><input type="text" class="custominput" maxlength="45" name="tags">
+     <br><label class="label">Limits results to</label><input type="text" class="custominput" maxlength="45" value="500" name="limit">
      <label class="label">Has Street View:</label><div class="wrapper-73">
      <input type="radio" id="sv_true" name="has_street_view" value="true"><label for="street_view_true">true</label>
      <input type="radio" id="sv_false" name="has_street_view" value="false"><label for="street_view_false">false</label>

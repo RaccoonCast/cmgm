@@ -6,7 +6,7 @@ label {
   display: inline-block;
   padding-top: 5px;
   padding-bottom: 5px;
-	font-size: 0.94em;
+	font-size: 0.93em;
 }
 input[type=text],input[type=search],input[type=number],option,select {
     height: 34px;
@@ -59,19 +59,19 @@ abbr, .nounderline {text-decoration: none!important;}
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21.25%!important;}
 .region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.625%!important;}
 .pci_cw, .lte_cw {width: 7.083%!important;}
-.sv_cw {max-width: 23.53333%; }
-.sv_date_cw {max-width: 4.8%;}
+.sv_cw {max-width: 23.33333%; }
+.sv_date_cw {max-width: 5%;}
 .tags_cw {max-width: 85%!important; }
 
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label {
-	width:16%!important;
+	width:13%!important;
 }
 .evidence_scores_label {
 	width:78%!important;
 }
 .photo_cw, .evidence_cw, .extra_cw {
-	width:28%!important;
+	width:29%!important;
 }
 .evidence_scores_cw {
 	width: 22%!important;

@@ -78,22 +78,22 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
 
-    <label class="id_params_label">Multi ID Parameters</label><select class="id_params_cw" name="pci_match">
+    <label class="id_params_label">Multi ID Parameters</label><select title="PCIs match" class="id_params_cw" name="pci_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$pci_match == "") echo "selected "?>value="">PCIs match:</option>
     <option <?php if(@$pci_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$pci_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$pci_match == "partial") echo "selected " ?>value="partial">partial</option>
-    </select><select class="id_params_cw" name="id_pattern_match">
+    </select><select class="id_params_cw" title="ID Pattern Match" name="id_pattern_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$id_pattern_match == "") echo "selected "?>value="">ID Pattern Match: </option>
     <option <?php if(@$id_pattern_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$id_pattern_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$id_pattern_match == "partial") echo "selected "?>value="partial">partial</option>
-    </select><select class="id_params_cw" name="sector_match">
+    </select><select class="id_params_cw" title="Sectors match" name="sector_match">
     <option <?php if (!isset($_GET['new'])) echo "disabled ";if(@$sector_match == "") echo "selected "?>value="">Sectors match: </option>
     <option <?php if(@$sector_match == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$sector_match == "false") echo "selected "?>value="false">false</option>
     <option <?php if(@$sector_match == "partial") echo "selected "?>value="partial">partial</option>
-    </select><select class="id_params_cw" name="other_user_map_primary">
+    </select><select class="id_params_cw" title="Primary already located" name="other_user_map_primary">
     <option <?php if (!isset($_GET['new'])) echo "disabled "; if(@$other_user_map_primary == "") echo "selected "?>value="">Primary already located: </option>
     <option <?php if(@$other_user_map_primary == "true") echo "selected "?>value="true">true</option>
     <option <?php if(@$other_user_map_primary == "false") echo "selected "?>value="false">false</option>
@@ -110,20 +110,21 @@
 
     <label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
     type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php echo str_replace("https://", "",@$sv_a); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_A" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php echo str_replace("https://", "",@$sv_b); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_B" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php echo str_replace("https://", "",@$sv_c); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_C" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
     <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
     type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php echo str_replace("https://", "",@$sv_d); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_D" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php echo str_replace("https://", "",@$sv_e); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_e" name="sv_e_date" placeholder="DATE" value="<?php echo @$sv_e_date ?>"><input
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_E" class="inline-block sv_date_cw sv_e" name="sv_e_date" placeholder="DATE" value="<?php echo @$sv_e_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_f" class="inline-block sv_cw sv_f" name="sv_f" placeholder="STREET_VIEW_F" value="<?php echo str_replace("https://", "",@$sv_f); ?>"><input
-    type="text" autocomplete="new-street-address" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
+    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_F" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
 
-      <label class="tags_label">Tags/Bio</label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
+    <label class="tags_label">Tags/Bio
+    <div title="Street View does not show the most recent antenna upgrade.&#10;This only applies to sites with antennas that aren't concealed." class="floatright inline-block"><input type="checkbox" id="old_street_view" name="old_street_view" value="true" <?php if($old_street_view == "true") echo "checked";?>>Old SV</div></label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } else { ?>
     <textarea rows="6" cols="50" class="bio" placeholder="Bio" name="bio"><?php echo @$bio?></textarea> <?php } ?>
@@ -179,7 +180,7 @@
     type="number" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     </div><div class="_panel3">
-    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of visible antenna modifs</label><input
+    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recongizable modifactions</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input

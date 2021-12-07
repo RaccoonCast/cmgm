@@ -26,6 +26,7 @@ if ($goto_page == "Beta") {
 }
 if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
+if ($goto_page == "Maprad") return "https://maprad.io/us/search/coordinates/200/$latitude,$longitude?source=US";
 
 if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
 if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";

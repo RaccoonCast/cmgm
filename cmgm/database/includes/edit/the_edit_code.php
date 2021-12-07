@@ -4,13 +4,15 @@ $sql_edit = "UPDATE database_db SET ";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
   include "the_edit_code_latlong.php";
 
-  if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
+  if (@${@$key} != $value && $key != "evidence_score" && $key != "old_street_view" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
     if (strpos($key, 'sv') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
     if (strpos($key, 'sv') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
     include "the_edit_code_history.php";
   }
   ${$value} = @$_POST[$value];
 }
+if (!isset($_POST['old_street_view']) && @$old_street_view != "false") { $sql_edit .= "old_street_view = 'false', "; @$vals .= "Street view marked as not outdated" . PHP_EOL; }
+if (isset($_POST['old_street_view']) && @$old_street_view != "true") { $sql_edit .= "old_street_view = 'true', "; @$vals .= "Street view marked as outdated" . PHP_EOL; }
 
 if (strlen($sql_edit) != 23) {
   date_default_timezone_set("America/Los_Angeles");

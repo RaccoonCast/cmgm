@@ -27,4 +27,4 @@ if(isset($url_1) && $debug_flag != "0") { ?> URL 1: <a class="gmaps_api_link" ta
 if(isset($url_2) && $debug_flag != "0") { ?> URL 2: <a class="gmaps_api_link" target="_blank" href="<?php echo $url_2; ?>"><?php echo substr($url_2,8,42).'...'; ?></a><br> <?php }
 if(isset($conv_type)) { ?> Location Source: <?php echo $conv_type; ?><br> <?php } ?>
 </div>
-</div>
+</div><br>
