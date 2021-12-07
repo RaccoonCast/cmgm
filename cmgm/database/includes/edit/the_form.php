@@ -124,7 +124,7 @@
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_F" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
 
     <label class="tags_label">Tags/Notes
-    <div title="Street View does not show the most recent antenna upgrade.&#10;This only applies to sites with antennas that aren't concealed." class="floatright inline-block"><input type="checkbox" id="old_street_view" name="old_street_view" value="true" <?php if($old_street_view == "true") echo "checked";?>>Old SV</div></label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
+    <div title="Street View does not show the most recent antenna upgrade.&#10;This only applies to sites with antennas that aren't concealed." class="floatright inline-block"><input type="hidden" name="old_street_view" value="false"><input type="checkbox" name="old_street_view" value="true" <?php if($old_street_view == "true") echo "checked";?>>Old SV</div></label><input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } else { ?>
     <textarea rows="6" cols="50" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } ?>
