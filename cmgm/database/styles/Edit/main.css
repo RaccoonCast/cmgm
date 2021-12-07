@@ -1,6 +1,6 @@
 .inline-block {display:inline-block; }
-.bio,.edit_history {width:100%; resize: none;}
-input[type=text],input[type=number],option,select,.bio,.edit_history  {
+.notes,.edit_history {width:100%; resize: none;}
+input[type=text],input[type=number],option,select,.notes,.edit_history  {
 		box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;

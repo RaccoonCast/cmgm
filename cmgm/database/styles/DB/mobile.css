@@ -17,14 +17,14 @@ td {
 tr:nth-child(even) {
   background: #ededed;
 }
-.bio {
+.notes {
   overflow-wrap: break-word;
   font-size: 0.85em;
   min-width: inherit;
   max-width: 40%;
   width: 100%;
 }
-.bio-text {
+.notes-text {
    max-width: 30ch;
 }
 .ev {
