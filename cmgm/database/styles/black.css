@@ -8,12 +8,12 @@ body {
   background-color: #000000;
   color: #EFEFEF;
 }
-/*  set border-style to solid, black, 1.5 pt width, #101010 color on buttons */
+/*  set border-style to solid, black, 1.5 pt width, #111111 color on buttons */
 input[type=button],input[type=submit]  {
   border-style: solid;
   border-color: black;
   border-width: 1.5pt;
-  background-color: #101010;
+  background-color: #111111;
   color: #FAFAFA;
 }
 /* remove all but bottom border */ /* set background color for textboxes */
@@ -29,7 +29,7 @@ select:focus, textarea:focus, input:focus {
     box-shadow: 0 0 30px red; /* add box-shadow*/
 }
 /* link colors */
-a:link {color: #8ab4f8; text-decoration: none;}
+.blue,a:link {color: #8ab4f8; text-decoration: none;}
 a:hover {color: #8ab4f8; text-decoration: underline;}
 a:visited {color: #c58af9;}
 a:active {color: #c58af9;}

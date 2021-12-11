@@ -3,12 +3,12 @@ body {
   background-color: #000000;
   color: #EFEFEF;
 }
-/*  set border-style to solid, black, 1.5 pt width, #101010 color on buttons */
+/*  set border-style to solid, black, 1.5 pt width, #111111 color on buttons */
 input[type=button],input[type=submit]  {
   border-style: solid;
   border-color: black;
   border-width: 1.5pt;
-  background-color: #101010;
+  background-color: #111111;
   color: #FAFAFA;
 }
 /* remove all but bottom border */ /* set background color for textboxes */

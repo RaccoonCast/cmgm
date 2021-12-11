@@ -23,6 +23,6 @@ if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" 
 if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
 } ?>
 
-<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?> <a target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
-<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a> <?php } ?>
+<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
+<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a> <?php } ?>
 <?php }} ?>
