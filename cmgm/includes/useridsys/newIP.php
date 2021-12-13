@@ -41,7 +41,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $default_carrier = "ATT";
   $default_latitude = trim($result_ipinfo[0]);
   $default_longitude = trim($result_ipinfo[1]);
-  $theme = "white";
+  $theme = "black";
   $gmaps_util = "0";
   $debug_flag = "0";
   $prefLocType = "gps";
