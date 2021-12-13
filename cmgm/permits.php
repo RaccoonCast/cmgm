@@ -16,18 +16,19 @@
 <body class="flex">
 <?php
 
-function button($address,$button_text,$link) { ?>
+function button($silent,$address,$button_text,$link) { ?>
+
   <div id="form" action="" method="post" autocomplete="off">
     <div class="buttons">
+      <hr>
       <?php
-      echo $address . "<br>";
-      echo $button_text . "<br>";
+      if ($silent == "false") echo $address . "<br>";
+      if ($silent == "false") echo $button_text . "<br>";
       echo $link . "<br>" . "<br>";
       ?>
       <input type="submit" class="sb w-50" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
     </div>
   </div> <?php
-  die();
 }
 
 if (isset($_GET['city'])) $city = $_GET['city'];
@@ -62,7 +63,13 @@ if ("$city" == "Glendale") { button($address,"Glendale","https://csi.glendaleca.
 } elseif ("$city" == "Sacramento") { button($address,"Sacramento","https://aca-prod.accela.com/SACRAMENTO/Cap/CapHome.aspx?module=Building&TabName=HOME");
 } elseif ("$city" == "West Hollywood") { button($address,"West Hollywood","https://permits.weho.org/etrakit3/Search/permit.aspx");
 } elseif ("$city" == "Oakland") { button($address,"Oakland","https://aca-prod.accela.com/oakland/customization/common/launchpad.aspx");
-} elseif ("$city" == "Los Angeles") { button($address,"Los Angeles","http://ladbsdoc.lacity.org/");
+} elseif ("$city" == "Los Angeles") {
+   button("false",$address,"Los Angeles","http://ladbsdoc.lacity.org/");
+   button("true",$address,"Los Angeles - Old","https://navigatela.lacity.org/navigatela/");
+   button("true",$address,"Los Angeles - New","https://www.ladbsservices2.lacity.org/OnlineServices/");
+   button("true",$address,"LA Open Data","https://data.lacity.org/A-Prosperous-City/Building-Permits/nbyu-2ha9/data");
+   button("true",$address,"County - New","https://epicla.lacounty.gov/SelfService/#/search");
+   button("true",$address,"County - Old","http://ladbsdoc.lacity.org/");
 } elseif ("$city" == "Thousand Oaks") { button($address,"Thousand Oaks","https://thou-egov.aspgov.com/Click2GovBP/index.html");
 } elseif ("$city" == "Torrance") {
   echo "The majority of permits are filed under Los Angeles County.";
