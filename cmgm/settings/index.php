@@ -47,7 +47,8 @@ header("Pragma: no-cache");
      }
      ?>
    </head>
-   <body style="text-align: center;"><br>
+   <body style="text-align: center;">
+     <h1> Settings </h1>
      <form action="../settings/" method="post" autocomplete="off">
         <label class="label">Username: </label><input
         type="text" value="<?php echo $username; ?>" name="username" id="username" required>
@@ -64,7 +65,7 @@ header("Pragma: no-cache");
         </select>
         <label class="label">Theme: </label><select
         class="custominput dropdown" autocomplete="on" name="theme">
-          <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Original</option>
+          <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Basic</option>
           <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
           <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
         </select>
@@ -87,25 +88,38 @@ header("Pragma: no-cache");
           <option <?php if($cm_mapType == "esri_topo") echo 'selected="selected" ';?>value="esri_topo">ESRI Topographical</option>
           <option <?php if($cm_mapType == "usgs_satellite") echo 'selected="selected" ';?>value="usgs_satellite">USGS Satellite</option>
         </select>
-        <!-- GROUP TOWERS -->
         <label class="label">CellMapper Link Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Group pins</label><input
         type="hidden" name="cm_groupTowers" value="false"><input
         type="checkbox" id="cm_groupTowers" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>>
 
-        <!-- SHOW LABELS -->
         <label for="cm_showLabels"> | eNB labels</label><input
         type="hidden" name="cm_showLabels" value="false"><input
         type="checkbox" id="cm_showLabels" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>>
 
-        <!-- SHOW LOW ACCURACY -->
         <label for="cm_showLowAcc"> | Low Accuracy</label><input
         type="hidden" name="cm_showLowAcc" value="false"><input
         type="checkbox" id="cm_showLowAcc" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>>
 
-        <!-- CM ZOOM -->
-        <label for="cm_zoom"> | Zoom: </label><input type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span></div>
+        <label for="cm_zoom"> | Zoom: </label><input
+        type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span></div>
+        
+        <!--
+        <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
+        type="hidden" name="cmgm_auto_reload" value="false"><input
+        type="checkbox" id="cmgm_auto_reload" name="cmgm_auto_reload" value="true" <?php if($cmgm_auto_reload == "true") echo 'checked';?>>
 
-        <!-- <label>Google Maps Link: </label> -->
+        <label for="cmgm_map_allcarriers"> | All carriers</label><input
+        type="hidden" name="cmgm_map_allcarriers" value="false"><input
+        type="checkbox" id="cmgm_map_allcarriers" name="cmgm_map_allcarriers" value="true" <?php if($cmgm_map_allcarriers == "true") echo 'checked';?>>
+
+        <label for="cmgm_map_simple" title="No specialized pin colors, just red/green."> | Simple </label><input
+        type="hidden" name="cmgm_map_simple" value="false"><input
+        type="checkbox" id="cmgm_map_simple" name="cmgm_map_simple" value="true"<?php if($cmgm_map_simple == "true") echo 'checked';?>>
+
+        <label for="cmgm_map_pin_limit"> | Max Pins: </label><input
+        type="range" step="25" min="50" max="1000" value="<?php echo $cmgm_map_pin_limit;?>" name="cmgm_pin_limit" id="cmgm_map_pin_limit"><span id="cmgm_map_pin_limitVal"></span></div>
+
+        <label>Google Maps Link: </label> -->
         <br>
         <br>
         <input type="button" class="sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
@@ -115,6 +129,11 @@ header("Pragma: no-cache");
    <script>
    var slider = document.getElementById("cm_zoom");
    var output = document.getElementById("cm_zoomVal");
+   output.innerHTML = slider.value;
+   slider.oninput = function() {output.innerHTML = this.value;}
+
+   var slider = document.getElementById("cmgm_pin_limit");
+   var output = document.getElementById("cmgm_pin_limitVal");
    output.innerHTML = slider.value;
    slider.oninput = function() {output.innerHTML = this.value;}
    </script>
