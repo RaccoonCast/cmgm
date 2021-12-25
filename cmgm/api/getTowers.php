@@ -16,7 +16,7 @@ foreach($_GET as $key => $value){
 
 if (empty($limit)) $limit = "1";
 
-$sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db WHERE $db_vars ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE $db_vars ORDER BY distance LIMIT $limit";
 
 $arr = array();
 if ($result = $conn->query($sql)) {

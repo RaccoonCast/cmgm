@@ -58,11 +58,16 @@
      type="text" class="latlong custominput" maxlength="45" value="<?php echo $longitude?>" name="longitude">
      <br><label class="label">Tag Search</label><input type="text" class="custominput" maxlength="45" name="tags">
      <br><label class="label">Limits results to</label><input type="text" class="custominput" maxlength="45" value="500" name="limit">
-     <label class="label">Has Street View:</label><div class="wrapper-73">
-     <input type="radio" id="sv_true" name="has_street_view" value="true"><label for="street_view_true">true</label>
-     <input type="radio" id="sv_false" name="has_street_view" value="false"><label for="street_view_false">false</label>
+     <label class="label height38">Has Street View:</label><div class="wrapper-73">
+     <input type="radio" id="sv_1" name="has_street_view" value="true"><label for="sv_1">true</label>
+     <input type="radio" id="sv_2" name="has_street_view" value="false"><label for="sv_2">false</label>
      </div>
-     <br><label class="label" for="basic">Basic Map Pins</label><div class="wrapper-73"><input type="checkbox" name="basic" value="true"></div>
+     <br><label class="label height38">Map Pin Styles</label><div class="wrapper-73">
+       <input type="radio" id="pin_1" name="pin_style" value="default" checked><label for="pin_1">default</label>
+       <input type="radio" id="pin_2" name="pin_style" value="basic"><label for="pin_2">basic</label>
+       <input type="radio" id="pin_3" name="pin_style" value="celltype"><label for="pin_3">cellsite type</label>
+       <input type="radio" id="pin_4" name="pin_style" value="carrier"><label for="pin_4">carrier</label>
+     </div>
      <p>
        > = more than/after<br>
        < = less than/before

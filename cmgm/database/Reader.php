@@ -13,7 +13,7 @@ if ($back == "/database/Map-popup.php") $back_url = "Map-popup.php?mp-id=" . $id
 if ($back == "/database/DB.php") $back_url = "DB.php#" . $id ;
 if ($back == "Home" OR !isset($back)) $back_url = "\Home.php";
 
-$sql = "SELECT * FROM database_db WHERE id = $id;";
+$sql = "SELECT * FROM db WHERE id = $id;";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {

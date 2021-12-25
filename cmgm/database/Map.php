@@ -95,19 +95,14 @@ function marker(latitude,longitude,status,id,url_suffix) {
       }
 
  <?php
-  if(isMobile()){
-    include 'includes/map/iconsize-mobile.php';
-  } else {
-    include 'includes/map/iconsize-desktop.php';
-  }
-
+include 'includes/map/iconsize.php';
 
 $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-$database_get_list = "id,latitude,longitude,status,tags";
+$database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
 
-$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM database_db $db_vars ORDER BY distance LIMIT $limit";
-if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL;
+$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db $db_vars ORDER BY distance LIMIT $limit";
+if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
 
@@ -117,21 +112,41 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 switch ($sepCount) {
   case 1:  $id = $value; break;
-  case 2:  $lat = $value; break;
-  case 3:  $long = $value; break;
-  case 4:  $status = $value; break;
-  case 5:  $tags = $value;
+  case 2:  $carrier = $value; break;
+  case 3:  $lat = $value; break;
+  case 4:  $long = $value; break;
+  case 5:  $cellsite_type = $value; break;
+  case 6:  $concealed = $value; break;
+  case 7:  $status = $value; break;
+  case 8:  $tags = $value;
 
-if (!isset($_GET['basic'])) {  
+if ($pin_style != "basic") {
   if (like_match('unmapped,%',$tags) == "TRUE" OR like_match('%,unmapped',$tags) == "TRUE" OR like_match('%,unmapped,%',$tags) == "TRUE" OR $tags == "unmapped") $status = "unmapped";
   if (like_match('weird,%',$tags) == "TRUE" OR like_match('%,weird',$tags) == "TRUE" OR like_match('%,weird,%',$tags) == "TRUE" OR $tags == "weird") $status = "weird";
   if (like_match('wip,%',$tags) == "TRUE" OR like_match('%,wip',$tags) == "TRUE" OR like_match('%,wip,%',$tags) == "TRUE" OR $tags == "wip") $status = "wip";
   if (like_match('special,%',$tags) == "TRUE" OR like_match('%,special',$tags) == "TRUE" OR like_match('%,special,%',$tags) == "TRUE" OR $tags == "special") $status = "special";
 }
 
-if (!empty($lat) && !empty($long) && !empty($status)) {?>
-marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
-<?php }
+if ($pin_style == "celltype") {
+$status = NULL;
+if ($cellsite_type == "rooftop" && $concealed == "false") $status = "lightgray";
+if ($cellsite_type == "rooftop" && $concealed == "true") $status = "darkgray";
+if ($cellsite_type == "monopalm") $status = "lightgreen";
+if ($cellsite_type == "monopine") $status = "darkgreen";
+if ($cellsite_type == "misc-tree") $status = "darkgreen";
+if ($cellsite_type == "tower") $status = "tower";
+if (empty($status)) $status = "unknown";
+}
+if ($pin_style == "carrier") {
+$status = NULL;
+if ($carrier == "T-Mobile") $status = "tmobile";
+if ($carrier == "ATT") $status = "att";
+if ($carrier == "Sprint") $status = "sprint";
+if ($carrier == "Verizon") $status = "verizon";
+if (empty($status)) $status = "unknown";
+}
+?>marker(<?php echo $lat?>,<?php echo $long?>,<?php echo $status?>,<?php echo $id?>);
+<?php
 break;
             }
     }

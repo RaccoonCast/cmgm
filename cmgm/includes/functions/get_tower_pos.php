@@ -1,7 +1,7 @@
 <?php
 function towerPosGet($gt_id,$gt_carrier) {
 include "sqlpw.php";
-$gt_sql = "SELECT latitude,longitude FROM database_db WHERE LTE_1ss='$gt_id' AND carrier='$gt_carrier'";
+$gt_sql = "SELECT latitude,longitude FROM db WHERE LTE_1ss='$gt_id' AND carrier='$gt_carrier'";
 $result = mysqli_query($conn, $gt_sql);
       while ($row = mysqli_fetch_assoc($result)) {
 

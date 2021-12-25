@@ -12,7 +12,7 @@ if (isset($_GET['properties'])) {
 
 $database_id = $_GET['id'];
 
-$sql = "SELECT $database_get_list FROM database_db WHERE id=" . "$database_id" . "";
+$sql = "SELECT $database_get_list FROM db WHERE id=" . "$database_id" . "";
 
 $arr = array();
 if ($result = $conn->query($sql)) {

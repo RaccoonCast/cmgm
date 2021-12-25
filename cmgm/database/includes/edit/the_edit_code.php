@@ -1,6 +1,6 @@
 <?php
 // Edit
-$sql_edit = "UPDATE database_db SET ";
+$sql_edit = "UPDATE db SET ";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
   include "the_edit_code_latlong.php";
 

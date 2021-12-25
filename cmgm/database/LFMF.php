@@ -16,7 +16,7 @@ die();
 if ($_POST['opt'] == 'Missing File Search'){
 // Let's Find Missing Files (LFMF)
 echo "The following IDs have missing EV: <br>";
-$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM database_db";
+$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -43,7 +43,7 @@ $result->close(); $conn->close();
 } elseif ($_POST['opt'] == 'Remove unused files') {
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
 $list = null;
-$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c FROM database_db";
+$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -65,7 +65,7 @@ foreach($fileList as $filename){
   }
 }
 } elseif ($_POST['opt'] == 'Show unused DB IDs') {
-  $sql = "SELECT t1.id + 1 FROM database_db t1 WHERE NOT EXISTS (SELECT * FROM database_db t2 WHERE t2.id = t1.id + 1)";
+  $sql = "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT * FROM db t2 WHERE t2.id = t1.id + 1)";
   $result = mysqli_query($conn,$sql);
 
   while($row = $result->fetch_assoc()) {

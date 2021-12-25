@@ -7,7 +7,7 @@ if (!empty($value) OR $value == "NULL" OR $value == "0") {
   if ($key != "latitude" && $key != "longitude" && $key != "zoom" && $key != "mp-id") @$url_suffix = @$url_suffix . "&" . $key . "=" . $value;
   if ($value == "NULL") $value = null;
   if ($value == "!NULL") $trimChar = null;
-  if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "basic") { ${$key} = $value; }
+  if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style") { ${$key} = $value; }
   elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
   elseif ($key == "date" AND (strpos($value, ',') !== false)) {
       $strings = explode(',',$value);

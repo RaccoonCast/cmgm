@@ -1,12 +1,12 @@
 <?php function lockorunlock($id,$lock_status,$redirPage,$conn,$userID) {
 if ($lock_status == "lock_conf") {
-  mysqli_query($conn, "UPDATE database_db SET edit_lock = '$userID' WHERE id = '$id'"); // First parameter is just return of "mysqli_connect()" function
+  mysqli_query($conn, "UPDATE db SET edit_lock = '$userID' WHERE id = '$id'"); // First parameter is just return of "mysqli_connect()" function
   if ($redirPage == "Edit") { echo "Locked."; redir("Edit.php?id=$id",2);}
   if ($redirPage == "Map-popup") echo "Locked";
   if ($redirPage != "Map-popup") redir("../",0);
 }
 if ($lock_status == "unlock_conf") {
-  mysqli_query($conn, "UPDATE database_db SET edit_lock = '' WHERE id = '$id'"); // First parameter is just return of "mysqli_connect()" function
+  mysqli_query($conn, "UPDATE db SET edit_lock = '' WHERE id = '$id'"); // First parameter is just return of "mysqli_connect()" function
   if ($redirPage == "Edit") { echo "Unlocked."; redir("Edit.php?id=$id",2);}
   if ($redirPage == "Map-popup") echo "Unlocked";
   if ($redirPage != "Map-popup") redir("../",0);
