@@ -18,4 +18,7 @@ if(isMobile()){
   css("desktop",$filename);
 }
 css("main",$filename);
+
+// PRIMARY THEME
+echo '<link rel="stylesheet" href="/styles/' . $theme . '.css">' . PHP_EOL;
 ?>
