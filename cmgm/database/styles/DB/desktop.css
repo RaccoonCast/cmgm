@@ -16,23 +16,22 @@ td {
   vertical-align: top;
   padding: 4px;
 }
-tr:nth-child(even) {
-  background: #ededed;
-}
-.address {
-  min-width: 210px!important;
+
+.addr-box {
+  width: 180px;
 }
 .widget {
   font-size: 19px;
   text-decoration: none;
 }
-.widget-td {
-  width: 135px!important;
+.widget-box {
+  width: 135px;
 }
 .lte {
   max-width: 20px!important;
 }
 .notes {
-  max-width: 33cm;
+  max-width: 100%;
+  width: 74%;
 }
 .carrier {min-width: 1.7cm;}

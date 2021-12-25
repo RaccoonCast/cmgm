@@ -11,7 +11,6 @@
 </head>
 <body>
 <?php
-
 $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM database_db ".@$db_vars." ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo $sql;
 $result = mysqli_query($conn,$sql);
@@ -38,8 +37,8 @@ while($row = $result->fetch_assoc()) {
       if ($key == "DISTANCE") {
         echo "<tr>";
         $db_map_link = "https://cmgm.ml/database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
-        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType);
-        $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType);
+        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+        $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 
         if($isMobile == "true") {
         echo '<td class="lte" id="'.$id.'">'.$carrier.'<br><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
@@ -49,9 +48,9 @@ while($row = $result->fetch_assoc()) {
         }
 
         if($isMobile == "true"){
-          echo '<td class="address"><a href="'.$gmlink.'">'.$address.'</a></td>';
+          echo '<td class="address"><div class="addr-box"><a href="'.$gmlink.'">'.$address.'</a></div></td>';
         } else {
-          echo '<td class="address"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td>';
+          echo '<td class="address"><div class="addr-box"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td></div>';
         }
 
           if($isMobile == "true") if (!empty($notes)) echo nl2br("<td class="."notes"."><div class="."notes-text".">".$notes."</div>");
