@@ -7,7 +7,8 @@
    @$longitude = substr("$longitude", 0, 10);
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
    if (!isset($carrier)) $carrier = $default_carrier;
-   $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
+   if ($carrier = "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
+   $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
    $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
    $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
    // $gm2link = "../goto.php?goto_page=LA Permit Map&latitude=$latitude&longitude=$longitude";
