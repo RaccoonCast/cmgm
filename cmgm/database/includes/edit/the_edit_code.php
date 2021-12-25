@@ -11,7 +11,6 @@ if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
   }
   ${$value} = @$_POST[$value];
 }
-echo $sql_edit;
 if (strlen($sql_edit) != 14) {
   date_default_timezone_set("America/Los_Angeles");
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
