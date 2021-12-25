@@ -9,6 +9,7 @@
 <input type="submit" style="width: 145px;" name="opt" value="Show unused DB IDs">
 <input type="submit" style="width: 145px;" name="opt" value="Show uploads filesize">
 <input type="submit" style="width: 145px;" name="opt" value="PCI matcher">
+<input type="submit" style="width: 145px;" name="opt" value="PWA Manifest">
 </form>
 <?php
 die();
@@ -85,6 +86,8 @@ foreach($fileList as $filename){
         // 23.81M
   } elseif ($_POST['opt'] == 'PCI matcher') {
         redir("..\includes\misc-functions\PCI-match.php?carrier=$default_carrier","0");
+    } elseif ($_POST['opt'] == 'PWA Manifest') {
+        redir("..\manifest.json","0");
     }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
