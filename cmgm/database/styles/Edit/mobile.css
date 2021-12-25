@@ -56,7 +56,7 @@ input[type=text],input[type=search],input[type=number],select {
 .addr_address_cw {max-width: 50%;} .addr_city_cw {max-width: 30%;} .addr_state_cw {max-width: 8%;} .addr_zip_cw {max-width: 12%;}
 .sv_cw {max-width: 86%; }
 .sv_date_cw {max-width: 14%;}
-.tags_label {max-width: 15%} .tags_cw {max-width: 85%; }
+.tags_label {max-width: 35%} .tags_cw {max-width: 65%; }
 .id_params_cw { max-width: 50%;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .photo_cw, .evidence_cw, .extra_cw {
