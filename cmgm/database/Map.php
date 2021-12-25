@@ -120,14 +120,14 @@ switch ($sepCount) {
   case 7:  $status = $value; break;
   case 8:  $tags = $value;
 
-if ($pin_style != "basic") {
+if (@$pin_style != "basic") {
   if (like_match('unmapped,%',$tags) == "TRUE" OR like_match('%,unmapped',$tags) == "TRUE" OR like_match('%,unmapped,%',$tags) == "TRUE" OR $tags == "unmapped") $status = "unmapped";
   if (like_match('weird,%',$tags) == "TRUE" OR like_match('%,weird',$tags) == "TRUE" OR like_match('%,weird,%',$tags) == "TRUE" OR $tags == "weird") $status = "weird";
   if (like_match('wip,%',$tags) == "TRUE" OR like_match('%,wip',$tags) == "TRUE" OR like_match('%,wip,%',$tags) == "TRUE" OR $tags == "wip") $status = "wip";
   if (like_match('special,%',$tags) == "TRUE" OR like_match('%,special',$tags) == "TRUE" OR like_match('%,special,%',$tags) == "TRUE" OR $tags == "special") $status = "special";
 }
 
-if ($pin_style == "celltype") {
+if (@$pin_style == "celltype") {
 $status = NULL;
 if ($cellsite_type == "rooftop" && $concealed == "false") $status = "lightgray";
 if ($cellsite_type == "rooftop" && $concealed == "true") $status = "darkgray";
@@ -137,7 +137,7 @@ if ($cellsite_type == "misc-tree") $status = "darkgreen";
 if ($cellsite_type == "tower") $status = "tower";
 if (empty($status)) $status = "unknown";
 }
-if ($pin_style == "carrier") {
+if (@$pin_style == "carrier") {
 $status = NULL;
 if ($carrier == "T-Mobile") $status = "tmobile";
 if ($carrier == "ATT") $status = "att";

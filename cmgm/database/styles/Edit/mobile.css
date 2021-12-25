@@ -89,3 +89,5 @@ abbr {
 }
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; float: none!important; text-align: right;}
+
+.prevnext_link { line-height: 2em; margin: 0.2em; }
