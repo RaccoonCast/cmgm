@@ -20,6 +20,6 @@ $response = json_decode($response);
 
     if(!isset($number)) $number = null;
     if(!isset($long_street_name)) $long_street_name = null;
-    $address = "$number $long_street_name";
+    $address = "$number $short_street_name";
     }
 ?>
