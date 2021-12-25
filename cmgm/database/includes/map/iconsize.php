@@ -5,7 +5,7 @@ var verified = L.icon({ iconUrl: '../images/map_pins/green.png', iconSize: [20, 
 var special = L.icon({ iconUrl: '../images/map_pins/purple.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 var weird = L.icon({ iconUrl: '../images/map_pins/blue.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 var unmapped = L.icon({ iconUrl: '../images/map_pins/snowball.png', iconSize: [20, 20], popupAnchor: [0, -12] });
-var wip = L.icon({iconUrl: '../images/map_pins/lightgreen.png', iconSize: [22, 22], popupAnchor: [0, -12] });
+var wip = L.icon({iconUrl: '../images/map_pins/green-light.png', iconSize: [22, 22], popupAnchor: [0, -12] });
 
 // celltype
 
