@@ -67,8 +67,8 @@
        > = more than/after<br>
        < = less than/before
      </p>
-     <label></label><input type="submit" formaction="DB.php" class="sb custominput" value="Submit on DB">
-     <label></label><input type="submit" formaction="Map.php" class="sb custominput" value="Submit on Map">
+     <label></label><input type="submit" formaction="Map.php" class="sb custominput" value="Map View"><input
+     type="submit" formaction="DB.php" class="sb custominput" value="List View">
    </div>
     </form>
     <?php
