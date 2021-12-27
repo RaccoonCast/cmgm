@@ -24,11 +24,4 @@ if ($prefLocType == "gps" && !isset($latitude) && !isset($data)) {
   include "js/locationNotKnown.js.php";
   die();
 }
-
-// No location specifeid? Use default lat,long.
-// cmgm.ml, account settings specify... use default lat,long
-if ($prefLocType == "settings" && !isset($data)) {
-  if ($debug_flag != "0") echo "locfinder: $" . "data variable not specified, defaulting to default_lat/long <br>";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert("defaultLoc","HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
-}
 ?>

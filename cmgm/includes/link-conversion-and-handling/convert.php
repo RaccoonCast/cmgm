@@ -4,12 +4,6 @@ include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 include_once "goto.php";
 
-// If not set get location from DB
-if ($data == "defaultLoc") {
-  $latitude = $default_latitude;
-  $longitude = $default_longitude;
-  $conv_type = "Default Location";
-}
 //file_put_contents("log.log", substr("$data", 0, 31));
 
 // CellMapper URL Conversion
