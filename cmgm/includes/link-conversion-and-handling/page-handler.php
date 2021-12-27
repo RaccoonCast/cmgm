@@ -17,9 +17,8 @@ if (isset($_GET['q'])) {
   $data = $_GET['q'];
 }
 
-// No location specifeid? Use GPS
-// cmgm.ml, account settings specify use GPS
-if ($prefLocType == "gps" && !isset($latitude) && !isset($data)) {
+// No location specified? Attempt to use GPS, fallback on default lat/long.
+if (!isset($latitude) && !isset($data)) {
   if ($debug_flag != "0") echo "locfinder: $" . "data variable not specified, attempting gps <br>";
   include "js/locationNotKnown.js.php";
   die();
