@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     $no_reader = "true";
                     $no_map = "true";
                     $redirPage = "Map-popup";
-                    include "../includes/widgets/widgets.php";
+                    include "../includes/widgets.php";
                     ?> <br> <?php
 
                     if (empty($LTE_1)) $LTE_1 = "CellMapper";

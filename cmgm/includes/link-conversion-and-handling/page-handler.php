@@ -1,5 +1,5 @@
 <?php
-include SITE_ROOT . "/includes/home-functions/convert.php";
+include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
 if (!isset($carrier)) $carrier = $default_latitude;
 
 // IF DATA HAS BEEN ENTERED IN THE FIELD - we need to A) convert & redirect to page

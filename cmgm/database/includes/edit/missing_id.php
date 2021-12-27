@@ -9,7 +9,7 @@ if (isset($_GET['new'])) {
   if (!empty($new_id)) redir("Edit.php?id=$new_id","0"); // redir to searched ID
   ?> <title>CMGM - Edit</title> <?php
   // LAST DITCH EFFORT TO FIGURE OUT WHO WE EDITING
-  include SITE_ROOT . "/includes/home-functions/convert.php";
+  include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
   if (!empty($id) && isset($_GET['locsearch'])) {
     [$latitude,$longitude] = @convert($id,"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
     if (!empty($latitude) && !empty($longitude)) @redir("Edit.php?id=" . @mysqli_fetch_array(mysqli_query($conn,"SELECT DISTINCT id, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ORDER BY distance LIMIT 1"))['id'],"0");

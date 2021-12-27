@@ -6,7 +6,7 @@
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
   include "includes/DB-filter.php";
-  include "../includes/home-functions/goto.php";
+  include "../includes/link-conversion-and-handling/goto.php";
   ?>
 </head>
 <body>
