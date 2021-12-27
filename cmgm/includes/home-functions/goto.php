@@ -1,5 +1,8 @@
 <?php
 function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto_page,$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType) {
+//if ($goto_page == "Beta") {
+//  file_put_contents("log.log", $latitude . PHP_EOL . $longitude . PHP_EOL . $carrier . PHP_EOL . $address . PHP_EOL . $zip . PHP_EOL . $city . PHP_EOL . $state . PHP_EOL . $goto_page . PHP_EOL . $conv_type . PHP_EOL . $cm_mapType . PHP_EOL . $cm_groupTowers . PHP_EOL . $cm_groupTowers . PHP_EOL . $cm_showLabels . PHP_EOL . $cm_showLowAcc . PHP_EOL . $cm_zoom . PHP_EOL . $cm_netType);
+//}
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
 if(empty($city)) $city = null;
@@ -20,9 +23,8 @@ if ($goto_page == "Beta") {
   if ("$carrier" == "Sprint") $beginning = "310/120";
   if ("$carrier" == "ATT") $beginning = "310/410";
   if ("$carrier" == "Verizon") $beginning = "311/480";
-  if ("$cm_netType" == "LTE") $beginning = $beginning . "/LTE";
-  if ("$cm_netType" == "NR") $beginning = $beginning . "/NR";
-  return "https://www.cellmapper.net/testmap/map/$beginning" . "?lat=$latitude&lng=$longitude&z=18";
+  if (!isset($cm_netType)) $cm_netType = "LTE";
+  return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
 }
 if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
