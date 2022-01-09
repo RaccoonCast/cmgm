@@ -1,0 +1,5 @@
+What can go in home page input box?
+CellMapper.net links like (show box 1) (show box 2) (show box 3)
+https://www.cellmapper.net/map?MCC=310&MNC=260&type=LTE&latitude=34.13282434253777&longitude=-118.2530178595808&zoom=14
+https://www.cellmapper.net/map?MCC=310&MNC=260&type=NR&latitude=34.13282434253777&longitude=-118.2530178595808&zoom=14
+https://www.cellmapper.net/map?MCC=310&MNC=260&type=LTE&latitude=34.13282434253777&longitude=-118.2530178595808&zoom=14

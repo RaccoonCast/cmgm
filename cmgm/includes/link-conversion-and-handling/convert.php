@@ -2,7 +2,7 @@
 function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom) {
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
-include_once "goto.php";
+include_once "function_goto.php";
 
 //file_put_contents("log.log", substr("$data", 0, 31));
 

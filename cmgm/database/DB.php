@@ -6,7 +6,7 @@
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
   include "includes/DB-filter.php";
-  include "../includes/link-conversion-and-handling/goto.php";
+  include "../includes/link-conversion-and-handling/function_goto.php";
   ?>
 </head>
 <body>
@@ -58,7 +58,7 @@ while($row = $result->fetch_assoc()) {
           if($isMobile != "true") echo nl2br("<td class="."widget-td"." style="."text-align: center;".">");
 
           ?><div class="widget-box"><?php
-          include SITE_ROOT."/includes/widgets/widgets.php";
+          include SITE_ROOT."/includes/widgets.php";
           ?></td></div><?php
 
           if($isMobile != "true") {

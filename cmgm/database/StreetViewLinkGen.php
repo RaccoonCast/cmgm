@@ -5,8 +5,7 @@
   include '../functions.php';
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
-  include "includes/DB/search.php";
-  include "../includes/link-conversion-and-handling/goto.php";
+  include "includes/DB-filter.php";
   ?>
 </head>
 <body>
@@ -18,7 +17,7 @@ AS DISTANCE FROM db ".@$db_vars." ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo $sql . "<br>";
 $result = mysqli_query($conn,$sql);
 $counter=0; $counter_10=-1;
-while($row = $result->fetch_assoc()) {
+while($row  = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
       $$key = $value;
       if (!empty($street_view_a)) {
