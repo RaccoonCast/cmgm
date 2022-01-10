@@ -52,7 +52,7 @@ header("Pragma: no-cache");
      <form action="../settings/" method="post" autocomplete="off">
         <label class="label">Username: </label><input
         type="text" value="<?php echo $username; ?>" name="username" id="username" required>
-        <label class="label">Latitude/Longitude: </label><input
+        <label class="label">Latitude/Longitude: </label><br><input
         type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
         type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
         <label class="label">Carrier: </label><select
@@ -102,7 +102,7 @@ header("Pragma: no-cache");
 
         <label for="cm_zoom"> | Zoom: </label><input
         type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span></div>
-        
+
         <!--
         <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
         type="hidden" name="cmgm_auto_reload" value="false"><input
