@@ -5,7 +5,7 @@ include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
 if (@$_POST['goto'] != "HomeSmart" && isset($_POST['data'])) {
   if ($debug_flag != "0") echo "locfinder: $" . "data variable search <br>";
   if (@$_POST['goto'] != "Edit") redir(convert($data,@$_POST['goto'],$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom),"0");
-  if (@$_POST['goto'] == "Edit") redir("database\Edit.php?id=$data","0");
+  if (@$_POST['goto'] == "Edit") redir("database\Edit.php?id=$data&locsearch","0");
 }
 
 // General shortlink
