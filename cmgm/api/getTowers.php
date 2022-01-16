@@ -1,4 +1,6 @@
 <?php
+header('Content-type: application/json');
+$api_called = "true";
 // Cast's Awesome API (CAAPI)
 $db_get_list = "id,latitude,longitude";
 $db_vars = "id > 0";

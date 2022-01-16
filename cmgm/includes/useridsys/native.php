@@ -1,5 +1,6 @@
 <?php
 $curr_userIP = $_SERVER["REMOTE_ADDR"];
+define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
@@ -35,8 +36,7 @@ if ($curr_userIP != $userIP) {
 }
 
 // Renew the cookie.
-?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
-$result->close();
+if (!isset($api_called)) { ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php }
 
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/secret_maps_api_key.hiddenpass", true);
 ?>
