@@ -4,6 +4,7 @@ input[type=text],input[type=number],option,select,.notes,.edit_history  {
 		box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
+		-webkit-appearance: none;
 }
 .error {
   text-decoration: none;

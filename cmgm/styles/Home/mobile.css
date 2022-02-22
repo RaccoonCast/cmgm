@@ -1,8 +1,11 @@
 .sb {
   width: 100%;
-  padding-top: 28px;
-  padding-bottom: 28px;
-  font-size: 1.55em;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  padding-right: 0px;
+  padding-left: 0px;
+  font-size: 1.4em;
+  -webkit-appearance: none;
 }
 .textbox {
   width: 93%;
@@ -30,6 +33,10 @@
 .w-15{width:15%!important}
 .w-10{width:10%!important}
 .w-5{width:5%!important}
+
+.w-25-l {width: 50%;max-width: 100%;}
+.w-37-5 {width: 50%;max-width: 100%;}
+#link014 { display: none;}
 .gmaps_api_link {
   font-size: 0.9em;
 }

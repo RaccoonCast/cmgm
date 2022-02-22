@@ -70,7 +70,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     mysqli_query($conn, $sql);
                     mysqli_close($conn);
                     if ($_SERVER['REQUEST_URI'] == "/") {
-                      redir("/settings/");
+                      redir("/settings/","0");
                     }
                     redir($_SERVER['REQUEST_URI'],"0");
 }

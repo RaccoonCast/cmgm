@@ -33,6 +33,9 @@ function changeFormAction() {
 
   document.getElementById("link12").removeAttribute("onclick");
   document.getElementById("link12").setAttribute('type', 'submit');
+
+  document.getElementById("link14").removeAttribute("onclick");
+  document.getElementById("link14").setAttribute('type', 'submit');
 }
 
 function redir(page) {
