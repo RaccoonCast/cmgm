@@ -24,10 +24,9 @@
               <div id="picture" ></div>
               Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
               <select name="type">
-                <option value="image-evidence" <?php if (@$_GET['type'] == "image-evidence") echo "selected"; ?>>Image evidence</option>
-                <option value="image" <?php if (@$_GET['type'] == "image") echo "selected"; ?>>Image of cell site</option>
-                <option value="photo" <?php if (@$_GET['type'] == "photo") echo "selected"; ?>>High Quality Image of cell site</option>
-                <option value="misc" <?php if (@$_GET['type'] == "misc") echo "selected"; ?>>Miscellaneous</option>
+                <option value="image" <?php if (@$_GET['type'] == "image") echo "selected"; ?>>Compressed Image</option>
+                <option value="photo" <?php if (@$_GET['type'] == "photo") echo "selected"; ?>>Uncompressed Image</option>
+                <option value="misc" <?php if (@$_GET['type'] == "misc") echo "selected"; ?>>Other</option>
               </select>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>
