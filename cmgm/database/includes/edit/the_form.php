@@ -141,14 +141,11 @@
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
     type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_a ?></span></label><input
-    type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
-    type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
-    type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
-    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
-    type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
-    type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
-    type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
+    <!-- Removed Momentarily
+    <label class="bingmaps_label">Bing Maps <span class="sub_links floatright"><?php echo @$bingmaps_a_label?><?php echo @$bingmaps_b_label?><?php echo @$bingmaps_c_label?></span></label><input
+    type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo @$bingmaps_a?>"><input
+    type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo @$bingmaps_b?>"><input
+    type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo @$bingmaps_c?>"> -->
 
     <label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
     type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
@@ -158,6 +155,18 @@
     type="text" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
     type="text" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
     type="text" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
+
+    <label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_a ?></span></label><input
+    type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
+    type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
+    type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
+    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
+    type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
+    type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
+    type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
+
+
+
     <div class="_panel1">
     <label class="evidence_scores_label">Permit Score</label><input
     type="number" max="100" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">

@@ -64,14 +64,14 @@ abbr, .nounderline {text-decoration: none!important;}
 .tags_cw {max-width: 84%!important; }
 
 /* Right Side Menu */
-.evidence_label, .extra_label, .photo_label {
-	width:13%!important;
+.evidence_label, .extra_label, .photo_label, .bingmaps_label {
+	width:16%!important;
 }
 .evidence_scores_label {
 	width:78%!important;
 }
-.photo_cw, .evidence_cw, .extra_cw {
-	width:29%!important;
+.photo_cw, .evidence_cw, .extra_cw, .bingmaps_cw {
+	width:28%!important;
 }
 .evidence_scores_cw {
 	width: 22%!important;

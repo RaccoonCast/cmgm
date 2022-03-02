@@ -1,6 +1,6 @@
 <?php
 // Generate Links for File Attaches
-$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c', 'sv_a', 'sv_b', 'sv_c', 'sv_d', 'sv_e', 'sv_f');
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c', 'sv_a', 'sv_b', 'sv_c', 'sv_d', 'sv_e', 'sv_f', 'bingmaps_a', 'bingmaps_b', 'bingmaps_c');
 
 foreach ($foreachList as &$value) {
 
@@ -17,7 +17,8 @@ if (!empty($$value)) {
     } else { $$val = null; }
 }
 
-if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
+if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d) && empty($sv_e) && empty($sv_f)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
+if (empty($bingmaps_a) && empty($bingmaps_b) && empty($bingmaps_c)) $bingmaps_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.bing.com/maps?style=b&cp=' . @$latitude. '~' . @$longitude . '">A</a>';
 
 if($isMobile == "false") {
   $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label;
