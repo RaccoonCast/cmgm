@@ -34,7 +34,7 @@ if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
 if (isset($_POST['new'])) include "includes/edit/create_new.php";
 
 // Read data from SQL DB
-if (isset($id)) include "includes/edit/read_data.php";
+if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
 
 // Unlock/Lock
 if (@$edit_lock != $userID && !empty($edit_lock)) $padlock = "true";
@@ -49,7 +49,7 @@ if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,
 if (!isset($status) OR isset($_GET['id_search'])) include "includes/edit/missing_id.php";
 
 // SQL Edit Code
-if ($padlock == "false") include "includes/edit/the_edit_code.php";
+if ($padlock == "false") include "includes/edit/sql_mgm/the_edit_code.php";
 
 // If delete tag is specified
 if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn);
@@ -67,7 +67,7 @@ $no_edit = "true";
 if (!empty($latitude)) include "includes/edit/mapWithPin.php";
 echo '<div class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input_2.php";
+if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
 echo '</div>';
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
