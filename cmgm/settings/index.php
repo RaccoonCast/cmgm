@@ -52,7 +52,7 @@ header("Pragma: no-cache");
      <form action="../settings/" method="post" autocomplete="off">
         <label class="label">Username: </label><input
         type="text" value="<?php echo $username; ?>" name="username" id="username" required>
-        <label class="label">Latitude/Longitude: </label><br><input
+        <label class="label">Latitude/Longitude: </label><?php if($isMobile == "true") echo "<br>";?><input
         type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
         type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
         <label class="label">Carrier: </label><select
