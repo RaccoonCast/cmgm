@@ -76,7 +76,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                       echo "</p>";
                       }
 
-                      if(substr($evidence_a, 0, 14) == "image-evidence") {
+                      if(substr($evidence_a, 0, 6) == "image-") {
                          $evidence_a = "uploads/$evidence_a";
                       }
 
