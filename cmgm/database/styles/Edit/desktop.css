@@ -28,8 +28,8 @@ input[type=text],input[type=search],input[type=number],option,select {
 abbr, .nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
-  width: 100%;
-  padding: 30px;
+  width: 50%;
+  padding: 37px;
 }
 .id_input {
 	font-size: 1.6em!important;
@@ -58,6 +58,8 @@ abbr, .nounderline {text-decoration: none!important;}
 
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21%!important;}
 .region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.5%!important;}
+.misc_cw {width: 16.8%!important;}
+.misc_50_cw {width: 16.8%!important;}
 .pci_cw, .lte_cw {width: 7%!important;}
 .sv_cw {max-width: 23%; }
 .sv_date_cw {max-width: 5%;}

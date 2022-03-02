@@ -1,13 +1,10 @@
 <?php
-include '../includes/functions/mapWithPin.php';
-
-echo '<div class="map_holder">';
+include '../includes/functions/MapWithPin.php';
 
 if(isMobile()){
-  mapWithPin($latitude,$longitude,"17","100%","250","25");
+  MapWithPin($latitude,$longitude,"17","100%","250","25");
 } else {
-  mapWithPin($latitude,$longitude,"18","827","530","95");
+  MapWithPin($latitude,$longitude,"18","50%","530","95");
 }
 
-echo '</div>';
 ?>

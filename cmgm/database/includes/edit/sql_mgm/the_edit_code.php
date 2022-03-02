@@ -2,14 +2,14 @@
 // Edit
 $sql_edit = "UPDATE db SET ";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
-  include "latitude_longitude.php";
-
-  if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
-    if (strpos($key, 'sv') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
-    if (strpos($key, 'sv') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
-    include "history.php";
-  }
-  ${$value} = @$_POST[$value];
+  // echo $key . "=" . $value . "<br>";
+   include "latitude_longitude.php";
+   if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
+     if (strpos($key, 'sv') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
+     if (strpos($key, 'sv') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
+     include "history.php";
+   }
+   ${$value} = @$_POST[$value];
 }
 if (strlen($sql_edit) != 14) {
   date_default_timezone_set("America/Los_Angeles");
@@ -38,6 +38,7 @@ if (strlen($sql_edit) != 14) {
   //die();
   if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
   include "read_data.php";
-
+} else {
 }
+
 ?>

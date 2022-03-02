@@ -12,7 +12,7 @@ if ($key == "latitude" && @${@$key} != $value ) {
   }
 } else {
   $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
-  include "the_edit_code_history.php";
+  include "history.php";
 }
 }
 ?>

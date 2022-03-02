@@ -64,7 +64,6 @@ include "includes/edit/file_attach_link_gen.php";
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";
-if (!empty($latitude)) include "includes/edit/mapWithPin.php";
 echo '<div class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
