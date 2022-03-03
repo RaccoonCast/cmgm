@@ -9,4 +9,4 @@ if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
 $link_lte = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_1; }
 if (isset($link_lte)) {?>
-<a class="pad-small-link" target="_blank" href="<?php if (isset($link_lte)) echo $link_lte; ?>" >LTE_1</a> <?php } ?>
+<a class="pad-small-link" target="_blank" href="<?php if (isset($link_lte)) echo $link_lte; ?>" >LTE</a> <?php } ?>

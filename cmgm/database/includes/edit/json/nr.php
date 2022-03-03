@@ -9,4 +9,4 @@ if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
 $link_nr = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1; }
 if (isset($link_nr)) {?>
-<a class="pad-small-link" target="_blank" href="<?php if (isset($link_nr)) echo $link_nr; ?>" >NR_1</a> <?php } ?>
+<a class="pad-small-link" target="_blank" href="<?php if (isset($link_nr)) echo $link_nr; ?>" >NR</a> <?php } ?>
