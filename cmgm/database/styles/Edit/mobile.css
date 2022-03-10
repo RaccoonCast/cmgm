@@ -59,6 +59,7 @@ input[type=text],input[type=search],input[type=number],select {
 .sv_date_cw {max-width: 14%;}
 .tags_label {max-width: 40%} .tags_cw {max-width: 60%; }
 .id_params_cw,.misc_cw { max-width: 50%;}
+.misc_50_cw { max-width: 25;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .photo_cw, .evidence_cw, .extra_cw {
 	width:100%!important;

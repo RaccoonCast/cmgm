@@ -1,7 +1,7 @@
 <?php
 // REQUIRE \/ BEFORE RUNNING
 if($isMobile == "false" && !isset($delete) && !isset($_GET['new'])) {
-  
+
 // multiplier
 $multiplier = substr_replace($cm_pin_distance ,"", -1);
 $modDigit = 0.00006;
@@ -18,7 +18,7 @@ if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
 if (!empty($region_nr) && !(isset($_GET['new']))) {
 
-if ($cm_pin_inverted == "false") {
+if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
   if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
   if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
 } else {

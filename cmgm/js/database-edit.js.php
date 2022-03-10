@@ -12,7 +12,7 @@ $(function(){
   $('#ex_d').keyup(function() {  if ($(this).val().length == 0) {$('#ex_e').hide();} else {$('#ex_e').show();}}).keyup();
   $('#ex_e').keyup(function() {  if ($(this).val().length == 0) {$('#ex_f').hide();} else {$('#ex_f').show();}}).keyup();
 
-  // Extras
+  // Photos
   $('#ph_a').keyup(function() {  if ($(this).val().length == 0) {$('#ph_b').hide();} else {$('#ph_b').show();}}).keyup();
   $('#ph_b').keyup(function() {  if ($(this).val().length == 0) {$('#ph_c').hide();} else {$('#ph_c').show();}}).keyup();
   $('#ph_c').keyup(function() {  if ($(this).val().length == 0) {$('#ph_d').hide();} else {$('#ph_d').show();}}).keyup();

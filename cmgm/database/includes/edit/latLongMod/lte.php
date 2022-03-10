@@ -18,7 +18,7 @@ if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 
 if (!empty($region_lte) && !(isset($_GET['new']))) {
 
-if ($cm_pin_inverted == "false") {
+if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
   if (!empty($LTE_1)) $LTE_1_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_1 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
   if (!empty($LTE_2)) $LTE_2_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
   if (!empty($LTE_3)) $LTE_3_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_3 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left

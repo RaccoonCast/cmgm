@@ -26,7 +26,7 @@ if ($goto_page == "Beta") {
   if (!isset($cm_netType)) $cm_netType = "LTE";
   return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
 }
-if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
+if ($goto_page == "Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
 if ($goto_page == "Maprad") return "https://maprad.io/us/search/coordinates/200/$latitude,$longitude?source=US";
 
@@ -44,7 +44,7 @@ if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$long
 if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
 if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
 
-if ($goto_page == "Map") $suffix_part_c = null;
+if ($goto_page == "Map") $suffix_part_c = null; // this is for cmgm map, not google maps. 
 if ($goto_page == "Search") $suffix_part_c = null;
 if ($goto_page == "Upload") { $suffix_part_b = null; $suffix_part_c = null; }
 
