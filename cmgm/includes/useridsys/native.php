@@ -1,5 +1,10 @@
 <?php
 $curr_userIP = $_SERVER["REMOTE_ADDR"];
+
+if (!defined('SITE_ROOT')) {
+define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
+}
+
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
@@ -23,6 +28,7 @@ while($row = $result->fetch_assoc()) {
       }
     }
   }
+
 
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {
