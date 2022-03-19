@@ -6,8 +6,9 @@ header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="../js/copyToClipboard.js"></script>
+<script src="../js/openlink.js"></script>
 <script src="../js/database.js"></script>
 <?php
 $titleOverride = "true";
