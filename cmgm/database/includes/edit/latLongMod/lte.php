@@ -33,9 +33,9 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
 } ?>
 
 
-<!-- BASE -->  <?php if (isset($LTE_1_mv) && ($other_user_map_primary == "true")) { ?> <a class="pad-small-link error link" onclick="openlink('<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>');">1</a> <?php } ?>
-<!-- BASE -->  <?php if (isset($LTE_1_mv) && ($other_user_map_primary != "true")) { ?> <a class="pad-small-link link" onclick="openlink('<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>');" >1</a> <?php } ?>
-<!-- RIGHT --> <?php if (isset($LTE_2_mv)) { ?> <a class="pad-small-link link" onclick="openlink('<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>');" >2</a> <?php } ?>
-<!-- LEFT -->  <?php if (isset($LTE_3_mv)) { ?> <a class="pad-small-link link" onclick="openlink('<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>');" >3</a> <?php } ?>
-<!-- MIDDLE --><?php if (isset($LTE_4_mv)) { ?> <a class="pad-small-link link" onclick="openlink('<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>');" >4</a>  <?php } ?>
+<!-- BASE -->  <?php if (isset($LTE_1_mv) && ($other_user_map_primary == "true")) { ?> <a class="pad-small-link error" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a> <?php } ?>
+<!-- BASE -->  <?php if (isset($LTE_1_mv) && ($other_user_map_primary != "true")) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a> <?php } ?>
+<!-- RIGHT --> <?php if (isset($LTE_2_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" >2</a> <?php } ?>
+<!-- LEFT -->  <?php if (isset($LTE_3_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" >3</a> <?php } ?>
+<!-- MIDDLE --><?php if (isset($LTE_4_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" >4</a>  <?php } ?>
 <?php }} ?>
