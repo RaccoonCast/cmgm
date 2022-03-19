@@ -28,6 +28,6 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
 
 } ?>
 
-<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?>-<a class="pad-small-link" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
-<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a class="pad-small-link" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a> <?php } ?>
+<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?>-<a class="pad-small-link" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
+<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a class="pad-small-link" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a> <?php } ?>
 <?php }} ?>
