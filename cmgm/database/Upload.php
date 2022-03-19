@@ -24,6 +24,7 @@
               <div id="picture" ></div>
               Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
               <select name="type">
+                <!-- <option value="image" <?php //if (@$_GET['type'] == "compressed-image") echo "selected"; ?>>Heavily Compressed Image</option> -->
                 <option value="image" <?php if (@$_GET['type'] == "image") echo "selected"; ?>>Compressed Image</option>
                 <option value="photo" <?php if (@$_GET['type'] == "photo") echo "selected"; ?>>Uncompressed Image</option>
                 <option value="misc" <?php if (@$_GET['type'] == "misc") echo "selected"; ?>>Other</option>
