@@ -79,7 +79,7 @@ abbr, .nounderline {text-decoration: none!important;}
 	width: 22%!important;
 }
 
-.pad-small-link {padding-left: 3px; padding-right: 3px; text-align: right; font-size: 1.07em; display:inline}
+.pad-small-link {margin: 0em 0.25em 0em 0em; padding: 0.08em 0.1em 0.08em 0.2em; text-align: right; font-size: 1.07em; display:inline}
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
