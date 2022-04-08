@@ -132,9 +132,9 @@ header("Pragma: no-cache");
    output.innerHTML = slider.value;
    slider.oninput = function() {output.innerHTML = this.value;}
 
-   var slider = document.getElementById("cmgm_pin_limit");
-   var output = document.getElementById("cmgm_pin_limitVal");
-   output.innerHTML = slider.value;
-   slider.oninput = function() {output.innerHTML = this.value;}
+  // var slider = document.getElementById("cmgm_pin_limit");
+  // var output = document.getElementById("cmgm_pin_limitVal");
+  // output.innerHTML = slider.value;
+  // slider.oninput = function() {output.innerHTML = this.value;}
    </script>
 </html>
