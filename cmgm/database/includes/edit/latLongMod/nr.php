@@ -1,6 +1,6 @@
 <?php
 // REQUIRE \/ BEFORE RUNNING
-if($isMobile == "false" && !isset($delete) && !isset($_GET['new'])) {
+if(!isset($delete) && !isset($_GET['new'])) {
 
 // multiplier
 $multiplier = substr_replace($cm_pin_distance ,"", -1);
@@ -26,8 +26,5 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
   if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
 }
 
-} ?>
-
-<!-- RIGHT --><?php if (isset($NR_1_mv)) { ?>-<a class="pad-small-link" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; } ?>">1</a> <?php } ?>
-<!-- LEFTT --><?php if (isset($NR_2_mv)) { ?> <a class="pad-small-link" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a> <?php } ?>
-<?php }} ?>
+} if (isset($NR_1_mv)) { ?><p class="pad-small-link pad-small-link-mobile2">-</p><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_1_mv)){echo $NR_1_mv;}?>">1</a><?php } if (isset($NR_2_mv)){?><a
+class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; } ?>">2</a><?php }}} ?>

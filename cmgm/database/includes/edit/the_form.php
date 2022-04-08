@@ -109,14 +109,14 @@
     type="text" autocomplete="new-street-address" class="addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="new-street-address" class="addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
-    <label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
+    <label class="sv_label">Street View<span class="floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
     type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php if (isset($sv_a)) echo str_replace("https://", "",@$sv_a); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_A" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php if (isset($sv_b)) echo str_replace("https://", "",@$sv_b); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_B" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php if (isset($sv_c)) echo str_replace("https://", "",@$sv_c); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_C" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
-    <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="sub_links floatright"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="sv_label">Street View<span class="floatright"><?php echo @$sv_linklabel_b; ?></span></label><?php } ?><input
     type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php if (isset($sv_d)) echo str_replace("https://", "",@$sv_d); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_D" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php if (isset($sv_e)) echo str_replace("https://", "",@$sv_e); ?>"><input
@@ -133,8 +133,10 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; }
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; }
     ?>
-    <label class="tags_label">Misc <span class="floatright"><?php include "latLongMod/lte.php"; include "latLongMod/nr.php"; ?></span></label><select class="misc_50_cw" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label">Misc <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_39_cw" title="lorem ipsum" name="cm_pin_distance">
     <option value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
+    <option value="0.3x">0.3x</option>
+    <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
     <option value="0.6x">0.6x</option>
     <option value="0.7x">0.7x</option>
@@ -151,7 +153,12 @@
     <option value="1.8x">1.8x</option>
     <option value="1.9x">1.9x</option>
     <option value="2.0x">2.0x</option>
-    </select><select class="misc_50_cw" title="lorem ipsum" name="cm_pin_inverted">
+    <option value="2.1x">2.1x</option>
+    <option value="2.2x">2.2x</option>
+    <option value="2.3x">2.3x</option>
+    <option value="2.4x">2.4x</option>
+    <option value="2.5x">2.5x</option>
+  </select><?php if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?><select class="misc_50_cw" title="lorem ipsum" name="cm_pin_inverted">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
@@ -191,30 +198,30 @@
 
     </div>
     <div class="panel2">
-    <label class="evidence_label">Evidence <span class="sub_links floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
+    <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
     type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
     type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
 
-    <label class="bingmaps_label">Bing Maps <span class="sub_links floatright"><?php echo @$bingmaps_a_label?><?php echo @$bingmaps_b_label?><?php echo @$bingmaps_c_label?></span></label><input
+    <label class="bingmaps_label">Bing Maps <span class="floatright"><?php echo @$bingmaps_a_label?><?php echo @$bingmaps_b_label?><?php echo @$bingmaps_c_label?></span></label><input
     type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo @$bingmaps_a?>"><input
     type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo @$bingmaps_b?>"><input
     type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo @$bingmaps_c?>">
 
-    <label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
+    <label class="photo_label">Photos <span class="floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
     type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
     type="text" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
     type="text" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
-    <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="sub_links floatright"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="floatright"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
     type="text" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
     type="text" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
     type="text" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
 
-    <label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_a ?></span></label><input
+    <label class="extra_label">Extras <span class="floatright"><?php echo @$extra_linklabel_a ?></span></label><input
     type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
     type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
     type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
-    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="sub_links floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
+    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
     type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
     type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
     type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">

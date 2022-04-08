@@ -13,7 +13,7 @@ label {
 }
 input[type=text],input[type=search],input[type=number],select {
     width: 100%;
-    height: 31px;
+    height: 34px;
 		border-radius: 0px;
 		border-width: 1px;
 		border-style:solid;
@@ -46,7 +46,7 @@ input[type=text],input[type=search],input[type=number],select {
 #addr_gmaps {display: none;}
 #latlong_cmlink {display: none;}
 /* Left Side Menu*/
-.cellsite_type_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label {
+.cellsite_type_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label, .misc_label {
 	display: none;
 }
 .sv_label { width: 100%;}
@@ -57,9 +57,10 @@ input[type=text],input[type=search],input[type=number],select {
 .addr_address_cw {max-width: 50%;} .addr_city_cw {max-width: 30%;} .addr_state_cw {max-width: 8%;} .addr_zip_cw {max-width: 12%;}
 .sv_cw {max-width: 86%; }
 .sv_date_cw {max-width: 14%;}
-.tags_label {max-width: 40%} .tags_cw {max-width: 60%; }
+.tags_label {max-width: 80%;} .tags_cw {max-width: 100%; }
 .id_params_cw,.misc_cw { max-width: 50%;}
-.misc_50_cw { max-width: 25;}
+.misc_39_cw { max-width: 39%;}
+.misc_50_cw { max-width: 50%;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .photo_cw, .evidence_cw, .extra_cw {
 	width:100%!important;
@@ -91,6 +92,7 @@ abbr {
 }
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; float: none!important; text-align: right;}
+.pad-small-link-mobile2 {margin: 0em 0.45em 0em 0em; padding: 0.35em 0.8em 0.25em 0.5em; float: none!important; text-align: right; display:inline}
 
 .prevnext_link { line-height: 2em; margin: 0.2em; }
 
