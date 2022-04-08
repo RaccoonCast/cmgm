@@ -134,8 +134,7 @@
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; }
     ?>
     <label class="misc_label">Misc <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_39_cw" title="lorem ipsum" name="cm_pin_distance">
-    <option value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
-    <option value="0.3x">0.3x</option>
+    <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
     <option value="0.6x">0.6x</option>
@@ -156,10 +155,8 @@
     <option value="2.1x">2.1x</option>
     <option value="2.2x">2.2x</option>
     <option value="2.3x">2.3x</option>
-    <option value="2.4x">2.4x</option>
-    <option value="2.5x">2.5x</option>
   </select><?php if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?><select class="misc_50_cw" title="lorem ipsum" name="cm_pin_inverted">
-    <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted: <?php echo @$tmp_cm_pin_inverted ?></option>
+    <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     </select><select class="misc_cw" title="lorem ipsum" name="sector_configuration">
