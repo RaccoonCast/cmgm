@@ -64,7 +64,8 @@ abbr, .nounderline {text-decoration: none!important;}
 .sv_cw {max-width: 23%; }
 .sv_date_cw {max-width: 5%;}
 .tags_cw {max-width: 84%!important; }
-
+.sv1_label {max-width: 50%!important;}
+.sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .bingmaps_label {
 	width:16%!important;
