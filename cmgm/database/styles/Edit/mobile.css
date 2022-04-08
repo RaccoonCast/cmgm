@@ -42,7 +42,6 @@ input[type=text],input[type=search],input[type=number],select {
 }
 .floatright {
 	float: right;
-	margin-right: 0.8em;
 }
 
 #addr_gmaps {display: none;}
@@ -93,9 +92,7 @@ abbr {
 	width: 100%;
 }
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
-.pad-small-link-mobile {margin: 0em 1.45em 0em 0em; padding: 0.45em 0.8em 0.36em 0.8em; float: none!important; text-align: right;}
+.pad-small-link-mobile {margin: 0em .60em 0em 0em; padding: 0.35em 0.8em 0.25em 0.5em; float: none!important; text-align: right; display:inline}
 .pad-small-link-mobile2 {margin: 0em 0.45em 0em 0em; padding: 0.35em 0.8em 0.25em 0.5em; float: none!important; text-align: right; display:inline}
 
 .prevnext_link { line-height: 2em; margin: 0.2em; }
-
-.checkboxmargin {margin: 0px 5px 0px 0px;}
