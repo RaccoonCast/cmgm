@@ -1,3 +1,6 @@
 .hiddenlink {
   text-decoration: none; cursor: text; color: #EFEFEF!important;
 }
+.hiddenlink:hover {
+  text-decoration: none; cursor: text; color: #EFEFEF!important;
+}
