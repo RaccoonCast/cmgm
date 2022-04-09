@@ -17,7 +17,7 @@ die();
 if ($_POST['opt'] == 'Missing File Search'){
 // Let's Find Missing Files (LFMF)
 echo "The following IDs have missing EV: <br>";
-$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM db";
+$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -38,13 +38,16 @@ while($row = $result->fetch_assoc()) {
         if (!empty($extra_a) && substr($extra_a, 0, 4) != "http" && substr($extra_a, 0, 1) != "#" && !file_exists("uploads/" . $extra_a)) echo " $id - EXTRA_A<br>";
         if (!empty($extra_b) && substr($extra_b, 0, 4) != "http" && substr($extra_b, 0, 1) != "#" && !file_exists("uploads/" . $extra_b)) echo " $id - EXTRA_B<br>";
         if (!empty($extra_c) && substr($extra_c, 0, 4) != "http" && substr($extra_c, 0, 1) != "#" && !file_exists("uploads/" . $extra_c)) echo " $id - EXTRA_C<br>";
+        if (!empty($extra_d) && substr($extra_d, 0, 4) != "http" && substr($extra_d, 0, 1) != "#" && !file_exists("uploads/" . $extra_d)) echo " $id - EXTRA_D<br>";
+        if (!empty($extra_e) && substr($extra_e, 0, 4) != "http" && substr($extra_e, 0, 1) != "#" && !file_exists("uploads/" . $extra_e)) echo " $id - EXTRA_E<br>";
+        if (!empty($extra_f) && substr($extra_f, 0, 4) != "http" && substr($extra_f, 0, 1) != "#" && !file_exists("uploads/" . $extra_f)) echo " $id - EXTRA_F<br>";
         if ($key != "id")$$key = null;
 } }
 $result->close(); $conn->close();
 } elseif ($_POST['opt'] == 'Remove unused files') {
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
 $list = null;
-$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c FROM db";
+$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
