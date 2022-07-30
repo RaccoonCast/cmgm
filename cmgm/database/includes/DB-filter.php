@@ -20,7 +20,7 @@ if (!empty($value) OR $value == "NULL" OR $value == "0") {
   elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND sv_a != '' " . @$db_vars;
   elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND sv_a = '' " . @$db_vars;
   elseif ($value[0] == "!") {
-    if ($key == "tags") { $db_vars = "AND (tags NOT like '".$trimChar.",%' && tags NOT like '%,".$trimChar."' && tags NOT like '%,".$trimChar.",%' && NOT tags = '".$trimChar."')" . @$db_vars; }
+    if ($key == "tags") { $db_vars = "AND (tags NOT like '".$trimChar.",%' AND tags NOT like '%,".$trimChar."' AND tags NOT like '%,".$trimChar.",%' AND NOT tags = '".$trimChar."' OR tags is null)" . @$db_vars; }
     elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
   }
   elseif ($value[0] == ">") { $db_vars = " AND ". $key . ' > '.$trimChar . @$db_vars; }
