@@ -22,3 +22,4 @@ var tmobile = L.icon({ iconUrl: '../images/map_pins/purple.png', iconSize: [24, 
 var verizon = L.icon({ iconUrl: '../images/map_pins/red.png', iconSize: [24, 24], popupAnchor: [0, -12] });
 var att = L.icon({ iconUrl: '../images/map_pins/blue.png', iconSize: [24, 24], popupAnchor: [0, -12] });
 var sprint = L.icon({ iconUrl: '../images/map_pins/yellow.png', iconSize: [24, 24], popupAnchor: [0, -12] });
+var sprint_keep = L.icon({ iconUrl: '../images/map_pins/purple-yellow.png', iconSize: [24, 24], popupAnchor: [0, -12] });
