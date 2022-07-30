@@ -18,6 +18,7 @@ if (isset($_COOKIE['userID'])) {
 if (isset($_GET['cellmapperissexy'])) $cookie_userID = "guest";
 $sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
+
 while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
       if ($key != "id") {
@@ -28,7 +29,6 @@ while($row = $result->fetch_assoc()) {
       }
     }
   }
-
 
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {
