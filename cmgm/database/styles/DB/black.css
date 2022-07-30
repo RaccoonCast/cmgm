@@ -4,3 +4,28 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background: #1C1A1A;
 }
+tr:nth-child(even) td:nth-child(odd) .btn-evidence {
+  background: #1E1C1C;
+}
+tr:nth-child(even) td:nth-child(even) .btn-evidence {
+  background: #0F0F0F;
+}
+tr:nth-child(odd) td:nth-child(odd) .btn-evidence {
+  background: #0F0F0F;
+}
+tr:nth-child(odd) td:nth-child(even) .btn-evidence {
+  background: #1E1C1C;
+}
+
+tr:nth-child(even) td:nth-child(odd) .btn-edit {
+  background: #0F0F0F;
+}
+tr:nth-child(even) td:nth-child(even) .btn-edit {
+  background: #1E1C1C;
+}
+tr:nth-child(odd) td:nth-child(odd) .btn-edit {
+  background: #1E1C1C;
+}
+tr:nth-child(odd) td:nth-child(even) .btn-edit {
+  background: #0F0F0F;
+}

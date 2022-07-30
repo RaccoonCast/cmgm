@@ -1,7 +1,7 @@
 .custominput {
 	height: 38px;
 	width: 100%;
-	max-width: 73%;
+	max-width: 100%;
   font-size: 0.9em;
 	box-sizing: border-box;
 	-webkit-box-sizing:border-box;
@@ -12,7 +12,6 @@
 	margin-bottom: 0px;
 	height: 40px;
 	width: 100%;
-	max-width: 73%;
 }
 .label {
 	display: inline-block;
@@ -34,29 +33,32 @@ form {
 	font-size: 0.86em;
 }
 input[name="city"] {
-  width: 19%;
-}
-input[name="zip"] {
-  width: 11%;
-}
-input[name="state"] {
-  width: 18%;
-}
-input[name="address"] {
   width: 25%;
 }
-.wrapper-73 {
+input[name="zip"] {
+  width: 13%;
+}
+input[name="state"] {
+  width: 22%;
+}
+input[name="address"] {
+  width: 40%;
+}
+/* .wrapper-73 {
 	width: 73%;
 	display: inline-block;
 	text-align: left;
-}
+} */
 body {
 	margin: 3px;
 	padding: 0px;
 }
-.sb {
-	width: 50%;
-}
+
 .height38 {
 	height: 38px;
 }
+.w-75 { max-width: 75%;}
+.w-25 { max-width: 25%;}
+.w-23 { max-width: 23%;}
+.w-20 { max-width: 20%;}
+.w-32 { max-width: 32%;}
