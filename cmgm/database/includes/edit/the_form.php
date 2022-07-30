@@ -39,7 +39,7 @@
       if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
-      $cmgm_map_search = "https://cmgm.us/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
+      $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
     ?>
     <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> <a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a><span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input

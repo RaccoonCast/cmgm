@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
       $$key = $value;
       if ($key == "DISTANCE") {
         echo "<tr>";
-        $db_map_link = "https://cmgm.us/database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
+        $db_map_link = $domain_with_http . "database/Map.php?latitude=".$latitude."&longitude=".$longitude."&zoom=18&back=DB";
         $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
         $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 
@@ -75,8 +75,8 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
         if(substr($evidence_a, 0, 6) == "image-") $evidence_a = "uploads/$evidence_a";
 
         if ((substr($evidence_a, 0, 6) != "image-") OR (file_exists($evidence_a))) { ?>
-          <td><div class="btn-group"><input type="button" class="btn-evidence" value="Copy evidence"></input> <input
-         type="button" class="btn-evidence"onclick="redir('<?php echo $evidence_a; ?>','0')" value="View evidence"></input></td></div> <?php } else {
+          <td><div class="btn-group"><input type="button" onclick="copy('<?php echo $domain_with_http . "/database/" . $evidence_a; ?>')" class="btn-evidence" value="Copy evidence"></input> <input
+         type="button" class="btn-evidence" onclick="redir('<?php echo $evidence_a; ?>','0')" value="View evidence"></input></td></div> <?php } else {
            echo "Missing file!";
          }
 
