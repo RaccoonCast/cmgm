@@ -33,6 +33,8 @@ if (!empty($value) OR $value == "NULL" OR $value == "0") {
   elseif ($key == "carrier") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
   elseif ($key == "edit_date_like") { $db_vars = "AND (edit_date like '%".$value."%')" . @$db_vars; }
   elseif ($key == "notes_like") { $db_vars = "AND (notes like '%".$value."%')" . @$db_vars; }
+  elseif ($key == "incomplete" & $value == "true") { $db_vars = "AND (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
+  elseif ($key == "incomplete" & $value == "false") { $db_vars = "AND NOT (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
   else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
  }
 }
