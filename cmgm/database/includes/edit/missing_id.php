@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET['new'])) {
      $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT * FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
 } else {
@@ -11,8 +12,15 @@ if (isset($_GET['new'])) {
   // LAST DITCH EFFORT TO FIGURE OUT WHO WE EDITING
   include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
   if (!empty($id) && isset($_GET['locsearch'])) {
+    $carrier_addin = null;
+    if (@$_GET['MCC'] . @$_GET['MNC'] == "310260") {$carrier_addin = 'WHERE carrier = "'."T-Mobile".'"';}
+    if (@$_GET['MCC'] . @$_GET['MNC'] == "310120") {$carrier_addin = 'WHERE carrier = "'."Sprint".'"';}
+    if (@$_GET['MCC'] . @$_GET['MNC'] == "310410") {$carrier_addin = 'WHERE carrier = "'."ATT".'"';}
+    if (@$_GET['MCC'] . @$_GET['MNC'] == "311480") {$carrier_addin = 'WHERE carrier = "'."Verizon".'"';}
+
     [$latitude,$longitude] = @convert($id,"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
-    if (!empty($latitude) && !empty($longitude)) @redir("Edit.php?id=" . @mysqli_fetch_array(mysqli_query($conn,"SELECT DISTINCT id, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db HAVING distance < 0.045 ORDER BY DISTANCE LIMIT 1"))['id'],"0");
+    $query = "SELECT DISTINCT id,carrier, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db $carrier_addin HAVING distance < 0.045 ORDER BY DISTANCE LIMIT 1";
+    if (!empty($latitude) && !empty($longitude)) @redir("Edit.php?id=" . @mysqli_fetch_array(mysqli_query($conn,$query))['id'],"0");
   }
   include "includes/edit/id_input/search_page.php";
 
