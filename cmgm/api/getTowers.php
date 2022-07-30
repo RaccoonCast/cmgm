@@ -2,7 +2,7 @@
 header('Content-type: application/json');
 $api_called = "true";
 // Cast's Awesome API (CAAPI)
-$db_get_list = "id,latitude,longitude";
+$db_get_list = "id,latitude,longitude,region_lte,region_nr";
 $db_vars = "id > 0";
 include '../includes/functions/sqlpw.php';
 include '../includes/useridsys/native.php';
@@ -27,7 +27,7 @@ if ($result = $conn->query($sql)) {
               $inc = 0;
               while ($row = $result->fetch_assoc()) {
                   # code...
-                  $jsonArrayObject = (array('lat' => $row["latitude"], 'lon' => $row["longitude"], 'id' => $row["id"]));
+                  $jsonArrayObject = (array('id' => $row["id"], 'lat' => $row["latitude"], 'lon' => $row["longitude"], 'region_lte' => $row["region_lte"], 'region_nr' => $row["region_nr"]));
                   $arr[$inc] = $jsonArrayObject;
                   $inc++;
               }
