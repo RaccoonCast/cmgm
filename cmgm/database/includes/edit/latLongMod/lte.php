@@ -32,9 +32,10 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
 
 } ?>
 
-<?php if (isset($LTE_1_mv) && ($other_user_map_primary == "true")) { ?> <a
-rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2 error" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a><?php } ?><?php if (isset($LTE_1_mv) && ($other_user_map_primary != "true")) { ?><a
-rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a><?php } if (isset($LTE_2_mv)) { ?><a
-rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" >2</a><?php } if (isset($LTE_3_mv)) { ?><a
-rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" >3</a><?php } if (isset($LTE_4_mv)) { ?><a
-rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" >4</a><?php }}} ?>
+<?php if (isset($LTE_1_mv) && ($other_user_map_primary == "true")) { ?> <a rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2 error" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" >1</a><?php } ?>
+<?php if (isset($LTE_1_mv) && ($other_user_map_primary == "")) { ?> <a
+rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2 warning" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>1</a><?php } ?><?php if (isset($LTE_1_mv) && ($other_user_map_primary == "false")) { ?><a
+rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_1_mv)) echo $LTE_1_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>1</a><?php } if (isset($LTE_2_mv)) { ?><a
+rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_2_mv)) echo $LTE_2_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>2</a><?php } if (isset($LTE_3_mv)) { ?><a
+rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_3_mv)) echo $LTE_3_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>3</a><?php } if (isset($LTE_4_mv)) { ?><a
+rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>4</a><?php }}} ?>
