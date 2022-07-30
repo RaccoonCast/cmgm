@@ -31,6 +31,8 @@ if (!empty($value) OR $value == "NULL" OR $value == "0") {
   elseif ($key == "address") { $db_vars = " AND " . $key . ' like "%'.$value.'%"' . @$db_vars; }
   elseif ($key == "tags") { $db_vars = "AND (tags like '".$value.",%' OR tags like '%,".$value."' OR tags like '%,".$value.",%' OR tags = '".$value."')" . @$db_vars; }
   elseif ($key == "carrier") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
+  elseif ($key == "edit_date_like") { $db_vars = "AND (edit_date like '%".$value."%')" . @$db_vars; }
+  elseif ($key == "notes_like") { $db_vars = "AND (notes like '%".$value."%')" . @$db_vars; }
   else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
  }
 }
