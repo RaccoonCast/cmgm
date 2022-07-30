@@ -19,7 +19,7 @@ if ($lock_status == "lock") { ?>
     <input type="hidden" name="id" value="<?php echo $id?>">
     <input type="hidden" name="lock_status" value="lock_conf">
     <input type="hidden" name="redirPage" value="<?php echo $redirPage?>">
-    <button type="submit" form="form1" value="Submit">Lock</button><br></form> <?php }
+    <button type="submit" class="cmgm-btn" form="form1" value="Submit">Lock</button><br></form> <?php }
 
 //unlock - unverified
 if ($lock_status == "unlock") { ?>
@@ -28,7 +28,7 @@ if ($lock_status == "unlock") { ?>
     <input type="hidden" name="id" value="<?php echo $id?>">
     <input type="hidden" name="lock_status" value="unlock_conf">
     <input type="hidden" name="redirPage" value="<?php echo $redirPage?>">
-    <button type="submit" form="form1" value="Submit">Unlock</button><br></form> <?php
+    <button type="submit" class="cmgm-btn" form="form1" value="Submit">Unlock</button><br></form> <?php
 }
 
 if ($redirPage == "Map-popup") { die(); } else { echo'<br><hr><br>'; }

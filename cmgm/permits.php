@@ -26,7 +26,7 @@ function button($silent,$address,$button_text,$link) { ?>
       if ($silent == "false") echo $button_text . "<br>";
       echo $link . "<br>" . "<br>";
       ?>
-      <input type="submit" class="sb w-50" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
+      <input type="submit" class="sb w-50 cmgm-btn" style="color:#D93A6C" id="Home" onclick="copyToClipboard('<?php echo $address;?>'); redir('<?php echo $link; ?>')" value="<?php echo $button_text; ?>">
     </div>
   </div> <?php
 }

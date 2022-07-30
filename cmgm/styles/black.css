@@ -4,7 +4,7 @@ body {
   color: #EFEFEF;
 }
 /*  set border-style to solid, black, 1.5 pt width, #111111 color on buttons */
-input[type=button],input[type=submit]  {
+.cmgm-btn  {
   border-style: solid;
   border-color: black;
   border-width: 1.5pt;
@@ -17,7 +17,7 @@ input[type=text],input[type=number],textarea,select,option {
   background-color: #111111; /* background color for inputs */
   color: #FAFAFA; /* text color for inputs */
 }
-select:focus, textarea:focus, input:focus {
+select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
     position: relative; /* lets box-shadow overlap other elements */
     outline: none !important; /* remove boring outline */
     border: 1px solid red!important; /* add red border */

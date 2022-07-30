@@ -4,12 +4,12 @@
 </head>
 <?php if (!isset($_POST['opt'])) { ?>
 <form action="LFMF.php" method="post" autocomplete="off">
-<input type="submit" style="width: 145px;" name="opt" value="Missing File Search">
-<input type="submit" style="width: 145px;" name="opt" value="Remove unused files">
-<input type="submit" style="width: 145px;" name="opt" value="Show unused DB IDs">
-<input type="submit" style="width: 145px;" name="opt" value="Show uploads filesize">
-<input type="submit" style="width: 145px;" name="opt" value="PCI matcher">
-<input type="submit" style="width: 145px;" name="opt" value="PWA Manifest">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Missing File Search">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Remove unused files">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Show unused DB IDs">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Show uploads filesize">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PCI matcher">
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PWA Manifest">
 </form>
 <?php
 die();

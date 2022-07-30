@@ -30,6 +30,6 @@ if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
  <form action="PCI-match.php?carrier=<?php echo $carrier; ?>" method="post">
    <textarea name="data" rows="50" cols="150"></textarea>
    <br>
-   <input type="submit">
+   <input type="submit" class="cmgm-btn">
  </form>
 <?php } ?>

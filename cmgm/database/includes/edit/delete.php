@@ -17,7 +17,7 @@ if ($delete_conf == "true") {
   <input type="hidden" name="id" value="<?php echo $id?>">
   <input type="hidden" name="delete" value="true">
   <input type="hidden" name="redirPage" value="<?php echo $redirPage?>">
-  <button type="submit" form="form1" value="Submit">Delete</button>
+  <button type="submit" class="cmgm-btn" form="form1" value="Submit">Delete</button>
 <br>
 </form>
 <?php

@@ -122,8 +122,8 @@ header("Pragma: no-cache");
         <label>Google Maps Link: </label> -->
         <br>
         <br>
-        <input type="button" class="sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
-        type="submit" class="sb" style="color: #00000;"  value="Submit">
+        <input type="button" class="cmgm-btn sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
+        type="submit" class="sb cmgm-btn" style="color: #00000;"  value="Submit">
      </form>
    </body>
    <script>

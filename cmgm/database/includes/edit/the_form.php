@@ -274,7 +274,7 @@
     </div>
     <?php if (!empty($latitude)) include "includes/edit/MapWithPin.php"; ?>
     <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" onClick="lte_1Reqd()" name="edittag" type="submit" class="sb" value="<?php echo $submit_label?>"><?php }
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" onClick="lte_1Reqd()" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
 if (@$padlock == "true") echo '</fieldset>'; ?>
 
 </form>
