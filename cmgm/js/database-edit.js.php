@@ -43,6 +43,24 @@ $(function(){
   $('#sv_d').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_d_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_d_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_e').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_e_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_e_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_f').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_f_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_f_date")[0].setAttribute('required', "");}}).keyup();
+  
+   /*
+  // Street View URLs
+  var lte_2 = $('#lte_2').val();
+  var lte_3 = $('#lte_3').val();
+  var lte_4 = $('#lte_4').val();
+  var lte_5 = $('#lte_5').val();
+  var lte_6 = $('#lte_6').val();
+
+
+  $('#lte_2').keyup(function() {  if ($('#lte_2').val() != content) {document.getElementsByName("")[0].setAttribute('required', "");
+  $('#lte_3').keyup(function() {  if ($('#lte_3').val() != content) {document.getElementsByName("")[0].setAttribute('required', "");
+  $('#lte_4').keyup(function() {  if ($('#lte_4').val() != content) {document.getElementsByName("")[0].setAttribute('required', "");
+  $('#lte_5').keyup(function() {  if ($('#lte_5').val() != content) {document.getElementsByName("")[0].setAttribute('required', "");
+  $('#lte_6').keyup(function() {  if ($('#lte_6').val() != content) {document.getElementsByName("")[0].setAttribute('required', "");
+
+  $('#nr_1').keyup(function() {  if ($(this).val().length == 0) {$('.sv_f').hide();} else {$('.sv_f').show();}}).keyup();
+  $('#nr_2').keyup(function() {  if ($(this).val().length == 0) {$('.sv_f').hide();} else {$('.sv_f').show();}}).keyup(); */
 
 });
 </script>
