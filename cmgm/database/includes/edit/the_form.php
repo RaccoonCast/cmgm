@@ -39,8 +39,9 @@
       if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
+      $cmgm_map_search = "https://cmgm.us/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
     ?>
-    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> IDs<span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> <a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a><span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
@@ -49,8 +50,8 @@
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
     type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2"><input
-    type="text" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="text" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
+    type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
+    type="number" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
 
     <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
@@ -79,6 +80,11 @@
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23"><input
     type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
 
+    <?php
+    // value fill-in
+
+    if (!empty($other_user_map_primary)) { $tmp_other_user_map_primary = $other_user_map_primary; } else { $tmp_other_user_map_primary = "false"; $tmp_idparam_4 = "true"; }
+    ?>
     <label class="id_params_label">Multi ID Parameters</label><select title="PCIs match" class="id_params_cw" name="pci_match">
     <option style="display: none" value="<?php echo @$pci_match;?>" selected>PCIs match: <?php echo @$pci_match;?></option>
     <option value="true">true</option>
@@ -94,8 +100,8 @@
     <option value="true">true</option>
     <option value="false">false</option>
     <option value="partial">partial</option>
-    </select><select class="id_params_cw" title="Primary already located" name="other_user_map_primary">
-    <option style="display: none" value="<?php echo @$other_user_map_primary;?>" selected>Primary already located: <?php echo @$other_user_map_primary;?></option>
+    </select><select class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary already located" name="other_user_map_primary">
+    <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Primary already located: <?php echo @$tmp_other_user_map_primary;?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     </select>
@@ -128,13 +134,13 @@
     <?php
     // value fill-in
 
-    if (!empty($cm_pin_distance)) { $tmp_cm_pin_distance = $cm_pin_distance; } else { $tmp_cm_pin_distance = "1.0x"; }
-    if (!empty($cm_pin_inverted)) { $tmp_cm_pin_inverted = $cm_pin_inverted; } else { $tmp_cm_pin_inverted = "false"; }
-    if (!empty($sector_configuration)) { $tmp_sector_configuration = $sector_configuration; } else { $tmp_sector_configuration = "3-sector"; }
-    if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; }
-    if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; }
+    if (!empty($cm_pin_distance)) { $tmp_cm_pin_distance = $cm_pin_distance; } else { $tmp_cm_pin_distance = "1.0x"; $tmp_misc_1 = "true"; }
+    if (!empty($cm_pin_inverted)) { $tmp_cm_pin_inverted = $cm_pin_inverted; } else { $tmp_cm_pin_inverted = "false"; $tmp_misc_2 = "true";}
+    if (!empty($sector_configuration)) { $tmp_sector_configuration = $sector_configuration; } else { $tmp_sector_configuration = "3-sector"; $tmp_misc_3 = "true";}
+    if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
+    if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label">Misc <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_39_cw" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label">Misc <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
@@ -156,15 +162,15 @@
     <option value="2.1x">2.1x</option>
     <option value="2.2x">2.2x</option>
     <option value="2.3x">2.3x</option>
-  </select><?php if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?><select class="misc_50_cw" title="lorem ipsum" name="cm_pin_inverted">
+    </select><select class="misc_50_cw <?php if (isset($tmp_misc_2)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_inverted">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-    </select><select class="misc_cw" title="lorem ipsum" name="sector_configuration">
+    </select><select class="misc_50_cw misc_cw <?php if (isset($tmp_misc_3)) echo 'warning2';?>" title="lorem ipsum" name="sector_configuration">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
-    <option value="3-sector">2-sector</option>
-    <option value="3-sector + 1">2-sector + 1</option>
-    <option value="3-sector + 1">2-sector + 2</option>
+    <option value="2-sector">2-sector</option>
+    <option value="2-sector + 1">2-sector + 1</option>
+    <option value="2-sector + 1">2-sector + 2</option>
     <option disabled value="">---</option>
     <option value="3-sector">3-sector</option>
     <option value="3-sector + 1">3-sector + 1</option>
@@ -173,17 +179,17 @@
     <option value="4-sector">4-sector</option>
     <option value="4-sector + 1">4-sector + 1</option>
     <option value="4-sector + 1">4-sector + 2</option>
-    </select><select class="misc_cw" title="lorem ipsum" name="split_sector">
+    </select><select class="misc_cw <?php if (isset($tmp_misc_4)) echo 'warning2';?>" title="lorem ipsum" name="split_sector">
     <option style="display: none" value="<?php echo @$tmp_split_sector ?>" selected>Split-sector: <?php echo @$tmp_split_sector ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-    </select><select class="misc_cw" title="lorem ipsum" name="special_setup">
+    </select><select class="misc_cw <?php if (isset($tmp_misc_5)) echo 'warning2';?>" title="lorem ipsum" name="special_setup">
     <option style="display: none" value="<?php echo @$tmp_special_setup ?>" selected>Special setup: <?php echo @$tmp_special_setup ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     </select>
 
-    <label class="tags_label">Tags/Notes</label><input
+    <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></label><input
     placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
 
     <?php if ($isMobile !="true") { ?>

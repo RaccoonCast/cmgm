@@ -10,6 +10,14 @@ input[type=text],input[type=number],option,select,.notes,.edit_history  {
   text-decoration: none;
   color: #F78A8A!important;
 }
+.warning {
+  text-decoration: underline;
+  color: #F4F489!important;
+}
+.warning2 {
+  text-decoration: none;
+  color: #F4F489!important;
+}
 .map_holder {
 	float: right;
 }
