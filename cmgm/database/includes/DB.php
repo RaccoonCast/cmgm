@@ -3,12 +3,6 @@ $sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,z
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) == "1") {
-  $included_files = get_included_files();
-  foreach ($included_files as $filename) {
-    echo basename(__FILE__) . ": " . "$filename";
-    echo "<br>";
-}
-  die();
   while($row = $result->fetch_assoc()) {
   foreach ($row as $key => $value) {
     $$key = $value;
