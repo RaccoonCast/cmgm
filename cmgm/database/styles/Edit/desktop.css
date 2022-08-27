@@ -15,7 +15,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 		font-size: 0.78em;
 		width: 100%;
 }
-@media (min-width:1920px) {
+@media (min-width:1910px) {
 /* Panels (split page in half) */
 .panel1 { width: 49.93%; float: left; }
 .panel2 { width: 49.93%; float: right; }
