@@ -7,7 +7,7 @@ if (!empty($_POST['data'])) {
   $cellmapper_data = preg_replace('#\s+#',', ',trim($cellmapper_data));
   $cellmapper_dataArr = explode(', ' , $cellmapper_data);
 
-  include "../../database/includes/DB-filter.php";
+  include "../../database/includes/DB-filter-get.php";
   include '../../functions.php';
 
   $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2 FROM db $db_vars";

@@ -18,7 +18,7 @@
    } else {
      $limit = "530";
    }
-   include 'includes/DB-filter.php';
+   include 'includes/DB-filter-get.php';
    if (@substr($back, 0, 4) == "Edit") {
      $back_url = $back;
    } elseif (@substr($back, 0, 4) == "Home") {
