@@ -1,4 +1,5 @@
 <?php
+
 $sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT 75";
 $result = mysqli_query($conn,$sql);
 
@@ -32,6 +33,8 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
       $$key = $value;
       if ($key == "DISTANCE") {
         echo "<tr>";
+
+        include_once $SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
         $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,"Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
         $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 

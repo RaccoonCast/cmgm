@@ -15,7 +15,7 @@ if (isset($_GET['data'])) $data = @$_GET['data'];
 if (isset($_POST['data'])) $data = @$_POST['data'];
 
 if ($goto_page == "CellMapper") {
-  include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
+  include_once $_SERVER['DOCUMENT_ROOT'] . "/includes/misc-functions/cm_linkgen.php";
   $var = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
   return $var;
 }

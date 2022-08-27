@@ -8,7 +8,7 @@
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
    if (!isset($carrier)) $carrier = $default_carrier;
    if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
-   include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
+   include_once "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
    $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
    $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
    $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
