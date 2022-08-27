@@ -2,6 +2,7 @@
 // Edit
 $sql_edit = "UPDATE db SET ";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
+  $value = strip_tags($value);
   // echo $key . "=" . $value . "<br>";
    include "latitude_longitude.php";
    if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
