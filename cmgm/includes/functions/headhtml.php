@@ -1,5 +1,5 @@
 <?php if (!isset($titleOverride)) { ?>
-  <title>CMGM - <?php echo $filename?></title>
+<title>CMGM - <?php echo $_SERVER['PHP_SELF']?></title>
 <?php } ?>
 <meta name="color-scheme" content="<?php if ($theme == "black") { echo 'dark'; } else {echo 'light';} ?>">
 <link rel="icon" type="image/png" href="/images/logo.png">
