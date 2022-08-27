@@ -36,7 +36,11 @@ if (isset($_GET['lock_status']))  $lock_status = $_GET['lock_status'];
 if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
 
 // If $POST_NEW is set create a new DB wherever an ID is available.
-if (isset($_POST['new'])) include "includes/edit/create_new.php";
+if (isset($_POST['new'])) {
+  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT * FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
+  include "includes/edit/create_new.php";
+}
+
 
 // Read data from SQL DB
 if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
@@ -51,13 +55,17 @@ if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing."
 if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,$redirPage,$conn,$userID);
 
 // Not found? Ok... let's try some things.
-if (!isset($status)) {
+if (!isset($status) && !isset($_GET['new']) && !isset($_POST['new'])) {
   include "DB.php";
   die();
 }
 
 // SQL Edit Code
 if ($padlock == "false") include "includes/edit/sql_mgm/the_edit_code.php";
+
+if (isset($_GET['id'])) { if (@$_GET['id'] == "new") {
+  redir("Edit.php?id=$id","0");
+} }
 
 // If delete tag is specified
 if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn);

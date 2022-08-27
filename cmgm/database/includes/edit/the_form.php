@@ -1,4 +1,4 @@
-<form action="Edit.php?id=<?php echo $id; ?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
+<form action="Edit.php?id=<?php if(isset($id)) {echo $id; } else { if (isset($_GET['new'])) {echo "new";}}  ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
