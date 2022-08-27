@@ -54,8 +54,8 @@
      class="custominput" type="text" maxlength="25" placeholder="City" autocomplete="chrome-off" name="city"><input
      class="custominput" type="text" maxlength="5" placeholder="Zip" autocomplete="chrome-off" name="zip"><input
      class="custominput" type="text" maxlength="20" placeholder="State" autocomplete="chrome-off" name="state">
-		 <!--<br><label class="label">Sort results near</label><input type="text" class="latlong custominput" maxlength="45" value="<?php echo $latitude;?>" name="latitude"><input
-     type="text" class="latlong custominput" maxlength="45" value="<?php echo $longitude?>" name="longitude">-->
+		 <!--<br><label class="label">Sort results near</label>--><input type="text" class="latlong custominput" maxlength="45" value="<?php echo $latitude;?>" placeholder="Latitude" name="latitude"><input
+     type="text" class="latlong custominput" placeholder="Longitude" maxlength="45" value="<?php echo $longitude?>" name="longitude">
      <!--<br><label class="label">Tag filter</label>--><input type="text" class="custominput" maxlength="45" placeholder="Tags filter" name="tags"><input
      type="text" class="custominput small-text" maxlength="55" placeholder="File search filter" name="fileSearch">
      <!-- <br><label class="label">Limits results to</label><input type="text" class="custominput" maxlength="45" value="500" name="limit"> -->

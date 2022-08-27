@@ -1,51 +1,20 @@
-<?php
-$limit = 50;
-$latitude = $default_latitude;
-$longitude = $default_longitude;
-$filename_for_css = "DB";
-include "../includes/functions/css.php";
-if (isset($_POST['q'])) {
-  $q = $_POST['q'];
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="../js/redir.js"></script>
+  <?php
+  include '../functions.php';
+  if (!isset($_GET['latitude'])) $latitude = $default_latitude;
+  if (!isset($_GET['longitude'])) $longitude = $default_longitude;
   include "includes/DB-filter-post.php";
-}
-if (isset($_GET['q'])) {
-  $q = $_GET['q'];
-  include "includes/DB-filter-get.php";
-}
-include "../includes/link-conversion-and-handling/function_goto.php";
-
-//if (!isset($limit)) $limit = "100";
-//echo $sql;
-
-if (isset($_GET['new'])) {
-     $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT * FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
-} else {
-  if (@$back_num < 3 & isset($back_num)) redir("Edit.php?id=" . --$id . "&back=" . ++$back_num . "&nolocsearch","0"); // back
-  if (@$next_num < 3 & isset($next_num)) redir("Edit.php?id=" . ++$id . "&next=" . ++$next_num . "&nolocsearch","0"); // next
-  $id_trim =preg_replace('/\s+/', '', $id);
-  if (!empty($id_trim) && is_numeric($id_trim)) $new_id = @mysqli_fetch_array(mysqli_query($conn, "SELECT id FROM db WHERE LTE_1='$id_trim' OR LTE_2='$id_trim' OR LTE_3='$id_trim' OR LTE_4='$id_trim' OR LTE_5='$id_trim' OR LTE_5='$id_trim' OR LTE_6='$id_trim' OR NR_1='$id_trim' OR NR_2='$id_trim'"))['id']; // id search
-  if (!empty($new_id)) redir("Edit.php?id=$new_id","0"); // redir to searched ID
-  ?> <title>CMGM - Edit</title> <?php
-  // LAST DITCH EFFORT TO FIGURE OUT WHO WE EDITING
-  include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
-  if (!empty($id) && isset($_GET['locsearch'])) {
-    $carrier_addin = null;
-    if (@$_GET['MCC'] . @$_GET['MNC'] == "310260") {$carrier_addin = 'WHERE carrier = "'."T-Mobile".'"';}
-    if (@$_GET['MCC'] . @$_GET['MNC'] == "310120") {$carrier_addin = 'WHERE carrier = "'."Sprint".'"';}
-    if (@$_GET['MCC'] . @$_GET['MNC'] == "310410") {$carrier_addin = 'WHERE carrier = "'."ATT".'"';}
-    if (@$_GET['MCC'] . @$_GET['MNC'] == "311480") {$carrier_addin = 'WHERE carrier = "'."Verizon".'"';}
-
-    [$latitude,$longitude] = @convert($id,"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
-    $query = "SELECT DISTINCT id,carrier, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db $carrier_addin HAVING distance < 0.045 ORDER BY DISTANCE LIMIT 1";
-    if (!empty($latitude) && !empty($longitude)) @redir("Edit.php?id=" . @mysqli_fetch_array(mysqli_query($conn,$query))['id'],"0");
-  }
-//include "includes/edit/id_input/search_page.php";
-  [$latitude,$longitude] = convert($q,"HomeSmart",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
-  $sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." HAVING distance < 0.045 ORDER BY distance LIMIT $limit";
-}
-
-
-
+  include "../includes/link-conversion-and-handling/function_goto.php";
+  ?>
+</head>
+<body>
+<?php
+if (!isset($limit)) $limit = "100";
+$sql = "SELECT DISTINCT *, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." ORDER BY distance LIMIT $limit";
+if (isset($_GET['showsql'])) echo $sql;
 $result = mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) == "1") {
   while($row = $result->fetch_assoc()) {
@@ -57,7 +26,7 @@ if (mysqli_num_rows($result) == "1") {
 }
 if (mysqli_num_rows($result) == "0") {
   echo "<br> No results found.";
-  redir("Search.php?latitude=$latitude&longitude=$longitude","0");
+  redir("Search.php?latitude=$latitude&longitude=$longitude","1");
 } ?>
 <table border="1">
 <thead>
@@ -113,6 +82,8 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
            echo "Missing file!";
          }
 
+
+
         echo "</tr>"."\n";
 
       }
@@ -124,3 +95,6 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
 if (mysqli_num_rows($result) > 40) {
   echo "<br>";
 }
+include "includes/footer.php"; ?>
+</body>
+</html>

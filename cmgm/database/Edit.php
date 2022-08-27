@@ -9,6 +9,7 @@ header('Pragma: no-cache'); ?>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="../js/copyToClipboard.js"></script>
 <script src="../js/database.js"></script>
+<script src="../js/redir.js"></script>
 <?php
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -20,9 +21,10 @@ include "includes/edit/delete.php";
 include "includes/edit/lockorunlock.php";
 include "../js/database-edit.js.php";
 
-if (isset($_GET['id_search'])) $id = $_GET['id_search'];
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
+if (isset($_GET['q'])) $id = $_GET['q'];
+if (isset($_POST['q'])) $id = $_POST['q'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['id'])) $id = $_POST['id'];
 if (isset($_GET['redirPage'])) $redirPage = $_GET['redirPage'];
@@ -49,7 +51,10 @@ if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing."
 if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,$redirPage,$conn,$userID);
 
 // Not found? Ok... let's try some things.
-if (!isset($status) OR isset($_GET['id_search'])) include "includes/edit/missing_id.php";
+if (!isset($status)) {
+  include "DB.php";
+  die();
+}
 
 // SQL Edit Code
 if ($padlock == "false") include "includes/edit/sql_mgm/the_edit_code.php";
