@@ -1,4 +1,4 @@
-<form action="Edit.php?id=<?php echo $id; if (isset($_GET['multiplier'])) echo "&multiplier=" . $_GET['multiplier']; ?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
+<form action="Edit.php?id=<?php echo $id; ?>" id="form<?php echo $id; ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
     <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
@@ -140,7 +140,7 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label">Misc <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
