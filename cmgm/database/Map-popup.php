@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary
                     ?> <br> <?php
 
                     if (empty($LTE_1)) $LTE_1 = "CellMapper";
-
+                      include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
                       $cellmapper_net_url = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
                         if(!empty($LTE_1)) ?> <a class="widget" target="_blank" href="<?php echo $cellmapper_net_url ?>"><?php echo $LTE_1?><?php
                         if(!empty($LTE_2)) { echo " & " . $LTE_2; }

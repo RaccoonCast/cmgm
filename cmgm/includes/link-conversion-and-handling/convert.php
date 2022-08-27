@@ -2,7 +2,6 @@
 function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom) {
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
-include_once "function_goto.php";
 
 //file_put_contents("log.log", substr("$data", 0, 31));
 
@@ -21,12 +20,13 @@ if (!isset($conv_type)) include "convert/dmstodec.php";
 // NOTHING? Google Maps search for the entered data
 if (!isset($conv_type)) include "convert/google-maps-conversion.php";
 // Get address info for location
-include "convert/get-address-for-loc.php";
+if ($goto != "HomeSmarter") include "convert/get-address-for-loc.php";
 
 $latitude = substr($latitude,0,12);
 $longitude = substr($longitude,0,12);
 
-if ($goto == "HomeSmart") return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
+if ($goto == "HomeSmart" OR "HomeSmarter") return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
 
+include_once "function_goto.php";
 return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$state,@$goto,@$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 }

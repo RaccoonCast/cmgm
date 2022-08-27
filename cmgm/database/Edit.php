@@ -16,10 +16,6 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
 include "../functions.php";
-include "../includes/useridsys/getUsername.php";
-include "includes/edit/delete.php";
-include "includes/edit/lockorunlock.php";
-include "../js/database-edit.js.php";
 
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
@@ -45,7 +41,17 @@ if (isset($_POST['new'])) {
 // Read data from SQL DB
 if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
 
+
+// Not found? Ok... let's try some things.
+if (!isset($status) && !isset($_GET['new']) && !isset($_POST['new'])) {
+  include "includes/edit/Edit-DB.php";
+  die();
+}
+
 // Unlock/Lock
+include "includes/edit/lockorunlock.php";
+include "includes/edit/delete.php";
+include "../includes/useridsys/getUsername.php";
 if (@$edit_lock != $userID && !empty($edit_lock)) $padlock = "true";
 if (@$edit_lock == $userID && !empty($edit_lock)) $padlock = "false";
 if (empty($edit_lock)) $padlock = "false";
@@ -54,11 +60,8 @@ if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing."
 // Unlock/Lock controls
 if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,$redirPage,$conn,$userID);
 
-// Not found? Ok... let's try some things.
-if (!isset($status) && !isset($_GET['new']) && !isset($_POST['new'])) {
-  include "includes/edit/Edit-DB.php";
-  die();
-}
+// Include JS file to require cerain fields to be set.
+include "../js/database-edit.js.php";
 
 // SQL Edit Code
 if ($padlock == "false") include "includes/edit/sql_mgm/the_edit_code.php";
