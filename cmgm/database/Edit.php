@@ -56,7 +56,7 @@ if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,
 
 // Not found? Ok... let's try some things.
 if (!isset($status) && !isset($_GET['new']) && !isset($_POST['new'])) {
-  include "DB.php";
+  include "includes/edit/Edit-DB.php";
   die();
 }
 
