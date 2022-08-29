@@ -16,6 +16,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
 include "../functions.php";
+if (isset($_POST['pciplus'])) include "../includes/pciplus/main.php";
 
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];

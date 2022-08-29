@@ -16,8 +16,8 @@ header('Pragma: no-cache'); ?>
         die();
       }
       include "js/index.js.php";
-      if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) include "includes/link-conversion-and-handling/page-handler.php";
       include_once SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
+      if (!isset($_GET['latitude']) OR !isset($_GET['longitude'])) include "includes/link-conversion-and-handling/page-handler.php";
 
       if (empty($address) OR $address == " ") echo "<title>Home</title>";
       if (!empty($address)) echo "<title>Home - ($address)</title>";
