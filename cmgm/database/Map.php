@@ -11,6 +11,7 @@
         return (bool) preg_match("/^{$pattern}$/i", $subject);
     }
    $zoom = 14;
+     $allowGuests = "true";
    include '../functions.php';
 
    if(isMobile()){
