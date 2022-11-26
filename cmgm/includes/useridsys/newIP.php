@@ -78,7 +78,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
    </head>
    <body>
      <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
-       <p>IP address <?php echo $ip; ?> isn't recongized.</p>
+       <p>IP address <?php echo $ip; ?> isn't recognized.</p>
        <p>Please enter magical password.</p>
          <input type="password" name="password" class="textbox">
          <input type="submit" class="sb cmgm-btn" value="Submit">
