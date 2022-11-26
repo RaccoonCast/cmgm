@@ -1,7 +1,7 @@
 <?php
 header('Content-type: application/json');
 $api_called = "true";
-// Cast's Awesome API (CAAPI)
+//  cody and alps' purple iphones (CAAPI)
 $db_get_list = "id,latitude,longitude,region_lte,region_nr";
 $db_vars = "id > 0";
 include '../includes/functions/sqlpw.php';

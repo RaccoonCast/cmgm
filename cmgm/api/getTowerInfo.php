@@ -1,7 +1,7 @@
 <?php
 header('Content-type: application/json');
 $api_called = "true";
-// Cast's Awesome API (CAAPI)
+//  cody and alps' purple iphones (CAAPI)
 include '../includes/functions/sqlpw.php';
 include '../includes/useridsys/native.php';
 
