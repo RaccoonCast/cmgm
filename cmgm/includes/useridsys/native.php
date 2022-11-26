@@ -36,23 +36,26 @@ if (!isset($userIP)) {
     include "newIP.php";
   }
   if (isset($allowGuests)) {
-    $theme = "black";
+    // echo "You are justaguest190";
     $userID = "guest";
     $theme = "black";
+    $default_carrier = "ATT";
     $gmaps_util = "0";
     $debug_flag = "0";
     $prefLocType = "gps";
     $cm_mapType = "osm_street";
+    $cm_zoom = "18";
     $cm_groupTowers = "false";
     $cm_showLabels = "true";
     $cm_showLowAcc = "true";
     $default_latitude = "41.87846175857693";
     $default_longitude = "-87.62886586726619";
+    $gmaps_api_key_access = "false";
   }
 }
 
 // If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
-if ($curr_userIP != $userIP) {
+if (!isset($allowGuests) && $curr_userIP != $userIP) {
   mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
 }
 

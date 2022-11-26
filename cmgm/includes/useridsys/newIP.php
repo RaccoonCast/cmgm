@@ -35,7 +35,7 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
 
   $userID = substr(str_shuffle(md5(time())),0,32);
   ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
-  $username = $userID;
+  $username = substr(str_shuffle(md5(time())),0,16);
   $userIP = $_SERVER["REMOTE_ADDR"];
   $gmaps_api_key_access = "true";
   $default_carrier = "ATT";

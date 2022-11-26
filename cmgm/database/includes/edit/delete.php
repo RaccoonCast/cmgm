@@ -1,5 +1,5 @@
 <?php function delete($id,$delete_conf,$redirPage,$conn) {
-if ($delete_conf == "true") {
+if ($delete_conf == "true" && !$userID == "guest") {
   mysqli_query($conn, "DELETE from db WHERE id='$id'"); // First parameter is just return of "mysqli_connect()" function
   if ($redirPage == "Map-popup") {
     echo "Deletion successful, refresh Map to update.";

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <?php
+  $allowGuests = "true";
   include '../functions.php';
   include "../includes/functions/calculateEV.php";
   ?>
