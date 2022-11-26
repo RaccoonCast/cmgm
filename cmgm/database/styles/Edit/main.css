@@ -1,4 +1,4 @@
-.inline-block {display:inline-block; }
+.inline-block,.ib {display:inline-block; }
 .notes,.edit_history {width:100%; resize: none;}
 input[type=text],input[type=number],option,select,.notes,.edit_history  {
 		box-sizing: border-box;

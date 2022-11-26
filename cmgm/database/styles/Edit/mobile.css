@@ -54,7 +54,7 @@ input[type=text],input[type=search],input[type=number],select {
 .status_cw { max-width: 25%;} .concealed_cw { max-width: 27%;} .carrier_cw { max-width: 23%;} .cellsite_type_cw { max-width: 25%;}
 .region_cw, .addr_state_cw, .addr_zip_cw, .nr_cw, .lte_cw  {max-width: 20%;}
 .latitude_cw, .longitude_cw {max-width: 50%;}
-.pci_cw {max-width: 12.5%;}
+.pci_cw {max-width: 12.5%;  float: left;}
 .addr_address_cw {max-width: 50%;} .addr_city_cw {max-width: 30%;} .addr_state_cw {max-width: 8%;} .addr_zip_cw {max-width: 12%;}
 .sv_cw {max-width: 86%; }
 .sv_date_cw {max-width: 14%;}
