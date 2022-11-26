@@ -15,7 +15,7 @@ if (isset($_COOKIE['userID'])) {
 }
 
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
-if (isset($_GET['cellmapperissexy'])) $cookie_userID = "guest";
+//if (isset($_GET['cellmapperissexy'])) $cookie_userID = "guest";
 $sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
 $result = mysqli_query($conn,$sql);
 
@@ -57,6 +57,11 @@ if (!isset($userIP)) {
 // If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
 if (!isset($allowGuests) && $curr_userIP != $userIP) {
   mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
+}
+
+// Update last_date in user ID table.
+if (substr($last_date, 0, 10) == date('Y-m-d')) {
+ mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'"); // just copied & pasted code to force an update in db.
 }
 
 // Renew the cookie.
