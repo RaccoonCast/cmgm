@@ -18,7 +18,7 @@ if (!empty($$value)) {
 }
 
 if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d) && empty($sv_e) && empty($sv_f)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
-if (empty($bingmaps_a) && empty($bingmaps_b) && empty($bingmaps_c)) $bingmaps_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.bing.com/maps?style=b&cp=' . @$latitude. '~' . @$longitude . '">A</a>';
+if (empty($bingmaps_a) && empty($bingmaps_b) && empty($bingmaps_c)) $bingmaps_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.bing.com/maps?dir=0&lvl=22&style=b&cp=' . @$latitude. '~' . @$longitude . '">A</a>';
 
 if($isMobile == "false") {
   $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label;
@@ -35,5 +35,5 @@ if($isMobile == "false") {
   $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label;
 }
 
-if (isset($_GET['new'])) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
+if (isset($new)) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
 ?>

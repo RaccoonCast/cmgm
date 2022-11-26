@@ -1,5 +1,5 @@
 <?php
-if (!empty($region_nr) && !(isset($_GET['new']))) {
+if (!empty($region_nr) && !(isset($new))) {
 $base = "https://api.cellmapper.net/v6/getTowerInformation";
 if($carrier == "T-Mobile") $base = $base . "?MCC=310&MNC=260";
 if($carrier == "ATT") $base = $base . "?MCC=310&MNC=410";
