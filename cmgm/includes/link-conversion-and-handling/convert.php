@@ -20,12 +20,12 @@ if (!isset($conv_type)) include "convert/dmstodec.php";
 // NOTHING? Google Maps search for the entered data
 if (!isset($conv_type)) include "convert/google-maps-conversion.php";
 // Get address info for location
-if ($goto != "HomeSmarter") include "convert/get-address-for-loc.php";
+if ($goto != "HomeWOAddr") include "convert/get-address-for-loc.php";
 
 $latitude = substr($latitude,0,12);
 $longitude = substr($longitude,0,12);
 
-if (($goto == "HomeSmart") OR ($goto == "HomeSmarter")) return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
+if (($goto == "HomeWOAddr") OR ($goto == "HomeWAddr")) return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
 
 if (($goto == "pciplus")) return [@$address,@$city,@$zip,@$state];
 

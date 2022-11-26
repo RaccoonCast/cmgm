@@ -17,7 +17,7 @@ if (!empty($q)) {
     }
   }
   include SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
-  [$latitude,$longitude] = convert($q,"HomeSmarter",$default_latitude,$default_longitude,@$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
+  [$latitude,$longitude] = convert($q,"HomeWOAddr",$default_latitude,$default_longitude,@$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
 }
 
 $locsearch = "HAVING distance < 0.333";
