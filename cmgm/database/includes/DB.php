@@ -1,6 +1,5 @@
 <?php
-if (!isset($sql)) unset($magickey);
-if (!isset($sql)) $sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT 75";
+$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT 75";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) == "1") {
