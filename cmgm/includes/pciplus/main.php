@@ -1,21 +1,21 @@
 <?php
-include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
-foreach($_POST as $key => $value){
+foreach($_GET as $key => $value){
   if ($key == "pciplus" OR $key == "new") {
     // do nothing
   } else {
     ${$key} = $value;
-    echo $key . $value . "<br>";
+    echo $key . ": " . $value . "<br>";
   }
 }
-
+include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
 [$address,$city,$state,$zip] = convert("$latitude,$longitude","pciplus",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
 // echo $address . "<br>";
 // echo $city . "<br>";
 // echo $state . "<br>";
 // echo $zip . "<br>";
 
-$PCIs = @$_POST['PCI'];
+
+$PCIs = @$_GET['pci'];
 $PCIs = explode(",", @$PCIs);
 $PCI_1 = @$PCIs[0];
 $PCI_2 = @$PCIs[1];
@@ -41,8 +41,8 @@ $PCI_21 = @$PCIs[20];
 $PCI_22 = @$PCIs[21];
 $PCI_23 = @$PCIs[22];
 $PCI_24 = @$PCIs[23];
-
-$plmn = @$_POST['plmn'];
+$status = "verified";
+$plmn = @$_GET['plmn'];
 if ($plmn == "310260") $carrier = "T-Mobile";
 if ($plmn == "311480") $carrier = "Verizon";
 if ($plmn == "310120") $carrier = "Sprint";
