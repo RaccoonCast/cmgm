@@ -3,6 +3,8 @@
    <head>
       <?php include '../functions.php';
       if(empty($carrier)) $carrier = $default_carrier;
+      if(empty($latitude)) $latitude = $default_latitude;
+      if(empty($longitude)) $longitude = $default_longitude;
       ?>
       <link rel="stylesheet" href="styles/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +21,8 @@
           <option selected="selected" value="">Status: All</option>
           <option value="verified" >Verified</option>
           <option value="unverified">Unverified</option>
-        </select><select class="w-32 dropdown custominput" autocomplete="on" name="concealed">
-            <option selected="selected" value="">Conlcealment: n/a</option>
+        </select><select class="w-25 dropdown custominput" autocomplete="on" name="concealed">
+            <option selected="selected" value="">Conlcealed: n/a</option>
             <option value="true">Concealed</option>
             <option value="false">Unconcealed</option>
             </select><select
@@ -31,7 +33,7 @@
               <option value="Verizon">Verizon</option>
               <option value="Sprint">Sprint</option>
            </select><select
-        class="custominput cellsite-type-custom-width dropdown w-25" name="cellsite_type">
+        class="custominput cellsite-type-custom-width dropdown w-32" name="cellsite_type">
         <option selected="selected" value="">Tower type: All</option>
         <option value="tower">Tower</option>
         <option value="rooftop">Rooftop</option>
