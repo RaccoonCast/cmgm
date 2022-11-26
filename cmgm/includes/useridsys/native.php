@@ -32,7 +32,23 @@ while($row = $result->fetch_assoc()) {
 
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {
-  include "newIP.php";
+  if (!isset($allowGuests)) {
+    include "newIP.php";
+  }
+  if (isset($allowGuests)) {
+    $theme = "black";
+    $userID = "guest";
+    $theme = "black";
+    $gmaps_util = "0";
+    $debug_flag = "0";
+    $prefLocType = "gps";
+    $cm_mapType = "osm_street";
+    $cm_groupTowers = "false";
+    $cm_showLabels = "true";
+    $cm_showLowAcc = "true";
+    $default_latitude = "41.87846175857693";
+    $default_longitude = "-87.62886586726619";
+  }
 }
 
 // If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
