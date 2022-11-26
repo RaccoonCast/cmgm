@@ -1,7 +1,7 @@
-<form action="Edit.php?id=<?php if(isset($id)) {echo $id; } else { if (isset($_GET['new'])) {echo "new";}}  ?>" autofill="off" autocomplete="off" method="post">
+<form action="Edit.php?id=<?php if(isset($id)) {echo $id; } else { if (isset($new)) {echo "new";}}  ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
   <div class="panel1">
-    <?php if (isset($_GET['new'])) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
+    <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
 
@@ -55,54 +55,56 @@
     type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
     type="number" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
 
-    <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12"><?php if(!isMobile()) {?><label
-    class="pci_label" for="PCI_1">PCIs</label><?php } ?><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_15" value="<?php echo @$PCI_15?>" placeholder="PCI_15" name="PCI_15"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_16" value="<?php echo @$PCI_16?>" placeholder="PCI_16" name="PCI_16"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_17" value="<?php echo @$PCI_17?>" placeholder="PCI_17" name="PCI_17"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_18" value="<?php echo @$PCI_18?>" placeholder="PCI_18" name="PCI_18"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23"><input
-    type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
+    <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?>
+
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12">
+    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs</label><?php } ?>
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_15" value="<?php echo @$PCI_15?>" placeholder="PCI_15" name="PCI_15">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_16" value="<?php echo @$PCI_16?>" placeholder="PCI_16" name="PCI_16">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_17" value="<?php echo @$PCI_17?>" placeholder="PCI_17" name="PCI_17">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_18" value="<?php echo @$PCI_18?>" placeholder="PCI_18" name="PCI_18">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23">
+    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
+
 
     <?php
     // value fill-in
 
     if (!empty($other_user_map_primary)) { $tmp_other_user_map_primary = $other_user_map_primary; } else { $tmp_other_user_map_primary = "false"; $tmp_idparam_4 = "true"; }
     ?>
-    <label class="id_params_label">Multi ID Parameters</label><select title="PCIs match" class="id_params_cw" name="pci_match">
+    <label class="id_params_label">Multi ID Parameters</label><select title="eNBs/gNBs all share the same PCIs" class="id_params_cw" name="pci_match">
     <option style="display: none" value="<?php echo @$pci_match;?>" selected>PCIs match: <?php echo @$pci_match;?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     <option value="partial">partial</option>
-    </select><select class="id_params_cw" title="ID Pattern Match" name="id_pattern_match">
+  </select><select class="id_params_cw" title="eNBs all share common number, ie 353583/53583, 88001,88002)&#10;Ignore gNBs that don't match eNB" name="id_pattern_match">
     <option style="display: none" value="<?php echo @$id_pattern_match;?>" selected>ID Pattern Match: <?php echo @$id_pattern_match;?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     <option value="partial">partial</option>
-    </select><select class="id_params_cw" title="Sectors match" name="sector_match">
+  </select><select class="id_params_cw" title="All eNBs/gNBs have similar sectors." name="sector_match">
     <option style="display: none" value="<?php echo @$sector_match;?>" selected>Sectors match: <?php echo @$sector_match;?></option>
     <option value="true">true</option>
     <option value="false">false</option>
     <option value="partial">partial</option>
-    </select><select class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary already located" name="other_user_map_primary">
+  </select><select class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary eNB was already located by someone else" name="other_user_map_primary">
     <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Primary already located: <?php echo @$tmp_other_user_map_primary;?></option>
     <option value="true">true</option>
     <option value="false">false</option>
@@ -232,7 +234,7 @@
 
 
     <div class="_panel1">
-    <label class="evidence_scores_label">Permit Score</label><input
+    <label title="How much do you trust the permit, is it very old, is it blurry, is it from an unreliable source?" class="evidence_scores_label">Permit Score</label><input
     type="number" max="100" class="evidence_scores_cw" name="permit_score" value="<?php echo @$permit_score?>">
 
     <br><label title="(1-100)&#10;Consistent bright green trails?&#10;Dense trails?&#10;Fade to dark green with distance as expected?&#10;All of this should affect the number." class="evidence_scores_label">Trails Match</label><input
@@ -258,10 +260,10 @@
     type="number" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     </div><div class="_panel3">
-    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recongizable modifactions</label><input
+    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recongizable modifications</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
-    <br><label title="(0-3)&#10;CellMapper trails for other carriers far weaker&#10;RootMetrics coverage data shows other carriers weak&#10;Other carrier(s) towers near here already located" class="evidence_scores_label"># of carriers data rules out</label><input
+    <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers data rules out</label><input
     type="number" max="3" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
     <br><label title="(0-3)&#10;Number of other carriers at this location/address&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
@@ -275,7 +277,7 @@
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
     <?php if (!empty($latitude)) include "includes/edit/MapWithPin.php"; ?>
-    <?php if (isset($_GET['new'])) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
+    <?php if (isset($new)) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
 <?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" onClick="lte_1Reqd()" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
 if (@$padlock == "true") echo '</fieldset>'; ?>
 
