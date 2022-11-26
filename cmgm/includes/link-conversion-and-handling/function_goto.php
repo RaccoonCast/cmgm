@@ -39,7 +39,7 @@ if ($goto_page == "Permits") $goto_page_URL = "../permits.php?";
 if ($goto_page == "Upload") $goto_page_URL = "/database/Upload.php?";
 if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
-if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?cp=$latitude~$longitude&style=b";
+if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
 if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
