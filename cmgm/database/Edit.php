@@ -41,11 +41,10 @@ if (isset($_POST['new'])) {
 }
 
 // Read data from SQL DB
-if (isset($id) & !isset($_POST['pciplus'])) include "includes/edit/sql_mgm/read_data.php";
-
+if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
 
 // Not found? Ok... let's try some things.
-if (!isset($status) && !isset($new) && !isset($_POST['pciplus'])) {
+if (!isset($status) && !isset($new)) {
   include "includes/edit/Edit-DB.php";
   die();
 }
