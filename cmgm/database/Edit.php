@@ -32,7 +32,7 @@ if (isset($_GET['delete'])) $delete = $_GET['delete'];
 if (isset($_POST['delete'])) $delete = $_POST['delete'];
 if (isset($_GET['lock_status']))  $lock_status = $_GET['lock_status'];
 if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
-if (isset($new) OR isset($_GET['pciplus']) OR isset($_POST['new'])) $new = "true";
+if (isset($_GET['new']) OR isset($_GET['pciplus']) OR isset($_POST['new'])) $new = "true";
 
 // If $POST_NEW is set create a new DB wherever an ID is available.
 if (isset($_POST['new'])) {
