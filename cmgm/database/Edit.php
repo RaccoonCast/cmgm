@@ -15,8 +15,9 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
+$allowGuests = "true";
 include "../functions.php";
-if (isset($_POST['pciplus'])) include "../includes/pciplus/main.php";
+if (isset($_GET['pciplus'])) include "../includes/pciplus/main.php";
 
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
@@ -31,6 +32,7 @@ if (isset($_GET['delete'])) $delete = $_GET['delete'];
 if (isset($_POST['delete'])) $delete = $_POST['delete'];
 if (isset($_GET['lock_status']))  $lock_status = $_GET['lock_status'];
 if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
+if (isset($new) OR isset($_GET['pciplus']) OR isset($_POST['new'])) $new = "true";
 
 // If $POST_NEW is set create a new DB wherever an ID is available.
 if (isset($_POST['new'])) {
@@ -38,13 +40,12 @@ if (isset($_POST['new'])) {
   include "includes/edit/create_new.php";
 }
 
-
 // Read data from SQL DB
-if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
+if (isset($id) & !isset($_POST['pciplus'])) include "includes/edit/sql_mgm/read_data.php";
 
 
 // Not found? Ok... let's try some things.
-if (!isset($status) && !isset($_GET['new']) && !isset($_POST['new'])) {
+if (!isset($status) && !isset($new) && !isset($_POST['pciplus'])) {
   include "includes/edit/Edit-DB.php";
   die();
 }
@@ -57,6 +58,7 @@ if (@$edit_lock != $userID && !empty($edit_lock)) $padlock = "true";
 if (@$edit_lock == $userID && !empty($edit_lock)) $padlock = "false";
 if (empty($edit_lock)) $padlock = "false";
 if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing.";
+if ($userID == "guest") $padlock = "true";
 
 // Unlock/Lock controls
 if ($padlock == "false") if (isset($lock_status)) lockorunlock($id,$lock_status,$redirPage,$conn,$userID);
@@ -85,8 +87,8 @@ include "includes/edit/file_attach_link_gen.php";
 include "includes/edit/the_form.php";
 $no_edit = "true";
 echo '<div class="edit_utilitiy_holder">';
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
-if (!isset($delete) && !isset($_GET['new']) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
+if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
+if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
 echo '</div>';
 ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
