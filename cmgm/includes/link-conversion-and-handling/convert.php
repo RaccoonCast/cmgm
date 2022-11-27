@@ -5,17 +5,15 @@ include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 //file_put_contents("log.log", substr("$data", 0, 31));
 
-// CellMapper URL Conversion
-if(substr("$data", 0, 30) == 'https://www.cellmapper.net/map' && !isset($conv_type)) include "convert/cellmapper.net.php";
-// CellMapper Testmap URL Conversion
-if(substr("$data", 0, 34) == 'https://www.cellmapper.net/testmap/' && !isset($conv_type)) include "convert/cm-testmap.php";
-// Google Maps URL Conversion
-if(substr("$data", 0, 28) == 'https://www.google.com/maps/' && !isset($conv_type)) include "convert/google-maps-url-conversion.php";
-// Comma Seperator
-if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include "convert/lat,long-mod.php";
-// Comma Seperator
+// Attempt comma seperating lat,long to $lat,$long
 if(strpos($data, ',') !== false && !isset($conv_type)) include "convert/lat,long.php";
-// DMS TO DEC
+// Attempt CellMapper URL Conversion (incl testmap)
+if(substr("$data", 12, 14) == 'cellmapper.net' && !isset($conv_type)) include "convert/cellmapper.net.php";
+// Attempt Google Maps URL Conversion
+if(substr("$data", 0, 28) == 'https://www.google.com/maps/' && !isset($conv_type)) include "convert/google-maps-url-conversion.php";
+// Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
+if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include "convert/lat,long-mod.php";
+// Attempt DMS TO DEC
 if (!isset($conv_type)) include "convert/dmstodec.php";
 // NOTHING? Google Maps search for the entered data
 if (!isset($conv_type)) include "convert/google-maps-conversion.php";
