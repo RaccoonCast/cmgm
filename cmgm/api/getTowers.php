@@ -11,7 +11,9 @@ foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
     ${$key} = $value;
   } else {
-    $db_get_list = $db_get_list . "," . $key;
+    if ($key != "edit_userid") {
+      $db_get_list = $db_get_list . "," . $key;
+    }
     $db_vars = $key . ' = "'.$value.'" AND ' . $db_vars;
   }
 }

@@ -25,7 +25,7 @@ if ($plmn == "310120") $carrier = "Sprint";
 if ($plmn == "310410") $carrier = "ATT";
 if (!isset($carrier)) die();
 
-$sql = "SELECT $database_get_list from db WHERE (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR NR_1 = '$id' OR NR_2 = '$id') AND carrier = '$carrier' ";
+$sql = "SELECT $database_get_list, NULL AS edit_userid from db WHERE (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR NR_1 = '$id' OR NR_2 = '$id') AND carrier = '$carrier' ";
 
 $arr = array();
 if ($result = $conn->query($sql)) {
