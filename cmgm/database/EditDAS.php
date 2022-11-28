@@ -70,8 +70,8 @@ if (isset($_GET['id'])) { if (@$_GET['id'] == "new") {
 } }
 
 // If delete tag is specified
-//if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn);
-//if ($padlock == "false") if (@$delete == "false") delete($id,"false",$redirPage,$conn);
+//if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn,$userID);
+//if ($padlock == "false") if (@$delete == "false") delete($id,"false",$redirPage,$conn,$userID);
 
 // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
 include "includes/editdas/file_attach_link_gen.php";

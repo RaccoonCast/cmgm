@@ -36,7 +36,7 @@ if (isset($_GET['new']) OR isset($_GET['pciplus']) OR isset($_POST['new'])) $new
 
 // If $POST_NEW is set create a new DB wherever an ID is available.
 if (isset($_POST['new'])) {
-  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT * FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
+  $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT id FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
   include "includes/edit/create_new.php";
 }
 
@@ -73,8 +73,8 @@ if (isset($_GET['id'])) { if (@$_GET['id'] == "new") {
 } }
 
 // If delete tag is specified
-if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn);
-if ($padlock == "false") if (@$delete == "false") delete($id,"false",$redirPage,$conn);
+if ($padlock == "false") if (@$delete == "true") delete($id,"true",$redirPage,$conn,$userID);
+if ($padlock == "false") if (@$delete == "false") delete($id,"false",$redirPage,$conn,$userID);
 
 // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
 include "includes/edit/file_attach_link_gen.php";

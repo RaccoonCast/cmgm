@@ -1,4 +1,4 @@
-<?php function delete($id,$delete_conf,$redirPage,$conn) {
+<?php function delete($id,$delete_conf,$redirPage,$conn,$userID) {
 if ($delete_conf == "true" && !$userID == "guest") {
   mysqli_query($conn, "DELETE from db WHERE id='$id'"); // First parameter is just return of "mysqli_connect()" function
   if ($redirPage == "Map-popup") {
@@ -7,7 +7,7 @@ if ($delete_conf == "true" && !$userID == "guest") {
   }
   if ($redirPage == "Edit") {
     echo "Redirecting to home page.";
-    redir("../",1);
+    redir("../",100000);
   }
   if ($redirPage != "Map-popup") redir("../",0);
 }
