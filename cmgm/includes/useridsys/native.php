@@ -60,7 +60,7 @@ if (!isset($allowGuests) && $curr_userIP != $userIP) {
 }
 
 // Update last_date in user ID table.
-if (substr($last_date, 0, 10) == date('Y-m-d') && !isset($allowGuests)) {
+if (substr(@$last_date, 0, 10) == date('Y-m-d') && !isset($allowGuests)) {
  mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'"); // just copied & pasted code to force an update in db.
 }
 
