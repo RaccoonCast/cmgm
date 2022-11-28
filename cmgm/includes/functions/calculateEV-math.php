@@ -19,19 +19,19 @@
     if ($permit_score >= 25 && ($permit_score < 50)) $ev += 2;
     if ($permit_score >= 50 && ($permit_score < 60)) $ev += 5;
     if ($permit_score >= 60 && ($permit_score < 75)) $ev += 7;
-    if ($permit_score >= 75 && ($permit_score < 85)) $ev += 12;
-    if ($permit_score >= 85 && ($permit_score < 100)) $ev += 14;
-    if ($permit_score >= 100) $ev += 15;
+    if ($permit_score >= 75 && ($permit_score < 85)) $ev += 10;
+    if ($permit_score >= 85 && ($permit_score < 100)) $ev += 17;
+    if ($permit_score >= 100) $ev += 20;
 
     // trails match
     if ($trails_match >= 20 && ($trails_match < 45)) $ev += 1;
     if ($trails_match >= 45 && ($trails_match < 65)) $ev += 2;
-    if ($trails_match >= 65 && ($trails_match < 85)) $ev += 4;
-    if ($trails_match >= 85 && ($trails_match < 100)) $ev += 5;
-    if ($trails_match >= 100) $ev += 6;
+    if ($trails_match >= 65 && ($trails_match < 85)) $ev += 3;
+    if ($trails_match >= 85 && ($trails_match < 100)) $ev += 4;
+    if ($trails_match >= 100) $ev += 5;
 
     // carriers ruled out
-    // A) Because they have poor trails hebrev
+    // A) Because they have poor trails here
     // B) Because they also have antennas here
     // C) Because another eNB ID is stretching to provide coverage in this area
     // D) RootMetrics Data shows their coverage to shit/not as good.
@@ -42,8 +42,9 @@
     // antennas match carrier
     if ($antennas_match_carrier >= 20 && ($antennas_match_carrier < 50)) $ev += 2;
     if ($antennas_match_carrier >= 50 && ($antennas_match_carrier < 80)) $ev += 4;
-    if ($antennas_match_carrier >= 80 && ($antennas_match_carrier < 100)) $ev += 10;
-    if ($antennas_match_carrier >= 100) $ev += 14;
+    if ($antennas_match_carrier >= 80 && ($antennas_match_carrier < 90)) $ev += 7;
+    if ($antennas_match_carrier >= 90 && ($antennas_match_carrier < 100)) $ev += 9;
+    if ($antennas_match_carrier >= 100) $ev += 13;
 
     // cellmapper triangulation
     if ($cellmapper_triangulation >= 20 && ($cellmapper_triangulation < 60)) $ev += 2;
@@ -52,15 +53,14 @@
     if ($cellmapper_triangulation >= 100) $ev += 7;
 
     // Combo Pack!
-    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 7;
-    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 5;
-    if ($only_reasonable_location < 80) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 4;
+    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 5;
+    if ($only_reasonable_location >= 80 && ($only_reasonable_location >= 100)) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 4;
+    if ($only_reasonable_location < 80) if ($sector_split_match >= 80 && ($sector_split_match >= 100)) if ($cellmapper_triangulation >= 100 ) $ev += 3;
     if ($only_reasonable_location < 80) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 2;
 
     // Combo Pack!
     if (@$carriers_ruled_out == 3) if ($sector_split_match >= 90 && ($sector_split_match >= 100)) $ev += 4;
     if (@$carriers_ruled_out == 2) if ($sector_split_match >= 90 && ($sector_split_match >= 100)) $ev += 2;
-
 
     // image evidence
     if ($image_evidence >= 25 && ($image_evidence < 45)) $ev += 2;
@@ -110,24 +110,25 @@
 
     // only reasonable location
     if ($permit_score < 40) {
-      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 100)) $ev += 2;
-      if ($only_reasonable_location >= 100 ) $ev += 4;
+      if ($only_reasonable_location >= 55 && ($only_reasonable_location < 75)) $ev += 1;  // (55-75)
+      if ($only_reasonable_location >= 75 && ($only_reasonable_location < 100)) $ev += 2; // (75-99)
+      if ($only_reasonable_location >= 100 ) $ev += 3;                                    // (100)
     } elseif ($permit_score >= 40 && ($permit_score < 60)) {
-      if ($only_reasonable_location >= 0 && ($only_reasonable_location < 70)) $ev += 2;
-      if ($only_reasonable_location >= 70 && ($only_reasonable_location < 100)) $ev += 4;
-      if ($only_reasonable_location >= 100 ) $ev += 6;
+      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 70)) $ev += 2;  // (45-70)
+      if ($only_reasonable_location >= 70 && ($only_reasonable_location < 100)) $ev += 3; // (70-99)
+      if ($only_reasonable_location >= 100 ) $ev += 4;                                    // (100)
     } elseif ($permit_score >= 60 && ($permit_score < 100)) {
-      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 70)) $ev += 4;
-      if ($only_reasonable_location >= 70 && ($only_reasonable_location < 85)) $ev += 6;
-      if ($only_reasonable_location >= 100 ) $ev += 8;
+      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 60)) $ev += 2;  // (45-70)
+      if ($only_reasonable_location >= 60 && ($only_reasonable_location < 75)) $ev += 3;  // (60-75)
+      if ($only_reasonable_location >= 75 && ($only_reasonable_location < 100)) $ev += 4; // (75-99)
+      if ($only_reasonable_location >= 100 ) $ev += 5;                                    // (100)
     } elseif ($permit_score >= 100) {
-      if ($only_reasonable_location >= 35 && ($only_reasonable_location < 65)) $ev += 2; // (55-65)
-      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 65)) $ev += 4; // (45-65)
-      if ($only_reasonable_location >= 65 && ($only_reasonable_location < 85)) $ev += 6; // (65-85)
-      if ($only_reasonable_location >= 85 && ($only_reasonable_location < 100)) $ev += 7; // (85-95)
-      if ($only_reasonable_location >= 100 ) $ev += 8;                                    // (95+)
+      if ($only_reasonable_location >= 45 && ($only_reasonable_location < 60)) $ev += 3;  // (45-60)
+      if ($only_reasonable_location >= 60 && ($only_reasonable_location < 70)) $ev += 4;  // (60-70)
+      if ($only_reasonable_location >= 70 && ($only_reasonable_location < 100)) $ev += 6; // (70-99)
+      if ($only_reasonable_location >= 100 ) $ev += 8;                                    // (100)
     }
 
     // other user map primary
-    if ($other_user_map_primary == "true") $ev += 8;
+    if ($other_user_map_primary == "true") $ev += 5;
 ?>
