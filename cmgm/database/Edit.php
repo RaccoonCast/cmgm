@@ -15,7 +15,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
-$allowGuests = "true";
+if (!isset($_GET['new']) && !isset($_GET['pciplus']) && !isset($_POST['new'])) $allowGuests = "true";
 include "../functions.php";
 if (isset($_GET['pciplus'])) include "../includes/pciplus/main.php";
 
