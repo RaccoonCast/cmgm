@@ -13,8 +13,9 @@ if (is_numeric($_GET['search']) && is_numeric($_GET['plmn'])) {
   if (isset($_GET['properties'])) {
     $database_get_list = preg_replace("[^_a-zA-Z0-9,-]", "", $_GET['properties']);
     $database_get_list = str_replace("edit_userid","id",$database_get_list);
+    $database_get_list = str_replace("edit_lock","id",$database_get_list);
   } else {
-    $database_get_list = "*, NULL AS edit_userid";
+    $database_get_list = "*, NULL AS edit_userid, NULL AS edit_lock";
   }
 
   $id = substr($_GET['search'], 0, 10); // trim to 10 characters

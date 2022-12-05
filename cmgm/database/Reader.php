@@ -20,7 +20,7 @@ while($row = $result->fetch_assoc()) {
     foreach ($row as $key => $value) {
 
         if (!empty($value) OR $show_empty_fields == 'true') {
-          if ($key != "evidence_score" & $key != "edit_userid") {
+          if ($key != "evidence_score" && $key != "edit_userid" && $key != "edit_lock") {
           echo "$key" . ": " . $value;
           echo "<br>";
           }
