@@ -11,7 +11,7 @@ $img = str_replace('data:image/png;base64,', '', $img);
 $img = str_replace(' ', '+', $img);
 $data = base64_decode($img);
 $randomString = substr(str_shuffle(md5(time())),0,25);
-$file = UPLOAD_DIR . $type . "-" . $randomString;
+$file = UPLOAD_DIR . "image" . "-" . $randomString;
 $success = file_put_contents($file, $data);
 
 $image = imagecreatefrompng($file);
@@ -23,7 +23,7 @@ imagedestroy($image);
 imagejpeg($bg, $file . ".jpg", "80");
 imagedestroy($bg);
 unlink($file);
-$evidence_a = $type . "-" . $randomString . '.jpg';
+$evidence_a = "image" . "-" . $randomString . '.jpg';
 $finishedFilename = $evidence_a;
 redir ("Upload.php?finishedFilename=$finishedFilename&type=$type",0);
  ?>

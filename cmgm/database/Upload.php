@@ -13,7 +13,7 @@
      if (isset($_POST['base64_file'])) {
        if ($debug_flag != "0") echo "Ctrl+V upload attempting... <br>";
        include "includes/upload/ctrlv.php";
-     } elseif(isset($_POST['type'])) {
+     } else {
        if ($debug_flag != "0") echo "File select upload attempting... <br>";
        include "includes/upload/file-select.php";
      }
@@ -22,17 +22,12 @@
           <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br><br>
-              <select name="type">
-                <!-- <option value="image" <?php //if (@$_GET['type'] == "compressed-image") echo "selected"; ?>>Heavily Compressed Image</option> -->
-                <option value="image" <?php if (@$_GET['type'] == "image") echo "selected"; ?>>Compressed Image</option>
-                <option value="photo" <?php if (@$_GET['type'] == "photo") echo "selected"; ?>>Uncompressed Image</option>
-                <option value="misc" <?php if (@$_GET['type'] == "misc") echo "selected"; ?>>Other</option>
-              </select>
+              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br>
+              You can also paste an image if you have one on your clipboard. <br><br>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>
-                <br><br> It has been uploaded as <a onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="#"><?php echo $_GET['finishedFilename']; ?></a>, click to copy filename.
-                <br><br> It has been uploaded as <a target="_blank" onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="uploads/<?php echo $_GET['finishedFilename']; ?>"><?php echo $_GET['finishedFilename']; ?></a>, click to open in a new tab.
+                <br><br>Great! You can copy & paste <a onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="#"><?php echo $_GET['finishedFilename']; ?></a> into an attachments field on the edit page now.
+                <br><br> You can also view the file first, <a target="_blank" onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="uploads/<?php echo $_GET['finishedFilename']; ?>"><?php echo $_GET['finishedFilename']; ?></a>.
               <?php } ?>
 
       <?php
