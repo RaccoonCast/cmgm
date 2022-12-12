@@ -20,7 +20,7 @@ if (is_numeric($_GET['plmn'])) {
     $database_get_list = str_replace("edit_userid","id",$database_get_list);
     $database_get_list = str_replace("edit_lock","id",$database_get_list);
   } else {
-    $database_get_list = "*, NULL AS edit_userid, NULL AS edit_lock";
+    $database_get_list = "*";
   }
 
   // $search = substr($_GET['search'], 0, 100); // trim to 100 characters
@@ -40,16 +40,15 @@ if (is_numeric($_GET['plmn'])) {
      $arr = array();
      if ($result = $conn->query($sql) or error()) {
          while($row = $result->fetch_array(MYSQLI_ASSOC)) {
-           $result_object[] = $row;
+           unset($row["edit_userid"]);
+           unset($row["edit_lock"]);
+           $result_object[$value] = $row;
          }
      }
      }
 
 }
-if (isset($_GET['url']))  foreach($result_object as $key => $value)
-{
-  $result_object[$key]['url'] = "$domain_with_http/database/Edit.php?q=".$value['id'];
-}
+foreach($result_object as $key => $value) $result_object[$key]['url'] = "$domain_with_http/database/Edit.php?q=".$value['id'];
 
 echo json_encode($result_object);
 

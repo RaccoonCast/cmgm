@@ -12,10 +12,8 @@ if (is_numeric($_GET['search']) && is_numeric($_GET['plmn'])) {
 
   if (isset($_GET['properties'])) {
     $database_get_list = preg_replace("[^_a-zA-Z0-9,-]", "", $_GET['properties']);
-    $database_get_list = str_replace("edit_userid","id",$database_get_list);
-    $database_get_list = str_replace("edit_lock","id",$database_get_list);
   } else {
-    $database_get_list = "*, NULL AS edit_userid, NULL AS edit_lock";
+    $database_get_list = "*";
   }
 
   $id = substr($_GET['search'], 0, 10); // trim to 10 characters
@@ -31,8 +29,13 @@ if (is_numeric($_GET['search']) && is_numeric($_GET['plmn'])) {
 
   $arr = array();
   if ($result = $conn->query($sql)) {
-      while($row = $result->fetch_array(MYSQLI_ASSOC)) { $arr[] = $row; }
-         echo json_encode($arr);
+      while($row = $result->fetch_array(MYSQLI_ASSOC))
+      {
+        unset($row["edit_userid"]);
+        unset($row["edit_lock"]);
+        $arr[] = $row;
+      }
+        echo json_encode($arr);
   }
 
   $result->close(); $conn->close();
