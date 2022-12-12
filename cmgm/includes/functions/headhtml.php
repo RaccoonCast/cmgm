@@ -18,12 +18,3 @@ document.body.appendChild(el);
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
-
-<?php
-if ($_SERVER['SERVER_NAME'] == 'cmgm.us') {
-  $urlPrefix = "https://";
-} else {
-  $urlPrefix = "http://";
-}
-$siteUrl = $urlPrefix . ' ' . $_SERVER['SERVER_NAME'];
-?>
