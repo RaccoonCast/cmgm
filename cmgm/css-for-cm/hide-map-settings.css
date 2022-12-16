@@ -1,0 +1,4 @@
+/* Hide Map Settings from main menu */
+#mapsettings {
+    display: none;
+}

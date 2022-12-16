@@ -1,0 +1,8 @@
+/* Hide Bands dropdown from general menu */
+#bands {
+    display: none;
+}
+/* Hide Frequencies dropdown from general menu */
+#frequencies {
+    display: none!important;
+}

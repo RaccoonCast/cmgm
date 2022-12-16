@@ -1,0 +1,17 @@
+/*Hide 5G ENDC Available - Approx address */
+
+div[id=tabs-2]:not([border-width="2px"]) > table:nth-child(2) > tbody > tr:nth-child(5),
+div[id=tabs-2]:not([border-width="2px"]) > table:nth-child(2) > tbody > tr:nth-child(6) {
+    display: none;
+}
+
+#modal_tower_details_content > table:nth-child(1) > tbody > tr:has(a[onclick*="javascript:getTowerOverrideHistory"]) {display: none;}
+table:first-child > tbody > tr:has(td > abbr) {display: none}
+div[id=modal_tower_details_content] > table:first-child > tbody > tr:nth-last-child(2) {background-color: #ECF0F1}
+div[id=modal_tower_details_content] > table:first-child > tbody > tr:last-child {background-color: #fff}
+tr:has(td > [id^=approxAddr]) {display: none}
+
+/* Hide cell identifier and System Subtype */
+table[id*=detailsTable] > tbody > tr:nth-child(2) {
+    display: none;
+}

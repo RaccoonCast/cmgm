@@ -1,0 +1,12 @@
+/* Hide ALL UI elements */
+#sidebar,.ol-zoom,.ol-scale-line-inner,.ol-attribution,.fixed-top,#side_bottom,.ol-measure-button,#ppSidebar {
+    display: none!important;
+}
+button {
+  display: none!important;
+}
+.toast {
+    visibility: hidden;
+}
+
+div > #map_canvas { width: 100%!important;}

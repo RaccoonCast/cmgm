@@ -1,0 +1,12 @@
+#side_bottom {
+    right: 0px;
+    left: auto;
+}
+.ol-measure-button,.ol-zoom{
+    right: unset!important;
+    left: 8px!important;
+}
+.toast {
+    right: unset!important;
+    left: 0px;
+}

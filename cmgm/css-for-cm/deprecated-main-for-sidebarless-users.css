@@ -1,0 +1,65 @@
+#menu_items > button:nth-child(10),#menu_items > br:nth-child(11),#menu_items > br:nth-child(12) {
+    display:none
+} /* Hide Legend buttons */
+#fulltoggle { top: 75px; }
+
+/* .modal_dialog_base:not([id="modal_tower_details"]) {
+    top: 380px;
+} */
+#modal_tower_details_content > table:nth-child(1) > tbody > tr:has(td > abbr) {display: none;} /* Hide 5G ENDC under eNB/gNB tab, not cells */
+#modal_tower_details_content > table:nth-child(1) > tbody > tr:has(td > div[id^="approxAddr"]) { display: none;} /* Hide approximate address under eNB/gNB tab */
+.modal_dialog_base {border: 0px;} /* Remove border on side menu */
+
+.modal_dialog_content_base,#modal_tower_details  {
+    max-height: 100%; height: 100%; /* Consume 100% page height */
+    top: 0px; /* Shove the "pop-up" to the top of the page */
+    border-radius: 0px; /* Remove border */
+}
+#modal_tower_details_content > table:not([id*="detailsTable"]) { border: 0px;}
+/* Modify styling for selected sector */
+table.table-sm[style="border-style: dashed;"] {
+    border-style: solid solid solid solid!important;
+    font-weight: 1000;
+    font-size: 0.96em;
+    color: #E24444;
+}
+table[id^=detailsTab] {font-size: 0.94em; line-height: 15px;} /* Tweak line height for individual cell data under details tab */
+#modal_tower_details.visible {
+left: 0px!important;
+}
+/*
+div[style="left: 15px;"] {
+    left: 0px!important;
+}
+div[class="modal_dialog_base visible"] {
+    left: 0px!important;
+}*/
+
+div[class="modal_dialog_base"] {
+    left: -515px!important;
+}
+
+div[class="modal_dialog_base visible"]#modal_filters_details {
+    left: 320px!important;
+    top: 0px;
+
+}
+
+#towerContributors { display: block; line-height: 13px; font-weight: bold;} /* Tweak line height under tower contributors list to fit more data */
+span[id=towerContributors] { font-size: 0.9em!important; white-space: pre-wrap;} /* Decrease the font-size of the contributor list */
+div[id=divcontentdata] > a[href="#"] ~ br ~ b { display: none;} /* Hide contributors label */
+div[id="divcontentdata"] > br:nth-child(9),div[id="divcontentdata"] > hr { display: none}
+/* Width Presets */ /* Modify side menu width to fit screen width */ /* Default value from site is 22% */
+@media (min-width:4150px) and (max-width:9999px){#modal_tower_details {width:07.50%}} @media (min-width:4050px) and (max-width:4150px){#modal_tower_details {width:08.00%}} @media (min-width:3950px) and (max-width:4050px){#modal_tower_details {width:08.75%}}
+@media (min-width:3850px) and (max-width:3950px){#modal_tower_details {width:08.50%}} @media (min-width:3750px) and (max-width:3850px){#modal_tower_details {width:08.75%}} @media (min-width:3650px) and (max-width:3750px){#modal_tower_details {width:09.50%}}
+@media (min-width:3550px) and (max-width:3650px){#modal_tower_details {width:09.25%}} @media (min-width:3450px) and (max-width:3550px){#modal_tower_details {width:09.50%}} @media (min-width:3350px) and (max-width:3450px){#modal_tower_details {width:10.50%}}
+@media (min-width:3250px) and (max-width:3350px){#modal_tower_details {width:10.00%}} @media (min-width:3150px) and (max-width:3250px){#modal_tower_details {width:10.25%}} @media (min-width:3050px) and (max-width:3150px){#modal_tower_details {width:11.50%}}
+@media (min-width:2950px) and (max-width:3050px){#modal_tower_details {width:10.75%}} @media (min-width:2850px) and (max-width:2950px){#modal_tower_details {width:11.00%}} @media (min-width:2750px) and (max-width:2850px){#modal_tower_details {width:12.25%}}
+@media (min-width:2650px) and (max-width:2750px){#modal_tower_details {width:13.25%}} @media (min-width:2550px) and (max-width:2650px){#modal_tower_details {width:12.25%}} @media (min-width:2450px) and (max-width:2550px){#modal_tower_details {width:14.00%}}
+@media (min-width:2350px) and (max-width:2450px){#modal_tower_details {width:14.75%}} @media (min-width:2250px) and (max-width:2350px){#modal_tower_details {width:15.00%}} @media (min-width:2150px) and (max-width:2250px){#modal_tower_details {width:14.50%}}
+@media (min-width:2050px) and (max-width:2150px){#modal_tower_details {width:15.75%}} @media (min-width:1950px) and (max-width:2050px){#modal_tower_details {width:16.25%}} @media (min-width:1850px) and (max-width:1950px){#modal_tower_details {width:17.50%}}
+@media (min-width:1750px) and (max-width:1850px){#modal_tower_details {width:19.75%}} @media (min-width:1650px) and (max-width:1750px){#modal_tower_details {width:19.75%}} @media (min-width:1550px) and (max-width:1650px){#modal_tower_details {width:21.00%}}
+@media (min-width:1450px) and (max-width:1550px){#modal_tower_details {width:24.50%}} @media (min-width:1350px) and (max-width:1450px){#modal_tower_details {width:24.00%}} @media (min-width:1250px) and (max-width:1350px){#modal_tower_details {width:28.00%}}
+@media (min-width:1150px) and (max-width:1250px){#modal_tower_details {width:27.50%}} @media (min-width:1050px) and (max-width:1150px){#modal_tower_details {width:27.25%}} @media (min-width:0950px) and (max-width:1050px){#modal_tower_details {width:30.00%}}
+@media (min-width:0850px) and (max-width:0950px){#modal_tower_details {width:33.00%}} @media (min-width:0750px) and (max-width:0850px){#modal_tower_details {width:38.25%}} @media (min-width:0650px) and (max-width:0750px){#modal_tower_details {width:47.75%}}
+@media (min-width:0550px) and (max-width:0650px){#modal_tower_details {width:55.25%}} @media (min-width:0450px) and (max-width:0550px){#modal_tower_details {width:61.25%}} @media (min-width:0000px) and (max-width:0450px){#modal_tower_details {width:63.50%}}
