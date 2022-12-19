@@ -21,7 +21,7 @@ padding:0;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-content, iframe {
-	min-height: 327px!important;
+	min-height: 340px!important;
 	max-width: 80px!important;
 }
 .leaflet-popup-content-wrapper {

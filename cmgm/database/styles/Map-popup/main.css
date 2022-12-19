@@ -29,14 +29,12 @@ border: 0px;
 td {
 	line-height: 28px;
 }
-td[colspan="2"] {
-	background-color: #303030!important;
-}
-.tr-odd {
+
+tr:nth-child(odd) {
   background-color: #111111;
   color: #fff;
 }
-.tr-even {
+tr:nth-child(even) {
   background-color: #303030;
   color: #fff;
 }
@@ -46,4 +44,12 @@ html,body {
 	height: 100%;
 	min-height: 100%;
 	box-sizing: border-box;
+}
+.error {
+  text-decoration: none;
+  color: #F78A8A!important;
+}
+input {
+padding-top: 0.33em;
+padding-bottom: 0.33em;
 }
