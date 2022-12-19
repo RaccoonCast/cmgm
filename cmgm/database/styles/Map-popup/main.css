@@ -17,9 +17,7 @@ table {
 table{
 		text-align: center;
     border:0px;
-    background-color:#000000;
-		color: white;
-			border-collapse:collapse;
+	  border-collapse:collapse;
 }
 tbody,html,body,table,p {
 margin: 0px;
@@ -30,14 +28,7 @@ td {
 	line-height: 28px;
 }
 
-tr:nth-child(odd) {
-  background-color: #111111;
-  color: #fff;
-}
-tr:nth-child(even) {
-  background-color: #303030;
-  color: #fff;
-}
+
 input[type=button] { width: 33.3%; }
 html,body {
 	border: 2px solid red;

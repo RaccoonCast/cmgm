@@ -44,14 +44,6 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($NR_1)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr); }
                     if(!empty($NR_2)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr); }
 
-                    if(!empty($sv_a)) { $sv_list = '<a target="_blank" href="https://'.$sv_a.'">SV_A</a>'; }
-                    if(!empty($sv_b)) { $sv_list = $sv_list . " | " . '<a target="_blank" href="https://'.$sv_b.'">SV_B</a>'; }
-                    if(!empty($sv_c)) { $sv_list = $sv_list . " | " . '<a target="_blank" href="https://'.$sv_c.'">SV_C</a>'; }
-                    if(!empty($sv_d)) if (isMobile()) $sv_list = $sv_list . '<br><a target="_blank" href="https://'.$sv_d.'">SV_D</a>';
-                    if(!empty($sv_d)) if (!isMobile()) { $sv_list = $sv_list . " | " . '<a target="_blank" href="https://'.$sv_d.'">SV_D</a>'; }
-                    if(!empty($sv_e)) { $sv_list = $sv_list . " | " . '<a target="_blank" href="https://'.$sv_e.'">SV_E</a>'; }
-                    if(!empty($sv_f)) { $sv_list = $sv_list . " | " . '<a target="_blank" href="https://'.$sv_f.'">SV_F</a>'; }
-                    if (empty($sv_a)) { $sv_list = '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>'; }
 
                     // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
                     $map_popup_flag = "true";
@@ -91,7 +83,20 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
 
                     <tr>
                     <td>Street View</td>
-                    <td><?php echo $sv_list ?></td>
+                    <td>
+                    <?php
+                    if(!empty($sv_a)) echo '<a target="_blank" href="https://'.$sv_a.'">SV_A</a>';
+                    if(!empty($sv_b)) echo " | " . '<a target="_blank" href="https://'.$sv_b.'">SV_B</a>';
+                    if(!empty($sv_c)) echo " | " . '<a target="_blank" href="https://'.$sv_c.'">SV_C</a>';
+
+                    if(!empty($sv_d)) echo isMobile() ? "<br>" : " | ";
+
+                    if(!empty($sv_d)) echo '<a target="_blank" href="https://'.$sv_d.'">SV_D</a>';
+                    if(!empty($sv_e)) echo " | " . '<a target="_blank" href="https://'.$sv_e.'">SV_E</a>';
+                    if(!empty($sv_f)) echo " | " . '<a target="_blank" href="https://'.$sv_f.'">SV_F</a>';
+
+                    if (empty($sv_a)) echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
+                    ?></td>
                     </tr>
 
                     <tr>
@@ -113,9 +118,9 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($photo_b)) echo (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="uploads/' . $photo_b . '">PH_B</a>';
                     if(!empty($photo_c)) echo (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="uploads/' . $photo_c . '">PH_C</a>';
 
-                    if (isMobile()) if(!empty($photo_d)) echo (substr($photo_d,0,4)=="http") ? '<br><a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<br><a target="_blank" href="uploads/' . $photo_d . '">PH_D</a>';
-                    if (!isMobile()) if(!empty($photo_d)) echo (substr($photo_d,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_a . '">PH_D</a>' : ' | <a target="_blank" href="uploads/' . $photo_d . '">PH_D</a>';
+                    if(!empty($photo_d)) echo isMobile() ? "<br>" : " | ";
 
+                    if(!empty($photo_d)) echo (substr($photo_d,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="uploads/' . $photo_d . '">PH_D</a>';
                     if(!empty($photo_e)) echo (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="uploads/' . $photo_e . '">PH_E</a>';
                     if(!empty($photo_f)) echo (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="uploads/' . $photo_c . '">PH_F</a>';
                     ?>

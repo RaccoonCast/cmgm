@@ -1,3 +1,16 @@
 body,html {
   background-color: #000;
 }
+tr {
+    color: #fff;
+}
+tr:nth-child(odd) {
+  background-color: #111111;
+}
+tr:nth-child(even) {
+  background-color: #303030;
+}
+table {
+  background-color:#00000;
+  color: white:
+}
