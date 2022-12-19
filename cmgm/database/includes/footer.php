@@ -18,7 +18,6 @@
    <div id="footerContainer">
    <footer>
      <a class="footerlink footer_link_first" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
-     <a class="footerlink" target="_blank" href="<?php echo $db_list_link?>">DB</a>
      <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">Map</a>
      <a class="footerlink" target="_blank" href="<?php echo $gmlink?>">Google Maps</a>
      <a class="footerlink" target="_blank" href="<?php echo $uplink?>">Upload</a>
