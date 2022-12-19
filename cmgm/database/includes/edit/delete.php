@@ -17,9 +17,10 @@ if ($delete_conf == "true" && $userID != "guest") {
   <input type="hidden" name="id" value="<?php echo $id?>">
   <input type="hidden" name="delete" value="true">
   <input type="hidden" name="redirPage" value="<?php echo $redirPage?>">
-  <button type="submit" class="cmgm-btn" form="form1" value="Submit">Delete</button>
+  <button type="submit" form="form1" value="Submit">Delete</button>
 <br>
-</form>
+</form><br>
+<button onclick="history.back()">Cancel</button>
 <?php
 if ($redirPage == "Map-popup") { die(); } else { echo'<br><hr><br>'; }
 }
