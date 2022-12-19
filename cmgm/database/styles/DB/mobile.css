@@ -14,9 +14,7 @@ td {
   min-width: inherit;
   vertical-align: top;
 }
-tr:nth-child(even) {
-  background: #ededed;
-}
+
 .notes {
   overflow-wrap: break-word;
   font-size: 0.85em;
