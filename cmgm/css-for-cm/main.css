@@ -1,65 +1,67 @@
 /* Hide Useless Junk */
-td > i {display: none!important} /* Hide clickable indicator on tables */
-#ppSidebar { scrollbar-width: none; } /* Hide scroll bar on Firefox / Chrome*/
+td > i { display: none!important} /* Hide clickable indicator on tables */
+#ppSidebar { scrollbar-width: none; } /* Hide scroll bar on Firefox */
 ::-webkit-scrollbar, /* Hide scroll bar on Chrome/Safari */
-.ol-attribution, /* Hide OSM Attribution */
+.ol-attribution, /* Hide OpenLayers Attribution */
 table[id=select_provider_table] > thead, /* Hide header for select provider table */
-br /* Hide all linebreaks (there are a lot of unneccesary linebreaks) */ {display: none;}
+br /* Hide all linebreaks (there are a lot of unneccesary linebreaks */ { display: none; }
 /* RE-ENABLE CERTAINS BRs */ div[class=modal-content] br, /* Enable line breaks in all popups (login, tower details, pci search) */
 /* RE-ENABLE CERTAINS BRs */ br ~ a[href="#dialog-form-login"],table[id=accountTable] br,
 /* RE-ENABLE CERTAINS BRs */ .popover-body > br,
-/* RE-ENABLE CERTAINS BRs */ div[id=divcontentdata] > br { display: unset;} /* Re-enable all BRs in Extra Data tab */
-div[class=mw-parser-output] > p > br { display: block!important;} /* Enable BRs in CellMapper Wiki Cards */
-div[id=divcontentdata] > br:nth-last-of-type(1) { display: none;} /* Disable one of ^^ BRs */
+/* RE-ENABLE CERTAINS BRs */ div[id=divcontentdata] > br { display: unset; } /* Re-enable all BRs in Extra Data tab */
+div[class=mw-parser-output] > p > br { display: block!important; } /* Enable BRs in CellMapper Wiki Cards */
+div[id=divcontentdata] > br:nth-last-of-type(1) { display: none; } /* Disable one of ^^ BRs */
 
 /* Menu Bar */
+a[class="navbar-brand"] > img[alt="Cellmapper Logo"] { width: 80%; height: 80%; } /* Smaller Logo */
+.navbar { padding: 0rem 0rem; } /* Remove padding */
 nav > div > div > ul > li > a.nav-link { /* Resize CM menu bar links to be smaller */
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     font-size: 13px;
 }
-#ppSidebar{top: 40px;} /* Move side menu 40 pixels down to make room for title bar with 40 px height, this gets overriden if (5) Hide Menu Bar is on */
+#ppSidebar{ top: 44px; } /* Move side menu 40 pixels down to make room for title bar with ~44 px height, this gets overriden (with 0px) if (5) Hide Menu Bar is on */
 
 /* Misc Changes */
-body {line-height: 17px;} /* Reduce line height to fit more content */
+body { line-height: 17px; } /* Reduce line height to fit more content */
 
 /* Sidebar - General & Details */
-#ppSidebar,#ppSidebarNav {padding-top: 0px!important; margin: 0px!important;} /* Remove excess padding */
-.table {margin: 0px!important; border-width: 0px; -webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;} /* Remove margin, remove border, remove boxshadow on tables */
-#modal_tower_details_content > table { margin-bottom: 0rem !important;}
+#ppSidebar,#ppSidebarNav { padding-top: 0px!important; margin: 0px!important; } /* Remove excess padding */
+.table {margin: 0px!important; border-width: 0px; -webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none; } /* Remove margin, border, boxshadow on tables */
+#modal_tower_details_content > table { margin-bottom: 0rem !important; }
 
 /* Sidebar - General */
-/* PROVIDER */ .ts-dropdown-content {max-height: 60rem!important; }.ts-dropdown-content {overflow-x: visible!important;} /* Longer dropdowns for provider selection box (carrier dropdown, band dropdown) */
+/* PROVIDER */ .ts-dropdown-content { max-height: 60rem!important; }.ts-dropdown-content { overflow-x: visible!important; } /* Longer dropdowns for provider selection box (carrier dropdown, band dropdown) */
 /* PROVIDER */ div[class="item"] + input[id$="ts-control"] { display: none!important; }  /* CSS Hackfix for being able to enter text after carrier has been selected */
-div[id=tabs-2] > div > table:nth-child(2) > thead /* EXTRA DATA */, table[id=accountTable] > thead /* ACCOUNT */ {pointer-events: none; } /* Block "Account" "eNB ID" "Extra Data" tables from  being closed */
-#ppSidebar td{ border-width: 0px!important; font-size: 0.97em;} /* Remove TD border & reduce font-size to reduce space used by each TD */
+/* EXTRA DATA */ div[id=tabs-2] > div > table:nth-child(2) > thead, /* ACCOUNT */ table[id=accountTable] > thead  { pointer-events: none; } /* Block "Account" & "Extra Data" tables from  being closed */
+#ppSidebar td { border-width: 0px!important; font-size: 0.97em; } /* Reduce font size and remove border for TDs */
 
 /* Sidebar - Details */
-/* eNB   */ div[id*=modal_tower] table:nth-child(1) thead td {font-size: 1.2em!important; line-height: 1em; letter-spacing: 1.18px}/* Increase font-size of eNB/gNB */
-/* DATA  */ div[id=divcontentdata] > b:nth-child(10) { display: none;} /* Hide contributors label */
-/* DATA  */ #towerContributors { display: block; line-height: 13px; font-weight: bold;} /* Tweak line height under tower contributors list to fit more data */
-/* DATA  */ span[id=towerContributors] { font-size: 0.9em!important; white-space: pre-wrap;} /* Decrease the font-size of the contributor list */
-/* CELLS */ table[id^=detailsTab] {font-size: 0.94em; line-height: 15px;} /* Tweak line height for individual cell data under details tab */
-table.table-sm[style*="border-style: dashed;"] { border-style: solid solid solid solid!important; font-weight: 1000; color: #E24444; }  /* Instead of dashed borders for selected cell, make text red & bold */
+/* eNB   */ div[id*=modal_tower] table:nth-child(1) thead td { font-size: 1.2em!important; line-height: 1em; letter-spacing: 1.18px; }/* Increase font-size of eNB/gNB */
+/* DATA  */ div[id=divcontentdata] > b:nth-last-of-type(1) { display: none; } /* Hide contributors label */
+/* DATA  */ #towerContributors { display: block; line-height: 13px; font-weight: bold; } /* Tweak line height under tower contributors list to fit more data */
+/* DATA  */ span[id=towerContributors] { font-size: 0.9em!important; white-space: pre-wrap; } /* Decrease the font-size of the contributor list */
+/* CELLS */ table[id^=detailsTab] { font-size: 0.94em; line-height: 15px; } /* Tweak line height for individual cell data under details tab */
+/* CELLS */ table.table-sm[style*="border-style: dashed;"] { border-style: solid solid solid solid!important; font-weight: 1000; color: #E24444; }  /* Instead of dashed borders for selected cell, make text red & bold */
 
 /* Modals */
 /* BUTTONS */ .btn {font-size: 1.1rem!important;} /* Slightly increase button size in modals */
-/* TOWER HISTORY */ div[class="modal-dialog"] {max-width: 885px; width: 885px; }
-/* TOWER HISTORY */ div[class="modal-dialog"] table[class="table table-striped table-sm"] { white-space: nowrap;}
-/* TOWER HISTORY */ div[class="modal-body"] {max-height: 580px; }
-/* USER HISTORY  */ div[class="modal-dialog modal-lg"] > .modal-content {width: 1100px!important ;white-space: nowrap;} /* Increase width of the popup */
-/* USER HISTORY  */ div[class="modal-dialog modal-lg"] > .modal-dialog {margin-left: 750px;} /* Reduce margin on the left */
-/* USER HISTORY  */ div > table > tbody > tr > td:nth-child(3) {text-align: right;} /* Align the MNC column text to be aligned towards the right */
-/* USER HISTORY  */ div > table > tbody > tr > td:nth-child(4) {text-align: left;} /* Align the MCC column text to be aligned towards the left */
+/* TOWER HISTORY */ div[class="modal-dialog"] { max-width: 885px; width: 885px; }
+/* TOWER HISTORY */ div[class="modal-dialog"] table[class="table table-striped table-sm"] { white-space: nowrap; }
+/* TOWER HISTORY */ div[class="modal-body"] { max-height: 580px; }
+/* USER HISTORY  */ div[class="modal-dialog modal-lg"] > .modal-content { width: 1100px!important ;white-space: nowrap; } /* Increase width of the popup */
+/* USER HISTORY  */ div[class="modal-dialog modal-lg"] > .modal-dialog { margin-left: 750px; } /* Reduce margin on the left */
+/* USER HISTORY  */ div > table > tbody > tr > td:nth-child(3) { text-align: right; } /* Align the MNC column text to be aligned towards the right */
+/* USER HISTORY  */ div > table > tbody > tr > td:nth-child(4) { text-align: left; } /* Align the MCC column text to be aligned towards the left */
 /* SELECT PROVIDER */ .aProviderCell { padding: 1.5rem!important; } /* increase button size for each carrier */
-/* SELECT PROVIDER CARRIER COLORS */ td[class="aProviderCell"][title="310-260"] { color: white; background-color: #E25AA1!important; }
-/* SELECT PROVIDER CARRIER COLORS */ td[class="aProviderCell"][title="310-410"] { color: white; background-color: #56B6D8!important; }
-/* SELECT PROVIDER CARRIER COLORS */ td[class="aProviderCell"][title="311-480"] { color: white; background-color: #EA5D5D!important; }
-/* SELECT PROVIDER CARRIER COLORS */ td[class="aProviderCell"][title="310-120"] { color: white; background-color: #FFE568!important; }
+/* ^ CARRIER COLOR */ td[class="aProviderCell"][title="310-260"] { color: white; background-color: #E25AA1!important; }
+/* ^ CARRIER COLOR */ td[class="aProviderCell"][title="310-410"] { color: white; background-color: #56B6D8!important; }
+/* ^ CARRIER COLOR */ td[class="aProviderCell"][title="311-480"] { color: white; background-color: #EA5D5D!important; }
+/* ^ CARRIER COLOR */ td[class="aProviderCell"][title="310-120"] { color: white; background-color: #FFE568!important; }
 
-/* Width Presets */ /* Modify side menu width to fit screen width */ /* Default value from site is 22% */
-@media (min-width:2550px) and (max-width:2650px){#ppSidebar {width:13.50%!important}}
-@media (min-width:1750px) and (max-width:1850px){#ppSidebar {width:19.75%!important}}
+/* Width Presets */ /* Modify side menu width to fit screen width */
+@media (min-width:2550px) and (max-width:2650px){#ppSidebar { width:13.50%!important}}
+@media (min-width:2550px) and (max-width:2650px){#map_canvas { float: right; width:86.5%!important }}
 
-@media (min-width:2550px) and (max-width:2650px){#map_canvas {float: right; width:86.5%!important }}
-@media (min-width:1850px) and (max-width:1950px){#map_canvas {width:80.25%!important}}
+@media (min-width:1850px) and (max-width:1950px){#ppSidebar { width:18%!important}}
+@media (min-width:1850px) and (max-width:1950px){#map_canvas { float: right; width:82%!important }}

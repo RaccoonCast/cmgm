@@ -15,3 +15,7 @@ tr:has(td > [id^=approxAddr]) {display: none}
 table[id*=detailsTable] > tbody > tr:nth-child(2) {
     display: none;
 }
+
+table[id*=detailsTable] > tbody > tr:first-child {
+    background-color: #fff;
+}

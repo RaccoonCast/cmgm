@@ -1,4 +1,9 @@
-/* This hides the linkback table, legend table, bandwidths table, links under account table, and RSS link in the select provider box */
+/* This hides
+  -  linkback, legend, bandwidths, location search, regions, and cell search dropdowns from general tab.
+  -  links under account table,
+  -  RSS link in the select provider box
+  -  2G/3G options under network type
+  -  excessive band information under each cell */
 #linkback_table { display: none; } /* Hide linkback table */ /* USE YOUR URL BAR */
 #legend { display: none; } /* Hide legend */
 #bandwidths { display: none; } /* Hide bandwidths dropdown from general tab */
@@ -16,12 +21,9 @@ table[id*=accountTable] > tbody > tr:nth-child(3) > td {
 .table-sm {position: relative;}
 
 /* Move tables to cover up the RSS link */
-div[id=tabs-1] > table[id=ads] ~ table    {
+div[id=tabs-1] > table[id=select_provider_table] ~ table    {
     top: -20px;
 }
-#text {display: none;}
-
-[id*=approxAddr] {display: none;}
 
 /* Hide stuff from Filters & Settings */
 #filters > tbody > tr:nth-child(5),  /* Hide "Only Show Towers with Frequency Data" from filters dropdown */
@@ -30,14 +32,10 @@ div[id=tabs-1] > table[id=ads] ~ table    {
 #filters > tbody > tr:nth-child(10), /* Hide "Only Show LTE CA towers" from filters dropdown */
 #filters > tbody > tr:nth-child(11), /* Hide "Only Show 5G ENDC capable towers" from filters dropdown */
 #settings > tbody > tr:nth-child(6)  /* Hide "Show hex values" from settings dropdown */ {display: none;}
-#filters > tbody > tr:nth-child(8) { background-color: #ecf0f1;}
-#filters > tbody > tr:nth-child(9) { background-color: #fff;}
+#filters > tbody > tr:nth-child(8) { background-color: #ecf0f1;} /* Re-color only show verified as gray */
+#filters > tbody > tr:nth-child(9) { background-color: #fff;} /* Re-color only show unverifeid as white */
 
 /* Hide 2G/3G from dropdowns */
-div[id="NETSelect_chosen"] > div[class="chosen-drop"] > ul[class="chosen-results"] li:nth-last-child(3),
-div[id="NETSelect_chosen"] > div[class="chosen-drop"] > ul[class="chosen-results"] li:nth-last-child(4),
-div[id="NETSelect_chosen"] > div[class="chosen-drop"] > ul[class="chosen-results"] li:nth-last-child(5){
-    display:none!important;
-}
+div[data-value="GSM"], div[data-value="UMTS"], div[data-value="CDMA"] { display: none; }
 
-.detailsTableFreqBandBandName,.detailsTableFreqBandBlockName { display: none; }
+.detailsTableFreqBandBandName,.detailsTableFreqBandBlockName { display: none; } /* Trims "BRS/EBS (B41 TDD) —Channel BRS_H1" to "(B41 TDD)"

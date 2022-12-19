@@ -1,0 +1,99 @@
+/* Hide Useless Junk */
+td > i {display:none!important;} /* Hide clickable indicator on tables */
+.ol-attribution, /* Hide OSM Attrib */
+table[id=select_provider_table] > thead, /* Hide header for select provider table */
+::-webkit-scrollbar, /* Hide scroll bar */
+#notes, /* Hide useless notes tab in main menu */
+br /* Hide all linebreaks (there are a lot of unneccesary linebreaks) */ {display: none;}
+/* RE-ENABLE CERTAINS BRs */ div[class=popover-body] br, /* Enable line breaks in account Table */
+/* RE-ENABLE CERTAINS BRs */ div[class=modal-content] br, /* Enable line breaks in all popups (login, tower details, pci search) */
+/* RE-ENABLE CERTAINS BRs */ br ~ a[href="#dialog-form-login"],table[id=accountTable] br,
+/* RE-ENABLE CERTAINS BRs */ div[id=divcontentdata] > br { display: block;} /* Re-enable all BRs in Extra Data tab */
+div[id=divcontentdata] > br:nth-last-of-type(1) { display: none;} /* Disable last BR in Extra Data tab */
+div[class=mw-parser-output] > p > br { display: block!important;} /* Enable BRs in CellMapper Wiki Cards */
+
+/* Hide Scrollbar in Firefox */
+div[id=tabs-2] {
+    scrollbar-width: none;
+}
+html {overflow: -moz-scrollbars-none;}
+/* Misc content display tweaking to make more effective use of space */
+.table {margin: 0px; border-width: 0px; -webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;} /* Tweak tables to use less space */
+table[id*=detailsTable] { border-width: 3.85px!important;} /* slightly increase the width of cells to show the colour easier and disable box shadows */
+
+/* General Tab */
+.chosen-results {max-height: 60rem!important; } #tabs-1{overflow-x: visible!important;} /* Longer dropdowns for everything in provider selection box (carrier dropdown, band dropdown) */
+table[id=accountTable] > thead {pointer-events: none; }/* Disable closing of account table */
+
+/* Details Tab */
+div[id=divcontentdata] > a[href="#"] ~ br ~ b { display: none;} /* Hide contributors label */
+#towerContributors { display: block; line-height: 13px; font-weight: bold;} /* Tweak line height under tower contributors list to fit more data */
+span[id=towerContributors] { font-size: 0.9em!important; white-space: pre-wrap;} /* Decrease the font-size of the contributor list */
+
+table[id^=detailsTab] {font-size: 0.94em; line-height: 15px;} /* Tweak line height for individual cell data under details tab */
+div[id=tabs-2] > table:nth-child(2),div[id=tabs-2] > table:nth-child(4) > thead {pointer-events: none; } /* Disable closing of eNB XX / Edit Side Data tables */
+div[id=tabs-2] > table:nth-child(2) > thead > tr > td  {font-size: 1.26em; line-height: 1em; letter-spacing: 1.2px;} /* Increase font-size of the tower ID for easier copy and pasting */
+ul { margin-bottom: 0.13rem;} /* Decrease bottom margin on edit site data */
+div[id=tabs-2] > table:not([id*=detailsTable]) > thead {pointer-events: none; }/* Disable closing of all non-cells tables */
+
+/* Nav Bar Itself */
+ul.w-100 > li:nth-child(3) { display:none; } /* Disable exit button under the main menu */
+.nav-link { padding-top: 1.45rem; padding-bottom: 1.9rem; } /* Make the main menu buttons bigger to make them easier to click on */
+.w-100 { padding: 0em!important; } /* Due to bigger buttons under main menu reduce overall padding */
+
+/* Misc */
+body {line-height: 17px;} /* Tweak line height to fit more content */
+.table-sm td { padding: 0.266rem;} /* Decrease padding on table rows */
+td { border-width: 0px!important; font-size: 0.97em;} /* Shrink font-size in all tables to fit more content */
+.navbar {padding: 0rem 0rem;} /* Remove padding on menu bar */
+
+/* Modify styling for selected sector */
+table.table-sm[style="border-style: dashed;"] {
+    border-style: solid solid solid solid!important;
+    font-weight: 1000;
+    font-size: 0.96em;
+    color: #E24444;
+}
+
+/* Improved use of space for user history */
+.modal-lg > .modal-content > .modal-body {max-height: 800px;} /* Increase max-height of the popup */
+.modal-lg > .modal-content {width: 1100px;white-space: nowrap;} /* Increase width of the popup */
+.modal-lg {margin-left: 475px;} /* Reduce margin on the left */
+div[title="User History"] > table > tbody > tr > td:nth-child(3) {float: right;} /* Align the MCC column text to be aligned towards the right */
+
+/* SETTINGS FOR SPECIFIC WIDTHS OF DISPLAYS */
+@media screen and (min-width:2500px) { /* 1440p Specific */
+.thumbinner {width: 300px!important;} /* Tweak size of thumb images from CellMapper wiki to fit custom width */
+.modal-lg {margin-left: 700px!important;} /* Custom margin for 1440p for: Improved use of space for user history */
+}
+@media screen and (max-width:1150px) { /* Portrait Specific */
+td { font-size: 0.85em; line-height: 14px!important;} /* Tweak font-size & line-height to improve usage of available space */
+span[id=towerContributors] { font-size: 0.8em!important;} /* Decrease the font-size of the contributor list */
+body {line-height: 13px;} /* Tweak line-height to improve usage of available space */
+}
+table[id*=detailsTable] > tbody > tr:nth-child(6) {white-space: nowrap;}
+table[id*=detailsTable] > tbody > tr:nth-child(6) {white-space: nowrap;}
+div[id=tabs-2] > table > thead { line-height: 14px; font-size: 1em; }
+
+/* Hide misc text in "edit site data" table */
+div[id=tabs-2] > table:nth-child(4) > tbody { line-height: 0%; text-indent: -500em; }
+div[id=tabs-2] > table:nth-child(4) > tbody > tr > td > ul { line-height: normal; text-indent: 0em}
+
+.btn {
+    font-size: 1.1rem!important;
+}
+
+/* Width Presets */ /* Modify side menu width to fit screen width */ /* Default value from site is 22% */
+@media (min-width:4150px) and (max-width:9999px){#side_bottom {width:07.50%}} @media (min-width:4050px) and (max-width:4150px){#side_bottom {width:08.00%}} @media (min-width:3950px) and (max-width:4050px){#side_bottom {width:08.25%}}
+@media (min-width:3850px) and (max-width:3950px){#side_bottom {width:08.50%}} @media (min-width:3750px) and (max-width:3850px){#side_bottom {width:08.75%}} @media (min-width:3650px) and (max-width:3750px){#side_bottom {width:09.00%}}
+@media (min-width:3550px) and (max-width:3650px){#side_bottom {width:09.25%}} @media (min-width:3450px) and (max-width:3550px){#side_bottom {width:09.50%}} @media (min-width:3350px) and (max-width:3450px){#side_bottom {width:09.75%}}
+@media (min-width:3250px) and (max-width:3350px){#side_bottom {width:10.00%}} @media (min-width:3150px) and (max-width:3250px){#side_bottom {width:10.25%}} @media (min-width:3050px) and (max-width:3150px){#side_bottom {width:10.50%}}
+@media (min-width:2950px) and (max-width:3050px){#side_bottom {width:10.75%}} @media (min-width:2850px) and (max-width:2950px){#side_bottom {width:11.00%}} @media (min-width:2750px) and (max-width:2850px){#side_bottom {width:11.25%}}
+@media (min-width:2650px) and (max-width:2750px){#side_bottom {width:11.75%}} @media (min-width:2550px) and (max-width:2650px){#side_bottom {width:12.13%}} @media (min-width:2450px) and (max-width:2550px){#side_bottom {width:13.00%}}
+@media (min-width:2350px) and (max-width:2450px){#side_bottom {width:14.00%}} @media (min-width:2250px) and (max-width:2350px){#side_bottom {width:15.00%}} @media (min-width:2150px) and (max-width:2250px){#side_bottom {width:16.00%}}
+@media (min-width:2050px) and (max-width:2150px){#side_bottom {width:17.00%}} @media (min-width:1950px) and (max-width:2050px){#side_bottom {width:18.00%}} @media (min-width:1850px) and (max-width:1950px){#side_bottom {width:17.50%}}
+@media (min-width:1750px) and (max-width:1850px){#side_bottom {width:18.25%}} @media (min-width:1650px) and (max-width:1750px){#side_bottom {width:19.00%}} @media (min-width:1550px) and (max-width:1650px){#side_bottom {width:20.25%}}
+@media (min-width:1450px) and (max-width:1550px){#side_bottom {width:21.50%}} @media (min-width:1350px) and (max-width:1450px){#side_bottom {width:23.00%}} @media (min-width:1250px) and (max-width:1350px){#side_bottom {width:24.75%}}
+@media (min-width:1150px) and (max-width:1250px){#side_bottom {width:27.00%}} @media (min-width:1050px) and (max-width:1150px){#side_bottom {width:26.75%}} @media (min-width:0950px) and (max-width:1050px){#side_bottom {width:29.00%}}
+@media (min-width:0850px) and (max-width:0950px){#side_bottom {width:32.50%}} @media (min-width:0750px) and (max-width:0850px){#side_bottom {width:36.75%}} @media (min-width:0650px) and (max-width:0750px){#side_bottom {width:42.75%}}
+@media (min-width:0550px) and (max-width:0650px){#side_bottom {width:49.75%}} @media (min-width:0450px) and (max-width:0550px){#side_bottom {width:55.25%}} @media (min-width:0000px) and (max-width:0450px){#side_bottom {width:62.50%}}

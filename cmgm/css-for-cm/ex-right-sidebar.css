@@ -1,6 +1,10 @@
-#side_bottom {
+#ppSidebar {
     right: 0px;
     left: auto;
+}
+#map_canvas {
+  left: 0px!important;
+  right: unset!important;
 }
 .ol-measure-button,.ol-zoom{
     right: unset!important;

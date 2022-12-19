@@ -1,4 +1,4 @@
 /* Hide extra data from the details tab */
-div[id=tabs-2] > table:nth-child(6) {
+div[id=tabs-2] > div > table:nth-child(2) {
     display: none!important;
 }
