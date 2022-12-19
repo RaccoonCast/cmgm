@@ -1,9 +1,4 @@
 <?php
-function error() {
-  http_response_code(400);
-  die();
-}
-
 //  cody and alps' purple iphones (CAAPI)
 header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
@@ -11,6 +6,17 @@ header('Content-type: application/json');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache');
+
+function error($error,$id) {
+  $a = array("error","search_items");
+  $b = array($error,$id);
+  $c = array_combine($a, $b);
+  echo json_encode($c);
+
+  http_response_code(400);
+  die();
+}
+
 
 if (is_numeric($_GET['plmn'])) {
   include '../includes/functions/sqlpw.php'; // doesn't call native
@@ -26,6 +32,7 @@ if (is_numeric($_GET['plmn'])) {
   // $search = substr($_GET['search'], 0, 100); // trim to 100 characters
   $search = ($_GET['search']);
   $id = explode (",", $search);
+
   $plmn = substr($_GET['plmn'], 0, 6); // trim to 6 characters
   if ($plmn == "310260") $carrier = "T-Mobile";
   if ($plmn == "311480") $carrier = "Verizon";
@@ -36,18 +43,20 @@ if (is_numeric($_GET['plmn'])) {
   foreach ($id as $value) {
   $i++;
 
-    $sql = "SELECT $database_get_list from db WHERE (id = '$value' OR LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR NR_1 = '$value' OR NR_2 = '$value') AND carrier = '$carrier' ";
+    $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR NR_1 = '$value' OR NR_2 = '$value') AND carrier = '$carrier' ";
      $arr = array();
      if ($result = $conn->query($sql) or error()) {
-         while($row = $result->fetch_array(MYSQLI_ASSOC)) {
-           unset($row["edit_userid"]);
-           unset($row["edit_lock"]);
-           $result_object[$value] = $row;
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+              unset($row["edit_userid"]);
+              unset($row["edit_lock"]);
+              $result_object[$value] = $row;
+            }
+
          }
      }
      }
 
-}
+if(empty($result_object)) error("No results found for anything in query.",$id);
 foreach($result_object as $key => $value) $result_object[$key]['url'] = "$domain_with_http/database/Edit.php?q=".$value['id'];
 
 echo json_encode($result_object);
