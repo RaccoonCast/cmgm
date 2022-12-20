@@ -36,7 +36,7 @@ header("Pragma: no-cache");
      $sql_edit = rtrim($sql_edit,', ');
 
      // Add suffix for the Build-A-Query
-     $sql_edit = $sql_edit . " WHERE userIP = '$userIP'";
+     $sql_edit = $sql_edit . " WHERE userID = '$userID'";
 
      mysqli_query($conn, $sql_edit);
 
@@ -71,14 +71,14 @@ header("Pragma: no-cache");
           <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
           <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
         </select>
-        <label class="label">Debug Flag: </label><select
+        <!-- label class="label">Debug Flag: </label><select
         class="custominput dropdown" autocomplete="on" name="debug_flag">
-          <option <?php if($debug_flag == "0") echo 'selected="selected" ';?>value="0">off</option>
-          <option <?php if($debug_flag == "1") echo 'selected="selected" ';?>value="1">low</option>
-          <option <?php if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
-          <option <?php if($debug_flag == "3") echo 'selected="selected" ';?>value="3">high</option>
-        </select>
-        <label class="label">Preferred Location Type: </label><select
+          <option <?php // if($debug_flag == "0") echo 'selected="selected" ';?>value="0">off</option>
+          <option <?php // if($debug_flag == "1") echo 'selected="selected" ';?>value="1">low</option>
+          <option <?php // if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
+          <option <?php // if($debug_flag == "3") echo 'selected="selected" ';?>value="3">high</option>
+        </select> -->
+        <label class="label">Preferred Location Source: </label><select
         class="custominput dropdown" autocomplete="on" name="prefLocType">
           <option <?php if($prefLocType == "settings") echo 'selected="selected" ';?>value="settings">Settings</option>
           <option <?php if($prefLocType == "gps") echo 'selected="selected" ';?>value="gps">GPS</option>

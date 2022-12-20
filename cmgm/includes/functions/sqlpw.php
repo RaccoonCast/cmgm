@@ -1,13 +1,10 @@
 <?php
-$domain = "cmgm.us";
-if ($_SERVER['SERVER_NAME'] == $domain) {
-  $domain_with_http = "https://" . $domain;
-} else {
-  $domain_with_http = "http://" . $_SERVER['SERVER_NAME'];
-}
+$domain = $_SERVER['SERVER_NAME'];
+$http = ($_SERVER['HTTPS'] == "on") ? "https://" : "http://";
+$domain_with_http = $http . $domain;
 
 // SQL Database login info
-$servername = 'mysql.' . $domain;
+$servername = 'mysql.' . 'cmgm.us';
 $db_username = 'cmgm';
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 if ($siteroot == "/home/spane2003/" . $domain) {
