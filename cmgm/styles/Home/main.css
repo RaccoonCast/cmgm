@@ -8,3 +8,6 @@ text-align: center;
   -webkit-box-sizing:border-box;
   -moz-box-sizing: border-box;
 }
+::placeholder {
+  text-align: center;
+}

@@ -27,7 +27,7 @@ header('Pragma: no-cache'); ?>
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form id="form" action="/" method="post" autocomplete="off">
        <div class="buttons">
-        <input type="text" name="data" value="" oninput="changeFormAction();" id="txtresult" class="textbox w-100">
+        <input type="text" name="data" title="You can search things like &#10;&#10;- Cell tower eNB -> Edit&#10;- 330 West 5th St -> Google Maps&#10;- Type location of site you're locating -> Form&#10;&#10;Location examples: addresses, lat,long, cellmapper links, google maps links, dms coordinates, etc."  placeholder="Search" value="" oninput="changeFormAction();" id="txtresult" class="textbox w-100">
         <input type="hidden" name="latitude" value="<?php echo $latitude;?>">
         <input type="hidden" name="longitude" value="<?php echo $longitude;?>">
         <input type="hidden" name="carrier" value="<?php echo $carrier;?>">
