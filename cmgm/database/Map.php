@@ -112,7 +112,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 switch ($sepCount) {
   case 1:  $id = $value; break;
-  case 2:  $carrier = $value; break;
+  case 2:  $pin_carrier = $value; break;
   case 3:  $lat = $value; break;
   case 4:  $long = $value; break;
   case 5:  $cellsite_type = $value; break;
@@ -130,12 +130,12 @@ if (@$pin_style == "celltype") {
   if ($cellsite_type == "tower") $status = "tower";
   if (empty($status)) $status = "unknown";
   }
-if (@$pin_style == "carrier") {
+if (@$pin_style == "carrier" or !isset($carrier)) {
   $status = NULL;
-  if ($carrier == "T-Mobile") $status = "tmobile";
-  if ($carrier == "ATT") $status = "att";
-  if ($carrier == "Sprint") $status = "sprint";
-  if ($carrier == "Verizon") $status = "verizon";
+  if ($pin_carrier == "T-Mobile") $status = "tmobile";
+  if ($pin_carrier == "ATT") $status = "att";
+  if ($pin_carrier == "Sprint") $status = "sprint";
+  if ($pin_carrier == "Verizon") $status = "verizon";
   if (like_match('sprint_keep,%',$tags) == "TRUE" OR like_match('%,sprint_keep',$tags) == "TRUE" OR like_match('%,sprint_keep,%',$tags) == "TRUE" OR $tags == "sprint_keep") $status = "sprint_keep";
   if (empty($status)) $status = "unknown";
   }

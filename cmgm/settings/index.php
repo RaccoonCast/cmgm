@@ -58,6 +58,7 @@ header("Pragma: no-cache");
         <label class="label">Carrier: </label><select
         class="custominput dropdown" autocomplete="on" name="default_carrier">
           <option style="display:none" disabled <?php if(empty($default_carrier)) echo 'selected="selected" ';?>></option>
+          <option <?php if($default_carrier == "") echo 'selected="selected" ';?>value="">None</option>
           <option <?php if($default_carrier == "T-Mobile") echo 'selected="selected" ';?>value="T-Mobile">T-Mobile</option>
           <option <?php if($default_carrier == "ATT") echo 'selected="selected" ';?>value="ATT">AT&T</option>
           <option <?php if($default_carrier == "Verizon") echo 'selected="selected" ';?>value="Verizon">Verizon</option>

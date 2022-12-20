@@ -19,7 +19,7 @@
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
     <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
     <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
-    <option <?php if(@$carrier == "Unknown") echo "selected"?> value="Unknown">Unknown</option>
+    <option <?php if(@$carrier == "Unknown" OR empty($carrier)) echo "selected"?> value="Unknown">Unknown</option>
     </select><select class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$cellsite_type == "tower") echo "selected"?> value="tower">Tower</option>
@@ -36,14 +36,20 @@
     </select>
 
     <?php
-      if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
+      if (@$carrier == "Unknown") { $cm_carrier = @$default_carrier; } else { $cm_carrier = @$carrier; }
       include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
 
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
-      $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
+      if (isset($carrier)) $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
     ?>
-    <label class="lte_nr_label" for="LTE_1"><a target="_blank" href="<?php echo @$cellmapper_link_lte;?>">LTE</a>/<a target="_blank" href="<?php echo @$cellmapper_link_nr;?>">NR</a> <a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a><span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span></label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="lte_nr_label" for="LTE_1">
+      <?php
+      echo (isset($carrier)) ? '<a target="_blank" href="'.$cellmapper_link_lte.'">LTE</a>/<a target="_blank" href="'.$cellmapper_link_nr.'">NR</a> ' : "LTE/NR ";
+      echo (isset($carrier)) ? '<a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a>' : " IDs"
+      ?>
+      <span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span>
+    </label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
     type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input

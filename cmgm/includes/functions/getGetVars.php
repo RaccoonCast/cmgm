@@ -16,7 +16,6 @@ if (!empty($_GET['data'])) { $data = $_GET['data']; }
 if (!empty($_GET['LTE_1'])) { @$conv_type = @$_GET['conv_type']; }
 if (!empty($_GET['NR_1'])) { @$conv_type = @$_GET['conv_type']; }
 
-
 if (!isset($carrier)) if (isset($default_carrier)) { $carrier = $default_carrier; }
 
 // get latitude from POST
