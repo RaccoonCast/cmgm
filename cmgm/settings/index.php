@@ -52,7 +52,7 @@ header("Pragma: no-cache");
      <form action="../settings/" method="post" autocomplete="off">
         <label class="label">Username: </label><input
         type="text" value="<?php echo $username; ?>" name="username" id="username" required>
-        <label class="label">Latitude/Longitude: </label><?php if($isMobile == "true") echo "<br>";?><input
+        <label class="label">Latitude/Longitude: </label><input
         type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
         type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
         <label class="label">Carrier: </label><select
@@ -90,36 +90,44 @@ header("Pragma: no-cache");
           <option <?php if($cm_mapType == "esri_topo") echo 'selected="selected" ';?>value="esri_topo">ESRI Topographical</option>
           <option <?php if($cm_mapType == "usgs_satellite") echo 'selected="selected" ';?>value="usgs_satellite">USGS Satellite</option>
         </select>
-        <label class="label">CellMapper Link Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Group pins</label><input
+        <h4>CellMapper Link Settings:</h4>
+
+
+
+        </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Group pins<input
         type="hidden" name="cm_groupTowers" value="false"><input
-        type="checkbox" id="cm_groupTowers" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>>
+        type="checkbox" id="cm_groupTowers" name="cm_groupTowers" value="true" <?php if($cm_groupTowers == "true") echo 'checked';?>></label>
 
-        <label for="cm_showLabels"> | eNB labels</label><input
+        <label for="cm_showLabels"><?php if(!isMobile()) echo " | " ?><span>eNB labels</span><input
         type="hidden" name="cm_showLabels" value="false"><input
-        type="checkbox" id="cm_showLabels" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>>
+        type="checkbox" id="cm_showLabels" name="cm_showLabels" value="true" <?php if($cm_showLabels == "true") echo 'checked';?>></label>
 
-        <label for="cm_showLowAcc"> | Low Accuracy</label><input
+        <label for="cm_showLowAcc"><?php if(!isMobile()) echo " | " ?><span>Low Accuracy</span><input
         type="hidden" name="cm_showLowAcc" value="false"><input
-        type="checkbox" id="cm_showLowAcc" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>>
+        type="checkbox" id="cm_showLowAcc" name="cm_showLowAcc" value="true"<?php if($cm_showLowAcc == "true") echo 'checked';?>></label>
 
-        <label for="cm_zoom"> | Zoom: </label><input
-        type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span></div>
+
+
+        <?php if(!isMobile()) echo " | " ?>
+          <input
+          type="hidden" name="cm_showLowAcc" value="false"><span>Zoom: </span></label><input
+          type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
 
         <!--
         <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
         type="hidden" name="cmgm_auto_reload" value="false"><input
-        type="checkbox" id="cmgm_auto_reload" name="cmgm_auto_reload" value="true" <?php if($cmgm_auto_reload == "true") echo 'checked';?>>
+        type="checkbox" id="cmgm_auto_reload" name="cmgm_auto_reload" value="true" <?php // if($cmgm_auto_reload == "true") echo 'checked';?>>
 
         <label for="cmgm_map_allcarriers"> | All carriers</label><input
         type="hidden" name="cmgm_map_allcarriers" value="false"><input
-        type="checkbox" id="cmgm_map_allcarriers" name="cmgm_map_allcarriers" value="true" <?php if($cmgm_map_allcarriers == "true") echo 'checked';?>>
+        type="checkbox" id="cmgm_map_allcarriers" name="cmgm_map_allcarriers" value="true" <?php // if($cmgm_map_allcarriers == "true") echo 'checked';?>>
 
         <label for="cmgm_map_simple" title="No specialized pin colors, just red/green."> | Simple </label><input
         type="hidden" name="cmgm_map_simple" value="false"><input
-        type="checkbox" id="cmgm_map_simple" name="cmgm_map_simple" value="true"<?php if($cmgm_map_simple == "true") echo 'checked';?>>
+        type="checkbox" id="cmgm_map_simple" name="cmgm_map_simple" value="true"<?php // if($cmgm_map_simple == "true") echo 'checked';?>>
 
         <label for="cmgm_map_pin_limit"> | Max Pins: </label><input
-        type="range" step="25" min="50" max="1000" value="<?php echo $cmgm_map_pin_limit;?>" name="cmgm_pin_limit" id="cmgm_map_pin_limit"><span id="cmgm_map_pin_limitVal"></span></div>
+        type="range" step="25" min="50" max="1000" value="<?php // echo $cmgm_map_pin_limit;?>" name="cmgm_pin_limit" id="cmgm_map_pin_limit"><span id="cmgm_map_pin_limitVal"></span></div>
 
         <label>Google Maps Link: </label> -->
         <br>
