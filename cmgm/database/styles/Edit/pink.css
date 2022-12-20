@@ -1,0 +1,6 @@
+input,select,textarea {
+  color: black!important;
+}
+::placeholder {
+  color: #E5E5E5!important;
+}

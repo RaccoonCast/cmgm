@@ -1,0 +1,33 @@
+/* Pink background, white-ish text */
+body {
+  background-color: #f7bef7;
+  color: #000;
+}
+/*  set border-style to solid, pink, 1.5 pt width, #fa02fa color on buttons */
+.cmgm-btn  {
+  border-style: solid;
+  border-color: #870077;
+  border-width: 1.5pt;
+  background-color: #fa02fa;
+  color: #FAFAFA;
+}
+/* remove all but bottom border */ /* set background color for textboxes */
+input[type=text],input[type=number],textarea,select,option {
+  border: 1px solid #870077!important;  /* dark magenta border */
+  background-color: #ff75ff; /* background color for inputs */
+  color: #FAFAFA; /* text color for inputs */
+}
+select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
+    position: relative; /* lets box-shadow overlap other elements */
+    outline: none !important; /* remove boring outline */
+    border: 1px solid #c14cfc!important; /* add red border */
+    box-shadow: 0 0 30px #c14cfc; /* add box-shadow*/
+}
+/* link colors */
+a:link {color: #4286f5; text-decoration: none;}
+a:hover {color: #8ab4f8; text-decoration: underline;}
+a:visited {color: #8229cf;}
+a:active {color: #c58af9;}
+::placeholder {
+  color: #B2B2B2;
+}
