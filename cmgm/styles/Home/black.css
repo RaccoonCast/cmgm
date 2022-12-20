@@ -2,3 +2,6 @@
 #link13 {
   color: #FAFAFA!important;
 }
+::placeholder {
+  color: #444444!important;
+}
