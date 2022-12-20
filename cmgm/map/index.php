@@ -1,4 +1,4 @@
-
+<?php header('Location: ../database/Map.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

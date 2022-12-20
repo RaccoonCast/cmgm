@@ -12,6 +12,8 @@
    $zoom = 14;
      $allowGuests = "true";
    include '../functions.php';
+   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
+   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
 
    if(isMobile()){
      $limit = "300";
