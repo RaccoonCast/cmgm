@@ -85,15 +85,15 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <td>Street View</td>
                     <td>
                     <?php
-                    if(!empty($sv_a)) echo '<a target="_blank" href="https://'.$sv_a.'">SV_A</a>';
-                    if(!empty($sv_b)) echo " | " . '<a target="_blank" href="https://'.$sv_b.'">SV_B</a>';
-                    if(!empty($sv_c)) echo " | " . '<a target="_blank" href="https://'.$sv_c.'">SV_C</a>';
+                    if(!empty($sv_a)) echo '<a target="_blank" href="'.$sv_a.'">SV_A</a>';
+                    if(!empty($sv_b)) echo " | " . '<a target="_blank" href="'.$sv_b.'">SV_B</a>';
+                    if(!empty($sv_c)) echo " | " . '<a target="_blank" href="'.$sv_c.'">SV_C</a>';
 
                     if(!empty($sv_d)) echo isMobile() ? "<br>" : " | ";
 
-                    if(!empty($sv_d)) echo '<a target="_blank" href="https://'.$sv_d.'">SV_D</a>';
-                    if(!empty($sv_e)) echo " | " . '<a target="_blank" href="https://'.$sv_e.'">SV_E</a>';
-                    if(!empty($sv_f)) echo " | " . '<a target="_blank" href="https://'.$sv_f.'">SV_F</a>';
+                    if(!empty($sv_d)) echo '<a target="_blank" href="'.$sv_d.'">SV_D</a>';
+                    if(!empty($sv_e)) echo " | " . '<a target="_blank" href="'.$sv_e.'">SV_E</a>';
+                    if(!empty($sv_f)) echo " | " . '<a target="_blank" href="'.$sv_f.'">SV_F</a>';
 
                     if (empty($sv_a)) echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
                     ?></td>
