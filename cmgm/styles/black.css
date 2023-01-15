@@ -27,6 +27,7 @@ select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
 a:link {color: #8ab4f8; text-decoration: none;}
 a:hover {color: #8ab4f8; text-decoration: underline;}
 a:visited {color: #c58af9;}
+.footerlink:visited {color: #8ab4f8; text-decoration: none;}
 a:active {color: #c58af9;}
 ::placeholder {
   color: #B2B2B2;

@@ -17,3 +17,6 @@ Thumbs.db
 
 # WIPs not ready at all
 cmgm/das/*
+
+# Non-CMGM projects
+cmgm/css-for-cm/*
