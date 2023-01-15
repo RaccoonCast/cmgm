@@ -56,12 +56,13 @@ abbr, .nounderline {text-decoration: none!important;}
 	max-width: 16%; width: 100%;
 	float: left;
 }
+.region_cw { float: left;}
 
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21%!important;}
 .region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.5%!important;}
 .misc_cw {width: 16.8%!important;}
 .misc_50_cw,.misc_39_cw {width: 16.8%!important;}
-.pci_cw, .lte_cw {width: 7%!important; float: left;}
+.pci_cw, .lte_cw, .nr_cw {width: 7%!important; float: left;}
 .sv_cw {max-width: 23%; }
 .sv_date_cw {max-width: 5%;}
 .tags_cw {max-width: 84%!important; }
