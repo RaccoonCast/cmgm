@@ -32,7 +32,7 @@
     <option <?php if(@$cellsite_type == "misc-tree") echo "selected"?> value="misc-tree">Misc tree</option>
     <option <?php if(@$cellsite_type == "pole") echo "selected"?> value="pole">Pole</option>
     <option <?php if(@$cellsite_type == "structure") echo "selected"?> value="structure">Structure mount</option>
-    <option <?php if(@$cellsite_type == "other") echo "selected"?> value="other">Other/Uknown</option>
+    <option <?php if(@$cellsite_type == "other") echo "selected"?> value="other">Other/Unknown</option>
     </select>
 
     <?php
@@ -49,20 +49,43 @@
       echo (isset($carrier)) ? '<a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a>' : " IDs"
       ?>
       <span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span>
-    </label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1"><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2"><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3"><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4"><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5"><input
-    type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6"><input
-    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1"><input
-    type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2"><input
+    </label><?php
+    if (@$carrier = "T-Mobile") {
+      $LTE_1_placeholder = "2/66";
+      $LTE_2_placeholder = "12/71";
+      $LTE_3_placeholder = "41";
+
+      $NR_1_placeholder = "n71";
+      $NR_2_placeholder = "n41";
+      $NR_3_placeholder = "n25";
+    } else {
+      $LTE_1_placeholder = "LTE_1";
+      $LTE_2_placeholder = "LTE_2";
+      $LTE_3_placeholder = "LTE_3";
+      $LTE_4_placeholder = "LTE_4";
+
+      $NR_1_placeholder = "NR_1";
+      $NR_2_placeholder = "NR_2";
+      $NR_3_placeholder = "NR_3";
+    }
+     if ($isMobile =="true") { ?><br><?php } ?>
+
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="<?php echo $LTE_1_placeholder; ?>" name="LTE_1">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="<?php echo $LTE_2_placeholder; ?>" name="LTE_2">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="<?php echo $LTE_3_placeholder; ?>" name="LTE_3">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_7" value="<?php echo @$LTE_7?>" placeholder="LTE_7" name="LTE_7">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_8" value="<?php echo @$LTE_8?>" placeholder="LTE_8" name="LTE_8">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_9" value="<?php echo @$LTE_9?>" placeholder="LTE_9" name="LTE_9">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="<?php echo $NR_1_placeholder; ?>" name="NR_1">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="<?php echo $NR_2_placeholder; ?>" name="NR_2">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="<?php echo $NR_3_placeholder; ?>" name="NR_3">
+
+    <label class="pci_label" for="PCI_1">PCIs / Region</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
     type="number" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
-
-    <label class="pci_label" for="PCI_1">PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?>
-
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3">
@@ -72,10 +95,10 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9">
+    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs</label><?php } ?>
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12">
-    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs</label><?php } ?>
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_13" value="<?php echo @$PCI_13?>" placeholder="PCI_13" name="PCI_13">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_14" value="<?php echo @$PCI_14?>" placeholder="PCI_14" name="PCI_14">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_15" value="<?php echo @$PCI_15?>" placeholder="PCI_15" name="PCI_15">
@@ -85,9 +108,6 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
 
 
     <?php
@@ -132,7 +152,7 @@
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_B" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
     type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php if (isset($sv_c)) echo str_replace("https://", "",@$sv_c); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_C" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
-    <?php if($isMobile == "false") {?><div style="display: inline-block" class="sv_label"><label class="sv1_label" title="Street View does not show the most recent antenna upgrade.&#10;This only applies to sites with antennas that aren't concealed."><input type="hidden" name="old_street_view" value="false"><input
+    <?php if($isMobile == "false") {?><div style="display: inline-block" class="sv_label"><label class="sv1_label" title="Street View does not show the most recent antenna/radio change or carrier colocation/conversion/etc.&#10;This only applies to sites with antennas that aren't concealed."><input type="hidden" name="old_street_view" value="false"><input
     type="checkbox" name="old_street_view" value="true" <?php if(@$old_street_view == "true") echo "checked";?>>Old SV</label><label class="sv2_label" class="floatright"><?php echo @$sv_linklabel_b; ?></label></div><?php } ?><input
     type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php if (isset($sv_d)) echo str_replace("https://", "",@$sv_d); ?>"><input
     type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_D" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
@@ -266,7 +286,7 @@
     type="number" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     </div><div class="_panel3">
-    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recongizable modifications</label><input
+    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recognizable modifications</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers data rules out</label><input

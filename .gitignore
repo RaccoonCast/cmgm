@@ -4,7 +4,7 @@
 # misuse of github storage
 cmgm/database/uploads
 cmgm/u/*
-cmgm/includes/functions/id_list.txt
+
 
 # temp files
 php/$error-log.log
@@ -14,3 +14,6 @@ cmgm/favicon.ico
 cmgm/includes/misc-functions/id_list.txt
 cmgm/experiments/
 Thumbs.db
+
+# WIPs not ready at all
+cmgm/das/*
