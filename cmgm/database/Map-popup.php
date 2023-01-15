@@ -17,7 +17,7 @@
 <?php
 
 
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_score,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,cellsite_type,concealed,region_lte,tags";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_score,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,cellsite_type,concealed,region_lte,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -35,15 +35,21 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
   return '<a target="_blank" href="https://www.cellmapper.net/map?'.$beginning.'type='.$cm_netType.'&latitude='.$cm_latitude.'&longitude='.$cm_longitude.'&zoom='.$cm_zoom.'&clusterEnabled='.$cm_groupTowers.'&showTowerLabels='.$cm_showLabels.'&showOrphans='.$cm_showLowAcc.'&ppT='.$ppT.'&ppL='.$ppL.'">'.$ppT.'</a>';
 }
 
-                    if(!empty($LTE_1)) { $lte_list = cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte); }
+                    $lte_list = null;
+                    if(!empty($LTE_1)) { $lte_list = $lte_list . "" . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte); }
+                    if(!empty($LTE_2)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_2,$region_lte); }
+                    if(!empty($LTE_3)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_3,$region_lte); }
+                    if(!empty($LTE_4)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_4,$region_lte); }
+                    if(!empty($LTE_5)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_5,$region_lte); }
+                    if(!empty($LTE_6)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_6,$region_lte); }
+                    if(!empty($LTE_7)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_7,$region_lte); }
+                    if(!empty($LTE_8)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_8,$region_lte); }
+                    if(!empty($LTE_9)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_9,$region_lte); }
 
-                    if(!empty($LTE_2)) { $lte_list = $lte_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_2,$region_lte); }
-                    if(!empty($LTE_3)) { $lte_list = $lte_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_3,$region_lte); }
-                    if(!empty($LTE_4)) { $lte_list = $lte_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_4,$region_lte); }
-                    if(!empty($LTE_5)) { $lte_list = $lte_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_5,$region_lte); }
-                    if(!empty($LTE_6)) { $lte_list = $lte_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_6,$region_lte); }
-                    if(!empty($NR_1)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr); }
-                    if(!empty($NR_2)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr); }
+                    if(empty($lte_list)) { $lte_list = cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte); }
+                    // if(!empty($NR_1)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr); }
+                    // if(!empty($NR_2)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr); }
+                    // if(!empty($NR_3)) { $ltenr_list = ", " . $ltenr_list . ", " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr); }
 
 
                     // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
@@ -51,12 +57,13 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     include "includes/edit/file_attach_link_gen.php";
 
                     $concealed_status = ($concealed == "true") ? "Concealed" : "Unconcealed";
+                    $status_icon = ($status == "verified") ? "🟢" : "🔴";
                     ?>
 
                     <table>
                     <thead>
                     <tr>
-                    <td colspan="2"><?php echo $concealed_status . " " . $carrier  . " " .  ucfirst($cellsite_type) . " #" . $id ?></td>
+                    <td colspan="2"><?php echo $status_icon . $concealed_status . " " . $carrier  . " " .  ucfirst($cellsite_type) . " #" . $id ?></td>
                     </tr>
                     </thead>
 
