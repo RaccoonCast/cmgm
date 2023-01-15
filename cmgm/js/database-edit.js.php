@@ -27,15 +27,15 @@ $(function(){
   $('#sv_e').keyup(function() {  if ($(this).val().length == 0) {$('.sv_f').hide();} else {$('.sv_f').show();}}).keyup();
   <?php } ?>
 
-  $('#NR_2').keyup(function() {  if ($(this).val().length == 0) {
-    $('#NR_1').keyup(function() {  if ($(this).val().length == 0) {
-      document.getElementById("region_nr").removeAttribute('required');
+  $(document).ready(function() { $('#NR_1, #NR_2, #NR_3').keyup(); });
+
+  $('#NR_1, #NR_2, #NR_3').keyup(function() {
+    if ($('#NR_1').val().length > 0 || $('#NR_2').val().length > 0 || $('#NR_3').val().length > 0) {
+      $('#region_nr').attr('required', '');
     } else {
-      document.getElementById("region_nr").setAttribute('required', "");
-    }}).keyup();
-  } else {
-    document.getElementById("region_nr").setAttribute('required', "");
-  }}).keyup();
+      $('#region_nr').removeAttr('required');
+    }
+  });
 
   $('#sv_a').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_a_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_a_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_b').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_b_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_b_date")[0].setAttribute('required', "");}}).keyup();
@@ -43,7 +43,7 @@ $(function(){
   $('#sv_d').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_d_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_d_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_e').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_e_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_e_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_f').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_f_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_f_date")[0].setAttribute('required', "");}}).keyup();
-  
+
    /*
   // Street View URLs
   var lte_2 = $('#lte_2').val();

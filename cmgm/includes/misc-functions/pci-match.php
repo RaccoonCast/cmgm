@@ -10,7 +10,7 @@ if (!empty($_POST['data'])) {
   include "../../database/includes/DB-filter-get.php";
   include '../../functions.php';
 
-  $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,NR_1,NR_2 FROM db $db_vars";
+  $sql = "SELECT LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3 FROM db $db_vars";
   $result = mysqli_query($conn, $sql);
   while ($row = mysqli_fetch_assoc($result)) foreach ($row as $field => $value) if (strlen($value) <= 7 && !empty($value)) $cmgm_data = @$cmgm_data . ", " . $value;
   $cmgm_data = substr($cmgm_data, 2);

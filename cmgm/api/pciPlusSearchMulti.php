@@ -43,7 +43,7 @@ if (is_numeric($_GET['plmn'])) {
   foreach ($id as $value) {
   $i++;
 
-    $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR NR_1 = '$value' OR NR_2 = '$value') AND carrier = '$carrier' ";
+    $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
      $arr = array();
      if ($result = $conn->query($sql) or error()) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
