@@ -1,8 +1,0 @@
-/* Hacky fix for insta-hiding toasts */
-@keyframes cssAnimation {to {width:0;height:0;overflow:hidden;}}
-.toast.hide {
-    display: block!important;
-    opacity: 1;
-    animation: cssAnimation 0s ease-in 15s forwards;
-    animation-fill-mode: forwards;
-}

@@ -1,9 +1,0 @@
-/* Side menu ads */
-#ads,#modal_av_details {
-    position: fixed;
-    top: -6000px;
-}
-/* Bottom of page ads */
-.adsbygoogle {
-    transform: rotate(1deg) translateX(3380px);
-}

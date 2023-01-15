@@ -1,6 +1,0 @@
-/* Hide menu bar */
-.fixed-top { display: none; }
-/* Move side menu up to fill in gap left behind by hiding menu bar */
-#ppSidebar {
-    top: 0px!important;
-}
