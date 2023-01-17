@@ -17,8 +17,8 @@ input[type=text],input[type=search],input[type=number],option,select {
 }
 @media (min-width:1910px) {
 /* Panels (split page in half) */
-.panel1 { width: 49.93%; float: left; }
-.panel2 { width: 49.93%; float: right; }
+.panel1 { width: 55.93%; float: left; }
+.panel2 { width: 43.93%; float: right; }
 ._panel1 { width: 33%; float: left; padding-right: 0.5%; }
 ._panel2 { width: 33%; float: left; padding-right: 0.5%; }
 ._panel3 { width: 33%; float: right; }
@@ -28,7 +28,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 abbr, .nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
-  width: 50%;
+  width: 56%;
   padding: 37px;
 }
 .id_input {
@@ -53,19 +53,18 @@ abbr, .nounderline {text-decoration: none!important;}
 
 /* Left Side Menu*/
 .cellsite_type_label, .tags_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label, .sv_label, .misc_label {
-	max-width: 16%; width: 100%;
+	max-width: 18%; width: 100%;
 	float: left;
 }
 .region_cw { float: left;}
 
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 21%!important;}
-.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.5%!important;}
-.misc_cw {width: 16.8%!important;}
-.misc_50_cw,.misc_39_cw {width: 16.8%!important;}
-.pci_cw, .lte_cw, .nr_cw {width: 7%!important; float: left;}
-.sv_cw {max-width: 23%; }
-.sv_date_cw {max-width: 5%;}
-.tags_cw {max-width: 84%!important; }
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 20.5%!important;}
+.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.25%!important;}
+.misc_50_cw,.misc_39_cw,.misc_cw {width: 16.4%!important;}
+.pci_cw, .lte_cw, .nr_cw {width: 6.8333%!important; float: left;}
+.sv_cw {max-width: 22.6673%; }
+.sv_date_cw {max-width: 4.666%;}
+.tags_cw {max-width: 82%!important; }
 .sv1_label {max-width: 50%!important;}
 .sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */

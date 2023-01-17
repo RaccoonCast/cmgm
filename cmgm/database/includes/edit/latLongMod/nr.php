@@ -28,7 +28,5 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
   if (!empty($NR_3)) $NR_3_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_3 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
 }
 }
-if (isset($NR_1_mv) OR isset($NR_2_mv) OR isset($NR_3_mv)) { ?><p class="pad-small-link pad-small-link-mobile3">-</p><?php }
-if (isset($NR_1_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; }?>"><?php if (isMobile()) echo "NR_"?>1</a><?php }
-if (isset($NR_2_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; }?>"><?php if (isMobile()) echo "NR_"?>2</a><?php }
-if (isset($NR_3_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_3_mv)) { echo $NR_3_mv; }?>"><?php if (isMobile()) echo "NR_"?>3</a><?php }}} ?>
+}
+}

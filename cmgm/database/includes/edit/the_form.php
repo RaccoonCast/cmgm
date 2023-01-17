@@ -171,7 +171,7 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
