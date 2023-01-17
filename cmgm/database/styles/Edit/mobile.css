@@ -50,9 +50,10 @@ input[type=text],input[type=search],input[type=number],select {
 .cellsite_type_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label, .misc_label {
 	display: none;
 }
+#PCI_21 { display: none; }
 .sv_label { width: 100%;}
-.status_cw { max-width: 25%;} .concealed_cw { max-width: 27%;} .carrier_cw { max-width: 23%;} .cellsite_type_cw { max-width: 25%;}
-.region_cw, .addr_state_cw, .addr_zip_cw, .nr_cw, .lte_cw  {max-width: 20%;}
+.status_cw { max-width: 25%;} .concealed_cw { max-width: 25%;} .carrier_cw { max-width: 25%;} .cellsite_type_cw { max-width: 25%;}
+.region_cw, .addr_state_cw, .addr_zip_cw, .nr_cw, .lte_cw  {max-width: 25%; float: left}
 .latitude_cw, .longitude_cw {max-width: 50%;}
 .pci_cw {max-width: 12.5%;  float: left;}
 .addr_address_cw {max-width: 50%;} .addr_city_cw {max-width: 30%;} .addr_state_cw {max-width: 8%;} .addr_zip_cw {max-width: 12%;}

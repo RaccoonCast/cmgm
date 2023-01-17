@@ -220,7 +220,7 @@
     <option value="false">false</option>
     </select>
 
-    <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; }?></label><input
+    <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></label><input
     placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
 
     <?php if ($isMobile !="true") { ?>
