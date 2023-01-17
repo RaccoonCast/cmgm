@@ -115,27 +115,28 @@
 
     if (!empty($other_user_map_primary)) { $tmp_other_user_map_primary = $other_user_map_primary; } else { $tmp_other_user_map_primary = "false"; $tmp_idparam_4 = "true"; }
     ?>
-    <label class="id_params_label">Multi ID Parameters</label><select title="eNBs/gNBs all share the same PCIs" class="id_params_cw" name="pci_match">
+    <label class="id_params_label">Multi ID Parameters</label><select id="pcismatch" title="eNBs/gNBs all share the same PCIs" class="id_params_cw" name="pci_match">
     <option style="display: none" value="<?php echo @$pci_match;?>" selected>PCIs match: <?php echo @$pci_match;?></option>
-    <option value="true">true</option>
-    <option value="false">false</option>
-    <option value="partial">partial</option>
-  </select><select class="id_params_cw" title="eNBs all share common number, ie 353583/53583, 88001,88002)&#10;Ignore gNBs that don't match eNB" name="id_pattern_match">
+    <option data-display="PCIs match: true" value="true">true</option>
+    <option data-display="PCIs match: false" value="false">false</option>
+    <option data-display="PCIs match: partial" value="partial">partial</option>
+  </select><select id="idpatternmatch" class="id_params_cw" title="eNBs all share common number, ie 353583/53583, 88001,88002)&#10;Ignore gNBs that don't match eNB" name="id_pattern_match">
     <option style="display: none" value="<?php echo @$id_pattern_match;?>" selected>ID Pattern Match: <?php echo @$id_pattern_match;?></option>
-    <option value="true">true</option>
-    <option value="false">false</option>
-    <option value="partial">partial</option>
-  </select><select class="id_params_cw" title="All eNBs/gNBs have similar sectors." name="sector_match">
+    <option data-display="ID Pattern match: true" value="true">true</option>
+    <option data-display="ID Pattern match: false" value="false">false</option>
+    <option data-display="ID Pattern match: partial" value="partial">partial</option>
+  </select><select id="sectorsmatch" class="id_params_cw" title="All eNBs/gNBs have similar sectors." name="sector_match">
     <option style="display: none" value="<?php echo @$sector_match;?>" selected>Sectors match: <?php echo @$sector_match;?></option>
-    <option value="true">true</option>
-    <option value="false">false</option>
-    <option value="partial">partial</option>
-  </select><select class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary eNB was already located by someone else" name="other_user_map_primary">
+    <option data-display="Sectors match: true" value="true">true</option>
+    <option data-display="Sectors match: false" value="false">false</option>
+    <option data-display="Sectors match: partial" value="partial">partial</option>
+  </select><select id="primaryalreadylocated" class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary eNB was already located by someone else" name="other_user_map_primary">
     <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Primary already located: <?php echo @$tmp_other_user_map_primary;?></option>
-    <option value="true">true</option>
-    <option value="false">false</option>
+    <option data-display="Primary already located: true" value="true">true</option>
+    <option data-display="Primary already located: false" value="false">false</option>
     </select>
 
+    <script src="../js/dumb-shit.js"></script>
 
     <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/place/<?php echo $latitude.",".$longitude;?>/@<?php echo $latitude.",".$longitude;?>,20z/data=!3m1!1e3">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
     type="text" class="latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
