@@ -14,7 +14,7 @@
     <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$concealed == "true") echo 'selected ';?>value="true">Concealed</option>
     <option <?php if(@$concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
-    </select><select class="carrier_cw" name="carrier">
+    </select><select class="carrier_cw" id="carrier" name="carrier">
     <option <?php if(@$carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
     <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
@@ -38,7 +38,6 @@
     <?php
       if (@$carrier == "Unknown") { $cm_carrier = @$default_carrier; } else { $cm_carrier = @$carrier; }
       include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
-
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (isset($carrier)) $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
@@ -50,38 +49,39 @@
       ?>
       <span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span>
     </label><?php
-    if (@$carrier = "T-Mobile") {
-      $LTE_1_placeholder = "2/66";
-      $LTE_2_placeholder = "12/71";
-      $LTE_3_placeholder = "41";
 
-      $NR_1_placeholder = "n71";
-      $NR_2_placeholder = "n41";
-      $NR_3_placeholder = "n25";
-    } else {
-      $LTE_1_placeholder = "LTE_1";
-      $LTE_2_placeholder = "LTE_2";
-      $LTE_3_placeholder = "LTE_3";
-      $LTE_4_placeholder = "LTE_4";
-
-      $NR_1_placeholder = "NR_1";
-      $NR_2_placeholder = "NR_2";
-      $NR_3_placeholder = "NR_3";
-    }
+    // if (@$carrier == "T-Mobile") {
+    //   $LTE_1_placeholder = "2/66";
+    //   $LTE_2_placeholder = "12/71";
+    //   $LTE_3_placeholder = "41";
+//
+    //   $NR_1_placeholder = "n71";
+    //   $NR_2_placeholder = "n41";
+    //   $NR_3_placeholder = "n25";
+    // } else {
+    //   $LTE_1_placeholder = "LTE_1";
+    //   $LTE_2_placeholder = "LTE_2";
+    //   $LTE_3_placeholder = "LTE_3";
+    //   $LTE_4_placeholder = "LTE_4";
+//
+    //   $NR_1_placeholder = "NR_1";
+    //   $NR_2_placeholder = "NR_2";
+    //   $NR_3_placeholder = "NR_3";
+    // }
      if ($isMobile =="true") { ?><br><?php } ?>
 
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="<?php echo $LTE_1_placeholder; ?>" name="LTE_1">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="<?php echo $LTE_2_placeholder; ?>" name="LTE_2">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="<?php echo $LTE_3_placeholder; ?>" name="LTE_3">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2">
+    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_7" value="<?php echo @$LTE_7?>" placeholder="LTE_7" name="LTE_7">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_8" value="<?php echo @$LTE_8?>" placeholder="LTE_8" name="LTE_8">
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_9" value="<?php echo @$LTE_9?>" placeholder="LTE_9" name="LTE_9">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="<?php echo $NR_1_placeholder; ?>" name="NR_1">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="<?php echo $NR_2_placeholder; ?>" name="NR_2">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="<?php echo $NR_3_placeholder; ?>" name="NR_3">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
+    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="NR_3" name="NR_3">
 
     <label class="pci_label" for="PCI_1">PCIs / Region</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
@@ -122,16 +122,16 @@
     <option data-display="PCIs match: partial" value="partial">partial</option>
   </select><select id="idpatternmatch" class="id_params_cw" title="eNBs all share common number, ie 353583/53583, 88001,88002)&#10;Ignore gNBs that don't match eNB" name="id_pattern_match">
     <option style="display: none" value="<?php echo @$id_pattern_match;?>" selected>ID Pattern Match: <?php echo @$id_pattern_match;?></option>
-    <option data-display="ID Pattern match: true" value="true">true</option>
-    <option data-display="ID Pattern match: false" value="false">false</option>
-    <option data-display="ID Pattern match: partial" value="partial">partial</option>
+    <option data-display="ID Pattern Match: true" value="true">true</option>
+    <option data-display="ID Pattern Match: false" value="false">false</option>
+    <option data-display="ID Pattern Match: partial" value="partial">partial</option>
   </select><select id="sectorsmatch" class="id_params_cw" title="All eNBs/gNBs have similar sectors." name="sector_match">
     <option style="display: none" value="<?php echo @$sector_match;?>" selected>Sectors match: <?php echo @$sector_match;?></option>
     <option data-display="Sectors match: true" value="true">true</option>
     <option data-display="Sectors match: false" value="false">false</option>
     <option data-display="Sectors match: partial" value="partial">partial</option>
   </select><select id="primaryalreadylocated" class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary eNB was already located by someone else" name="other_user_map_primary">
-    <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Primary already located: <?php echo @$tmp_other_user_map_primary;?></option>
+    <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Other user map primary: <?php echo @$tmp_other_user_map_primary;?></option>
     <option data-display="Primary already located: true" value="true">true</option>
     <option data-display="Primary already located: false" value="false">false</option>
     </select>
@@ -171,7 +171,7 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>

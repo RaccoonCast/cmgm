@@ -1,4 +1,4 @@
-<?php if (!isMobile()) { ?>
+<?php if (!isMobile() & isset($LTE_1_mv)) { ?>
   <input type="button" value="All" id="pin-all-button" style="padding: 0em; margin: 0em; cursor: pointer;" class="pad-small-link pad-small-link-mobile2">
   <script>
   document.getElementById("pin-all-button").addEventListener("click", function() {

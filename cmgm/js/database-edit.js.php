@@ -37,6 +37,28 @@ $(function(){
     }
   });
 
+  $(document).ready(function() { $("#carrier").change()});
+
+    $("#carrier").change(function() {
+      var carrier = $(this).val();
+      if (carrier === "T-Mobile") {
+        $("#LTE_1").attr("placeholder", "2/66");
+        $("#LTE_2").attr("placeholder", "12/71");
+        $("#LTE_3").attr("placeholder", "41");
+        $("#NR_1").attr("placeholder", "n71");
+        $("#NR_2").attr("placeholder", "n41");
+        $("#NR_3").attr("placeholder", "n25");
+      } else {
+        $("#LTE_1").attr("placeholder", "LTE_1");
+        $("#LTE_2").attr("placeholder", "LTE_2");
+        $("#LTE_3").attr("placeholder", "LTE_3");
+        $("#NR_1").attr("placeholder", "NR_1");
+        $("#NR_2").attr("placeholder", "NR_2");
+        $("#NR_3").attr("placeholder", "NR_3");
+      }
+    });
+
+
   $('#sv_a').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_a_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_a_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_b').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_b_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_b_date")[0].setAttribute('required', "");}}).keyup();
   $('#sv_c').keyup(function() {  if ($(this).val().length == 0) {document.getElementsByName("sv_c_date")[0].removeAttribute('required');} else {document.getElementsByName("sv_c_date")[0].setAttribute('required', "");}}).keyup();

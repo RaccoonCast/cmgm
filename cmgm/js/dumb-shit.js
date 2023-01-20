@@ -11,8 +11,6 @@ function showDisplayValue(e) {
   // change the selected option's text to its `data-display` attribute value
   option.innerText = option.getAttribute('data-display');
 }
-let pciMatchEl = document.body.innerHTML;
-console.log('element:', pciMatchEl);
 
 document.getElementById('pcismatch').addEventListener('change', showDisplayValue, false);
 document.getElementById('idpatternmatch').addEventListener('change', showDisplayValue, false);

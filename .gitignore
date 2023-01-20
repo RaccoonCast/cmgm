@@ -3,8 +3,6 @@
 
 # misuse of github storage
 cmgm/database/uploads
-cmgm/u/*
-
 
 # temp files
 php/$error-log.log
