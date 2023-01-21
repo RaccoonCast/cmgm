@@ -1,14 +1,13 @@
 <?php
 foreach($_GET as $key => $value){
-  if ($key == "pciplus" OR $key == "new") {
+  if ($key != "pciplus" OR $key == "new") {
     // do nothing
   } else {
     ${$key} = $value;
-    echo $key . ": " . $value . "<br>";
   }
 }
 include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
-[$address,$city,$state,$zip] = convert("$latitude,$longitude","pciplus",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
+[$address,$city,$zip,$state] = convert("$latitude,$longitude","pciplus",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
 // echo $address . "<br>";
 // echo $city . "<br>";
 // echo $state . "<br>";
@@ -47,5 +46,6 @@ if ($plmn == "310260") $carrier = "T-Mobile";
 if ($plmn == "311480") $carrier = "Verizon";
 if ($plmn == "310120") $carrier = "Sprint";
 if ($plmn == "310410") $carrier = "ATT";
+if ($plmn == "313340") $carrier = "Dish";
 
 ?>

@@ -56,6 +56,11 @@ $(function(){
         $("#NR_2").attr("placeholder", "NR_2");
         $("#NR_3").attr("placeholder", "NR_3");
       }
+      if (carrier === "Dish") {
+        $('#LTE_1, #LTE_2, #LTE_3, #LTE_4, #LTE_5, #LTE_6, #LTE_7, #LTE_8, #LTE_9, #region_lte').css("display", "none");
+        $('#NR_1, #NR_2, #NR_3').addClass("nr_cw_dish");
+        $('#region_nr').addClass("nr_region_dish");
+      }
     });
 
 

@@ -35,5 +35,13 @@ if($isMobile == "false") {
   $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label;
 }
 
-if (isset($new)) { echo '<title>CMGM - New</title>'; } elseif(!empty($LTE_1)) { echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>'; } else { echo '<title>CMGM - Edit (Unknown)</title>'; }
+if (isset($new)) {
+   echo '<title>CMGM - New</title>';
+   } elseif(!empty($LTE_1)) {
+      echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>';
+      } elseif(!empty($NR_1)) {
+         echo '<title>CMGM - Edit (' . $NR_1 . ')</title>';
+         } else {
+           echo '<title>CMGM - Edit (Unknown)</title>';
+           }
 ?>

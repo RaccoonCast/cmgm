@@ -24,6 +24,7 @@ if ($goto_page == "Beta") {
   if ("$carrier" == "Sprint") $beginning = "310/120";
   if ("$carrier" == "ATT") $beginning = "310/410";
   if ("$carrier" == "Verizon") $beginning = "311/480";
+  if ("$carrier" == "Dish") $beginning = "313/340";
   if (!isset($cm_netType)) $cm_netType = "LTE";
   return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
 }

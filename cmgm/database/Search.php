@@ -31,6 +31,7 @@
               <option value="ATT">AT&T</option>
               <option value="Verizon">Verizon</option>
               <option value="Sprint">Sprint</option>
+              <option value="Dish">Dish</option>
            </select><select
         class="custominput cellsite-type-custom-width dropdown w-32" name="cellsite_type">
         <option selected="selected" value="">Tower type: All</option>

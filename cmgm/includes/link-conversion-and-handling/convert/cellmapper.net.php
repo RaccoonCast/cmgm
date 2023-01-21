@@ -14,6 +14,7 @@ if (!str_contains($data, 'testmap')) {
   if (strpos($data, 'MCC=310&MNC=120') !== false) {$carrier = "Sprint";}
   if (strpos($data, 'MCC=310&MNC=410') !== false) {$carrier = "ATT";}
   if (strpos($data, 'MCC=311&MNC=480') !== false) {$carrier = "Verizon";}
+  if (strpos($data, 'MCC=313&MNC=340') !== false) {$carrier = "Dish";}
   if (strpos($data, 'type=LTE') !== false) {$cm_netType = "LTE";}
   if (strpos($data, 'type=NR') !== false) {$cm_netType = "NR";}
 } else {
@@ -30,6 +31,7 @@ if (!str_contains($data, 'testmap')) {
   if (strpos($data, '310/120') !== false) {$carrier = "Sprint";}
   if (strpos($data, '310/410') !== false) {$carrier = "ATT";}
   if (strpos($data, '311/480') !== false) {$carrier = "Verizon";}
+  if (strpos($data, '313/340') !== false) {$carrier = "Dish";}
 
   if (strpos($data, 'LTE') !== false) {$cm_netType = "LTE";} // while it may appear that LTE & NR code can probably be outside of this if string they shouldn't because...
   if (strpos($data, 'NR') !== false) {$cm_netType = "NR";} // non-testmap strings contain &showLTECAonly regardless of whether it is LTE OR NR.

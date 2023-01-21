@@ -19,6 +19,7 @@
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
     <option <?php if(@$carrier == "Verizon") echo "selected"?> value="Verizon">Verizon</option>
     <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
+    <option <?php if(@$carrier == "Dish") echo "selected"?> value="Dish">Dish</option>
     <option <?php if(@$carrier == "Unknown" OR empty($carrier)) echo "selected"?> value="Unknown">Unknown</option>
     </select><select class="cellsite_type_cw" name="cellsite_type" required>
     <option style="display:none" value="">&nbsp;</option>
@@ -50,24 +51,6 @@
       <span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span>
     </label><?php
 
-    // if (@$carrier == "T-Mobile") {
-    //   $LTE_1_placeholder = "2/66";
-    //   $LTE_2_placeholder = "12/71";
-    //   $LTE_3_placeholder = "41";
-//
-    //   $NR_1_placeholder = "n71";
-    //   $NR_2_placeholder = "n41";
-    //   $NR_3_placeholder = "n25";
-    // } else {
-    //   $LTE_1_placeholder = "LTE_1";
-    //   $LTE_2_placeholder = "LTE_2";
-    //   $LTE_3_placeholder = "LTE_3";
-    //   $LTE_4_placeholder = "LTE_4";
-//
-    //   $NR_1_placeholder = "NR_1";
-    //   $NR_2_placeholder = "NR_2";
-    //   $NR_3_placeholder = "NR_3";
-    // }
      if ($isMobile =="true") { ?><br><?php } ?>
 
     <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1">

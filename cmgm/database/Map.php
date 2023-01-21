@@ -138,6 +138,7 @@ if (@$pin_style == "carrier" or !isset($carrier)) {
   if ($pin_carrier == "ATT") $status = "att";
   if ($pin_carrier == "Sprint") $status = "sprint";
   if ($pin_carrier == "Verizon") $status = "verizon";
+  if ($pin_carrier == "Dish") $status = "dish";
   if (like_match('sprint_keep,%',$tags) == "TRUE" OR like_match('%,sprint_keep',$tags) == "TRUE" OR like_match('%,sprint_keep,%',$tags) == "TRUE" OR $tags == "sprint_keep") $status = "sprint_keep";
   if (empty($status)) $status = "unknown";
   }

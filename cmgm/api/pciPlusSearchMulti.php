@@ -38,6 +38,7 @@ if (is_numeric($_GET['plmn'])) {
   if ($plmn == "311480") $carrier = "Verizon";
   if ($plmn == "310120") $carrier = "Sprint";
   if ($plmn == "310410") $carrier = "ATT";
+  if ($plmn == "313410") $carrier = "Dish";
   if (!isset($carrier)) die();
   $i = 0;
   foreach ($id as $value) {

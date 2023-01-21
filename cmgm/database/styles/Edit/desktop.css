@@ -57,11 +57,13 @@ abbr, .nounderline {text-decoration: none!important;}
 	float: left;
 }
 .region_cw { float: left;}
-
+.nr_cw_dish { max-width: 27.333%!important;}
+.nr_region_dish { max-width: 20.5%!important;}
+.nr_cw { max-width: 6.8333%; float: left}
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 20.5%!important;}
-.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw, .nr_cw  {max-width: 10.25%!important;}
+.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw  {max-width: 10.25%;}
 .misc_50_cw,.misc_39_cw,.misc_cw {width: 16.4%!important;}
-.pci_cw, .lte_cw, .nr_cw {width: 6.8333%!important; float: left;}
+.pci_cw, .lte_cw {width: 6.8333%!important; float: left;}
 .sv_cw {max-width: 22.6673%; }
 .sv_date_cw {max-width: 4.666%;}
 .tags_cw {max-width: 82%!important; }

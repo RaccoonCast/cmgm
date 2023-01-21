@@ -104,6 +104,7 @@ function addPin(lat, lng, name) {
   		if (carrier === "ATT") status = "att";
   		if (carrier === "Sprint") status = "sprint";
   		if (carrier === "Verizon") status = "verizon";
+  		if (carrier === "Dish") status = "dish";
   		// if (tags.includes("sprint_keep")) status = "sprint_keep";
   		if (!status) status = "unknown";
 		}

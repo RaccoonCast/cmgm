@@ -63,6 +63,7 @@ header("Pragma: no-cache");
           <option <?php if($default_carrier == "ATT") echo 'selected="selected" ';?>value="ATT">AT&T</option>
           <option <?php if($default_carrier == "Verizon") echo 'selected="selected" ';?>value="Verizon">Verizon</option>
           <option <?php if($default_carrier == "Sprint") echo 'selected="selected" ';?>value="Sprint">Sprint</option>
+          <option <?php if($default_carrier == "Dish") echo 'selected="selected" ';?>value="Dish">Dish</option>
         </select>
         <label class="label">Theme: </label><select
         class="custominput dropdown" autocomplete="on" name="theme">

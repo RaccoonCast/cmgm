@@ -30,6 +30,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
   if ("$cm_carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
   if ("$cm_carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
   if ("$cm_carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
+  if ("$cm_carrier" == "Dish") $beginning = "MCC=313&MNC=340&";
   if ("$cm_carrier" == "Unknown") return $ppT;
   if (empty($cm_netType)) $cm_netType = "LTE";
   return '<a target="_blank" href="https://www.cellmapper.net/map?'.$beginning.'type='.$cm_netType.'&latitude='.$cm_latitude.'&longitude='.$cm_longitude.'&zoom='.$cm_zoom.'&clusterEnabled='.$cm_groupTowers.'&showTowerLabels='.$cm_showLabels.'&showOrphans='.$cm_showLowAcc.'&ppT='.$ppT.'&ppL='.$ppL.'">'.$ppT.'</a>';
