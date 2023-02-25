@@ -7,10 +7,10 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache');
 
-include '../includes/functions/sqlpw.php'; // doesn't call native
+include '../../includes/functions/sqlpw.php'; // doesn't call native
 
 //  cody and alps' purple iphones (CAAPI)
-$db_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
+$db_get_list = "id,carrier,latitude,longitude,old_cellsite_type,concealed,status,tags";
 $db_vars = "id > 0";
 
 
@@ -18,7 +18,7 @@ foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
     ${$key} = $value;
   } else {
-    // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
+    // this code lets you add things to the search string, like WHERE old_cellsite_type = "monopalm" by amending &old_cellsite_type=monopalm.
       $db_get_list = $db_get_list . "," . $key;
 
     $db_vars = $key . ' = "'.$value.'" AND ' . $db_vars;
@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()) {
       "carrier" => $row["carrier"],
       "latitude" => $row["latitude"],
       "longitude" => $row["longitude"],
-      "cellsite_type" => $row["cellsite_type"],
+      "old_cellsite_type" => $row["old_cellsite_type"],
       "concealed" => $row["concealed"],
       "status" => $row["status"],
       "tags" => $row["tags"]

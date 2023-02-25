@@ -26,7 +26,7 @@ if (is_numeric($_GET['search']) && is_numeric($_GET['plmn'])) {
   if ($plmn == "313340") $carrier = "Dish";
   if (!isset($carrier)) die();
 
-  $sql = "SELECT $database_get_list from db WHERE (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') AND carrier = '$carrier' ";
+  $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') AND carrier = '$carrier' ";
 
   $arr = array();
   if ($result = $conn->query($sql)) {
