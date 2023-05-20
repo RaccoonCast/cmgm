@@ -15,7 +15,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
-if (!isset($_GET['new']) && !isset($_GET['pciplus']) && !isset($_POST['new'])) $allowGuests = "true";
+if (!isset($_GET['new']) && !isset($_GET['pciplus']) && !isset($_POST['new']) && !isset($_GET['loginprompt'])) $allowGuests = "true";
 include "../functions.php";
 if (isset($_GET['pciplus'])) include "../includes/pciplus/main.php";
 
@@ -90,6 +90,7 @@ if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock 
 if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
 echo '</div>';
 ?>
+<?php if ($userID == "guest") {?><br><button onclick="redir('<?php echo $domain_with_http;?>/database/Edit.php?loginprompt=true&id=<?php echo $id; ?>',0)">Login</button> <?php } ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <div style="padding-bottom: 70px" class="pre_footer"></div>
 <?php include "includes/footer.php"; ?>
