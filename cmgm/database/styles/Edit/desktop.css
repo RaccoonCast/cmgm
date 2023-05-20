@@ -19,10 +19,15 @@ input[type=text],input[type=search],input[type=number],option,select {
 /* Panels (split page in half) */
 .panel1 { width: 55.93%; float: left; }
 .panel2 { width: 43.93%; float: right; }
+}
 ._panel1 { width: 33%; float: left; padding-right: 0.5%; }
 ._panel2 { width: 33%; float: left; padding-right: 0.5%; }
 ._panel3 { width: 33%; float: right; }
+div[class^="_panel"] label {
+  font-size: 0.9em;
+	white-space: nowrap;
 }
+
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw,option {font-size: 1.1em;}
 abbr, .nounderline {text-decoration: none!important;}
