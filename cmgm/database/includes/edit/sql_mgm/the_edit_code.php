@@ -2,19 +2,23 @@
 // Edit
 $sql_edit = "UPDATE db SET ";
 if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
-  $value = strip_tags($value);
+  if ($key != "username") {
+    $value = strip_tags($value);
+  }
   // echo $key . "=" . $value . "<br>";
    include "latitude_longitude.php";
-   if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
+   if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
      if (strpos($key, 'sv') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
      if (strpos($key, 'sv') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
      include "history.php";
    }
    ${$value} = @$_POST[$value];
 }
+
 if (strlen($sql_edit) != 14) {
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
   $sql_edit .= "edit_userid = '" . $userID . "', ";
+  $sql_edit .= "edit_username = '" . $username . "', ";
 
   // echo "Former: " . $edit_date . "<br>";
   // echo "Current: " . date("Y-m-d H") . "<br>";
