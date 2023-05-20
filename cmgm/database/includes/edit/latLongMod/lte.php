@@ -15,7 +15,8 @@ if (!empty($LTE_1) OR !empty($LTE_2) OR !empty($LTE_3) OR !empty($LTE_4)) {
 // Carrier
 $base = "https://api.cellmapper.net/v6/overrideData";
 if($carrier == "T-Mobile") $base = $base . "?MCC=310&MNC=260";
-if($carrier == "ATT") $base = $base . "?MCC=310&MNC=410";
+if(isset($_GET['fn'])) $base = $base . "?MCC=313&MNC=100";
+elseif($carrier == "ATT") $base = $base . "?MCC=310&MNC=410";
 if($carrier == "Sprint") $base = $base . "?MCC=310&MNC=120";
 if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 if($carrier == "Dish") $base = $base . "?MCC=313&MNC=340";
@@ -27,11 +28,21 @@ if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
   if (!empty($LTE_2)) $LTE_2_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
   if (!empty($LTE_3)) $LTE_3_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_3 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
   if (!empty($LTE_4)) $LTE_4_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_4 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude; // Middle
+
+  if (!empty($LTE_1)) @$coordinates_set = $latitude . "," . $longitude; // Base
+  if (!empty($LTE_2)) @$coordinates_set = $latitude + $modDigit . "," . $longitude + $modDigit; // Right
+  if (!empty($LTE_3)) @$coordinates_set = $latitude + $modDigit . "," . $longitude - $modDigit; // Left
+  if (!empty($LTE_4)) @$coordinates_set = $latitude + $modDigit . "," . $longitude; // Middle
 } else {
   if (!empty($LTE_1)) $LTE_1_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_1 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
   if (!empty($LTE_2)) $LTE_2_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_2 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
   if (!empty($LTE_3)) $LTE_3_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_3 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
   if (!empty($LTE_4)) $LTE_4_mv = $base . "&Region=" . $region_lte . "&RAT=LTE&Site=" . $LTE_4 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude; // Middle
+
+  if (!empty($LTE_1)) @$coordinates_set = $latitude . "," . $longitude; // Base
+  if (!empty($LTE_2)) @$coordinates_set = $latitude - $modDigit . "," . $longitude + $modDigit; // Right
+  if (!empty($LTE_3)) @$coordinates_set = $latitude - $modDigit . "," . $longitude - $modDigit; // Left
+  if (!empty($LTE_4)) @$coordinates_set = $latitude - $modDigit . "," . $longitude; // Middle
 }
 
 }}} ?>
