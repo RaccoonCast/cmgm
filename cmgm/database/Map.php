@@ -1,5 +1,6 @@
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="crossorigin=""></script>
@@ -82,6 +83,14 @@ function marker(latitude,longitude,status,id,url_suffix) {
     };
   }
 
+  // Create a custom keyboard shortcut for refreshing the map
+  document.addEventListener('keydown', function(event) {
+    if ((event.shiftKey  || event.metaKey) && event.key.toLowerCase() === 'y') { // Use Ctrl/Cmd + Y
+      updateURL();
+      location.reload(); // Refresh the page
+      event.preventDefault(); // Prevent the browser from performing the default action for the key combination
+    }
+  });
 
   var myVar = setInterval(myTimer, 1);
   // var myVar2 = setInterval(refresher, 5000);
@@ -124,13 +133,13 @@ switch ($sepCount) {
 
 if (@$pin_style == "celltype") {
   $status = NULL;
-  if ($cellsite_type == "rooftop" && $concealed == "false") $status = "lightgray";
-  if ($cellsite_type == "rooftop" && $concealed == "true") $status = "darkgray";
-  if ($cellsite_type == "monopalm") $status = "lightgreen";
-  if ($cellsite_type == "monopine") $status = "darkgreen";
-  if ($cellsite_type == "misc-tree") $status = "darkgreen";
-  if ($cellsite_type == "tower") $status = "tower";
-  if (empty($status)) $status = "unknown";
+  // if ($cellsite_type == "rooftop" && $concealed == "false") $status = "lightgray";
+  // if ($cellsite_type == "rooftop" && $concealed == "true") $status = "darkgray";
+  // if ($cellsite_type == "monopalm") $status = "lightgreen";
+  // if ($cellsite_type == "monopine") $status = "darkgreen";
+  // if ($cellsite_type == "misc-tree") $status = "darkgreen";
+  // if ($cellsite_type == "tower") $status = "tower";
+  // if (empty($status)) $status = "unknown";
   }
 if (@$pin_style == "carrier" or !isset($carrier)) {
   $status = NULL;
@@ -157,11 +166,12 @@ break;
     }
 }
 ?>
+
 <?php
 // Code for the marker on Form.
 if (isset($marker_latitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);"; ?>
 </script>
-<?php if (!isset($marker_latitude))include "includes/footer.php"; ?>
+<?php if (!isset($marker_latitude)) include "includes/footer.php"; ?>
 </div>
 </body>
 </html>

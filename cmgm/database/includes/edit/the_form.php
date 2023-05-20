@@ -1,19 +1,21 @@
 <form action="Edit.php?id=<?php if(isset($id)) {echo $id; } else { if (isset($new)) {echo "new";}}  ?>" autofill="off" autocomplete="off" method="post">
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
-  <div class="panel1">
+    <?php
+    include "$SITE_ROOT/includes/functions/tower_types.php";
+    if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<p>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</p>';
+    // if (!in_array($cellsite_type, $options)) {
+    //   echo '<p>The previous cellsite type was "' . $cellsite_type . '", please update it to use the new system.</p>';
+    // }
+    ?>
+  <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
     <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo $id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
-
     <label class="cellsite_type_label">Type of cellsite</label><select
     class="status_cw" onClick="lte_1Reqd()" id="status" name="status" required>
     <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
     <option <?php if(@$status == "unverified") echo "selected"?> value="unverified">Unverified</option>
-    </select><select class="concealed_cw" name="concealed" required>
-    <option style="display:none" value="">&nbsp;</option>
-    <option <?php if(@$concealed == "true") echo 'selected ';?>value="true">Concealed</option>
-    <option <?php if(@$concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
     </select><select class="carrier_cw" id="carrier" name="carrier">
     <option <?php if(@$carrier == "T-Mobile") echo "selected"?> value="T-Mobile">T-Mobile</option>
     <option <?php if(@$carrier == "ATT") echo "selected"?> value="ATT">AT&T</option>
@@ -21,19 +23,23 @@
     <option <?php if(@$carrier == "Sprint") echo "selected"?> value="Sprint">Sprint</option>
     <option <?php if(@$carrier == "Dish") echo "selected"?> value="Dish">Dish</option>
     <option <?php if(@$carrier == "Unknown" OR empty($carrier)) echo "selected"?> value="Unknown">Unknown</option>
-    </select><select class="cellsite_type_cw" name="cellsite_type" required>
+    </select><select class="concealed_cw" name="concealed" required>
     <option style="display:none" value="">&nbsp;</option>
-    <option <?php if(@$cellsite_type == "tower") echo "selected"?> value="tower">Tower</option>
-    <option <?php if(@$cellsite_type == "rooftop") echo "selected"?> value="rooftop">Rooftop</option>
-    <option <?php if(@$cellsite_type == "tank") echo "selected"?> value="tank">Tank</option>
-    <option <?php if(@$cellsite_type == "utility_small") echo "selected"?> value="utility_small">Utility Pole</option>
-    <option <?php if(@$cellsite_type == "utility_big") echo "selected"?> value="utility_big">Utility Tower</option>
-    <option <?php if(@$cellsite_type == "monopalm") echo "selected"?> value="monopalm">Monopalm</option>
-    <option <?php if(@$cellsite_type == "monopine") echo "selected"?> value="monopine">Monopine</option>
-    <option <?php if(@$cellsite_type == "misc-tree") echo "selected"?> value="misc-tree">Misc tree</option>
-    <option <?php if(@$cellsite_type == "pole") echo "selected"?> value="pole">Pole</option>
-    <option <?php if(@$cellsite_type == "structure") echo "selected"?> value="structure">Structure mount</option>
-    <option <?php if(@$cellsite_type == "other") echo "selected"?> value="other">Other/Unknown</option>
+    <option <?php if(@$concealed == "true") echo 'selected ';?>value="true">Concealed</option>
+    <option <?php if(@$concealed == "false") echo 'selected ';?>value="false">Unconcealed</option>
+  </select><select class="cellsite_type_cw" name="cellsite_type" required>
+    <option style="display:none" value="">&nbsp;</option>
+        <?php
+            foreach ($options as $category => $subcategories) {
+                echo PHP_EOL . '<optgroup label="' . $category . '">' . PHP_EOL;
+                foreach ($subcategories as $sub_key => $sub_val) {
+                    echo '    <option class="subtype_' . str_replace('_', '-', strtolower($category)) . '" ';
+                    if (@$cellsite_type == $sub_key) echo 'selected ';
+                    echo 'value="' . $sub_key . '">' . $sub_val . '</option>' . PHP_EOL;
+                }
+                echo '</optgroup>' . PHP_EOL;
+            }
+        ?>
     </select>
 
     <?php
@@ -66,7 +72,7 @@
     <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
     <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="NR_3" name="NR_3">
 
-    <label class="pci_label" for="PCI_1">PCIs / Region</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
+    <label class="pci_label" for="PCI_1">Region / PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
     type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
     type="number" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1">
@@ -78,7 +84,7 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9">
-    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs</label><?php } ?>
+    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs <input type="button" onclick="$('.pci_cw').val('')" value="Empty Fields"></label><?php } ?>
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12">
@@ -124,7 +130,7 @@
     <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/place/<?php echo $latitude.",".$longitude;?>/@<?php echo $latitude.",".$longitude;?>,20z/data=!3m1!1e3">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
     type="text" class="latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input
     type="text" class="longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
-    type="text" autocomplete="new-street-address" class="addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
+    type="text" autocomplete="new-street-address" class="<?php if (isset($new)) echo "warning2"; ?> addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
     type="text" autocomplete="new-street-address" class="addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
     type="text" autocomplete="new-street-address" class="addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="new-street-address" class="addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
@@ -212,7 +218,7 @@
 
 
     </div>
-    <div class="panel2">
+    <div class="panel2" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: right; width: '.$cmgm_edit_panel2_width-0.07.'%"'?>>
     <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
     type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
@@ -270,13 +276,13 @@
     type="number" max="100" class="evidence_scores_cw only_reasonable_location" name="only_reasonable_location" value="<?php echo @$only_reasonable_location?>">
 
     </div><div class="_panel3">
-    <label title="&#10;Number of antenna modifications that can be recongized as pertaining to a specific carrier.&#10;" class="evidence_scores_label"># of recognizable modifications</label><input
+    <label title="&#10;Number of antenna modifications that can be recognized as pertaining to this specific carrier.&#10;" class="evidence_scores_label"># of recognizable mods</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers data rules out</label><input
     type="number" max="3" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
-    <br><label title="(0-3)&#10;Number of other carriers at this location/address&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
+    <br><label title="(0-3)&#10;Number of other carriers that are located at this address.&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
     type="number" max="3" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
 
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
@@ -288,7 +294,7 @@
     </div>
     <?php if (!empty($latitude)) include "includes/edit/MapWithPin.php"; ?>
     <?php if (isset($new)) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" onClick="lte_1Reqd()" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
 if (@$padlock == "true") echo '</fieldset>'; ?>
 
 </form>
