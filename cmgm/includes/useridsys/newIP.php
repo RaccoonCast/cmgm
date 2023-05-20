@@ -35,7 +35,8 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
 
   $userID = substr(str_shuffle(md5(time())),0,32);
   ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
-  $username = substr(str_shuffle(md5(time())),0,16);
+  // $username = substr(str_shuffle(md5(time())),0,16);
+  $username = $_POST['username'];
   $userIP = $_SERVER["REMOTE_ADDR"];
   $gmaps_api_key_access = "true";
   $default_carrier = "ATT";
@@ -80,7 +81,8 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
      <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
        <p>IP address <?php echo $ip; ?> isn't recognized.</p>
        <p>Please enter magical password.</p>
-         <input type="password" name="password" class="textbox">
+         <input type="username" name="username" class="textbox" placeholder="Username"><br>
+         <input type="password" name="password" class="textbox" placeholder="Password">
          <input type="submit" class="sb cmgm-btn" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
      </form>
