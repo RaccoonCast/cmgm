@@ -17,7 +17,7 @@
 <?php
 
 
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_score,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,cellsite_type,concealed,region_lte,tags,status";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -59,11 +59,21 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
 
                     $concealed_status = ($concealed == "true") ? "Concealed" : "Unconcealed";
                     $status_icon = ($status == "verified") ? "🟢" : "🔴";
+                    if (!empty($cellsite_type)) {
+                      include "$SITE_ROOT/includes/functions/tower_types.php";
+                      $cellsite_type = !empty($cellsite_type) ? $cellsite_type : $old_cellsite_type;
+                      $category = ucfirst(explode('_', $cellsite_type)[0]);
+                      $cellsite_type = $options[$category][$cellsite_type];
+                    } else {
+                      $cellsite_type = $old_cellsite_type;
+                    }
+
                     ?>
 
                     <table>
                     <thead>
                     <tr>
+
                     <td colspan="2"><?php echo $status_icon . $concealed_status . " " . $carrier  . " " .  ucfirst($cellsite_type) . " #" . $id ?></td>
                     </tr>
                     </thead>
@@ -71,7 +81,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <tr>
                       <td colspan="2">
                         <input style="float: left" onclick="openDeleteLink()" type="button" value="Delete">
-                        <input style="float: left" onclick="openNotesLink()" type="button" value="View Notes">
+                        <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"> <?php } ?>
                         <input style="float: left" onclick="openEditLink()" type="button" value="Edit">
                       </td>
                     </tr>
