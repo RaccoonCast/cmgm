@@ -1,5 +1,5 @@
 <?php
-// This file is used solely by convert.php, it expects an input of $latitude & $longitude which it'll convert to the address of the given input. 
+// This file is used solely by convert.php, it expects an input of $latitude & $longitude which it'll convert to the address of the given input.
 if (isset($maps_api_key) && $goto != "CellMapper" && $goto != "Google Maps" && $goto != "Street View" && $goto != "Beta" && $goto != "Edit" && $goto != "Map") {
 $url_2 = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=' . $maps_api_key . '';
 $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url_2); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); $response = curl_exec($ch); curl_close($ch);
@@ -16,12 +16,15 @@ $response = json_decode($response);
      if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name;
      if ($addrComp->types[0] == 'route') $long_street_name = $addrComp->long_name;
      if ($addrComp->types[0] == 'locality') $city = $addrComp->long_name;
+     if (!isset($city)) if (in_array("sublocality", $addrComp->types)) { $city = $addrComp->long_name; }
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      }
 
+    unset($address);
     if(!isset($number)) $number = null;
     if(!isset($long_street_name)) $long_street_name = null;
-    if (isset($short_street_name)) $address = "$number $short_street_name";
-    if (!isset($short_street_name)) $address = "$number $long_street_name";
+    if (!empty($short_street_name)) $address = "$number $short_street_name";
+    if (!empty($short_street_name)) $address = "$number $long_street_name";
+    if (!isset($address)) $address = null;
     }
 ?>
