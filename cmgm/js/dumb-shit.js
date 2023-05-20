@@ -16,3 +16,19 @@ document.getElementById('pcismatch').addEventListener('change', showDisplayValue
 document.getElementById('idpatternmatch').addEventListener('change', showDisplayValue, false);
 document.getElementById('sectorsmatch').addEventListener('change', showDisplayValue, false);
 document.getElementById('primaryalreadylocated').addEventListener('change', showDisplayValue, false);
+
+$(document).ready(function() {
+  // Store the original placeholder text
+  var originalPlaceholder = $('input[name="sv_a_date"]').attr('placeholder');
+
+  $('input[name^="sv_"][name$="_date"]').on('click', function() {
+    var name = $(this).attr('name');
+    if (name.match(/^sv_[a-f]_date$/)) {
+      $(this).attr('placeholder', 'MM/YY');
+    }
+  });
+
+  $('input[name^="sv_"][name$="_date"]').on('focusout', function() {
+    $(this).attr('placeholder', originalPlaceholder);
+  });
+});
