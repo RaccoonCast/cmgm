@@ -1,9 +1,8 @@
 <?php
 foreach($_GET as $key => $value){
   if ($key != "pciplus" OR $key == "new") {
-    // do nothing
-  } else {
     ${$key} = $value;
+    // echo $key . ": " . $value . "<br>";
   }
 }
 include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
