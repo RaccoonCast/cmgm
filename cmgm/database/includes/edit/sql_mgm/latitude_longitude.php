@@ -1,5 +1,5 @@
 <?php
-if ($key == "latitude" && @${@$key} != $value ) {
+if (($key == "latitude" OR $key == "longitude") && @${@$key} != $value) {
   if(strpos($value, ',') !== false) {
   $result = explode(",", $value);
   $tmp_latitude = trim($result[0]);
@@ -10,7 +10,8 @@ if ($key == "latitude" && @${@$key} != $value ) {
     $sql_edit .= "longitude = '".mysqli_real_escape_string($conn, $tmp_longitude)."', ";
     @$vals .= 'Coordinates changed from "' . $latitude . ", " . $longitude . '" to "' . $tmp_latitude . ", " .$tmp_longitude . '"'. PHP_EOL.'';
   }
-} else {
+  $do_not_read_longitude = "true";
+} elseif(@$do_not_read_longitude != "true") {
   $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
   include "history.php";
 }
