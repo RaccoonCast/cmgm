@@ -28,3 +28,4 @@ if (!empty($q)) {
 $locsearch = "HAVING distance < 0.333";
 include "$SITE_ROOT/database/includes/DB.php";
 ?>
+<title>CMGM - Edit Search</title>

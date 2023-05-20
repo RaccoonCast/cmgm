@@ -36,12 +36,12 @@ if($isMobile == "false") {
 }
 
 if (isset($new)) {
-   echo '<title>CMGM - New</title>';
+   echo '<title>New</title>';
    } elseif(!empty($LTE_1)) {
-      echo '<title>CMGM - Edit (' . $LTE_1 . ')</title>';
+      echo '<title>#'.$id.' - ' . $LTE_1 . ' (Edit)</title>';
       } elseif(!empty($NR_1)) {
-         echo '<title>CMGM - Edit (' . $NR_1 . ')</title>';
+         echo '<title>#'.$id.' - ' . $NR_1 . ' (Edit)</title>';
          } else {
-           echo '<title>CMGM - Edit (Unknown)</title>';
+           echo '<title>#'.$id.' - Unknown (Edit)</title>';
            }
 ?>
