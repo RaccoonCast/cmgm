@@ -60,3 +60,7 @@ input {
 padding-top: 0.33em;
 padding-bottom: 0.33em;
 }
+.label {
+	min-width: 100%;
+	width: 25%;
+}

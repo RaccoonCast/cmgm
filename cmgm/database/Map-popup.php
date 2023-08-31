@@ -17,13 +17,15 @@
 <?php
 
 
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
 
 $sql_read_result = mysqli_query($conn,$sql);
 while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
+
+if (isset($bingmaps_a)) $bmlink = '<a target="_blank" style="font-size: 10px; vertical-align: super" href="'.$bingmaps_a.'">BM</a>';
 
 function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$ppT,$ppL) {
   if ("$cm_carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
@@ -40,7 +42,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($LTE_1)) { $lte_list = $lte_list . "" . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte); }
                     if(!empty($LTE_2)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_2,$region_lte); }
                     if(!empty($LTE_3)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_3,$region_lte); }
-                    if(!empty($LTE_4)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_4,$region_lte); }
+                    if(!empty($LTE_4)) { $lte_list = $lte_list . " <br> " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_4,$region_lte); }
                     if(!empty($LTE_5)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_5,$region_lte); }
                     if(!empty($LTE_6)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_6,$region_lte); }
                     if(!empty($LTE_7)) { $lte_list = $lte_list . " | " . cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_7,$region_lte); }
@@ -57,7 +59,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     $map_popup_flag = "true";
                     include "includes/edit/file_attach_link_gen.php";
 
-                    $concealed_status = ($concealed == "true") ? "Concealed" : "Unconcealed";
+                    $concealed_status = ($concealed == "true") ? "🙈" : "🐵";
                     $status_icon = ($status == "verified") ? "🟢" : "🔴";
                     if (!empty($cellsite_type)) {
                       include "$SITE_ROOT/includes/functions/tower_types.php";
@@ -74,26 +76,26 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <thead>
                     <tr>
 
-                    <td colspan="2"><?php echo $status_icon . $concealed_status . " " . $carrier  . " " .  ucfirst($cellsite_type) . " #" . $id ?></td>
+                    <td colspan="2" class="label" style="font-size: 20px; line-height: 30px;"><?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?></td>
                     </tr>
                     </thead>
 
                     <tr>
-                      <td colspan="2">
-                        <input style="float: left" onclick="openDeleteLink()" type="button" value="Delete">
+                      <td colspan="2" class="label">
+                        <input style="float: left" onclick="openDeleteLink()" type="button" value="Delete #<?php echo $id ?>">
                         <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"> <?php } ?>
                         <input style="float: left" onclick="openEditLink()" type="button" value="Edit">
                       </td>
                     </tr>
 
                     <tr>
-                    <td>eNBs</td>
+                    <td class="label"><?php echo $carrier ?><br>eNBs</td>
                     <td><?php echo $lte_list ?></td>
                     </tr>
 
 
                     <tr rowspan="2">
-                    <td>Address</td>
+                    <td class="label">Address</td>
                     <td>
                     <?php echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');?>
                     </td>
@@ -101,25 +103,25 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
 
 
                     <tr>
-                    <td>Street View</td>
+                    <td class="label">Street View<?php echo @$bmlink; ?></td>
                     <td>
                     <?php
-                    if(!empty($sv_a)) echo '<a target="_blank" href="'.$sv_a.'">SV_A</a>';
-                    if(!empty($sv_b)) echo " | " . '<a target="_blank" href="'.$sv_b.'">SV_B</a>';
-                    if(!empty($sv_c)) echo " | " . '<a target="_blank" href="'.$sv_c.'">SV_C</a>';
+                    $variableValues = array($sv_a, $sv_b, $sv_c, $sv_d, $sv_e, $sv_f);
+                    $variableNames = array('SV_A', 'SV_B', 'SV_C', 'SV_D', 'SV_E', 'SV_F');
 
-                    if(!empty($sv_d)) echo isMobile() ? "<br>" : " | ";
+                    $nonEmptyLinks = array_filter(array_combine($variableNames, $variableValues));
 
-                    if(!empty($sv_d)) echo '<a target="_blank" href="'.$sv_d.'">SV_D</a>';
-                    if(!empty($sv_e)) echo " | " . '<a target="_blank" href="'.$sv_e.'">SV_E</a>';
-                    if(!empty($sv_f)) echo " | " . '<a target="_blank" href="'.$sv_f.'">SV_F</a>';
+                    $links = array_map(function ($url, $name) {
+                        return '<a target="_blank" href="' . $url . '">' . $name . '</a>';
+                    }, $nonEmptyLinks, array_keys($nonEmptyLinks));
 
-                    if (empty($sv_a)) echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
-                    ?></td>
+                    echo implode(' | ', $links);
+                    ?>
+                    </td>
                     </tr>
 
                     <tr>
-                    <td>Evidence</td>
+                    <td class="label">Evidence</td>
                     <td>
                     <?php
                     if(!empty($evidence_a)) echo (substr($evidence_a,0,4)=="http") ? '<a target="_blank" href="' . $evidence_a . '">EV_A</a>' : '<a target="_blank" href="uploads/' . $evidence_a . '">EV_A</a>';
@@ -130,7 +132,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     </tr>
 
                     <tr>
-                    <td>Photos</td>
+                    <td class="label">Photos</td>
                     <td>
                     <?php
                     if(!empty($photo_a)) echo (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="uploads/' . $photo_a . '">PH_A</a>';
@@ -143,11 +145,26 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($photo_e)) echo (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="uploads/' . $photo_e . '">PH_E</a>';
                     if(!empty($photo_f)) echo (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="uploads/' . $photo_c . '">PH_F</a>';
                     ?>
+                    </tr></td>
+                    <tr>
+                    <td class="label">Extras</td>
+                    <td>
+                    <?php
+                    if(!empty($extra_a)) echo (substr($extra_a,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_A</a>' : '<a target="_blank" href="uploads/' . $extra_a . '">EX_A</a>';
+                    if(!empty($extra_b)) echo (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="uploads/' . $extra_b . '">EX_B</a>';
+                    if(!empty($extra_c)) echo (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="uploads/' . $extra_c . '">EX_C</a>';
+
+                    if(!empty($extra_d)) echo isMobile() ? "<br>" : " | ";
+
+                    if(!empty($extra_d)) echo (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
+                    if(!empty($extra_e)) echo (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="uploads/' . $extra_e . '">EX_E</a>';
+                    if(!empty($extra_f)) echo (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="uploads/' . $extra_c . '">EX_F</a>';
+                    ?>
                     </td>
                     </tr>
 
                     <tr>
-                    <td>Tags</td>
+                    <td class="label">Tags</td>
                     <td><?php echo @$tags?></td>
                     </tr>
 
