@@ -10,6 +10,8 @@
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Show uploads filesize">
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PCI matcher">
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PWA Manifest">
+
+<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="ppT Link Maker">
 </form>
 <?php
 die();
@@ -91,7 +93,31 @@ foreach($fileList as $filename){
         redir("..\includes\misc-functions\PCI-match.php?carrier=$default_carrier","0");
     } elseif ($_POST['opt'] == 'PWA Manifest') {
         redir("..\manifest.json","0");
-    }
+    }  elseif ($_POST['opt'] == 'ppT Link Maker') {
+      $sql = "SELECT id, carrier, latitude, longitude, LTE_1, region_lte FROM db WHERE PCI_1 = '' AND LTE_1 IS NOT NULL AND LTE_1 <> ''";
+      $result = $conn->query($sql);
+      echo "SQL Query: " . $sql;
+      echo "<br>";
+      echo "<br>";
+      while ($row = $result->fetch_assoc()) {
+          usleep(300);
+          $id = $row["id"];
+          $carrier = $row["carrier"];
+          $latitude = $row["latitude"];
+          $longitude = $row["longitude"];
+          $LTE_1 = $row["LTE_1"];
+          $region_lte = $row["region_lte"];
+
+          if ($carrier == "T-Mobile") $beginning = "MCC=310&MNC=260&";
+          elseif ($carrier == "Sprint") $beginning = "MCC=310&MNC=120&";
+          elseif ($carrier == "ATT") $beginning = "MCC=310&MNC=410&";
+          elseif ($carrier == "Verizon") $beginning = "MCC=311&MNC=480&";
+          elseif ($carrier == "Dish") $beginning = "MCC=313&MNC=340&";
+
+          $link = "https://www.cellmapper.net/map?$beginning&type=LTE&latitude=$latitude&longitude=$longitude&zoom=17&ppT=$LTE_1";
+          echo '<a href="'.$link.'">#'.$id.'</a> ' . PHP_EOL;
+        }
+      }
 ?>
 <br><br><form action="LFMF.php" method="post" autocomplete="off">
 <input type="submit" style="width: 145px;" name="back" value="Back">
