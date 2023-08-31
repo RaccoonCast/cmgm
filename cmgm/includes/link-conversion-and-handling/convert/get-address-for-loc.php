@@ -12,19 +12,18 @@ $response = json_decode($response);
  $addressComponents = $response->results[0]->address_components;
  foreach ($addressComponents as $addrComp) {
      if ($addrComp->types[0] == 'postal_code') $zip = $addrComp->long_name;
-     if ($addrComp->types[0] == 'street_number') $number = $addrComp->short_name;
-     if ($addrComp->types[0] == 'route') $short_street_name = $addrComp->short_name;
-     if ($addrComp->types[0] == 'route') $long_street_name = $addrComp->long_name;
+     if ($addrComp->types[0] == 'street_number') $street_number = $addrComp->short_name;
+     if ($addrComp->types[0] == 'route') $route = $addrComp->short_name;
      if ($addrComp->types[0] == 'locality') $city = $addrComp->long_name;
      if (!isset($city)) if (in_array("sublocality", $addrComp->types)) { $city = $addrComp->long_name; }
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      }
 
-    unset($address);
-    if(!isset($number)) $number = null;
-    if(!isset($long_street_name)) $long_street_name = null;
-    if (!empty($short_street_name)) $address = "$number $short_street_name";
-    if (!empty($short_street_name)) $address = "$number $long_street_name";
-    if (!isset($address)) $address = null;
+    if (!empty($route) && !empty($street_number)){
+      $address = "$street_number $route";
+    } else {
+      $address = "";
+    }
+
     }
 ?>
