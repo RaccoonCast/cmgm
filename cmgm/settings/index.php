@@ -131,7 +131,8 @@ header("Pragma: no-cache");
           <input
           type="hidden" name="cm_showLowAcc" value="false"><span>Zoom: </span></label><input
           type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
-
+        </div>
+        <h3><a href="../fun/?username=<?php echo $username ?>">Statistics</a></h3>
         <!--
         <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
         type="hidden" name="cmgm_auto_reload" value="false"><input
@@ -149,7 +150,6 @@ header("Pragma: no-cache");
         type="range" step="25" min="50" max="1000" value="<?php // echo $cmgm_map_pin_limit;?>" name="cmgm_pin_limit" id="cmgm_map_pin_limit"><span id="cmgm_map_pin_limitVal"></span></div>
 
         <label>Google Maps Link: </label> -->
-        <br>
         <br>
         <input type="button" class="cmgm-btn sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
         type="submit" class="sb cmgm-btn" style="color: #00000;"  value="Submit">
