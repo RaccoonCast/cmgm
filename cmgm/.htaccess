@@ -7,3 +7,6 @@ LimitRequestBody 9999999999
 Order Allow,Deny
 Deny from All
 </Files>
+
+RewriteEngine On
+RewriteRule ^(\d+)/?$ https://cmgm.us/database/Edit.php?q=$1 [R=301,L]
