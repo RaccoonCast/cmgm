@@ -44,6 +44,7 @@ $combined_array = array_diff(array_slice(array_unique(array_merge($old_pcis, $ne
 if(count($combined_array) <= count($old_pcis)) report("false",$id,$combined_array);
 
 $edit_history = mysqli_fetch_array(mysqli_query($conn, "SELECT edit_history FROM db WHERE id = '$id'"))['edit_history'];
+$edit_history = mysqli_real_escape_string($conn, $edit_history);
 $sql_update = "UPDATE db SET ";
 
 $i = 0;
@@ -55,5 +56,6 @@ foreach ($combined_array as $value) {
 $edit_history .= "PCIs updated at " . date("Y-m-d H:i") . " PDT." . PHP_EOL;
 $sql_update .= "edit_history = '$edit_history' WHERE id = '$id'";
 $conn->query($sql_update);
+
 report("true",$id,$combined_array);
 ?>
