@@ -16,7 +16,7 @@
      if ("$cm_carrier" == "Dish") $beginning = "MCC=313&MNC=340&";
      if ("$cm_carrier" == "Unknown") return $ppT;
      if (empty($cm_netType)) $cm_netType = "LTE";
-     return 'https://www.cellmapper.net/map?'.$beginning.'type='.$cm_netType.'&latitude='.$cm_latitude.'&longitude='.$cm_longitude.'&zoom='.$cm_zoom.'&clusterEnabled='.$cm_groupTowers.'&showTowerLabels='.$cm_showLabels.'&showOrphans='.$cm_showLowAcc;
+     return 'https://www.cellmapper.net/map?'.@$beginning.'type='.$cm_netType.'&latitude='.$cm_latitude.'&longitude='.$cm_longitude.'&zoom='.$cm_zoom.'&clusterEnabled='.$cm_groupTowers.'&showTowerLabels='.$cm_showLabels.'&showOrphans='.$cm_showLowAcc;
    }
    if ($carrier == "Dish") { $footer_rat = "NR"; } else { $footer_rat = "LTE"; }
    $cmlink = cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,$footer_rat,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,@$LTE_1,@$region_lte);
