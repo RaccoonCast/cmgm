@@ -1,8 +1,8 @@
 <?php if (!isset($titleOverride)) { ?>
 <title>CMGM - <?php echo basename($_SERVER['PHP_SELF'],'.php');?></title>
+<link rel="icon" type="image/png" href="/images/logo.png">
 <?php } ?>
 <meta name="color-scheme" content="<?php if ($theme == "black") { echo 'dark'; } else {echo 'light';} ?>">
-<link rel="icon" type="image/png" href="/images/logo.png">
 <!--
 <script type="module">
 import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
