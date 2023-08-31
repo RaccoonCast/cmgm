@@ -8,6 +8,7 @@ $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url_1); curl_setopt($ch, CURLO
 $response = json_decode(curl_exec($ch));
 @$latitude = $response->results[0]->geometry->location->lat;
 @$longitude = $response->results[0]->geometry->location->lng;
+mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$userID'");
 $conv_type = "Google Search";
 curl_close($ch);
 ?>
