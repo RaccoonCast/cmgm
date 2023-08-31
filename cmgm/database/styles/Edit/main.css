@@ -6,6 +6,9 @@ input[type=text],input[type=number],option,select,.notes,.edit_history  {
 		-moz-box-sizing: border-box;
 		-webkit-appearance: none;
 }
+.d-none {
+	display: none;
+}
 .error {
   text-decoration: none;
   color: #F78A8A!important;

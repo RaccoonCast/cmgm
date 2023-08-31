@@ -97,6 +97,15 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_25" value="<?php echo @$PCI_25?>" placeholder="PCI_25" name="PCI_25">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_26" value="<?php echo @$PCI_26?>" placeholder="PCI_26" name="PCI_26">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_27" value="<?php echo @$PCI_27?>" placeholder="PCI_27" name="PCI_27">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_28" value="<?php echo @$PCI_28?>" placeholder="PCI_28" name="PCI_28">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_29" value="<?php echo @$PCI_29?>" placeholder="PCI_29" name="PCI_29">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_30" value="<?php echo @$PCI_30?>" placeholder="PCI_30" name="PCI_30">
 
 
     <?php
@@ -160,7 +169,7 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_distance">
+    <label class="misc_label"> <span class="floatright-desktop"><?php if (!isMobile()) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select class="misc_50_cw <?php if (isset($tmp_misc_1)) echo 'warning2';?>" title="How far separated the pins are on CellMapper.net" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.4x">0.4x</option>
     <option value="0.5x">0.5x</option>
@@ -182,11 +191,11 @@
     <option value="2.1x">2.1x</option>
     <option value="2.2x">2.2x</option>
     <option value="2.3x">2.3x</option>
-    </select><select class="misc_50_cw <?php if (isset($tmp_misc_2)) echo 'warning2';?>" title="lorem ipsum" name="cm_pin_inverted">
+  </select><select class="misc_50_cw <?php if (isset($tmp_misc_2)) echo 'warning2';?>" title="Invert pin spacing (splits are below the primary instead of above)" name="cm_pin_inverted">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-    </select><select class="misc_50_cw misc_cw <?php if (isset($tmp_misc_3)) echo 'warning2';?>" title="lorem ipsum" name="sector_configuration">
+  </select><select class="misc_50_cw misc_cw <?php if (isset($tmp_misc_3)) echo 'warning2';?>" title="Sector configuration." name="sector_configuration">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
     <option value="2-sector">2-sector</option>
     <option value="2-sector + 1">2-sector + 1</option>
@@ -199,11 +208,11 @@
     <option value="4-sector">4-sector</option>
     <option value="4-sector + 1">4-sector + 1</option>
     <option value="4-sector + 1">4-sector + 2</option>
-    </select><select class="misc_cw <?php if (isset($tmp_misc_4)) echo 'warning2';?>" title="lorem ipsum" name="split_sector">
+  </select><select class="misc_cw <?php if (isset($tmp_misc_4)) echo 'warning2';?>" title="Are there any antennas that emit two (or more) sectors" name="split_sector">
     <option style="display: none" value="<?php echo @$tmp_split_sector ?>" selected>Split-sector: <?php echo @$tmp_split_sector ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-    </select><select class="misc_cw <?php if (isset($tmp_misc_5)) echo 'warning2';?>" title="lorem ipsum" name="special_setup">
+  </select><select class="misc_cw <?php if (isset($tmp_misc_5)) echo 'warning2';?>" title="Anything special/unique about this that makes it unlike other random sites in the area?" name="special_setup">
     <option style="display: none" value="<?php echo @$tmp_special_setup ?>" selected>Special setup: <?php echo @$tmp_special_setup ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
