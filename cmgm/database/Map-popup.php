@@ -115,7 +115,11 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                         return '<a target="_blank" href="' . $url . '">' . $name . '</a>';
                     }, $nonEmptyLinks, array_keys($nonEmptyLinks));
 
+                    if (!empty($links)) {
                     echo implode(' | ', $links);
+                    } else {
+                      echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
+                    }
                     ?>
                     </td>
                     </tr>
