@@ -17,7 +17,7 @@
 <?php
 
 
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -107,19 +107,33 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <td>
                     <?php
                     $variableValues = array($sv_a, $sv_b, $sv_c, $sv_d, $sv_e, $sv_f);
+                    $secondaryVariableValues = array($sv_a_date, $sv_b_date, $sv_c_date, $sv_d_date, $sv_e_date, $sv_f_date);
                     $variableNames = array('SV_A', 'SV_B', 'SV_C', 'SV_D', 'SV_E', 'SV_F');
 
-                    $nonEmptyLinks = array_filter(array_combine($variableNames, $variableValues));
+                    $nonEmptyLinks = array();
+                    for ($i = 0; $i < count($variableNames); $i++) {
+                        $name = $variableNames[$i];
+                        $value = $variableValues[$i];
+                        $secondaryValue = $secondaryVariableValues[$i];
 
-                    $links = array_map(function ($url, $name) {
-                        return '<a target="_blank" href="' . $url . '">' . $name . '</a>';
+                        if (!empty($value) && !empty($secondaryValue)) {
+                            $nonEmptyLinks[$name] = array(
+                                'url' => $value,
+                                'label' => $secondaryValue
+                            );
+                        }
+                    }
+
+                    $links = array_map(function ($linkData, $name) {
+                        return '<a target="_blank" title="' . $linkData['label'] . '" href="' . $linkData['url'] . '">' . $name . '</a>';
                     }, $nonEmptyLinks, array_keys($nonEmptyLinks));
 
                     if (!empty($links)) {
-                    echo implode(' | ', $links);
+                        echo implode(' | ', $links);
                     } else {
-                      echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
+                        echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
                     }
+
                     ?>
                     </td>
                     </tr>
