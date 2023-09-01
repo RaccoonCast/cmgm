@@ -114,10 +114,10 @@
     if (!empty($other_user_map_primary)) { $tmp_other_user_map_primary = $other_user_map_primary; } else { $tmp_other_user_map_primary = "false"; $tmp_idparam_4 = "true"; }
     ?>
     <label class="id_params_label">Multi ID Parameters</label><select id="pcismatch" title="eNBs/gNBs all share the same PCIs" class="id_params_cw" name="pci_match">
-    <option style="display: none" value="<?php echo @$pci_match;?>" selected>PCIs match: <?php echo @$pci_match;?></option>
-    <option data-display="PCIs match: true" value="true">true</option>
-    <option data-display="PCIs match: false" value="false">false</option>
-    <option data-display="PCIs match: partial" value="partial">partial</option>
+    <option style="display: none" value="<?php echo @$pci_match;?>" selected>PCIs match on LTE: <?php echo @$pci_match;?></option>
+    <option data-display="PCIs match on LTE: true" value="true">true</option>
+    <option data-display="PCIs match on LTE: false" value="false">false</option>
+    <option data-display="PCIs match on LTE: partial" value="partial">partial</option>
   </select><select id="idpatternmatch" class="id_params_cw" title="eNBs all share common number, ie 353583/53583, 88001,88002)&#10;Ignore gNBs that don't match eNB" name="id_pattern_match">
     <option style="display: none" value="<?php echo @$id_pattern_match;?>" selected>ID Pattern Match: <?php echo @$id_pattern_match;?></option>
     <option data-display="ID Pattern Match: true" value="true">true</option>
@@ -289,7 +289,7 @@
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
     <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers data rules out</label><input
-    type="number" max="3" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
+    type="number" max="4" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
     <br><label title="(0-3)&#10;Number of other carriers that are located at this address.&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
     type="number" max="3" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">

@@ -38,6 +38,7 @@
     if (@$carriers_ruled_out == 1) $ev += 3;
     if (@$carriers_ruled_out == 2) $ev += 6;
     if (@$carriers_ruled_out == 3) $ev += 9;
+    if (@$carriers_ruled_out == 4) $ev += 12;
 
     // antennas match carrier
     if ($antennas_match_carrier >= 20 && ($antennas_match_carrier < 50)) $ev += 2;
