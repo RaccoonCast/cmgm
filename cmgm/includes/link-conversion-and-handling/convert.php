@@ -24,15 +24,15 @@ function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
+// Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
+if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include "convert/lat,long-mod.php";
+if(strpos($data, 'LAT') !== false && strpos($data, 'LONG') !== false && !isset($conv_type)) include "convert/lat,long-two.php";
 // Attempt comma seperating lat,long to $lat,$long
 if(strpos($data, ',') !== false && !isset($conv_type)) include "convert/lat,long.php";
 // Attempt CellMapper URL Conversion (incl testmap)
 if(substr("$data", 12, 14) == 'cellmapper.net' && !isset($conv_type)) include "convert/cellmapper.net.php";
 // Attempt Google Maps URL Conversion
 if(substr("$data", 0, 28) == 'https://www.google.com/maps/' && !isset($conv_type)) include "convert/google-maps-url-conversion.php";
-// Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
-if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include "convert/lat,long-mod.php";
-if(strpos($data, 'LAT') !== false && strpos($data, 'LONG') !== false && !isset($conv_type)) include "convert/lat,long-two.php";
 // Attempt DMS TO DEC
 if (!isset($conv_type)) include "convert/dmstodec.php";
 // NOTHING? Google Maps search for the entered data
