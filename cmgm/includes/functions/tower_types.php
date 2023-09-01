@@ -32,6 +32,7 @@ $options = array(
         'nature_other' => 'Misc Nature'
     ),
     'Stealth' => array(
+      'stealth_sign' => 'Sign / Billboard',
       'stealth_flagpole' => 'Flagpole',
       'stealth_faux_church_steeple' => 'Church Steeple',
       'stealth_faux_tower' => 'Faux Tower',
