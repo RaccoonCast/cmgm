@@ -26,7 +26,15 @@ while($row = $result->fetch_assoc()) {
         $$key = $value;
         }
       }
-if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
+if (isset($_POST['userid'])) { ?>
+  <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1"); </script>
+  <?php
+  if ($_SERVER['REQUEST_URI'] == "/") {
+    redir("/settings/","0");
+  }
+  redir($_SERVER['REQUEST_URI'],"0");
+}
+elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $url = 'ipinfo.io/' . $curr_userIP . '?token=' . $ipinfo_token;
   $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_PROXYPORT, 3128); curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
   $response = json_decode(curl_exec($ch));
@@ -83,6 +91,11 @@ if (isset($_POST['password']) && $secret_pass == $_POST['password']) {
        <p>Please enter magical password.</p>
          <input type="username" name="username" class="textbox" placeholder="Username"><br>
          <input type="password" name="password" class="textbox" placeholder="Password">
+         <br>
+         <p>Or enter your user id.</p>
+         <input type="text" name="userid" class="textbox" placeholder="User ID">
+         <br>
+         <br>
          <input type="submit" class="sb cmgm-btn" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
      </form>
