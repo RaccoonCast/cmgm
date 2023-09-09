@@ -9,7 +9,7 @@ include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
 if (isset($_COOKIE['userID'])) {
-  $cookie_userID = $_COOKIE['userID'];
+  $cookie_userID = preg_replace("/[^a-zA-Z0-9]/", '', $_COOKIE['userID']);;
 } else {
   $cookie_userID = null;
 }
