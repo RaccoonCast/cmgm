@@ -13,9 +13,6 @@ function changeFormAction() {
   document.getElementById("link04").removeAttribute("onclick");
   document.getElementById("link04").setAttribute('type', 'submit');
 
-  document.getElementById("link05").removeAttribute("onclick");
-  document.getElementById("link05").setAttribute('type', 'submit');
-
   document.getElementById("link06").removeAttribute("onclick");
   document.getElementById("link06").setAttribute('type', 'submit');
 
