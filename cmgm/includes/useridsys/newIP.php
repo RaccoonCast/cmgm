@@ -26,7 +26,7 @@ while($row = $result->fetch_assoc()) {
         $$key = $value;
         }
       }
-if (isset($_POST['userid'])) { ?>
+if (!empty($_POST['userid'])) { ?>
   <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1"); </script>
   <?php
   if ($_SERVER['REQUEST_URI'] == "/") {
@@ -86,18 +86,20 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
  ?>
    </head>
    <body>
-     <form id="form" action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
+     <form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
        <p>IP address <?php echo $ip; ?> isn't recognized.</p>
        <p>Please enter magical password.</p>
          <input type="username" name="username" class="textbox" placeholder="Username"><br>
          <input type="password" name="password" class="textbox" placeholder="Password">
-         <br>
-         <p>Or enter your user id.</p>
-         <input type="text" name="userid" class="textbox" placeholder="User ID">
-         <br>
-         <br>
+         <br><br>
          <input type="submit" class="sb cmgm-btn" value="Submit">
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
+     </form>
+     <br>
+     <form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
+     Or enter user id:
+     <input type="text" name="userid" class="textbox" placeholder="User ID">
+     <input type="submit" class="sb cmgm-btn" value="Submit">
      </form>
    </body>
 </html>
