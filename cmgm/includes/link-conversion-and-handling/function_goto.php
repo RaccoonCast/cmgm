@@ -29,7 +29,7 @@ if ($goto_page == "Beta") {
   return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
 }
 if ($goto_page == "Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
-if ($goto_page == "Street View") return "https://www.google.com/maps?layer=c&cbll=$latitude,$longitude";
+if ($goto_page == "Street View") return "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=$latitude,$longitude&fov=75";
 if ($goto_page == "Maprad") return "https://maprad.io/us/search/coordinates/200/$latitude,$longitude?source=US";
 
 if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
