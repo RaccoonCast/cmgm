@@ -25,8 +25,10 @@ include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
-if(strpos($data, 'Latitude') !== false && strpos($data, 'Longitude') !== false && !isset($conv_type)) include "convert/lat,long-mod.php";
-if(strpos($data, 'LAT') !== false && strpos($data, 'LONG') !== false && !isset($conv_type)) include "convert/lat,long-two.php";
+if ((strpos($data, 'Latitude') !== false || strpos($data, 'Longitude') !== false) OR
+    (strpos($data, 'LAT ') !== false || strpos($data, 'LONG') !== false)) {
+    include "convert/lat,long-mod.php";
+}
 // Attempt comma seperating lat,long to $lat,$long
 if(strpos($data, ',') !== false && !isset($conv_type)) include "convert/lat,long.php";
 // Attempt CellMapper URL Conversion (incl testmap)
