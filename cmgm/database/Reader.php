@@ -4,7 +4,7 @@ $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
 include "../includes/functions/sqlpw.php";
 include '../includes/useridsys/native.php';
 include "../includes/functions/calculateEV.php";
-@$id = preg_replace("/[^0-9]/", '', $_GET['mp-id']);
+@$id = preg_replace("/[^0-9]/", '', $_GET['id']);
 @$show_empty_fields = $_GET['show_empty_fields'];
 @$back = $_GET['back_url'];
 if ($back == "/database/Edit.php") $back_url = "Edit.php?id=" . $id;
@@ -40,5 +40,5 @@ echo "new_evidence_score: " . $recalcEV . "";
 <br><br>
 <a href="<?php echo $back_url ?>">Back</a><br>
 <?php if ($show_empty_fields == 'false' OR !isset($show_empty_fields)) { ?>
-<a href="Reader.php?mp-id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=true">Show empty fields</a><?php } else { ?>
-<a href="Reader.php?mp-id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=false">Don't show empty fields</a><?php } ?>
+<a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=true">Show empty fields</a><?php } else { ?>
+<a href="Reader.php?id=<?php echo $id?>&back_url=<?php echo $back?>&show_empty_fields=false">Don't show empty fields</a><?php } ?>

@@ -52,8 +52,8 @@ long = <?php echo $longitude?>;
   document.getElementById('refreshButton').addEventListener('click', () => location.reload());
   document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo @$back_url; ?>"));
 <?php } ?>
-function marker(latitude,longitude,status,id,url_suffix) {
-  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?mp-id=' + id + '&url_suffix=' + url_suffix + '\">';
+function marker(latitude,longitude,status,id) {
+  var customPopup = '<iframe frameBorder=\"0\" src=\"Map-popup.php?id=' + id + '\">';
   L.marker([latitude,longitude], {icon: status }).bindPopup(customPopup,customOptions).addTo(mymap).on('click', function(e) {
     console.log(e.latlng.lat);
 });

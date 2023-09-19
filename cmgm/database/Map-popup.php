@@ -5,7 +5,7 @@
   $allowGuests = "true";
   include '../functions.php';
   include "../includes/functions/calculateEV.php";
-  $id = $_GET['mp-id'];
+  $id = preg_replace("/[^0-9]/", '', $_GET['id']);
   ?>
   <script>
          function openEditLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>", "_blank"); }
@@ -59,7 +59,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     $map_popup_flag = "true";
                     include "includes/edit/file_attach_link_gen.php";
 
-                    $concealed_status = ($concealed == "true") ? "🙈" : "🐵";
+                    $concealed_status = ($concealed == "true") ? "Concealed " : "Unconcealed ";
                     $status_icon = ($status == "verified") ? "🟢" : "🔴";
                     if (!empty($cellsite_type)) {
                       include "$SITE_ROOT/includes/functions/tower_types.php";
@@ -137,7 +137,12 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     ?>
                     </td>
                     </tr>
-
+                    <?php
+                    $foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c');
+                    foreach ($foreachList as &$value) {
+                        if (substr($$value, 0, 1) === '#' && !empty($$value)) $$value = $domain_with_http . '/database/Edit.php?id=' . substr($$value, 1);
+                      }
+                    ?>
                     <tr>
                     <td class="label">Evidence</td>
                     <td>
