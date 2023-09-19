@@ -71,7 +71,8 @@ abbr, .nounderline {text-decoration: none!important;}
 .pci_cw, .lte_cw {width: 6.8333%!important; float: left;}
 .sv_cw {max-width: 22.6673%; }
 .sv_date_cw {max-width: 4.666%;}
-.tags_cw {max-width: 82%!important; }
+.tags_cw {max-width: 65.6%!important; float: left;}
+.site_id_cw {max-width: 16.4%!important; }
 .sv1_label {max-width: 50%!important;}
 .sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */

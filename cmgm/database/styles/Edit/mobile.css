@@ -59,7 +59,9 @@ input[type=text],input[type=search],input[type=number],select {
 .addr_address_cw {max-width: 50%; float: left} .addr_city_cw {max-width: 30%; float: left} .addr_state_cw {max-width: 8%; float: float} .addr_zip_cw {max-width: 12%; float: left}
 .sv_cw {max-width: 86%; }
 .sv_date_cw {max-width: 14%;}
-.tags_label {max-width: 100%;} .tags_cw {max-width: 100%; }
+.tags_label {max-width: 100%;}
+.tags_cw {max-width: 80%; }
+.site_id_cw {max-width: 20%; }
 .id_params_cw,.misc_cw { max-width: 50%;}
 .misc_39_cw { max-width: 39%;}
 .misc_50_cw { max-width: 33.33%;}
