@@ -4,13 +4,7 @@ include "includes/functions.php"; // error msg / report function
 
 date_default_timezone_set('America/Los_Angeles');
 
-// User ID Validation
-if (isset($_POST['userID'])) $userID = $_POST['userID']; // pci+ userID / PCI+ TAC updating
-if (isset($_POST['username'])) $username = $_POST['username'] . " via PCI+"; // cm username \ PCI+ TAC updating
-if (!isset($userID)) error("User ID not set.",$_POST['userID']);
-$pciplus_usr = file_get_contents($siteroot . "/secret_pciplus_login_key.hiddenpass", true);
-$tmp_username = mysqli_fetch_array(mysqli_query($conn, "SELECT username FROM userID WHERE userID='$userID'"))['username'];
-if ($tmp_username != $pciplus_usr) error("Invalid user ID.",$_POST['userID']);
+include "includes/useridvalidation.php"; // Verify PCI+ is making these requests.
 
 // Get all the neccesary fields for this API.
 $id = $_POST['id'];
