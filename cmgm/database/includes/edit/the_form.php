@@ -218,8 +218,9 @@
     <option value="false">false</option>
     </select>
 
-    <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></label><input
-    placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
+    <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></label>
+      <input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
+      <input placeholder="Site ID" type="text" class="site_id_cw" name="site_id" value="<?php echo @$site_id?>">
 
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } else { ?>
