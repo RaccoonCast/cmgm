@@ -11,6 +11,7 @@ if (!empty($value) OR $value == "NULL" OR $value == "0") {
  }
 }
 // if ($_POST['value'] == "Search on Map") redir("$url","0");
+if (!empty($db_vars)) $db_vars_unamended = substr(strstr($db_vars," "), 1);
 if (!empty($db_vars)) $db_vars = "WHERE " . substr(strstr($db_vars," "), 1);
 @$db_vars = str_replace('WHERE AND', 'WHERE', @$db_vars);
  ?>

@@ -24,9 +24,10 @@ elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db
 elseif ($key == "fileSearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
 elseif ($key == "address") { $db_vars = " AND " . $key . ' like "%'.$value.'%"' . @$db_vars; }
 elseif ($key == "tags") { $db_vars = " AND (tags like '".$value.",%' OR tags like '%,".$value."' OR tags like '%,".$value.",%' OR tags = '".$value."')" . @$db_vars; }
-elseif ($key == "carrier") { $db_vars = " AND ". $key . ' like "%'.$value.'%"' . @$db_vars; }
 elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value."%')" . @$db_vars; }
 elseif ($key == "notes_like") { $db_vars =  " AND (notes like '%".$value."%')" . @$db_vars; }
+elseif ($key == "site_id") { $db_vars = " AND (site_id like '%".$value."%')" . @$db_vars; }
+elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
 else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
