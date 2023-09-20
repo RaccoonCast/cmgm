@@ -4,7 +4,7 @@ $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
   $url = $domain_with_http . removeParameterFromURL($current_url, "username");
-  $url = '<a href="' . $url . '&created_by='.$row["created_by"].'">'. $row["created_by"].'</a>';
+  $url = '<a href="' . $url . '&username='.$row["created_by"].'">'. $row["created_by"].'</a>';
 
   echo $row["count"] . " records created by " . $url  . "<br>";
 }
