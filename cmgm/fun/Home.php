@@ -1,5 +1,4 @@
 <?php
-    $current_url = $domain_with_http . $_SERVER['REQUEST_URI'];
     !isset($_GET['limit']) ? header('Location: '.$current_url.'?limit=15') && exit : $limit = $_GET['limit'];
 
     function removeParameterFromURL($url, $parameterName) {
@@ -12,11 +11,15 @@
 
     $allowGuests = "true";
     include "../functions.php";
+    $current_url = $domain_with_http . $_SERVER['REQUEST_URI'];
     include "../database/includes/DB-filter-get.php";
 
     // Most created by X user.
     include "includes/count_records_created_by_everyone.php";
     include "includes/count_records_created_by_user.php";
+
+    // Carrier counts.
+    include "includes/count_most_common_carrier.php";
 
     // Records during last X whatever.
     include "includes/count_records_by_timeframe.php";
@@ -32,6 +35,9 @@
 
     // Count most common cities..
     include "includes/count_most_common_cities.php";
+
+    $map_url = $domain_with_http . "/database/Map.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=11" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
+    echo '<a href='.$map_url.'>View filters on Map</a>';
 
     $conn->close();
  ?>
