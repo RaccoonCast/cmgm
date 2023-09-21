@@ -145,20 +145,20 @@
     type="text" autocomplete="new-street-address" class="addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 
     <label class="sv_label">Street View<span class="floatright"><?php echo @$sv_linklabel_a; ?></span></label><input
-    type="text" autocomplete="new-street-address" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php if (isset($sv_a)) echo str_replace("https://", "",@$sv_a); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_A" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
-    type="text" autocomplete="new-street-address" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php if (isset($sv_b)) echo str_replace("https://", "",@$sv_b); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_B" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
-    type="text" autocomplete="new-street-address" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php if (isset($sv_c)) echo str_replace("https://", "",@$sv_c); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_C" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
+    type="text" autocomplete="one-time-code" id="sv_a" class="inline-block sv_cw sv_a" name="sv_a" placeholder="STREET_VIEW_A" value="<?php if (isset($sv_a)) echo str_replace("https://", "",@$sv_a); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_A" class="inline-block sv_date_cw sv_a" name="sv_a_date" placeholder="DATE" value="<?php echo @$sv_a_date ?>"><input
+    type="text" autocomplete="one-time-code" id="sv_b" class="inline-block sv_cw sv_b" name="sv_b" placeholder="STREET_VIEW_B" value="<?php if (isset($sv_b)) echo str_replace("https://", "",@$sv_b); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_B" class="inline-block sv_date_cw sv_b" name="sv_b_date" placeholder="DATE" value="<?php echo @$sv_b_date ?>"><input
+    type="text" autocomplete="one-time-code" id="sv_c" class="inline-block sv_cw sv_c" name="sv_c" placeholder="STREET_VIEW_C" value="<?php if (isset($sv_c)) echo str_replace("https://", "",@$sv_c); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_C" class="inline-block sv_date_cw sv_c" name="sv_c_date" placeholder="DATE" value="<?php echo @$sv_c_date ?>">
     <?php if($isMobile == "false") {?><div style="display: inline-block" class="sv_label"><label class="sv1_label" title="Street View does not show the most recent antenna/radio change or carrier colocation/conversion/etc.&#10;This only applies to sites with antennas that aren't concealed."><input type="hidden" name="old_street_view" value="false"><input
     type="checkbox" name="old_street_view" value="true" <?php if(@$old_street_view == "true") echo "checked";?>>Old SV</label><label class="sv2_label" class="floatright"><?php echo @$sv_linklabel_b; ?></label></div><?php } ?><input
-    type="text" autocomplete="new-street-address" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php if (isset($sv_d)) echo str_replace("https://", "",@$sv_d); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_D" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
-    type="text" autocomplete="new-street-address" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php if (isset($sv_e)) echo str_replace("https://", "",@$sv_e); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_E" class="inline-block sv_date_cw sv_e" name="sv_e_date" placeholder="DATE" value="<?php echo @$sv_e_date ?>"><input
-    type="text" autocomplete="new-street-address" id="sv_f" class="inline-block sv_cw sv_f" name="sv_f" placeholder="STREET_VIEW_F" value="<?php if (isset($sv_f)) echo str_replace("https://", "",@$sv_f); ?>"><input
-    type="text" autocomplete="new-street-address" title="Street View date for STREET_VIEW_F" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
+    type="text" autocomplete="one-time-code" id="sv_d" class="inline-block sv_cw sv_d" name="sv_d" placeholder="STREET_VIEW_D" value="<?php if (isset($sv_d)) echo str_replace("https://", "",@$sv_d); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_D" class="inline-block sv_date_cw sv_d" name="sv_d_date" placeholder="DATE" value="<?php echo @$sv_d_date ?>"><input
+    type="text" autocomplete="one-time-code" id="sv_e" class="inline-block sv_cw sv_e" name="sv_e" placeholder="STREET_VIEW_E" value="<?php if (isset($sv_e)) echo str_replace("https://", "",@$sv_e); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_E" class="inline-block sv_date_cw sv_e" name="sv_e_date" placeholder="DATE" value="<?php echo @$sv_e_date ?>"><input
+    type="text" autocomplete="one-time-code" id="sv_f" class="inline-block sv_cw sv_f" name="sv_f" placeholder="STREET_VIEW_F" value="<?php if (isset($sv_f)) echo str_replace("https://", "",@$sv_f); ?>"><input
+    type="text" autocomplete="one-time-code" title="Street View date for STREET_VIEW_F" class="inline-block sv_date_cw sv_f" name="sv_f_date" placeholder="DATE" value="<?php echo @$sv_f_date ?>">
 
     <?php
     // value fill-in
