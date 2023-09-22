@@ -62,11 +62,11 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
       // Add HTTPS:// to Street View URLs. (DB has https trimmed off)
       $validSVOptions = array("sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
       foreach($result_object as $key => $value) {
-        foreach($validSVOptions as $validSVOption) {
-          if (!empty($value[$validSVOption])) {
-            $item[$validSVOption] = !empty($item[$validSVOption]) ? "https://" . $item[$validSVOption] : $item[$validSVOption];
+          foreach($validSVOptions as $validSVOption) {
+            if (!empty($value[$validSVOption])) {
+              $result_object[$key][$validSVOption] = "https://" .$value[$validSVOption];
+            }
           }
-        }
       }
 
 } else {
