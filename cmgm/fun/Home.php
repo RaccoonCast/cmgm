@@ -11,7 +11,7 @@
 
     $allowGuests = "true";
     include "../functions.php";
-    $current_url = $domain_with_http . $_SERVER['REQUEST_URI'];
+    $current_url = $_SERVER['REQUEST_URI'];
     include "../database/includes/DB-filter-get.php";
 
     // Most created by X user.
