@@ -82,6 +82,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
 
                     <tr>
                       <td colspan="2" class="label">
+                        <input style="float: left" onclick="navigator.clipboard.writeText('<?php echo $latitude . "," . $longitude;?>')" type="button" value="Copy location">
                         <input style="float: left" onclick="openDeleteLink()" type="button" value="Delete #<?php echo $id ?>">
                         <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"> <?php } ?>
                         <input style="float: left" onclick="openEditLink()" type="button" value="Edit">

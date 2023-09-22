@@ -29,18 +29,18 @@ td {
 }
 
 
-/* two items */
-input[type=button]:first-child:nth-last-child(2),
-input[type=button]:first-child:nth-last-child(2) ~ input[type=button] {
-    width: calc(50% - 2px);
+/* three items */
+input[type=button]:first-child:nth-last-child(3),
+input[type=button]:first-child:nth-last-child(3) ~ input[type=button] {
+    width: calc(33% - 2px);
 		margin-left: 1px;
 		margin-right: 1px;
 }
 
-/* three items */
-input[type=button]:first-child:nth-last-child(3),
-input[type=button]:first-child:nth-last-child(3) ~ input[type=button] {
-    width: calc(33.333% - 2px);
+/* four items */
+input[type=button]:first-child:nth-last-child(4),
+input[type=button]:first-child:nth-last-child(4) ~ input[type=button] {
+    width: calc(25% - 2px);
 		margin-left: 1px;
 		margin-right: 1px;
 }
