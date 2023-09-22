@@ -47,16 +47,24 @@ if (!empty($value['cellsite_type'])) {
   foreach($result_object as $key => $value) $result_object[$key]['cellsite_type_normalized'] = $cellsite_type . @$category_suffix;
 }
 
-$validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f", "sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
+$validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f");
 foreach($result_object as $key => $value) {
     foreach($validOptions as $validOption) {
       if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
            $result_object[$key][$validOption] = "$domain_with_http/database/uploads/" .$value[$validOption];
-      } elseif (isset($value[$validOption]) && (strpos($value[$validOption], "goo.gl") === 0)) {
-        $result_object[$key][$validOption] = "https://" .$value[$validOption];
       }
     }
 }
+
+$validSVOptions = array("sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
+foreach($result_object as $key => $value) {
+    foreach($validSVOptions as $validSVOption) {
+      if (!empty($value[$validSVOption])) {
+        $result_object[$key][$validSVOption] = "https://" .$value[$validSVOption];
+      }
+    }
+}
+
 } else {
   error("This carrier is not supported by CMGM, only the major US networks are supported.",@$_GET['plmn']);
 }
