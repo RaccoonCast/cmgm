@@ -2,29 +2,28 @@
 //  cody and alps' purple iphones (CAAPI)
 include "includes/functions.php";
 
-if (is_numeric($_GET['plmn'])) {
+if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
 
-  if (isset($_GET['properties'])) {
-    $database_get_list = preg_replace("[^_a-zA-Z0-9,-]", "", $_GET['properties']);
-    $database_get_list = str_replace("edit_userid","id",$database_get_list);
-    $database_get_list = str_replace("edit_lock","id",$database_get_list);
-  } else {
-    $database_get_list = "*";
-  }
+  // If specific fields are requested, filter a-z0-9 to cheat sql injection prevention.
+  $database_get_list = isset($_GET['properties']) ? preg_replace("/[^_a-zA-Z0-9,-]/", "", $_GET['properties']) : "*";
 
+  // Explode comma seperated list of multiple towers being requested.
   $id = explode(",", $_GET['id']);
 
-  $plmn = substr($_GET['plmn'], 0, 6); // trim to 6 characters
-  if ($plmn == "310260") $carrier = "T-Mobile";
-  if ($plmn == "311480") $carrier = "Verizon";
-  if ($plmn == "310120") $carrier = "Sprint";
-  if ($plmn == "310410") $carrier = "ATT";
-  if ($plmn == "313100") $carrier = "ATT";
-  if ($plmn == "313340") $carrier = "Dish";
-  if (!isset($carrier)) error("This carrier is not supported by CMGM, only the major US networks are supported.",$_GET['plmn']);
+  // Set carrier name based on $_GET['plmn']
+  $plmnToCarrier = array(
+      "310260" => "T-Mobile",
+      "311480" => "Verizon",
+      "310120" => "Sprint",
+      "310410" => "ATT",
+      "313100" => "ATT",
+      "313340" => "Dish"
+  );
+  $carrier = isset($plmnToCarrier[$_GET['plmn']]) ? $plmnToCarrier[$_GET['plmn']] : error("This carrier is not supported by CMGM, only the major US networks are supported.", $_GET['plmn']);
 
+  // Check all LTE/NR fields for provided eNBs that match PLMN provided, remove edit_userid & edit_lock from fields returned by each tower.
+  // Put each tower into $result_object PHP array.
   foreach ($id as $value) {
-
     $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
      if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -36,37 +35,42 @@ if (is_numeric($_GET['plmn'])) {
          }
      }
 
-if(empty($result_object)) error("No results found for anything in query.",$id);
-foreach($result_object as $key => $value) $result_object[$key]['url'] = "$domain_with_http/database/Edit.php?q=".$value['id'];
+     // Check if PHP array with towers is empty, if so error() out. (No towers found)
+     if(empty($result_object)) error("No results found for anything in query.",$id);
 
-if (!empty($value['cellsite_type'])) {
-  include "../../includes/functions/tower_types.php";
-  $category = ucfirst(explode('_', $value['cellsite_type'])[0]);
-  // if ($category != "Nature") $category_suffix = " ($category)";
-  $cellsite_type = $options[$category][$value['cellsite_type']];
-  foreach($result_object as $key => $value) $result_object[$key]['cellsite_type_normalized'] = $cellsite_type . @$category_suffix;
-}
+     // Add database edit link to $result_object array for each tower.
+     foreach($result_object as $key => $value) $result_object[$key]['url'] = "$domain_with_http/database/Edit.php?q=".$value['id'];
 
-$validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f");
-foreach($result_object as $key => $value) {
-    foreach($validOptions as $validOption) {
-      if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
-           $result_object[$key][$validOption] = "$domain_with_http/database/uploads/" .$value[$validOption];
+     // Creates a field named 'cellsite_type_normalized' with a value that contains the normalized cellsite type name, for example: rooftop_framed_box -> Framed Box (FRP)
+      if (!empty($value['cellsite_type'])) {
+       include "../../includes/functions/tower_types.php";
+       $category = ucfirst(explode('_', $value['cellsite_type'])[0]);
+       $cellsite_type = $options[$category][$value['cellsite_type']];
+       foreach($result_object as $key => $value) $result_object[$key]['cellsite_type_normalized'] = $cellsite_type . @$category_suffix;
+     }
+
+     // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg'
+     $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f");
+     foreach($result_object as $key => $value) {
+       foreach($validOptions as $validOption) {
+         if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
+            $result_object[$key][$validOption] = "$domain_with_http/database/uploads/" .$value[$validOption];
+          }
+        }
       }
-    }
-}
 
-$validSVOptions = array("sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
-foreach($result_object as $key => $value) {
-    foreach($validSVOptions as $validSVOption) {
-      if (!empty($value[$validSVOption])) {
-        $result_object[$key][$validSVOption] = "https://" .$value[$validSVOption];
+      // Add HTTPS:// to Street View URLs. (DB has https trimmed off)
+      $validSVOptions = array("sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
+      foreach($result_object as $key => $value) {
+        foreach($validSVOptions as $validSVOption) {
+          if (!empty($value[$validSVOption])) {
+            $item[$validSVOption] = !empty($item[$validSVOption]) ? "https://" . $item[$validSVOption] : $item[$validSVOption];
+          }
+        }
       }
-    }
-}
 
 } else {
-  error("This carrier is not supported by CMGM, only the major US networks are supported.",@$_GET['plmn']);
+  error("Invalid PLMN.",@$_GET['plmn']);
 }
 
 echo json_encode($result_object);
