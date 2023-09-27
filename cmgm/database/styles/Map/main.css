@@ -26,6 +26,6 @@
 }
 #map { float: right; width: 100%; height: 100%;}
 #mapid { width: 100%; height: 100%; z-index: 0;}
-img[src$="/dist/images/marker-icon.png"] {
+img[src*="/dist/images/marker-icon"] {
 	pointer-events: none!important;
 }

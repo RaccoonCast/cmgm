@@ -84,6 +84,10 @@ for ($i = 1; $i <= 4; $i++) {
 }
 
 $fields_array['region_lte'] = [
+    'label' => [
+        "name" => "Region / PCIs",
+        "class" => "pci_label"
+    ],
     'input_type' => 'text',
     'name' => "region_lte",
     'class' => 'region_cw',
