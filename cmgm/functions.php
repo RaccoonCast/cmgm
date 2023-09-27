@@ -7,5 +7,4 @@ include SITE_ROOT . "/includes/functions/sqlpw.php";
 include 'includes/functions/css.php';
 include 'includes/functions/headhtml.php';
 include 'includes/functions/common-debug-info.php';
-
 ?>
