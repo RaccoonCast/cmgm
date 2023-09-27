@@ -82,4 +82,18 @@ for ($i = 1; $i <= 9; $i++) {
         'placeholder' => "NR_$i"
     ];
 }
+
+$fields_array['region_lte'] = [
+    'input_type' => 'text',
+    'name' => "region_lte",
+    'class' => 'region_cw',
+    'placeholder' => "REGION_LTE"
+];
+
+   $fields_array['region_nr'] = [
+    'input_type' => 'text',
+    'name' => "region_nr",
+    'class' => 'region_cw',
+    'placeholder' => "REGION_NR"
+];
 ?>
