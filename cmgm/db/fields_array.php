@@ -74,7 +74,7 @@ for ($i = 1; $i <= 9; $i++) {
     ];
 }
 
-for ($i = 1; $i <= 9; $i++) {
+for ($i = 1; $i <= 4; $i++) {
     $fields_array["nr_$i"] = [
         'input_type' => 'number',
         'name' => "nr_$i",
@@ -90,10 +90,19 @@ $fields_array['region_lte'] = [
     'placeholder' => "REGION_LTE"
 ];
 
-   $fields_array['region_nr'] = [
+$fields_array['region_nr'] = [
     'input_type' => 'text',
     'name' => "region_nr",
     'class' => 'region_cw',
     'placeholder' => "REGION_NR"
 ];
+
+for ($i = 1; $i <= 30; $i++) {
+    $fields_array["pci_$i"] = [
+        'input_type' => 'number',
+        'name' => "pci_$i",
+        'class' => 'pci_cw',
+        'placeholder' => "PCI_$i"
+    ];
+}
 ?>

@@ -21,6 +21,6 @@ include "query_db.php";
 include "fields_array.php";
 include "form.php";
 
-$data = query_db($conn,$id);
+$data = query_db($conn,$id,$fields_array);
 generateForm($data,$fields_array);
 ?>

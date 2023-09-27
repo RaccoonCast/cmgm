@@ -1,10 +1,12 @@
 <?php
-function query_db($conn,$id) {
+function query_db($conn,$id,$fields_array) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    
-    $sql = "SELECT id,status,carrier,concealed,cellsite_type,lte_1,lte_2,lte_3,lte_4,lte_5,lte_6,lte_7,lte_8,lte_9,nr_1,nr_2,nr_3,nr_4,region_lte,region_nr FROM db WHERE id = $id";
+    $list = implode(', ', array_keys($fields_array));
+
+    $sql = "SELECT $list FROM db WHERE id = $id";
+
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
