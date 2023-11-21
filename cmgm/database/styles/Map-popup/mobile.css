@@ -1,3 +1,12 @@
 body {
-  font-size: 0.95em;
+  font-size: 0.65em;
+}
+input[type=button] {
+  font-size: 10px;
+}
+.title {
+  font-size: 16px;
+}
+td {
+	line-height: 20px;
 }

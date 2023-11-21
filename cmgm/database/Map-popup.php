@@ -76,7 +76,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <thead>
                     <tr>
 
-                    <td colspan="2" class="label" style="font-size: 20px; line-height: 30px;"><?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?></td>
+                    <td colspan="2" class="label title" style="line-height: 30px;"><?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?></td>
                     </tr>
                     </thead>
 
