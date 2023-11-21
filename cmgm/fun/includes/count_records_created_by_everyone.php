@@ -1,7 +1,8 @@
 <?php
-$string_to_remove = 'AND created_by = \'' . $_GET['username'] . '\'';
+$string_to_remove = 'AND created_by = \'' . @$_GET['username'] . '\'';
 $remove_username_from_db_vars = str_replace($string_to_remove, '', $db_vars_unamended);
-$sql = "SELECT COUNT(*) AS count FROM db WHERE 1=1 $remove_username_from_db_vars";
+$sql = "SELECT COUNT(*) AS count FROM db WHERE $remove_username_from_db_vars";
+
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

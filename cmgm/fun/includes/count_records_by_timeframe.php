@@ -13,7 +13,7 @@
              SUM(CASE WHEN date_added >= ? THEN 1 ELSE 0 END) AS record_count_last_30_days,
              SUM(CASE WHEN date_added >= ? THEN 1 ELSE 0 END) AS record_count_last_90_days,
              SUM(CASE WHEN date_added >= ? THEN 1 ELSE 0 END) AS record_count_all_time_days
-             FROM db WHERE 1=1 $db_vars_unamended";
+             FROM db WHERE $db_vars_unamended";
 
      $stmt = $conn->prepare($sql);
      $stmt->bind_param("ssssss", $today, $yesterday, $last_7_days, $last_30_days, $last_90_days, $all_time);
@@ -25,7 +25,7 @@
      $url = $domain_with_http . removeParameterFromURL($current_url, "date");
 
      $today_records = ($row["record_count_today"] > 0) ? '<a href="' . $url . "&date=" . $today . '">'. $row["record_count_today"] .'</a>' : '0';
-     $yesterday_records = ($row["record_count_yesterday"] > 0) ? '<a href="' . $url . "&date=>" . $yesterday . '">'. $row["record_count_yesterday"] .'</a>' : '0';
+     $yesterday_records = ($row["record_count_yesterday"] > 0) ? '<a href="' . $url . "&date=" . $yesterday . '">'. $row["record_count_yesterday"] .'</a>' : '0';
      $last_7_days_records = ($row["record_count_last_7_days"] > 0) ? '<a href="' . $url . "&date=>" . $last_7_days . '">'. $row["record_count_last_7_days"] .'</a>' : '0';
      $last_30_days_records = ($row["record_count_last_30_days"] > 0) ? '<a href="' . $url . "&date=>" . $last_30_days . '">'. $row["record_count_last_30_days"] .'</a>' : '0';
      $last_90_days_records = ($row["record_count_last_90_days"] > 0) ? '<a href="' . $url . "&date=>" . $last_90_days . '">'. $row["record_count_last_90_days"] .'</a>' : '0';

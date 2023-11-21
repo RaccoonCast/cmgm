@@ -1,5 +1,5 @@
 <?php
-    !isset($_GET['limit']) ? header('Location: '.$current_url.'?limit=15') && exit : $limit = $_GET['limit'];
+    !isset($_GET['limit']) ? header('Location: '.$current_url.'?limit=15') && die() : $limit = $_GET['limit'];
 
     function removeParameterFromURL($url, $parameterName) {
         $urlParts = parse_url($url);
@@ -13,28 +13,32 @@
     include "../functions.php";
     $current_url = $_SERVER['REQUEST_URI'];
     include "../database/includes/DB-filter-get.php";
+    $db_vars_unamended = isset($db_vars_unamended) ? "1=1 " . $db_vars_unamended : "1=1 ";
 
     // Most created by X user.
-    include "includes/count_records_created_by_everyone.php";
-    include "includes/count_records_created_by_user.php";
+    if (!isset($_GET['username'])) include "includes/count_records_created_by_everyone.php";
+    if (!isset($_GET['username'])) include "includes/count_records_created_by_user.php";
 
     // Carrier counts.
-    include "includes/count_most_common_carrier.php";
+    if (!isset($_GET['carrier'])) include "includes/count_most_common_carrier.php";
 
     // Records during last X whatever.
-    include "includes/count_records_by_timeframe.php";
+    if (!isset($_GET['date'])) include "includes/count_records_by_timeframe.php";
 
     // Count most records created during X day.
-    include "includes/count_records_by_day.php";
+    if (!isset($_GET['date'])) include "includes/count_records_by_day.php";
 
     // Count most records created during X month.
-    include "includes/count_records_by_month.php";
+    if (!isset($_GET['date'])) include "includes/count_records_by_month.php";
 
     // Count most records created during X year.
-    include "includes/count_records_by_year.php";
+    if (!isset($_GET['date'])) include "includes/count_records_by_year.php";
 
     // Count most common cities..
-    include "includes/count_most_common_cities.php";
+    if (!isset($_GET['city'])) include "includes/count_most_common_cities.php";
+
+    // Count concealed vs unconcealed sites.
+    if (!isset($_GET['concealed'])) include "includes/count_concealed_vs_unconcealed.php";
 
     $map_url = $domain_with_http . "/database/Map.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=11" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
     echo '<a href='.$map_url.'>View filters on Map</a>';
