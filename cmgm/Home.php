@@ -47,8 +47,13 @@ header('Pragma: no-cache'); ?>
         type="button" class="cmgm-btn sb w-50" style="color:#f731f7" id="link09" name="goto" onclick="redir('database/Upload.php');" name="Upload" value="Upload"><input
         type="button" class="cmgm-btn sb w-50" style="color:#029F89" id="link10" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"AntennaSearch",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="AntennaSearch"><input
         type="button" class="cmgm-btn sb w-25" style="color:#029F89" id="link11" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Maprad",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Maprad"><input
-        type="button" class="cmgm-btn sb w-25" style="color:#029F89" id="link12" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"Permits",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Permits"><input
+        type="button" class="cmgm-btn sb w-25" style="color:#029F89" id="link12" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,"OpenCID",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="OpenCID"><input
         type="button" class="cmgm-btn sb w-100" style="color:#101010" id="link13" name="goto" onclick="redir('settings/');" value="Settings">
+
+        <div id="tiauquote"><br><br><br>
+         <span style="cursor: pointer;" onclick="redir('../fun/?limit=15&username=<?php echo $username ?>')">“wayyy more user friendly than mymaps” <small>&#8209;thisisausername190.<small></span>
+        </div>
+
      </form>
    </body>
 </html>
