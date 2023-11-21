@@ -12,7 +12,7 @@
    <body>
       <?php
          ?>
-      <form autocomplete="off"  method="post">
+      <form autocomplete="off"  method="get">
         <div class="buttons">
           <h3>Search</h3><!-- <label class="label">eNB / gNB</label>--><input
           class="custominput" placeholder="eNB / gNB" type="text" maxlength="30" name="id"><br><!--<label class="label">Cell Site Type</label>--><select
