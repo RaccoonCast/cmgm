@@ -266,8 +266,8 @@
     <br><label title="(1-100)&#10;Consistent bright green trails?&#10;Dense trails?&#10;Fade to dark green with distance as expected?&#10;All of this should affect the number." class="evidence_scores_label">Trails Match</label><input
     type="number" max="100" class="evidence_scores_cw" name="trails_match" value="<?php echo @$trails_match?>">
 
-    <br><label title="Antennas look like other <?php echo $carrier;?> setups?&#10;(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Antennas match carrier</label><input
-    type="number" max="100" class="evidence_scores_cw" name="antennas_match_carrier" value="<?php echo @$antennas_match_carrier?>">
+    <br><label title="Antennas/equipment look like other <?php echo $carrier;?> setups?&#10;(1-100)&#10;0 being not at all&#10;100 being perfectly" class="evidence_scores_label">Equipment matches carrier</label><input
+    type="number" max="100" class="evidence_scores_cw" name="equipment_matches_carrier" value="<?php echo @$equipment_matches_carrier?>">
 
     <br><label title="How close the CellMapper estimated location is to the actual location.&#10;&#10;(1-100)&#10;0 being very far away&#10;100 being very close" class="evidence_scores_label">CellMapper Triangulation</label><input
     type="number" max="100" class="evidence_scores_cw" name="cellmapper_triangulation" value="<?php echo @$cellmapper_triangulation?>">
@@ -293,7 +293,7 @@
     type="number" max="4" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
     <br><label title="(0-3)&#10;Number of other carriers that are located at this address.&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
-    type="number" max="3" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
+    type="number" max="4" class="evidence_scores_cw alt_carriers_here" name="alt_carriers_here" value="<?php echo @$alt_carriers_here?>">
 
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
     type="number" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>

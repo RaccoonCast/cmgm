@@ -5,7 +5,7 @@
     if (!isset($permit_score) OR empty($permit_score)) $permit_score = 0;
     if (!isset($trails_match) OR empty($trails_match)) $trails_match = 0;
     if (!isset($alt_carriers_here) OR empty($alt_carriers_here)) $alt_carriers_here = 0;
-    if (!isset($antennas_match_carrier) OR empty($antennas_match_carrier)) $antennas_match_carrier = 0;
+    if (!isset($equipment_matches_carrier) OR empty($equipment_matches_carrier)) $equipment_matches_carrier = 0;
     if (!isset($cellmapper_triangulation) OR empty($cellmapper_triangulation)) $cellmapper_triangulation = 0;
     if (!isset($image_evidence) OR empty($image_evidence)) $image_evidence = 0;
     if (!isset($verified_by_visit) OR empty($verified_by_visit)) $verified_by_visit = 0;
@@ -41,11 +41,11 @@
     if (@$carriers_ruled_out == 4) $ev += 12;
 
     // antennas match carrier
-    if ($antennas_match_carrier >= 20 && ($antennas_match_carrier < 50)) $ev += 2;
-    if ($antennas_match_carrier >= 50 && ($antennas_match_carrier < 80)) $ev += 4;
-    if ($antennas_match_carrier >= 80 && ($antennas_match_carrier < 90)) $ev += 7;
-    if ($antennas_match_carrier >= 90 && ($antennas_match_carrier < 100)) $ev += 9;
-    if ($antennas_match_carrier >= 100) $ev += 13;
+    if ($equipment_matches_carrier >= 20 && ($equipment_matches_carrier < 50)) $ev += 2;
+    if ($equipment_matches_carrier >= 50 && ($equipment_matches_carrier < 80)) $ev += 4;
+    if ($equipment_matches_carrier >= 80 && ($equipment_matches_carrier < 90)) $ev += 7;
+    if ($equipment_matches_carrier >= 90 && ($equipment_matches_carrier < 100)) $ev += 9;
+    if ($equipment_matches_carrier >= 100) $ev += 13;
 
     // cellmapper triangulation
     if ($cellmapper_triangulation >= 20 && ($cellmapper_triangulation < 60)) $ev += 2;
@@ -71,7 +71,7 @@
     if ($image_evidence >= 100) $ev += 12;
 
     // verified by visit
-    if ($antennas_match_carrier >= 80 && ($antennas_match_carrier <= 100)) {
+    if ($equipment_matches_carrier >= 80 && ($equipment_matches_carrier <= 100)) {
       if ($verified_by_visit >= 10 && ($verified_by_visit < 30)) $ev += 2;
       if ($verified_by_visit >= 30 && ($verified_by_visit < 60)) $ev += 4;
       if ($verified_by_visit >= 60 && ($verified_by_visit < 80)) $ev += 10;
@@ -95,7 +95,7 @@
 
 
     // archival antenna addition
-    if ($antennas_match_carrier >= 80 && ($antennas_match_carrier <= 100)) {
+    if ($equipment_matches_carrier >= 80 && ($equipment_matches_carrier <= 100)) {
       if ($archival_antenna_addition == 1) $ev += 3;
       if ($archival_antenna_addition == 2) $ev += 5;
       if ($archival_antenna_addition == 3) $ev += 8;
