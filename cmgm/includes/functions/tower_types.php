@@ -55,8 +55,7 @@ $options = array(
   ),
     'Other' => array(
         'other_pipe_in_ground' => 'Pipe-in-ground (PIG)',
-        'other_cow' => 'COW',
-        'other_colt' => 'COLT',
+        'other_cowcolt' => 'COW/COLT',
         'other_other' => 'Other'
     )
 );
