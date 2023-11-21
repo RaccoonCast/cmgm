@@ -8,7 +8,6 @@ header('Pragma: no-cache'); ?>
 <head>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="../js/copyToClipboard.js"></script>
-<script src="../js/database.js"></script>
 <script src="../js/redir.js"></script>
 <?php
 ini_set('display_errors', '1');
