@@ -100,7 +100,6 @@ foreach($fileList as $filename){
       echo "<br>";
       echo "<br>";
       while ($row = $result->fetch_assoc()) {
-          usleep(300);
           $id = $row["id"];
           $carrier = $row["carrier"];
           $latitude = $row["latitude"];
