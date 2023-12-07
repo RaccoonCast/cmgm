@@ -14,9 +14,22 @@ if (!empty($q)) {
   $q_trim = preg_replace('/\s+/', '', $q); // remove spaces
   if (!empty($q_trim) && is_numeric($q_trim)) {
   $sql = "SELECT id FROM db WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim'";
-  $new_id = @mysqli_fetch_array(mysqli_query($conn, "$sql"))['id']; // id search
-  redir("$domain_with_http" . "/database/Edit.php?q=$new_id","0");
+  $result = mysqli_query($conn, $sql);
+    
+    if ($result) {
+        $numRows = mysqli_num_rows($result);
+    
+        if ($numRows == 1) {
+            $new_id = mysqli_fetch_array($result)['id'];
+            redir("$domain_with_http/database/Edit.php?q=$new_id", "0");
+        } else {
+          $latitude = 0; $longitude = 0;
+          $db_vars = "WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim'";
+          include "$SITE_ROOT/database/includes/DB.php";
+          die();
+        }
   }
+}
 
   // Last resort, search query w/ gmaps api, ie "200 E Colfax", convert result location to lat,long, search for eNBs near there. (this is neccesary for PCI+ -> CMGM Edit)
   // Note: It's possible convert() will work without needing the google maps API key. (lat,long to $latitude | $longitude code does not call Google)

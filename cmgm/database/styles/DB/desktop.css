@@ -27,12 +27,13 @@ td {
   width: 135px;
 }
 .btn-group {height:100%; width: 100%;}
-.btn-evidence { width: 49.15%; }
+.btn-evidence { width: 48.5%; }
 .btn-edit { width: 100%;}
 th {width: 100%; margin: 8px 8px 8px 8px;}
 
-.notes {max-width: 61%;}
-.btn-holder-evidence { max-width: 15%;}
+.notes {max-width: 64.75%;}
+.link {max-width: 3.25%; }
+.btn-holder-evidence { max-width: 8%;}
 .address {max-width: 6%;}
 .btn-holder-edit,.carrier,.enb {max-width: 4%;}
 input[type=button] {
