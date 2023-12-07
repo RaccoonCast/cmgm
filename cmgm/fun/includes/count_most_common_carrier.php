@@ -1,5 +1,5 @@
 <?php
-$carriers = ["T-Mobile", "Sprint", "Verizon", "ATT"];
+$carriers = ["T-Mobile", "Sprint", "Verizon", "ATT", "Dish"];
 $carrierCounts = [];
   foreach ($carriers as $carrier) {
     $sql = "SELECT COUNT(*) as count FROM db WHERE $db_vars_unamended AND carrier = '$carrier'";
