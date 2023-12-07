@@ -51,6 +51,7 @@ if (!isset($userIP)) {
     $default_latitude = "41.87846175857693";
     $default_longitude = "-87.62886586726619";
     $gmaps_api_key_access = "false";
+    $cmgm_edit_hide_edit_history = "false";
     $cmgm_edit_override_panels_widths = "false";
     $cmgm_edit_panel1_width = "56";
     $cmgm_edit_panel2_width = "44";
