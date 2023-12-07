@@ -1,11 +1,12 @@
 <?php
    if(empty($zip)) $zip = null;
    if(empty($city)) $city = null;
+   if(empty($county)) $county = null;
    if(empty($state)) $state = null;
    if(empty($address)) $address = null;
    @$latitude = substr("$latitude", 0, 9);
    @$longitude = substr("$longitude", 0, 10);
-   $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&state=$state&permit_redirect=true";
+   $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&county=$county&state=$state&permit_redirect=true";
    if (!isset($carrier)) $carrier = $default_carrier;
    if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
    function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$ppT,$ppL) {

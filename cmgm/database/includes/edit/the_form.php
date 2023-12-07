@@ -141,6 +141,7 @@
     type="text" class="longitude_cw" id="longitude" value="<?php echo @$longitude?>" placeholder="Longitude" name="longitude" required><input
     type="text" autocomplete="new-street-address" class="<?php if (isset($new)) echo "warning2"; ?> addr_address_cw" value="<?php echo @$address?>" placeholder="Address" name="address"><input
     type="text" autocomplete="new-street-address" class="addr_city_cw" value="<?php echo @$city?>" placeholder="City" name="city"><input
+    type="text" autocomplete="new-street-address" class="addr_county_cw" value="<?php echo @$county?>" placeholder="County" name="county"><input
     type="text" autocomplete="new-street-address" class="addr_state_cw" value="<?php echo @$state?>" placeholder="State" name="state"><input
     type="text" autocomplete="new-street-address" class="addr_zip_cw" value="<?php echo @$zip?>" placeholder="Zip" name="zip">
 

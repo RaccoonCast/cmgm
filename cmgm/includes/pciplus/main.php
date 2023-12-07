@@ -6,7 +6,7 @@ foreach($_GET as $key => $value){
   }
 }
 include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
-[$address,$city,$zip,$state] = convert("$latitude,$longitude","pciplus",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
+[$address,$city,$county,$zip,$state] = convert("$latitude,$longitude","pciplus",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
 // echo $address . "<br>";
 // echo $city . "<br>";
 // echo $state . "<br>";

@@ -10,6 +10,7 @@ if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
 if (!empty($_GET['zip'])) { $zip = $_GET['zip']; }
 if (!empty($_GET['state'])) { $state = $_GET['state']; }
 if (!empty($_GET['city'])) { $city = $_GET['city']; }
+if (!empty($_GET['county'])) { $county = $_GET['county']; }
 if (!empty($_GET['address'])) { $address = $_GET['address']; }
 if (!empty($_GET['data'])) { $data = $_GET['data']; }
 

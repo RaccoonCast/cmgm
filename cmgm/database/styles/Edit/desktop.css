@@ -66,7 +66,10 @@ abbr, .nounderline {text-decoration: none!important;}
 .nr_region_dish { max-width: 20.5%!important;}
 .nr_cw { max-width: 6.8333%; float: left}
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 20.5%!important;}
-.region_cw, .latitude_cw, .longitude_cw, .addr_state_cw, .addr_zip_cw  {max-width: 10.25%;}
+.region_cw, .latitude_cw, .longitude_cw {max-width: 10.25%;}
+.addr_state_cw { max-width: 4.04%;}
+.addr_zip_cw { max-width: 4.666%;}
+.addr_county_cw { max-width: 11.734%;}
 .misc_50_cw,.misc_39_cw,.misc_cw {width: 16.4%!important;}
 .pci_cw, .lte_cw {width: 6.8333%!important; float: left;}
 .sv_cw {max-width: 22.6673%; }

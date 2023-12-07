@@ -1,4 +1,6 @@
 <?php
+unset ($state,$city,$zip); 
+
 // This file is used solely by convert.php, it expects an input of $latitude & $longitude which it'll convert to the address of the given input.
 if (isset($maps_api_key) && $goto != "CellMapper" && $goto != "Google Maps" && $goto != "Street View" && $goto != "Beta" && $goto != "Edit" && $goto != "Map") {
 $url_2 = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($longitude).'&key=' . $maps_api_key . '';
@@ -17,6 +19,13 @@ $response = json_decode($response);
      if ($addrComp->types[0] == 'locality') $city = $addrComp->long_name;
      if (!isset($city)) if (in_array("sublocality", $addrComp->types)) { $city = $addrComp->long_name; }
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
+     
+     if (strlen(@$state) > 2) {
+      if ($addrComp->types[0] == 'country') @$state = $addrComp->short_name;
+    }
+
+     if ($addrComp->types[0] == 'administrative_area_level_2') $county = $addrComp->long_name;
+     if (@$city == @$county) $county = NULL;
      }
 
     if (!empty($route) && !empty($street_number)){
@@ -24,6 +33,7 @@ $response = json_decode($response);
     } else {
       $address = "";
     }
+
 
     }
 ?>

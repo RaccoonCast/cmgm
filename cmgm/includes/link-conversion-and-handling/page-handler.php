@@ -12,7 +12,7 @@ if (@$_POST['goto'] != "HomeWAddr" && isset($_POST['data'])) {
 // cmgm.us/?q=McDonalds, utilize google maps API search for "McDonalds"
 if (isset($_GET['q'])) {
   if ($debug_flag != "0") echo "locfinder: direct-search <br>";
-  [$latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto,$conv_type,$url_1,$url_2] = convert($_GET['q'],"HomeWAddr",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
+  [$latitude,$longitude,$carrier,$address,$zip,$city,$county,$state,$goto,$conv_type,$url_1,$url_2] = convert($_GET['q'],"HomeWAddr",$default_latitude,$default_longitude,$maps_api_key,$userID,$default_carrier,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom);
   $data = $_GET['q'];
 }
 

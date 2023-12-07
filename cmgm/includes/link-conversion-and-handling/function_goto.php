@@ -1,11 +1,10 @@
 <?php
-function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$state,$goto_page,$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType) {
-//if ($goto_page == "Beta") {
-//  file_put_contents("log.log", $latitude . PHP_EOL . $longitude . PHP_EOL . $carrier . PHP_EOL . $address . PHP_EOL . $zip . PHP_EOL . $city . PHP_EOL . $state . PHP_EOL . $goto_page . PHP_EOL . $conv_type . PHP_EOL . $cm_mapType . PHP_EOL . $cm_groupTowers . PHP_EOL . $cm_groupTowers . PHP_EOL . $cm_showLabels . PHP_EOL . $cm_showLowAcc . PHP_EOL . $cm_zoom . PHP_EOL . $cm_netType);
-//}
+function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$county,$state,$goto_page,$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType) {
+
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
 if(empty($city)) $city = null;
+if(empty($county)) $county = null;
 if(empty($state)) $state = null;
 if(empty($address)) $address = null;
 
@@ -45,7 +44,7 @@ if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&c
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
 if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
-if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$city&state=$state";
+if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$city&county=$county&state=$state";
 
 if ($goto_page == "Map") $suffix_part_c = null; // this is for cmgm map, not google maps.
 if ($goto_page == "Search") $suffix_part_c = null;

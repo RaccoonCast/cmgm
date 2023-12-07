@@ -45,11 +45,11 @@ if ($goto != "HomeWOAddr") include "convert/get-address-for-loc.php";
 $latitude = substr($latitude,0,12);
 $longitude = substr($longitude,0,12);
 
-if (($goto == "HomeWOAddr") OR ($goto == "HomeWAddr")) return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$state,$goto,@$conv_type,@$url_1,@$url_2];
+if (($goto == "HomeWOAddr") OR ($goto == "HomeWAddr")) return [$latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,$goto,@$conv_type,@$url_1,@$url_2];
 
 // When creating records w/ PCI+, it calls edit.php w/ just lat&long, address info is expected to be passed to edit.
-if (($goto == "pciplus")) return [@$address,@$city,@$zip,@$state];
+if (($goto == "pciplus")) return [@$address,@$city,@$county,@$zip,@$state];
 
 include_once "function_goto.php";
-return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$state,@$goto,@$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$county,@$state,@$goto,@$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 }
