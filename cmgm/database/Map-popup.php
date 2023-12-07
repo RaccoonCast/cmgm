@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="/js/copyToClipboard.js"></script>
   <?php
   $allowGuests = "true";
   include '../functions.php';
@@ -70,13 +71,18 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                       $cellsite_type = $old_cellsite_type;
                     }
 
+                    $url_for_cmgm = "https://cmgm.us/$id";
+
                     ?>
 
                     <table>
                     <thead>
                     <tr>
 
-                    <td colspan="2" class="label title" style="line-height: 30px;"><?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?></td>
+                    <td colspan="2" class="label title" style="line-height: 30px;">
+                    <?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?>
+                    <div onclick="copyToClipboard('<?php echo $url_for_cmgm; ?>')" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 5px; right: 6px;">📋</div>
+                    </td>
                     </tr>
                     </thead>
 
