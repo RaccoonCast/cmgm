@@ -1,10 +1,15 @@
+<?php
+if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
+  header('Location: https://files.cmgm.us/database/Upload.php');
+}
+?>
 <!doctype html>
 <html lang="en-us">
    <head>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/pasteimages.js"></script>
      <script src="../js/copyToClipboard.js"></script>
-     <?php include '../functions.php';?>
+     <?php $allowGuests = "true"; error_reporting(E_ERROR | E_PARSE); include '../functions.php';?>
    </head>
    <body>
      <?php
@@ -22,7 +27,7 @@
           <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 10MB)<br>
+              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 25MB)<br>
               You can also paste an image if you have one on your clipboard. <br><br>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>
@@ -32,7 +37,7 @@
 
       <?php
       // Get footer
-      include  "includes/footer.php";
+      // include  "includes/footer.php";
       ?>
     </form>
    </body>

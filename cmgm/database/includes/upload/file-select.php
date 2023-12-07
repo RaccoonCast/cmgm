@@ -8,7 +8,7 @@ $filename = $type . "-" . substr(str_shuffle(md5(time())),0,25);
 $filePath = "$target_dir" . "$filename.$fileType";
 
 // Check file size
-if ($_FILES["fileToUpload"]["size"] > 10000000) {
+if ($_FILES["fileToUpload"]["size"] > 25000000) {
   echo "Sorry, your file is too large.";
   die();
 }

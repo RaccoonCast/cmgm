@@ -1,5 +1,11 @@
 <?php
 // Generate Links for File Attaches
+
+function file_exists_on_local($file) { 
+$headers = @get_headers("https://files.cmgm.us/u/" . $file); 
+return ($headers && strpos($headers[0], '200')) ? true : false;
+}
+
 $foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c', 'sv_a', 'sv_b', 'sv_c', 'sv_d', 'sv_e', 'sv_f', 'bingmaps_a', 'bingmaps_b', 'bingmaps_c');
 
 foreach ($foreachList as &$value) {
@@ -12,8 +18,7 @@ $link_suffix = ucfirst(substr($value,-1));
 if (!empty($$value)) {
     if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
     elseif (substr($$value, 0, 1) === '#') {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="Edit.php?id=' . substr($$value, 1) . '">' . $link_suffix . '</a>';}
-    elseif (file_exists("uploads/" . ($$value))) {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="uploads/' . $$value . '">' . $link_suffix . '</a>';}
-    else {$$val = '<a class="pad-small-link error" title="' . $value . ' is missing." target="_blank" href="#">' . $link_suffix . '</a>';}
+    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/u/' . $$value . '">' . $link_suffix . '</a>';}
     } else { $$val = null; }
 }
 
@@ -60,5 +65,5 @@ if (isset($new)) {
 // if ($carrier == "Verizon") {
 //   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
 //   }
-
+}
 ?>
