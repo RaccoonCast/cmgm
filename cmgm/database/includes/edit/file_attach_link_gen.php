@@ -2,7 +2,7 @@
 // Generate Links for File Attaches
 
 function file_exists_on_local($file) { 
-$headers = @get_headers("https://files.cmgm.us/u/" . $file); 
+$headers = @get_headers("https://files.cmgm.us/" . $file); 
 return ($headers && strpos($headers[0], '200')) ? true : false;
 }
 
@@ -18,7 +18,7 @@ $link_suffix = ucfirst(substr($value,-1));
 if (!empty($$value)) {
     if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
     elseif (substr($$value, 0, 1) === '#') {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="Edit.php?id=' . substr($$value, 1) . '">' . $link_suffix . '</a>';}
-    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/u/' . $$value . '">' . $link_suffix . '</a>';}
+    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/' . $$value . '">' . $link_suffix . '</a>';}
     } else { $$val = null; }
 }
 
