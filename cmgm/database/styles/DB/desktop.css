@@ -31,10 +31,11 @@ td {
 .btn-edit { width: 100%;}
 th {width: 100%; margin: 8px 8px 8px 8px;}
 
-.notes {max-width: 64.75%;}
+.notes {max-width: 58.75%;}
 .link {max-width: 3.25%; }
 .btn-holder-evidence { max-width: 8%;}
 .address {max-width: 6%;}
+.cellsite_type {max-width: 6%}
 .btn-holder-edit,.carrier,.enb {max-width: 4%;}
 input[type=button] {
   font-size: 16px;
