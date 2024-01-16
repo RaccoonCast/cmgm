@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
-  header('Location: https://files.cmgm.us/database/Upload.php');
+  header('Location: https://upload.cmgm.us/upload/');
 }
 ?>
 <!doctype html>
@@ -24,10 +24,10 @@ if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
      }
       ?>
      <div class="body">
-          <form action="Upload.php" name="image_upload" method="post" enctype="multipart/form-data">
+          <form name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a class="hiddenlink" href="LFMF.php">to</a> upload (Max: 25MB)<br>
+              Select file <a class="hiddenlink" href="https://alpha.cmgm.us/database/LFMF.php">to</a> upload (Max: 25MB)<br>
               You can also paste an image if you have one on your clipboard. <br><br>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>
