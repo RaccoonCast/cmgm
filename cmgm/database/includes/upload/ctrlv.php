@@ -25,5 +25,5 @@ imagedestroy($bg);
 unlink($file);
 $evidence_a = "image" . "-" . $randomString . '.jpg';
 $finishedFilename = $evidence_a;
-redir ("Upload.php?finishedFilename=$finishedFilename&type=$type",0);
+redir ("?finishedFilename=$finishedFilename",0);
  ?>
