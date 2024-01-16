@@ -133,7 +133,7 @@ header("Pragma: no-cache");
 
         <?php if(!isMobile()) echo " | " ?>
           <input
-          type="hidden" name="cm_showLowAcc" value="false"><span>Zoom: </span></label><input
+          type="hidden" name="cm_zoom" value="false"><span>Zoom: </span></label><input
           type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
         </div>
         <h3><a href="../fun/?limit=15&username=<?php echo $username ?>">Statistics</a></h3>
