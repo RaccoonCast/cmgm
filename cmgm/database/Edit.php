@@ -81,6 +81,9 @@ include "includes/edit/file_attach_link_gen.php";
 </head>
 <body>
 <?php
+if (isset($_GET['sv']))  {
+  redir($sv_a,0);
+}
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";
