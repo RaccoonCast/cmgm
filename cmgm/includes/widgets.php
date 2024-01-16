@@ -5,6 +5,7 @@ if (@$no_reader != 'true') echo '<a class="widget widget_emote" title="View all 
 if (@$no_delete != 'true') echo '<a class="widget widget_emote" title="Delete" href="Edit.php?id='.$id.'&delete=false&redirPage='.@$redirPage.'">🗑️</a>';
 if (@$no_map != 'true' && isset($db_map_link)) echo '<a target="_blank" class="widget widget_em ote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
 if (@$no_antennasearch != 'true') echo '<a class="widget widget_emote" target="_blank" title="AnntennaSearch" href="https://www.antennasearch.com/HTML/search/search.php?address=' . $latitude . ',' . $longitude . '">📡</a>';
+if (@$no_maprad != 'true') echo '<a class="widget widget_emote" target="_blank" title="Maprad" href="https://maprad.io/us/search/coordinates/200/' . $latitude . ',' . $longitude . '">🌐</a>';
 if (@$no_edit != 'true') echo '<a class="widget widget_emote" target="_blank" title="Edit" href="Edit.php?id='.$id.'">🔧</a>';
 if (@$no_copy != 'true') echo '<a title="Copy CMGM URL" class="widget widget_emote" onclick="copyToClipboard('.$url_for_cmgm.')" href="javascript:;">📋</a>';
 if (basename($_SERVER['SCRIPT_NAME']) == "Edit.php") {
