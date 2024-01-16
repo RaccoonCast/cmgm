@@ -1,7 +1,7 @@
 <?php
 if ($value == "NULL") $value = null;
 if ($value == "!NULL") $trimChar = null;
-if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size") { ${$key} = $value; }
+if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size" OR $key == "title") { ${$key} = $value; }
 elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
     $strings = explode(',',$value);
@@ -10,7 +10,6 @@ elseif ($key == "date" AND (strpos($value, ',') !== false)) {
   }
 elseif ($key == "date" && $value[0] == ">") { $db_vars = " AND date_added" . ' >= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
 elseif ($key == "date" && $value[0] == "<") { $db_vars = " AND date_added" . ' <= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
-elseif ($key == "date") { $db_vars = " AND date_added" . ' = "'.date("Y-m-d", strtotime($value)).'"' . @$db_vars; }
 elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND sv_a != '' " . @$db_vars;
 elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND sv_a = '' " . @$db_vars;
 elseif (@$value[0] == "!") {
@@ -28,7 +27,8 @@ elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value.
 elseif ($key == "notes_like") { $db_vars =  " AND (notes like '%".$value."%')" . @$db_vars; }
 elseif ($key == "cellsite_type" OR $key == "cellsite" OR $key == "type") { $db_vars =  " AND (cellsite_type like '%".$value."%')" . @$db_vars; }
 elseif ($key == "site_id") { $db_vars = " AND (site_id like '%".$value."%')" . @$db_vars; }
-elseif ($key == "date_like" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
+elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
+elseif ($key == "month") { $db_vars = " AND (MONTH(date_added) = ".$value.")" . @$db_vars; }
 elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }

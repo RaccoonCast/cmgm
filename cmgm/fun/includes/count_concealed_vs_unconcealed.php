@@ -9,8 +9,8 @@ $result = $conn->query($sql);
 
 // Output data
 while ($row = $result->fetch_assoc()) {
-    echo "Concealed sites: " . $row["concealed_true_count"] . "<br>";
-    echo "Unconcealed sites: " . $row["concealed_false_count"] . "<br>";
+    echo "Unconcealed sites: " .  '<a href="' . $current_url . '&concealed=false">' . $row["concealed_false_count"]  . '</a><br>';
+    echo "Concealed sites: " .  '<a href="' . $current_url . '&concealed=true">' . $row["concealed_true_count"]  . '</a><br>';
 }
 echo '<br>';
 ?>

@@ -1,9 +1,10 @@
 <?php
-$sql = "SELECT date_added, COUNT(date_added) AS value_occurrence FROM db WHERE $db_vars_unamended GROUP BY date_added ORDER BY value_occurrence DESC LIMIT $limit";
+$sql = "SELECT DATE(date_added) AS date_only, COUNT(date_added) AS value_occurrence FROM db WHERE $db_vars_unamended GROUP BY date_only ORDER BY value_occurrence DESC LIMIT $limit";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
-  echo $row["value_occurrence"] . " records created on " . $row["date_added"] . "<br>";
+  $plural_namething = ($row["value_occurrence"] > 1) ? " records" : " record";
+  echo $row["value_occurrence"] . $plural_namething . ' created on ' . '<a href="' . $current_url . '&date=' . $row['date_only'] . '">' . $row['date_only']  . '</a><br>';
 }
 
 echo "<br>";

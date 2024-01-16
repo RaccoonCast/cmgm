@@ -9,8 +9,8 @@ $carrierCounts = [];
     $result->close();
   }
   foreach ($carrierCounts as $carrier => $count) {
-    $url = $domain_with_http . removeParameterFromURL($current_url, "carrier");
-    echo $carrier .  ': <a href="' . $url . '&carrier=' . $carrier . '">' . $count  . '</a><br>';
+
+    echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . $count  . '</a><br>';
   }
 
   echo "<br>";

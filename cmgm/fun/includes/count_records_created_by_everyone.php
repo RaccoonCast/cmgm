@@ -1,14 +1,12 @@
 <?php
-$string_to_remove = 'AND created_by = \'' . @$_GET['username'] . '\'';
-$remove_username_from_db_vars = str_replace($string_to_remove, '', $db_vars_unamended);
-$sql = "SELECT COUNT(*) AS count FROM db WHERE $remove_username_from_db_vars";
+$sql = "SELECT COUNT(*) AS count FROM db WHERE $db_vars_unamended";
 
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
-  $url = $domain_with_http . removeParameterFromURL($current_url, "username");
+  $url = $domain_with_http . $current_url;
   $url = '<a href="' . $url . '">everyone</a>';
-
-  echo $row["count"] . " records created by " . $url  . "<br>";
+  $plural_namething = ($row["count"] > 1) ? " records" : " record";
+  echo $row["count"] . $plural_namething . "  created by " . $url  . "<br>";
 }
 ?>

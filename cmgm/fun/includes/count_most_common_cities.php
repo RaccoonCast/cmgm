@@ -7,7 +7,8 @@ while ($row = $result->fetch_assoc()) {
   $location_for_url = $current_url . "&city=" . $row["city"] . "&state=" . $row['state'];
 
   $url = '<a href="'. $location_for_url.'">'.$location.'</a>';
-  echo $row["city_count"] . " records created in " . $url . "<br>";
+  $plural_namething = ($row["city_count"] > 1) ? " records" : " record";
+  echo $row["city_count"] . $plural_namething . "  created in " . $url . "<br>";
 }
 
 echo "<br>";
