@@ -1,19 +1,30 @@
 <?php
 // Edit
 $sql_edit = "UPDATE db SET ";
-if (isset($_POST['edittag'])) foreach ($_POST as $key => $value) {
-  if ($key != "username") {
-    $value = strip_tags($value);
-  }
-  // echo $key . "=" . $value . "<br>";
-   include "latitude_longitude.php";
-   if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
-     if (strpos($key, 'sv') === false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
-     if (strpos($key, 'sv') !== false) $sql_edit .= "$key = '".mysqli_real_escape_string($conn, str_replace("https://", "",$value))."', ";
-     include "history.php";
-   }
-   ${$value} = @$_POST[$value];
+
+if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
+    if ($key != "username") {
+        $value = strip_tags($value);
+    } 
+    
+    $fieldsToReplace = ['evidence_a', 'evidence_b', 'evidence_c', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f'];
+    if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '$') {
+        $value = 'https://siteportal.calepa.ca.gov/nsite/map/results/summary/' . substr($value, 1);
+    } 
+
+    $value = preg_match('/unique_system_identifier=(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;
+    $value = preg_match('/https:\/\/maprad\.io\/us\/search\/licence\/.*?\/.*?-(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;
+
+    include "latitude_longitude.php"; 
+    if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
+        if (strpos($key, 'sv') === false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, $value) . "', ";}
+        if (strpos($key, 'sv') !== false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, str_replace("https://", "", $value)) . "', ";}
+        include "history.php";
+    } 
+        ${$value} = @$_POST[$value];
+    }
 }
+
 
 if (strlen($sql_edit) != 14) {
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
