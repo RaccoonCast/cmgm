@@ -24,7 +24,7 @@ rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="
 rel="noreferrer noopener" class="pad-small-link pad-small-link-mobile2" target="_blank" href="<?php if (isset($LTE_4_mv)) echo $LTE_4_mv; ?>" ><?php if (isMobile()) echo "LTE_"?>4</a><?php } ?>
 
 <?php
-if (isset($NR_1_mv) OR isset($NR_2_mv) OR isset($NR_3_mv)) { ?><p class="pad-small-link pad-small-link-mobile3">-</p><?php }
+if ((isset($NR_1_mv) OR isset($NR_2_mv) OR isset($NR_3_mv)) & isset($LTE_1_mv)) { ?><p class="pad-small-link pad-small-link-mobile3">-</p><?php }
 if (isset($NR_1_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_1_mv)) { echo $NR_1_mv; }?>"><?php if (isMobile()) echo "NR_"?>1</a><?php }
 if (isset($NR_2_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_2_mv)) { echo $NR_2_mv; }?>"><?php if (isMobile()) echo "NR_"?>2</a><?php }
 if (isset($NR_3_mv)) { ?><a class="pad-small-link pad-small-link-mobile2" rel="noreferrer noopener" target="_blank" href="<?php if (isset($NR_3_mv)) { echo $NR_3_mv; }?>"><?php if (isMobile()) echo "NR_"?>3</a><?php } ?>
