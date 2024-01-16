@@ -44,8 +44,8 @@ foreach ($combined_array as $value) {
     $sql_update .= "PCI_$i = '$value', ";
 }
 
-$edit_history .= "PCIs updated at " . date("Y-m-d H:i") . " PDT." . PHP_EOL;
-$escaped_edit_history = mysqli_real_escape_string($conn, $row['edit_history']);
+$edit_history_suppl .= "PCIs updated at " . date("Y-m-d H:i") . " PDT." . PHP_EOL;
+$escaped_edit_history = mysqli_real_escape_string($conn, $row['edit_history']) . $edit_history_suppl;
 $sql_update .= "edit_history = '{$escaped_edit_history}' WHERE id = '{$row['id']}'";
 
 $conn->query($sql_update);
