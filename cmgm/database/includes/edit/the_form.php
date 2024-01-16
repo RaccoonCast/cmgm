@@ -3,9 +3,10 @@
     <?php
     include "$SITE_ROOT/includes/functions/tower_types.php";
     if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<p>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</p>';
-    // if (!in_array($cellsite_type, $options)) {
-    //   echo '<p>The previous cellsite type was "' . $cellsite_type . '", please update it to use the new system.</p>';
-    // }
+    if (!isset($new) && $LTE_1 != "") {
+      $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
+      if (isset($duplicate_id)) echo '<h3>This record may be duplicated by <a href="https://cmgm.us/databaohse/Edit.php?id='.$duplicate_id.'">#'.$duplicate_id.'</a>.</h3><br>';
+    }
     ?>
   <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
     <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
@@ -130,8 +131,8 @@
     <option data-display="Sectors match: partial" value="partial">partial</option>
   </select><select id="primaryalreadylocated" class="id_params_cw <?php if (isset($tmp_idparam_4)) echo 'warning2';?>"  title="Primary eNB was already located by someone else" name="other_user_map_primary">
     <option style="display: none" value="<?php echo @$tmp_other_user_map_primary;?>" <selected>Other user map primary: <?php echo @$tmp_other_user_map_primary;?></option>
-    <option data-display="Primary already located: true" value="true">true</option>
-    <option data-display="Primary already located: false" value="false">false</option>
+    <option data-display="Other user map primary: true" value="true">true</option>
+    <option data-display="Other user map primary: false" value="false">false</option>
     </select>
 
     <script src="../js/dumb-shit.js"></script>
@@ -221,7 +222,7 @@
 
     <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></label>
       <input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
-      <input placeholder="Site ID" type="text" class="site_id_cw" name="site_id" value="<?php echo @$site_id?>">
+      <input placeholder="Site ID" type="text" class="site_id_cw ib" name="site_id" value="<?php echo @$site_id?>">
 
     <?php if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } else { ?>
@@ -290,7 +291,7 @@
     <label title="&#10;Number of antenna modifications that can be recognized as pertaining to this specific carrier.&#10;" class="evidence_scores_label"># of recognizable mods</label><input
     type="number" max="5" class="evidence_scores_cw archival_antenna_addition" name="archival_antenna_addition" value="<?php echo @$archival_antenna_addition?>">
 
-    <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers data rules out</label><input
+    <br><label title="(0-3)&#10;Consider things like this when deciding how many carriers you can rule out for this site.&#10;- CellMapper trails for other carriers here are far weaker&#10;- Other carriers have their sites in this area already located" class="evidence_scores_label"># of carriers ruled out</label><input
     type="number" max="4" class="evidence_scores_cw" name="carriers_ruled_out" value="<?php echo @$carriers_ruled_out?>">
 
     <br><label title="(0-3)&#10;Number of other carriers that are located at this address.&#10;&#10;This does not affect evidence score." class="evidence_scores_label"># of other carriers here</label><input
