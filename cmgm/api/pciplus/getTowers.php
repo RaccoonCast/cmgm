@@ -54,7 +54,7 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
          if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
-            $result_object[$key][$validOption] = "$domain_with_http/database/uploads/" .$value[$validOption];
+            $result_object[$key][$validOption] = "https://files.cmgm.us/" .$value[$validOption];
           }
         }
       }
