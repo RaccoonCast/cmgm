@@ -5,7 +5,7 @@
     if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<p>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</p>';
     if (!isset($new) && $LTE_1 != "") {
       $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
-      if (isset($duplicate_id)) echo '<h3>This record may be duplicated by <a href="https://cmgm.us/databaohse/Edit.php?id='.$duplicate_id.'">#'.$duplicate_id.'</a>.</h3><br>';
+      if (isset($duplicate_id)) echo '<h3>This record may be duplicated by <a href="https://cmgm.us/database/Edit.php?id='.$duplicate_id.'">#'.$duplicate_id.'</a>.</h3><br>';
     }
     ?>
   <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>

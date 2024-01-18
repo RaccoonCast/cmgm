@@ -37,7 +37,7 @@
     
     include "includes/count_records_total.php";
     
-    echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you are looking at $total out of $total_out_of_everything CMGM pins.</h3>" : "<br>";
+    echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you're looking at $total out of $total_out_of_everything CMGM pins.</h3>" : "<br>";
 
     echo '<div class="statistics-wrapper">';
     
