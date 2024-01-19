@@ -14,6 +14,7 @@ var verified = L.icon({ iconUrl: '../images/map_pins/green.png', iconSize: [<?ph
 var special = L.icon({ iconUrl: '../images/map_pins/purple.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 var weird = L.icon({ iconUrl: '../images/map_pins/blue.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 var unmapped = L.icon({ iconUrl: '../images/map_pins/snowball.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
+var decom = L.icon({ iconUrl: '../images/map_pins/decom.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 var wip = L.icon({iconUrl: '../images/map_pins/green-light.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 
 // celltype

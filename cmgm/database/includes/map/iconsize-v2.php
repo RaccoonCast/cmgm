@@ -14,6 +14,7 @@ var verifiedIcon = L.icon({ iconUrl: '../images/map_pins/green.png', iconSize: [
 var specialIcon = L.icon({ iconUrl: '../images/map_pins/purple.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 var weirdIcon = L.icon({ iconUrl: '../images/map_pins/blue.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 var unmappedIcon = L.icon({ iconUrl: '../images/map_pins/snowball.png', iconSize: [20, 20], popupAnchor: [0, -12] });
+var decomIcon = L.icon({ iconUrl: '../images/map_pins/decom.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 var wipIcon = L.icon({iconUrl: '../images/map_pins/green-light.png', iconSize: [20, 20], popupAnchor: [0, -12] });
 
 // celltype

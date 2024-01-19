@@ -163,6 +163,7 @@ if (@$pin_style == "carrier" or !isset($carrier)) {
   if (empty($status)) $status = "unknown";
   }
 if (@$pin_style != "basic") {
+  if (like_match('decom,%',$tags) == "TRUE" OR like_match('%,decom',$tags) == "TRUE" OR like_match('%,decom,%',$tags) == "TRUE" OR $tags == "decom") $status = "decom";
   if (like_match('unmapped,%',$tags) == "TRUE" OR like_match('%,unmapped',$tags) == "TRUE" OR like_match('%,unmapped,%',$tags) == "TRUE" OR $tags == "unmapped") $status = "unmapped";
   if (like_match('weird,%',$tags) == "TRUE" OR like_match('%,weird',$tags) == "TRUE" OR like_match('%,weird,%',$tags) == "TRUE" OR $tags == "weird") $status = "weird";
   if (like_match('wip,%',$tags) == "TRUE" OR like_match('%,wip',$tags) == "TRUE" OR like_match('%,wip,%',$tags) == "TRUE" OR $tags == "wip") $status = "wip";
