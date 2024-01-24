@@ -9,30 +9,26 @@ padding:0;
 	 height: auto!important;
 	 max-width: auto!important;
 	 max-height: auto!important;
-	 min-width: 415px!important;
-	 min-height: 165px!important;
+	 min-width: 460px!important;
 	 }
 .body::-webkit-scrollbar {
     display: none;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-content, iframe {
-	min-height: 340px!important;
+	min-height: 385px!important;
+	max-height: 385px!important;
 	max-width: 80px!important;
 }
 .leaflet-popup-content-wrapper {
-		min-width: 415px!important;
-		max-width: 415px!important;
-		width: 280px!important;
+	min-width: 460px!important;
+	max-width: 460px!important;
     padding: 0%;
     text-align: left;
     border-radius: 5px;
 		min-width: 310px;
 }
 .leaflet-popup-content {
-		min-width: 180px!important;
-		max-width: 180px!important;
-		width: 180px!important;
     margin: 0px;
     line-height: 1.4;
 }
