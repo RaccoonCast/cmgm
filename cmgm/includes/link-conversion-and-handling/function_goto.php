@@ -37,7 +37,7 @@ if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";
 if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";
 if ($goto_page == "Permits") $goto_page_URL = "../permits.php?";
-if ($goto_page == "Upload") $goto_page_URL = "https://upload.cmgm.us/upload/";
+if ($goto_page == "Upload") $goto_page_URL = "https://cmgm.us/database/Upload.php";
 if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
 if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";

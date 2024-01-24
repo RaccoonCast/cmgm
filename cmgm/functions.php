@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Los_Angeles');
 include 'includes/functions/getGetVars.php';
 include 'includes/functions/basic-functions.php';
-include 'includes/functions/checkIfOnUpload.php';
+//include 'includes/functions/checkIfOnUpload.php'; // part of local-only storage of uploads.
 include 'includes/useridsys/native.php';
 include 'includes/functions/sqlpw.php';
 include 'includes/functions/css.php';

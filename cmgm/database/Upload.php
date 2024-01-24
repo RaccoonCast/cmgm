@@ -1,7 +1,7 @@
 <?php
-if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
-  header('Location: https://upload.cmgm.us/upload/');
-}
+//if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
+//  header('Location: https://upload.cmgm.us/upload/');
+//}
 ?>
 <!doctype html>
 <html lang="en-us">

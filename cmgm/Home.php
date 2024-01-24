@@ -1,7 +1,7 @@
 <?php
-if ($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] === 'upload.cmgm.us/') {
-  header("Location: https://upload.cmgm.us/upload/", true, 301); die();
-}
+//if ($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] === 'upload.cmgm.us/') {
+//  header("Location: https://upload.cmgm.us/upload/", true, 301); die();
+//}
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache'); ?>
@@ -46,7 +46,7 @@ header('Pragma: no-cache'); ?>
         type="button" class="cmgm-btn sb w-25-l" style="color:#5695F6" id="link06" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Maps"><input
         type="button" class="cmgm-btn sb w-37-5" style="color:#5695F6" id="link14" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"Bird's Eye",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Bird's Eye"><input
         type="button" class="cmgm-btn sb w-50" style="color:#f731f7" id="link08" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"Search",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Search"><input
-        type="button" class="cmgm-btn sb w-50" style="color:#f731f7" id="link09" name="goto" onclick="redir('https://upload.cmgm.us/upload/');" name="Upload" value="Upload"><input
+        type="button" class="cmgm-btn sb w-50" style="color:#f731f7" id="link09" name="goto" onclick="redir('https://cmgm.us/database/Upload.php');" name="Upload" value="Upload"><input
         type="button" class="cmgm-btn sb w-50" style="color:#029F89" id="link10" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"AntennaSearch",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="AntennaSearch"><input
         type="button" class="cmgm-btn sb w-25" style="color:#029F89" id="link11" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"Maprad",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="Maprad"><input
         type="button" class="cmgm-btn sb w-25" style="color:#029F89" id="link12" name="goto" onclick="redir('<?php echo function_goto($latitude,$longitude,@$carrier,@$address,@$zip,@$city,@$county,@$state,"OpenCID",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType) ?>');" value="OpenCID"><input

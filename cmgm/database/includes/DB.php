@@ -65,7 +65,7 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
           ?> <div class="btn-group"> <?php
           if (preg_match('/^(?:image|canon|misc|photo)/', $evidence_a)) { ?>
             <input type="button" onclick="copyToClipboard('<?php echo $domain_with_http . "/database/" . $evidence_a; ?>')" class="btn-evidence" value="Copy"></input>
-            <input type="button" class="btn-evidence" onclick="redir('https://files.cmgm.us/<?php echo $evidence_a; ?>','0')" value="View"></input></td></div> <?php } else { ?>
+            <input type="button" class="btn-evidence" onclick="redir('https://cmgm.us/database/uploads/<?php echo $evidence_a; ?>','0')" value="View"></input></td></div> <?php } else { ?>
             <input type="button" onclick="copyToClipboard('<?php echo $evidence_a; ?>')" class="btn-evidence" value="Copy"></input>
             <input type="button" class="btn-evidence" onclick="redir('<?php echo $evidence_a; ?>','0')" value="View"></input></div>
          <?php }}

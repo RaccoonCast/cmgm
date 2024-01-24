@@ -24,7 +24,7 @@
    $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
    $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
    $gmlink = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude";
-   $uplink = "https://upload.cmgm.us/upload/";
+   $uplink = "https://cmgm.us/database/Upload.php";
    $funlink = isset($username) ? "https://cmgm.us/fun/Home.php?limit=15&username=$username" : "https://cmgm.us/fun/Home.php?limit=15";
    ?>
    <div id="footerContainer">
