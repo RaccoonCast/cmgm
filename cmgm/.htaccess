@@ -9,4 +9,4 @@ Deny from All
 </Files>
 
 RewriteEngine On
-RewriteRule ^(\d+)/?$ https://cmgm.us/database/Edit.php?q=$1 [R=301,L]
+RewriteRule ^(\d+)/?$ https://cmgm.us/database/Edit.php?search=$1 [R=301,L]

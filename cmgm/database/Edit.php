@@ -43,7 +43,7 @@ if (isset($_POST['new'])) {
 if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
 
 // Not found? Ok... let's try some things.
-if (!isset($status) && !isset($new)) {
+if ((!isset($status) && !isset($new)) OR isset($_GET['search'])) {
   include "includes/edit/Edit-DB.php";
   die();
 }

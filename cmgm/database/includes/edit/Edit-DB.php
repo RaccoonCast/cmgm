@@ -3,6 +3,7 @@
 $filename_for_css = "DB";
 include "../includes/functions/css.php";
 @$q = @$_GET['q'];
+@$q = @$_GET['search'];
 include "includes/DB-filter-get.php";
 
 if (!empty($q)) {
@@ -13,7 +14,9 @@ if (!empty($q)) {
   // Search database for a LTE or NR nodeB that matches the search query, if found, redirect to that ID. (this is neccesary for CMGM Home -> Search box 81000 -> #318)
   $q_trim = preg_replace('/\s+/', '', $q); // remove spaces
   if (!empty($q_trim) && is_numeric($q_trim)) {
-  $sql = "SELECT id FROM db WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim'";
+  $db_vars = "WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim'";
+  $sql = "SELECT id FROM db " . $db_vars;
+
   $result = mysqli_query($conn, $sql);
     
     if ($result) {
@@ -24,7 +27,6 @@ if (!empty($q)) {
             redir("$domain_with_http/database/Edit.php?q=$new_id", "0");
         } else {
           $latitude = 0; $longitude = 0;
-          $db_vars = "WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim'";
           include "$SITE_ROOT/database/includes/DB.php";
           die();
         }
