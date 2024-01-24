@@ -1,6 +1,6 @@
 <?php
 include "includes/count_records_created_by_everyone.php";
-$sql = "SELECT created_by, COUNT(created_by) AS count FROM db WHERE $db_vars_unamended GROUP BY created_by ORDER BY count DESC;";
+$sql = "SELECT created_by, COUNT(created_by) AS count FROM db WHERE $db_vars_unamended GROUP BY created_by ORDER BY count DESC limit $limit;";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

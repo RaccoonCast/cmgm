@@ -96,6 +96,16 @@
         statBox("count_records_by_year.php", "Pins created by year", $db_vars_unamended, $conn, $domain_with_http);
     }
 
+    // Count most common cell site types.
+    if (!isset($_GET['cellsite_type'])) {
+        statBox("count_cellsite_type.php", "Most common cellsite types", $db_vars_unamended, $conn, $domain_with_http);
+    }
+
+    // Count most common cell site types.
+    if (!isset($_GET['time'])) {
+        statBox("count_records_by_hour.php", "Pin Times", $db_vars_unamended, $conn, $domain_with_http);
+    }
+
 
     echo "</div>";
 

@@ -1,0 +1,3 @@
+.statistics-wrapper {
+    grid-template-columns: repeat(1, 1fr); /* Split into 1 column */
+}

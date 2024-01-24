@@ -28,6 +28,7 @@ elseif ($key == "notes_like") { $db_vars =  " AND (notes like '%".$value."%')" .
 elseif ($key == "cellsite_type" OR $key == "cellsite" OR $key == "type") { $db_vars =  " AND (cellsite_type like '%".$value."%')" . @$db_vars; }
 elseif ($key == "site_id") { $db_vars = " AND (site_id like '%".$value."%')" . @$db_vars; }
 elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
+elseif ($key == "time") { $db_vars = " AND (date_added like '% ".$value."%')" . @$db_vars; }
 elseif ($key == "month") { $db_vars = " AND (MONTH(date_added) = ".$value.")" . @$db_vars; }
 elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
