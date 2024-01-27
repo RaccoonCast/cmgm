@@ -10,7 +10,11 @@ $carrierCounts = [];
   }
   foreach ($carrierCounts as $carrier => $count) {
 
-    echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . $count  . '</a><br>';
+    if (!isset($_GET['percents_view'])) {
+      echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . $count  . '</a><br>';
+    } else {
+      echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . getPercent($count)  . '</a><br>';
+    }
   }
 
   echo "<br>";

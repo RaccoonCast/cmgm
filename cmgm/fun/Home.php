@@ -23,22 +23,12 @@
     // Function to create a statistics box
     function statBox($file, $title, $db_vars_unamended, $conn, $domain_with_http) {
         $limit = is_numeric($_GET['limit']) ? $_GET['limit'] : 15;
-        $current_url = $_SERVER['REQUEST_URI'];
-        echo '<div class="statistics-container">';
-        echo '<div class="stat-box">';
-        echo "<h3>$title</h3>";
-        include "includes/$file";
-        $link = str_replace("/fun/", "/fun/ViewMore.php", $current_url);
-        
-        echo '<a class="bottomlink" href="'. $link . '&q=' . $file . '&title=' . $title . '">Just this</a>'; // Link to the file
-        echo '</div></div>';
+        include "includes/functions/statbox.php";
     }
-    
-    
-    include "includes/count_records_total.php";
-    
-    echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you're looking at $total out of $total_out_of_everything CMGM pins.</h3>" : "<br>";
 
+    include "includes/counts/count_records_total.php";
+    include "includes/functions/getPercent.php";
+    
     echo '<div class="statistics-wrapper">';
     
     // Count most common cities.
@@ -108,17 +98,7 @@
 
 
     echo "</div>";
-
-    // URLs for navigation
-    $map_url = $domain_with_http . "/database/Map.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=11" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
-    $db_url = $domain_with_http . "/database/DB.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=11" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
-    $fun_url = $domain_with_http . "/fun/";
-
-    // Output navigation links
-    echo '<div class="footerlinks">';
-    echo '<br><a href='.$map_url.'>View filters on Map</a>';
-    echo '<br><a href='.$db_url.'>View filters on DB</a>';
-    echo '<br><a href='.$fun_url.'>Clear all filters</a>';
+    include "includes/footer.php";
     echo '</div>';
 
     // Close the database connection

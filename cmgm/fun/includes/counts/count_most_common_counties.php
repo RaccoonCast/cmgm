@@ -8,7 +8,12 @@ while ($row = $result->fetch_assoc()) {
 
   $url = '<a href="'. $location_for_url.'">'.$location.'</a>';
   $plural_namething = ($row["county_count"] > 1) ? " records" : " record";
-  echo $row["county_count"] . $plural_namething . " created in " . $url . "<br>";
+
+  if (!isset($_GET['percents_view'])) {
+    echo $row["county_count"] . $plural_namething . "  created in " . $url . "<br>";
+  } else {
+    echo getPercent($row["county_count"]) . " of " . $plural_namething . "  created in " . $url . "<br>";
+  }
 }
 
 echo "<br>";
