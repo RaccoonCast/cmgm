@@ -56,7 +56,7 @@ $stateMapping = array(
     'WY' => 'Wyoming'
 );
 
-$sql = "SELECT state, COUNT(state) AS state_count FROM db WHERE $db_vars_unamended AND state <> '' GROUP BY state ORDER BY state_count DESC LIMIT $limit;";
+$sql = "SELECT state, COUNT(state) AS state_count FROM db WHERE $db_vars AND state <> '' GROUP BY state ORDER BY state_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT city,state, COUNT(city) AS city_count FROM db WHERE $db_vars_unamended AND city <> '' GROUP BY city ORDER BY city_count DESC LIMIT $limit;";
+$sql = "SELECT city,state, COUNT(city) AS city_count FROM db WHERE $db_vars AND city <> '' GROUP BY city ORDER BY city_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

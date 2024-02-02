@@ -15,7 +15,7 @@ $sql = "SELECT
     SUM(CASE WHEN date_added >= '$within_last_30_days' THEN 1 ELSE 0 END) AS record_count_within_last_30_days,
     SUM(CASE WHEN date_added >= '$within_last_90_days' THEN 1 ELSE 0 END) AS record_count_within_last_90_days,
     SUM(CASE WHEN date_added >= '$all_time' THEN 1 ELSE 0 END) AS record_count_all_time
-    FROM db WHERE $db_vars_unamended";
+    FROM db WHERE $db_vars";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -28,10 +28,15 @@ if ($result) {
     $periods = [ 'today', 'yesterday', 'within_last_7_days', 'within_last_30_days', 'within_last_90_days', 'all_time' ];
 
     foreach ($periods as $period) {
+        $date_window = ($period == "today") ? $$period : ">" . $$period;
         $count = $row["record_count_$period"];
-        $link = "<a href='{$current_url}&date=>{$$period}'>$count</a>";
 
-
+        if (!isset($_GET['percents_view'])) {
+        $link = "<a href='{$current_url}&date=$date_window'>$count</a>";
+        } else {
+        $count_as_percent = getPercent($count);
+        $link = "<a href='{$current_url}&date=$date_window'>$count_as_percent</a>";
+        }
 
         echo "Created " . str_replace('_', ' ', $period) . ": " . ($count > 0 ? $link : "0") . "<br>";
     }

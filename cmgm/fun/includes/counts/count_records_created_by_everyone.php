@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT COUNT(*) AS count FROM db WHERE $db_vars_unamended";
+$sql = "SELECT COUNT(*) AS count FROM db WHERE $db_vars";
 
 $result = $conn->query($sql);
 

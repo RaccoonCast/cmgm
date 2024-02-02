@@ -12,4 +12,5 @@
     echo '<br><a href='.$db_url.'>View filters on DB</a>';
     echo '<br>'.$fun_percents_url.'';
     echo '<br><a href='.$fun_url.'>Clear all filters</a>';
+    echo '</div>'
 ?>

@@ -9,6 +9,7 @@
 
     // Include common functions
     include "../functions.php";
+    echo '<script src="includes/functions/hideme.js"></script>';
 
     // Get current URL
     $current_url = $_SERVER['REQUEST_URI'];
@@ -18,16 +19,13 @@
 
     // Display filters if 'showsql' is set
     if (isset($_GET['showsql'])) {
-        echo "Filters: " . $db_vars_unamended . "<br><hr><br>";
+        echo "Filters: " . $db_vars . "<br><hr>";
     }
 
     // Set default filter
-    $db_vars_unamended = isset($db_vars_unamended) ? "1=1 " . $db_vars_unamended : "1=1 ";
+    $db_vars = isset($db_vars) ? "1=1 " . $db_vars : "1=1 ";
 
-    function getPercent($number) {
-        return number_format(($number / TOTAL) * 100, 2) . '%';
-    }
-
+    include "includes/functions/getPercent.php";
     include "includes/counts/count_records_total.php";
 
     // Stat Box

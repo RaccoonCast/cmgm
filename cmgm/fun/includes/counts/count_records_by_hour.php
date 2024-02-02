@@ -1,6 +1,6 @@
 <?php
 $sql = "SELECT EXTRACT(HOUR FROM date_added) AS hour_of_day, COUNT(*) AS value_occurrence FROM db 
-WHERE $db_vars_unamended AND date_added NOT LIKE '% 00:00:00' GROUP BY hour_of_day ORDER BY value_occurrence DESC LIMIT $limit; ";
+WHERE $db_vars AND date_added NOT LIKE '% 00:00:00' GROUP BY hour_of_day ORDER BY value_occurrence DESC LIMIT $limit; ";
 
 $result = $conn->query($sql);
 

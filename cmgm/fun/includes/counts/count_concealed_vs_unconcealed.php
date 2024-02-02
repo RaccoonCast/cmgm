@@ -3,7 +3,7 @@
 $sql = 'SELECT
             SUM(CASE WHEN concealed = "true" THEN 1 ELSE 0 END) AS concealed_true_count,
             SUM(CASE WHEN concealed = "false" THEN 1 ELSE 0 END) AS concealed_false_count
-        FROM db WHERE '.$db_vars_unamended.' ';
+        FROM db WHERE '.$db_vars.' ';
 
 $result = $conn->query($sql);
 

@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT county,state, COUNT(county) AS county_count FROM db WHERE $db_vars_unamended AND county <> '' GROUP BY county ORDER BY county_count DESC LIMIT $limit;";
+$sql = "SELECT county,state, COUNT(county) AS county_count FROM db WHERE $db_vars AND county <> '' GROUP BY county ORDER BY county_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

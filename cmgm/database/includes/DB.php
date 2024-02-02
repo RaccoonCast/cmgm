@@ -1,7 +1,7 @@
 <?php
 include "../includes/functions/tower_types.php";
 if (!isset($_GET['limit'])) $limit = 75;
-$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type, (3959 * ACOS(COS(RADIANS(".@$latitude.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude.")) + SIN(RADIANS(".@$latitude.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type, (3959 * ACOS(COS(RADIANS(".@$latitude.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude.")) + SIN(RADIANS(".@$latitude.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn,$sql);
 if(empty($result)) {

@@ -2,7 +2,7 @@
 $carriers = ["T-Mobile", "Sprint", "Verizon", "ATT", "Dish"];
 $carrierCounts = [];
   foreach ($carriers as $carrier) {
-    $sql = "SELECT COUNT(*) as count FROM db WHERE $db_vars_unamended AND carrier = '$carrier'";
+    $sql = "SELECT COUNT(*) as count FROM db WHERE $db_vars AND carrier = '$carrier'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $carrierCounts[$carrier] = $row['count'];

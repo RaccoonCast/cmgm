@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT DATE(date_added) AS date_only, COUNT(date_added) AS value_occurrence FROM db WHERE $db_vars_unamended GROUP BY date_only ORDER BY value_occurrence DESC LIMIT $limit";
+$sql = "SELECT DATE(date_added) AS date_only, COUNT(date_added) AS value_occurrence FROM db WHERE $db_vars GROUP BY date_only ORDER BY value_occurrence DESC LIMIT $limit";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {

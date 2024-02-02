@@ -123,7 +123,7 @@ $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIA
 
 $database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
 
-$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db $db_vars ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
 if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {

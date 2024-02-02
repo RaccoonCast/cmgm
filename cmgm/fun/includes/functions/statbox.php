@@ -15,5 +15,7 @@
             echo '<a href="'.str_replace("ViewMore.php", "", $current_url).'">View all stats</a> | '; // Link to the file
           }
 
-        echo '</div></div></div>';
+          // "Hide Me" link
+          echo '<a href="#" onclick="hideStatBox(this);">Hide Me</a>';
+          echo '</div></div></div>';
 ?>
