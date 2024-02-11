@@ -1,12 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-size: 0.9em;
-    max-width: calc(100vw - 35px); /* Set a maximum width for the entire content with 50px on either side */
-    margin: 0 auto; /* Center the content */
+    font-size: 0.88em;
+    max-width: calc(100vw - 25px);
+    margin-left: 12px;
 }
 
 .statistics-wrapper {
@@ -16,26 +13,26 @@ body {
 
 .statistics-container {
     margin-top: 5px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .stat-box {
     width: 90%;
     min-height: 280px;
     height: 100%;
-    padding: 15px;
+    padding: 14px;
     border-radius: 18px;
     position: relative; /* lets box-shadow overlap other elements */
     outline: none !important; /* remove boring outline */
 }
 
 .stat-box h3 {
-    font-size: 1.5em;
+    font-size: 1.47em;
     margin-bottom: 12px;
     margin-top: 3px;
     padding-top: 0px;
 }
-a {
+.stat-box a {
     font-weight: 600;
 }
 h3 {
@@ -48,9 +45,22 @@ h3 {
     left: 4%; /* Align at the center horizontally */
     margin-bottom: 11px;
 }
-.footerlinks {
-    margin-left: 12px;
-    position: absolute;
-    margin-bottom: 12px;
-    padding-bottom: 24px;
+#divider {
+    border-right: 1px solid white;
+    padding-left: 19px;
+    font-size: 16px;
 }
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 6px;
+    padding-top: 2px;
+  }
+footer a {
+   font-size: 18px!important;
+   padding-left: 19px;
+   color: #8ab4f8!important; 
+}
+  

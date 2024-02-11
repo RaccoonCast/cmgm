@@ -28,7 +28,7 @@ if ($result) {
     $periods = [ 'today', 'yesterday', 'within_last_7_days', 'within_last_30_days', 'within_last_90_days', 'all_time' ];
 
     foreach ($periods as $period) {
-        $date_window = ($period == "today") ? $$period : ">" . $$period;
+        $date_window = ($period == "today" || $period == "yesterday") ? $$period : ">" . $$period;
         $count = $row["record_count_$period"];
 
         if (!isset($_GET['percents_view'])) {

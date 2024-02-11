@@ -1,3 +1,15 @@
-.statistics-wrapper {
-    grid-template-columns: repeat(5, 1fr); /* Split into 5 columns */
+@media (min-width:1920px) {
+    .statistics-wrapper {
+        grid-template-columns: repeat(6, 1fr); /* Split into 5 columns */
+    }
+}
+@media ((min-width:1536px) and (max-width:1919px)) {
+    .statistics-wrapper {
+        grid-template-columns: repeat(5, 1fr); /* Split into 5 columns */
+    }
+}
+@media (max-width:1535px) {
+    .statistics-wrapper {
+        grid-template-columns: repeat(4, 1fr); /* Split into 5 columns */
+    }
 }

@@ -1,5 +1,5 @@
 <?php
 function getPercent($number) {
-    return round(($number / TOTAL) * 100, 2) . '%';
+    return sprintf('%.2f', round(($number / TOTAL) * 100, 2)) . "%";
 }
 ?>

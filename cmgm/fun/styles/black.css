@@ -10,3 +10,7 @@
 .stat-box h3 {
     color: #f0f0f0;
 }
+footer {
+    border-top: 2px solid #2D2C2C;
+    background-color: #111111;
+}

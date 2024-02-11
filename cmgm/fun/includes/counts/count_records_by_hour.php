@@ -5,7 +5,7 @@ WHERE $db_vars AND date_added NOT LIKE '% 00:00:00' GROUP BY hour_of_day ORDER B
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
-  $hour = $row['hour_of_day'];
+  $hour = str_pad($row['hour_of_day'], 2, '0', STR_PAD_LEFT);
   $formatted_hour = date("g A", strtotime("$hour:00:00"));
 
   $plural_namething = ($row["value_occurrence"] > 1) ? " records" : " record";

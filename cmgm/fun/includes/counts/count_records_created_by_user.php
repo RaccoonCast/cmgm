@@ -9,9 +9,9 @@ while ($row = $result->fetch_assoc()) {
   $plural_namething = ($row["count"] > 1) ? " records" : " record";
 
   if (!isset($_GET['percents_view'])) {
-    echo $row["count"] . $plural_namething . "  created by " . $url . "<br>";
+    echo $row["count"] . $plural_namething . "  by " . $url . "<br>";
   } else {
-    echo getPercent($row["count"]) . " of " . $plural_namething . "  created by " . $url . "<br>";
+    echo getPercent($row["count"]) . " of " . $plural_namething . "  by " . $url . "<br>";
   }
 }
 

@@ -33,7 +33,7 @@
 
     // Most created by X user.
     if (!isset($_GET['username'])) {
-        statBox("count_records_created_by_user.php", "Pins created by user", $db_vars, $conn, $domain_with_http, $domain_with_http);
+        statBox("count_records_created_by_user.php", "Pins by user", $db_vars, $conn, $domain_with_http, $domain_with_http);
     }
 
     // Carrier counts.
@@ -58,7 +58,7 @@
 
     // Count most common cell site types.
     if (!isset($_GET['cellsite_type'])) {
-        statBox("count_cellsite_type.php", "Most common cellsite types", $db_vars, $conn, $domain_with_http);
+        statBox("count_cellsite_type.php", "Cellsite types", $db_vars, $conn, $domain_with_http);
     }
 
     // Count most common cell site types.
