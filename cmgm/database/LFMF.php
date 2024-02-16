@@ -94,7 +94,7 @@ foreach($fileList as $filename){
     } elseif ($_POST['opt'] == 'PWA Manifest') {
         redir("..\manifest.json","0");
     }  elseif ($_POST['opt'] == 'ppT Link Maker') {
-      $sql = "SELECT id, carrier, latitude, longitude, LTE_1, region_lte FROM db WHERE PCI_1 = '' AND LTE_1 IS NOT NULL AND LTE_1 <> ''";
+      $sql = "SELECT id, carrier, latitude, longitude, LTE_1, region_lte FROM db WHERE PCI_1 = '' AND LTE_1 IS NOT NULL AND LTE_1 <> '' AND tags NOT LIKE '%future%'";
       $result = $conn->query($sql);
       echo "SQL Query: " . $sql;
       echo "<br>";
