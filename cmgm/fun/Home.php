@@ -27,8 +27,8 @@
         include "includes/functions/statbox.php";
     }
 
-    include "includes/counts/count_records_total.php";
     include "includes/functions/getPercent.php"; //
+    include "includes/counts/count_records_total.php";
     include "includes/counts/count_all.php";
     include "includes/footer.php";
 

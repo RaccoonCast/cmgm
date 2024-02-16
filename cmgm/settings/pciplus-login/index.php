@@ -15,7 +15,7 @@ header("Pragma: no-cache");
      include "../../functions.php";
      $pciplusIdent = mysqli_real_escape_string($conn, $_GET['pciplusIdent']);
 
-     if (isset($pciplusIdent)) {
+     if (!empty($pciplusIdent)) {
       $timestamp = time();
 
       $sql_query = "UPDATE userID SET pciplus_token = '$pciplusIdent', pciplus_timestamp='$timestamp' WHERE userID = '$userID'";

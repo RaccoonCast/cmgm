@@ -70,12 +70,15 @@ while ($row = $result->fetch_assoc()) {
     $url = '<a href="'. $location_for_url.'">'.$locationFullName.'</a>';
     $plural_namething = ($row["state_count"] > 1) ? " records" : " record";
     
-    if (!isset($_GET['percents_view'])) {
-        echo $row["state_count"] . $plural_namething . "  in " . $url . "<br>";
-      } else {
-        echo getPercent($row["state_count"]) . " in " . $url . "<br>";
-      }
+  if (isset($_GET['percents_view'])) {
+    echo getPercent($row["state_count"]) . "  in " . $url . "<br>";
+  } elseif (isset($json_flag)) {
+    $json_array[$locationFullName] = $row["state_count"];
+  } else {
+    echo $row["state_count"] . $plural_namething . "  in " . $url . "<br>";
+  }
+
 }
 
-echo "<br>";
+echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

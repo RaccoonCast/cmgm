@@ -6,14 +6,16 @@ $monthNames = array_combine(range(1, 12), ["January", "February", "March", "Apri
 
 while ($row = $result->fetch_assoc()) {
 
-   if (!isset($_GET['percents_view'])) {
-      echo $monthNames[$row["month"]] . ': ' . '<a href="'.$current_url . '&month='. $row["month"].'">'.$row["count"].'</a><br>';
+   if (isset($_GET['percents_view'])) {
+    echo $monthNames[$row["month"]] . ': ' . '<a href="'.$current_url . '&month='. $row["month"].'">'.getPercent($row["count"]).'</a><br>';
+    } elseif (isset($json_flag)) {
+      $json_array[$monthNames[$row["month"]]] = $row["count"];
     } else {
-      echo $monthNames[$row["month"]] . ': ' . '<a href="'.$current_url . '&month='. $row["month"].'">'.getPercent($row["count"]).'</a><br>';
+      echo $monthNames[$row["month"]] . ': ' . '<a href="'.$current_url . '&month='. $row["month"].'">'.$row["count"].'</a><br>';
     }
 
 
 }
 
-echo "<br>";
+echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

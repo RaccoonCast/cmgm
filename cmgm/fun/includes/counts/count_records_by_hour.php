@@ -10,13 +10,15 @@ while ($row = $result->fetch_assoc()) {
 
   $plural_namething = ($row["value_occurrence"] > 1) ? " records" : " record";
 
-  if (!isset($_GET['percents_view'])) {
-    echo $row["value_occurrence"] . $plural_namething . ' created during ' . '<a href="' . $current_url . '&time=' . $hour . '">' . $formatted_hour  . '</a><br>';
-  } else {
+  if (isset($_GET['percents_view'])) {
     echo getPercent($row["value_occurrence"]) . " of " . $plural_namething . ' created during ' . '<a href="' . $current_url . '&time=' . $hour . '">' . $formatted_hour  . '</a><br>';
+  } elseif (isset($json_flag)) {
+    $json_array[$formatted_hour] = $row["value_occurrence"];
+  } else {
+    echo $row["value_occurrence"] . $plural_namething . ' created during ' . '<a href="' . $current_url . '&time=' . $hour . '">' . $formatted_hour  . '</a><br>';
   }
 }
 
 
-echo "<br>";
+echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

@@ -29,7 +29,7 @@
    ?>
    <div id="footerContainer">
    <footer>
-     <a class="footerlink footer_link_first" target="_blank" href="<?php echo $domain_with_http?>">Home</a>
+     <a class="footerlink" target="_blank" href="<?php echo $domain_with_http?>">Home</a>
      <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">Map</a>
      <a class="footerlink" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
      <a class="footerlink" target="_blank" href="<?php echo $uplink?>">Upload</a>

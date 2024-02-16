@@ -11,8 +11,12 @@ if ($total == 1) {
     $total_text = $total;
 }
 
+function getPercent_2($number, $total_out_of_everything) {
+    return " (" . sprintf('%.2f', round(($number / $total_out_of_everything) * 100, 2)) . "%)";
+}
 
 echo "<title>" . number_format($total) . " Pins - CMGM</title>";
-echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you're looking at $total_text out of $total_out_of_everything CMGM pins.</h3>" : "<br>";
+$percent_stat = isset($_GET['percents_view']) ? getPercent_2($total, $total_out_of_everything) : "";
+echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you're looking at $total_text out of $total_out_of_everything CMGM pins$percent_stat. </h3>" : "<br>";
 
 ?>

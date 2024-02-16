@@ -31,19 +31,20 @@ if ($result) {
         $date_window = ($period == "today" || $period == "yesterday") ? $$period : ">" . $$period;
         $count = $row["record_count_$period"];
 
-        if (!isset($_GET['percents_view'])) {
-        $link = "<a href='{$current_url}&date=$date_window'>$count</a>";
+        if (isset($_GET['percents_view'])) {
+            $count_as_percent = getPercent($count);
+            $link = "<a href='{$current_url}&date=$date_window'>$count_as_percent</a>";
+        } elseif (isset($json_flag)) {
+            $json_array[$date_window] = $count;
         } else {
-        $count_as_percent = getPercent($count);
-        $link = "<a href='{$current_url}&date=$date_window'>$count_as_percent</a>";
+            $link = "<a href='{$current_url}&date=$date_window'>$count</a>";
         }
-
-        echo "Created " . str_replace('_', ' ', $period) . ": " . ($count > 0 ? $link : "0") . "<br>";
+        echo (!isset($json_flag)) ? "Created " . str_replace('_', ' ', $period) . ": " . ($count > 0 ? $link : "0") . "<br>" : "";
     }
 
     // Free the result set
     $result->free_result();
 }
 
-echo "<br>";
+echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

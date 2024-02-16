@@ -31,6 +31,16 @@ function report($msg,$id,$content) {
   http_response_code(200);
   die();
 }
+function respond($http_code, $msg) { 
+  $arr_keys = array("msg");
+  $arr_vals = array($msg);
+  $combined = array_combine($arr_keys, $arr_vals);
+  http_response_code($http_code);
+  echo json_encode($combined);
 
+  die();
+}
+
+@define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 include '../../includes/functions/sqlpw.php'; // doesn't call native
 ?>

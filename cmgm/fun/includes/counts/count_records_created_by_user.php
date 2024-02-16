@@ -8,12 +8,14 @@ while ($row = $result->fetch_assoc()) {
 
   $plural_namething = ($row["count"] > 1) ? " records" : " record";
 
-  if (!isset($_GET['percents_view'])) {
-    echo $row["count"] . $plural_namething . "  by " . $url . "<br>";
-  } else {
+  if (isset($_GET['percents_view'])) {
     echo getPercent($row["count"]) . " of " . $plural_namething . "  by " . $url . "<br>";
+  } elseif (isset($json_flag)) {
+    $json_array[$row["created_by"]] = $row['count'];
+  } else {
+    echo $row["count"] . $plural_namething . "  by " . $url . "<br>";
   }
 }
 
-echo "<br>";
+echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

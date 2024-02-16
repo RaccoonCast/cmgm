@@ -6,6 +6,7 @@
         echo '<div class="stat-box">';
         echo "<h3>$title</h3>";
         include "includes/counts/$file";
+        $api_link = str_replace("/fun/", "/api/pciplus/fun.php", $current_url) . "&q=$file";
         $just_this_link = str_replace("/fun/", "/fun/ViewMore.php", $current_url);
         echo '<div class="bottomlink">';
 
@@ -15,7 +16,7 @@
             echo '<a href="'.str_replace("ViewMore.php", "", $current_url).'">View all stats</a> | '; // Link to the file
           }
 
-          // "Hide Me" link
-          echo '<a href="#" onclick="hideStatBox(this);">Hide Me</a>';
+          echo '<a href="#" onclick="hideStatBox(this);">Hide Me </a> | ';
+          echo '<a href="'.$api_link.'">API Link</a>';
           echo '</div></div></div>';
 ?>
