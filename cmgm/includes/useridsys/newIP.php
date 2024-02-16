@@ -98,7 +98,7 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
      <br>
      <form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
      Or enter user id:
-     <input type="text" name="userid" class="textbox" placeholder="User ID">
+     <input type="password" name="userid" class="textbox" placeholder="User ID">
      <input type="submit" class="sb cmgm-btn" value="Submit">
      </form>
    </body>
