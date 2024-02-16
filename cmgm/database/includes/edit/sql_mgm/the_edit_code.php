@@ -35,6 +35,9 @@ if (strlen($sql_edit) != 14) {
   // echo "Current: " . date("Y-m-d H") . "<br>";
   // echo "Former: " . $edit_userid . "<br>";
   // echo "Current: " . $userID . "<br>";
+  if (@$pci_removed_note == "true") @$vals .= "PCIs removed." . PHP_EOL;
+  if (@$pci_updated_note == "true") @$vals .= "PCIs updated." . PHP_EOL;
+
   if (isset($_POST['new'])) {
     $edit_history_value = "$edit_history" . "————— " . date("Y-m-d H:i") . " | $username created —————" . PHP_EOL . "$vals";
     $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
@@ -51,6 +54,7 @@ if (strlen($sql_edit) != 14) {
   }
   // echo $sql_edit;
   //die();
+
   if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
   include "read_data.php";
 } else {

@@ -11,7 +11,7 @@ if(!isset($zip)) $zip = null;
 <!-- SEARCH QUERY -->
 
 <!-- LATITUDE / LONGITUDE -->
-<div title="Click to copy latitude,longitude" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')">
+<div title="Click to copy latitude,longitude" style="cursor: pointer" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')">
   Latitude: <?php if (isset($latitude)) echo $latitude ?>
   <br>Longitude: <?php if (isset($longitude)) echo $longitude; ?>
 </div>
