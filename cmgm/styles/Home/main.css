@@ -15,3 +15,10 @@ text-align: center;
 #tiauquote {
   font-size: 0.85em;
 }
+.prettyInfoDisplay_element {
+  cursor: pointer; 
+  margin-top: 4px;
+}
+.prettyInfoDisplay_element:hover {
+  text-decoration: underline;
+}

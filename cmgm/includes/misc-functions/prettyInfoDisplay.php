@@ -11,14 +11,14 @@ if(!isset($zip)) $zip = null;
 <!-- SEARCH QUERY -->
 
 <!-- LATITUDE / LONGITUDE -->
-<div title="Click to copy latitude,longitude" style="cursor: pointer" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')">
+<div title="Click to copy latitude,longitude" class="prettyInfoDisplay_element" onclick="copyToClipboard('<?php echo $latitude?>,<?php echo $longitude?>')">
   Latitude: <?php if (isset($latitude)) echo $latitude ?>
   <br>Longitude: <?php if (isset($longitude)) echo $longitude; ?>
 </div>
 <!-- LATITUDE / LONGITUDE -->
 
 <!-- ADDRESS -->
-<div title="Click to copy address" onclick="copyToClipboard('<?php if (isset($address)) {echo $address . ', ';}?><?php if (isset($city)) echo $city?>, <?php if (isset($state)) echo $state; ?> <?php if (isset($zip)) echo $zip; ?>')">
+<div title="Click to copy address" class="prettyInfoDisplay_element" onclick="copyToClipboard('<?php if (isset($address)) {echo $address . ', ';}?><?php if (isset($city)) echo $city?>, <?php if (isset($state)) echo $state; ?> <?php if (isset($zip)) echo $zip; ?>')">
 Address: <?php if (isset($address)) {echo $address . ', ';}?><?php if (isset($city)) echo $city?>, <?php if (isset($state)) echo $state; ?> <?php if (isset($zip)) echo $zip; ?></div>
 <!-- ADDRESS -->
 <div class="gmaps_api_link">
