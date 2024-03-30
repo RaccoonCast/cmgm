@@ -58,6 +58,7 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $cm_groupTowers = "false";
   $cm_showLabels = "true";
   $cm_showLowAcc = "true";
+  $cmgm_edit_pinspace_warn = "false";
 
   $sql = "INSERT INTO userID (userID, username, userIP, gmaps_api_key_access, default_carrier, default_latitude, default_longitude, theme, gmaps_util, debug_flag, cm_mapType, cm_groupTowers, cm_showLabels, cm_showLowAcc, prefLocType)
                   VALUES (

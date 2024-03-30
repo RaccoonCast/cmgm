@@ -12,7 +12,7 @@ header("Pragma: no-cache");
      <?php
      $titleOverride = "true";
      include "../functions.php";
-     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'cm_mapType', 'cm_groupTowers', 'cm_showLabels', 'cm_showLowAcc', 'cm_zoom', 'prefLocType', 'cmgm_edit_hide_edit_history', 'cmgm_edit_override_panels_widths', 'cmgm_edit_panel1_width', 'cmgm_edit_panel2_width');
+     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'cm_mapType', 'cm_groupTowers', 'cm_showLabels', 'cm_showLowAcc', 'cm_zoom', 'prefLocType', 'cmgm_edit_hide_edit_history', 'cmgm_edit_pinspace_warn', 'cmgm_edit_override_panels_widths', 'cmgm_edit_panel1_width', 'cmgm_edit_panel2_width');
 
      if (isset($_POST['default_latitude'])) {
      /// Database column names
@@ -101,6 +101,10 @@ header("Pragma: no-cache");
         <div class="cmcheckboxes ib"><label for="cmgm_edit_override_panels_widths">Custom width for panels<input
         type="hidden" name="cmgm_edit_override_panels_widths" value="false"><input
         type="checkbox" id="cmgm_edit_override_panels_widths_checkbox" name="cmgm_edit_override_panels_widths" value="true" <?php if($cmgm_edit_override_panels_widths == "true") echo 'checked';?>></label>
+
+        <label for="cmgm_edit_pinspace_warn"><?php if(!isMobile()) echo " | " ?>Hide pin spacing warnings<input
+        type="hidden" name="cmgm_edit_pinspace_warn" value="false"><input
+        type="checkbox" id="cmgm_edit_pinspace_warn_checkbox" name="cmgm_edit_pinspace_warn" value="true" <?php if($cmgm_edit_pinspace_warn == "true") echo 'checked';?>></label>
 
         <label for="cmgm_edit_hide_edit_history"><?php if(!isMobile()) echo " | " ?>Hide edit history<input
         type="hidden" name="cmgm_edit_hide_edit_history" value="false"><input
