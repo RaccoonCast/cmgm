@@ -42,9 +42,7 @@
     }
 
     // Count concealed vs unconcealed sites.
-    if (!isset($_GET['concealed'])) {
-        statBox("count_concealed_vs_unconcealed.php", "Concealed vs Unconcealed Sites", $db_vars, $conn, $domain_with_http);
-    }
+    $_GET['status'] && $_GET['concealed'] ?: statBox("count_concealed_vs_unconcealed_and_status.php", "", $db_vars, $conn, $domain_with_http);
 
     // Records during last X whatever.
     if (!isset($_GET['date']) && !isset($_GET['year']) && !isset($_GET['month'])) {

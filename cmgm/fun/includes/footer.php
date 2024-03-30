@@ -1,6 +1,6 @@
 <?php
 // URLs for navigation
-    $map_url = $domain_with_http . "/database/Map.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=0" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url) . "&useCoordCenter";
+    $map_url = $domain_with_http . "/database/Map.php?useCoordCenter" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
     $db_url = $domain_with_http . "/database/DB.php?latitude=" . $default_latitude . "&longitude=" . $default_longitude . "&zoom=11" . preg_replace('/\/fun\/\?limit=\d+/', '', $current_url);
     $fun_percents_url = !isset($_GET['percents_view']) ? '<a href="' . $current_url . '&percents_view">Stats with percentages</a>' :
                                                          '<a href="' . str_replace("&percents_view", "", $current_url) . '">Stats with raw numbers</a>';
