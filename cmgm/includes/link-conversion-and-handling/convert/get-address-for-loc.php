@@ -20,7 +20,7 @@ $response = json_decode($response);
      if (!isset($city)) if (in_array("sublocality", $addrComp->types)) { $city = $addrComp->long_name; }
      if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
      
-     if (strlen(@$state) > 2) {
+     if (isset($state) && strlen($state) > 2) {
       if ($addrComp->types[0] == 'country') @$state = $addrComp->short_name;
     }
 
