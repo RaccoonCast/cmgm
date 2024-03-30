@@ -52,12 +52,14 @@ if (!isset($userIP)) {
     $default_longitude = "-87.62886586726619";
     $gmaps_api_key_access = "false";
     $cmgm_edit_hide_edit_history = "false";
+    $cmgm_edit_pinspace_warn = "false";
     $cmgm_edit_override_panels_widths = "false";
     $cmgm_edit_panel1_width = "56";
     $cmgm_edit_panel2_width = "44";
   }
 }
 
+if($userID !== "guest") {
 // If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
 if (!isset($allowGuests) && $curr_userIP != $userIP) {
   mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'");
@@ -72,4 +74,6 @@ if (substr(@$last_date, 0, 10) == date('Y-m-d') && !isset($allowGuests)) {
 if (!isset($api_called)) { ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php }
 
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/secret_maps_api_key.hiddenpass", true);
+}
+
 ?>
