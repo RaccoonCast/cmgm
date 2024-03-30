@@ -60,7 +60,7 @@
     if ($only_reasonable_location < 80) if ($sector_split_match >= 0 && ($sector_split_match < 80)) if ($cellmapper_triangulation >= 100 ) $ev += 2;
 
     // Combo Pack!
-    if (@$carriers_ruled_out == 3) if ($sector_split_match >= 90 && ($sector_split_match >= 100)) $ev += 4;
+    if (@$carriers_ruled_out > 3) if ($sector_split_match >= 90 && ($sector_split_match >= 100)) $ev += 4;
     if (@$carriers_ruled_out == 2) if ($sector_split_match >= 90 && ($sector_split_match >= 100)) $ev += 2;
 
     // image evidence
