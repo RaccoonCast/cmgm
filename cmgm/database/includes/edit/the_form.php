@@ -2,10 +2,13 @@
   <?php if (@$padlock == "true") echo '<fieldset disabled="disabled">'; ?>
     <?php
     include "$SITE_ROOT/includes/functions/tower_types.php";
-    if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<p>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</p>';
-    if (!isset($new) && $LTE_1 != "") {
-      $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
-      if (isset($duplicate_id)) echo '<h3>This record may be duplicated by <a href="https://cmgm.us/database/Edit.php?id='.$duplicate_id.'">#'.$duplicate_id.'</a>.</h3><br>';
+    if ($userID !== "guest" && isset($id)) {
+      if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<h4><span class="warning">Warning</span>: <i>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</i></h4>';
+      if ((substr_replace($cm_pin_distance ,"", -1) >= 2.0) && ($cmgm_edit_pinspace_warn == "false")) echo '<h4><span class="warning">Warning</span>: <i>A pin distance of 2.0x or greater will move parent down slightly on CellMapper.net, <a target="_blank" href="https://cmgm.us/settings">hide this warning</a>.</i></h4>';
+      if (!isset($new) && $LTE_1 != "") {
+        $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
+        if (isset($duplicate_id)) echo '<h4><span class="warning">Warning</span>: <i>This record may be duplicated by <a target="_blank" href="https://cmgm.us/database/Edit.php?id='.$duplicate_id.'">#'.$duplicate_id.'</a>.</i></h4>';
+      }
     }
     ?>
   <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
@@ -46,7 +49,7 @@
     <?php
       if (@$carrier == "Unknown") { $cm_carrier = @$default_carrier; } else { $cm_carrier = @$carrier; }
       include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
-      if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
+    if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (isset($carrier)) $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
     ?>
@@ -171,28 +174,26 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label" for="cm-pin-sep"> <span class="floatright-desktop"><?php if (!isMobile()) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select id="cm-pin-sep" class="misc_50_cw<?php if (isset($tmp_misc_1)) echo ' warning2';?>" title="How far separated the pins are on CellMapper.net" name="cm_pin_distance">
+    <label class="misc_label" for="cm-pin-sep"> <span class="floatright-desktop"><?php if (!isMobile() && ($userID != "guest")) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select id="cm-pin-sep" class="misc_50_cw<?php if (isset($tmp_misc_1)) echo ' warning2';?>" title="How far separated the pins are on CellMapper.net" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
-    <option value="0.4x">0.4x</option>
+    <option value="0.3x">0.3x</option>
     <option value="0.5x">0.5x</option>
-    <option value="0.6x">0.6x</option>
     <option value="0.7x">0.7x</option>
-    <option value="0.8x">0.8x</option>
-    <option value="0.9x">0.9x</option>
     <option value="1.0x">1.0x</option>
-    <option value="1.1x">1.1x</option>
     <option value="1.2x">1.2x</option>
-    <option value="1.3x">1.3x</option>
     <option value="1.4x">1.4x</option>
-    <option value="1.5x">1.5x</option>
     <option value="1.6x">1.6x</option>
-    <option value="1.7x">1.7x</option>
     <option value="1.8x">1.8x</option>
-    <option value="1.9x">1.9x</option>
     <option value="2.0x">2.0x</option>
-    <option value="2.1x">2.1x</option>
     <option value="2.2x">2.2x</option>
-    <option value="2.3x">2.3x</option>
+    <option value="2.4x">2.4x</option>
+    <option value="2.7x">2.7x</option>
+    <option value="3.0x">3.0x</option>
+    <option value="3.5x">3.5x</option>
+    <option value="5.0x">5.0x</option>
+    <option value="7.5x">7.5x</option>
+    <option value="10.0x">10.0x</option>
+    <option value="15.0x">15.0x</option>
   </select><select class="misc_50_cw <?php if (isset($tmp_misc_2)) echo 'warning2';?>" title="Invert pin spacing (splits are below the primary instead of above)" name="cm_pin_inverted">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>

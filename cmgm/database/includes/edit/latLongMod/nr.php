@@ -7,6 +7,9 @@ $multiplier = substr_replace($cm_pin_distance ,"", -1);
 $modDigit = 0.00006;
 $modDigit = $modDigit * $multiplier;
 
+$pin_lat = ($multiplier >= 2.0) ? ($latitude - $modDigit/2) : $latitude;
+$pin_lng = $longitude;
+
 if ((!empty($NR_1) OR !empty($NR_2) OR !empty($NR_3)) or @$ignore_checks == "true") {
 
 // Carrier
@@ -19,22 +22,22 @@ if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
 if ((!empty($region_nr) && !(isset($new))) or @$ignore_checks = "true") {
 
 if ($cm_pin_inverted == "false" OR empty($cm_pin_inverted)) {
-  if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
-  if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude + $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
-  if (!empty($NR_3)) $NR_3_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_3 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
+  if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $pin_lat + $modDigit . "&Longitude=" . $pin_lng + $modDigit; // Right
+  if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $pin_lat + $modDigit . "&Longitude=" . $pin_lng - $modDigit; // Left
+  if (!empty($NR_3)) $NR_3_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_3 . "&CellID=&Latitude=" . $pin_lat . "&Longitude=" . $pin_lng; // Base
 
-  $NR_1_coordinates_set = $latitude + $modDigit . "," . $longitude + $modDigit; // Right
-  $NR_2_coordinates_set = $latitude + $modDigit . "," . $longitude - $modDigit; // Left
-  $NR_3_coordinates_set = $latitude . "," . $longitude; // Base
+  $NR_1_coordinates_set = $pin_lat + $modDigit . "," . $pin_lng + $modDigit; // Right
+  $NR_2_coordinates_set = $pin_lat + $modDigit . "," . $pin_lng - $modDigit; // Left
+  $NR_3_coordinates_set = $pin_lat . "," . $pin_lng; // Base
 
 } else {
-  if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude + $modDigit; // Right
-  if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $latitude - $modDigit . "&Longitude=" . $longitude - $modDigit; // Left
-  if (!empty($NR_3)) $NR_3_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_3 . "&CellID=&Latitude=" . $latitude . "&Longitude=" . $longitude; // Base
+  if (!empty($NR_1)) $NR_1_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_1 . "&CellID=&Latitude=" . $pin_lat - $modDigit . "&Longitude=" . $pin_lng + $modDigit; // Right
+  if (!empty($NR_2)) $NR_2_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_2 . "&CellID=&Latitude=" . $pin_lat - $modDigit . "&Longitude=" . $pin_lng - $modDigit; // Left
+  if (!empty($NR_3)) $NR_3_mv = $base . "&Region=" . $region_nr . "&RAT=NR&Site=" . $NR_3 . "&CellID=&Latitude=" . $pin_lat . "&Longitude=" . $pin_lng; // Base
 
-  $NR_1_coordinates_set = $latitude - $modDigit . "," . $longitude + $modDigit; // Right
-  $NR_2_coordinates_set = $latitude - $modDigit . "," . $longitude - $modDigit; // Left
-  $NR_3_coordinates_set = $latitude . "," . $longitude; // Base
+  $NR_1_coordinates_set = $pin_lat - $modDigit . "," . $pin_lng + $modDigit; // Right
+  $NR_2_coordinates_set = $pin_lat - $modDigit . "," . $pin_lng - $modDigit; // Left
+  $NR_3_coordinates_set = $pin_lat . "," . $pin_lng; // Base
 
 }
 }
