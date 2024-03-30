@@ -1,4 +1,5 @@
 <?php
+   include "../js/getCmLink.js.php";
    if(empty($zip)) $zip = null;
    if(empty($city)) $city = null;
    if(empty($county)) $county = null;
@@ -31,7 +32,7 @@
    <footer>
      <a class="footerlink" target="_blank" href="<?php echo $domain_with_http?>">Home</a>
      <a class="footerlink" target="_blank" href="<?php echo $db_map_link?>">Map</a>
-     <a class="footerlink" target="_blank" href="<?php echo $cmlink?>">CellMapper</a>
+     <a class="footerlink" target="_blank" href="" onclick="window.open(getCmLink(), '_blank')">CellMapper</a>
      <a class="footerlink" target="_blank" href="<?php echo $uplink?>">Upload</a>
      <a class="footerlink" target="_blank" href="<?php echo $funlink?>">Stats</a>
      <!-- <a class="footerlink" target="_blank" href="<?php // echo $gm2link?>">Permits Map</a> -->
