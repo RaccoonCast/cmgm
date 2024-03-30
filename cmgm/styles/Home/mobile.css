@@ -34,8 +34,8 @@
 .w-10{width:10%!important}
 .w-5{width:5%!important}
 
-.w-25-l {width: 50%;max-width: 100%;}
-.w-37-5 {width: 50%;max-width: 100%;}
+.w-25-l {width: 25%;max-width: 100%;}
+.w-37-5 {width: 37.5%;max-width: 100%;}
 #link14 { display: none;}
 .gmaps_api_link {
   font-size: 0.9em;

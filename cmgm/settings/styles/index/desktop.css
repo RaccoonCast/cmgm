@@ -28,7 +28,7 @@ body {
     width: 35%!important;
   }
   body {
-      width: 100%; max-width: 25cm;
+      width: 100%; max-width: 27.5cm;
       margin:0 auto;
   }
   .label { max-width: 30%; width: 100%; display: inline-block; text-align: left; }

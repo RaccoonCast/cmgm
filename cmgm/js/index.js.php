@@ -1,41 +1,41 @@
 <?php ?>
 <script>
 function changeFormAction() {
-  document.getElementById("link01").removeAttribute("onclick");
-  document.getElementById("link01").setAttribute('type', 'submit');
+  document.getElementById("form").removeAttribute("onclick");
+  document.getElementById("form").setAttribute('type', 'submit');
 
-  document.getElementById("link02").removeAttribute("onclick");
-  document.getElementById("link02").setAttribute('type', 'submit');
+  document.getElementById("edit").removeAttribute("onclick");
+  document.getElementById("edit").setAttribute('type', 'submit');
 
-  document.getElementById("link03").removeAttribute("onclick");
-  document.getElementById("link03").setAttribute('type', 'submit');
+  document.getElementById("map").removeAttribute("onclick");
+  document.getElementById("map").setAttribute('type', 'submit');
 
-  document.getElementById("link04").removeAttribute("onclick");
-  document.getElementById("link04").setAttribute('type', 'submit');
+  document.getElementById("cellmapper").removeAttribute("onclick");
+  document.getElementById("cellmapper").setAttribute('type', 'submit');
 
-  document.getElementById("link06").removeAttribute("onclick");
-  document.getElementById("link06").setAttribute('type', 'submit');
+  document.getElementById("streetview").removeAttribute("onclick");
+  document.getElementById("streetview").setAttribute('type', 'submit');
 
-  document.getElementById("link07").removeAttribute("onclick");
-  document.getElementById("link07").setAttribute('type', 'submit');
+  document.getElementById("maps").removeAttribute("onclick");
+  document.getElementById("maps").setAttribute('type', 'submit');
 
-  document.getElementById("link08").removeAttribute("onclick");
-  document.getElementById("link08").setAttribute('type', 'submit');
+  document.getElementById("birdseye").removeAttribute("onclick");
+  document.getElementById("birdseye").setAttribute('type', 'submit');
 
-  document.getElementById("link10").removeAttribute("onclick");
-  document.getElementById("link10").setAttribute('type', 'submit');
+  document.getElementById("search").removeAttribute("onclick");
+  document.getElementById("search").setAttribute('type', 'submit');
 
-  document.getElementById("link11").removeAttribute("onclick");
-  document.getElementById("link11").setAttribute('type', 'submit');
+  document.getElementById("lart2150").removeAttribute("onclick");
+  document.getElementById("lart2150").setAttribute('type', 'submit');
 
-  document.getElementById("link12").removeAttribute("onclick");
-  document.getElementById("link12").setAttribute('type', 'submit');
+  document.getElementById("antennasearch").removeAttribute("onclick");
+  document.getElementById("antennasearch").setAttribute('type', 'submit');
 
-  document.getElementById("link14").removeAttribute("onclick");
-  document.getElementById("link14").setAttribute('type', 'submit');
+  document.getElementById("maprad").removeAttribute("onclick");
+  document.getElementById("maprad").setAttribute('type', 'submit');
 
-  document.getElementById("link15").removeAttribute("onclick");
-  document.getElementById("link15").setAttribute('type', 'submit');
+  document.getElementById("opencid").removeAttribute("onclick");
+  document.getElementById("opencid").setAttribute('type', 'submit');
 }
 
 function redir(page) {
