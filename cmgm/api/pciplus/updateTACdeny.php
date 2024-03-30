@@ -1,6 +1,7 @@
 <?php
 //  cody and alps' purple iphones (CAAPI)
 include "includes/functions.php"; // error msg / report function
+if (isset($_POST['id'])) $id = $_POST['id'];
 date_default_timezone_set('Etc/UTC');
 
 include "includes/useridvalidation.php"; // Verify PCI+ is making these requests.
