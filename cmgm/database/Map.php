@@ -126,7 +126,7 @@
       }
 
       // Should we use coord cetner, or passed lat/lng?
-      const useCoordCenter = <?php echo isset($_GET['useCoordCenter']) ? 'true' : 'false'; ?>;
+      const useCoordCenter = <?php echo (isset($_GET['useCoordCenter']) or empty($_GET['latitude'])) ? 'true' : 'false'; ?>;
 
       // Define new center coords
       const centerCoords = useCoordCenter ? getLatLngCenter(recordCoordList) : [lat, long];
