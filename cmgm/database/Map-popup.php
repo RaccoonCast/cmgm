@@ -17,7 +17,7 @@
 <body class="body">
 <?php
 
-$cmgm_uploads_page = "https://cmgm.us/database/uploads/";
+$cmgm_uploads_page = "https://files.cmgm.us/";
 $database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
