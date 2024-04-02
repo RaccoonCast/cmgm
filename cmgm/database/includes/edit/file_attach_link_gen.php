@@ -39,6 +39,7 @@ if($isMobile == "false") {
   $sv_linklabel_a = @$sv_a_label.@$sv_b_label.@$sv_c_label.@$sv_d_label.@$sv_e_label.@$sv_f_label;
   $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label;
 }
+}
 
 if (isset($new)) {
    echo '<title>New</title>';
@@ -50,20 +51,20 @@ if (isset($new)) {
            echo '<title>#'.$id.' - Unknown (Edit)</title>';
            }
 
-// if ($carrier == "T-Mobile") {
-//   echo '<link rel="icon" type="image/png" href="/images/logo-magenta.png">';
-//   }
-// if ($carrier == "Sprint") {
-//   echo '<link rel="icon" type="image/png" href="/images/logo-yellow.png">';
-//   }
-// if ($carrier == "Dish") {
-//   echo '<link rel="icon" type="image/png" href="/images/logo-orange.png">';
-//   }
-// if ($carrier == "ATT") {
-//   echo '<link rel="icon" type="image/png" href="/images/logo-blue.png">';
-//   }
-// if ($carrier == "Verizon") {
-//   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
-//   }
-}
+ if ($carrier == "T-Mobile") {
+   echo '<link rel="icon" type="image/png" href="/images/logo-magenta.png">';
+   }
+ if ($carrier == "Sprint") {
+   echo '<link rel="icon" type="image/png" href="/images/logo-yellow.png">';
+   }
+ if ($carrier == "Dish") {
+   echo '<link rel="icon" type="image/png" href="/images/logo-orange.png">';
+   }
+ if ($carrier == "ATT") {
+   echo '<link rel="icon" type="image/png" href="/images/logo-blue.png">';
+   }
+ if ($carrier == "Verizon") {
+   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
+   }
+
 ?>
