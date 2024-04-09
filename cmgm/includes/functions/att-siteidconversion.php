@@ -25,6 +25,6 @@ function replaceQuery($query, $mapping) {
     return "no-att";
 }
 
-$result = replaceQuery($_GET['q'], $mapping);
+$result = replaceQuery(@$_GET['q'], $mapping);
 if ($result !== "no-att") redir ("https://www.cellmapper.net/map?MCC=310&MNC=410&type=LTE&ppT=" . $result . "&ppL=0", "0") ;
 ?>
