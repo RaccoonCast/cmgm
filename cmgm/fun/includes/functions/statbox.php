@@ -16,8 +16,7 @@
       if (!isset($_GET['q'])) {
           echo '<a href="'. $current_url . '&q=' . $file . '">Just this </a> | ';
         } else {
-          $q_tmp = $_GET['q'];
-          echo '<a href="'.str_replace("&q=$q_tmp", "", $current_url).'">View all stats</a> | '; // Link to the file
+          echo '<a href="'.str_replace("&q=" . $_GET['q'], "", $current_url).'">View all stats</a> | '; // Link to the file
         }
 
         echo '<a href="#" onclick="hideStatBox(this);">Hide Me </a> | ';
