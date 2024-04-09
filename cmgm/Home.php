@@ -12,11 +12,13 @@ header('Pragma: no-cache'); ?>
       <?php
       $titleOverride = "true";
       include "functions.php";
-      if (substr(@$_GET['q'], 5, 1) == "-" && substr(@$_GET['q'], 11, 1) == "-") {
-        redir ("https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=".substr($_GET['q'], 0, 5)."&id2=".substr($_GET['q'], 6, 5)."&id3=".substr($_GET['q'], 12, 5) ."","0");
-        // echo "https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=".substr($_GET['q'], 0, 5)."&id2=".substr($_GET['q'], 6, 5)."&id3=".substr($_GET['q'], 12, 5) ."";
-        die();
+      if (isset($_GET['q'])) {
+          if (substr($_GET['q'], 5, 1) == "-" && substr($_GET['q'], 11, 1) == "-") {
+            redir ("https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=".substr($_GET['q'], 0, 5)."&id2=".substr($_GET['q'], 6, 5)."&id3=".substr($_GET['q'], 12, 5) ."","0");
+            die();
+        }
       }
+
       include "includes/functions/att-siteidconversion.php";
       include "js/index.js.php";
       include_once SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
