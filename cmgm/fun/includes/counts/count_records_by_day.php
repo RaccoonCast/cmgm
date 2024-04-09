@@ -2,6 +2,8 @@
 $sql = "SELECT DATE(date_added) AS date_only, COUNT(date_added) AS value_occurrence FROM db WHERE $db_vars GROUP BY date_only ORDER BY value_occurrence DESC LIMIT $limit";
 $result = $conn->query($sql);
 
+if (!isset($json_flag)) echo "<h3>Most pins per day</h3>";
+
 while ($row = $result->fetch_assoc()) {
   $plural_namething = ($row["value_occurrence"] > 1) ? " records" : " record";
 

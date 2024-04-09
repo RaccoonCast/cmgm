@@ -2,6 +2,8 @@
 $sql = "SELECT county,state, COUNT(county) AS county_count FROM db WHERE $db_vars AND county <> '' GROUP BY county ORDER BY county_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
+if (!isset($json_flag)) echo "<h3>Most Common Counties</h3>";
+
 while ($row = $result->fetch_assoc()) {
   $location = $row["county"] . ', ' . $row['state'];
   $location_for_url = $current_url . "&county=" . $row["county"] . "&state=" . $row['state'];

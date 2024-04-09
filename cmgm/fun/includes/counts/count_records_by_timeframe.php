@@ -20,6 +20,8 @@ $sql = "SELECT
 // Execute the query
 $result = $conn->query($sql);
 
+if (!isset($json_flag)) echo "<h3>Pins created by timelines</h3>";
+
 // Access the counts if the query was successful
 if ($result) {
     $row = $result->fetch_assoc();

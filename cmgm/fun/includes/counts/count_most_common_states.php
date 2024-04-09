@@ -59,6 +59,8 @@ $stateMapping = array(
 $sql = "SELECT state, COUNT(state) AS state_count FROM db WHERE $db_vars AND state <> '' GROUP BY state ORDER BY state_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
+if (!isset($json_flag)) echo "<h3>Most Common States</h3>";
+
 while ($row = $result->fetch_assoc()) {
     $locationAbbreviation = $row['state'];
     

@@ -1,6 +1,9 @@
 <?php
 $carriers = ["T-Mobile", "Sprint", "Verizon", "ATT", "Dish"];
 $carrierCounts = [];
+
+if (!isset($json_flag)) echo "<h3>Pins per carrier</h3>";
+
   foreach ($carriers as $carrier) {
     $sql = "SELECT COUNT(*) as count FROM db WHERE $db_vars AND carrier = '$carrier'";
     $result = $conn->query($sql);

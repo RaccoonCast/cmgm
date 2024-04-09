@@ -8,20 +8,20 @@ if (!isset($_GET['concealed'])) {
 	
 	$result = $conn->query($sql);
 	
+  if (!isset($json_flag)) echo "<h3>Concealed vs Unconcealed</h3>";
+
 	// Output data
 	while ($row = $result->fetch_assoc()) {
 	
 		if (isset($_GET['percents_view'])) {
-    echo "<h3>Unconcealed Vs Concealed</h3>";
-		echo "Unconcealed sites: " .  '<a href="' . $current_url . '&concealed=false">' . getPercent($row["concealed_false_count"])  . '</a><br>';
-		echo "Concealed sites: " .  '<a href="' . $current_url . '&concealed=true">' . getPercent($row["concealed_true_count"])  . '</a><br><br>';
+    echo "Concealed sites: " .  '<a href="' . $current_url . '&concealed=true">' . getPercent($row["concealed_true_count"])  . '</a><br>';
+		echo "Unconcealed sites: " .  '<a href="' . $current_url . '&concealed=false">' . getPercent($row["concealed_false_count"])  . '</a><br><br>';
 		} elseif (isset($json_flag)) {
-			$json_array["unconcealed"] = $row["concealed_false_count"];
 			$json_array["concealed"] = $row["concealed_true_count"];
+			$json_array["unconcealed"] = $row["concealed_false_count"];
 		} else {
-      echo "<h3>Unconcealed Vs Concealed</h3>";
-			echo "Unconcealed sites: " .  '<a href="' . $current_url . '&concealed=false">' . $row["concealed_false_count"]  . '</a><br>';
-			echo "Concealed sites: " .  '<a href="' . $current_url . '&concealed=true">' . $row["concealed_true_count"]  . '</a><br><br>';
+			echo "Concealed sites: " .  '<a href="' . $current_url . '&concealed=true">' . $row["concealed_true_count"]  . '</a><br>';
+			echo "Unconcealed sites: " .  '<a href="' . $current_url . '&concealed=false">' . $row["concealed_false_count"]  . '</a><br><br>';
 		}
 	}
 }
@@ -36,18 +36,18 @@ if (!isset($_GET['status'])) {
 
   $result = $conn->query($sql);
 
+  if (!isset($json_flag)) echo "<h3>Verified vs Unverified</h3>";
+
   // Output data
   while ($row = $result->fetch_assoc()) {
 
   if (isset($_GET['percents_view'])) {
-    echo "<h3>Verified vs Unverified Sites</h3>";
     echo "Verified sites: " .  '<a href="' . $current_url . '&status=verified">' . getPercent($row["verified_true_count"])  . '</a><br>';
     echo "Unverified sites: " .  '<a href="' . $current_url . '&status=unverified">' . getPercent($row["verified_false_count"])  . '</a><br>';
   } elseif (isset($json_flag)) {
     $json_array["verified"] = $row["verified_true_count"];
     $json_array["unverified"] = $row["verified_false_count"];
   } else {
-    echo "<h3>Verified vs Unverified Sites</h3>";
     echo "Verified sites: " .  '<a href="' . $current_url . '&status=verified">' . $row["verified_true_count"]  . '</a><br>';
     echo "Unverified sites: " .  '<a href="' . $current_url . '&status=unverified">' . $row["verified_false_count"]  . '</a><br>';
   }
