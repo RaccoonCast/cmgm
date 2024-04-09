@@ -51,20 +51,20 @@ if (isset($new)) {
            echo '<title>#'.$id.' - Unknown (Edit)</title>';
            }
 
- if ($carrier == "T-Mobile") {
-   echo '<link rel="icon" type="image/png" href="/images/logo-magenta.png">';
-   }
- if ($carrier == "Sprint") {
-   echo '<link rel="icon" type="image/png" href="/images/logo-yellow.png">';
-   }
- if ($carrier == "Dish") {
-   echo '<link rel="icon" type="image/png" href="/images/logo-orange.png">';
-   }
- if ($carrier == "ATT") {
-   echo '<link rel="icon" type="image/png" href="/images/logo-blue.png">';
-   }
- if ($carrier == "Verizon") {
-   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
-   }
+// if ($carrier == "T-Mobile") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-magenta.png">';
+//   }
+// if ($carrier == "Sprint") {
+//  echo '<link rel="icon" type="image/png" href="/images/logo-yellow.png">';
+//   }
+// if ($carrier == "Dish") {
+//  echo '<link rel="icon" type="image/png" href="/images/logo-orange.png">';
+//   }
+// if ($carrier == "ATT") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-blue.png">';
+//   }
+// if ($carrier == "Verizon") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
+//   }
 
 ?>
