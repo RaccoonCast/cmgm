@@ -7,9 +7,12 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
         $value = strip_tags($value);
     } 
     
-    $fieldsToReplace = ['evidence_a', 'evidence_b', 'evidence_c', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f'];
+    $fieldsToReplace = ['evidence_a', 'evidence_b', 'evidence_c', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'photo_a', 'photo_b', 'photo_c', 'photo_c', 'photo_d', 'photo_e', 'photo_f'];
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '$') {
         $value = 'https://siteportal.calepa.ca.gov/nsite/map/results/summary/' . substr($value, 1);
+    } 
+    if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
+        $value = '@' . substr($value, 22);
     } 
 
     $value = preg_match('/unique_system_identifier=(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;

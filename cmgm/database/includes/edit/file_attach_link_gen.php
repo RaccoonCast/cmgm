@@ -18,7 +18,8 @@ $link_suffix = ucfirst(substr($value,-1));
 if (!empty($$value)) {
     if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
     elseif (substr($$value, 0, 1) === '#') {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="Edit.php?id=' . substr($$value, 1) . '">' . $link_suffix . '</a>';}
-    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/' . $$value . '">' . $link_suffix . '</a>';}
+    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/' . $$value . '">' . $link_suffix . '</a>';} }
+    elseif (substr($$value, 0, 1) === '@') { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://canon.cmgm.us/' . str_replace("#", "%23", substr($$value, 1)) . '">' . $link_suffix . '</a>';}
     } else { $$val = null; }
 }
 

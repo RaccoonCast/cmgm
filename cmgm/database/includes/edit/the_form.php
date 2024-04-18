@@ -232,33 +232,34 @@
 
     </div>
     <div class="panel2" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: right; width: '.$cmgm_edit_panel2_width-0.07.'%"'?>>
-    <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label?><?php echo @$evidence_b_label?><?php echo @$evidence_c_label?></span></label><input
-    type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo @$evidence_a?>"><input
-    type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo @$evidence_b?>"><input
-    type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo @$evidence_c?>">
+    <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label . @$evidence_b_label . @$evidence_c_label?></span></label><input
+    type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo isset($evidence_a) ? rawurldecode($evidence_a) : '' ?>"><input
+    type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input
+    type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo isset($evidence_c) ? rawurldecode($evidence_c) : '' ?>">
 
-    <label class="bingmaps_label">Bing Maps <span class="floatright"><?php echo @$bingmaps_a_label?><?php echo @$bingmaps_b_label?><?php echo @$bingmaps_c_label?></span></label><input
-    type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo @$bingmaps_a?>"><input
-    type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo @$bingmaps_b?>"><input
-    type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo @$bingmaps_c?>">
+    <label class="bingmaps_label">Bing Maps <span class="floatright"><?php echo @$bingmaps_a_label . @$bingmaps_b_label . @$bingmaps_c_label?></span></label><input
+    type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo isset($bingmaps_a) ? rawurldecode($bingmaps_a) : '' ?>"><input
+    type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo isset($bingmaps_b) ? rawurldecode($bingmaps_b) : '' ?>"><input
+    type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo isset($bingmaps_c) ? rawurldecode($bingmaps_c) : '' ?>">
 
-    <label class="photo_label">Photos <span class="floatright"><?php echo @$photo_link_linklabel_a; ?></span></label><input
-    type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo @$photo_a?>"><input
-    type="text" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo @$photo_b?>"><input
-    type="text" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo @$photo_c?>">
-    <?php if($isMobile == "false") {?><label class="photo_label">Photos <span class="floatright"><?php echo @$photo_link_linklabel_b; ?></span></label><?php } ?><input
-    type="text" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo @$photo_d?>"><input
-    type="text" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo @$photo_e?>"><input
-    type="text" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo @$photo_f?>">
+    <label class="photo_label">Photos <span class="floatright"><?php echo isset($photo_link_linklabel_a) ? $photo_link_linklabel_a : ''; ?></span></label><input
+    type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo isset($photo_a) ? rawurldecode($photo_a) : '' ?>"><input
+    type="text" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo isset($photo_b) ? rawurldecode($photo_b) : '' ?>"><input
+    type="text" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo isset($photo_c) ? rawurldecode($photo_c) : '' ?>">
+    <?php if(isset($isMobile) && $isMobile == "false") {?><label class="photo_label">Photos <span class="floatright"><?php echo isset($photo_link_linklabel_b) ? $photo_link_linklabel_b : ''; ?></span></label><?php } ?><input
+    type="text" id="ph_d" class="photo_cw" name="photo_d" placeholder="PHOTO_D" value="<?php echo isset($photo_d) ? rawurldecode($photo_d) : '' ?>"><input
+    type="text" id="ph_e" class="photo_cw" name="photo_e" placeholder="PHOTO_E" value="<?php echo isset($photo_e) ? rawurldecode($photo_e) : '' ?>"><input
+    type="text" id="ph_f" class="photo_cw" name="photo_f" placeholder="PHOTO_F" value="<?php echo isset($photo_f) ? rawurldecode($photo_f) : '' ?>">
 
-    <label class="extra_label">Extras <span class="floatright"><?php echo @$extra_linklabel_a ?></span></label><input
-    type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo @$extra_a?>"><input
-    type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo @$extra_b?>"><input
-    type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo @$extra_c?>">
-    <?php if($isMobile == "false") {?><label class="extra_label">Extras <span class="floatright"><?php echo @$extra_linklabel_b; ?></span></label><?php } ?><input
-    type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo @$extra_d?>"><input
-    type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo @$extra_e?>"><input
-    type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo @$extra_f?>">
+    <label class="extra_label">Extras <span class="floatright"><?php echo isset($extra_linklabel_a) ? $extra_linklabel_a : '' ?></span></label><input
+    type="text" id="ex_a" class="extra_cw" name="extra_a" placeholder="EXTRA_A" value="<?php echo isset($extra_a) ? rawurldecode($extra_a) : '' ?>"><input
+    type="text" id="ex_b" class="extra_cw" name="extra_b" placeholder="EXTRA_B" value="<?php echo isset($extra_b) ? rawurldecode($extra_b) : '' ?>"><input
+    type="text" id="ex_c" class="extra_cw" name="extra_c" placeholder="EXTRA_C" value="<?php echo isset($extra_c) ? rawurldecode($extra_c) : '' ?>">
+    <?php if(isset($isMobile) && $isMobile == "false") {?><label class="extra_label">Extras <span class="floatright"><?php echo isset($extra_linklabel_b) ? $extra_linklabel_b : ''; ?></span></label><?php } ?><input
+    type="text" id="ex_d" class="extra_cw" name="extra_d" placeholder="EXTRA_D" value="<?php echo isset($extra_d) ? rawurldecode($extra_d) : '' ?>"><input
+    type="text" id="ex_e" class="extra_cw" name="extra_e" placeholder="EXTRA_E" value="<?php echo isset($extra_e) ? rawurldecode($extra_e) : '' ?>"><input
+    type="text" id="ex_f" class="extra_cw" name="extra_f" placeholder="EXTRA_F" value="<?php echo isset($extra_f) ? rawurldecode($extra_f) : '' ?>">
+
 
 
 
