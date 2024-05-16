@@ -49,12 +49,15 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
        foreach($result_object as $key => $value) $result_object[$key]['cellsite_type_normalized'] = $cellsite_type . @$category_suffix;
      }
 
-     // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg'
+     // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg' + Convert @s to canon.cmgm.us links
      $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f");
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
          if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
             $result_object[$key][$validOption] = "https://files.cmgm.us/" .$value[$validOption];
+          }
+          if (substr($value[$validOption], 0, 1) === '@') {
+            $result_object[$key][$validOption] = 'https://canon.cmgm.us/' . str_replace("#", "%23", substr($value[$validOption], 1));
           }
         }
       }
@@ -68,6 +71,8 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
             }
           }
       }
+
+
 
 } else {
   error("Invalid PLMN.",@$_GET['plmn']);
