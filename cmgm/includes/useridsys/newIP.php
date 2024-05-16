@@ -2,6 +2,7 @@
 <META name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <script src="/js/setCookie.js"></script>
 <?php
+
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 if ($siteroot == "/home/spane2003/" . $domain) {
   $secret_pass = file_get_contents($siteroot . "/secret_ip_whitelist_pass.hiddenpass", true);
@@ -13,6 +14,7 @@ if ($siteroot == "/home/spane2003/" . $domain) {
 
 // Check Real Quick if IP is in there to verify it's not.
 $ip = $_SERVER["REMOTE_ADDR"];
+/*
 $sql = "SELECT * FROM userID WHERE userIP = '$ip'";
 $result = mysqli_query($conn,$sql);
 while($row = $result->fetch_assoc()) { foreach ($row as $key => $value) {$$key = $value;} }
@@ -26,8 +28,10 @@ while($row = $result->fetch_assoc()) {
         $$key = $value;
         }
       }
+
+*/
 if (!empty($_POST['userid'])) { ?>
-  <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1"); </script>
+  <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1000"); </script>
   <?php
   // No need to redirect to settings, since user pre-exists
   // if ($_SERVER['REQUEST_URI'] == "/") {
@@ -80,10 +84,10 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     '".mysqli_real_escape_string($conn, $prefLocType)."');  ";
                     mysqli_query($conn, $sql);
                     mysqli_close($conn);
-                    if ($_SERVER['REQUEST_URI'] == "/") {
+                    if (str_replace('?switchUser=true', '', $_SERVER['REQUEST_URI']) == "/") {
                       redir("/settings/","0");
                     }
-                    redir($_SERVER['REQUEST_URI'],"0");
+                    redir(str_replace('?switchUser=true', '', $_SERVER['REQUEST_URI']),"0");
 }
  ?>
    </head>

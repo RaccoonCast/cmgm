@@ -16,19 +16,22 @@ if (isset($_COOKIE['userID'])) {
 
 // Get userID data SQL for user with the browser's IP or the browser's userID cookie.
 //if (isset($_GET['cellmapperissexy'])) $cookie_userID = "guest";
-$sql = "SELECT * FROM userID WHERE userIP = '$curr_userIP' OR userID='$cookie_userID'";
-$result = mysqli_query($conn,$sql);
 
-while($row = $result->fetch_assoc()) {
-    foreach ($row as $key => $value) {
-      if ($key != "id") {
-        $$key = $value;
-        if (@$debug_flag == "3") {
-          echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
+if (!isset($_GET['switchUser'])) {
+  $sql = "SELECT * FROM userID WHERE userID='$cookie_userID'";
+  $result = mysqli_query($conn,$sql);
+  
+  while($row = $result->fetch_assoc()) {
+      foreach ($row as $key => $value) {
+        if ($key != "id") {
+          $$key = $value;
+          if (@$debug_flag == "3") {
+            echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
+          }
         }
       }
     }
-  }
+}
 
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {
@@ -71,7 +74,7 @@ if (substr(@$last_date, 0, 10) == date('Y-m-d') && !isset($allowGuests)) {
 }
 
 // Renew the cookie.
-if (!isset($api_called)) { ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php }
+if (!isset($api_called)) { ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1000"); </script> <?php }
 
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/secret_maps_api_key.hiddenpass", true);
 }
