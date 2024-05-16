@@ -29,9 +29,10 @@ while($row = $result->fetch_assoc()) {
 if (!empty($_POST['userid'])) { ?>
   <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1"); </script>
   <?php
-  if ($_SERVER['REQUEST_URI'] == "/") {
-    redir("/settings/","0");
-  }
+  // No need to redirect to settings, since user pre-exists
+  // if ($_SERVER['REQUEST_URI'] == "/") {
+  //   redir("/settings/","0");
+  // }
   redir($_SERVER['REQUEST_URI'],"0");
 }
 elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
