@@ -7,7 +7,7 @@ if (!isset($cm_pin_inverted)) $cm_pin_inverted = $tmp_cm_pin_inverted;
 
 // multiplier
 $multiplier = substr_replace($cm_pin_distance ,"", -1);
-$modDigit = 0.00006;
+$modDigit = 0.000095;
 $modDigit = $modDigit * $multiplier;
 
 $pin_lat = ($multiplier >= 2.0) ? ($latitude - $modDigit/2) : $latitude;
