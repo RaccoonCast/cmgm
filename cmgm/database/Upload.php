@@ -1,5 +1,6 @@
 <?php
-if ($_SERVER['DOCUMENT_ROOT'] == "/home/spane2003/cmgm.us") {
+
+if ($_SERVER['HTTP_HOST'] !== "upload.cmgm.us") {
   header('Location: https://upload.cmgm.us');
 }
 ?>

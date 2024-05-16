@@ -1,7 +1,7 @@
 <?php
 $type = $_POST['type'];
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
-if ($siteroot == "/home/spane2003/" . $domain) {
+if (PHP_OS != 'WIN') {
   define('UPLOAD_DIR', $siteroot . '/database/uploads/');
 } else {
   define('UPLOAD_DIR', $siteroot . '\database\uploads\\');

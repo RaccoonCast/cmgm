@@ -1,13 +1,15 @@
 <?php
+
 $domain = $_SERVER['SERVER_NAME'];
-$http = ($_SERVER['HTTPS'] == "on") ? "https://" : "http://";
+$http = (in_array("HTTPS", $_SERVER) && $_SERVER['HTTPS'] == "on") ? "https://" : "http://";
 $domain_with_http = $http . $domain;
 
 // SQL Database login info
 $servername = 'mysql.' . 'cmgm.us';
 $db_username = 'cmgm';
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
-if ($siteroot == "/home/spane2003/" . $domain) {
+
+if (PHP_OS != 'WIN') {
   $password = file_get_contents($siteroot . "/secret_sql_login.hiddenpass", true);
 } else {
   $password = file_get_contents($siteroot . "\secret_sql_login.hiddenpass", true);
