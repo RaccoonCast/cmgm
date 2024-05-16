@@ -27,8 +27,9 @@ if ($goto_page == "Beta") {
   if (!isset($cm_netType)) $cm_netType = "LTE";
   return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
 }
-if ($goto_page == "Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
+if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=$latitude,$longitude&fov=75";
+if ($goto_page == "Look Around") return "https://lookmap.eu.pythonanywhere.com/#c=20/$latitude/$longitude&p=$latitude/$longitude&a=360/34.00";
 if ($goto_page == "Maprad") return "https://maprad.io/us/search/coordinates/1000/$latitude,$longitude?source=US&coordStr=$latitude,$longitude&radius=1000";
 if ($goto_page == "lart2150") return "https://coverage.lart2150.com/vector/#b=N2500&m=2024-02-02&m2=&lat=$latitude&lng=$longitude&z=18";
 if ($goto_page == "OpenCID") return "https://www.opencellid.org/#zoom=20&lat=$latitude&lon=$longitude";

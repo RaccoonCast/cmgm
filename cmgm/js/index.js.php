@@ -36,6 +36,9 @@ function changeFormAction() {
 
   document.getElementById("opencid").removeAttribute("onclick");
   document.getElementById("opencid").setAttribute('type', 'submit');
+
+  document.getElementById("lookaround").removeAttribute("onclick");
+  document.getElementById("lookaround").setAttribute('type', 'submit');
 }
 
 function redir(page) {
