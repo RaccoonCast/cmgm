@@ -8,3 +8,4 @@ echo ----------------------------------------------
 echo Syncing files complete, delete mode is off.
 echo ----------------------------------------------
 keepuptodate d:\cmgm\cmgm /home/spane2003/cmgm.us -filemask="| .well-known/; *\uploads\*.*;"
+exit
