@@ -1,7 +1,7 @@
 <?php
 $type = $_POST['type'];
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
-if (PHP_OS != 'WIN') {
+if (strtoupper(substr(PHP_OS, 0, 3))) {
   define('UPLOAD_DIR', $siteroot . '/database/uploads/');
 } else {
   define('UPLOAD_DIR', $siteroot . '\database\uploads\\');

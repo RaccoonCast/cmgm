@@ -9,7 +9,7 @@ $servername = 'mysql.' . 'cmgm.us';
 $db_username = 'cmgm';
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 
-if (PHP_OS != 'WIN') {
+if (strtoupper(substr(PHP_OS, 0, 3))) {
   $password = file_get_contents($siteroot . "/secret_sql_login.hiddenpass", true);
 } else {
   $password = file_get_contents($siteroot . "\secret_sql_login.hiddenpass", true);

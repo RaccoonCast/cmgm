@@ -4,7 +4,7 @@
 <?php
 
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
-if (PHP_OS != 'WIN') {
+if (strtoupper(substr(PHP_OS, 0, 3))) {
   $secret_pass = file_get_contents($siteroot . "/secret_ip_whitelist_pass.hiddenpass", true);
   $ipinfo_token = file_get_contents($siteroot . "/secret_ipinfo_token.hiddenpass", true);
 } else {
