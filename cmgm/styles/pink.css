@@ -12,7 +12,7 @@ body {
   color: #FAFAFA;
 }
 /* remove all but bottom border */ /* set background color for textboxes */
-input[type=text],input[type=number],textarea,select,option {
+input[type=text],input[type=number],textarea,select,option,.inline-btn {
   border: 1px solid #870077!important;  /* dark magenta border */
   background-color: #ff75ff; /* background color for inputs */
   color: #FAFAFA; /* text color for inputs */

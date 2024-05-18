@@ -1,4 +1,4 @@
-<?php
+<in?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -9,6 +9,7 @@ header("Pragma: no-cache");
      <title>CMGM - Settings</title>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/latlong-settings.js"></script>
+     <script src="/js/copyToClipboard.js"></script>
      <?php
      $titleOverride = "true";
      include "../functions.php";
@@ -95,6 +96,8 @@ header("Pragma: no-cache");
         <label class="label">Panel 1/Panel 2 Widths: </label><input
         type="text" value="<?php echo $cmgm_edit_panel1_width; ?>" name="cmgm_edit_panel1_width" class="w-50" id="cmgm_edit_panel1_width"><input
         type="text" value="<?php echo $cmgm_edit_panel2_width; ?>" name="cmgm_edit_panel2_width" class="w-50" id="cmgm_edit_panel2_width"></span>
+        <label class="label">CMGM UserID:</label><input style="width: 62%" type="text" readonly value="<?php echo $userID; ?>"></input><input 
+        type="button" class="sb cmgm-btn inline-btn" style="width: 8%; font-size: 1em;" value="Copy" onclick="copyToClipboard('<?php echo $userID; ?>')">
 
         <h4>CMGM Edit Settings:</h4>
 
