@@ -46,4 +46,6 @@ body {
   select,input[type=text],.cmcheckboxes {max-width: 100%; width: 100%;}
 }
 .cmcheckboxes {  text-align: left;}
-.ib { display: inline-block;}
+
+.userid-field { width: 62%!important; }
+.copy-btn { width: 8%; }

@@ -3,3 +3,10 @@ input,option,select {
   -webkit-box-sizing:border-box;
   -moz-box-sizing: border-box;
 }
+.ib { display: inline-block;}
+h4 {
+  margin: 0.5em;
+}
+.cmcheckboxes {
+  margin-bottom: 1.3em;
+}

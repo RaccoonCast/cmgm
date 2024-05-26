@@ -1,4 +1,4 @@
-<in?php
+<?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -96,10 +96,10 @@ header("Pragma: no-cache");
         <label class="label">Panel 1/Panel 2 Widths: </label><input
         type="text" value="<?php echo $cmgm_edit_panel1_width; ?>" name="cmgm_edit_panel1_width" class="w-50" id="cmgm_edit_panel1_width"><input
         type="text" value="<?php echo $cmgm_edit_panel2_width; ?>" name="cmgm_edit_panel2_width" class="w-50" id="cmgm_edit_panel2_width"></span>
-        <label class="label">CMGM UserID:</label><input style="width: 62%" type="text" readonly value="<?php echo $userID; ?>"></input><input 
-        type="button" class="sb cmgm-btn inline-btn" style="width: 8%; font-size: 1em;" value="Copy" onclick="copyToClipboard('<?php echo $userID; ?>')">
+        <label class="label">CMGM UserID:</label><input type="text" class="userid-field" readonly value="<?php echo $userID; ?>"></input><input 
+        type="button" class="sb cmgm-btn inline-btn copy-btn" style="font-size: 1em;" value="Copy" onclick="copyToClipboard('<?php echo $userID; ?>')">
 
-        <h4>CMGM Edit Settings:</h4>
+        <br><br><h4>CMGM Edit Settings:</h4>
 
         <div class="cmcheckboxes ib"><label for="cmgm_edit_override_panels_widths">Custom width for panels<input
         type="hidden" name="cmgm_edit_override_panels_widths" value="false"><input
@@ -143,6 +143,7 @@ header("Pragma: no-cache");
           type="hidden" name="cm_zoom" value="false"><span>Zoom: </span></label><input
           type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
         </div>
+        <br>
         <h3><a href="../fun/?limit=15&username=<?php echo $username ?>">Statistics</a> | <a href="../" onclick="setCookie('userID', '', '1');">Sign Out</a></h3>
         <!--
         <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
@@ -161,7 +162,7 @@ header("Pragma: no-cache");
         type="range" step="25" min="50" max="1000" value="<?php // echo $cmgm_map_pin_limit;?>" name="cmgm_pin_limit" id="cmgm_map_pin_limit"><span id="cmgm_map_pin_limitVal"></span></div>
 
         <label>Google Maps Link: </label> -->
-        <br>
+
         <input type="button" class="cmgm-btn sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
         type="submit" class="sb cmgm-btn" style="color: #00000;"  value="Submit">
      </form>
