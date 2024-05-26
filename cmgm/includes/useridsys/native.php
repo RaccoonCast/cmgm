@@ -73,9 +73,6 @@ if (substr(@$last_date, 0, 10) == date('Y-m-d') && !isset($allowGuests)) {
  mysqli_query($conn,"UPDATE userID SET userIP = '$curr_userIP' WHERE userID = '$cookie_userID'"); // just copied & pasted code to force an update in db.
 }
 
-// Renew the cookie.
-if (!isset($api_called)) { ?> <script src="/js/setCookie.js"></script><script>setCookie("userID", "<?php echo $userID ?>", "1000"); </script> <?php }
-
 if (isset($gmaps_api_key_access)) if ($gmaps_api_key_access == 'true') $maps_api_key = file_get_contents($siteroot . "/secret_maps_api_key.hiddenpass", true);
 }
 

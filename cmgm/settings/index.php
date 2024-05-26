@@ -10,6 +10,7 @@ header("Pragma: no-cache");
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/latlong-settings.js"></script>
      <script src="/js/copyToClipboard.js"></script>
+     <script src="/js/setCookie.js"></script>
      <?php
      $titleOverride = "true";
      include "../functions.php";
