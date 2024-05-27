@@ -3,6 +3,7 @@
 $mapping = array(
     "CSL" => 75,
     "CVL" => 67,
+    "CXL" => 26,
     "CCL" => 66,
     "CLL" => 55,
     "CLU" => 55,
