@@ -4,8 +4,10 @@
 if (!isset($filename_for_css)) $filename_for_css = basename($_SERVER['PHP_SELF'],'.php');
 if (!function_exists('css')) {
  function css($type,$file) {
-  if (file_exists('styles/' . $file . '/' . $type . '.css')) echo '<link rel="stylesheet" href="styles/' . $file . '/' . $type . '.css">' . PHP_EOL;
-  if (file_exists('styles/' . $type . '.css')) echo '<link rel="stylesheet" href="styles/' . $type . '.css">' . PHP_EOL;
+  $php_cwd = ($_SERVER['PHP_SELF'] == '/') ? $_SERVER['DOCUMENT_ROOT'] : '.';
+
+  if (file_exists($php_cwd . "/styles/" . $file . '/' . $type . '.css')) { echo '<link rel="stylesheet" href="styles/' . $file . '/' . $type . '.css">' . PHP_EOL; }
+  if (file_exists($php_cwd . "/styles/" . $type . '.css')) { echo '<link rel="stylesheet" href="styles/' . $type . '.css">' . PHP_EOL; }
   }
 }
 

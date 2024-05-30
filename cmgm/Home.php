@@ -11,6 +11,7 @@ header('Pragma: no-cache'); ?>
      <script src="/js/copyToClipboard.js"></script>
       <?php
       $titleOverride = "true";
+      $filename_for_css = "Home";
       include "functions.php";
       if (isset($_GET['q'])) {
           if (substr($_GET['q'], 5, 1) == "-" && substr($_GET['q'], 11, 1) == "-") {
