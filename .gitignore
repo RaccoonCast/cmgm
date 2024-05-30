@@ -19,3 +19,6 @@ cmgm/das/*
 # Non-CMGM projects
 cmgm/css-for-cm/
 cmgm/metro/
+
+# PHP builtin server compatibility
+dev-router.php
