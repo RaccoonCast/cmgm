@@ -19,7 +19,7 @@ if (isset($_GET['q'])) {
 // No location specified? Attempt to use GPS, fallback on default lat/long.
 if (!isset($latitude) && !isset($data)) {
   if ($debug_flag != "0") echo "locfinder: $" . "data variable not specified, attempting gps <br>";
-  include "js/locationNotKnown.js.php";
+  include "$SITE_ROOT/js/locationNotKnown.js.php"; //"js/locationNotKnown.js.php";
   die();
 }
 ?>
