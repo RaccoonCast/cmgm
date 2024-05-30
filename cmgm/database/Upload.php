@@ -1,16 +1,19 @@
-<?php
 
-if ($_SERVER['HTTP_HOST'] !== "upload.cmgm.us") {
-  header('Location: https://upload.cmgm.us');
-}
-?>
 <!doctype html>
 <html lang="en-us">
    <head>
+    <style>
+       .hiddenlink,.hiddenlink:hover {
+       text-decoration: none; cursor: text; color: #EFEFEF!important;
+      }
+    </style>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/pasteimages.js"></script>
      <script src="../js/copyToClipboard.js"></script>
-     <?php $allowGuests = "true"; error_reporting(E_ERROR | E_PARSE); include '../functions.php';?>
+     <?php
+     $allowGuests = "true"; 
+     error_reporting(E_ERROR | E_PARSE);
+     include '../functions.php';?>
    </head>
    <body>
      <?php
@@ -28,12 +31,12 @@ if ($_SERVER['HTTP_HOST'] !== "upload.cmgm.us") {
           <form name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a class="hiddenlink" href="https://cmgm.us/database/LFMF.php">to</a> upload (Max: 25MB)<br>
+              Select file <a class="hiddenlink" href="https://cmgm.us/database/LFMF.php">to</a> upload (Max: 250MB)<br>
               You can also paste an image if you have one on your clipboard. <br><br>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>
                 <br><br>Great! You can copy & paste <a onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="#"><?php echo $_GET['finishedFilename']; ?></a> into an attachments field on the edit page now.
-                <br><br> You can also view the file first, <a target="_blank" onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="uploads/<?php echo $_GET['finishedFilename']; ?>"><?php echo $_GET['finishedFilename']; ?></a>.
+                <br><br> You can also view the file first, <a target="_blank" onclick="copyToClipboard('<?php echo $_GET['finishedFilename']; ?>')" href="https://files.cmgm.us/<?php echo $_GET['finishedFilename']; ?>"><?php echo $_GET['finishedFilename']; ?></a>.
               <?php } ?>
 
       <?php
