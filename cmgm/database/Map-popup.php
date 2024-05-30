@@ -148,6 +148,9 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     $foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c');
                     foreach ($foreachList as &$value) {
                         if (substr($$value, 0, 1) === '#' && !empty($$value)) $$value = $domain_with_http . '/database/Edit.php?id=' . substr($$value, 1);
+                        if (substr($$value, 0, 1) === '@') {
+                          $$value = 'https://canon.cmgm.us/' . str_replace("#", "%23", substr($$value, 1));
+                        }
                       }
                     ?>
                     <tr>
