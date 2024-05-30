@@ -8,7 +8,7 @@ if (@$no_delete != 'true') echo '<a class="widget widget_emote" title="Delete" h
 if (@$no_map != 'true' && isset($db_map_link)) echo '<a target="_blank" class="widget widget_em ote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
 if (@$no_antennasearch != 'true') echo '<a class="widget widget_emote" target="_blank" title="AnntennaSearch" href="https://www.antennasearch.com/HTML/search/search.php?address=' . $latitude . ',' . $longitude . '">📡</a>';
 if (@$no_maprad != 'true') echo '<a class="widget widget_emote" target="_blank" title="Maprad" href="'.$url_for_maprad.'">🌐</a>';
-if (@$no_look_around != 'true') echo '<a title="Apple Look Around" class="widget widget_emote" href="'.$url_for_look_around.'">🚘</a>';
+if (@$no_look_around != 'true') echo '<a title="Apple Look Around" target="_blank" class="widget widget_emote" href="'.$url_for_look_around.'">🚘</a>';
 if (@$no_edit != 'true') echo '<a class="widget widget_emote" target="_blank" title="Edit" href="Edit.php?id='.$id.'">🔧</a>';
 if (@$no_copy != 'true') echo '<a title="Copy CMGM URL" class="widget widget_emote" onclick="copyToClipboard('.$url_for_cmgm.')" href="javascript:;">📋</a>';
 if (basename($_SERVER['SCRIPT_NAME']) == "Edit.php") {
