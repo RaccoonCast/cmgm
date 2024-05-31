@@ -1,8 +1,9 @@
 <?php
 
 $domain = $_SERVER['SERVER_NAME'];
+$port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
 $http = (in_array("HTTPS", $_SERVER) && $_SERVER['HTTPS'] == "on") ? "https://" : "http://";
-$domain_with_http = $http . $domain;
+$domain_with_http = $http . $domain . $port;
 
 // SQL Database login info
 $servername = 'mysql.' . 'cmgm.us';
