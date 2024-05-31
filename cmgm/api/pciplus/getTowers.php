@@ -50,7 +50,7 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
      }
 
      // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg' + Convert @s to canon.cmgm.us links
-     $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f");
+     $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","bingmaps_a","bingmaps_b","bingmaps_c");
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
          if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
