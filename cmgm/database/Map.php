@@ -156,7 +156,7 @@
 
         var URI = "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
         console.log(URI);
-        history.pushState("obj", "", URI);
+        history.replaceState("obj", "", URI);
         //location.reload(true);
       }
 
