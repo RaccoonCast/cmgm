@@ -1,7 +1,14 @@
 <?php
 
+// Get domain name
 $domain = $_SERVER['SERVER_NAME'];
+
+// Get port, assuming it's not 80 or 443
 $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+if ($port === ':80' || $port === ':443') {
+  $port = '';
+}
+
 $http = (in_array("HTTPS", $_SERVER) && $_SERVER['HTTPS'] == "on") ? "https://" : "http://";
 $domain_with_http = $http . $domain . $port;
 
