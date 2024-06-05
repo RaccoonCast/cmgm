@@ -47,7 +47,7 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
         }
         include_once $SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
                                                                        
-        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,NULL,"Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
         $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
 
           ?> <td><input type="button" class="w-100 btn-edit" onclick="redir('Edit.php?id=<?php echo $id;?>','0')"value="Edit"></input></td> <?php
