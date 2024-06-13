@@ -7,10 +7,15 @@ $sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,z
 
 
 $result = mysqli_query($conn,$sql);
-if(empty($result)) {
-  echo "<br> No results found.";
-  redir("Search.php?latitude=".@$latitude."&longitude=".@$longitude."","1");
+$numRows = mysqli_num_rows($result);
+if ($numRows == 0) {
+  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a>.<h4>';
   die();
+}
+
+
+if(empty($result)) {
+
 }
 
 if (mysqli_num_rows($result) == "1") {

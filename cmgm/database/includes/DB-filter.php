@@ -1,7 +1,7 @@
 <?php
 if ($value == "NULL") $value = null;
 if ($value == "!NULL") $trimChar = null;
-if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size" OR $key == "title" OR $key == "percents_view")  { ${$key} = $value; }
+if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next")  { ${$key} = $value; }
 elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
     $strings = explode(',',$value);

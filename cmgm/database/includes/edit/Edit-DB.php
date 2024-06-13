@@ -14,8 +14,8 @@ if (!empty($q)) {
   // Search database for a LTE or NR nodeB that matches the search query, if found, redirect to that ID. (this is neccesary for CMGM Home -> Search box 81000 -> #318)
   $q_trim = preg_replace('/\s+/', '', $q); // remove spaces
   if (!empty($q_trim) && is_numeric($q_trim)) {
-  $db_vars = "WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim'";
-  $sql = "SELECT id FROM db " . $db_vars;
+  $db_vars = "AND LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim'";
+  $sql = "SELECT id FROM db WHERE 1=1 " . $db_vars;
 
   $result = mysqli_query($conn, $sql);
     
