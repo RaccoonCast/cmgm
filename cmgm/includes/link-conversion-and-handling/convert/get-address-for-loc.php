@@ -9,31 +9,43 @@ mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID 
 
 // Parse the json output
 $response = json_decode($response);
+// Assuming $response is your main response object
+$results = $response->results;
 
- // Retrieve important information from JSON and set the data to a corresponding variable
- $addressComponents = $response->results[0]->address_components;
- foreach ($addressComponents as $addrComp) {
-     if ($addrComp->types[0] == 'postal_code') $zip = $addrComp->long_name;
-     if ($addrComp->types[0] == 'street_number') $street_number = $addrComp->short_name;
-     if ($addrComp->types[0] == 'route') $route = $addrComp->short_name;
-     if ($addrComp->types[0] == 'locality') $city = $addrComp->long_name;
-     if (!isset($city)) if (in_array("sublocality", $addrComp->types)) { $city = $addrComp->long_name; }
-     if ($addrComp->types[0] == 'administrative_area_level_1') $state = $addrComp->short_name;
-     
-     if (isset($state) && strlen($state) > 2) {
-      if ($addrComp->types[0] == 'country') @$state = $addrComp->short_name;
+$state = null;
+$county = null;
+$city = null;
+$route = null;
+$zip = null;
+$street_number = null;
+
+// Loop through each result until we find valid address components
+foreach ($results as $result) {
+    if (isset($result->address_components)) {
+        $addressComponents = $result->address_components;
+
+        foreach ($addressComponents as $addrComp) {
+            if ($addrComp->types[0] == 'administrative_area_level_1') { if (empty($state)) $state = $addrComp->short_name;}
+            if ($addrComp->types[0] == 'administrative_area_level_2') { if (empty($county)) $county = $addrComp->long_name;}
+            if ($addrComp->types[0] == 'locality') { if (empty($city)) $city = $addrComp->long_name;}
+            if ($addrComp->types[0] == 'route') { if (empty($route)) $route = $addrComp->short_name;}
+            if ($addrComp->types[0] == 'postal_code') { if (empty($zip)) $zip = $addrComp->long_name;}
+            if ($addrComp->types[0] == 'street_number') { if (empty($street_number)) $street_number = $addrComp->short_name;}
+        }
+
+        // If we found valid address components, break out of the loop
+        if ($state !== null && $county !== null && $city !== null && $route !== null && $zip !== null && $street_number !== null) {
+            break;
+        }
     }
+}
 
-     if ($addrComp->types[0] == 'administrative_area_level_2') $county = $addrComp->long_name;
-     if (@$city == @$county) $county = NULL;
-     }
-
-    if (!empty($route) && !empty($street_number)){
-      $address = "$street_number $route";
-    } else {
-      $address = "";
-    }
-
-
-    }
+    if (@$city == @$county) $county = NULL;
+    if (!empty($route) && !empty($street_number)) $address = "$street_number $route";
+    if (isset($state) && strlen($state) > 2) {
+      if ($addrComp->types[0] == 'country') {
+          $state = $addrComp->short_name;
+      }
+  }
+}
 ?>
