@@ -12,12 +12,7 @@ $response = json_decode($response);
 // Assuming $response is your main response object
 $results = $response->results;
 
-$state = null;
-$county = null;
-$city = null;
-$route = null;
-$zip = null;
-$street_number = null;
+$address = $state = $county = $city = $route =$zip = $street_number = null;
 
 // Loop through each result until we find valid address components
 foreach ($results as $result) {
@@ -31,6 +26,11 @@ foreach ($results as $result) {
             if ($addrComp->types[0] == 'route') { if (empty($route)) $route = $addrComp->short_name;}
             if ($addrComp->types[0] == 'postal_code') { if (empty($zip)) $zip = $addrComp->long_name;}
             if ($addrComp->types[0] == 'street_number') { if (empty($street_number)) $street_number = $addrComp->short_name;}
+
+            if (isset($state) && strlen($state) > 2) { // "support" for Puerto Rico/US Virgin Islands
+                if ($addrComp->types[0] == 'country') {
+                    $state = $addrComp->short_name;
+            }
         }
 
         // If we found valid address components, break out of the loop
@@ -40,12 +40,9 @@ foreach ($results as $result) {
     }
 }
 
-    if (@$city == @$county) $county = NULL;
-    if (!empty($route) && !empty($street_number)) $address = "$street_number $route";
-    if (isset($state) && strlen($state) > 2) {
-      if ($addrComp->types[0] == 'country') {
-          $state = $addrComp->short_name;
-      }
+    if (@$city == @$county) $county = NULL; // If county and city are the same, set county to empty.
+    if (!empty($route) && !empty($street_number)) $address = "$street_number $route"; // Generate $address variable for field on edit.
+
   }
 }
 ?>
