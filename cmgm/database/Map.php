@@ -27,15 +27,6 @@
     $limit = "530";
   }
   include 'includes/DB-filter-get.php';
-  if (@substr($back, 0, 4) == "Edit") {
-    $back_url = $back;
-  } elseif (@substr($back, 0, 4) == "Home") {
-    $back_url = "../Home.php";
-  } elseif (@substr($back, 0, 2) == "DB") {
-    $back_url = "DB.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier;
-  } elseif (@substr($back, 0, 4) == "Search") {
-    $back_url = "../Search.php";
-  }
   ?>
 </head>
 
@@ -94,7 +85,7 @@
       // Cast add event listeners for buttons
       <?php if (!isset($marker_latitude)) { ?>
         document.getElementById('refreshButton').addEventListener('click', () => location.reload());
-        document.getElementById('backButton').addEventListener('click', () => location.replace("<?php echo @$back_url; ?>"));
+        document.getElementById('backButton').addEventListener('click', () => history.back());
       <?php } ?>
 
       // Create list of markers

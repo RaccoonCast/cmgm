@@ -33,7 +33,7 @@ if ($goto_page == "Look Around") return "https://lookmap.eu.pythonanywhere.com/#
 if ($goto_page == "Maprad") return "https://maprad.io/us/search/coordinates/1000/$latitude,$longitude?source=US&coordStr=$latitude,$longitude&radius=1000";
 if ($goto_page == "lart2150") return "https://coverage.lart2150.com/vector/#b=N2500&m=2024-02-02&m2=&lat=$latitude&lng=$longitude&z=18";
 if ($goto_page == "OpenCID") return "https://www.opencellid.org/#zoom=20&lat=$latitude&lon=$longitude";
-if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?back=Home&";
+if ($goto_page == "Map") $goto_page_URL = "/database/Map.php?";
 if ($goto_page == "Form") $goto_page_URL = "/database/Edit.php?new&";
 if ($goto_page == "Search") $goto_page_URL = "/database/Search.php?";
 if ($goto_page == "Back" OR $goto_page == "Home") $goto_page_URL = "/?";
