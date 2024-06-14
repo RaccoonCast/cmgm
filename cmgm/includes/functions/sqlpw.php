@@ -9,7 +9,10 @@ if ($port === ':80' || $port === ':443') {
   $port = '';
 }
 
-$http = (in_array("HTTPS", $_SERVER) && $_SERVER['HTTPS'] == "on") ? "https://" : "http://";
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') { $isSecure = true; }
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') { $isSecure = true; }
+$http = isset($isSecure) ? "https://" : "http://";
+
 $domain_with_http = $http . $domain . $port;
 
 // SQL Database login info
