@@ -104,7 +104,11 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <tr rowspan="2">
                     <td class="label">Address</td>
                     <td>
-                    <?php echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');?>
+                    <?php 
+                    if ($address == "") $address = "Somewhere in";
+                    if ($city == "") $city = "Somewhereville";
+                    echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
+                    ?>
                     </td>
                     </tr>
 
@@ -157,9 +161,10 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <td class="label">Evidence</td>
                     <td>
                     <?php
-                    if(!empty($evidence_a)) echo (substr($evidence_a,0,4)=="http") ? '<a target="_blank" href="' . $evidence_a . '">EV_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $evidence_a . '">EV_A</a>';
-                    if(!empty($evidence_b)) echo (substr($evidence_b,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_b . '">EV_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_b . '">EV_B</a>';
-                    if(!empty($evidence_c)) echo (substr($evidence_c,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_c . '">EV_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_c . '">EV_C</a>';
+                    if(!empty($evidence_a)) $evidences  = (substr($evidence_a,0,4)=="http") ? '<a target="_blank" href="' . $evidence_a . '">EV_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $evidence_a . '">EV_A</a>';
+                    if(!empty($evidence_b)) $evidences .= (substr($evidence_b,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_b . '">EV_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_b . '">EV_B</a>';
+                    if(!empty($evidence_c)) $evidences .= (substr($evidence_c,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_c . '">EV_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_c . '">EV_C</a>';
+                    echo !empty($evidences) ? $evidences : "<i>None<i>";
                     ?>
                     </td>
                     </tr>
@@ -168,30 +173,32 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     <td class="label">Photos</td>
                     <td>
                     <?php
-                    if(!empty($photo_a)) echo (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
-                    if(!empty($photo_b)) echo (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_b . '">PH_B</a>';
-                    if(!empty($photo_c)) echo (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_C</a>';
+                    if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
+                    if(!empty($photo_b)) $photos .= (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_b . '">PH_B</a>';
+                    if(!empty($photo_c)) $photos .= (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_C</a>';
 
-                    if(!empty($photo_d)) echo isMobile() ? "<br>" : " | ";
+                    if(!empty($photo_d)) $photos .= isMobile() ? "<br>" : " | ";
 
-                    if(!empty($photo_d)) echo (substr($photo_d,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
-                    if(!empty($photo_e)) echo (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
-                    if(!empty($photo_f)) echo (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_F</a>';
+                    if(!empty($photo_d)) $photos .= (substr($photo_d,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
+                    if(!empty($photo_e)) $photos .= (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
+                    if(!empty($photo_f)) $photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_F</a>';
+                    echo !empty($photos) ? $photos : "<i>None<i>";
                     ?>
                     </tr></td>
                     <tr>
                     <td class="label">Extras</td>
                     <td>
                     <?php
-                    if(!empty($extra_a)) echo (substr($extra_a,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $extra_a . '">EX_A</a>';
-                    if(!empty($extra_b)) echo (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_b . '">EX_B</a>';
-                    if(!empty($extra_c)) echo (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_C</a>';
+                    if(!empty($extra_a)) $extras  = (substr($extra_a,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $extra_a . '">EX_A</a>';
+                    if(!empty($extra_b)) $extras .= (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_b . '">EX_B</a>';
+                    if(!empty($extra_c)) $extras .= (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_C</a>';
 
                     if(!empty($extra_d)) echo isMobile() ? "<br>" : " | ";
 
-                    if(!empty($extra_d)) echo (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
-                    if(!empty($extra_e)) echo (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_e . '">EX_E</a>';
-                    if(!empty($extra_f)) echo (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_F</a>';
+                    if(!empty($extra_d)) $extras .= (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
+                    if(!empty($extra_e)) $extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_e . '">EX_E</a>';
+                    if(!empty($extra_f)) $extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_F</a>';
+                    echo !empty($extras) ? $extras : "<i>None<i>";
                     ?>
                     </td>
                     </tr>
