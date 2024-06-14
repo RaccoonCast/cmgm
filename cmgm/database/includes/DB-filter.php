@@ -1,4 +1,15 @@
 <?php
+
+$incomplete_sql_query = '
+((((NOT sv_a = "" AND sv_a IS NOT NULL) AND (sv_a_date = "" OR sv_a_date IS NULL)) -- pulls records where SV_A is set but SV_A_date is not 
+OR ((region_lte = "" AND lte_1 != "")) -- pulls records where region_lte is not set but lte_1 is
+OR ((pci_1 = "")) -- pulls record where pci_1 is not set
+OR ((NOT NR_1 = "" AND NR_1 IS NOT NULL) AND (region_nr = "" OR region_nr IS NULL)) -- pulls records where NR_1 is set but NR_region is not
+OR ((cellsite_type = "" OR cellsite_type IS NULL))) -- pulls records where cell site type is not set
+AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") -- dont count count records marked future or unmapped
+AND (status = "verified")) -- only show records marked as verified
+';
+
 if ($value == "NULL") $value = null;
 if ($value == "!NULL") $trimChar = null;
 if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next")  { ${$key} = $value; }
@@ -34,7 +45,7 @@ elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%
 elseif ($key == "time") { $db_vars = " AND (date_added like '% ".$value."%')" . @$db_vars; }
 elseif ($key == "month") { $db_vars = " AND (MONTH(date_added) = ".$value.")" . @$db_vars; }
 elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
-elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
-elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT (region_lte = '"."' OR pci_1 = '"."')" . @$db_vars; }
+elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND $incomplete_sql_query" . @$db_vars; }
+elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT $incomplete_sql_query" . @$db_vars; }
 else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
 ?>
