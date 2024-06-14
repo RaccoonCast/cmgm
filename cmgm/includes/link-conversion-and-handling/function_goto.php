@@ -44,7 +44,7 @@ if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/sea
 if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
-if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
+if (isset($carrier)) if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
 if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$city&county=$county&state=$state";
 
 if ($goto_page == "Map") $suffix_part_c = null; // this is for cmgm map, not google maps.

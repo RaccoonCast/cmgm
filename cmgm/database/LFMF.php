@@ -18,7 +18,7 @@ die();
 }
 if ($_POST['opt'] == 'Missing File Search'){
 // Let's Find Missing Files (LFMF)
-echo "The following IDs have missing EV: <br>";
+echo "The following IDs have missing attachments: <br>";
 $sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM db";
 $result = mysqli_query($conn,$sql);
 

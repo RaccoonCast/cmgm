@@ -31,7 +31,7 @@
           <form name="image_upload" method="post" enctype="multipart/form-data">
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select file <a class="hiddenlink" href="https://cmgm.us/database/LFMF.php">to</a> upload (Max: 250MB)<br>
+              Select file <a class="hiddenlink" href="https://alpha.cmgm.us/database/LFMF.php">to</a> upload (Max: 250MB)<br>
               You can also paste an image if you have one on your clipboard. <br><br>
               <input type="file" name="fileToUpload" onchange="form.submit()" id="fileToUpload">
               <?php if (isset($_GET['finishedFilename'])) { ?>

@@ -164,7 +164,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($evidence_a)) $evidences  = (substr($evidence_a,0,4)=="http") ? '<a target="_blank" href="' . $evidence_a . '">EV_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $evidence_a . '">EV_A</a>';
                     if(!empty($evidence_b)) $evidences .= (substr($evidence_b,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_b . '">EV_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_b . '">EV_B</a>';
                     if(!empty($evidence_c)) $evidences .= (substr($evidence_c,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_c . '">EV_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_c . '">EV_C</a>';
-                    echo !empty($evidences) ? $evidences : "<i>None<i>";
+                    echo !empty($evidences) ? $evidences : "<i>No Evidence<i>";
                     ?>
                     </td>
                     </tr>
@@ -182,7 +182,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($photo_d)) $photos .= (substr($photo_d,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
                     if(!empty($photo_e)) $photos .= (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
                     if(!empty($photo_f)) $photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_F</a>';
-                    echo !empty($photos) ? $photos : "<i>None<i>";
+                    echo !empty($photos) ? $photos : "<i>No Photos<i>";
                     ?>
                     </tr></td>
                     <tr>
@@ -198,14 +198,14 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($extra_d)) $extras .= (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
                     if(!empty($extra_e)) $extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_e . '">EX_E</a>';
                     if(!empty($extra_f)) $extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_F</a>';
-                    echo !empty($extras) ? $extras : "<i>None<i>";
+                    echo !empty($extras) ? $extras : "<i>No Extras<i>";
                     ?>
                     </td>
                     </tr>
 
                     <tr>
                     <td class="label">Tags</td>
-                    <td><?php echo @$tags?></td>
+                    <td><?php echo @$tags ?></td>
                     </tr>
 
 </tbody>
