@@ -15,7 +15,12 @@ header('Pragma: no-cache'); ?>
       if (isset($_GET['signOut'])) {
         echo '<script src="/js/setCookie.js"></script>';
         unset($_COOKIE['userID']);
-        ?> <script> setCookie("userID", "", "100"); </script> <?php
+        ?> <script>
+          // Delete userID cookie
+         setCookie("userID", "", "100", true); 
+         // Remove '?signOut' from the URL
+         history.replaceState(null, null, window.location.href.replace('?signOut', ''))
+         </script> <?php
       }
       include "functions.php";
       if (isset($_GET['q'])) {
