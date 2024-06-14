@@ -34,18 +34,20 @@
               <option value="Dish">Dish</option>
            </select><select
         class="custominput cellsite-type-custom-width dropdown w-32" name="cellsite_type">
-        <option selected="selected" value="">Tower type: All</option>
-        <option value="tower">Tower</option>
-        <option value="rooftop">Rooftop</option>
-        <option value="tank">Tank</option>
-        <option value="utility_small">Utility Pole</option>
-        <option value="utility_big">Utility Tower</option>
-        <option value="monopalm">Monopalm</option>
-        <option value="monopine">Monopine</option>
-        <option value="misc-tree">Misc tree</option>
-        <option value="pole">Pole</option>
-        <option value="structure">Disguised structure</option>
-        <option value="other">Other/Uknown</option>
+        <option style="display: none" selected="selected" value="">Tower type: All</option>
+        <?php 
+        include "$SITE_ROOT/includes/functions/tower_types.php";
+        foreach ($options as $category => $subcategories) {
+          echo PHP_EOL . '<optgroup label="' . $category . '">' . PHP_EOL;
+          foreach ($subcategories as $sub_key => $sub_val) {
+              echo '    <option class="subtype_' . str_replace('_', '-', strtolower($category)) . '" ';
+              if (@$cellsite_type == $sub_key) echo 'selected ';
+              echo 'value="' . $sub_key . '">' . $sub_val . '</option>' . PHP_EOL;
+          }
+          echo '</optgroup>' . PHP_EOL;
+      }
+        ?>
+
       </select><!--<label class="label">Concealment</label> --><!-- <br>label class="label">Status</label>-->
       </select>
 		       <!-- <label class="label">Carrier</label>-->
