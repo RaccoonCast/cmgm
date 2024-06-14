@@ -58,8 +58,7 @@
     $database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
 
     $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
-    if (isset($_GET['showsql']))
-      echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
+    if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
     $result = mysqli_query($conn, $sql);
 
     $resultArray = mysqli_fetch_all($result);
@@ -220,12 +219,9 @@
                 if (like_match('special,%',$tags) == "TRUE" OR like_match('%,special',$tags) == "TRUE" OR like_match('%,special,%',$tags) == "TRUE" OR $tags == "special") $status = "special";
            }
 
+              // End of PHP, generate marker and add to map.
               ?>
-              /* END PHP */
-
-              // Generate marker and add to map
               marker(<?php echo $lat ?>, <?php echo $long ?>, <?php echo $status ?>, <?php echo $id ?>);
-
               <?php
               break;
           }
