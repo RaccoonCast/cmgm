@@ -8,11 +8,15 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     } 
     
     $fieldsToReplace = ['evidence_a', 'evidence_b', 'evidence_c', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'photo_a', 'photo_b', 'photo_c', 'photo_c', 'photo_d', 'photo_e', 'photo_f'];
+    $removeLeadindZeroes = ['sv_a_date', 'sv_b_date', 'sv_c_date', 'sv_d_date', 'sv_e_date', 'sv_f_date'];
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '$') {
         $value = 'https://siteportal.calepa.ca.gov/nsite/map/results/summary/' . substr($value, 1);
     } 
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
         $value = '@' . substr($value, 22);
+    } 
+    if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
+        $value = substr($value, 1);
     } 
 
     $value = preg_match('/unique_system_identifier=(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;
