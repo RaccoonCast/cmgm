@@ -12,6 +12,11 @@ header('Pragma: no-cache'); ?>
       <?php
       $titleOverride = "true";
       $filename_for_css = "Home";
+      if (isset($_GET['signOut'])) {
+        echo '<script src="/js/setCookie.js"></script>';
+        unset($_COOKIE['userID']);
+        ?> <script> setCookie("userID", "", "100"); </script> <?php
+      }
       include "functions.php";
       if (isset($_GET['q'])) {
           include "includes/functions/att-siteidconversion.php";

@@ -92,7 +92,7 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
  ?>
    </head>
    <body>
-     <form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
+     <form action="<?= str_replace("?signOut", "", $_SERVER['REQUEST_URI']);?>" method="post" autocomplete="off">
        <p>IP address <?php echo $ip; ?> isn't recognized.</p>
        <p>Please enter magical password.</p>
          <input type="username" name="username" class="textbox" placeholder="Username"><br>
@@ -102,7 +102,7 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
          <!-- <p>This will create a randomized userID that gets stored in the database and in a cookie on your browser to identify whos who. It's primary function right now is to authenticate users.</p> -->
      </form>
      <br>
-     <form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" autocomplete="off">
+     <form action="<?= str_replace("?signOut", "", $_SERVER['REQUEST_URI']);?>" method="post" autocomplete="off">
      Or enter user id:
      <input type="password" name="userid" class="textbox" placeholder="User ID">
      <input type="submit" class="sb cmgm-btn" value="Submit">

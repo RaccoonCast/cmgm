@@ -145,7 +145,7 @@ header("Pragma: no-cache");
           type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
         </div>
         <br>
-        <h3><a href="../fun/?limit=15&username=<?php echo $username ?>">Statistics</a> | <a href="../" onclick="setCookie('userID', '', '1');">Sign Out</a></h3>
+        <h3><a href="../fun/?limit=15&username=<?php echo $username ?>">Statistics</a> | <a href="../?signOut">Sign Out</a></h3>
         <!--
         <label class="label">CMGM Map Settings: </label><div class="cmcheckboxes ib"><label for="cm_groupTowers">Auto reload</label><input
         type="hidden" name="cmgm_auto_reload" value="false"><input
