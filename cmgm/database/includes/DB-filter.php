@@ -16,8 +16,12 @@ if ($value == "!NULL") $trimChar = null; // Support user specifiying a search fo
 // List of keys to ignore.
 if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next")  { ${$key} = $value; }
 
-// Filtering by ID ranges, like &id=69-420, shows records with CMGM #s between 69 and 420. (and including 69&420)
+// Filter records by LTE or CMGM #id, e.g., &id=82869.
+// Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
+// Filter records by ID ranges, e.g., &id=69-420, to include CMGM #s between 69 and 420 (including 69 and 420).
 elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
+elseif ($key == "id") { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
 
 // Filtering by date ranges, like &date=2022-01-01,2022-03-01 to filter between January-March of 2022.
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
@@ -30,18 +34,21 @@ elseif ($key == "date" AND (strpos($value, ',') !== false)) {
 elseif ($key == "date" && $value[0] == ">") { $db_vars = " AND date_added" . ' >= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
 elseif ($key == "date" && $value[0] == "<") { $db_vars = " AND date_added" . ' <= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
 
+// Filter records by date, e.g., &date=2022 for records created in 2022, or &date=!2022 to exclude records from 2022 or &date=!06-01 to hide records from June 1st.
+elseif (($key == "date" OR $key == "year") && @$value[0] == "!") { $db_vars = " AND (date_added not like '%".$value."%')" . @$db_vars; }
+elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
+
+// Filter records by time, e.g., &month=5 for records created in May, or &month=!12 to exclude records from December.
+elseif ($key == "month" && @$value[0] == "!") { $db_vars = " AND (MONTH(date_added) != ".$trimChar.")" . @$db_vars; }
+elseif ($key == "month") { $db_vars = " AND (MONTH(date_added) = ".$value.")" . @$db_vars; }
+
+// Filter records by time, e.g., &time=11 for records created at 11 AM, or &time=!14 to exclude records created at 2:00 PM.
+elseif ($key == "time" && @$value[0] == "!") { $db_vars = " AND (date_added not like '% ".$trimChar.":%')" . @$db_vars; }
+elseif ($key == "time") { $db_vars = " AND (date_added like '% ".$value."%')" . @$db_vars; }
+
 // Filtering by whether street view is set, &has_street_view=false to show records missing SV.
 elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND sv_a != '' " . @$db_vars;
 elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND sv_a = '' " . @$db_vars;
-
-// Filtering by date/year IS NOT like x, like &date=!2022 to show records where year is not 2022. Or &date=!06-01 to hide records created June 1st.
-elseif (($key == "date" OR $key == "year") && @$value[0] == "!") { $db_vars = " AND (date_added not like '%".$value."%')" . @$db_vars; }
-
-// Filtering by time IS NOT like X, like &time=!14 to show records not created at 2:00 PM.
-elseif ($key == "time" && @$value[0] == "!") { $db_vars = " AND (date_added not like '% ".$trimChar.":%')" . @$db_vars; }
-
-// Filtering by month IS NOT like x, like &month=!12 to show records not created during December.
-elseif ($key == "month" && @$value[0] == "!") { $db_vars = " AND (MONTH(date_added) != ".$trimChar.")" . @$db_vars; }
 
 // Filtering by string is not equal to x, with special support for tags. Example: &tags=!n41 OR &carrier=!T-Mobile 
 elseif (@$value[0] == "!") {
@@ -49,31 +56,38 @@ elseif (@$value[0] == "!") {
   elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
 }
 
-// Filtering by greater than or less than x for other strings, example &lte_3=<60000 to show records greater with Lte_3 set to something greater than or equal to 60000. 
-elseif (@$value[0] == ">") { $db_vars = " AND ". $key . ' >= '.$trimChar . @$db_vars; }
-elseif (@$value[0] == "<") { $db_vars = " AND ". $key . ' <= '.$trimChar . @$db_vars; }
-
-// Filtering by lte OR cmgm#id is X, exmaple &id=82869.
-elseif ($key == "id") { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
-
-// Filtering by a comma seperated list of cmgm #ids, example: 1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
-elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
-
 // Filtering by an attached filename mentioned on various records. Example: &fileSearch=image_34324324.jpg will show records where image_34324324.jpg is referenced.
 elseif ($key == "fileSearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
 
 // Address search, example &address=Main will filter records on Main St/Main Ave/etc.
 elseif ($key == "address" && !empty($value)) { $db_vars = " AND " . $key . ' like "% '.$value.' %"' . @$db_vars; }
+
+// Search for tags, &tags=n41 to search for records tagged n41. It's some pretty wonky code because it has to support 'n41,n71'.
 elseif ($key == "tags") { $db_vars = " AND (tags like '".$value.",%' OR tags like '%,".$value."' OR tags like '%,".$value.",%' OR tags = '".$value."')" . @$db_vars; }
+
+// Search for a edit date like, &edit_date_like=2022-01 will filter records created any time during January 2022.
 elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value."%')" . @$db_vars; }
+
+// Search for notes containing a specific string, "AT&T" to look for records mentioning AT&T in notes.
 elseif ($key == "notes_like") { $db_vars =  " AND (notes like '%".$value."%')" . @$db_vars; }
+
+// Search for cellsite_type, supports &cellsite_tower=tower to look for tower_monopole/tower_lattice, or &cellsite_type=tower_monopole to filtering specifically tower monopoles.
 elseif ($key == "cellsite_type" OR $key == "cellsite" OR $key == "type") { $db_vars =  " AND (cellsite_type like '%".$value."%')" . @$db_vars; }
+
+// Search for site_id, example &site_id=CVL to filter sites with a site ID prefix of CVL.
 elseif ($key == "site_id") { $db_vars = " AND (site_id like '%".$value."%')" . @$db_vars; }
-elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
-elseif ($key == "time") { $db_vars = " AND (date_added like '% ".$value."%')" . @$db_vars; }
-elseif ($key == "month") { $db_vars = " AND (MONTH(date_added) = ".$value.")" . @$db_vars; }
+
+// Search for records created by a specific user, example &username=Bob to show records made by Bob.
 elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
+
+// Search for records marked incomplete or marked not incomplete to show records with missing info, example &incomplete=true will yield records that are missing info.
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND $incomplete_sql_query" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT $incomplete_sql_query" . @$db_vars; }
+
+// Filtering by greater than or less than x for other strings, example &lte_3=<60000 to show records greater with Lte_3 set to something greater than or equal to 60000. 
+elseif (@$value[0] == ">") { $db_vars = " AND ". $key . ' >= '.$trimChar . @$db_vars; }
+elseif (@$value[0] == "<") { $db_vars = " AND ". $key . ' <= '.$trimChar . @$db_vars; }
+
+// IF none of the past else ifs caught X, just run a this=this check, example &equipment_match_carrier=60 will filter records where EMC is 60. 
 else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
 ?>
