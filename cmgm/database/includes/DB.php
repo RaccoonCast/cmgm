@@ -9,7 +9,7 @@ $sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,z
 $result = mysqli_query($conn,$sql);
 $numRows = mysqli_num_rows($result);
 if ($numRows == 0) {
-  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a>.<h4>';
+  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a>.</h4>';
   die();
 }
 

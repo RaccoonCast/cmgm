@@ -17,7 +17,7 @@
     }
     
     // Count most records created during X day.
-    if (!isset($_GET['date'])) {
+    if (!isset($_GET['date']) || (isset($_GET['date'][0]) && ($_GET['date'][0] === '<' || $_GET['date'][0] === '>'))) {
         statBox("count_records_by_day.php", $db_vars, $conn, $domain_with_http);
     }
 
