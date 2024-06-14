@@ -60,10 +60,22 @@ elseif (@$value[0] == "!") {
 elseif ($key == "fileSearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
 
 // Address search, example &address=Main will filter records on Main St/Main Ave/etc.
-elseif ($key == "address" && !empty($value)) { $db_vars = " AND " . $key . ' like "% '.$value.' %"' . @$db_vars; }
+elseif ($key == "address" && !empty($value)) {
+  $db_vars = " AND (
+                         address LIKE '% $value %' 
+                      OR address LIKE '$value %'
+                      OR address LIKE '% $value'
+                      OR address = '$value')";
+}
 
-// Search for tags, &tags=n41 to search for records tagged n41. It's some pretty wonky code because it has to support 'n41,n71'.
-elseif ($key == "tags") { $db_vars = " AND (tags like '".$value.",%' OR tags like '%,".$value."' OR tags like '%,".$value.",%' OR tags = '".$value."')" . @$db_vars; }
+// Search for tags, &tags=n41 to search for records tagged n41.
+elseif ($key == "tags" && !empty($value)) {
+  $db_vars = " AND (
+                         tags LIKE '%,$value,%' 
+                      OR tags LIKE '$value,%'
+                      OR tags LIKE '%,$value'
+                      OR tags = '$value')";
+}
 
 // Search for a edit date like, &edit_date_like=2022-01 will filter records created any time during January 2022.
 elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value."%')" . @$db_vars; }
@@ -80,7 +92,7 @@ elseif ($key == "site_id") { $db_vars = " AND (site_id like '%".$value."%')" . @
 // Search for records created by a specific user, example &username=Bob to show records made by Bob.
 elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db_vars; }
 
-// Search for records marked incomplete or marked not incomplete to show records with missing info, example &incomplete=true will yield records that are missing info.
+// Search for records with missing info or records without missing info, example &incomplete=true will yield records that are missing info.
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND $incomplete_sql_query" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT $incomplete_sql_query" . @$db_vars; }
 
@@ -88,6 +100,6 @@ elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT $incomp
 elseif (@$value[0] == ">") { $db_vars = " AND ". $key . ' >= '.$trimChar . @$db_vars; }
 elseif (@$value[0] == "<") { $db_vars = " AND ". $key . ' <= '.$trimChar . @$db_vars; }
 
-// IF none of the past else ifs caught X, just run a this=this check, example &equipment_match_carrier=60 will filter records where EMC is 60. 
+// If none of the past conditionals caught X, just query key_name=key_value, example &equipment_matches_carrier=60 will filter records where EMC is 60. 
 else { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
 ?>
