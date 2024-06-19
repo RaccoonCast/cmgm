@@ -11,7 +11,7 @@
   <script>
          function openEditLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>", "_blank"); }
          function openDeleteLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
-         function openNotesLink() {  window.open("<?php echo $domain_with_http; ?>/database/Map-popup-viewnotes.php?mp-id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
+         function openNotesLink() {  window.open("<?php echo $domain_with_http; ?>/database/Map-popup-viewnotes.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
      </script>
 </head>
 <body class="body">

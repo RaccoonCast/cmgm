@@ -51,7 +51,7 @@ var pinLocations = {};
 function addPin(lat, lng, name, carrier_name) {
 	// Check if the pin already exists on the map
 		// If the pin does not already exist, create a new map pin
-		var customPopup = '<iframe frameBorder=\"0\" src=\"../database/Map-popup.php?mp-id=' + name + '\">';
+		var customPopup = '<iframe frameBorder=\"0\" src=\"../database/Map-popup.php?id=' + name + '\">';
 		var customOptions = { 'className' : 'custom' }
 		let status;
 		let carrier = carrier_name;
