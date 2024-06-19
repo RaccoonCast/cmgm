@@ -1,4 +1,4 @@
-<script>
+  <script>
 // Get active vars if available
 // Otherwise, fall back to db
 function getCurrentParams() {
@@ -6,7 +6,7 @@ function getCurrentParams() {
   let lat = params.get('latitude') ?? "<?php echo $latitude ?>";
   let lon = params.get('longitude') ?? "<?php echo $longitude ?>";
   let zoom = params.get('zoom') ?? "<?php echo $cm_zoom ?>";
-  let carrier = params.get('carrier') ?? "<?php echo $cm_carrier ?>";
+  let carrier = params.get('carrier') ?? "<?php if (isset($cm_carrier)) { echo $cm_carrier; } else { echo 'None'; } ?>";
 
 
   return {
