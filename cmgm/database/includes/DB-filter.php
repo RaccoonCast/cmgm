@@ -4,7 +4,7 @@ $incomplete_sql_query = '
 ((((NOT sv_a = "" AND sv_a IS NOT NULL) AND (sv_a_date = "" OR sv_a_date IS NULL)) -- pulls records where SV_A is set but SV_A_date is not 
 OR ((region_lte = "" AND lte_1 != "")) -- pulls records where region_lte is not set but lte_1 is
 OR ((pci_1 = "")) -- pulls record where pci_1 is not set
-OR ((NOT NR_1 = "" AND NR_1 IS NOT NULL) AND (region_nr = "" OR region_nr IS NULL)) -- pulls records where NR_1 is set but NR_region is not
+OR ((region_nr = "" AND NR_1 != "")) -- pulls records where NR_1 is set but NR_region is not
 OR ((cellsite_type = "" OR cellsite_type IS NULL))) -- pulls records where cell site type is not set
 AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") -- dont count count records marked future or unmapped
 AND (status = "verified")) -- only show records marked as verified
@@ -57,7 +57,12 @@ elseif (@$value[0] == "!") {
 }
 
 // Filtering by an attached filename mentioned on various records. Example: &fileSearch=image_34324324.jpg will show records where image_34324324.jpg is referenced.
-elseif ($key == "fileSearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
+elseif ($key == "filesearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
+elseif ($key == "filesearchexclude") { $db_vars = " AND (evidence_a NOT LIKE '%$fs%' AND evidence_b NOT LIKE '%$fs%' AND evidence_c NOT LIKE '%$fs%' AND photo_a NOT LIKE '%$fs%' AND photo_b NOT LIKE '%$fs%' AND photo_c NOT LIKE '%$fs%' AND photo_d NOT LIKE '%$fs%' AND photo_e NOT LIKE '%$fs%' AND photo_f NOT LIKE '%$fs%' AND extra_a NOT LIKE '%$fs%' AND extra_b NOT LIKE '%$fs%' AND extra_c NOT LIKE '%$fs%')" . @$db_vars; }
+elseif ($key == "filesearchprefix") { $db_vars = " AND (evidence_a LIKE '$fs%' OR evidence_b LIKE '$fs%' OR evidence_c LIKE '$fs%' OR photo_a LIKE '$fs%' OR photo_b LIKE '$fs%' OR photo_c LIKE '$fs%' OR photo_d LIKE '$fs%' OR photo_e LIKE '$fs%' OR photo_f LIKE '$fs%' OR extra_a LIKE '$fs%' OR extra_b LIKE '$fs%' OR extra_c LIKE '$fs%')" . @$db_vars; }
+elseif ($key == "filesearchprefixexclude") { $db_vars = " AND (evidence_a NOT LIKE '$fs%' AND evidence_b NOT LIKE '$fs%' AND evidence_c NOT LIKE '$fs%' AND photo_a NOT LIKE '$fs%' AND photo_b NOT LIKE '$fs%' AND photo_c NOT LIKE '$fs%' AND photo_d NOT LIKE '$fs%' AND photo_e NOT LIKE '$fs%' AND photo_f NOT LIKE '$fs%' AND extra_a NOT LIKE '$fs%' AND extra_b NOT LIKE '$fs%' AND extra_c NOT LIKE '$fs%')" . @$db_vars; }
+elseif ($key == "filesearchsuffix") { $db_vars = " AND (evidence_a LIKE '%$fs' OR evidence_b LIKE '%$fs' OR evidence_c LIKE '%$fs' OR photo_a LIKE '%$fs' OR photo_b LIKE '%$fs' OR photo_c LIKE '%$fs' OR photo_d LIKE '%$fs' OR photo_e LIKE '%$fs' OR photo_f LIKE '%$fs' OR extra_a LIKE '%$fs' OR extra_b LIKE '%$fs' OR extra_c LIKE '%$fs')" . @$db_vars; }
+elseif ($key == "filesearchsuffixexclude") { $db_vars = " AND (evidence_a NOT LIKE '%$fs' AND evidence_b NOT LIKE '%$fs' AND evidence_c NOT LIKE '%$fs' AND photo_a NOT LIKE '%$fs' AND photo_b NOT LIKE '%$fs' AND photo_c NOT LIKE '%$fs' AND photo_d NOT LIKE '%$fs' AND photo_e NOT LIKE '%$fs' AND photo_f NOT LIKE '%$fs' AND extra_a NOT LIKE '%$fs' AND extra_b NOT LIKE '%$fs' AND extra_c NOT LIKE '%$fs')" . @$db_vars; }
 
 // Address search, example &address=Main will filter records on Main St/Main Ave/etc.
 elseif ($key == "address" && !empty($value)) {
