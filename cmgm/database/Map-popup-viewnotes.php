@@ -4,7 +4,7 @@
   <?php
   $allowGuests = "true";
   include '../functions.php';
-  $id = $_GET['mp-id'];
+  $id = $_GET['id'];
   ?>
 </head>
 <body class="body">
