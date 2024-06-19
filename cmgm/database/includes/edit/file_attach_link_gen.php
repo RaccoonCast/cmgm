@@ -1,4 +1,7 @@
 <?php
+
+include_once SITE_ROOT . '/includes/functions/convert-url.php';
+
 // Generate Links for File Attaches
 
 function file_exists_on_local($file) { 
@@ -16,11 +19,7 @@ $val = $value . "_label";
 $link_suffix = ucfirst(substr($value,-1));
 
 if (!empty($$value)) {
-    if(substr($$value,0,4)=="http") {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $$value . '">' . $link_suffix . '</a>';}
-    elseif (substr($$value, 0, 1) === '#') {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="Edit.php?id=' . substr($$value, 1) . '">' . $link_suffix . '</a>';}
-    elseif (preg_match('/^(?:image|canon|misc|photo)/', $$value)) { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://files.cmgm.us/' . $$value . '">' . $link_suffix . '</a>';} }
-    elseif (substr($$value, 0, 1) === '@') { {$$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="https://canon.cmgm.us/' . str_replace("#", "%23", substr($$value, 1)) . '">' . $link_suffix . '</a>';}
-    } else { $$val = null; }
+    $$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . convert_url($$value) . '">' . $link_suffix . '</a>';
 }
 
 if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d) && empty($sv_e) && empty($sv_f)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';

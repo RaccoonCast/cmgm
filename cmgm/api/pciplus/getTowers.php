@@ -1,6 +1,7 @@
 <?php
 //  cody and alps' purple iphones (CAAPI)
 include "includes/functions.php";
+include "../../includes/functions/convert-url.php";
 
 if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
 
@@ -53,14 +54,9 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
      $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","bingmaps_a","bingmaps_b","bingmaps_c");
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
-         if (isset($value[$validOption]) && (strpos($value[$validOption], "image-") === 0 || strpos($value[$validOption], "misc-") === 0)) {
-            $result_object[$key][$validOption] = "https://files.cmgm.us/" .$value[$validOption];
-          }
-          if (substr($value[$validOption], 0, 1) === '@') {
-            $result_object[$key][$validOption] = 'https://canon.cmgm.us/' . str_replace("#", "%23", substr($value[$validOption], 1));
-          }
-        }
+        $result_object[$key][$validOption] = convert_url($value[$validOption]);
       }
+    }
 
       // Add HTTPS:// to Street View URLs. (DB has https trimmed off)
       $validSVOptions = array("sv_a", "sv_b", "sv_c", "sv_d", "sv_e", "sv_f");
