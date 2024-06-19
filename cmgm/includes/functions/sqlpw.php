@@ -4,16 +4,16 @@
 $domain = $_SERVER['SERVER_NAME'];
 
 // Get port, assuming it's not 80 or 443
-$port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
-if ($port === ':80' || $port === ':443') {
-  $port = '';
-}
+// $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+// if ($port === ':80' || $port === ':443') {
+//   $port = '';
+// }
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') { $isSecure = true; }
 elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') { $isSecure = true; }
 $http = isset($isSecure) ? "https://" : "http://";
 
-$domain_with_http = $http . $domain . $port;
+$domain_with_http = $http . $domain; //. $port
 
 // SQL Database login info
 $servername = 'mysql.' . 'cmgm.us';
