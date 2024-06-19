@@ -50,6 +50,7 @@ if (!isset($suffix_part_c)) $suffix_part_c = "&address=$address&zip=$zip&city=$c
 if ($goto_page == "Map") $suffix_part_c = null; // this is for cmgm map, not google maps.
 if ($goto_page == "Search") $suffix_part_c = null;
 if ($goto_page == "Upload") { $suffix_part_b = null; $suffix_part_c = null; }
+if (!isset($suffix_part_b)) $suffix_part_b = null;
 
 return "$goto_page_URL" . "$suffix_part_a" . "$suffix_part_b" . "$suffix_part_c";
 }
