@@ -15,6 +15,9 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
         $value = '@' . substr($value, 22);
     } 
+    if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
+      $value = file_get_contents('https://canon.cmgm.us/canon/getPath.php?q='.substr($value, 1).'');
+    } 
     if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
         $value = substr($value, 1);
     } 
