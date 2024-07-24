@@ -25,7 +25,7 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
   // Check all LTE/NR fields for provided eNBs that match PLMN provided, remove edit_userid & edit_lock from fields returned by each tower.
   // Put each tower into $result_object PHP array.
   foreach ($id as $value) {
-    $sql = "SELECT $database_get_list from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
+    $sql = "SELECT $database_get_list,id from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
      if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
               unset($row["edit_userid"]);
@@ -54,7 +54,7 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
      $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","bingmaps_a","bingmaps_b","bingmaps_c");
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
-        $result_object[$key][$validOption] = convert_url($value[$validOption]);
+        if (isset($result_object[$key][$validOption])) $result_object[$key][$validOption] = convert_url($value[$validOption]);
       }
     }
 
