@@ -108,3 +108,6 @@ a[href^="?id="] {
 @media (max-width: 1919px) and (min-width: 1441px) { .edit_utilitiy_holder {	width: 31%;} }
 @media (max-width: 1440px) and (min-width: 1000px) { .edit_utilitiy_holder {	width: 37%;} }
 @media (max-width: 100px) and (min-width: 1439px)  { .edit_utilitiy_holder {	width: 49%;} }
+.latitude_longitude_label > span > a {
+	padding: 5px;
+}
