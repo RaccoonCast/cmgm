@@ -13,7 +13,7 @@
     ?>
   <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
     <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
-    <input type="hidden" class="id" name="id" value="<?php echo $id?>">
+    <input type="hidden" class="id" name="id" value="<?php echo @$id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
     <label class="cellsite_type_label">Type of cellsite</label><select
     class="status_cw" onClick="lte_1Reqd()" id="status" name="status" required>
