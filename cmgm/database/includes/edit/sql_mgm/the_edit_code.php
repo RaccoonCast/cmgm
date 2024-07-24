@@ -5,6 +5,7 @@ $sql_edit = "UPDATE db SET ";
 if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     if ($key != "username") {
         $value = strip_tags($value);
+
     } 
     
     $fieldsToReplace = ['evidence_a', 'evidence_b', 'evidence_c', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'photo_a', 'photo_b', 'photo_c', 'photo_c', 'photo_d', 'photo_e', 'photo_f'];
@@ -12,8 +13,11 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '$') {
         $value = 'https://siteportal.calepa.ca.gov/nsite/map/results/summary/' . substr($value, 1);
     } 
+    if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '!') {
+        $value = 'https://web.archive.org/web/' . substr($value, 1);
+    } 
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
-        $value = '@' . substr($value, 22);
+        $value = '@' . str_replace("%5C", "/", substr($value, 22));
     } 
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
       $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'');
