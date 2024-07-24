@@ -19,6 +19,12 @@ if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limi
 // Filter records by LTE or CMGM #id, e.g., &id=82869.
 // Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
 // Filter records by ID ranges, e.g., &id=69-420, to include CMGM #s between 69 and 420 (including 69 and 420).
+elseif ($key == "lte_1" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND lte_1 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "lte_2" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND lte_2 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "lte_3" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND lte_3 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "nr_1" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND nr_1 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "nr_2" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND nr_2 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
+elseif ($key == "nr_3" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND nr_3 BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
 elseif ($key == "id" AND (strpos($value, '-') !== false)) { $strings = explode('-',$value); $db_vars = " AND ID BETWEEN $strings[0] AND $strings[1]" . @$db_vars; }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
 elseif ($key == "id") { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
@@ -100,6 +106,12 @@ elseif ($key == "username") { $db_vars = " AND created_by = '".$value."'" . @$db
 // Search for records with missing info or records without missing info, example &incomplete=true will yield records that are missing info.
 elseif ($key == "incomplete" & $value == "true") { $db_vars = " AND $incomplete_sql_query" . @$db_vars; }
 elseif ($key == "incomplete" & $value == "false") { $db_vars = " AND NOT $incomplete_sql_query" . @$db_vars; }
+
+// Filtering by lat/lon greater or less than.
+elseif ($key == "lat" && $value[0] == ">") { $db_vars = " AND latitude" . ' >= "'.$trimChar.'"' . @$db_vars; }
+elseif ($key == "lat" && $value[0] == "<") { $db_vars = " AND latitude" . ' <= "'.$trimChar.'"' . @$db_vars; }
+elseif ($key == "lon" && $value[0] == "<") { $db_vars = " AND longitude" . ' <= "'.$trimChar.'"' . @$db_vars; }
+elseif ($key == "lon" && $value[0] == "<") { $db_vars = " AND longitude" . ' <= "'.$trimChar.'"' . @$db_vars; }
 
 // Filtering by greater than or less than x for other strings, example &lte_3=<60000 to show records greater with Lte_3 set to something greater than or equal to 60000. 
 elseif (@$value[0] == ">") { $db_vars = " AND ". $key . ' >= '.$trimChar . @$db_vars; }
