@@ -5,6 +5,8 @@ $yesterday = date("Y-m-d", strtotime("-1 day"));
 $within_last_7_days = date("Y-m-d", strtotime("-1 week"));
 $within_last_30_days = date("Y-m-d", strtotime("-1 month"));
 $within_last_90_days = date("Y-m-d", strtotime("-3 months"));
+$within_last_180_days = date("Y-m-d", strtotime("-6 months"));
+$within_last_365_days = date("Y-m-d", strtotime("-12 months"));
 $all_time = "2000-01-01";
 
 // Define SQL query
@@ -14,6 +16,8 @@ $sql = "SELECT
     SUM(CASE WHEN date_added >= '$within_last_7_days' THEN 1 ELSE 0 END) AS record_count_within_last_7_days,
     SUM(CASE WHEN date_added >= '$within_last_30_days' THEN 1 ELSE 0 END) AS record_count_within_last_30_days,
     SUM(CASE WHEN date_added >= '$within_last_90_days' THEN 1 ELSE 0 END) AS record_count_within_last_90_days,
+    SUM(CASE WHEN date_added >= '$within_last_180_days' THEN 1 ELSE 0 END) AS record_count_within_last_180_days,
+    SUM(CASE WHEN date_added >= '$within_last_365_days' THEN 1 ELSE 0 END) AS record_count_within_last_365_days,
     SUM(CASE WHEN date_added >= '$all_time' THEN 1 ELSE 0 END) AS record_count_all_time
     FROM db WHERE $db_vars";
 
@@ -27,7 +31,7 @@ if ($result) {
     $row = $result->fetch_assoc();
 
     // Display results
-    $periods = [ 'today', 'yesterday', 'within_last_7_days', 'within_last_30_days', 'within_last_90_days', 'all_time' ];
+    $periods = [ 'today', 'yesterday', 'within_last_7_days', 'within_last_30_days', 'within_last_90_days', 'within_last_180_days', 'within_last_365_days', 'all_time' ];
 
     foreach ($periods as $period) {
         $date_window = ($period == "today" || $period == "yesterday") ? $$period : ">" . $$period;
