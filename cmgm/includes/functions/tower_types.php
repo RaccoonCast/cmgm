@@ -33,7 +33,8 @@ $options = array(
     ),
     'Stealth' => array(
       'stealth_sign' => 'Sign / Billboard',
-      'stealth_flagpole' => 'Flagpole',
+      'stealth_pole_without_flag' => 'Stealth Pole',
+      'stealth_pole_with_flag' => 'Flagpole',
       'stealth_faux_church_steeple' => 'Church Steeple',
       'stealth_faux_church_cross' => 'Church Cross',
       'stealth_faux_tower' => 'Faux Tower',
