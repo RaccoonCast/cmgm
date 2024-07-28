@@ -24,6 +24,9 @@ if (!empty($q)) {
     
         if ($numRows == 1) {
             $new_id = mysqli_fetch_array($result)['id'];
+            if (isset($_GET['ph'])) $new_id .= '&ph';
+            if (isset($_GET['sv'])) $new_id .= '&sv';
+            if (isset($_GET['ev'])) $new_id .= '&ev';
             redir("$domain_with_http/database/Edit.php?q=$new_id", "0");
         } else {
           $latitude = 0; $longitude = 0;

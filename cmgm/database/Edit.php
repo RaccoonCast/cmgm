@@ -81,9 +81,10 @@ include "includes/edit/file_attach_link_gen.php";
 </head>
 <body>
 <?php
-if (isset($_GET['sv']))  {
-  redir($sv_a,0);
-}
+// Redit if sv/ev/ph are specified in URL.
+if (isset($_GET['sv'])) redir($sv_a,0);
+if (isset($_GET['ev'])) { include_once SITE_ROOT . '/includes/functions/convert-url.php'; redir(convert_url($evidence_a),0); }
+if (isset($_GET['ph'])) { include_once SITE_ROOT . '/includes/functions/convert-url.php'; redir(convert_url($photo_a),0); }
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";

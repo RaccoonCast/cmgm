@@ -9,4 +9,16 @@ Deny from All
 </Files>
 
 RewriteEngine On
-RewriteRule ^(\d+)/?$ https://cmgm.us/database/Edit.php?search=$1 [R=301,L]
+
+# Redirect with specific parameters
+RewriteCond %{QUERY_STRING} (^|&)sv(&|$)
+RewriteRule ^(\d+)$ /database/Edit.php?search=$1&sv [R=301,L]
+
+RewriteCond %{QUERY_STRING} (^|&)ev(&|$)
+RewriteRule ^(\d+)$ /database/Edit.php?search=$1&ev [R=301,L]
+
+RewriteCond %{QUERY_STRING} (^|&)ph(&|$)
+RewriteRule ^(\d+)$ /database/Edit.php?search=$1&ph [R=301,L]
+
+# Default redirect if no specific parameter is given
+RewriteRule ^(\d+)$ /database/Edit.php?search=$1 [R=301,L]
