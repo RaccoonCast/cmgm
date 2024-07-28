@@ -3,13 +3,14 @@
 include "includes/functions.php";
 include "../../includes/functions/convert-url.php";
 
-if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
+if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is numeric, if not error()
 
   // If specific fields are requested, filter a-z0-9 to cheat sql injection prevention.
   $database_get_list = isset($_GET['properties']) ? preg_replace("/[^_a-zA-Z0-9,-]/", "", $_GET['properties']) : "*";
 
   // Explode comma seperated list of multiple towers being requested.
-  $id = explode(",", $_GET['id']);
+  if (isset($_GET['id'])) $id = explode(",", $_GET['id']);
+  if (isset($_GET['cmgm_id'])) $id = explode(",", $_GET['cmgm_id']);
 
   // Set carrier name based on $_GET['plmn']
   $plmnToCarrier = array(
@@ -20,13 +21,14 @@ if (is_numeric($_GET['plmn'])) { // Verify PLMN is numeric, if not error()
       "313100" => "ATT",
       "313340" => "Dish"
   );
-  $carrier = isset($plmnToCarrier[$_GET['plmn']]) ? $plmnToCarrier[$_GET['plmn']] : error("This carrier is not supported by CMGM, only the major US networks are supported.", $_GET['plmn']);
+  if (!isset($_GET['cmgm_id'])) $carrier = isset($plmnToCarrier[$_GET['plmn']]) ? $plmnToCarrier[$_GET['plmn']] : error("This carrier is not supported by CMGM, only the major US networks are supported.", $_GET['plmn']);
 
   // Check all LTE/NR fields for provided eNBs that match PLMN provided, remove edit_userid & edit_lock from fields returned by each tower.
   // Put each tower into $result_object PHP array.
   foreach ($id as $value) {
-    $sql = "SELECT $database_get_list,id from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
-     if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
+    if (!isset($_GET['cmgm_id'])) $sql = "SELECT $database_get_list,id from db WHERE (LTE_1 = '$value' OR LTE_2 = '$value' OR LTE_3 = '$value' OR LTE_4 = '$value' OR LTE_5 = '$value' OR LTE_6 = '$value' OR LTE_7 = '$value' OR LTE_8 = '$value' OR LTE_9 = '$value' OR NR_1 = '$value' OR NR_2 = '$value' OR NR_3 = '$value') AND carrier = '$carrier' ";
+    if (isset($_GET['cmgm_id'])) $sql = "SELECT $database_get_list,id from db WHERE id = $value";
+    if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
               unset($row["edit_userid"]);
               unset($row["edit_lock"]);
