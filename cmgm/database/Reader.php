@@ -36,5 +36,5 @@ echo "new_evidence_score: " . $recalcEV . "";
 <br><br>
 <a href="javascript:history.back()">Back</a><br>
 <?php if ($show_empty_fields == 'false' OR !isset($show_empty_fields)) { ?>
-<a href="Reader.php?id=<?php echo $id?>show_empty_fields=true">Show empty fields</a><?php } else { ?>
+<a href="Reader.php?id=<?php echo $id?>&show_empty_fields=true">Show empty fields</a><?php } else { ?>
 <a href="Reader.php?id=<?php echo $id?>&show_empty_fields=false">Don't show empty fields</a><?php } ?>
