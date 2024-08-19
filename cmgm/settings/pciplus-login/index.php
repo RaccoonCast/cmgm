@@ -19,10 +19,12 @@ header("Pragma: no-cache");
       $timestamp = time();
 
       $sql_query = "UPDATE userID SET pciplus_token = '$pciplusIdent', pciplus_timestamp='$timestamp' WHERE userID = '$userID'";
-      echo $sql_query;
+      
       mysqli_query($conn, $sql_query);
       ?>
-            <h3>You're in!</h3>
+            <script>
+              window.close()
+            </script>
       <?php
      } else {
       echo "<h3>Missing PCI+ plus session identifier.</h3>";
