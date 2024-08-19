@@ -6,7 +6,7 @@ OR ((region_lte = "" AND lte_1 != "")) -- pulls records where region_lte is not 
 OR ((pci_1 = "")) -- pulls record where pci_1 is not set
 OR ((region_nr = "" AND NR_1 != "")) -- pulls records where NR_1 is set but NR_region is not
 OR ((cellsite_type = "" OR cellsite_type IS NULL))) -- pulls records where cell site type is not set
-AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") -- dont count count records marked future or unmapped
+AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") -- dont count records marked future or unmapped
 AND (status = "verified")) -- only show records marked as verified
 ';
 
@@ -76,7 +76,7 @@ elseif ($key == "address" && !empty($value)) {
                          address LIKE '% $value %' 
                       OR address LIKE '$value %'
                       OR address LIKE '% $value'
-                      OR address = '$value')";
+                      OR address = '$value')" . @$db_vars;
 }
 
 // Search for tags, &tags=n41 to search for records tagged n41.
@@ -85,7 +85,7 @@ elseif ($key == "tags" && !empty($value)) {
                          tags LIKE '%,$value,%' 
                       OR tags LIKE '$value,%'
                       OR tags LIKE '%,$value'
-                      OR tags = '$value')";
+                      OR tags = '$value')" . @$db_vars;
 }
 
 // Search for a edit date like, &edit_date_like=2022-01 will filter records created any time during January 2022.
