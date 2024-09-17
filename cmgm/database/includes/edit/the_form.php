@@ -51,12 +51,12 @@
       include "$SITE_ROOT/includes/misc-functions/cm_linkgen.php";
     if (!empty($latitude) && !empty($longitude)) $cellmapper_link_lte = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
       if (!empty($latitude) && !empty($longitude)) $cellmapper_link_nr = cellmapperLink($latitude,$longitude,$cm_zoom,$cm_carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
-      if (isset($carrier)) $cmgm_map_search = $domain_with_http . "/api/getTowers.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
+      if (isset($carrier)) $cmgm_map_search = $domain_with_http . "/api/cmgm/getTowersV2.php?latitude=" . $latitude . "&longitude=" . $longitude . "&carrier=" . $carrier . "&limit=5"
     ?>
     <label class="lte_nr_label" for="LTE_1">
       <?php
       echo (isset($carrier)) ? '<a target="_blank" href="'.$cellmapper_link_lte.'">LTE</a>/<a target="_blank" href="'.$cellmapper_link_nr.'">NR</a> ' : "LTE/NR ";
-      echo (isset($carrier)) ? '<a target="_blank" href="<?php echo @$cmgm_map_search;?>">IDs</a>' : " IDs"
+      echo (isset($carrier)) ? '<a target="_blank" href="'.@$cmgm_map_search.'">IDs</a>' : " IDs"
       ?>
       <span class="floatright"><?php include "json/lte.php"; include "json/nr.php"; ?></span>
     </label><?php
