@@ -16,9 +16,11 @@ function getPercent_2($number, $total_out_of_everything) {
 }
 
 echo "<title>" . number_format($total) . " Pins - CMGM</title>";
-echo '<meta content="CMGM" property="og:site_name">';
-echo '<meta content="CMGM Fun" property="og:title">';
-echo '<meta name="description" content="' . number_format($total) . ' pins" property="og:description">';
+//echo '<meta content="CMGM" property="og:site_name">';
+//echo '<meta content="CMGM Fun" property="og:title">';
+//echo '<meta name="description" content="' . number_format($total) . ' pins" property="og:description">';
+?>
+<?php 
 $percent_stat = isset($_GET['percents_view']) ? getPercent_2($total, $total_out_of_everything) : "";
 echo !($total == $total_out_of_everything) ? "<h3>With your current filters applied, you're looking at $total_text out of $total_out_of_everything CMGM pins$percent_stat. </h3>" : "<br>";
 

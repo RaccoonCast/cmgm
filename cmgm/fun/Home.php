@@ -1,5 +1,12 @@
 <?php
-    echo "<!DOCTYPE HTML><html><head>";
+    echo "<!DOCTYPE HTML><html><head>" . PHP_EOL;
+    ?>
+<meta property="og:type" content="website">
+<meta property="og:title" content="CMGM">
+<meta property="og:url" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] ?>">
+<meta property="og:image" content="https://cmgm.us/favicon.ico">
+<meta property="og:description" content="1,234 Pins">
+    <?php
     // Add limit to URL if not set.
     if (!isset($_GET['q'])) !isset($_GET['limit']) ? header('Location: '.$_SERVER['REQUEST_URI'].'?limit=15') && die() : $limit = $_GET['limit'];
 
