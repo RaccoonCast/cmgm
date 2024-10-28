@@ -1,4 +1,5 @@
 <?php
+    echo "<!DOCTYPE HTML><html><head>";
     // Add limit to URL if not set.
     if (!isset($_GET['q'])) !isset($_GET['limit']) ? header('Location: '.$_SERVER['REQUEST_URI'].'?limit=15') && die() : $limit = $_GET['limit'];
 
@@ -27,6 +28,8 @@
     include "includes/functions/getPercent.php"; //
     include "includes/counts/count_records_total.php";
 
+    echo "</head><body>";
+
     if (!isset($_GET['q'])) {
         include "includes/counts/count_all.php";
     } else {
@@ -36,7 +39,7 @@
     }
 
     include "includes/footer.php";
-
+    echo "</body></html>";
     // Close the database connection
     $conn->close();
 ?>
