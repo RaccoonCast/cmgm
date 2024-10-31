@@ -192,7 +192,7 @@ function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_ne
                     if(!empty($extra_b)) $extras .= (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_b . '">EX_B</a>';
                     if(!empty($extra_c)) $extras .= (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_C</a>';
 
-                    if(!empty($extra_d)) echo isMobile() ? "<br>" : " | ";
+                    if(!empty($extra_d)) $extras .= isMobile() ? "<br>" : " | ";
 
                     if(!empty($extra_d)) $extras .= (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
                     if(!empty($extra_e)) $extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_e . '">EX_E</a>';
