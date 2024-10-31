@@ -22,9 +22,9 @@
     $longitude = $default_longitude;
 
   if (isMobile()) {
-    $limit = "300";
+    $limit = $map_map_mobile_pin_limit;
   } else {
-    $limit = "530";
+    $limit = $map_map_pin_limit;
   }
   include 'includes/DB-filter-get.php';
   ?>
