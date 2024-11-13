@@ -4,3 +4,22 @@
 .hiddenlink:hover {
   text-decoration: none; cursor: text; color: #EFEFEF!important;
 }
+
+
+#dropzone {
+  /* Use darker colors if dark mode is enabled */
+  --bg-color: black;
+  --primary-color: white;
+  --border-color: red;
+
+  background-color: var(--bg-color);
+  max-width: 600px;
+  color: var(--primary-color);
+  border: 1px solid var(--border-color); /* add red border */
+  border-radius: 18px;
+  box-shadow: 0 0 15px var(--border-color); /* add box-shadow*/
+}
+
+#dropzone:hover {
+  box-shadow: 0 0 22px var(--border-color); /* add box-shadow*/
+}
