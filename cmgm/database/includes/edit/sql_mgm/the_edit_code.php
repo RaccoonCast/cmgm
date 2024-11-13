@@ -20,7 +20,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
         $value = '@' . str_replace("%5C", "/", substr($value, 22));
     } 
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
-      $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'');
+      $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'&doNotRedir');
     } 
     if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
         $value = substr($value, 1);

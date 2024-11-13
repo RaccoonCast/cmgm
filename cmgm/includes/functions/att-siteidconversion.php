@@ -7,6 +7,7 @@ $mapping = array(
     "CCL" => 66,
     "CLL" => 55,
     "CLU" => 55,
+    "CAL" => 31,
     "SD" => 31,
     "MA" => 6,
     "MAL" => 6,
