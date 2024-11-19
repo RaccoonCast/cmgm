@@ -234,7 +234,7 @@
 
 
     </div>
-    <div class="panel2" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: right; width: '.$cmgm_edit_panel2_width-0.07.'%"'?>>
+    <div class="panel2" <?php if ($isMobile == false && $cmgm_edit_override_panels_widths == "true") echo 'style="float: right; width: '.$cmgm_edit_panel2_width-0.07.'%"'?>>
     <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label . @$evidence_b_label . @$evidence_c_label?></span></label><input
     type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo isset($evidence_a) ? rawurldecode($evidence_a) : '' ?>"><input
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input
