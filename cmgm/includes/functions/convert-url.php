@@ -24,10 +24,9 @@ function convert_url($url): string {
    // Check if it's an ID
    if (str_starts_with($url, '#')) {
     $url = str_replace('#', '', $url);
-    $url = 'https://cmgm.us/database/Edit.php?id=' . $url;
+    return 'https://cmgm.us/database/Edit.php?id=' . $url;
   }
 
-  
   // Check if it's a canon photo (non-directory) link
   // Use old format for now - will update it for ?r= afterward
   else if (str_starts_with($url, '@') && !str_ends_with($url, '/')) {
@@ -35,7 +34,7 @@ function convert_url($url): string {
     $url = 'https://canon.cmgm.us/' . $url;
 
     // Encode to support canon.cmgm.us
-    $url = url_partial_encode($url);
+    return url_partial_encode($url);
   }
 
   // Check if it's a canon directory
@@ -46,19 +45,26 @@ function convert_url($url): string {
     $url = 'https://canon.cmgm.us/?r=' . $url;
 
     // Encode to support canon.cmgm.us
-    $url = url_partial_encode($url);
+    return url_partial_encode($url);
   }
 
   // Check if it's an attachment
   else if (preg_match('/^(?:image|misc)/', $url)) {
-    $url = 'https://files.cmgm.us/' . $url;
+    return 'https://files.cmgm.us/' . $url;
   }
+
+  // Check if file exists on files.cmgm.us/
+  else if (!empty($url) && (strpos($url, '/') === false && strpos($url, '\\') === false)) {
+    $headers = @get_headers('https://files.cmgm.us/' . $url);
+    if ($headers && strpos($headers[0], '200')) {
+      return 'https://files.cmgm.us/' . $url;
+    }
+  }  
 
   // Check if the URL doesnt have a protocol
     else if (!str_starts_with($url, 'https://') && !str_starts_with($url, 'http://')) {
-    $url = 'https://' . $url;
+    return 'https://' . $url;
   }
 
-  // echo "URL: " . $url . '<br/>';
   return $url;
 }
