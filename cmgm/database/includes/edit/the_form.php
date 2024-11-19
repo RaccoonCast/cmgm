@@ -174,7 +174,7 @@
     if (!empty($split_sector)) { $tmp_split_sector = $split_sector; } else { $tmp_split_sector = "false"; $tmp_misc_4 = "true";}
     if (!empty($special_setup)) { $tmp_special_setup = $special_setup; } else { $tmp_special_setup = "false"; $tmp_misc_5 = "true";}
     ?>
-    <label class="misc_label" for="cm-pin-sep"> <span class="floatright-desktop"><?php if (!isMobile() && ($userID != "guest")) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select id="cm-pin-sep" class="misc_50_cw<?php if (isset($tmp_misc_1)) echo ' warning2';?>" title="How far separated the pins are on CellMapper.net" name="cm_pin_distance">
+    <label class="misc_label" for="cm-pin-sep"> <span class="floatright-desktop"><?php if (!isMobile() && ($userID != "guest")) {  include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></span></label><select id="cm-pin-sep" class="misc_cw<?php if (isset($tmp_misc_1)) echo ' warning2';?>" title="How far separated the pins are on CellMapper.net" name="cm_pin_distance">
     <option style="display: none" value="<?php echo @$tmp_cm_pin_distance ?>" selected>CM Pin Distance: <?php echo @$tmp_cm_pin_distance ?></option>
     <option value="0.3x">0.3x</option>
     <option value="0.5x">0.5x</option>
@@ -194,12 +194,15 @@
     <option value="7.5x">7.5x</option>
     <option value="10.0x">10.0x</option>
     <option value="15.0x">15.0x</option>
-  </select><select class="misc_50_cw <?php if (isset($tmp_misc_2)) echo 'warning2';?>" title="Invert pin spacing (splits are below the primary instead of above)" name="cm_pin_inverted">
-    <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Inverted pins: <?php echo @$tmp_cm_pin_inverted ?></option>
+  </select><select class="misc_cw<?php if (isset($tmp_misc_2)) echo ' warning2';?>" title="Invert pin spacing (splits are below the primary instead of above)" name="cm_pin_inverted">
+    <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Invert pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-  </select><select class="misc_50_cw misc_cw <?php if (isset($tmp_misc_3)) echo 'warning2';?>" title="Sector configuration." name="sector_configuration">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
+    <option value="1-sector omnidirectional">1-sector omnidirectional</option>
+    <option value="1-sector unidirectional">1-sector unidirectional</option>
+    <option disabled value="">---</option>
     <option value="2-sector">2-sector</option>
     <option value="2-sector + 1">2-sector + 1</option>
     <option value="2-sector + 1">2-sector + 2</option>
@@ -211,15 +214,15 @@
     <option value="4-sector">4-sector</option>
     <option value="4-sector + 1">4-sector + 1</option>
     <option value="4-sector + 1">4-sector + 2</option>
-  </select><select class="misc_cw <?php if (isset($tmp_misc_4)) echo 'warning2';?>" title="Are there any antennas that emit two (or more) sectors" name="split_sector">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_4)) echo ' warning2';?>" title="Are there any antennas that emit two (or more) sectors" name="split_sector">
     <option style="display: none" value="<?php echo @$tmp_split_sector ?>" selected>Split-sector: <?php echo @$tmp_split_sector ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-  </select><select class="misc_cw <?php if (isset($tmp_misc_5)) echo 'warning2';?>" title="Anything special/unique about this that makes it unlike other random sites in the area?" name="special_setup">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_5)) echo ' warning2';?>" title="Anything special/unique about this that makes it unlike other random sites in the area?" name="special_setup">
     <option style="display: none" value="<?php echo @$tmp_special_setup ?>" selected>Special setup: <?php echo @$tmp_special_setup ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-    </select>
+  </select>
 
     <label class="tags_label"><?php if (!isMobile()) { echo "Tags/Notes"; } else { echo "Pin:";} if (isMobile()) { include "latLongMod/lte.php"; include "latLongMod/nr.php"; include "latLongMod/ltenrbuttons.php"; }?></label>
       <input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
