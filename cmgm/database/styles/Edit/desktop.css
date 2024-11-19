@@ -70,7 +70,13 @@ abbr, .nounderline {text-decoration: none!important;}
 .addr_state_cw { max-width: 4.04%;}
 .addr_zip_cw { max-width: 4.666%;}
 .addr_county_cw { max-width: 11.734%;}
-.misc_50_cw,.misc_39_cw,.misc_cw {width: 16.4%!important;}
+.misc_50_cw,.misc_39_cw {width: 16.4%!important;}
+.misc_cw[name="cm_pin_distance"],.misc_cw[name="split_sector"],.misc_cw[name="cm_pin_inverted"],.misc_cw[name="special_setup"] {
+	width: 13.667%;
+}
+.misc_cw[name="sector_configuration"] {
+	width: 27.3333%;
+}
 .pci_cw, .lte_cw {width: 6.8333%!important; float: left;}
 .sv_cw {max-width: 22.6673%; }
 .sv_date_cw {max-width: 4.666%;}

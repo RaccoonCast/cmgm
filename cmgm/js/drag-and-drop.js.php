@@ -37,7 +37,7 @@ const prod_url = 'https://upload.cmgm.us';
 const test_url = 'http://local.cmgm.us/database/Upload.php';
 
 drop = new Dropzone('#dropzone', {
-  url: test_url, // Prod: upload.cmgm.us
+  url: prod_url, // Prod: upload.cmgm.us
   method: 'POST',
   paramName: 'fileToUpload',
   uploadMultiple: false,

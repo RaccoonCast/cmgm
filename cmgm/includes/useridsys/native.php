@@ -58,7 +58,10 @@ if (!isset($userIP)) {
     $cmgm_edit_pinspace_warn = "false";
     $cmgm_edit_override_panels_widths = "false";
     $cmgm_edit_panel1_width = "56";
-    $cmgm_edit_panel2_width = "44";
+    $map_map_pin_limit = "550";
+    $map_edit_pin_limit = "100";
+    $map_map_mobile_pin_limit = "300";
+    $map_edit_mobile_pin_limit = "25";
   }
 }
 

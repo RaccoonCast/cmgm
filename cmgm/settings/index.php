@@ -14,7 +14,28 @@ header("Pragma: no-cache");
      <?php
      $titleOverride = "true";
      include "../functions.php";
-     $list_of_vars = array('debug_flag', 'username', 'default_latitude', 'default_longitude', 'default_carrier', 'theme', 'cm_mapType', 'cm_groupTowers', 'cm_showLabels', 'cm_showLowAcc', 'cm_zoom', 'prefLocType', 'cmgm_edit_hide_edit_history', 'cmgm_edit_pinspace_warn', 'cmgm_edit_override_panels_widths', 'cmgm_edit_panel1_width', 'cmgm_edit_panel2_width');
+     $list_of_vars = array(
+      'debug_flag', 
+      'username', 
+      'default_latitude', 
+      'default_longitude', 
+      'default_carrier', 
+      'theme', 
+      'cm_mapType', 
+      'cm_groupTowers', 
+      'cm_showLabels', 
+      'cm_showLowAcc', 
+      'cm_zoom', 
+      'prefLocType', 
+      'cmgm_edit_hide_edit_history', 
+      'cmgm_edit_pinspace_warn', 
+      'cmgm_edit_override_panels_widths', 
+      'cmgm_edit_panel1_width', 
+      'map_map_pin_limit',
+      'map_edit_pin_limit',
+      'map_map_mobile_pin_limit',
+      'map_map_edit_mobile_pin_limit'
+      );
 
      if (isset($_POST['default_latitude'])) {
      /// Database column names
@@ -142,8 +163,42 @@ header("Pragma: no-cache");
         <?php if(!isMobile()) echo " | " ?>
           <input
           type="hidden" name="cm_zoom" value="false"><span>Zoom: </span></label><input
-          type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"><span id="cm_zoomVal"></span>
+          type="range" min="10" max="20" value="<?php echo $cm_zoom;?>" name="cm_zoom" id="cm_zoom"  oninput="document.getElementById('cm_zoomVal;').innerHTML = this.value"><span id="cm_zoomVal"><?php echo $cm_zoom;?></span>
         </div>
+
+        <h4>CMGM Map Pin Limit:</h4>
+        <div class="slider-group">
+          <?php if(!isMobile()) { ?>
+          <div class="slider-container">
+              <input type="hidden" name="map_map_pin_limit" value="false">
+              <span class="slider-label">Map: </span>
+              <input type="range" step="10" min="300" max="1000" value="<?php echo $map_map_pin_limit;?>" name="map_map_pin_limit" id="map_map_pin_limit" class="slider" oninput="document.getElementById('map_map_pin_limitVal').innerHTML = this.value">
+              <span id="map_map_pin_limitVal" class="slider-value"><?php echo $map_map_pin_limit;?></span>
+          </div>
+
+          <div class="slider-container">
+              <input type="hidden" name="map_edit_pin_limit" value="false">
+              <span class="slider-label">Edit's Map: </span>
+              <input type="range" step="5" min="50" max="200" value="<?php echo $map_edit_pin_limit;?>" name="map_edit_pin_limit" id="map_edit_pin_limit" class="slider" oninput="document.getElementById('map_edit_pin_limitVal').innerHTML = this.value">
+              <span id="map_edit_pin_limitVal" class="slider-value"><?php echo $map_edit_pin_limit;?></span>
+          </div>
+          <?php } else { ?>
+
+            <div class="slider-container">
+              <input type="hidden" name="map_map_mobile_pin_limit" value="false">
+              <span class="slider-label">Map: </span>
+              <input type="range" step="10" min="200" max="500" value="<?php echo $map_map_mobile_pin_limit;?>" name="map_map_mobile_pin_limit" id="map_map_mobile_pin_limit" class="slider" oninput="document.getElementById('map_map_mobile_pin_limitVal').innerHTML = this.value">
+              <span id="map_map_mobile_pin_limitVal" class="slider-value"><?php echo $map_map_mobile_pin_limit;?></span>
+          </div>
+          <div class="slider-container">
+              <input type="hidden" name="map_edit_mobile_pin_limit" value="false">
+              <span class="slider-label">Edit's Map: </span>
+              <input type="range" step="5" min="10" max="100" value="<?php echo $map_edit_mobile_pin_limit;?>" name="map_edit_mobile_pin_limit" id="map_edit_mobile_pin_limit" class="slider" oninput="document.getElementById('map_edit_mobile_pin_limitVal').innerHTML = this.value">
+              <span id="map_edit_mobile_pin_limitVal" class="slider-value"><?php echo $map_edit_mobile_pin_limit;?></span>
+          </div>
+          <?php } ?>
+        </div>
+
         <br>
         <h3><a href="../fun/?limit=15&username=<?php echo $username ?>">Statistics</a> | <a href="../?signOut">Sign Out</a></h3>
         <!--
@@ -168,15 +223,4 @@ header("Pragma: no-cache");
         type="submit" class="sb cmgm-btn" style="color: #00000;"  value="Submit">
      </form>
    </body>
-   <script>
-   var slider = document.getElementById("cm_zoom");
-   var output = document.getElementById("cm_zoomVal");
-   output.innerHTML = slider.value;
-   slider.oninput = function() {output.innerHTML = this.value;}
-
-  // var slider = document.getElementById("cmgm_pin_limit");
-  // var output = document.getElementById("cmgm_pin_limitVal");
-  // output.innerHTML = slider.value;
-  // slider.oninput = function() {output.innerHTML = this.value;}
-   </script>
 </html>

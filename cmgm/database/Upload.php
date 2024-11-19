@@ -2,11 +2,6 @@
 <!doctype html>
 <html lang="en-us">
    <head>
-    <style>
-       .hiddenlink,.hiddenlink:hover {
-       text-decoration: none; cursor: text; color: #EFEFEF!important;
-      }
-    </style>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/copyToClipboard.js"></script>
      <script src="../js/pasteimages.js"></script>

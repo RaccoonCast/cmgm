@@ -22,9 +22,9 @@
     $longitude = $default_longitude;
 
   if (isMobile()) {
-    $limit = "300";
+    $limit = $map_map_mobile_pin_limit;
   } else {
-    $limit = "530";
+    $limit = $map_map_pin_limit;
   }
   include 'includes/DB-filter-get.php';
   ?>
@@ -32,18 +32,14 @@
 
 <body class="body">
   <div id="sidebar">
-    <?php // include "includes/Map/sidebar.php"                                                                          ?>
+    <?php // include "includes/Map/sidebar.php" ?>
   </div>
   <div id="map">
     <div id="mapid"></div>
-    <?php if (!isset($marker_latitude)) { ?>
+    <?php if (@$_GET['hideui'] !== "true") { ?>
       <button class="special_button" id="backButton">
         <div class="buttonContainer">
-          <?php if (isMobile()) {
-            echo "⬅";
-          } else {
-            echo "🔙";
-          } ?>
+          <?php echo isMobile() ? "⬅" : "🔙"; ?>
         </div>
       </button>
       <button class="special_button" id="refreshButton">
@@ -82,7 +78,7 @@
       long = <?php echo $longitude ?>;
 
       // Cast add event listeners for buttons
-      <?php if (!isset($marker_latitude)) { ?>
+      <?php if ($_GET['hideui'] !== "true") { ?>
         document.getElementById('refreshButton').addEventListener('click', () => location.reload());
         document.getElementById('backButton').addEventListener('click', () => history.back());
       <?php } ?>
@@ -156,6 +152,15 @@
         };
       }
 
+      // Copy coords on right-click.
+      mymap.on('contextmenu', (event) => {
+            const { lat, lng } = event.latlng;
+            const coordinates = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+
+            // Copy coordinates to clipboard
+            navigator.clipboard.writeText(coordinates);
+        });
+
       // Create a custom keyboard shortcut for refreshing the map
       document.addEventListener('keydown', function (event) {
         if ((event.shiftKey || event.metaKey) && event.key.toLowerCase() === 'y') { // Use Ctrl/Cmd + Y
@@ -177,6 +182,76 @@
       {
         'className': 'custom'
       }
+
+      /* BEGIN CAST JS */
+      // Function to extract query parameters from the URL
+      function getQueryParams() {
+          const queryString = window.location.search.slice(1);
+          const params = {};
+          queryString.split('&').forEach(pair => {
+              const [key, value] = pair.split('=');
+              params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+          });
+          return params;
+      }
+
+      // Function to sort points in counterclockwise order around their centroid
+      function sortPointsClockwise(points) {
+          // Calculate the centroid
+          const centroid = points.reduce(
+              (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
+              [0, 0]
+          ).map(coord => coord / points.length);
+          
+          // Sort points based on angle relative to the centroid
+          return points.sort((a, b) => {
+              const angleA = Math.atan2(a[1] - centroid[1], a[0] - centroid[0]);
+              const angleB = Math.atan2(b[1] - centroid[1], b[0] - centroid[0]);
+              return angleA - angleB;
+          });
+      }
+
+      // Extract parameters from the URL
+      const params = getQueryParams();
+
+      // Parse polygon points from the URL
+      let polygonPoints = [];
+      if (params.polygon) {
+          try {
+              polygonPoints = params.polygon.split(',').map(Number).reduce((acc, value, index, array) => {
+                  if (index % 2 === 0) {
+                      acc.push([value, array[index + 1]]);
+                  }
+                  return acc;
+              }, []).filter(point => point.length === 2);
+            
+              // Sort the points to ensure they form a proper polygon
+              polygonPoints = sortPointsClockwise(polygonPoints);
+          } catch (error) {
+              console.error('Error parsing polygon points:', error);
+              polygonPoints = [];
+          }
+      }
+
+      // Parse labels for the polygon vertices
+      const polygonLabels = params.polygonlabels ? params.polygonlabels.split(',') : [];
+
+      // Check if there are enough valid points to draw a polygon
+      if (polygonPoints.length >= 3) {
+          // Add the polygon to the map
+          L.polygon(polygonPoints, { color: 'red', weight: 2 }).addTo(mymap);
+      
+          // Add numbered markers at each vertex with optional labels
+          polygonPoints.forEach((point, index) => {
+              const label = polygonLabels[index] || index + 1; // Use provided label or default to the vertex index
+              L.marker(point, { opacity: 0 })
+                  .bindTooltip(`${label}`, { permanent: true, direction: 'center', className: 'label-tooltip' })
+                  .addTo(mymap);
+          });
+      } else {
+          console.log('No valid polygon points provided in URL parameters.');
+      }
+
 
       /* BEGIN PHP */
       <?php
@@ -240,7 +315,7 @@
       }
 
     </script>
-    <?php if (!isset($marker_latitude))
+    <?php if ($_GET['hideui'] !== "true")
       include "includes/footer.php"; ?>
   </div>
 </body>

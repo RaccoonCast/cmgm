@@ -10,4 +10,4 @@
   include "includes/DB-filter-get.php";
   include "../includes/link-conversion-and-handling/function_goto.php";
 ?>
-</head><?php include "includes/DB.php" ?>
+</head><?php include "includes/DB.php" ?><?php include "includes/footer.php" ?>
