@@ -1,15 +1,15 @@
-@media (min-width:1920px) {
+@media (min-width:1870px) {
     .statistics-wrapper {
-        grid-template-columns: repeat(6, 1fr); /* Split into 5 columns */
+        grid-template-columns: repeat(6, 1fr); /* Split into 6 columns */
     }
 }
-@media ((min-width:1536px) and (max-width:1919px)) {
+@media ((min-width:1536px) and (max-width:1869px)) {
     .statistics-wrapper {
         grid-template-columns: repeat(5, 1fr); /* Split into 5 columns */
     }
 }
 @media (max-width:1535px) {
     .statistics-wrapper {
-        grid-template-columns: repeat(4, 1fr); /* Split into 5 columns */
+        grid-template-columns: repeat(4, 1fr); /* Split into 4 columns */
     }
 }
