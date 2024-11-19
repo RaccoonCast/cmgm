@@ -11,7 +11,7 @@
       }
     }
     ?>
-  <div class="panel1" <?php if ($cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
+  <div class="panel1" <?php if ($isMobile == false && $cmgm_edit_override_panels_widths == "true") echo 'style="float: left; width: '.$cmgm_edit_panel1_width-0.07.'%"'?>>
     <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo @$id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
