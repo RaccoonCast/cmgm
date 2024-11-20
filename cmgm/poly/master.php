@@ -15,7 +15,7 @@ $numbers = empty($numbersArg)
 // Initiliaze some preset variables.
 $base = $eNB * 256;
 [$mobileCountryCode, $mobileNetworkCode] = [substr($plmn, 0, 3), substr($plmn, 3, 3)];
-$apiUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=" . $maps_api_key;
+$apiUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=" . file_get_contents("../secret_maps_api_key.hiddenpass");
 $latLngPairs = array();
 $foundCells = array();
 $missingCells = array();
@@ -68,15 +68,13 @@ foreach ($numbers as $number) {
 		$accuracyMeters = $responseData['accuracy'];
 		$accuracyMiles = $accuracyMeters / 1609;
 
-		$latLng = "$lat,$lng";
 		$latLngPairs[] = "$lat,$lng";
-		
 		$foundCells[] = $number;
 		
-		$values[] = array(
+		$detailedLatLngPairs[] = array(
         'cellNumber' => $number,
-        'accuracyMiles' => $accuracyMiles,
-        'latLng' => $latLng
+		'latLng' => "$lat,$lng",
+        'accuracyMiles' => $accuracyMiles
 		);
 		
 	} else {
@@ -159,6 +157,13 @@ if (count($latLngPairs) >= 3) {
 	foreach ($latLngPairs as $latLngPair) {
 		$link .= $latLngPair . ',';
 	}
-	$link = rtrim($link, ',') . "&polygonlabels=" . $numbersArg;
+	
+	$link .= "&polygonlabels=";
+	
+	foreach ($foundCells as $cell) {
+		$link .= $cell . ",";
+	}
+	
+	$link = rtrim($link, ',');
 
 }
