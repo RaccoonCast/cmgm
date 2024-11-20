@@ -27,7 +27,7 @@ if (empty($latLngPairs)) {
 
 // Echo each found set of coordinates
 foreach ($detailedLatLngPairs as $pair) {
-	echo "Cell " . $pair['cellNumber'] . " found within " . round($pair['accuracyMiles'], 2);  . " miles of " . $pair['latLng'] . PHP_EOL;
+	echo "Cell " . $pair['cellNumber'] . " found within " . round($pair['accuracyMiles'], 2)  . " miles of " . $pair['latLng'] . PHP_EOL;
 }
 
 // Echo each lat,lng,z25 for an easy copy and paste into CM.
