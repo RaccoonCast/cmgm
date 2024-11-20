@@ -1,0 +1,17 @@
+@media (max-width: 600px) {
+  .header {
+	  padding: 10px 5px 10px 5px;
+  }
+  form {
+    gap: 0; /* Remove gap */
+    justify-content: space-between; /* Spread elements across the row */
+  }
+  select, input, button {
+    width: auto; /* Ensure elements fit their defined percentages */
+  }
+  #carrier { width: 30%; }
+  #eNB { width: 25%; }
+  #cellList { width: 25%; }
+  button { width: 20%; }
+  #mapLink,h1 { display: none!important ; }
+}
