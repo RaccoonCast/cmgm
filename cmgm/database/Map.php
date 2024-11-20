@@ -196,17 +196,17 @@
       }
 
       // Function to sort points in counterclockwise order around their centroid
-      function sortPointsClockwise(points) {
+      function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
           // Calculate the centroid
-          const centroid = points.reduce(
+          const centroid = coordinatePairArray.reduce(
               (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
               [0, 0]
-          ).map(coord => coord / points.length);
+          ).map(coord => coord / coordinatePairArray.length);
           
           // Sort points based on angle relative to the centroid
-          return points.sort((a, b) => {
-              const angleA = Math.atan2(a[1] - centroid[1], a[0] - centroid[0]);
-              const angleB = Math.atan2(b[1] - centroid[1], b[0] - centroid[0]);
+          return pointsWithIndices.sort((a, b) => {
+              const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
+              const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
               return angleA - angleB;
           });
       }
@@ -224,9 +224,28 @@
                   }
                   return acc;
               }, []).filter(point => point.length === 2);
-            
+
+
+              // Store points with original indices
+              let polygonPointsWithIndices = [];
+              for (let coordPair of polygonPoints) {
+                polygonPointsWithIndices.push({
+                  originalIndex: polygonPoints.indexOf(coordPair),
+                  coords: coordPair
+                });
+              }
+
               // Sort the points to ensure they form a proper polygon
-              polygonPoints = sortPointsClockwise(polygonPoints);
+              polygonPointsWithIndicesSorted = sortPointsClockwise(polygonPoints, polygonPointsWithIndices);
+
+              // re-remove indices
+              polygonPoints = [];
+              for (let i of polygonPointsWithIndicesSorted) {
+                polygonPoints.push(i.coords);
+              }
+              
+
+              console.log(polygonPoints, polygonPointsWithIndices)
           } catch (error) {
               console.error('Error parsing polygon points:', error);
               polygonPoints = [];
@@ -242,9 +261,10 @@
           L.polygon(polygonPoints, { color: 'red', weight: 2 }).addTo(mymap);
       
           // Add numbered markers at each vertex with optional labels
-          polygonPoints.forEach((point, index) => {
-              const label = polygonLabels[index] || index + 1; // Use provided label or default to the vertex index
-              L.marker(point, { opacity: 0 })
+          // Use sorted array with original indices, so that the labels match
+          polygonPointsWithIndicesSorted.forEach((point) => {
+              const label = polygonLabels[point.originalIndex] // Use original index
+              L.marker(point.coords, { opacity: 0 })
                   .bindTooltip(`${label}`, { permanent: true, direction: 'center', className: 'label-tooltip' })
                   .addTo(mymap);
           });
