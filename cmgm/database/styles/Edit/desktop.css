@@ -15,7 +15,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 		font-size: 0.78em;
 		width: 100%;
 }
-@media (min-width:1910px) {
+@media (min-width:1871px) {
 /* Panels (split page in half) */
 .panel1 { width: 55.93%; float: left; }
 .panel2 { width: 43.93%; float: right; }
@@ -67,9 +67,9 @@ abbr, .nounderline {text-decoration: none!important;}
 .nr_cw { max-width: 6.8333%; float: left}
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 20.5%!important;}
 .region_cw, .latitude_cw, .longitude_cw {max-width: 10.25%;}
-.addr_state_cw { max-width: 4.04%;}
+.addr_state_cw { max-width: 3.54%;}
 .addr_zip_cw { max-width: 4.666%;}
-.addr_county_cw { max-width: 11.734%;}
+.addr_county_cw { max-width: 12.234%;}
 .misc_50_cw,.misc_39_cw {width: 16.4%!important;}
 .misc_cw[name="cm_pin_distance"],.misc_cw[name="split_sector"],.misc_cw[name="cm_pin_inverted"],.misc_cw[name="special_setup"] {
 	width: 13.667%;

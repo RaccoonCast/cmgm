@@ -158,7 +158,7 @@ if (count($latLngPairs) >= 3) {
 		$link .= $latLngPair . ',';
 	}
 	
-	$link .= "&polygonlabels=";
+	$link .= rtrim($link, ',') . "&polygonlabels=";
 	
 	foreach ($foundCells as $cell) {
 		$link .= $cell . ",";
