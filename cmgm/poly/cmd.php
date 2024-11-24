@@ -12,8 +12,9 @@ if ($argc < 2) {
 
 // Get required variables from command-line arguments.
 $plmn = $argv[1];
-$eNB = intval($argv[2]);
-$numbersArg = $argv[3] ?? '';
+$rat = $argv[2];
+$eNB = intval($argv[3]);
+$numbersArg = $argv[4] ?? '';
 
 // Call the master.
 include "master.php";

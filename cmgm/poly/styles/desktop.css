@@ -1,0 +1,58 @@
+.header {
+	  padding: 10px;
+}
+input, select, button {
+	  padding: 8px;
+	  font-size: 1rem;
+	  border-radius: 3px;
+}
+body {
+	  height: 100vh;
+}
+.formsContainer {
+	float: right
+}
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center; /* Vertically aligns items */
+  justify-content: space-between; /* Spaces out the header items */
+}
+
+h1 {
+  margin: 0; /* Removes the default margin */
+  font-size: 1.5rem; /* Adjusts the font size */
+}
+
+
+
+form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds space between form elements */
+}
+
+button {
+  margin-left: 10px; /* Adds some space between buttons */
+}
+
+/* Add specific flex container for the buttons to adjust their spacing */
+#buttonContainer {
+  display: flex;
+  gap: 10px; /* Controls the space between buttons */
+}
+
+#buttonContainer button {
+  margin-left: 0; /* Remove any extra margin */
+}
+
+/* Ensure iframe adjusts accordingly */
+#iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  margin-top: 20px;
+}

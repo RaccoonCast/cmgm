@@ -256,7 +256,7 @@
       const polygonLabels = params.polygonlabels ? params.polygonlabels.split(',') : [];
 
       // Check if there are enough valid points to draw a polygon
-      if (polygonPoints.length >= 3) {
+      if (polygonPoints.length >= 1) {
           // Add the polygon to the map
           L.polygon(polygonPoints, { color: 'red', weight: 2 }).addTo(mymap);
       

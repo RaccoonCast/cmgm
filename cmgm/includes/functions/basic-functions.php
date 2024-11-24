@@ -7,8 +7,19 @@ die();
 
 // The mobile detection function
 function isMobile() {
-    if (isset($_GET['mobile'])) return "true";
-    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+  // Check if the 'mobile' GET parameter is explicitly set
+  if (isset($_GET['mobile'])) {
+      return true;
+  }
+
+  // Ensure 'HTTP_USER_AGENT' exists to avoid errors
+  $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+  // Check for mobile device keywords in the user agent
+  return preg_match(
+      "/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",
+      $userAgent
+  );
 }
 if(isMobile()) {
   $isMobile = "true";
@@ -17,6 +28,4 @@ if(isMobile()) {
 }
 
 $curr_userIP = $_SERVER["REMOTE_ADDR"];
-
-echo '<link rel="stylesheet" href="/styles/font.css">';
 ?>
