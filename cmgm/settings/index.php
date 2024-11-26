@@ -93,7 +93,6 @@ header("Pragma: no-cache");
         class="custominput dropdown" autocomplete="on" name="theme">
           <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Basic</option>
           <option <?php if($theme == "pink") echo 'selected="selected" ';?>value="pink">Pink</option>
-          <option <?php if($theme == "dark") echo 'selected="selected" ';?>value="dark">Dark</option>
           <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
         </select>
         <!-- label class="label">Debug Flag: </label><select
