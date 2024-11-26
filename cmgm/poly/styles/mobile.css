@@ -28,7 +28,6 @@ select, input, button {
 .cellList { width: 25%; }
 #submitButton { width: 50%; }
 #addFormButton { width: 50%; }
-#mapLink,h1 { display: none!important ; }
 body {
   height: 100vh;
 }

@@ -50,3 +50,6 @@ input, select, button {
   vertical-align: middle; /* Aligns inline-block elements consistently */
   line-height: normal; /* Prevents line-height differences */
 }
+.eNB,.cells {
+	width: 225px;
+}

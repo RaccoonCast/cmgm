@@ -103,6 +103,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
       <div id="formsContainer">
          <?php foreach($carrierList as $index => $value) { ?>
          <form class="carrierForm">
+			<label for"dontCache">Ignore cache</label><input id="forceNewResults" name="dontCache" type="checkbox">
             <!-- // Set name of index -->
             <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
             <!-- PLMN -->
