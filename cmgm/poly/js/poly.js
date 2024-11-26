@@ -97,8 +97,10 @@ async function handleMakeRequest(_event) {
         });
     });
 
+    const forceNewResults = document.querySelector('#forceNewResults')?.value;
+
     try {
-        const response = await fetch('web.php', {
+        const response = await fetch('web.php' + (forceNewResults ? '?forceNewResults' : ''), {
             method: 'POST',
             body: allData,
         });
