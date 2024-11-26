@@ -16,12 +16,10 @@ function handleUpdateUrl(formData) {
     history.replaceState(null, '', newURL);
 }
 
+function addRatChangeEventListener(ratSelect) {
 
-// Handle RAT selection changes
-document.addEventListener('DOMContentLoaded', () => {
-    const ratSelect = document.getElementById('rat');
-    const eNBInput = document.getElementById('eNB');
-
+    const eNBInput = ratSelect.parentElement.querySelector('.eNB');
+    
     ratSelect.addEventListener('change', () => {
         if (ratSelect.value === 'NR') {
             eNBInput.placeholder = 'gNB';
@@ -29,6 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
             eNBInput.placeholder = 'eNB';
         }
     });
+}
+
+
+// Handle RAT selection changes at startup
+document.addEventListener('DOMContentLoaded', () => {
+
+    const ratSelects = document.getElementsByClassName('rat');
+    // const eNBInput = document.getELementsByClassName('eNB');
+
+    [...ratSelects].forEach(el => {
+        addRatChangeEventListener(el);
+    });
+
+    
 });
 
 // Add new forms dynamically
@@ -60,13 +72,16 @@ document.getElementById("addFormButton").addEventListener("click", function () {
         input.value = "";
     });
 
+    // Add event listener for rat change
+    addRatChangeEventListener(newForm.querySelector('.rat'));
+
     // Append the new form to the container
     formsContainer.appendChild(newForm);
 });
 
-// Handle submission for all forms with a single button
-document.getElementById("submitButton").addEventListener("click", async function (e) {
-    e.preventDefault();
+// Handle data submission to server
+async function handleMakeRequest(_event) {
+    // e.preventDefault();
 
     // console.log('called in submitButton')
 
@@ -114,4 +129,18 @@ document.getElementById("submitButton").addEventListener("click", async function
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
+};
+
+// Listen for submit button pressed
+document.getElementById("submitButton").addEventListener("click", async function (e) {
+    e.preventDefault();
+    await handleMakeRequest(e);
 });
+
+// Listen for enter button pressed
+document.addEventListener('keypress', async (e) => {
+    if (e.key == 'Enter' || e.keyCode == 13) {
+        e.preventDefault();
+        await handleMakeRequest(e);
+    }
+})
