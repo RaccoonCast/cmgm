@@ -92,11 +92,13 @@ if (isset($carrier, $rat, $eNB, $cellList)) {
     $data = json_decode($response);
 
 }
+
+$iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src="https://cmgm.us/database/Map.php?&hideui=true"';
+
 ?>
 <title>eNB Polygon Generator</title>
 </head>
 <div class="header">
-   <h1>eNB Polygon Generator</h1>
    <div id="formContainerContainer">
       <div id="formsContainer">
          <?php foreach($carrierList as $index => $value) { ?>
@@ -124,7 +126,7 @@ if (isset($carrier, $rat, $eNB, $cellList)) {
       <button id="submitButton" type="submit">Submit</button>
    </div>
 </div>
-<iframe id="iframe" <?php if (isset($data->URL)) echo 'src="' . $data->URL . '&hideui=true"'; ?> allow="clipboard-write"></iframe>
+<iframe id="iframe" <?php echo $iframe_url ?> allow="clipboard-write"></iframe>
 <script src="js/poly.js"></script>
 </body>
 </html>

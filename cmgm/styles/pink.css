@@ -17,6 +17,9 @@ input[type=text],input[type=number],textarea,select,option,.inline-btn {
   background-color: #ff75ff; /* background color for inputs */
   color: #FAFAFA; /* text color for inputs */
 }
+input::placeholder {
+  color: #D8D8D8!important;
+}
 select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
     position: relative; /* lets box-shadow overlap other elements */
     outline: none !important; /* remove boring outline */

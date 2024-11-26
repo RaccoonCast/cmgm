@@ -1,20 +1,24 @@
-input, select, button {
-	  padding: 8px;
-	  font-size: 1rem;
-	  border-radius: 3px;
-}
 body {
 	  height: 100vh;
 	  font-family: Arial, sans-serif;
 }
 .header {
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	right: 0;
+	border-color: transparent;
 	display: flex;
 	padding: 10px;
+	border-bottom-left-radius: 12px;
 }
 #formContainerContainer {
   display: flex;
   align-items: center; /* Remove if you want buttons to fit 100% height of the form */
   margin-left: auto; /* Keeps form right-aligned */
+}
+form {
+ margin: 8px 0;
 }
 
 h1 {
@@ -27,7 +31,22 @@ button {
 }
 
 /* Ensure iframe adjusts accordingly */
-#iframe {
-  width: 100%;
-  border: none;
+iframe {
+    position: absolute;
+    width: 100%;
+    height: 100vh; /* Full height of the viewport */
+    border: none; /* Optional: Removes iframe border */
+    z-index: 0; /* Lower z-index so it's below the header */
+}
+input, select, button {
+  align-items: center; /* Ensures content alignment inside */
+  box-sizing: border-box; /* Ensures consistent sizing */
+  height: 40px; /* Set consistent height */
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  vertical-align: middle; /* Aligns inline-block elements consistently */
+  line-height: normal; /* Prevents line-height differences */
 }
