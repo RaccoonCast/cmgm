@@ -95,45 +95,36 @@ if (isset($carrier, $rat, $eNB, $cellList)) {
 ?>
 <title>eNB Polygon Generator</title>
 </head>
-<body>
-  <div class="header">
-    <h1>eNB Polygon Generator</h1> <span 
-	id="formsContainer">
-    <?php foreach($carrierList as $index => $value) { ?>
-        <form id="carrierForm">
-
+<div class="header">
+   <h1>eNB Polygon Generator</h1>
+   <div id="formContainerContainer">
+      <div id="formsContainer">
+         <?php foreach($carrierList as $index => $value) { ?>
+         <form class="carrierForm">
             <!-- // Set name of index -->
             <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
-            
             <!-- PLMN -->
-            <select id="<?php echo "plmn", $namedIndex;?>" name="<?php echo "plmn", $namedIndex;?>" required>
-            <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
-            <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
-            <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
+            <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
+               <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
+               <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
+               <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
             </select>
             <!-- RAT -->
-            <select id="<?php echo "rat" , $namedIndex;?>" name="<?php echo "rat" , $namedIndex;?>" required>
-                <option value="LTE"<?php if ($ratList[$index] == 'LTE') echo ' selected'; ?>>LTE</option>
-                <option value="NR"<?php if ($ratList[$index] == 'NR') echo ' selected'; ?>>NR</option>
-            </select>    
+            <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
+               <option value="LTE"<?php if ($ratList[$index] == 'LTE') echo ' selected'; ?>>LTE</option>
+               <option value="NR"<?php if ($ratList[$index] == 'NR') echo ' selected'; ?>>NR</option>
+            </select>
             <!-- eNB -->
-            <input type="number" id="<?php echo "eNB" , $namedIndex;?>" name="<?php echo "eNB" , $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" />
-            <!-- Cells -->
-            <input type="text" id="<?php echo "cellList" , $namedIndex;?>" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
-        </form>
-        <?php } ?>
-    
-</span>
-
-<div id="buttonContainer">
-    <!-- Add form button -->
-    <button id="addFormButton" type="button">+</button>
-
-    <!-- Single submit button -->
-    <button id="submitButton" type="submit">Submit</button>
+            <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
+            <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
+         </form>
+         <?php } ?>
+      </div>
+      <button id="addFormButton" type="button">+</button>
+      <button id="submitButton" type="submit">Submit</button>
+   </div>
 </div>
-  </div>
-  <iframe id="iframe" <?php if (isset($data->URL)) echo 'src="' . $data->URL . '&hideui=true"'; ?> allow="clipboard-write"></iframe>
-  <script src="js/poly.js"></script>
+<iframe id="iframe" <?php if (isset($data->URL)) echo 'src="' . $data->URL . '&hideui=true"'; ?> allow="clipboard-write"></iframe>
+<script src="js/poly.js"></script>
 </body>
 </html>

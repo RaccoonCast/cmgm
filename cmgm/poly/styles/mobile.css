@@ -1,31 +1,34 @@
-@media (max-width: 600px) {
-  .header {
-	  position: fixed;
-	  bottom: 0;
-	  left: 0;
-	  width: 100%;
-	  z-index: 99;
-	  padding: 20px 0px 0px 0px;
-	  background-color: transparent;
-  }
-  form {
-    column-gap: 0px!important;
-	justify-content: space-between; /* Spread elements across the row */
-  }
-  select, input, button {
-	border-radius: 0px;
-	padding: 16px 5px 16px 5px;
-    width: auto; /* Ensure elements fit their defined percentages */
-	font-size: 0.95rem;
-	line-height: 1.21rem;
-  }
-  #carrier { width: 25%; }
-  #eNB { width: 19.5%; }
-  #rat { width: 17%; }
-  #cellList { width: 22.5%; }
-  button { width: 15.5%; }
-  #mapLink,h1 { display: none!important ; }
-  body {
-	  height: 100vh;
-  }
+.header {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  padding: 0px;
+  background-color: transparent;
+}
+#formsContainer {
+  column-gap: 0px!important;
+  justify-content: space-between; /* Spread elements across the row */
+}
+select, input, button {
+  float: left;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing: border-box;
+  border-radius: 0px;
+  padding: 0px 5px 0px 5px;
+  width: auto; /* Ensure elements fit their defined percentages */
+  font-size: 0.95rem;
+  height: 55px;
+}
+.plmn { width: 25%; }
+.eNB { width: 25%; }
+.rat { width: 25%; }
+.cellList { width: 25%; }
+#submitButton { width: 50%; }
+#addFormButton { width: 50%; }
+#mapLink,h1 { display: none!important ; }
+body {
+  height: 100vh;
 }

@@ -37,7 +37,7 @@ document.getElementById("addFormButton").addEventListener("click", function () {
     const formsContainer = document.getElementById("formsContainer");
 
     // Get the first form as a template
-    const originalForm = document.querySelector("#carrierForm");
+    const originalForm = document.querySelector(".carrierForm");
 
     // Clone the form
     const newForm = originalForm.cloneNode(true);
