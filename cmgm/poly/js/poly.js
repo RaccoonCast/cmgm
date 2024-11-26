@@ -1,6 +1,5 @@
-// Handle individual form submission
+// Handle URL update after request made
 function handleUpdateUrl(formData) {
-    console.log('called in submit');
 
       // initialize new URLSearchParams
     let params = new URLSearchParams();
@@ -69,7 +68,7 @@ document.getElementById("addFormButton").addEventListener("click", function () {
 document.getElementById("submitButton").addEventListener("click", async function (e) {
     e.preventDefault();
 
-    console.log('called in submitButton')
+    // console.log('called in submitButton')
 
     const forms = document.querySelectorAll("#formsContainer form");
     const allData = new FormData();
