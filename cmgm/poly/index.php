@@ -103,9 +103,10 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
       <div id="formsContainer">
          <?php foreach($carrierList as $index => $value) { ?>
          <form class="carrierForm">
-			<label for"dontCache">Ignore cache</label><input id="forceNewResults" name="dontCache" type="checkbox">
+			<?php if (!isMobile()) {?>
+			<label for="forceNewResults">Ignore cache</label><input id="forceNewResults" name="dontCache" type="checkbox">
             <!-- // Set name of index -->
-            <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
+            <?php } $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
             <!-- PLMN -->
             <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
                <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
