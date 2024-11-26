@@ -23,6 +23,7 @@ foreach ($_POST as $key => $value) {
         $formData[$index][$field] = $value;
     }
 }
+$json_formData = json_encode($formData);
 
 $multiCurl = curl_multi_init();
 $curlHandles = [];
@@ -56,15 +57,33 @@ foreach ($formData as $index => $data) {
         $cellId = $base + (int)$cellNumber;
 		
 		$tmpDb = getFromDb($conn, $cellId, $plmn);
+
 		if (!empty($tmpDb)) { // Check if data was returned
-			// Adjust your response structure
-			$responses[$eNB][$cellNumber] = [
-				'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
-				'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
-				'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
-				'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
-			];
-			continue;
+		
+			   // Assuming $tmpDb['date_of_info'] contains a datetime string from the database
+				if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
+						// Parse the date_of_info into a DateTime object
+						$dateOfInfo = new DateTime($tmpDb['date_of_info']);
+						$currentDate = new DateTime(); // Current date and time
+						
+						// Subtract 90 days from the current date
+						$currentDate->modify('-90 days');
+						
+						// Check if date_of_info is newer than 90 days
+						if ($dateOfInfo > $currentDate) {
+							if (!isset($_GET['forceNewResults'])) {
+							continue; // It's newer than 90 days, skip
+							}
+						}
+				} else {
+						$responses[$eNB][$cellNumber] = [
+							'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
+							'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
+							'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
+							'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
+						];
+						continue;
+				}
 		}
 		
         $mobileCountryCode = substr($plmn, 0, 3);
@@ -106,11 +125,10 @@ foreach ($curlHandles as $key => $ch) {
     $response = curl_multi_getcontent($ch);
     [$index, $cellNumber] = explode('-', $key);
     $data = json_decode($response, true);
-
+	$cell_identifier = get_cell($cellNumber, $eNB, $plmn, $rat);
     $eNB = $formData[$index]['eNB']; // Retrieve the eNB for the current index
 
     if (isset($data['location'])) {
-		$cell_identifier = get_cell($cellNumber, $eNB, $plmn, $rat);
         $responses[$eNB][$cellNumber] = [
             'cellId' => $cell_identifier, // Ensure the correct cellId calculation
             'lat' => $data['location']['lat'],
@@ -129,7 +147,11 @@ foreach ($curlHandles as $key => $ch) {
                       ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles'";
 
         $conn->query($sqlInsert);
-    }
+    } else {
+		$sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) VALUES ('$plmn', '$cellNumber', '$cell_identifier', '$eNB', '$rat', NULL, NULL, NULL)";
+
+        $conn->query($sqlInsert);
+	}
 
     curl_multi_remove_handle($multiCurl, $ch);
     curl_close($ch);

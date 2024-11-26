@@ -1,48 +1,22 @@
 // Handle individual form submission
-document.getElementById('carrierForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+function handleUpdateUrl(formData) {
+    console.log('called in submit');
 
-    const formData = new FormData(this);
+      // initialize new URLSearchParams
+    let params = new URLSearchParams();
 
-    // Create a URLSearchParams object from formData
-    const params = new URLSearchParams();
+    let urlValues = {};
     formData.forEach((value, key) => {
-        params.set(key, value); // Add each form value to the URL parameters
-    });
+        params.append(key, value);
+    })
 
-    // Update the URL without reloading the page
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    history.pushState({}, '', newUrl);
+    const newQueryString = params.toString();
 
-    try {
-        const response = await fetch('web.php', {
-            method: 'POST',
-            body: formData,
-        });
+    const newURL = `${window.location.origin}${window.location.pathname}?${newQueryString}`;
+    // Replace the current history state with the new URL
+    history.replaceState(null, '', newURL);
+}
 
-        if (!response.ok) {
-            throw new Error('Data for that eNB with those cells were not found');
-        }
-
-        const data = await response.json();
-
-        // Check if the response contains an error
-        if (data.error) {
-            alert(`${data.error}`);
-            return; // Stop further execution
-        }
-
-        const iframe = document.getElementById('iframe');
-
-        // Update the iframe source and display it
-        iframe.src = data.URL + "&hideui=true";
-        iframe.style.display = 'block';
-
-
-    } catch (error) {
-        alert(`Error: ${error.message}`);
-    }
-});
 
 // Handle RAT selection changes
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,6 +69,8 @@ document.getElementById("addFormButton").addEventListener("click", function () {
 document.getElementById("submitButton").addEventListener("click", async function (e) {
     e.preventDefault();
 
+    console.log('called in submitButton')
+
     const forms = document.querySelectorAll("#formsContainer form");
     const allData = new FormData();
 
@@ -124,6 +100,9 @@ document.getElementById("submitButton").addEventListener("click", async function
             alert(`${data.error}`);
             return;
         }
+
+        // Update URL with form info
+        handleUpdateUrl(allData);
 
         const iframe = document.getElementById('iframe');
         iframe.src = data.URL + "&hideui=true";

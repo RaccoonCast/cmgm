@@ -71,7 +71,7 @@ function get($type, $latLngPairs) {
 }
 function getFromDb($conn, $cellId, $plmn) {
     // Query to retrieve the data
-    $query = "SELECT cell_id, latitude, longitude, accuracyMiles
+    $query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info
               FROM local_poly
               WHERE cell_id = $cellId AND plmn = $plmn";
 
