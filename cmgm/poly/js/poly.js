@@ -72,6 +72,12 @@ document.getElementById("addFormButton").addEventListener("click", function () {
         input.value = "";
     });
 
+    // Keep carrier from previous form
+    const prevForm = formsContainer.children[formsContainer.children.length-1];
+    const prevCarrier = prevForm.querySelector('.plmn').value;
+    
+    newForm.querySelector('.plmn').value = prevCarrier;
+
     // Add event listener for rat change
     addRatChangeEventListener(newForm.querySelector('.rat'));
 
