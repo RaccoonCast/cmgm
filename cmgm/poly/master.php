@@ -31,10 +31,10 @@ $responses = [];
 
 // Process each group in $formData
 foreach ($formData as $index => $data) {
-    $rat = $data['rat'];
-    $eNB = $data['eNB'];
-    $cellList = explode(',', $data['cellList']);
-    $plmn = $data['plmn'];
+    $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error("Invalid RAT.");
+    $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error("Invalid eNB/gNB.");
+    $cellList = preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? $data['cellList'] : error("Invalid cellList.");
+    $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error("Invalid PLMN.");
 
     // Set base calculation for cellId
     $base = 0;
@@ -148,9 +148,9 @@ foreach ($curlHandles as $key => $ch) {
 
         $conn->query($sqlInsert);
     } else {
-		$sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) VALUES ('$plmn', '$cellNumber', '$cell_identifier', '$eNB', '$rat', NULL, NULL, NULL)";
-
-        $conn->query($sqlInsert);
+		$sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) 
+		VALUES ('$plmn', '$cellNumber', '$cell_identifier', '$eNB', '$rat', NULL, NULL, NULL) 
+		ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles)";
 	}
 
     curl_multi_remove_handle($multiCurl, $ch);
