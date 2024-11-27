@@ -20,7 +20,6 @@ body {
 form {
  margin: 8px 0;
 }
-
 h1 {
   margin: 0; /* Removes the default margin */
   font-size: 1.5rem; /* Adjusts the font size */
@@ -50,6 +49,6 @@ input, select, button {
   vertical-align: middle; /* Aligns inline-block elements consistently */
   line-height: normal; /* Prevents line-height differences */
 }
-.eNB,.cells {
-	width: 225px;
+#dontCacheCheckbox {
+	margin: 0px 8px;
 }

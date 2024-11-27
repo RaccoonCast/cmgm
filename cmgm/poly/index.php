@@ -103,10 +103,8 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
       <div id="formsContainer">
          <?php foreach($carrierList as $index => $value) { ?>
          <form class="carrierForm">
-			<?php if (!isMobile()) {?>
-			<label for="forceNewResults">Ignore cache</label><input id="forceNewResults" name="dontCache" type="checkbox">
             <!-- // Set name of index -->
-            <?php } $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
+            <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
             <!-- PLMN -->
             <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
                <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
@@ -122,8 +120,13 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
          </form>
-         <?php } ?>
+         <?php } if (isMobile()) { ?>
       </div>
+	  <div id="dontCacheCheckbox">
+		<label for="forceNewResults">Ignore cache</label>
+		<input id="forceNewResults" name="dontCache" type="checkbox">
+	  </div>
+		 <?php } ?>
       <button id="addFormButton" type="button">+</button>
       <button id="submitButton" type="submit">Submit</button>
    </div>
