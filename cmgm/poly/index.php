@@ -120,8 +120,9 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
          </form>
-         <?php } if (isMobile()) { ?>
+         <?php } ?>
       </div>
+      <?php if (!isMobile()) { ?>
 	  <div id="dontCacheCheckbox">
 		<label for="forceNewResults">Ignore cache</label>
 		<input id="forceNewResults" name="dontCache" type="checkbox">
