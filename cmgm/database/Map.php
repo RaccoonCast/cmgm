@@ -114,6 +114,11 @@
       // Should we use coord cetner, or passed lat/lng?
       const useCoordCenter = <?php echo (isset($_GET['useCoordCenter']) or empty($_GET['latitude'])) ? 'true' : 'false'; ?>;
 
+      // Get polygon center
+
+
+      // const usePolygonCenter = <?php echo (isset($_GET['polygon']) or empty($_GET['latitude'])) ? 'true' : 'false'; ?>;
+
       // Define new center coords
       const centerCoords = useCoordCenter ? getLatLngCenter(recordCoordList) : [lat, long];
 
@@ -255,6 +260,9 @@
       // Parse labels for the polygon vertices
       const polygonLabels = params.polygonlabels ? params.polygonlabels.split(',') : [];
 
+      // Initialize polygon vertex list
+      let polygonVertexMarkerList = [];
+
       // Check if there are enough valid points to draw a polygon
       if (polygonPoints.length >= 1) {
           // Add the polygon to the map
@@ -264,9 +272,11 @@
           // Use sorted array with original indices, so that the labels match
           polygonPointsWithIndicesSorted.forEach((point) => {
               const label = polygonLabels[point.originalIndex] // Use original index
-              L.marker(point.coords, { opacity: 0 })
+              const marker = L.marker(point.coords, { opacity: 0 })
                   .bindTooltip(`${label}`, { permanent: true, direction: 'center', className: 'label-tooltip' })
                   .addTo(mymap);
+              // add to list
+              polygonVertexMarkerList.push(marker);
           });
       } else {
           console.log('No valid polygon points provided in URL parameters.');
@@ -327,11 +337,14 @@
         echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
       ?>
 
-      // Center map if applicable
+      // Zoom to fit all records (if applicable)
       if (useCoordCenter) {
         const markerGroup = new L.featureGroup(markerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
-
+      // Zoom to fit all vertices of polygon (if applicable)
+      } else if (polygonVertexMarkerList) {
+        const markerGroup = new L.featureGroup(polygonVertexMarkerList);
+        mymap.fitBounds(markerGroup.getBounds().pad(0.5));
       }
 
     </script>
