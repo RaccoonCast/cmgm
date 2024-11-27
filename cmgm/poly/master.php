@@ -33,7 +33,7 @@ $responses = [];
 foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error("Invalid RAT.");
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error("Invalid eNB/gNB.");
-    $cellList = preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? $data['cellList'] : error("Invalid cellList.");
+    $cellList = preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : error("Invalid cellList.");
     $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error("Invalid PLMN.");
 
     // Set base calculation for cellId
