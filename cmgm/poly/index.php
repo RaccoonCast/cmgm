@@ -120,7 +120,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
             <!-- Delete button -->
-            <input type="button" value="❌" onclick="this.parentElement.remove();"/>
+            <input type="button" value="❌" class="closeButton" onclick="this.parentElement.remove();"/>
          </form>
          <?php } ?>
       </div>

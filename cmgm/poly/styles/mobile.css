@@ -22,10 +22,11 @@ select, input, button {
   font-size: 0.95rem;
   height: 55px;
 }
-.plmn { width: 25%; }
-.eNB { width: 25%; }
-.rat { width: 25%; }
-.cellList { width: 25%; }
+.plmn { width: 21%; }
+.eNB { width: 20.375%; }
+.rat { width: 15%; }
+.cellList { width: 31.625%; }
+.closeButton { width: 12% }
 #submitButton { width: 50%; }
 #addFormButton { width: 50%; }
 body {
