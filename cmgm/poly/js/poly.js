@@ -156,3 +156,11 @@ document.addEventListener('keypress', async (e) => {
         await handleMakeRequest(e);
     }
 })
+
+function removeForm(form) {
+    const forms = document.getElementsByClassName('carrierForm');
+
+    if (forms.length > 1) {
+        form.parentElement.remove();
+    }
+}

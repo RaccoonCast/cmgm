@@ -7,12 +7,6 @@ $poly = true;
 $titleOverride = true;
 include "../functions.php";
 
-// Initialize variables from the URL parameters
-isset($_GET['plmn']) && $carrier = $_GET['plmn']; 
-isset($_GET['rat']) && $rat = $_GET['rat']; 
-isset($_GET['eNB']) && $eNB = $_GET['eNB']; 
-isset($_GET['cellList']) && $cellList = $_GET['cellList'];
-
 // Extract eNBs
 $carrierList = [];
 $ratList = [];
@@ -120,7 +114,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="eNB" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
             <!-- Delete button -->
-            <input type="button" value="❌" class="closeButton" onclick="this.parentElement.remove();"/>
+            <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
          </form>
          <?php } ?>
       </div>
