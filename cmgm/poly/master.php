@@ -151,6 +151,8 @@ foreach ($curlHandles as $key => $ch) {
 		$sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) 
 		VALUES ('$plmn', '$cellNumber', '$cell_identifier', '$eNB', '$rat', NULL, NULL, NULL) 
 		ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles)";
+		
+		$conn->query($sqlInsert);
 	}
 
     curl_multi_remove_handle($multiCurl, $ch);
