@@ -107,7 +107,7 @@ async function handleMakeRequest(_event) {
         });
     });
 
-    const forceNewResults = document.querySelector('#forceNewResults')?.value === true;
+    const forceNewResults = document.querySelector('#forceNewResults')?.value === "on";
 
     try {
         const response = await fetch('web.php' + (forceNewResults ? '?forceNewResults' : ''), {
