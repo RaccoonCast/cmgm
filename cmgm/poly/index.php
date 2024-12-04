@@ -92,6 +92,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
 ?>
 <title>eNB Polygon Generator</title>
 </head>
+<?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
    <div id="formContainerContainer">
       <div id="formsContainer">
@@ -128,6 +129,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
       <button id="submitButton" type="submit">Submit</button>
    </div>
 </div>
+<?php } ?>
 <iframe id="iframe" <?php echo $iframe_url ?> allow="clipboard-write"></iframe>
 <script src="js/poly.js"></script>
 </body>
