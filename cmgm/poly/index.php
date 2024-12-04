@@ -47,7 +47,7 @@ foreach($_GET as $key => $value) {
 
 
 // If URL parmeters are prefilled, handle the data
-if (isset($carrier, $rat, $eNB, $cellList)) {
+if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & count($cellListList) >= 1) {
 
     $postData = [];
 
