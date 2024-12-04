@@ -30,7 +30,7 @@
      * Get map URL for site
      */
     async function getUrl() {
-        const req = await fetch('https://local.cmgm.us/poly/web.php', {
+        const req = await fetch('https://cmgm.us/poly/web.php', {
           method: 'POST',
           body: postData,
           rejectUnauthorized: false 
