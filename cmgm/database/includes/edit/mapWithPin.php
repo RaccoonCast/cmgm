@@ -5,9 +5,9 @@ include '../includes/functions/mapWithPin.php';
 // latitude, longitude, width as %, height as px, pin limit
 
 if(isMobile()){
-  MapWithPin($latitude,$longitude,"17","100%","250",$map_edit_mobile_pin_limit);
+  MapWithPin($latitude,$longitude,"17","100%","250",$map_edit_mobile_pin_limit, $carrier, $userID, $LTE_1);
 } else {
-  MapWithPin($latitude,$longitude,"18","44%","530",$map_edit_pin_limit);
+  MapWithPin($latitude,$longitude,"18","44%","530",$map_edit_pin_limit, $carrier, $userID, $LTE_1);
 }
 
 ?>

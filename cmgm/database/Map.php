@@ -337,12 +337,14 @@
         echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
       ?>
 
+      const skipPolyZoom = "<?php echo json_encode(isset($_GET['skipPolyZoom'])); ?>" === 'true';
+
       // Zoom to fit all records (if applicable)
       if (useCoordCenter) {
         const markerGroup = new L.featureGroup(markerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
       // Zoom to fit all vertices of polygon (if applicable)
-      } else if (polygonVertexMarkerList) {
+      } else if (polygonVertexMarkerList && !skipPolyZoom) {
         const markerGroup = new L.featureGroup(polygonVertexMarkerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
       }
