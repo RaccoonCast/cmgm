@@ -60,10 +60,10 @@ document.getElementById("addFormButton").addEventListener("click", function () {
     // Update IDs and names in the cloned form
     Array.from(newForm.elements).forEach((element) => {
         if (element.id) {
-            element.id = element.id + "_" + formIndex;
+            element.id = element.id.split('_')[0] + "_" + formIndex;
         }
         if (element.name) {
-            element.name = element.name + "_" + formIndex;
+            element.name = element.name.split('_')[0] + "_" + formIndex;
         }
     });
 
