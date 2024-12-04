@@ -88,6 +88,9 @@ elseif ($key == "tags" && !empty($value)) {
                       OR tags = '$value')" . @$db_vars;
 }
 
+// if value is empty, do default
+elseif ($value == null) { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_vars; }
+
 // Search for a edit date like, &edit_date_like=2022-01 will filter records created any time during January 2022.
 elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value."%')" . @$db_vars; }
 
