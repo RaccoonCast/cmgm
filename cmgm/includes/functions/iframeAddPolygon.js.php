@@ -27,6 +27,19 @@
     const userId = "<?php echo $userID; ?>";
 
     /**
+     * Check 'Extras' for existing poly link
+     */
+    function getExistingPoly() {
+      let extras = [...document.getElementsByClassName('extra_cw')]
+
+      for (const el of extras) {
+        if (el.value.includes('cmgm.us/poly')) {
+          return el.value;
+        }
+      }
+    }
+
+    /**
      * Get map URL for site
      */
     async function getUrl() {
@@ -68,6 +81,17 @@
     function changeUrl(iframe) {   
       if (window.polyAdded) return;
 
+      // Get existing poly link from extras
+      const existingPoly = getExistingPoly();
+
+      // Use existing poly (from extras), if available
+      if (existingPoly) {
+        iframe.src = existingPoly + '&hidePolyForm';
+        window.polyAdded = true;
+        return;
+      }
+
+      // Otherwise, we need to get a new poly
       (async () => {
         const url = await getUrl();
         iframe.src = url;

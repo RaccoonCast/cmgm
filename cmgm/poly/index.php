@@ -87,7 +87,12 @@ if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & c
 
 }
 
-$iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src="https://cmgm.us/database/Map.php?&hideui=true"';
+// Make sure URL is returned, otherwise return regular map
+$iframe_url = isset($data->URL) ? ($data->URL . '&hideui=true') : 'https://cmgm.us/database/Map.php?&hideui=true';
+
+if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude'])) {
+    $iframe_url .= '&marker_latitude=' . $_GET['marker_latitude'] . '&marker_longitude=' . $_GET['marker_longitude'];
+}
 
 ?>
 <title>eNB Polygon Generator</title>
@@ -130,7 +135,7 @@ $iframe_url = isset($data->URL) ? 'src="' . $data->URL . '&hideui=true"' : 'src=
    </div>
 </div>
 <?php } ?>
-<iframe id="iframe" <?php echo $iframe_url ?> allow="clipboard-write"></iframe>
+<iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write"></iframe>
 <script src="js/poly.js"></script>
 </body>
 </html>
