@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Add new forms dynamically
-document.getElementById("addFormButton").addEventListener("click", function () {
+document.getElementById("addFormButton")?.addEventListener("click", function () {
     // Get the forms container
     const formsContainer = document.getElementById("formsContainer");
 
@@ -144,7 +144,7 @@ async function handleMakeRequest(_event) {
 };
 
 // Listen for submit button pressed
-document.getElementById("submitButton").addEventListener("click", async function (e) {
+document.getElementById("submitButton")?.addEventListener("click", async function (e) {
     e.preventDefault();
     await handleMakeRequest(e);
 });
@@ -164,3 +164,20 @@ function removeForm(form) {
         form.parentElement.remove();
     }
 }
+
+function handleAddPolyLink() {
+    const polyLinkButton = document.querySelector("#iframe").contentDocument.querySelector('#openPolyButton')
+
+    if (!polyLinkButton) {
+        return;
+    }
+
+    polyLinkButton.onclick = () => {
+        window.open(window.location.href.replace('&hidePolyForm', ''), '_blank');
+    }
+}
+
+document.querySelector("#iframe").contentWindow.addEventListener('load', () => {
+    // Wait until fully loaded, including subframes
+    handleAddPolyLink();
+})

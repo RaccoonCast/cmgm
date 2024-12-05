@@ -45,7 +45,7 @@ function generateURL($responses) {
     $labelsString = implode(',', $labels);
 
     // Build the URL
-    $url = "https://cmgm.us/database/Map.php?latitude=$avgLat&longitude=$avgLng&zoom=16&polygon=$polygonString&polygonlabels=$labelsString";
+    $url = "/database/Map.php?latitude=$avgLat&longitude=$avgLng&zoom=16&polygon=$polygonString&polygonlabels=$labelsString";
     
     return $url;
 }

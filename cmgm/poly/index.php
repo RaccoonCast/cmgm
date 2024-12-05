@@ -68,7 +68,7 @@ if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & c
 
 
     // Initialize cURL and send POST request
-    $ch = curl_init('https://cmgm.us/poly/web.php');
+    $ch = curl_init($_SERVER['SERVER_NAME'] . '/poly/web.php');
 	// Set cURL options
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,            // Return the response as a string
@@ -88,10 +88,10 @@ if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & c
 }
 
 // Make sure URL is returned, otherwise return regular map
-$iframe_url = isset($data->URL) ? ($data->URL . '&hideui=true') : 'https://cmgm.us/database/Map.php?&hideui=true';
+$iframe_url = isset($data->URL) ? $data->URL . '&hideui=true' : 'https://cmgm.us/database/Map.php?&hideui=true';
 
-if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude'])) {
-    $iframe_url .= '&marker_latitude=' . $_GET['marker_latitude'] . '&marker_longitude=' . $_GET['marker_longitude'];
+if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset($_GET['hidePolyForm'])) {
+    $iframe_url .= '&marker_latitude=' . $_GET['marker_latitude'] . '&marker_longitude=' . $_GET['marker_longitude'] . '&showPolyLink';
 }
 
 ?>

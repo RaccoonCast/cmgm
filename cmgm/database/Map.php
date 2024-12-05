@@ -44,6 +44,11 @@
       </button>
       <button class="special_button" id="refreshButton">
         <div class="buttonContainer">🔃</div>
+      </button> 
+    <?php } ?>
+    <?php if (isset($_GET['showPolyLink'])) { ?>
+      <button class="special_button" id="openPolyButton" style="top: 79px;">
+        <div class="buttonContainer">↗️</div>
       </button>
     <?php } ?>
 
