@@ -57,38 +57,21 @@ if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & c
         $namedIndex = ($index === 0) ? '' : '_' . $index;
 
         // Add carriers to array
-        $postData['plmn' . $namedIndex] = $value;
+        $polyFormData['plmn' . $namedIndex] = $value;
 
         // Add others to array
-        $postData['rat' . $namedIndex] = $ratList[$index];
-        $postData['eNB' . $namedIndex] = $enbList[$index];
-        $postData['cellList' . $namedIndex] = $cellListList[$index];
+        $polyFormData['rat' . $namedIndex] = $ratList[$index];
+        $polyFormData['eNB' . $namedIndex] = $enbList[$index];
+        $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
 
     }
-
-
-    // Initialize cURL and send POST request
-    $ch = curl_init('https://' . $_SERVER['SERVER_NAME'] . '/poly/web.php');
-	// Set cURL options
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,            // Return the response as a string
-        CURLOPT_POST => true,                      // Use POST method
-        CURLOPT_POSTFIELDS => http_build_query($postData),  // Prepare POST fields
-        CURLOPT_COOKIE => 'userID=' . $userID,    // Send userID as a cookie
-        CURLOPT_SSL_VERIFYHOST => 0,              // Disable SSL host verification
-        CURLOPT_SSL_VERIFYPEER => 0               // Disable SSL peer verification
-    ]);
-	
-	// Execute the cURL request
-	$response = curl_exec($ch);
-
-    // Handle response
-    $data = json_decode($response);
-
+    // Create polygon and poly url.
+    include "../poly/master.php";
+    include "../poly/poly.php";
 }
 
 // Make sure URL is returned, otherwise return regular map
-$iframe_url = isset($data->URL) ? $data->URL . '&hideui=true' : 'https://cmgm.us/database/Map.php?&hideui=true';
+$iframe_url = isset($url) ? $url . '&hideui=true' : 'https://cmgm.us/database/Map.php?&hideui=true';
 
 if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset($_GET['hidePolyForm'])) {
     $iframe_url .= '&marker_latitude=' . $_GET['marker_latitude'] . '&marker_longitude=' . $_GET['marker_longitude'] . '&showPolyLink';

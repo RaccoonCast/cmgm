@@ -3,13 +3,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $silent = true;
-include "../functions.php";
+if (!isset($polyFormData)) include "../functions.php";
 include "functions.php";
 
 $formData = [];
 
 // Group incoming POST data dynamically based on indices
-foreach ($_POST as $key => $value) {
+$dataSource = isset($polyFormData) ? $polyFormData : $_POST;
+
+foreach ($dataSource as $key => $value) {
     if (preg_match('/^(eNB|cellList|plmn|rat)(_(\d+))?$/', $key, $matches)) {
         $field = $matches[1]; // eNB, cellList, plmn, or rat
         $index = $matches[3] ?? 0; // Use 0 if no index is specified
