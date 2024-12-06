@@ -47,8 +47,12 @@ foreach($_GET as $key => $value) {
 
 
 // If URL parmeters are prefilled, handle the data
-if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & count($cellListList) >= 1) {
-
+if (
+    array_filter($carrierList, 'is_numeric') === $carrierList &&
+    array_filter($ratList, fn($val) => $val === 'LTE' || $val === 'NR') === $ratList &&
+    array_filter($enbList, 'is_numeric') === $enbList &&
+    array_filter($cellListList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListList
+) {
     $postData = [];
 
     // Same code as HTML generation, just without the HTML

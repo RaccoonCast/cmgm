@@ -1,4 +1,10 @@
 <?php
+function error($error) { 
+	echo json_encode([
+	'error' => $error
+	]);
+	die();
+}
 function haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2) {
 	$earthRadius = 3958.8; // Earth radius in miles
 

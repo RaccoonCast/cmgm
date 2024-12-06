@@ -3,12 +3,6 @@
 header('Content-Type: application/json');
 
 // Setup error function
-function error($error) { 
-	echo json_encode([
-	'error' => $error
-	]);
-	die();
-}
 $prettyPost = json_encode($_POST);
 
 // Verify at least the eNB and the carrier name are available in $_POST request.
