@@ -54,44 +54,60 @@ foreach ($formData as $index => $data) {
         $signalLabel = 'signal';
         $base = $eNB * 256;
     }
+
+    // Get from DB
+    $cellIdList = array_map(fn($cellNumber) => $base + (int)$cellNumber, $cellList); // Get list of ids
+    $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn); // Query DB for all simultaneously
+
+    
+    // Reformat associative array to be keyed by cell ID
+    $dbDump_dataMap = [];
+    if ($arrayResults != null) {
+        foreach ($arrayResults as $_unused_index => $arrayRow) {
+            $dbDump_dataMap[$arrayRow['cell_id']] = $arrayRow;
+        }
+    }
+
+    // Loop through each cell
     foreach ($cellList as $cellNumber) {
 		
         $cellId = $base + (int)$cellNumber;
-		
-		$tmpDb = getFromDb($conn, $cellId, $plmn);
 
-		if (!empty($tmpDb)) { // Check if data was returned
+        // Check if data was returned by db
+		if (array_key_exists($cellId, $dbDump_dataMap)) { 
+
+            $tmpDb = $dbDump_dataMap[$cellId];
 		
-			   // Assuming $tmpDb['date_of_info'] contains a datetime string from the database
-				if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
-						// Parse the date_of_info into a DateTime object
-						$dateOfInfo = new DateTime($tmpDb['date_of_info']);
-						$currentDate = new DateTime(); // Current date and time
-						
-						// Subtract 90 days from the current date
-						$currentDate->modify('-90 days');
-						
-						// Check if date_of_info is newer than 90 days
-						if ($dateOfInfo > $currentDate) {
-							if (!isset($_GET['forceNewResults'])) {
-							continue; // It's newer than 90 days, skip
-							}
-						}
-				} else {
-						$responses[$eNB][$cellNumber] = [
-							'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
-							'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
-							'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
-							'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
-						];
-						continue;
-				}
+            // Assuming $tmpDb['date_of_info'] contains a datetime string from the database
+            if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
+                // Parse the date_of_info into a DateTime object
+                $dateOfInfo = new DateTime($tmpDb['date_of_info']);
+                $currentDate = new DateTime(); // Current date and time
+                
+                // Subtract 90 days from the current date
+                $currentDate->modify('-90 days');
+                
+                // Check if date_of_info is newer than 90 days
+                if ($dateOfInfo > $currentDate) {
+                    if (!isset($_GET['forceNewResults'])) {
+                    continue; // It's newer than 90 days, skip
+                    }
+                }
+            } else {
+                $responses[$eNB][$cellNumber] = [
+                    'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
+                    'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
+                    'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
+                    'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
+                ];
+                continue;
+            }
 		}
 		
         $mobileCountryCode = substr($plmn, 0, 3);
         $mobileNetworkCode = substr($plmn, 3);
 
-        $requestPayload = [
+            $requestPayload = [
             "cellTowers" => [[
                 $cellIdLabel => $cellId,
                 "mobileCountryCode" => $mobileCountryCode,
