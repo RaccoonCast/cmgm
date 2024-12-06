@@ -68,7 +68,7 @@ if (count($carrierList) >= 1 && count($ratList) >= 1 && count($enbList) >= 1 & c
 
 
     // Initialize cURL and send POST request
-    $ch = curl_init($_SERVER['SERVER_NAME'] . '/poly/web.php');
+    $ch = curl_init('https://' . $_SERVER['SERVER_NAME'] . '/poly/web.php');
 	// Set cURL options
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,            // Return the response as a string
