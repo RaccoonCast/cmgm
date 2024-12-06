@@ -54,16 +54,20 @@ document.getElementById("addFormButton")?.addEventListener("click", function () 
     // Clone the form
     const newForm = originalForm.cloneNode(true);
 
-    // Generate a unique identifier
-    const formIndex = formsContainer.children.length;
+    // Get new index
+    if (!window.latestIndex) {
+        window.latestIndex = 1;
+    } else {
+        window.latestIndex += 1;
+    }
 
     // Update IDs and names in the cloned form
     Array.from(newForm.elements).forEach((element) => {
         if (element.id) {
-            element.id = element.id.split('_')[0] + "_" + formIndex;
+            element.id = element.id.split('_')[0] + "_" + window.latestIndex;
         }
         if (element.name) {
-            element.name = element.name.split('_')[0] + "_" + formIndex;
+            element.name = element.name.split('_')[0] + "_" + window.latestIndex;
         }
     });
 
