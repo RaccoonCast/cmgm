@@ -71,7 +71,7 @@ if (
     }
     // Create polygon and poly url.
     include "../poly/master.php";
-    include "../poly/poly.php";
+    if (!empty($responses)) include "../poly/poly.php";
 }
 
 // Make sure URL is returned, otherwise return regular map

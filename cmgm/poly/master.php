@@ -178,7 +178,12 @@ foreach ($curlHandles as $key => $ch) {
 }
 
 if (empty($responses)) {
-	error("Nothing could be found");
+    // Continue with generating the map only when requests are sent via auto-submission to allow user to correct.
+	if (!isset($polyFormData)) {
+        error("Nothing could be found");
+    } else {
+        return;
+    }
 	}
 
 curl_multi_close($multiCurl);
