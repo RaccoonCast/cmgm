@@ -86,6 +86,15 @@ document.getElementById("addFormButton")?.addEventListener("click", function () 
 
     newForm.querySelector('.plmn').value = prevCarrier;
 
+    // Update RAT on new form to LTE (in case it cloned an NR form)
+    const prevRat = prevForm.querySelector('.rat').querySelector('option:checked').value;
+    newForm.querySelector('.rat').value = prevRat;
+
+    // Update RAT-based placeholder
+    const prevPlaceholder = prevForm.querySelector('.eNB').placeholder;
+    newForm.querySelector('.eNB').placeholder = prevPlaceholder;
+
+
     // Add event listener for rat change
     addRatChangeEventListener(newForm.querySelector('.rat'));
 
