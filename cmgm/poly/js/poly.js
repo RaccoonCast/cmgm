@@ -56,7 +56,7 @@ document.getElementById("addFormButton")?.addEventListener("click", function () 
 
     // Get new index
     if (!window.latestIndex) {
-        window.latestIndex = 1;
+        window.latestIndex = (formsContainer.children.length + 1) || 10;
     } else {
         window.latestIndex += 1;
     }
