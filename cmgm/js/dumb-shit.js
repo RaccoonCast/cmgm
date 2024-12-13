@@ -32,3 +32,13 @@ $(document).ready(function() {
     $(this).attr('placeholder', originalPlaceholder);
   });
 });
+
+// Don't allow double submission of form
+if (new URLSearchParams(window.location.search).get('new') != null) {
+  document.querySelector('form').addEventListener('submit', () => {
+    document.querySelector("body > form > input").onclick = (e) => {
+    e.preventDefault();
+    return false;
+    }
+  })
+}
