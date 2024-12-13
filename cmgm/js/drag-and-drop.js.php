@@ -23,8 +23,8 @@
   }
 </style> -->
 
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<script src="https://cmgm.us/js/dropzone/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://cmgm.us/js/dropzone/dropzone.min.css" type="text/css" />
 <script>
 // Turn off auto discover (we'll do it manually)
 Dropzone.autoDiscover = false;
