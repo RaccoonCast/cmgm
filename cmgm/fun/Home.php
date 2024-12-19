@@ -9,6 +9,7 @@
 <meta property="og:url" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] ?>">
 <meta property="og:image" content="https://cmgm.us/favicon.ico">
 <meta property="og:description" content="1,234 Pins">
+<link rel="canonical" href="https://cmgm.us/fun">
     <?php
     
     // Include common functions
