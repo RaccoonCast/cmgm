@@ -27,7 +27,7 @@
           
             <input type="hidden" name="file" id="base64_file_form" />
               <div id="picture" ></div>
-              Select a file, <a class="hiddenlink" href="https://alpha.cmgm.us/database/LFMF.php">or</a> paste an image on your clipboard (Max: 250MB)<br>
+              Select a file, <a class="hiddenlink" href="https://alpha.cmgm.us/database/LFMF.php">or</a> paste an image on your clipboard (Max: 25MB)<br>
                <br>
 
               <br/>
