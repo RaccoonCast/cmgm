@@ -17,6 +17,7 @@ header("Pragma: no-cache");
      $list_of_vars = array(
       'debug_flag', 
       'username', 
+      'accent_color', 
       'default_latitude', 
       'default_longitude', 
       'default_carrier', 
@@ -76,6 +77,8 @@ header("Pragma: no-cache");
      <form action="../settings/" method="post" autocomplete="off">
         <label class="label">Username: </label><input
         type="text" value="<?php echo $username; ?>" name="username" id="username" required>
+        <label class="label">Accent Color (HEX): </label><input
+        type="text" value="<?php echo $accent_color; ?>" name="accent_color" maxlength="6" id="accent_color" required>
         <label class="label">Latitude/Longitude: </label><input
         type="text" value="<?php echo $default_latitude; ?>" name="default_latitude" class="w-50" id="latitude" required><input
         type="text" value="<?php echo $default_longitude; ?>" name="default_longitude" class="w-50" id="longitude" required>
@@ -218,8 +221,8 @@ header("Pragma: no-cache");
 
         <label>Google Maps Link: </label> -->
 
-        <input type="button" class="cmgm-btn sb" onclick="myFunction();" style="color: #00000;"  value="Locate"><input
-        type="submit" class="sb cmgm-btn" style="color: #00000;"  value="Submit">
+        <input type="button" class="cmgm-btn sb" onclick="myFunction();" value="Locate"><input
+        type="submit" class="sb cmgm-btn" value="Submit">
      </form>
    </body>
 </html>

@@ -44,7 +44,7 @@ input[type=button]:first-child:nth-last-child(4) ~ input[type=button] {
 
 
 html,body {
-	border: 2px solid red;
+	border: 2px solid var(--accent-color);
 	height: 100%;
 	min-height: 100%;
 	box-sizing: border-box;

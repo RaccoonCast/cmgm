@@ -10,7 +10,7 @@
   /* Use darker colors if dark mode is enabled */
   --bg-color: black;
   --primary-color: white;
-  --border-color: red;
+  --border-color: var(--accent-color);
 
   background-color: var(--bg-color);
   max-width: 600px;

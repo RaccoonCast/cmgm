@@ -3,6 +3,8 @@
 // Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
 if (!isset($filename_for_css)) $filename_for_css = basename($_SERVER['PHP_SELF'],'.php');
 if (!function_exists('css')) {
+
+  echo '<style>:root {--accent-color: #'.$accent_color.'; }</style>' . PHP_EOL;
  function css($type,$file) {
   if ($file !== "Upload") {
     $php_cwd = ($_SERVER['PHP_SELF'] == '/') ? $_SERVER['DOCUMENT_ROOT'] : '.';
