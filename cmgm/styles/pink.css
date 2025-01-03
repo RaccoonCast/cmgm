@@ -23,8 +23,8 @@ input::placeholder {
 select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
     position: relative; /* lets box-shadow overlap other elements */
     outline: none !important; /* remove boring outline */
-    border: 1px solid #c14cfc!important; /* add red border */
-    box-shadow: 0 0 30px #c14cfc; /* add box-shadow*/
+    border: 1px solid var(--accent-color)!important; /* add accent color to border */
+    box-shadow: 0 0 30px var(--accent-color); /* add accent color to box-shadow*/
 }
 /* link colors */
 a:link {color: #4286f5; text-decoration: none;}

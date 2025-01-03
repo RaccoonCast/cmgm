@@ -1,11 +1,11 @@
 .stat-box {
-    border: 3px solid red!important; /* add red border */
-    box-shadow: 0 0 15px red; /* add box-shadow*/
+    border: 3px solid var(--accent-color)!important; /* add accent color to border */
+    box-shadow: 0 0 15px var(--accent-color); /* add box-shadow*/
     color: #D3D3D3;
     background-color: #1a1a1a;
 }
 .stat-box:hover {
-    box-shadow: 0 0 22px red; /* add box-shadow*/
+    box-shadow: 0 0 22px var(--accent-color); /* add box-shadow*/
 }
 .stat-box h3 {
     color: #f0f0f0;

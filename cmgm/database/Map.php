@@ -132,7 +132,8 @@
         center: centerCoords,
         zoom: <?php echo $zoom; ?>, //Default to passed in zoom
         zoomDelta: 0.888888, // Custom zoomDelta value
-        zoomSnap: 0.00000000001
+        zoomSnap: 0.00000000001,
+        //wheelPxPerZoomLevel: 143,
       });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -256,7 +257,7 @@
               
 
               console.log(polygonPoints, polygonPointsWithIndices)
-          } catch (error) {
+          } catch (error) { 
               console.error('Error parsing polygon points:', error);
               polygonPoints = [];
           }
@@ -271,7 +272,7 @@
       // Check if there are enough valid points to draw a polygon
       if (polygonPoints.length >= 1) {
           // Add the polygon to the map
-          L.polygon(polygonPoints, { color: 'red', weight: 2 }).addTo(mymap);
+          L.polygon(polygonPoints, { color: '<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
       
           // Add numbered markers at each vertex with optional labels
           // Use sorted array with original indices, so that the labels match

@@ -43,6 +43,7 @@ if (!isset($userIP)) {
     $userID = "guest";
     $theme = "black";
     $default_carrier = "ATT";
+    $accent_color = "ff0000";
     $gmaps_util = "0";
     $debug_flag = "0";
     $prefLocType = "gps";

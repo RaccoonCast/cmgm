@@ -4,7 +4,7 @@
   /* Use darker colors if dark mode is enabled */
   --bg-color: <?php echo ($theme == 'black') ? 'black' : 'white' ; ?>;
   --primary-color: <?php echo ($theme == 'black') ? 'white' : 'black'; ?>;
-  --border-color: <?php echo ($theme == 'black') ? 'red' : 'black'; ?>;
+  --border-color: <?php echo ($theme == 'black') ? 'var(--accent-color)' : 'black'; ?>;
 
   background-color: var(--bg-color);
   max-width: 600px;

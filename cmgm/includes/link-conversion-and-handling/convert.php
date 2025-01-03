@@ -24,9 +24,11 @@ function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
+// Attempt coordinate string conversion (e.g., "Latitude: 42.3723˚N, Longitude: 71.9544˚W")
+if(preg_match('/Latitude: [\d.]+˚[NS], Longitude: [\d.]+˚[EW]/', $data)) include "convert/lat-long-string-to-vars.php";
 // Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
 if ((strpos($data, 'Latitude') !== false || strpos($data, 'Longitude') !== false) OR
-    (strpos($data, 'LAT ') !== false || strpos($data, 'LONG') !== false)) {
+    (strpos($data, 'LAT ') !== false || strpos($data, 'LONG') !== false) && !isset($conv_type)) {
     include "convert/lat,long-mod.php";
 }
 // Attempt comma seperating lat,long to $lat,$long

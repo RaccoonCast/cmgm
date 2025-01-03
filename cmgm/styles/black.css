@@ -20,8 +20,8 @@ input[type=text],input[type=number],textarea,select,option,.inline-btn {
 select:focus, textarea:focus, .cmgm-btn:focus, input[type=text]:focus {
     position: relative; /* lets box-shadow overlap other elements */
     outline: none !important; /* remove boring outline */
-    border: 1px solid red!important; /* add red border */
-    box-shadow: 0 0 30px red; /* add box-shadow*/
+    border: 1px solid var(--accent-color)!important; /* add red border */
+    box-shadow: 0 0 30px var(--accent-color); /* add box-shadow*/
 }
 /* link colors */
 a:link {color: #8ab4f8; text-decoration: none;}
