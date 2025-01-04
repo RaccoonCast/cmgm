@@ -11,3 +11,15 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+/* Hide arrows from eNB/gNB box, copied from W3Schools */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
