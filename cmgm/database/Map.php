@@ -272,7 +272,7 @@
       // Check if there are enough valid points to draw a polygon
       if (polygonPoints.length >= 1) {
           // Add the polygon to the map
-          L.polygon(polygonPoints, { color: '<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
+          L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
       
           // Add numbered markers at each vertex with optional labels
           // Use sorted array with original indices, so that the labels match
