@@ -88,6 +88,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 <div class="header">
    <div id="formContainerContainer">
       <div id="formsContainer">
+        <!-- Add carriers -->
          <?php foreach($carrierList as $index => $value) { ?>
          <form class="carrierForm">
             <!-- // Set name of index -->
@@ -105,6 +106,9 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             </select>
             <!-- eNB -->
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="<?php echo $ratList[$index] == 'NR' ? 'gNB' : 'eNB'; ?>" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
+            <!-- TAC -->
+            <input type="number" class="tac" name="tac" placeholder="TAC"></input>
+            <!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
             <!-- Delete button -->
             <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>

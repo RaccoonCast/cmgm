@@ -102,7 +102,7 @@ function getMultipleFromDb($conn, $cellIdList, $plmn) {
 	$cellIdListStr = implode(', ', $cellIdList);
 
 	// Query to retrieve the data
-	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info
+	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source
               FROM cmgm.local_poly
               WHERE cell_id IN ($cellIdListStr)
               AND plmn = $plmn";
@@ -134,6 +134,71 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
 
     // Return the cellId by adding the cellNumber to the base
     return $base + (int)$cellNumber;
+}
+
+/**
+ * Generate a cURL handle for Apple Surro API
+ * @param mixed $carrier
+ * @param mixed $cellId
+ * @param mixed $tac
+ * @return CurlHandle
+ */
+function genAppleHandle($carrier, $cellId, $tac): CurlHandle {
+	$requestPayload = [
+		"carrier" => (int) $carrier,
+		"cid" => (int) $cellId,
+		"tac" => (int) $tac
+	];
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://cmgm.us/AppleSurro/api-getTowerLocation.php');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestPayload));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+
+	return $ch;
+}
+
+/**
+ * Generate cURL handle for Google Geolocation API
+ * @param mixed $carrier six-digit PLMN
+ * @param mixed $cellId 
+ * @param mixed $rat
+ * @param mixed $cellIdLabel Cell ID unit, dependent on RAT
+ * @param mixed $signalLabel Signal strength unit, dependent on RAT
+ * @param mixed $maps_api_key Google Maps API key
+ * @return CurlHandle
+ */
+function genGoogleHandle($carrier, $cellId, $rat, $cellIdLabel, $signalLabel, $maps_api_key): CurlHandle {
+	// Build curl handle for google
+	$mobileCountryCode = substr($carrier, 0, 3);
+	$mobileNetworkCode = substr($carrier, 3);
+
+	$requestPayload = [
+			"cellTowers" => [
+					[
+							$cellIdLabel => $cellId,
+							"mobileCountryCode" => $mobileCountryCode,
+							"mobileNetworkCode" => $mobileNetworkCode,
+							"age" => 1,
+							$signalLabel => -40,
+					]
+			],
+			"considerIp" => false,
+			"homeMobileCountryCode" => $mobileCountryCode,
+			"homeMobileNetworkCode" => $mobileNetworkCode,
+			"radioType" => $rat,
+	];
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/geolocation/v1/geolocate?key=' . $maps_api_key);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestPayload));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+	return $ch;
 }
 
 ?>
