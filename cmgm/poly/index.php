@@ -7,11 +7,12 @@ $poly = true;
 $titleOverride = true;
 include "../functions.php";
 
-// Extract eNBs
+// Extract eNBs and TACs
 $carrierList = [];
 $ratList = [];
 $enbList = [];
 $cellListList = [];
+$tacList = [];  // <-- New TAC array
 
 foreach($_GET as $key => $value) {
     if (str_starts_with($key, 'plmn')) {
@@ -22,31 +23,29 @@ foreach($_GET as $key => $value) {
         array_push($enbList, $value);
     } else if (str_starts_with($key, 'cellList')) {
         array_push($cellListList, $value);
+    } else if (str_starts_with($key, 'tac')) {  // <-- Collect TAC values
+        array_push($tacList, $value);
     }
- }
+}
 
- // Check that the length of all lists is the same
- // (If not, the params are invalid, and we should tell the user to re-do)
- foreach([$ratList, $enbList, $cellListList] as $value ) {
+// Check that the length of all lists is the same
+foreach([$ratList, $enbList, $cellListList] as $value ) {
     if (count($carrierList) != count($value)) {
         echo 'bad parameters!';
         return false;
     }
- }
+}
 
- // If all lists are blank, add template carrier
- if (count($carrierList) === 0) {
-    // echo 'adding template item';
+// If all lists are blank, add template carrier (and TAC)
+if (count($carrierList) === 0) {
     array_push($carrierList, '310410');
     array_push($ratList, 'LTE');
     array_push($enbList, '');
     array_push($cellListList, '');
- }
+    array_push($tacList, ''); // <-- Default tac value
+}
 
-//  echo implode(' ', $carrierList), "|", implode(' ', $ratList), "|", implode(' ', $enbList), "|", implode(' ', $cellListList);
-
-
-// If URL parmeters are prefilled, handle the data
+// If URL parameters are prefilled, handle the data
 if (
     array_filter($carrierList, 'is_numeric') === $carrierList &&
     array_filter($ratList, fn($val) => $val === 'LTE' || $val === 'NR') === $ratList &&
@@ -67,6 +66,7 @@ if (
         $polyFormData['rat' . $namedIndex] = $ratList[$index];
         $polyFormData['eNB' . $namedIndex] = $enbList[$index];
         $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
+        $polyFormData['tac' . $namedIndex] = $tacList[$index] ?? '';  // <-- Added TAC
 
     }
     // Create polygon and poly url.
@@ -107,7 +107,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <!-- eNB -->
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="<?php echo $ratList[$index] == 'NR' ? 'gNB' : 'eNB'; ?>" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
             <!-- TAC -->
-            <input type="number" class="tac" name="tac" placeholder="TAC"></input>
+            <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
             <!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
             <!-- Delete button -->
