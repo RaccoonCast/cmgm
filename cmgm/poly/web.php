@@ -1,6 +1,8 @@
 <?php
 // Set-up JSON headers.
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Credentials: true');
 
 // Setup error function
 $prettyPost = json_encode($_POST);

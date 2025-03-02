@@ -22,3 +22,6 @@ RewriteRule ^(\d+)$ /database/Edit.php?search=$1&ph [R=301,L]
 
 # Default redirect if no specific parameter is given
 RewriteRule ^(\d+)$ /database/Edit.php?search=$1 [R=301,L]
+
+# Redirect cmgm.us/latest to latest record (figuring out latest is done by php tho)
+RewriteRule ^latest$ /database/Edit.php?q=latest [R=301,L]
