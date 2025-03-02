@@ -17,10 +17,12 @@
     }
 
     const eNB = "<?php echo $eNB; ?>";
+    const TAC = "<?php echo $region_lte; ?>";
 
     // // Generate data for request
     let postData = new FormData();
     postData.append('eNB', eNB);
+    postData.append('tac', TAC);
     postData.append('plmn', carrierCellList[0]);
     postData.append('rat', 'LTE');
     postData.append('cellList', carrierCellList[1].join(','));

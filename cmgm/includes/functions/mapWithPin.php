@@ -1,5 +1,5 @@
 <?php
-function MapWithPin($lat,$long,$zoom,$width,$height,$limit, $carrier, $userID, $eNB) { 
+function MapWithPin($lat,$long,$zoom,$width,$height,$limit, $carrier, $userID, $eNB, $region_lte) { 
    // Add polygons to embed map
    include "iframeAddPolygon.js.php";
    ?>
