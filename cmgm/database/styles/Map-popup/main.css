@@ -58,6 +58,6 @@ padding-top: 0.33em;
 padding-bottom: 0.33em;
 }
 .label {
-	min-width: 100%;
+	/* min-width: 100%; // Firefox breaks */ 
 	width: 25%;
 }
