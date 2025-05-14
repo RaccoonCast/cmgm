@@ -97,6 +97,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
                <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
                <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
+               <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
                <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
             </select>
             <!-- RAT -->

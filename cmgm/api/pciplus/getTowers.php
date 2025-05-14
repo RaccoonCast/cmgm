@@ -17,6 +17,8 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
       "310260" => "T-Mobile",
       "311480" => "Verizon",
       "310120" => "Sprint",
+      "311490" => "Sprint",
+      "312250" => "Sprint",
       "310410" => "ATT",
       "313100" => "ATT",
       "313340" => "Dish"
