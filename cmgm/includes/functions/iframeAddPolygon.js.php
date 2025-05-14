@@ -17,6 +17,8 @@
     }
 
     const eNB = "<?php echo $eNB; ?>";
+    const region_lte = "<?php echo $region_lte; ?>";
+
 
     // // Generate data for request
     let postData = new FormData();
@@ -90,7 +92,7 @@
         iframe.contentDocument.querySelector('#openPolyButton').onclick = () => {
 
         // Generate our own poly URL  
-        const polyUrl = `/poly/?plmn=${carrierCellList[0]}&rat=LTE&eNB=${eNB}&cellList=${carrierCellList[1]}`
+        const polyUrl = `/poly/?plmn=${carrierCellList[0]}&rat=LTE&eNB=${eNB}&tac=${region_lte}&cellList=${carrierCellList[1]}`
 
         // Set it to open in new tab
         window.open(polyUrl, '_blank');
