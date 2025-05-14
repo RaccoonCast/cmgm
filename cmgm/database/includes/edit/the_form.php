@@ -228,10 +228,19 @@
       <input placeholder="Tags" type="text" class="tags_cw" name="tags" value="<?php echo @$tags?>">
       <input placeholder="Site ID" type="text" class="site_id_cw ib" name="site_id" value="<?php echo @$site_id?>">
 
-    <?php if ($isMobile !="true") { ?>
-    <textarea rows="10" cols="120" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } else { ?>
-    <textarea rows="6" cols="50" class="notes" placeholder="Notes" name="notes"><?php echo @$notes?></textarea> <?php } ?>
-
+    <?php
+    $containerClass = ($cmgm_edit_history_compact == "true") ? 'flex' : '';
+    $notesClass = 'notes' . (($cmgm_edit_history_compact == "true") ? ' notes_compact' : '');
+    $notesRows = ($isMobile == "true") ? 6 : 10;
+    $notesCols = ($isMobile == "true") ? 50 : 120;
+    ?>
+    <div class="<?php echo $containerClass; ?>">
+    <textarea rows="<?php echo $notesRows; ?>" cols="<?php echo $notesCols; ?>" class="<?php echo $notesClass; ?>" placeholder="Notes" name="notes"><?php echo @$notes; ?></textarea>
+    
+    <?php if ($cmgm_edit_history_compact == "true"): ?>
+        <textarea rows="10" cols="120" class="edit_history edit_history_compact" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br>
+    <?php endif; ?>
+    </div>
 
     </div>
     <div class="panel2" <?php if ($isMobile == false && $cmgm_edit_override_panels_widths == "true") echo 'style="float: right; width: '.$cmgm_edit_panel2_width-0.07.'%"'?>>
@@ -305,13 +314,13 @@
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
     type="number" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>
     </div>
-    <?php if ($cmgm_edit_hide_edit_history == "false") if ($isMobile !="true") { ?>
-    <textarea rows="10" cols="120" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } else { ?>
+    <?php if ($cmgm_edit_hide_edit_history == "false" && $cmgm_edit_history_compact == "false") if ($isMobile !="true") { ?>
+    <textarea rows="10" cols="120" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><?php } else { ?>
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
     <?php if (!empty($latitude)) include "includes/edit/mapWithPin.php"; ?>
     <?php if (isset($new)) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
-<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.25cm" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
+<?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.35cm" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
 if (@$padlock == "true") echo '</fieldset>'; ?>
 
 </form>

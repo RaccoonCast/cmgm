@@ -1,12 +1,15 @@
 body {
-	margin: 6px;
+	margin: 0px;
 	margin-top: 3px;
 }
 label {
   display: inline-block;
   padding-top: 5px;
   padding-bottom: 5px;
-	font-size: 0.93em;
+  font-size: 0.93em;
+}
+textarea {
+	display: block;
 }
 input[type=text],input[type=search],input[type=number],option,select {
     height: 34px;
@@ -17,12 +20,12 @@ input[type=text],input[type=search],input[type=number],option,select {
 }
 @media (min-width:1871px) {
 /* Panels (split page in half) */
-.panel1 { width: 55.93%; float: left; }
-.panel2 { width: 43.93%; float: right; }
+.panel1 { width: 56%; float: left; }
+.panel2 { width: 44%; float: right; }
 }
-._panel1 { width: 33%; float: left; padding-right: 0.5%; }
-._panel2 { width: 33%; float: left; padding-right: 0.5%; }
-._panel3 { width: 33%; float: right; }
+._panel1 { width: 33.3333%; float: left;  }
+._panel2 { width: 33.3333%; float: left; }
+._panel3 { width: 33.3333%; float: right; }
 div[class^="_panel"] label {
   font-size: 0.9em;
 	white-space: nowrap;
@@ -58,17 +61,19 @@ abbr, .nounderline {text-decoration: none!important;}
 
 /* Left Side Menu*/
 .cellsite_type_label, .tags_label, .id_params_label, .lte_nr_label, .addr_label, .latitude_longitude_label, .pci_label, .sv_label, .misc_label {
-	max-width: 18%; width: 100%;
+	margin-left: 4px;
+	width: calc(18% - 4px)!important; width: 100%;
 	float: left;
 }
 .region_cw { float: left;}
 .nr_cw_dish { max-width: 27.333%!important;}
 .nr_region_dish { max-width: 20.5%!important;}
 .nr_cw { max-width: 6.8333%; float: left}
-.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw, .addr_address_cw, .addr_city_cw {max-width: 20.5%!important;}
+.status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw, .id_params_cw {max-width: 20.5%!important;}
+.addr_address_cw, .addr_city_cw { max-width: 20.495%!important; }
 .region_cw, .latitude_cw, .longitude_cw {max-width: 10.25%;}
 .addr_state_cw { max-width: 3.54%;}
-.addr_zip_cw { max-width: 4.666%;}
+.addr_zip_cw { max-width: 4.731%;}
 .addr_county_cw { max-width: 12.234%;}
 .misc_50_cw,.misc_39_cw {width: 16.4%!important;}
 .misc_cw[name="cm_pin_distance"],.misc_cw[name="split_sector"],.misc_cw[name="cm_pin_inverted"],.misc_cw[name="special_setup"] {
@@ -80,16 +85,18 @@ abbr, .nounderline {text-decoration: none!important;}
 .pci_cw, .lte_cw {width: 6.8333%!important; float: left;}
 .sv_cw {max-width: 22.6673%; }
 .sv_date_cw {max-width: 4.666%;}
-.tags_cw {max-width: 65.6%!important; float: left;}
-.site_id_cw {max-width: 16.4%!important; }
+.tags_cw {max-width: 54.666%!important; float: left;}
+.site_id_cw {max-width: 27.334%!important; }
 .sv1_label {max-width: 50%!important;}
 .sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .bingmaps_label {
-	width:16%!important;
+	margin-left: 4px;
+	width: calc(16% - 4px)!important;
 }
 .evidence_scores_label {
-	width:78%!important;
+	margin-left: 4px;
+	width: calc(78% - 4px)!important;
 }
 .photo_cw, .evidence_cw, .extra_cw, .bingmaps_cw {
 	width:28%!important;
@@ -117,3 +124,4 @@ a[href^="?id="] {
 .latitude_longitude_label > span > a {
 	padding: 5px;
 }
+.edit_history_compact,.notes_compact {width: 50%!important;}

@@ -80,6 +80,7 @@ include "includes/edit/file_attach_link_gen.php";
 ?>
 </head>
 <body>
+
 <?php
 // Redit if sv/ev/ph are specified in URL.
 if (isset($_GET['sv'])) redir($sv_a,0);
@@ -88,7 +89,7 @@ if (isset($_GET['ph'])) { include_once SITE_ROOT . '/includes/functions/convert-
 // THE FORM
 include "includes/edit/the_form.php";
 $no_edit = "true";
-echo '<div class="edit_utilitiy_holder">';
+echo '<div style="margin: 5px 0px 0px 10px" class="edit_utilitiy_holder">';
 if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
 if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
 echo '</div>';

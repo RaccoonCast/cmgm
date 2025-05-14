@@ -5,6 +5,9 @@ input,option,select {
 }
 .ib { display: inline-block;}
 h4 {
+  margin: 0.33em;
+}
+h1 {
   margin: 0.5em;
 }
 .cmcheckboxes {

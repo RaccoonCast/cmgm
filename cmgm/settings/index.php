@@ -29,6 +29,7 @@ header("Pragma: no-cache");
       'cm_zoom', 
       'prefLocType', 
       'cmgm_edit_hide_edit_history', 
+      'cmgm_edit_history_compact', 
       'cmgm_edit_pinspace_warn', 
       'cmgm_edit_override_panels_widths', 
       'cmgm_edit_panel1_width', 
@@ -125,17 +126,25 @@ header("Pragma: no-cache");
 
         <br><br><h4>CMGM Edit Settings:</h4>
 
-        <div class="cmcheckboxes ib"><label for="cmgm_edit_override_panels_widths">Custom width for panels<input
+        <div style="text-align: center" class="cmcheckboxes ib">
+          
+        <label for="cmgm_edit_override_panels_widths">Custom width for panels<input
         type="hidden" name="cmgm_edit_override_panels_widths" value="false"><input
         type="checkbox" id="cmgm_edit_override_panels_widths_checkbox" name="cmgm_edit_override_panels_widths" value="true" <?php if($cmgm_edit_override_panels_widths == "true") echo 'checked';?>></label>
 
         <label for="cmgm_edit_pinspace_warn"><?php if(!isMobile()) echo " | " ?>Hide pin spacing warnings<input
         type="hidden" name="cmgm_edit_pinspace_warn" value="false"><input
         type="checkbox" id="cmgm_edit_pinspace_warn_checkbox" name="cmgm_edit_pinspace_warn" value="true" <?php if($cmgm_edit_pinspace_warn == "true") echo 'checked';?>></label>
+        <br>
+        <label for="cmgm_edit_history_compact"><?php if(!isMobile()) echo "" ?>Compact edit history<input
+        type="hidden" name="cmgm_edit_history_compact" value="false"><input
+        type="checkbox" id="cmgm_edit_history_compact" name="cmgm_edit_history_compact" value="true" <?php if($cmgm_edit_history_compact == "true") echo 'checked';?>></label>
 
         <label for="cmgm_edit_hide_edit_history"><?php if(!isMobile()) echo " | " ?>Hide edit history<input
         type="hidden" name="cmgm_edit_hide_edit_history" value="false"><input
-        type="checkbox" id="cmgm_edit_hide_edit_history_checkbox" name="cmgm_edit_hide_edit_history" value="true" <?php if($cmgm_edit_hide_edit_history == "true") echo 'checked';?>></label></div>
+        type="checkbox" id="cmgm_edit_hide_edit_history_checkbox" name="cmgm_edit_hide_edit_history" value="true" <?php if($cmgm_edit_hide_edit_history == "true") echo 'checked';?>></label>
+      
+        </div>
 
         <h4>CellMapper Link Settings:</h4>
         <script>
