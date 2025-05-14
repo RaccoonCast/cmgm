@@ -12,7 +12,7 @@ surro.getSurroundingCells(mcc, mnc, cid, lac)
   .then(cells => {
 	cells.data.forEach((cell) => {
 		output.push(
-			{ lat: cell.latitude, lon: cell.longitude, accuracy: cell.accuracy, eNB: cell.eNB, mcc: cell.mmc, mnc: cell.mnc }
+			{ lat: cell.latitude, lon: cell.longitude, accuracy: cell.accuracy, eNB: cell.eNB, mcc: cell.mmc, mnc: cell.mnc, lac: cell.tacId }
 	)})
     console.log(JSON.stringify(output));
   })
