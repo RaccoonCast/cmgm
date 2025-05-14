@@ -15,7 +15,7 @@ if ($_FILES["fileToUpload"]["size"] > 25) {
     die();
   }
   
-  $allowedFileTypes = ['png', 'jpg', 'pdf', 'webp', 'jpeg', 'json'];
+  $allowedFileTypes = ['png', 'jpg', 'pdf', 'webp', 'jpeg', 'json', 'csv'];
   
   if (!in_array($fileType, $allowedFileTypes)) {
       echo "Invalid file type. Allowed types are: " . implode(', ', $allowedFileTypes);
