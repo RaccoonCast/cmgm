@@ -250,6 +250,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                           ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Google'";
             $conn->query($sqlInsert);
 
+            // Update UserID DB to +1 gmaps api utilization
+            mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$p'");
+
         } else {
             // tell database that it was not found
             $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) 
