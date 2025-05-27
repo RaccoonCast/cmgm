@@ -144,18 +144,25 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
  * @return CurlHandle
  */
 function genAppleHandle($carrier, $cellId, $tac): CurlHandle {
+	
+	// Generate payload for Apple
 	$requestPayload = [
-		"carrier" => (int) $carrier,
-		"cid" => (int) $cellId,
-		"tac" => (int) $tac
+		"cellTowers" => [
+			[
+				"locationAreaCode" => $tac,
+				"cellId" => $cellId,
+				"mobileCountryCode" => substr($carrier, 0, 3),
+				"mobileNetworkCode" => substr($carrier, 3, 3),
+			]
+		],
 	];
 	
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://cmgm.us/AppleSurro/api-getTowerLocation.php');
+	curl_setopt($ch, CURLOPT_URL, 'http://localhost:1234/geolocate');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestPayload));
-	curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestPayload));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
 	return $ch;
 }

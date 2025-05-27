@@ -44,7 +44,7 @@
       </button>
       <button class="special_button" id="refreshButton">
         <div class="buttonContainer">🔃</div>
-      </button> 
+      </button>
     <?php } ?>
     <?php if (isset($_GET['showPolyLink'])) { ?>
       <button class="special_button" id="openPolyButton" style="top: 79px;">
@@ -59,7 +59,8 @@
     $database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
 
     $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
-    if (isset($_GET['showsql'])) echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
+    if (isset($_GET['showsql']))
+      echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
     $result = mysqli_query($conn, $sql);
 
     $resultArray = mysqli_fetch_all($result);
@@ -83,7 +84,7 @@
       long = <?php echo $longitude ?>;
 
       // Cast add event listeners for buttons
-      <?php if ($_GET['hideui'] !== "true") { ?>
+      <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true') { ?>
         document.getElementById('refreshButton').addEventListener('click', () => location.reload());
         document.getElementById('backButton').addEventListener('click', () => history.back());
       <?php } ?>
@@ -165,12 +166,12 @@
 
       // Copy coords on right-click.
       mymap.on('contextmenu', (event) => {
-            const { lat, lng } = event.latlng;
-            const coordinates = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        const { lat, lng } = event.latlng;
+        const coordinates = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
 
-            // Copy coordinates to clipboard
-            navigator.clipboard.writeText(coordinates);
-        });
+        // Copy coordinates to clipboard
+        navigator.clipboard.writeText(coordinates);
+      });
 
       // Create a custom keyboard shortcut for refreshing the map
       document.addEventListener('keydown', function (event) {
@@ -197,29 +198,29 @@
       /* BEGIN CAST JS */
       // Function to extract query parameters from the URL
       function getQueryParams() {
-          const queryString = window.location.search.slice(1);
-          const params = {};
-          queryString.split('&').forEach(pair => {
-              const [key, value] = pair.split('=');
-              params[decodeURIComponent(key)] = decodeURIComponent(value || '');
-          });
-          return params;
+        const queryString = window.location.search.slice(1);
+        const params = {};
+        queryString.split('&').forEach(pair => {
+          const [key, value] = pair.split('=');
+          params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        });
+        return params;
       }
 
       // Function to sort points in counterclockwise order around their centroid
       function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
-          // Calculate the centroid
-          const centroid = coordinatePairArray.reduce(
-              (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
-              [0, 0]
-          ).map(coord => coord / coordinatePairArray.length);
-          
-          // Sort points based on angle relative to the centroid
-          return pointsWithIndices.sort((a, b) => {
-              const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
-              const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
-              return angleA - angleB;
-          });
+        // Calculate the centroid
+        const centroid = coordinatePairArray.reduce(
+          (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
+          [0, 0]
+        ).map(coord => coord / coordinatePairArray.length);
+
+        // Sort points based on angle relative to the centroid
+        return pointsWithIndices.sort((a, b) => {
+          const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
+          const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
+          return angleA - angleB;
+        });
       }
 
       // Extract parameters from the URL
@@ -228,39 +229,41 @@
       // Parse polygon points from the URL
       let polygonPoints = [];
       if (params.polygon) {
-          try {
-              polygonPoints = params.polygon.split(',').map(Number).reduce((acc, value, index, array) => {
-                  if (index % 2 === 0) {
-                      acc.push([value, array[index + 1]]);
-                  }
-                  return acc;
-              }, []).filter(point => point.length === 2);
+        try {
+          polygonPoints = params.polygon.split(',').map(Number).reduce((acc, value, index, array) => {
+            if (index % 2 === 0) {
+              acc.push([value, array[index + 1]]);
+            }
+            return acc;
+          }, []).filter(point => point.length === 2);
 
 
-              // Store points with original indices
-              let polygonPointsWithIndices = [];
-              for (let coordPair of polygonPoints) {
-                polygonPointsWithIndices.push({
-                  originalIndex: polygonPoints.indexOf(coordPair),
-                  coords: coordPair
-                });
-              }
-
-              // Sort the points to ensure they form a proper polygon
-              polygonPointsWithIndicesSorted = sortPointsClockwise(polygonPoints, polygonPointsWithIndices);
-
-              // re-remove indices
-              polygonPoints = [];
-              for (let i of polygonPointsWithIndicesSorted) {
-                polygonPoints.push(i.coords);
-              }
-              
-
-              console.log(polygonPoints, polygonPointsWithIndices)
-          } catch (error) { 
-              console.error('Error parsing polygon points:', error);
-              polygonPoints = [];
+          // Store points with original indices
+          let polygonPointsWithIndices = [];
+          for (let coordPair of polygonPoints) {
+            polygonPointsWithIndices.push({
+              originalIndex: polygonPoints.indexOf(coordPair),
+              coords: coordPair
+            });
           }
+
+          console.log('pp:', polygonPoints);
+
+          // Sort the points to ensure they form a proper polygon
+          polygonPointsWithIndicesSorted = sortPointsClockwise(polygonPoints, polygonPointsWithIndices);
+
+          // re-remove indices
+          polygonPoints = [];
+          for (let i of polygonPointsWithIndicesSorted) {
+            polygonPoints.push(i.coords);
+          }
+
+
+          console.log(polygonPoints, polygonPointsWithIndices)
+        } catch (error) {
+          console.error('Error parsing polygon points:', error);
+          polygonPoints = [];
+        }
       }
 
       // Parse labels for the polygon vertices
@@ -271,21 +274,37 @@
 
       // Check if there are enough valid points to draw a polygon
       if (polygonPoints.length >= 1) {
-          // Add the polygon to the map
-          L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
-      
-          // Add numbered markers at each vertex with optional labels
-          // Use sorted array with original indices, so that the labels match
-          polygonPointsWithIndicesSorted.forEach((point) => {
-              const label = polygonLabels[point.originalIndex] // Use original index
-              const marker = L.marker(point.coords, { opacity: 0 })
-                  .bindTooltip(`${label}`, { permanent: true, direction: 'center', className: 'label-tooltip' })
-                  .addTo(mymap);
-              // add to list
-              polygonVertexMarkerList.push(marker);
-          });
+        // Add the polygon to the map
+        L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
+
+        // Merge duplicates and assign labels
+        function combineDuplicatesAndLabel(arr) {
+          const map = new Map();
+          for (const item of arr) {
+            let itemCoords = JSON.stringify(item.coords);
+            if (!map.has(itemCoords)) {
+              map.set(itemCoords, { coords: itemCoords, label: [polygonLabels[item.originalIndex]] });
+            } else {
+              map.get(itemCoords).label.push(polygonLabels[item.originalIndex]);
+            }
+          }
+          return Array.from(map.values());
+        }
+        let polygonPointsWithLabels = combineDuplicatesAndLabel(polygonPointsWithIndicesSorted)
+          .map(p => { p.coords = JSON.parse(p.coords); return p });
+
+        // Add numbered markers at each vertex with optional labels
+        // Use sorted array with original indices, so that the labels match
+        polygonPointsWithLabels.forEach((point) => {
+          const label = point.label//polygonLabels[point.originalIndex] // Use original index
+          const marker = L.marker(point.coords, { opacity: 0 })
+            .bindTooltip(`${label}`, { permanent: true, direction: 'center', className: 'label-tooltip' })
+            .addTo(mymap);
+          // add to list
+          polygonVertexMarkerList.push(marker);
+        });
       } else {
-          console.log('No valid polygon points provided in URL parameters.');
+        console.log('No valid polygon points provided in URL parameters.');
       }
 
 
@@ -302,35 +321,61 @@
 
 
           switch ($sepCount) {
-            case 1:  $id = $value; break;
-            case 2:  $pin_carrier = $value; break;
-            case 3:  $lat = $value; break;
-            case 4:  $long = $value; break;
-            case 5:  $cellsite_type = $value; break;
-            case 6:  $concealed = $value; break;
-            case 7:  $status = $value; break;
-            case 8:  $tags = $value;
+            case 1:
+              $id = $value;
+              break;
+            case 2:
+              $pin_carrier = $value;
+              break;
+            case 3:
+              $lat = $value;
+              break;
+            case 4:
+              $long = $value;
+              break;
+            case 5:
+              $cellsite_type = $value;
+              break;
+            case 6:
+              $concealed = $value;
+              break;
+            case 7:
+              $status = $value;
+              break;
+            case 8:
+              $tags = $value;
 
-            // Carrier pin styles
-            if (@$pin_style == "carrier" or !isset($carrier)) {
+              // Carrier pin styles
+              if (@$pin_style == "carrier" or !isset($carrier)) {
                 $status = NULL;
                 if ($pin_carrier == "T-Mobile") {
                   $status = "tmobile";
-                  if (like_match('sprint_keep,%',$tags) == "TRUE" OR like_match('%,sprint_keep',$tags) == "TRUE" OR like_match('%,sprint_keep,%',$tags) == "TRUE" OR $tags == "sprint_keep") $status = "sprint_keep";
-                } 
-                if ($pin_carrier == "ATT") $status = "att";
-                if ($pin_carrier == "Sprint") $status = "sprint";
-                if ($pin_carrier == "Verizon") $status = "verizon";
-                if ($pin_carrier == "Dish") $status = "dish";
-                if (empty($status)) $status = "unknown";
-           }
+                  if (like_match('sprint_keep,%', $tags) == "TRUE" or like_match('%,sprint_keep', $tags) == "TRUE" or like_match('%,sprint_keep,%', $tags) == "TRUE" or $tags == "sprint_keep")
+                    $status = "sprint_keep";
+                }
+                if ($pin_carrier == "ATT")
+                  $status = "att";
+                if ($pin_carrier == "Sprint")
+                  $status = "sprint";
+                if ($pin_carrier == "Verizon")
+                  $status = "verizon";
+                if ($pin_carrier == "Dish")
+                  $status = "dish";
+                if (empty($status))
+                  $status = "unknown";
+              }
               if (@$pin_style != "basic") {
-                if (like_match('decom,%',$tags) == "TRUE" OR like_match('%,decom',$tags) == "TRUE" OR like_match('%,decom,%',$tags) == "TRUE" OR $tags == "decom") $status = "decom";
-                if (like_match('unmapped,%',$tags) == "TRUE" OR like_match('%,unmapped',$tags) == "TRUE" OR like_match('%,unmapped,%',$tags) == "TRUE" OR $tags == "unmapped") $status = "unmapped";
-                if (like_match('weird,%',$tags) == "TRUE" OR like_match('%,weird',$tags) == "TRUE" OR like_match('%,weird,%',$tags) == "TRUE" OR $tags == "weird") $status = "weird";
-                if (like_match('wip,%',$tags) == "TRUE" OR like_match('%,wip',$tags) == "TRUE" OR like_match('%,wip,%',$tags) == "TRUE" OR $tags == "wip") $status = "wip";
-                if (like_match('special,%',$tags) == "TRUE" OR like_match('%,special',$tags) == "TRUE" OR like_match('%,special,%',$tags) == "TRUE" OR $tags == "special") $status = "special";
-           }
+                if (like_match('decom,%', $tags) == "TRUE" or like_match('%,decom', $tags) == "TRUE" or like_match('%,decom,%', $tags) == "TRUE" or $tags == "decom")
+                  $status = "decom";
+                if (like_match('unmapped,%', $tags) == "TRUE" or like_match('%,unmapped', $tags) == "TRUE" or like_match('%,unmapped,%', $tags) == "TRUE" or $tags == "unmapped")
+                  $status = "unmapped";
+                if (like_match('weird,%', $tags) == "TRUE" or like_match('%,weird', $tags) == "TRUE" or like_match('%,weird,%', $tags) == "TRUE" or $tags == "weird")
+                  $status = "weird";
+                if (like_match('wip,%', $tags) == "TRUE" or like_match('%,wip', $tags) == "TRUE" or like_match('%,wip,%', $tags) == "TRUE" or $tags == "wip")
+                  $status = "wip";
+                if (like_match('special,%', $tags) == "TRUE" or like_match('%,special', $tags) == "TRUE" or like_match('%,special,%', $tags) == "TRUE" or $tags == "special")
+                  $status = "special";
+              }
 
               // End of PHP, generate marker and add to map.
               ?>
@@ -351,14 +396,14 @@
       if (useCoordCenter) {
         const markerGroup = new L.featureGroup(markerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
-      // Zoom to fit all vertices of polygon (if applicable)
+        // Zoom to fit all vertices of polygon (if applicable)
       } else if (polygonVertexMarkerList && !skipPolyZoom) {
         const markerGroup = new L.featureGroup(polygonVertexMarkerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
       }
 
     </script>
-    <?php if ($_GET['hideui'] !== "true")
+    <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true')
       include "includes/footer.php"; ?>
   </div>
 </body>

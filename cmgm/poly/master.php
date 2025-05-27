@@ -65,7 +65,6 @@ foreach ($formData as $index => $data) {
 
     $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn); // Query DB for all simultaneously
 
-
     // Reformat associative array to be keyed by cell ID
     $dbDump_dataMap = [];
     if ($arrayResults != null) {
@@ -102,6 +101,7 @@ foreach ($formData as $index => $data) {
             } else {
                 // Get cache provider
                 $cacheProvider = $tmpDb['provider_source'];
+                $dateOfInfo = $tmpDb['date_of_info'];
 
                 // Convert remaining items to float
                 $tmpDb = array_map('floatval', $tmpDb);
@@ -109,6 +109,7 @@ foreach ($formData as $index => $data) {
                 $responses[$eNB][$cellNumber] = [
                     'provider' => 'Cache - ' . $cacheProvider,
                     'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
+                    'date' => $dateOfInfo,          // Using the latitude from the DB result
                     'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
                     'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
                     'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
@@ -154,15 +155,13 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $response = curl_multi_getcontent($handle);
         [$index, $cellNumber] = explode('-', $key);
 
+        $jsonResponse = json_decode($response, true);
 
-        // Check if Response is Empty (meaning Surro wrapper API returned nothing)
-        if ($response == 'Empty Response') {
-            // Continue to Google
-            logWarning('Empty Response for' . $cellNumber . ' on ' . $key);
+        // Check if Surro wrapper API returned nothing
+        if (isset($jsonResponse['error'])) {
+            logWarning('Surro returned no response for ' . $cellNumber . ' on ' . $key);
             continue; 
         }
-
-        $jsonResponse = json_decode($response, true);
 
         // Response is clean, so we should remove from the Google handler
         unset($curlHandles_goog[$key]);
@@ -196,7 +195,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $conn->query($sqlInsert);
      
     }
-
+    if (!isset($_GET['blockGoogle'])) {
     // Execute remaining Google lookups
     $google_multiCurl = curl_multi_init();
 
@@ -251,7 +250,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             $conn->query($sqlInsert);
 
             // Update UserID DB to +1 gmaps api utilization
-            mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$p'");
+            mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$userID'");
 
         } else {
             // tell database that it was not found
@@ -260,12 +259,17 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles)";
             $conn->query($sqlInsert);
         }
+     }
+
+     // Close leftover cURL instances to Google
+     curl_multi_close($google_multiCurl);
+
     }
 
 
-    // Close leftover cURL instances
+    // Close leftover cURL instances to Surro
     curl_multi_close($apple_multiCurl);
-    curl_multi_close($google_multiCurl);
+
 }
 
 if (empty($responses)) {
