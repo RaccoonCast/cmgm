@@ -14,17 +14,17 @@ $db_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tag
 $db_vars = "id > 0";
 $max_distance = "5";
 $num = 0;
-if (isset($_GET['properties'])) $db_get_list = $_GET['properties'];
-if (isset($_GET['max_distance'])) $max_distance = $_GET['max_distance'];
+if (isset($_GET['properties'])) $db_get_list = preg_replace('/[^a-zA-Z0-9_,]/', '', $_GET['properties']);
+if (isset($_GET['max_distance'])) $max_distance = preg_replace('/[^0-9]/', '', $_GET['max_distance']);
 
 foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit" OR $key == "properties" OR $key == "max_distance") {
-    ${$key} = $value;
+    ${$key} = preg_replace('/[^a-z0-9_,]/', '', $value);;
   } else {
     // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
       $db_get_list = $db_get_list . "," . $key;
 
-    $db_vars = $key . ' = "'.$value.'" AND ' . $db_vars;
+    $db_vars = preg_replace('/[^a-zA-Z0-9_]/', '', $key) . ' = "'.preg_replace('/[^a-zA-Z0-9_]/', '', $value).'" AND ' . $db_vars; 
   }
 }
 

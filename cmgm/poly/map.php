@@ -1,0 +1,130 @@
+<?php
+include "../functions.php";
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>eNB Polygon Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Extract parameters from the URL
+  const params = new URLSearchParams(window.location.search);
+  const defaultLat = parseFloat(params.get('latitude')) || 34.201;
+  const defaultLng = parseFloat(params.get('longitude')) || -118.44;
+  const defaultZoom = parseInt(params.get('zoom')) || 13;
+  const plmn = params.get('plmn') || '310410';
+
+  const mymap = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+  }).addTo(mymap);
+
+
+
+  // Update the URL with map center and zoom
+  function updateURLFromMap() {
+    const center = mymap.getCenter();
+    const zoom = mymap.getZoom();
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('latitude', center.lat.toFixed(6));
+    newUrl.searchParams.set('longitude', center.lng.toFixed(6));
+    newUrl.searchParams.set('zoom', zoom);
+    newUrl.searchParams.set('plmn', plmn);
+    history.replaceState(null, '', newUrl);
+  }
+
+  mymap.on('moveend zoomend', () => {
+    updateURLFromMap();
+    fetchAndRenderPolygons();
+  });
+
+  mymap.on('contextmenu', (event) => {
+            const { lat, lng } = event.latlng;
+            const coordinates = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+
+            // Copy coordinates to clipboard
+            navigator.clipboard.writeText(coordinates);
+  });
+
+  let drawnENBs = new Set();
+
+  function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
+    const centroid = coordinatePairArray.reduce(
+      (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
+      [0, 0]
+    ).map(coord => coord / coordinatePairArray.length);
+
+    return pointsWithIndices.sort((a, b) => {
+      const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
+      const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
+      return angleA - angleB;
+    });
+  }
+
+  async function fetchAndRenderPolygons() {
+    const center = mymap.getCenter();
+    const url = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const enbGroups = {};
+      data.forEach(item => {
+        if (!drawnENBs.has(item.enb)) {
+          if (!enbGroups[item.enb]) enbGroups[item.enb] = [];
+          // enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
+            enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
+        }
+      });
+
+      console.log(Object.entries(enbGroups));
+
+      for (const [enb, coords] of Object.entries(enbGroups)) {
+        if (coords.length < 3) continue; // Need at least 3 points to form polygon
+
+        // Get from request points with indices and information attached
+        const pointsWithIndices = coords.map((c, i) => ({ originalIndex: i, coords: c.coords, sector: c.sectorId }));
+
+        // Sort points while maintaining their indices and information
+        const sortedPoints = sortPointsClockwise(pointsWithIndices.map(el => el.coords), pointsWithIndices);//.map(p => p.coords);
+
+        // Create polygon based on points alone
+        const polygonPoints = sortedPoints.map(p => p.coords);
+        const polygon = L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
+        drawnENBs.add(enb);
+
+        // Iterate in sorted order
+        sortedPoints.forEach(pt => {
+          L.marker(pt.coords, { opacity: 0 })
+            // Bind label at coordinate
+            .bindTooltip(`${enb}-${pt.sector}`, {
+              permanent: true,
+              direction: 'center',
+              className: 'label-tooltip'
+            })
+            .addTo(mymap);
+        });
+      }
+    } catch (e) {
+      console.error('Error loading polygons:', e);
+    }
+  }
+
+  fetchAndRenderPolygons();
+</script>
+</body>
+</html>

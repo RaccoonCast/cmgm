@@ -15,13 +15,15 @@ $db_vars = "id > 0";
 
 
 foreach($_GET as $key => $value){
+  $clean_value = preg_replace('/[^0-9.]/', '', $value);
+
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
-    ${$key} = $value;
+    ${$key} = $clean_value;
   } else {
     // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
       $db_get_list = $db_get_list . "," . $key;
 
-    $db_vars = $key . ' = "'.$value.'" AND ' . $db_vars;
+    $db_vars = preg_replace('/[^a-zA-Z0-9_]/', '', $key) . ' = "'.preg_replace('/[^a-zA-Z0-9_]/', '', $value).'" AND ' . $db_vars;
   }
 }
 
