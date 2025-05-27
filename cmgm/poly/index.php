@@ -95,10 +95,11 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
             <!-- PLMN -->
             <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
-               <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
-               <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
-               <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
-               <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
+                <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
+                <option value="313100"<?php if ($value == '313100') echo ' selected'; ?>>FirstNet</option>
+                <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
+                <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
+                <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
             </select>
             <!-- RAT -->
             <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
