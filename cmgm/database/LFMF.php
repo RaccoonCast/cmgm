@@ -107,11 +107,11 @@ foreach($fileList as $filename){
           $LTE_1 = $row["LTE_1"];
           $region_lte = $row["region_lte"];
 
-          if ($carrier == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-          elseif ($carrier == "Sprint") $beginning = "MCC=310&MNC=120&";
-          elseif ($carrier == "ATT") $beginning = "MCC=310&MNC=410&";
-          elseif ($carrier == "Verizon") $beginning = "MCC=311&MNC=480&";
-          elseif ($carrier == "Dish") $beginning = "MCC=313&MNC=340&";
+          if ($carrier == "T-Mobile") $beginning = "MCC=310&MNC=260";
+          elseif ($carrier == "Sprint") $beginning = "MCC=310&MNC=120";
+          elseif ($carrier == "ATT") $beginning = "MCC=310&MNC=410";
+          elseif ($carrier == "Verizon") $beginning = "MCC=311&MNC=480";
+          elseif ($carrier == "Dish") $beginning = "MCC=313&MNC=340";
 
           $link = "https://www.cellmapper.net/map?$beginning&type=LTE&latitude=$latitude&longitude=$longitude&zoom=17&ppT=$LTE_1";
           echo '<a href="'.$link.'">#'.$id.'</a> ' . PHP_EOL;
