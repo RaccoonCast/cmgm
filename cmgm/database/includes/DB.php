@@ -3,8 +3,7 @@ include "../includes/functions/tower_types.php";
 if (!isset($_GET['limit'])) $limit = 75;
 $latitude_for_search = !empty($latitude) ? $latitude : $default_latitude;
 $longitude_for_search = !empty($longitude) ? $longitude : $default_longitude;
-$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type, (3959 * ACOS(COS(RADIANS(".@$latitude_for_search.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude_for_search.")) + SIN(RADIANS(".@$latitude_for_search.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
-
+$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type,region_lte, (3959 * ACOS(COS(RADIANS(".@$latitude_for_search.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude_for_search.")) + SIN(RADIANS(".@$latitude_for_search.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn,$sql);
 $numRows = mysqli_num_rows($result);
@@ -54,9 +53,10 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
           $cellsite_type_normalized = $options[$category][$cellsite_type];
         }
         include_once $SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
+        include_once $SITE_ROOT . "/includes/misc-functions/cm_linkgen.php";
                                                                        
         $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
-        $cmlink = function_goto($latitude,$longitude,$carrier,NULL,NULL,NULL,NULL,NULL,"CellMapper",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+        $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte);
 
           ?> <td><input type="button" class="w-100 btn-edit" onclick="redir('Edit.php?id=<?php echo $id;?>','0')"value="Edit"></input></td> <?php
 

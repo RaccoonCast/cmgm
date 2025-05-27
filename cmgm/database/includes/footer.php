@@ -1,5 +1,6 @@
 <?php
    include "../js/getCmLink.js.php";
+   include_once "../includes/misc-functions/cm_linkgen.php";
    if(empty($zip)) $zip = null;
    if(empty($city)) $city = null;
    if(empty($county)) $county = null;
@@ -10,18 +11,8 @@
    $pmlink = "../Home.php?latitude=$latitude&longitude=$longitude&address=$address&zip=$zip&city=$city&county=$county&state=$state&permit_redirect=true";
    if (!isset($carrier)) $carrier = $default_carrier;
    if ($carrier == "Unknown") { $cm_carrier = $default_carrier; } else { $cm_carrier = $carrier; }
-   function cellmapperLink2 ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$ppT,$ppL) {
-     if ("$cm_carrier" == "T-Mobile") $beginning = "MCC=310&MNC=260&";
-     if ("$cm_carrier" == "Sprint") $beginning = "MCC=310&MNC=120&";
-     if ("$cm_carrier" == "ATT") $beginning = "MCC=310&MNC=410&";
-     if ("$cm_carrier" == "Verizon") $beginning = "MCC=311&MNC=480&";
-     if ("$cm_carrier" == "Dish") $beginning = "MCC=313&MNC=340&";
-     if ("$cm_carrier" == "Unknown") return $ppT;
-     if (empty($cm_netType)) $cm_netType = "LTE";
-     return 'https://www.cellmapper.net/map?'.@$beginning.'type='.$cm_netType.'&latitude='.$cm_latitude.'&longitude='.$cm_longitude.'&zoom='.$cm_zoom.'&clusterEnabled='.$cm_groupTowers.'&showTowerLabels='.$cm_showLabels.'&showOrphans='.$cm_showLowAcc;
-   }
    if ($carrier == "Dish") { $footer_rat = "NR"; } else { $footer_rat = "LTE"; }
-   $cmlink = cellmapperLink2($latitude,$longitude,$cm_zoom,$carrier,$footer_rat,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,@$LTE_1,@$region_lte);
+   $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$footer_rat,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,@$LTE_1,@$region_lte);
    $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
    $db_list_link = "DB.php?latitude=$latitude&longitude=$longitude&limit=500";
    $gmlink = "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude";
