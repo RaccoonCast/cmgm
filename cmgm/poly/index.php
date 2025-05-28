@@ -112,6 +112,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
             <!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
+            <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListList[$index]; ?>" />
             <!-- Delete button -->
             <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
          </form>

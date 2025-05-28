@@ -13,7 +13,7 @@ $formData = [];
 $dataSource = isset($polyFormData) ? $polyFormData : $_POST;
 
 foreach ($dataSource as $key => $value) {
-    if (preg_match('/^(eNB|cellList|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
+    if (preg_match('/^(eNB|cellList(?:Depri)?|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
         $field = $matches[1]; // eNB, cellList, plmn, or rat
         $index = $matches[3] ?? 0; // Use 0 if no index is specified
 
@@ -40,6 +40,7 @@ foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error("Invalid RAT.");
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error("Invalid eNB/gNB.");
     $cellList = preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : error("Invalid cellList.");
+    $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
     $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error("Invalid PLMN.");
     $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; // Don't error on invalid TAC, it will just use Google instead
 
@@ -59,6 +60,14 @@ foreach ($formData as $index => $data) {
         $signalLabel = 'signal';
         $base = $eNB * 256;
     }
+
+    // Get deprioritized cells, if they exist
+    $cellIdList_depri = [];
+    if ($cellList_depri != null) {
+        $cellList = array_merge($cellList, $cellList_depri);
+        $cellIdList_depri = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList_depri);
+    }
+    
 
     // Get from DB
     $cellIdList = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList); // Get list of ids
@@ -126,10 +135,14 @@ foreach ($formData as $index => $data) {
             logWarning('Surro skipped for TAC ' . $tac);
         }
 
-        // Build curl handle for Google
-        $googleHandle = genGoogleHandle($plmn, $cellId, $rat, $cellIdLabel, $signalLabel, $maps_api_key);
-        // Add to list
-        $curlHandles_goog["$index-$cellNumber"] = $googleHandle;
+        // Skip Google if cell is deprioritized (surro-only)
+        if (!in_array($cellId, $cellIdList_depri)) {
+            // Build curl handle for Google
+            $googleHandle = genGoogleHandle($plmn, $cellId, $rat, $cellIdLabel, $signalLabel, $maps_api_key);
+            // Add to list
+            $curlHandles_goog["$index-$cellNumber"] = $googleHandle;
+        }
+       
         
     }
 }
@@ -164,7 +177,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         }
 
         // Response is clean, so we should remove from the Google handler
-        unset($curlHandles_goog[$key]);
+        if (isset($curlHandles_goog[$key])) {
+            unset($curlHandles_goog[$key]);    
+        }
 
         // Get pertinent information
         $eNB = $formData[$index]['eNB'];
