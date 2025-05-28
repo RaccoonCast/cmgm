@@ -171,7 +171,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $jsonResponse = json_decode($response, true);
 
         // Check if Surro wrapper API returned nothing
-        if (isset($jsonResponse['error'])) {
+        if (isset($jsonResponse['error']) && !empty([$jsonResponse])) {
             logWarning('Surro returned no response for ' . $cellNumber . ' on ' . $key);
             continue; 
         }
