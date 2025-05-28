@@ -165,13 +165,22 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 
     // Iterate through Apple responses
     foreach ($curlHandles_appl as $key => $handle) {
+
+        // Check for potential cURL error
+        if (curl_errno($handle)) {
+            $error_msg = curl_error($handle);
+            logWarning('Surro API returned an error:' . $error_msg);
+            continue;
+        }
+
+        // Get response
         $response = curl_multi_getcontent($handle);
         [$index, $cellNumber] = explode('-', $key);
 
         $jsonResponse = json_decode($response, true);
 
         // Check if Surro wrapper API returned nothing
-        if (isset($jsonResponse['error']) && !empty([$jsonResponse])) {
+        if (isset($jsonResponse['error']) || empty($jsonResponse)) {
             logWarning('Surro returned no response for ' . $cellNumber . ' on ' . $key);
             continue; 
         }
