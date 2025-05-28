@@ -203,19 +203,23 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $lng = $jsonResponse['location']['lng'];
         $accuracyMiles = ((int)$jsonResponse['accuracy']) / 1609;
 
+        // Generate date of successful request
+        $reqDate = date("Y-m-d H:i:s");
+
         // Add to responses
         $responses[$eNB][$cellNumber] = [
             'provider' => 'Surro',
             'cellId' => $cellGid,
+            'date' => $reqDate,
             'lat' => $lat,
             'lng' => $lng,
             'accuracyMiles' => $accuracyMiles
         ];            
 
         // Update database
-        $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro')
-                      ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro'";
+        $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro', '$reqDate')
+                      ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate'";
         $conn->query($sqlInsert);
      
     }
@@ -257,10 +261,14 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             $lng = $jsonResponse['location']['lng'];
             $accuracyMiles = ((int)$jsonResponse['accuracy']) / 1609;
 
+            // Generate date of successful request
+            $reqDate = date("Y-m-d H:i:s");
+
             // Add to responses
             $responses[$eNB][$cellNumber] = [
                 'provider' => 'Google',
                 'cellId' => $cellGid,
+                'date' => $reqDate,
                 'lat' => $lat,
                 'lng' => $lng,
                 'accuracyMiles' => $accuracyMiles
@@ -268,18 +276,22 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             
             // Add to DB
             // Update database
-            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source)
-                          VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Google')
-                          ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Google'";
+            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
+                          VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Google', '$reqDate')
+                          ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate'";
             $conn->query($sqlInsert);
 
             // Update UserID DB to +1 gmaps api utilization
             mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$userID'");
 
         } else {
+            
+            // Generate date
+            $reqDate = date("Y-m-d H:i:s");
+
             // tell database that it was not found
-            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles) 
-	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', NULL, NULL, NULL) 
+            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info) 
+	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', NULL, NULL, NULL, '$reqDate') 
 	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles)";
             $conn->query($sqlInsert);
         }
