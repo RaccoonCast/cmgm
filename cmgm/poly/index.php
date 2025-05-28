@@ -12,6 +12,7 @@ $carrierList = [];
 $ratList = [];
 $enbList = [];
 $cellListList = [];
+$cellListDepriList = [];
 $tacList = [];  // <-- New TAC array
 
 foreach($_GET as $key => $value) {
@@ -21,17 +22,19 @@ foreach($_GET as $key => $value) {
         array_push($ratList, $value);
     } else if (str_starts_with($key, 'eNB')) {
         array_push($enbList, $value);
-    } else if (str_starts_with($key, 'cellList')) {
+    } else if (str_starts_with($key, 'cellList') && !str_starts_with($key, 'cellListDepri')) {
         array_push($cellListList, $value);
+    } else if (str_starts_with($key, 'cellListDepri')) {
+        array_push($cellListDepriList, $value);
     } else if (str_starts_with($key, 'tac')) {  // <-- Collect TAC values
         array_push($tacList, $value);
     }
 }
 
 // Check that the length of all lists is the same
-foreach([$ratList, $enbList, $cellListList] as $value ) {
+foreach([$ratList, $enbList, $cellListList, $cellListDepriList] as $value ) {
     if (count($carrierList) != count($value)) {
-        echo 'bad parameters!';
+        echo 'bad parameters: ' . json_encode($carrierList) . " vs " . json_encode($value);
         return false;
     }
 }
@@ -42,6 +45,7 @@ if (count($carrierList) === 0) {
     array_push($ratList, 'LTE');
     array_push($enbList, '');
     array_push($cellListList, '');
+    array_push($cellListDepriList, '');
     array_push($tacList, ''); // <-- Default tac value
 }
 
@@ -50,7 +54,8 @@ if (
     array_filter($carrierList, 'is_numeric') === $carrierList &&
     array_filter($ratList, fn($val) => $val === 'LTE' || $val === 'NR') === $ratList &&
     array_filter($enbList, 'is_numeric') === $enbList &&
-    array_filter($cellListList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListList
+    array_filter($cellListList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListList &&
+    array_filter($cellListDepriList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListDepriList
 ) {
     $postData = [];
 
@@ -66,6 +71,7 @@ if (
         $polyFormData['rat' . $namedIndex] = $ratList[$index];
         $polyFormData['eNB' . $namedIndex] = $enbList[$index];
         $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
+        $polyFormData['cellListDepri' . $namedIndex] = $cellListDepriList[$index];
         $polyFormData['tac' . $namedIndex] = $tacList[$index] ?? '';  // <-- Added TAC
 
     }

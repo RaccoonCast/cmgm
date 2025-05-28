@@ -13,9 +13,11 @@ $formData = [];
 $dataSource = isset($polyFormData) ? $polyFormData : $_POST;
 
 foreach ($dataSource as $key => $value) {
-    if (preg_match('/^(eNB|cellList(?:Depri)?|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
+    if (preg_match('/^(eNB|cellList|cellListDepri|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
         $field = $matches[1]; // eNB, cellList, plmn, or rat
         $index = $matches[3] ?? 0; // Use 0 if no index is specified
+
+        logWarning('field:' . $field);
 
         // Ensure the array for the specific index exists
         if (!isset($formData[$index])) {
