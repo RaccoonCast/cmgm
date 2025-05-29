@@ -41,7 +41,7 @@ function logWarning($warnText) {
 foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error("Invalid RAT.");
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error("Invalid eNB/gNB.");
-    $cellList = preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : error("Invalid cellList.");
+    $cellList = isset($data['cellList']) && preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : null;
     $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
     $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error("Invalid PLMN.");
     $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; // Don't error on invalid TAC, it will just use Google instead
@@ -66,8 +66,13 @@ foreach ($formData as $index => $data) {
     // Get deprioritized cells, if they exist
     $cellIdList_depri = [];
     if ($cellList_depri != null) {
-        $cellList = array_merge($cellList, $cellList_depri);
+        $cellList = array_merge($cellList ? $cellList : [], $cellList_depri);
         $cellIdList_depri = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList_depri);
+    }
+
+    // Check if no cells (or depri cells) were sent - if so, error
+    if (!isset($cellList) || count($cellList) == 0) {
+        error('Invalid cellList');
     }
     
 
