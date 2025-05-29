@@ -51,6 +51,7 @@
         <div class="buttonContainer">↗️</div>
       </button>
     <?php } ?>
+    <div class="dropdown-content" id="polyInfoButton_content"></div>
 
     <!-- Query db for pins stuff -->
     <?php
@@ -130,12 +131,38 @@
 
 
       var mymap = L.map('mapid', {
+        zoomControl: false,
         center: centerCoords,
         zoom: <?php echo $zoom; ?>, //Default to passed in zoom
         zoomDelta: 0.888888, // Custom zoomDelta value
         zoomSnap: 0.00000000001,
         //wheelPxPerZoomLevel: 143,
       });
+
+      // Add original zoom control
+      L.control.zoom({ position: 'topleft' }).addTo(mymap);
+
+      <?php if (isset($_GET['hideui']) &&  $_GET['hideui'] == true) { ?>
+        // Create custom control
+        const MyControl = L.Control.extend({
+          onAdd(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control poly-info-control');
+
+            container.innerHTML = '<a href="#" class=""> <span style="font-size: 22px;">▲</span></a>'; // Or any HTML content
+            container.id = 'polyInfoButton';
+
+            // Prevent map interaction when clicking the control
+            L.DomEvent.disableClickPropagation(container);
+
+            return container;
+          }
+        });
+
+        // then add custom control after
+        const myControl = new MyControl({ position: 'topleft' });
+        mymap.addControl(myControl);
+
+      <?php } ?>
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',

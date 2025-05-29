@@ -7,6 +7,8 @@ $poly = true;
 $titleOverride = true;
 include "../functions.php";
 
+$firstRun = true;
+
 // Extract eNBs and TACs
 $carrierList = [];
 $ratList = [];
@@ -32,9 +34,9 @@ foreach($_GET as $key => $value) {
 }
 
 // Check that the length of all lists is the same
-foreach([$ratList, $enbList, $cellListList, $cellListDepriList] as $value ) {
+foreach([$ratList, $enbList, $cellListList] as $value ) {
     if (count($carrierList) != count($value)) {
-        echo 'bad parameters: ' . json_encode($carrierList) . " vs " . json_encode($value);
+        echo 'bad parameters: ' . json_encode($carrierList) . " vs " . json_encode($value) . " for " . $key;
         return false;
     }
 }
@@ -49,6 +51,7 @@ if (count($carrierList) === 0) {
     array_push($tacList, ''); // <-- Default tac value
 }
 
+$responses = null;
 // If URL parameters are prefilled, handle the data
 if (
     array_filter($carrierList, 'is_numeric') === $carrierList &&
@@ -89,6 +92,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 
 ?>
 <title>eNB Polygon Generator</title>
+<script src="js/polyInfoButton.js"></script>
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
@@ -117,8 +121,8 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <!-- TAC -->
             <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
             <!-- Cells -->
-            <input type="text" class="cellList" name="<?php echo "cellList" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
-            <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" , $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListList[$index]; ?>" />
+            <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
+            <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
             <!-- Delete button -->
             <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
          </form>
@@ -135,7 +139,9 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
    </div>
 </div>
 <?php } ?>
-<iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write"></iframe>
+<script>const jsonResponse = `<?php echo json_encode($responses) ?>`; const responseData = jsonResponse ? btoa(jsonResponse) : null;</script>
+<iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write" onload="addInfoData(this, responseData)"></iframe>
+<?php $firstRun = false; ?>
 <script src="js/poly.js"></script>
 </body>
 </html>

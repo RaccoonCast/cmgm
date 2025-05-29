@@ -141,6 +141,10 @@ async function handleMakeRequest(_event) {
       return;
     }
 
+    // Set new data on window, for future popup handler to grab
+    const passedData = btoa(JSON.stringify(data.polygon));
+    window.latestData = passedData;
+
     // Update URL with form info
     handleUpdateUrl(allData);
 
