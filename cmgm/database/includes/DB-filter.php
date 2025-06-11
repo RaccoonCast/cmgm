@@ -46,7 +46,7 @@ elseif ($key == "date" && $value[0] == ">") { $db_vars = " AND date_added" . ' >
 elseif ($key == "date" && $value[0] == "<") { $db_vars = " AND date_added" . ' <= "'.date("Y-m-d", strtotime($trimChar)).'"' . @$db_vars; }
 
 // Filter records by date, e.g., &date=2022 for records created in 2022, or &date=!2022 to exclude records from 2022 or &date=!06-01 to hide records from June 1st.
-elseif (($key == "date" OR $key == "year") && @$value[0] == "!") { $db_vars = " AND (date_added not like '%".$value."%')" . @$db_vars; }
+elseif (($key == "date" OR $key == "year") && @$value[0] == "!") { $db_vars = " AND (date_added not like '%".$trimChar."%')" . @$db_vars; }
 elseif ($key == "date" OR $key == "year") { $db_vars = " AND (date_added like '%".$value."%')" . @$db_vars; }
 
 // Filter records by time, e.g., &month=5 for records created in May, or &month=!12 to exclude records from December.
