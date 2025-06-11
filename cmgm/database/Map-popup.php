@@ -41,10 +41,9 @@ if(!empty($LTE_6)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$l
 if(!empty($LTE_7)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_7,$region_lte,"true"); }
 if(!empty($LTE_8)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_8,$region_lte,"true"); }
 if(!empty($LTE_9)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_9,$region_lte,"true"); } 
-if(empty($lte_list)) { $lte_list = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte); }
-if(!empty($NR_1) && $carrier == "Dish") { $nr_list = $nr_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr); }
-if(!empty($NR_2) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr); }
-if(!empty($NR_3) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr); }
+if(!empty($NR_1) && $carrier == "Dish") { $nr_list = $nr_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr,"true"); }
+if(!empty($NR_2) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr,"true"); }
+if(!empty($NR_3) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr,"true"); }
 // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
 $map_popup_flag = "true";
 include "includes/edit/file_attach_link_gen.php";
