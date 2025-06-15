@@ -76,25 +76,31 @@ include "../functions.php";
 
   async function fetchAndRenderPolygons() {
     const center = mymap.getCenter();
-    const url = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}`;
+    const filterCells = '<?php echo (isset($_GET['filterCells']) && preg_match("/^[0-9]+(,[0-9]+)*$/", $_GET['filterCells'])) ? $_GET['filterCells'] : 'false'; ?>';
+    const filterEnbs = '<?php echo (isset($_GET['filterEnbs']) && preg_match("/^([0-9]+)-([0-9]+)$/", $_GET['filterEnbs'])) ? $_GET['filterEnbs'] : 'false'; ?>';
+    
+    const showsql = '<?php echo isset($_GET['showsql']) ? $_GET['showsql'] : 'false'; ?>';
+    const limit = '<?php echo isset($_GET['limit']) ? $_GET['limit'] : '175'; ?>';
+
+    console.log('passing dbfc', filterCells);
+
+    const url = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}&filterCells=${filterCells}&filterEnbs=${filterEnbs}&showsql=${showsql}&limit=${limit}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
 
       // Check for potential ?filterCells arg
-      const filterCells = <?php echo (isset($_GET['filterCells']) && preg_match("/^[0-9]+(,[0-9]+)*$/", $_GET['filterCells'])) ? json_encode(array_map('intval', explode(",", $_GET['filterCells']))) : 'false'; ?>;
-      const filterEnbs = <?php echo (isset($_GET['filterEnbs']) && preg_match("/^([0-9]+)-([0-9]+)$/", $_GET['filterEnbs'])) ? json_encode(array_map('intval', explode("-", $_GET['filterEnbs']))) : 'false'; ?>;
 
       const enbGroups = {};
       data.forEach(item => {
-        if (!drawnENBs.has(item.enb) && (filterEnbs === false || (item.enb > filterEnbs[0] && item.enb < filterEnbs[1]))) {
+        if (!drawnENBs.has(item.enb)) {
           if (!enbGroups[item.enb]) enbGroups[item.enb] = [];
           // enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
-          if (filterCells === false || filterCells?.includes(parseInt(item.cell))) {
+          // if (filterCells === false || filterCells?.includes(parseInt(item.cell))) {
             // console.log('filterCells vs cell:', filterCells, String(item.cell));
             enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });  
-          }
+          // }
             
         }
       });
