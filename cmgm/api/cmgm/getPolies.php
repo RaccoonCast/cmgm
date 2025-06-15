@@ -13,6 +13,8 @@ include '../../includes/functions/sqlpw.php'; // doesn't call native
 $db_vars = " AND provider_source IS NOT NULL";
 $max_distance = "5";
 $num = 0;
+$db_vars_uno = "";
+$db_vars_dos = "";
 if (isset($_GET['plmn']) && is_numeric($_GET['plmn'])) $plmn = $_GET['plmn'];
 if (isset($_GET['rat']) && strlen($_GET['rat']) <= 3) $rat = $_GET['rat'];
 
@@ -44,7 +46,7 @@ foreach($_GET as $key => $value) {
     }
   }
 
-  else {
+  elseif ($value != "false") {
     $sanitizedKey = preg_replace('/[^a-zA-Z0-9_]/', '', $key);
     $sanitizedValue = preg_replace('/[^a-zA-Z0-9_]/', '', $value);
     $db_vars = "AND $sanitizedKey = $sanitizedValue" . $db_vars;
