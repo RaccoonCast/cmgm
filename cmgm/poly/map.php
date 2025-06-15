@@ -82,19 +82,30 @@ include "../functions.php";
       const response = await fetch(url);
       const data = await response.json();
 
+      // Check for potential ?filterCells arg
+      const filterCells = <?php echo (isset($_GET['filterCells']) && preg_match("/^[0-9]+(,[0-9]+)*$/", $_GET['filterCells'])) ? json_encode(array_map('intval', explode(",", $_GET['filterCells']))) : 'false'; ?>;
+      const filterEnbs = <?php echo (isset($_GET['filterEnbs']) && preg_match("/^([0-9]+)-([0-9]+)$/", $_GET['filterEnbs'])) ? json_encode(array_map('intval', explode("-", $_GET['filterEnbs']))) : 'false'; ?>;
+
       const enbGroups = {};
       data.forEach(item => {
-        if (!drawnENBs.has(item.enb)) {
+        if (!drawnENBs.has(item.enb) && (filterEnbs === false || (item.enb > filterEnbs[0] && item.enb < filterEnbs[1]))) {
           if (!enbGroups[item.enb]) enbGroups[item.enb] = [];
           // enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
-            enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
+          if (filterCells === false || filterCells?.includes(parseInt(item.cell))) {
+            // console.log('filterCells vs cell:', filterCells, String(item.cell));
+            enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });  
+          }
+            
         }
       });
 
       console.log(Object.entries(enbGroups));
 
       for (const [enb, coords] of Object.entries(enbGroups)) {
-        if (coords.length < 3) continue; // Need at least 3 points to form polygon
+
+        // Filter polygons with fewer than three points
+        const showIncompletePolygons = <?php echo ( isset($_GET['showIncompletePolygons']) || isset($_GET['filterCells']) ) ? 'true' : 'false'; ?>;
+        if (coords.length < 3 && !showIncompletePolygons) continue; // Need at least 3 points to form polygon
 
         // Get from request points with indices and information attached
         const pointsWithIndices = coords.map((c, i) => ({ originalIndex: i, coords: c.coords, sector: c.sectorId }));
@@ -103,11 +114,18 @@ include "../functions.php";
         const sortedPoints = sortPointsClockwise(pointsWithIndices.map(el => el.coords), pointsWithIndices);//.map(p => p.coords);
 
         // Create polygon based on points alone
+        const hidePolygons = <?php echo (isset($_GET['hidePolygons']) && $_GET['hidePolygons'] != 'false') ? 'true' : 'false'; ?>;
         const polygonPoints = sortedPoints.map(p => p.coords);
-        const polygon = L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
+        if (!hidePolygons) {
+          const polygon = L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
+        }
+        
         drawnENBs.add(enb);
 
+        const hideLabels = <?php echo (isset($_GET['hideLabels']) && $_GET['hideLabels'] != 'false') ? 'true' : 'false'; ?>;
+
         // Iterate in sorted order
+        if (!hideLabels) {
         sortedPoints.forEach(pt => {
           L.marker(pt.coords, { opacity: 0 })
             // Bind label at coordinate
@@ -119,6 +137,7 @@ include "../functions.php";
             .addTo(mymap);
         });
       }
+    }
     } catch (e) {
       console.error('Error loading polygons:', e);
     }
