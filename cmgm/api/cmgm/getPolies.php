@@ -10,23 +10,55 @@ header('Pragma: no-cache');
 include '../../includes/functions/sqlpw.php'; // doesn't call native
 
 //  cody and alps' purple iphones (CAAPI)
-$db_vars = "provider_source IS NOT NULL";
+$db_vars = " AND provider_source IS NOT NULL";
 $max_distance = "5";
 $num = 0;
+$db_vars_uno = "";
+$db_vars_dos = "";
 if (isset($_GET['plmn']) && is_numeric($_GET['plmn'])) $plmn = $_GET['plmn'];
 if (isset($_GET['rat']) && strlen($_GET['rat']) <= 3) $rat = $_GET['rat'];
 
-foreach($_GET as $key => $value){
-  if ($key == "latitude" OR $key == "longitude" OR $key == "fake_limit" OR $key == "properties" OR $key == "showsql") {
+foreach($_GET as $key => $value) {
+  if ($key === "latitude" || $key === "longitude" || $key === "limit" || $key === "properties" || $key === "showsql") {
     ${$key} = $value;
-  } else {
-    $db_vars = preg_replace('/[^a-zA-Z0-9_]/', '', $key) . ' = "'.preg_replace('/[^a-zA-Z0-9_]/', '', $value).'" AND ' . $db_vars;
+  }
+
+  elseif ($key === 'filterCells' && $value !== "false") {
+    $cells = array_map('intval', explode(',', $value));
+    if (!empty($cells)) {
+        $conditions = array_map(function($cell) {
+            return "cell = $cell";
+        }, $cells);
+        $db_vars = 'AND (' . implode(' OR ', $conditions) . ') ' . $db_vars;
+    }
+  }
+
+  elseif ($key === 'filterEnbs' && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches)) {
+    $start = (int)$matches['start'];
+    $end = (int)$matches['end'];
+
+    if ($value[0] === "!") {
+        $db_vars_uno = "AND enb NOT BETWEEN $start AND $end " . @$db_vars_uno;
+        $db_vars_dos = "AND lp.enb NOT BETWEEN $start AND $end " . @$db_vars_dos;
+    } else {
+        $db_vars_uno = "AND enb BETWEEN $start AND $end " . @$db_vars_uno;
+        $db_vars_dos = "AND lp.enb BETWEEN $start AND $end " . @$db_vars_dos;
+    }
+  }
+
+  elseif ($value != "false") {
+    $sanitizedKey = preg_replace('/[^a-zA-Z0-9_]/', '', $key);
+    $sanitizedValue = preg_replace('/[^a-zA-Z0-9_]/', '', $value);
+    $db_vars = "AND $sanitizedKey = $sanitizedValue" . $db_vars;
   }
 }
 
-if (empty($fake_limit)) $fake_limit = "150";
+
+
+
+if (empty($limit)) $limit = "150";
 $sql = "
--- First: get the 50 closest rows by distance
+-- First: get the XX closest rows by distance
 WITH base_results AS (
   SELECT *, 
     (3959 * ACOS(
@@ -34,12 +66,12 @@ WITH base_results AS (
       SIN(RADIANS($latitude)) * SIN(RADIANS(latitude))
     )) AS distance
   FROM local_poly
-  WHERE $db_vars
+  WHERE 1=1 $db_vars $db_vars_uno
   ORDER BY distance
-  LIMIT $fake_limit
+  LIMIT $limit
 ),
 
--- Second: extract the enbs from those 50
+-- Second: extract the enbs from those XX
 selected_enbs AS (
   SELECT DISTINCT enb FROM base_results
 )
@@ -48,12 +80,12 @@ selected_enbs AS (
 SELECT lp.*
 FROM local_poly lp
 JOIN selected_enbs se ON lp.enb = se.enb
-WHERE $db_vars
+WHERE 1=1 $db_vars $db_vars_dos
 ORDER BY lp.enb, lp.cell;
 ";
-if (isset($_GET['showsql'])) {
+if ($_GET['showsql'] == "true") {
   echo $sql;
-  die;
+  die();
 }
 $result = $conn->query(query: $sql);
 
