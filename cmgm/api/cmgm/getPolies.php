@@ -76,11 +76,19 @@ selected_enbs AS (
   SELECT DISTINCT enb FROM base_results
 )
 
--- Finally: return all rows matching those enbs
-SELECT lp.*
+-- Finally: return all rows matching those enbs AND within xyz miles
+SELECT lp.*,
+  (3959 * ACOS(
+    COS(RADIANS($latitude)) * COS(RADIANS(lp.latitude)) * COS(RADIANS(lp.longitude) - RADIANS($longitude)) +
+    SIN(RADIANS($latitude)) * SIN(RADIANS(lp.latitude))
+  )) AS distance
 FROM local_poly lp
 JOIN selected_enbs se ON lp.enb = se.enb
 WHERE 1=1 $db_vars $db_vars_dos
+  AND (3959 * ACOS(
+    COS(RADIANS($latitude)) * COS(RADIANS(lp.latitude)) * COS(RADIANS(lp.longitude) - RADIANS($longitude)) +
+    SIN(RADIANS($latitude)) * SIN(RADIANS(lp.latitude))
+  )) <= 300
 ORDER BY lp.enb, lp.cell;
 ";
 if ($_GET['showsql'] == "true") {
