@@ -1,0 +1,130 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 1rem;
+  line-height: 1.6;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Desktop */
+.section {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border-color: var(--accent-color);
+  flex: 1 1 calc(50% - 0.5rem);
+}
+
+/* Mobile-only */
+@media screen and (min-width: 320px) and (max-width: 600px) {
+  /* Use single column of boxes*/
+  .section {
+    flex: 1 1 calc(75% - 0.5rem);
+    /* max-width: calc(50% - 0.5rem); */
+  }
+  #lastUpdatedContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  /* Move cache/refresh buttons */
+  #lastUpdatedText {
+    width: 100% !important;
+  }
+  #refreshIcon {
+    /* width: 50% !important; */
+    margin-top: 0px !important;
+    float: unset !important;
+    margin-top: unset !important;
+  }
+}
+
+/* .section:hover {
+  box-shadow: 0 0 5px var(--accent-color);
+} */
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-top: 0;
+}
+
+.label {
+  font-weight: bold;
+}
+
+#freqSummary {
+  /* Force arrow to be next to header, not below it */
+  position: relative !important;
+  left: 8.25em !important;
+  top: -2.85em !important;
+  user-select: none;
+  /* Prevent summary from stretching into next box */
+  width: 2.5em;
+  /* Increase clickable area of dropdown */
+  padding-left: 10em;
+  margin-left: -10em;
+  cursor: pointer;
+}
+
+.freqTableHeader {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+table {
+  /* Move closer to dropdown arrow */
+  margin-top: -1.5em;
+}
+
+/* Minimize margin on Ps, to compact table better (should fit on one 1080p display without scrolling) */
+p {
+  margin-bottom: -0.05em;
+  margin-top: -0.05em;
+}
+
+/* Override black theme (for now) */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* "Last Updated" section */
+#lastUpdatedContainer {
+  text-align: right;
+  float: right;
+  width: 40%;
+}
+
+#lastUpdatedText {
+  float: left;
+  width: calc(100% - 1.25em);
+  color: gray;
+}
+
+#refreshIcon {
+  /* width: 4%; */
+  font-size: 1em;
+  height: 1em;
+  float: right;
+  margin-top: 1.625em;
+  color: gray;
+}
+
+#refreshIcon:hover {
+  cursor: pointer;
+}
