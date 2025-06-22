@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FAA/OEAAA Search</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div>
+    <h1>FAA/OEAAA Search</h1>
+  </div>
+  <div class="search-container">
+    <br /><br /><br />
+    <form id="searchForm" novalidate>
+      <input id="searchInput" type="text" placeholder="YYYY-AWP-1234-OE" required />
+      <button id="searchButton" type="submit">Search</button>
+    </form>
+    <div id="error">Invalid ASN format.</div>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('searchForm');
+      const input = document.getElementById('searchInput');
+      const errorDiv = document.getElementById('error');
+
+      // Regex: 4 digits, dash, one-or-more word chars, dash, one-or-more digits, dash, OE or NRA
+      const asnRegex = /^(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)$/i;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const val = input.value.trim();
+        if (asnRegex.test(val)) {
+          // valid → redirect
+          window.location.href = '../?asn=' + encodeURIComponent(val);
+        } else {
+          // invalid → show error
+          errorDiv.textContent = 'ASN not valid! Correct Format: [Year]-[Region]-[Sequence]-[OE/NRA]';
+          errorDiv.style.display = 'block';
+        }
+      });
+
+      // hide error as soon as user starts typing again
+      input.addEventListener('input', function () {
+        if (errorDiv.style.display === 'block') {
+          errorDiv.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

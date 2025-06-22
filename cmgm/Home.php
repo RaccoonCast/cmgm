@@ -24,10 +24,17 @@ header('Pragma: no-cache'); ?>
       }
       include "functions.php";
       if (isset($_GET['q'])) {
+          // Redirect to CM for ATT Site IDs
           include "includes/functions/att-siteidconversion.php";
+          // Redirect to LADBS for permits
           if (substr($_GET['q'], 5, 1) == "-" && substr($_GET['q'], 11, 1) == "-") {
             redir ("https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=".substr($_GET['q'], 0, 5)."&id2=".substr($_GET['q'], 6, 5)."&id3=".substr($_GET['q'], 12, 5) ."","0");
             die();
+        }
+        // Redirect to CMGM-FAA for OE3A Caes
+        if (isset($_GET['q']) && preg_match("/^(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)$/i", $_GET['q'], $faaMatches)) {
+          redir("https://cmgm.us/faa?asn={$faaMatches[0]}", "0");
+          die();
         }
       }
 

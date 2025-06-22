@@ -13,15 +13,19 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '$') {
         $value = 'https://siteportal.calepa.ca.gov/nsite/map/results/summary/' . substr($value, 1);
     } 
-    if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '!') {
+    else if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '!') {
         $value = 'https://web.archive.org/web/' . substr($value, 1);
     } 
-    if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
+    else if (in_array($key, $fieldsToReplace) && substr($value, 0, 22) === 'https://canon.cmgm.us/') {
         $value = '@' . str_replace("%5C", "/", substr($value, 22));
     } 
-    if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
+    else if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
       $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'&doNotRedir');
     } 
+    else if (in_array($key, $fieldsToReplace) && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
+      // Replace raw text, or AntennaSearch "nonregTower" link
+      $value = "https://cmgm.us/faa?asn={$faa_match[0]}";
+    }
     if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
         $value = substr($value, 1);
     } 
