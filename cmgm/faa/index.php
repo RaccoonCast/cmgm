@@ -98,6 +98,7 @@ $faaResponse = FaaResponse::fromArray($data);
         --accent-color: #<?= $userID == "guest" ? "black" : $accent_color ?>;
       }
     </style>
+    <title><?= $faaResponse->asn ?></title>
     <link rel="stylesheet" href="css/index.css">
     <script src="../js/copyToClipboard.js"></script>
     <script src="js/downloadLetter.js"></script>
