@@ -18,8 +18,8 @@ function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $user
 
 // Set parameters for mobile and desktop view
 if (isMobile()) {
-    MapWithPin($latitude, $longitude, "17", "100%", "250", $map_edit_mobile_pin_limit, $carrier, $userID, $LTE_1, $region_lte);
+    MapWithPin($latitude, $longitude, "17", "100%", "250", $map_edit_mobile_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
 } else {
-    MapWithPin($latitude, $longitude, "18", "44%", "530", $map_edit_pin_limit, $carrier, $userID, $LTE_1, $region_lte);
+    MapWithPin($latitude, $longitude, "18", "44%", "530", $map_edit_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
 }
 ?>
