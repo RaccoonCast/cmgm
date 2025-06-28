@@ -142,7 +142,7 @@
       // Add original zoom control
       L.control.zoom({ position: 'topleft' }).addTo(mymap);
 
-      <?php if (isset($_GET['hideui']) &&  $_GET['hideui'] == true) { ?>
+      <?php if (isset($_GET['hideui']) &&  $_GET['hideui'] == true && !isset($_GET['showPolyLink']) && !isset($_GET['marker_latitude'])) { ?>
         // Create custom control
         const MyControl = L.Control.extend({
           onAdd(map) {
