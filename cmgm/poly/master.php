@@ -200,6 +200,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 
         // Get pertinent information
         $eNB = $formData[$index]['eNB'];
+        $tac = $formData[$index]['tac'];
         $plmn = $formData[$index]['plmn'];
         $rat = $formData[$index]['rat'];
 
@@ -225,9 +226,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         ];            
 
         // Update database
-        $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro', '$reqDate')
-                      ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate'";
+        $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro', '$reqDate')
+                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate'";
         $conn->query($sqlInsert);
      
     }
