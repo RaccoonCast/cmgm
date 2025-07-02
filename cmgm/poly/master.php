@@ -3,9 +3,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $silent = true;
-if (!isset($polyFormData))
-    include "../functions.php";
-include "functions.php";
+if (!isset($polyFormData)) {
+    include '../functions.php';
+}
+include 'functions.php';
 
 $formData = [];
 
@@ -16,8 +17,6 @@ foreach ($dataSource as $key => $value) {
     if (preg_match('/^(eNB|cellList|cellListDepri|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
         $field = $matches[1]; // eNB, cellList, plmn, or rat
         $index = $matches[3] ?? 0; // Use 0 if no index is specified
-
-        logWarning('field:' . $field);
 
         // Ensure the array for the specific index exists
         if (!isset($formData[$index])) {
@@ -33,18 +32,21 @@ $curlHandles_goog = [];
 $curlHandles_appl = [];
 $responses = [];
 
-function logWarning($warnText) {
+function logWarning($warnText)
+{
     error_log($warnText);
 }
 
 // Process each group in $formData
 foreach ($formData as $index => $data) {
-    $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error("Invalid RAT.");
-    $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error("Invalid eNB/gNB.");
+    $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
+    $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error('Invalid eNB/gNB.');
     $cellList = isset($data['cellList']) && preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : null;
     $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
-    if (isset($data['cellListDepri']) && $data['cellListDepri'] == "*") $cellList_depri = range(1, 255);
-    $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error("Invalid PLMN.");
+    if (isset($data['cellListDepri']) && $data['cellListDepri'] == '*') {
+        $cellList_depri = range(1, 255);
+    }
+    $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error('Invalid PLMN.');
     $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; // Don't error on invalid TAC, it will just use Google instead
 
     // Set base calculation for cellId
@@ -53,9 +55,9 @@ foreach ($formData as $index => $data) {
         $cellIdLabel = 'newRadioCellId';
         $signalLabel = 'signalStrength';
         $base = match ($plmn) {
-            "310260" => $eNB * 4096,
-            "310410" => $eNB * 1024,
-            "311480" => $eNB * 16384,
+            '310260' => $eNB * 4096,
+            '310410' => $eNB * 1024,
+            '311480' => $eNB * 16384,
             default => $eNB * 4096,
         };
     } elseif ($rat == 'LTE') {
@@ -75,7 +77,6 @@ foreach ($formData as $index => $data) {
     if (!isset($cellList) || count($cellList) == 0) {
         error('Invalid cellList');
     }
-    
 
     // Get from DB
     $cellIdList = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList); // Get list of ids
@@ -92,53 +93,45 @@ foreach ($formData as $index => $data) {
 
     // Loop through each cell
     foreach ($cellList as $cellNumber) {
-
         $cellId = $base + (int) $cellNumber;
 
         // Check if data was returned by db
         if (array_key_exists($cellId, $dbDump_dataMap)) {
+            // If forceNewResults / "Ignore Cache" is set, don't check the db
+            if (!isset($_GET['forceNewResults'])) {
+                $tmpDb = $dbDump_dataMap[$cellId];
 
-            $tmpDb = $dbDump_dataMap[$cellId];
+                if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
+                    // If DB already null, continue without generating handles
+                    continue;
+                } else {
+                    // Otherwise, get cache data as expected
+                    $cacheProvider = $tmpDb['provider_source'];
+                    $dateOfInfo = $tmpDb['date_of_info'];
 
-            // Assuming $tmpDb['date_of_info'] contains a datetime string from the database
-            if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
-                // Parse the date_of_info into a DateTime object
-                $dateOfInfo = new DateTime($tmpDb['date_of_info']);
-                $currentDate = new DateTime(); // Current date and time
+                    // Convert remaining items to float
+                    $tmpDb = array_map('floatval', $tmpDb);
 
-                // Subtract 90 days from the current date
-                $currentDate->modify('-90 days');
-
-                // Check if date_of_info is newer than 90 days
-                if ($dateOfInfo > $currentDate) {
-                    if (!isset($_GET['forceNewResults'])) {
-                        continue; // It's newer than 90 days, skip
-                    }
+                    $responses[$eNB][$cellNumber] = [
+                        'provider' => 'Cache - ' . $cacheProvider,
+                        'cellId' => $tmpDb['cell_id'],
+                        'date' => $dateOfInfo,
+                        'lat' => $tmpDb['latitude'],
+                        'lng' => $tmpDb['longitude'],
+                        'accuracyMiles' => $tmpDb['accuracyMiles'],
+                    ];
+                    // Skip adding curl handles, since data is already covered by db
+                    continue;
                 }
             } else {
-                // Get cache provider
-                $cacheProvider = $tmpDb['provider_source'];
-                $dateOfInfo = $tmpDb['date_of_info'];
-
-                // Convert remaining items to float
-                $tmpDb = array_map('floatval', $tmpDb);
-
-                $responses[$eNB][$cellNumber] = [
-                    'provider' => 'Cache - ' . $cacheProvider,
-                    'cellId' => $tmpDb['cell_id'], // Calculate the correct cellId
-                    'date' => $dateOfInfo,          // Using the latitude from the DB result
-                    'lat' => $tmpDb['latitude'],          // Using the latitude from the DB result
-                    'lng' => $tmpDb['longitude'],         // Using the longitude from the DB result
-                    'accuracyMiles' => $tmpDb['accuracyMiles'], // Convert accuracy from meters to miles
-                ];
-                continue;
+                logWarning("'Ignore Cache' option is set - searching primary sources for {$cellId}");
             }
         }
 
         // Build curl handle for Apple, if compatible
         if (isset($tac) && $rat == 'LTE') {
             $appleHandle = genAppleHandle($plmn, $cellId, $tac);
-            $curlHandles_appl["$index-$cellNumber"] = $appleHandle;   
+            $curlHandles_appl["$index-$cellNumber"] = $appleHandle;
         } else {
             logWarning('Surro skipped for TAC ' . $tac);
         }
@@ -150,21 +143,18 @@ foreach ($formData as $index => $data) {
             // Add to list
             $curlHandles_goog["$index-$cellNumber"] = $googleHandle;
         }
-       
-        
     }
 }
 
 // Check that any valid requests were created
 if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
-    
     // Complete all apple requests
     $apple_multiCurl = curl_multi_init();
-        // Add handles to list
+    // Add handles to list
     foreach ($curlHandles_appl as $key => $handler) {
         curl_multi_add_handle($apple_multiCurl, $handler);
     }
-    
+
     // Execute all Apple lookups
     do {
         $status = curl_multi_exec($apple_multiCurl, $active);
@@ -173,7 +163,6 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 
     // Iterate through Apple responses
     foreach ($curlHandles_appl as $key => $handle) {
-
         // Check for potential cURL error
         if (curl_errno($handle)) {
             $error_msg = curl_error($handle);
@@ -190,12 +179,12 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         // Check if Surro wrapper API returned nothing
         if (isset($jsonResponse['error']) || empty($jsonResponse)) {
             logWarning('Surro returned no response for ' . $cellNumber . ' on ' . $key);
-            continue; 
+            continue;
         }
 
         // Response is clean, so we should remove from the Google handler
         if (isset($curlHandles_goog[$key])) {
-            unset($curlHandles_goog[$key]);    
+            unset($curlHandles_goog[$key]);
         }
 
         // Get pertinent information
@@ -210,10 +199,10 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         // Calculate other information
         $lat = $jsonResponse['location']['lat'];
         $lng = $jsonResponse['location']['lng'];
-        $accuracyMiles = ((int)$jsonResponse['accuracy']) / 1609;
+        $accuracyMiles = ((int) $jsonResponse['accuracy']) / 1609;
 
         // Generate date of successful request
-        $reqDate = date("Y-m-d H:i:s");
+        $reqDate = date('Y-m-d H:i:s');
 
         // Add to responses
         $responses[$eNB][$cellNumber] = [
@@ -222,105 +211,98 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             'date' => $reqDate,
             'lat' => $lat,
             'lng' => $lng,
-            'accuracyMiles' => $accuracyMiles
-        ];            
+            'accuracyMiles' => $accuracyMiles,
+        ];
 
         // Update database
         $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
                       VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro', '$reqDate')
                       ON DUPLICATE KEY UPDATE tac = '$tac', latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate'";
         $conn->query($sqlInsert);
-     
     }
-    if (!isset($_GET['blockGoogle'])) {
+
     // Execute remaining Google lookups
-    $google_multiCurl = curl_multi_init();
+    if (!isset($_GET['blockGoogle'])) {
+        $google_multiCurl = curl_multi_init();
 
-    // Iterate through remaining Google responses
-    foreach($curlHandles_goog as $key => $handler) {
-        curl_multi_add_handle($google_multiCurl, $handler);
-    }
+        // Iterate through remaining Google responses
+        foreach ($curlHandles_goog as $key => $handler) {
+            curl_multi_add_handle($google_multiCurl, $handler);
+        }
 
-    // Execute those Google lookups
-    do {
-        $status = curl_multi_exec($google_multiCurl, $active);
-        curl_multi_select($google_multiCurl);
-    } while ($active && $status == CURLM_OK);
+        // Execute those Google lookups
+        do {
+            $status = curl_multi_exec($google_multiCurl, $active);
+            curl_multi_select($google_multiCurl);
+        } while ($active && $status == CURLM_OK);
 
-    // Iterate through Google responses 
-    foreach ($curlHandles_goog as $key => $handle) {
-        $response = curl_multi_getcontent($handle);
-        [$index, $cellNumber] = explode('-', $key);
+        // Iterate through Google responses
+        foreach ($curlHandles_goog as $key => $handle) {
+            $response = curl_multi_getcontent($handle);
+            [$index, $cellNumber] = explode('-', $key);
 
-        // Decode JSON from response
-        $jsonResponse = json_decode($response, true);
+            // Decode JSON from response
+            $jsonResponse = json_decode($response, true);
 
-        // Calculate cell information
-        $eNB = $formData[$index]['eNB'];
-        $plmn = $formData[$index]['plmn'];
-        $rat = $formData[$index]['rat'];
-        $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
-        
+            // Calculate cell information
+            $eNB = $formData[$index]['eNB'];
+            $plmn = $formData[$index]['plmn'];
+            $rat = $formData[$index]['rat'];
+            $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
 
-        // If location not set, skip
-        if (isset($jsonResponse['location'])) {   
-    
-            // Calculate location information
-            $lat = $jsonResponse['location']['lat'];
-            $lng = $jsonResponse['location']['lng'];
-            $accuracyMiles = ((int)$jsonResponse['accuracy']) / 1609;
+            // If location not set, skip
+            if (isset($jsonResponse['location'])) {
+                // Calculate location information
+                $lat = $jsonResponse['location']['lat'];
+                $lng = $jsonResponse['location']['lng'];
+                $accuracyMiles = ((int) $jsonResponse['accuracy']) / 1609;
 
-            // Generate date of successful request
-            $reqDate = date("Y-m-d H:i:s");
+                // Generate date of successful request
+                $reqDate = date('Y-m-d H:i:s');
 
-            // Add to responses
-            $responses[$eNB][$cellNumber] = [
-                'provider' => 'Google',
-                'cellId' => $cellGid,
-                'date' => $reqDate,
-                'lat' => $lat,
-                'lng' => $lng,
-                'accuracyMiles' => $accuracyMiles
-            ];   
-            
-            // Add to DB
-            // Update database
-            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
+                // Add to responses
+                $responses[$eNB][$cellNumber] = [
+                    'provider' => 'Google',
+                    'cellId' => $cellGid,
+                    'date' => $reqDate,
+                    'lat' => $lat,
+                    'lng' => $lng,
+                    'accuracyMiles' => $accuracyMiles,
+                ];
+
+                // Add to DB
+                // Update database
+                $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
                           VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Google', '$reqDate')
                           ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate'";
-            $conn->query($sqlInsert);
+                $conn->query($sqlInsert);
 
-            // Update UserID DB to +1 gmaps api utilization
-            mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$userID'");
+                // Update UserID DB to +1 gmaps api utilization
+                mysqli_query($conn, "UPDATE userID SET gmaps_util = gmaps_util + 1 WHERE userID = '$userID'");
+            } else {
+                // Generate date
+                $reqDate = date('Y-m-d H:i:s');
 
-        } else {
-            
-            // Generate date
-            $reqDate = date("Y-m-d H:i:s");
-
-            // tell database that it was not found
-            $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info) 
+                // tell database that it was not found
+                $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info) 
 	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', NULL, NULL, NULL, '$reqDate') 
-	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles)";
-            $conn->query($sqlInsert);
+	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles), date_of_info = '$reqDate'";
+                $conn->query($sqlInsert);
+            }
         }
-     }
 
-     // Close leftover cURL instances to Google
-     curl_multi_close($google_multiCurl);
-
+        // Close leftover cURL instances to Google
+        curl_multi_close($google_multiCurl);
     }
-
 
     // Close leftover cURL instances to Surro
     curl_multi_close($apple_multiCurl);
-
 }
 
 if (empty($responses)) {
     // Continue with generating the map only when requests are sent via auto-submission to allow user to correct.
     if (!isset($polyFormData)) {
-        error("Nothing could be found");
+        error('Nothing could be found');
     } else {
         return;
     }
