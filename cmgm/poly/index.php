@@ -34,7 +34,7 @@ foreach($_GET as $key => $value) {
 }
 
 // Check that the length of all lists is the same
-foreach([$ratList, $enbList, $cellListList] as $value ) {
+foreach([$ratList, $enbList] as $value ) {
     if (count($carrierList) != count($value)) {
         echo 'bad parameters: ' . json_encode($carrierList) . " vs " . json_encode($value) . " for " . $key;
         return false;
@@ -92,7 +92,9 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 
 ?>
 <title>eNB Polygon Generator</title>
+<?php if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset($_GET['hidePolyForm'])) { ?>
 <script src="js/polyInfoButton.js"></script>
+<?php } ?>
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
@@ -121,7 +123,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <!-- TAC -->
             <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
             <!-- Cells -->
-            <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index]; ?>" />
+            <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index] ?? ''; ?>" />
             <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
             <!-- Delete button -->
             <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
