@@ -6,8 +6,13 @@
       $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);  
 
       $current_url = $_SERVER['REQUEST_URI'];
-      if (!str_contains($current_url, '?limit')) {
-        $current_url .= '?limit=15';
+      if (!str_contains($current_url, 'limit')) {
+        if (!str_contains($current_url, '?')) {
+          $current_url .= '?limit=15';
+        } else {
+          $current_url .= '&limit=15';
+        }
+        
       }
       echo '<div class="statistics-container">';
       echo '<div class="stat-box">';
