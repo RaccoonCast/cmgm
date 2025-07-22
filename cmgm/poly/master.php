@@ -120,6 +120,9 @@ foreach ($formData as $index => $data) {
                         'lng' => $tmpDb['longitude'],
                         'accuracyMiles' => $tmpDb['accuracyMiles'],
                     ];
+                    if ($tmpDb['tac'] > 0) {
+                         $responses[$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
+                    }
                     // Skip adding curl handles, since data is already covered by db
                     continue;
                 }
@@ -208,6 +211,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $responses[$eNB][$cellNumber] = [
             'provider' => 'Surro',
             'cellId' => $cellGid,
+            'tac' => (int) $tac,
             'date' => $reqDate,
             'lat' => $lat,
             'lng' => $lng,
