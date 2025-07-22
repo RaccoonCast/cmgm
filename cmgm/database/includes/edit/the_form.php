@@ -249,7 +249,7 @@
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input
     type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo isset($evidence_c) ? rawurldecode($evidence_c) : '' ?>">
 
-    <label class="bingmaps_label">Bing Maps <span class="floatright"><?php echo @$bingmaps_a_label . @$bingmaps_b_label . @$bingmaps_c_label?></span></label><input
+    <label class="bingmaps_label">Aerial<span class="floatright"><?php echo @$bingmaps_a_label . @$bingmaps_b_label . @$bingmaps_c_label?></span></label><input
     type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo isset($bingmaps_a) ? rawurldecode($bingmaps_a) : '' ?>"><input
     type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo isset($bingmaps_b) ? rawurldecode($bingmaps_b) : '' ?>"><input
     type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo isset($bingmaps_c) ? rawurldecode($bingmaps_c) : '' ?>">
