@@ -32,7 +32,7 @@ elseif (preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches)) {
   }
 }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
-elseif ($key == "id") { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
+elseif ($key == "id" && is_numeric($id)) { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
 
 // Filtering by date ranges, like &date=2022-01-01,2022-03-01 to filter between January-March of 2022.
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
