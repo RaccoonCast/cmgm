@@ -92,9 +92,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 
 ?>
 <title>eNB Polygon Generator</title>
-<?php if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset($_GET['hidePolyForm'])) { ?>
-<script src="js/polyInfoButton.js"></script>
-<?php } ?>
+ <script src="js/polyInfoButton.js"></script>
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
@@ -141,8 +139,35 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
    </div>
 </div>
 <?php } ?>
-<script>const jsonResponse = `<?php echo json_encode($responses) ?>`; const responseData = jsonResponse ? btoa(jsonResponse) : null;</script>
-<iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write" onload="addInfoData(this, responseData)"></iframe>
+<script>
+    const jsonResponse = `<?php echo json_encode($responses) ?>`; const responseData = jsonResponse ? btoa(jsonResponse) : null;
+
+    // create iframe
+    const iframe = document.createElement('iframe');
+    iframe.id = 'iframe';
+    iframe.allow = 'clipboard-write';
+
+      
+    // add event listener for partial load (minus images)
+    iframe.addEventListener('load', (_event) => {
+        console.log('jsr:', jsonResponse);
+
+        if (jsonResponse == 'null' && window.latestData == undefined ) {
+            // console.log('JSON response is null, skip providing button data for now');
+        } else {
+            addInfoData(iframe, responseData);
+        }
+    });
+
+        // add iframe to dom
+    document.body.appendChild(iframe);
+
+    // send iframe to URL
+    iframe.src = "<?= $iframe_url ?>";
+    
+</script>
+<!-- <iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write" onload="console.log('jsr:', jsonResponse); (jsonResponse == 'null' && window.latestData == undefined) ? console.log('JSON response = null, skip') : addInfoData(this, responseData)"></iframe> -->
+<!-- <script>document.getElementById('iframe').contentWindow.postMessage('polyInfo', '');</script> -->
 <?php $firstRun = false; ?>
 <script src="js/poly.js"></script>
 </body>

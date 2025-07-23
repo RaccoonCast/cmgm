@@ -12,10 +12,15 @@ function formatCellInfo(data) {
     const cells = data[eNB];
     for (const cellId in cells) {
       const provider = cells[cellId].provider;
-      const date = new Date(cells[cellId].date).toLocaleString();
+      const providerClean = provider.replaceAll('Cache - ', '')
+      const providerIsCached = (providerClean !== provider)
+
+      const date = new Date(cells[cellId].date)?.toLocaleString() ?? '';
+      const tacLabel = cells[cellId]?.tac ? ` (TAC ${cells[cellId].tac})` : ''
+      const providerCachedSymbol = providerIsCached ? '<span style="vertical-align: super; font-size: small;">*</span>' : '';
       const label = multipleENBs
-        ? `<li title="${date}">${eNB}-${cellId}: ${provider}</li>`
-        : `<li title="${date}">Cell ${cellId}: ${provider}</li>`;
+        ? `<li title="${date}">${eNB}-${cellId}: ${providerClean}${tacLabel}${providerCachedSymbol}</li>`
+        : `<li title="${date}">Cell ${cellId}: ${providerClean}${tacLabel}${providerCachedSymbol}</li>`;
       result.push(label);
     }
   }
@@ -23,10 +28,15 @@ function formatCellInfo(data) {
   return result;
 }
 
-function addInfoData(iframe, returnData, requestedByJs) {
+async function addInfoData(iframe, returnData, requestedByJs) {
   if (window.latestData) {
     returnData = window.latestData;
     console.log("Newer data found, using that instead!");
+  }
+
+  if (returnData == null) {
+    console.log("Return data had nothing, likely wasn't called with poly");
+    return;
   }
 
   // Get response and parse from base64
@@ -35,10 +45,21 @@ function addInfoData(iframe, returnData, requestedByJs) {
   // Parse response into format for popup
   const infoData = formatCellInfo(data);
 
-  const button = iframe.contentDocument.querySelector("#polyInfoButton");
-  const content = iframe.contentDocument.querySelector(
+  let content = iframe.contentDocument.querySelector(
     "#polyInfoButton_content"
   );
+
+  // Make sure that iframe basic buttons have loaded, before we try to place anything in them
+  if (content == null) {
+    while (content === null) {
+      // console.log('50ms wait, starting... now!')
+      await new Promise(r => setTimeout(r, 50));
+      content = iframe.contentDocument.querySelector("#polyInfoButton_content");
+
+    }
+  }
+
+  const button = iframe.contentDocument.querySelector("#polyInfoButton");
 
   // console.log('list data:', list);
   content.innerHTML = `<ul>${infoData.join("")}</ul>`;
