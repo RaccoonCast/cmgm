@@ -112,6 +112,7 @@ while ($row = $result->fetch_assoc()) {
       "cell" => $row["cell"],
       "cell_id" => $row["cell_id"],
       "enb" => $row["enb"],
+      "tac" => $row["tac"],
       "rat" => $row["rat"],
       "latitude" => $row["latitude"],
       "longitude" => $row["longitude"]

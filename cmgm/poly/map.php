@@ -99,7 +99,7 @@ include "../functions.php";
           // enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });
           // if (filterCells === false || filterCells?.includes(parseInt(item.cell))) {
             // console.log('filterCells vs cell:', filterCells, String(item.cell));
-            enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell });  
+            enbGroups[item.enb].push({ coords: [parseFloat(item.latitude), parseFloat(item.longitude)], cellId: item.cell_id, sectorId: item.cell, tac: item.tac });  
           // }
             
         }
@@ -107,14 +107,14 @@ include "../functions.php";
 
       console.log(Object.entries(enbGroups));
 
-      for (const [enb, coords] of Object.entries(enbGroups)) {
+      for (const [enb, coords, tac] of Object.entries(enbGroups)) {
 
         // Filter polygons with fewer than three points
         const showIncompletePolygons = <?php echo ( isset($_GET['showIncompletePolygons']) || isset($_GET['filterCells']) ) ? 'true' : 'false'; ?>;
         if (coords.length < 3 && !showIncompletePolygons) continue; // Need at least 3 points to form polygon
 
         // Get from request points with indices and information attached
-        const pointsWithIndices = coords.map((c, i) => ({ originalIndex: i, coords: c.coords, sector: c.sectorId }));
+        const pointsWithIndices = coords.map((c, i) => ({ originalIndex: i, coords: c.coords, sector: c.sectorId, tac: c.tac }));
 
         // Sort points while maintaining their indices and information
         const sortedPoints = sortPointsClockwise(pointsWithIndices.map(el => el.coords), pointsWithIndices);//.map(p => p.coords);
@@ -129,13 +129,14 @@ include "../functions.php";
         drawnENBs.add(enb);
 
         const hideLabels = <?php echo (isset($_GET['hideLabels']) && $_GET['hideLabels'] != 'false') ? 'true' : 'false'; ?>;
+        const showTacs = <?php echo (isset($_GET['showTacs']) && $_GET['showTacs'] != 'false') ? 'true' : 'false'; ?>;
 
         // Iterate in sorted order
         if (!hideLabels) {
         sortedPoints.forEach(pt => {
           L.marker(pt.coords, { opacity: 0 })
             // Bind label at coordinate
-            .bindTooltip(`${enb}-${pt.sector}`, {
+            .bindTooltip((showTacs && pt.tac) ? `${enb}-${pt.sector}\n(${pt.tac})` : `${enb}-${pt.sector}` , {
               permanent: true,
               direction: 'center',
               className: 'label-tooltip'
