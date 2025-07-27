@@ -193,12 +193,12 @@ function handleAddPolyLink() {
     return;
   }
 
-  polyLinkButton.onclick = () => {
+  polyLinkButton?.onclick = () => {
     window.open(window.location.href.replace("&hidePolyForm", ""), "_blank");
   };
 }
 
-document.querySelector("#iframe").contentWindow.addEventListener("load", () => {
+document.querySelector("#iframe")?.contentWindow?.addEventListener("load", () => {
   // Wait until fully loaded, including subframes
   handleAddPolyLink();
 });

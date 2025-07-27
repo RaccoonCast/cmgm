@@ -50,16 +50,22 @@ async function addInfoData(iframe, returnData, requestedByJs) {
   );
 
   // Make sure that iframe basic buttons have loaded, before we try to place anything in them
+  let tries = 0;
   if (content == null) {
-    while (content === null) {
+    while (content === null && tries < 250) {
       // console.log('50ms wait, starting... now!')
       await new Promise(r => setTimeout(r, 50));
       content = iframe.contentDocument.querySelector("#polyInfoButton_content");
-
+      tries++;
     }
   }
 
-  const button = iframe.contentDocument.querySelector("#polyInfoButton");
+  const button = iframe?.contentDocument?.querySelector("#polyInfoButton");
+
+  if ((button == null || button == undefined) || (content == null || content == undefined)) {
+    console.log('Poly info button not enabled or not working, skip adding');
+    return;
+  }
 
   // console.log('list data:', list);
   content.innerHTML = `<ul>${infoData.join("")}</ul>`;

@@ -77,6 +77,9 @@
         // Hide UI
         iframeUrl = iframeUrl + '&hideui=true'
 
+        // Force browsers to load most recent poly in iframe
+        iframeUrl = iframeUrl + `&cachebuster=${Date.now()}`
+
         // Skip polygon zoom (stay on default CMGM zoom)
         // iframeUrl = iframeUrl + '&skipPolyZoom';
 
@@ -92,7 +95,7 @@
         iframe.contentDocument.querySelector('#openPolyButton').onclick = () => {
 
         // Generate our own poly URL  
-        const polyUrl = `/poly/?plmn=${carrierCellList[0]}&rat=LTE&eNB=${eNB}&tac=${TAC}&cellList=${carrierCellList[1]}`
+        const polyUrl = `/poly/?plmn=${carrierCellList[0]}&rat=LTE&eNB=${eNB}&tac=${TAC}&cellList=${carrierCellList[1]}&cachebuster=${Date.now()}`
 
         // Set it to open in new tab
         window.open(polyUrl, '_blank');
@@ -111,7 +114,7 @@
       if (existingPoly) {
         // Append 'hidePolyForm' (to hide inputs) and marker lat/lng
         // With these arguments passed, it will also place a Leaflet control to open itself
-        iframe.src = existingPoly + '&hidePolyForm&marker_latitude=<?php echo $lat?>&marker_longitude=<?php echo $long?>';
+        iframe.src = existingPoly + `&hidePolyForm&marker_latitude=<?php echo $lat?>&marker_longitude=<?php echo $long?>&cachebuster=${Date.now()}`;
         window.polyAdded = 'existing';
         return;
       }

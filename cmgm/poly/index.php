@@ -142,6 +142,8 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 <script>
     const jsonResponse = `<?php echo json_encode($responses) ?>`; const responseData = jsonResponse ? btoa(jsonResponse) : null;
 
+    const skipPolyInfoButton = '<?= isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) ? 'true' : 'false' ?>' === 'true';
+
     // create iframe
     const iframe = document.createElement('iframe');
     iframe.id = 'iframe';
@@ -152,15 +154,30 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
     iframe.addEventListener('load', (_event) => {
         console.log('jsr:', jsonResponse);
 
-        if (jsonResponse == 'null' && window.latestData == undefined ) {
+        if ((jsonResponse == 'null' && window.latestData == undefined) || skipPolyInfoButton) {
             // console.log('JSON response is null, skip providing button data for now');
         } else {
             addInfoData(iframe, responseData);
         }
     });
 
-        // add iframe to dom
-    document.body.appendChild(iframe);
+    // add iframe to dom
+    console.log('ready state:', document.readyState);
+    if (document.readyState == 'interactive' || document.readyState == 'complete') {
+        document.body.appendChild(iframe);
+    } else {
+        // add iframe to dom when ready
+        let stateChanged = false;
+        const listener = document.addEventListener('readystatechange', () => {
+            if (stateChanged) {
+                document.removeEventListener('readystatechange', listener);
+                return;
+            }
+            stateChanged = true;
+            document.body.appendChild(iframe);
+        })
+    }
+    
 
     // send iframe to URL
     iframe.src = "<?= $iframe_url ?>";
