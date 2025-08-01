@@ -14,25 +14,39 @@ if ($value == "NULL") $value = null; // Support user specifiying a search for em
 if ($value == "!NULL") $trimChar = null; // Support user specifiying a search for non-empty fields.
 
 // List of keys to ignore.
-if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" or str_contains($key, "polygon"))  { ${$key} = $value; }
+if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" OR $key == "cachebuster" or str_contains($key, "polygon"))  { ${$key} = $value; }
 
 // Filter records by LTE or CMGM #id, e.g., &id=82869.
 // Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
 // Filter records by ID ranges, e.g., &id=69-420, to include CMGM #s between 69 and 420 (including 69 and 420).
-elseif (preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches)) {
+elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches) && $key !== 'id') {
   $start = (int)$matches['start'];
   $end = (int)$matches['end'];
 
   if ($value[0] === "!") {
       // Exclusion range (!start-end)
-      $db_vars = " AND $key NOT BETWEEN $start AND $end" . $db_vars;
+      $db_vars = " AND $key NOT BETWEEN $start AND $end" . @$db_vars;
   } else {
       // Inclusion range (start-end)
-      $db_vars .= " AND $key BETWEEN $start AND $end" . $db_vars;
+      $db_vars .= " AND $key BETWEEN $start AND $end" . @$db_vars;
   }
 }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
-elseif ($key == "id" && is_numeric($id)) { $db_vars = " AND (id = '$id' OR LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') " . @$db_vars; }
+
+elseif ($key == "id" && is_string($id)) {
+    $cols = ['id','LTE_1','LTE_2','LTE_3','LTE_4','LTE_5','LTE_6','LTE_7','LTE_8','LTE_9','NR_1','NR_2','NR_3','NR_4'];
+    if (strpos($id, '-') !== false) {
+        list($start, $end) = explode('-', $id, 2);
+        $start = (int)trim($start);
+        $end = (int)trim($end);
+        $conds = array_map(fn($c) => "$c BETWEEN $start AND $end", $cols);
+        $db_vars = " AND (" . implode(" OR ", $conds) . ") " . @$db_vars;
+    } elseif (is_numeric($id)) {
+        $id = (int)$id;
+        $conds = array_map(fn($c) => "$c = $id", $cols);
+        $db_vars = " AND (" . implode(" OR ", $conds) . ") " . @$db_vars;
+    }
+}
 
 // Filtering by date ranges, like &date=2022-01-01,2022-03-01 to filter between January-March of 2022.
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
