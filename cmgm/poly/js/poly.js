@@ -193,7 +193,7 @@ function handleAddPolyLink() {
     return;
   }
 
-  polyLinkButton?.onclick = () => {
+  polyLinkButton.onclick = () => {
     window.open(window.location.href.replace("&hidePolyForm", ""), "_blank");
   };
 }
