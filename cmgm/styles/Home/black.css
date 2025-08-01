@@ -1,5 +1,5 @@
-/* CHANGE SETTING LINK TEXT TO WHITE */
-#settings {
+/* bottom links of the homepage should be overwritten to be white, that's bc the default value w/o black theme has the text as white */
+div[class="buttons"] > input:nth-child(20) {
   color: #FAFAFA!important;
 }
 ::placeholder {

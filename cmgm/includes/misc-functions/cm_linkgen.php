@@ -14,7 +14,8 @@ function cellmapperLink ($cm_latitude,$cm_longitude,$cm_zoom,$cm_carrier,$cm_net
   if (empty($cm_carrier) OR $cm_carrier == "Unknown") $beginning = NULL;
   if (empty($cm_netType)) $cm_netType = "LTE";
   if ($map_popup_link == "true") return '<a target="_blank" href="https://www.cellmapper.net/map?' . $beginning . 'type=' . $cm_netType . '&latitude=' . $cm_latitude . '&longitude=' . $cm_longitude . '&zoom=' . $cm_zoom . '&clusterEnabled=' . $cm_groupTowers . '&showTowerLabels=' . $cm_showLabels . '&showOrphans=' . $cm_showLowAcc . '&ppT=' . $item . '&ppL=' . $tac . '">' . $item . '</a>';
-  return "https://www.cellmapper.net/map?$beginning"  . "type=$cm_netType&latitude=$cm_latitude&longitude=$cm_longitude&zoom=$cm_zoom&clusterEnabled=$cm_groupTowers&showTowerLabels=$cm_showLabels&showOrphans=$cm_showLowAcc&ppT=$item&ppL=$tac";
+  $suffix = ($item != "0") ? "&ppT=$item&ppL=$tac" : null;
+  return "https://www.cellmapper.net/map?$beginning"  . "type=$cm_netType&latitude=$cm_latitude&longitude=$cm_longitude&zoom=$cm_zoom&clusterEnabled=$cm_groupTowers&showTowerLabels=$cm_showLabels&showOrphans=$cm_showLowAcc$suffix";
 }
 // $var = cellmapperLink($latitude,$longitude,"18","T-Mobile","LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
 // echo $var;

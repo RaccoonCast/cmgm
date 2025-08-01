@@ -24,6 +24,9 @@ function convert($data,$goto,$default_latitude,$default_longitude,$maps_api_key,
 include SITE_ROOT . "/includes/functions/getGetVars.php";
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
+// Attemnpt to recognize location as FAA Case
+if (preg_match('/^(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)$/i', $data)) redir("../faa/?asn=" . $data, 0);
+
 // Attempt coordinate string conversion (e.g., "Latitude: 42.3723˚N, Longitude: 71.9544˚W")
 if(preg_match('/Latitude: [\d.]+˚[NS], Longitude: [\d.]+˚[EW]/', $data)) include "convert/lat-long-string-to-vars.php";
 // Attempt to convert lat,long that has labels such as "Latitude: 34.23923 Longitude: -118.4843".
@@ -53,5 +56,23 @@ if (($goto == "HomeWOAddr") OR ($goto == "HomeWAddr")) return [$latitude,$longit
 if (($goto == "pciplus")) return [@$address,@$city,@$county,@$zip,@$state];
 
 include_once "function_goto.php";
-return function_goto($latitude,$longitude,$carrier,@$address,@$zip,@$city,@$county,@$state,@$goto,@$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+        $user_data = [
+            'latitude'       => $latitude,
+            'longitude'      => $longitude,
+            'carrier'        => @$carrier,
+            'address'        => @$address,
+            'zip'            => @$zip,
+            'city'           => @$city,
+            'county'         => @$county,
+            'state'          => @$state,
+            'conv_type'       => NULL,
+            'mapType'        => $cm_mapType,
+            'cm_groupTowers'    => $cm_groupTowers,
+            'cm_showLabels'     => $cm_showLabels,
+            'cm_showLowAcc'     => $cm_showLowAcc,
+            'cm_zoom'           => $cm_zoom,
+            'cm_mapType'        => @$cm_mapType,
+            'cm_netType'        => @$cm_netType,
+        ];
+return function_goto($user_data,$goto);
 }

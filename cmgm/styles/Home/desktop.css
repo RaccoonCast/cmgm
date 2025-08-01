@@ -14,16 +14,16 @@
   width: 100%; max-width: 25cm;
 }
 @media (min-width: 950px) {
-  .w-75 {width: 75%}
-  .w-50 {width: 50%}
-  .w-40 {width: 40%}
-  .w-25 {width: 25%}
-  .w-25-1 {width: 25%}
-  .w-33 {width: 33.33333%}
-  .w-35 {width: 35%}
-  .w-37-5 {width: 37.5%}
-  .w-40 {width: 40%}
-  .w-20 {width: 20%}
+  .w-075 {width: 75%}
+  .w-050 {width: 50%}
+  .w-040 {width: 40%}
+  .w-025 {width: 25%}
+  .w-025-1 {width: 25%}
+  .w-033 {width: 33.33333%}
+  .w-035 {width: 35%}
+  .w-037-5 {width: 37.5%}
+  .w-040 {width: 40%}
+  .w-020 {width: 20%}
   .w-100 {width: 100%}
 }
 @media (max-width: 950px) {

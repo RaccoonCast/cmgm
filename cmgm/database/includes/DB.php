@@ -54,8 +54,8 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
         }
         include_once $SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
         include_once $SITE_ROOT . "/includes/misc-functions/cm_linkgen.php";
-                                                                       
-        $gmlink = function_goto($latitude,$longitude,NULL,NULL,NULL,NULL,NULL,NULL,"Google Maps",NULL,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,@$cm_netType);
+        $user_data = ['latitude' => $latitude, 'longitude' => $longitude];                                                                
+        $gmlink = function_goto($user_data, "Google Maps");
         $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte);
 
           ?> <td><input type="button" class="w-100 btn-edit" onclick="redir('Edit.php?id=<?php echo $id;?>','0')"value="Edit"></input></td> <?php

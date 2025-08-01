@@ -1,44 +1,13 @@
 <?php ?>
 <script>
 function changeFormAction() {
-  document.getElementById("form").removeAttribute("onclick");
-  document.getElementById("form").setAttribute('type', 'submit');
+  // Select all buttons with the common class, e.g., "cmgm-btn"
+  const buttons = document.querySelectorAll('.usr_btns');
 
-  document.getElementById("edit").removeAttribute("onclick");
-  document.getElementById("edit").setAttribute('type', 'submit');
-
-  document.getElementById("map").removeAttribute("onclick");
-  document.getElementById("map").setAttribute('type', 'submit');
-
-  document.getElementById("cellmapper").removeAttribute("onclick");
-  document.getElementById("cellmapper").setAttribute('type', 'submit');
-
-  document.getElementById("streetview").removeAttribute("onclick");
-  document.getElementById("streetview").setAttribute('type', 'submit');
-
-  document.getElementById("maps").removeAttribute("onclick");
-  document.getElementById("maps").setAttribute('type', 'submit');
-
-  document.getElementById("birdseye").removeAttribute("onclick");
-  document.getElementById("birdseye").setAttribute('type', 'submit');
-
-  document.getElementById("search").removeAttribute("onclick");
-  document.getElementById("search").setAttribute('type', 'submit');
-
-  document.getElementById("lart2150").removeAttribute("onclick");
-  document.getElementById("lart2150").setAttribute('type', 'submit');
-
-  document.getElementById("antennasearch").removeAttribute("onclick");
-  document.getElementById("antennasearch").setAttribute('type', 'submit');
-
-  document.getElementById("maprad").removeAttribute("onclick");
-  document.getElementById("maprad").setAttribute('type', 'submit');
-
-  document.getElementById("opencid").removeAttribute("onclick");
-  document.getElementById("opencid").setAttribute('type', 'submit');
-
-  document.getElementById("lookaround").removeAttribute("onclick");
-  document.getElementById("lookaround").setAttribute('type', 'submit');
+  buttons.forEach(button => {
+    button.removeAttribute('onclick');  // remove the inline onclick handler
+    button.setAttribute('type', 'submit');  // change type to submit
+  });
 }
 
 function redir(page) {

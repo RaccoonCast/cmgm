@@ -1,5 +1,6 @@
 <?php
-function function_goto($latitude,$longitude,$carrier,$address,$zip,$city,$county,$state,$goto_page,$conv_type,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$cm_zoom,$cm_netType) {
+function function_goto($user_data,$goto_page) {
+extract($user_data);
 
 if(empty($carrier)) $carrier = null;
 if(empty($zip)) $zip = null;
@@ -18,14 +19,13 @@ if ($goto_page == "CellMapper") {
   $var = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
   return $var;
 }
-if ($goto_page == "Beta") {
-  if ("$carrier" == "T-Mobile") $beginning = "310/260";
-  if ("$carrier" == "Sprint") $beginning = "310/120";
-  if ("$carrier" == "ATT") $beginning = "310/410";
-  if ("$carrier" == "Verizon") $beginning = "311/480";
-  if ("$carrier" == "Dish") $beginning = "313/340";
-  if (!isset($cm_netType)) $cm_netType = "LTE";
-  return "https://www.cellmapper.net/testmap/map/$beginning" . "/$cm_netType" . "?lat=$latitude&lng=$longitude&z=18";
+if ($goto_page == "Poly Map") {
+  if ("$carrier" == "T-Mobile") $plmn_settings = 310260;
+  if ("$carrier" == "Sprint") $plmn_settings = 310120;
+  if ("$carrier" == "ATT") $plmn_settings = 310410;
+  if ("$carrier" == "Verizon") $plmn_settings = 311480;
+  if ("$carrier" == "Dish") $plmn_settings = 313340;
+  if (!isset($plmn_settings)) $plmn_settings = 0;
 }
 if ($goto_page == "Google Maps") return "https://www.google.com/maps/@?api=1&map_action=map&center=$latitude,$longitude&zoom=20&basemap=satellite";
 if ($goto_page == "Street View") return "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=$latitude,$longitude&fov=75";
@@ -42,6 +42,7 @@ if ($goto_page == "Upload") $goto_page_URL = "https://upload.cmgm.us";
 if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
 if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";
+if ($goto_page == "Poly Map") return "https://cmgm.us/poly/map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
 if (isset($carrier)) if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
