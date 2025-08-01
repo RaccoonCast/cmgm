@@ -46,7 +46,7 @@ foreach($_GET as $key => $value) {
     }
   }
 
-  elseif ($value != "false") {
+  elseif ($value != "false" && $value != "0") {
     $sanitizedKey = preg_replace('/[^a-zA-Z0-9_]/', '', $key);
     $sanitizedValue = preg_replace('/[^a-zA-Z0-9_]/', '', $value);
     $db_vars = "AND $sanitizedKey = $sanitizedValue" . $db_vars;
