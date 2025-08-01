@@ -25,7 +25,7 @@ include "../functions.php";
   const defaultLat = parseFloat(params.get('latitude')) || 34.201;
   const defaultLng = parseFloat(params.get('longitude')) || -118.44;
   const defaultZoom = parseInt(params.get('zoom')) || 13;
-  const plmn = params.get('plmn') || '310410';
+  const plmn = params.get('plmn') || '0';
 
   const mymap = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
