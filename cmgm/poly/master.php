@@ -42,13 +42,19 @@ foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error('Invalid eNB/gNB.');
     $cellList = isset($data['cellList']) && preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : null;
+    $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error('Invalid PLMN.');
+    $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; 
     $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
     if (isset($data['cellListDepri']) && $data['cellListDepri'] == '*') {
         $cellList_depri = range(1, 255);
     }
-    $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error('Invalid PLMN.');
-    $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; // Don't error on invalid TAC, it will just use Google instead
-
+    if (isset($data['cellListDepri']) && $data['cellListDepri'] == '-') {
+       if ($plmn == 310260) $cellList_depri = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,45,46,47,48,49,50,51,52,53,54,61,62,63,64,65,66,104,105,106,107,111,112,113,114,131,132,133,134,135,136,141,142,143,144,145,146,171,172,173,174,241,242,243,244];
+       if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,185,186,187,188,189,190,191,192,193,194,195,196,197,198,35,63,99,28,56,91,182,183,181,42,70,107,49,63,115,179,171,186,202,203,201,92,93,94,100,101,102,108,109,110,149,150,151,152,153,154,155,171,172,173,174,217,218,219,220];
+       if ($plmn == 311480) $cellList_depri = [1,2,3,4,5,6,7,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,52,54,62,64,72,74,76,82,84,86,92,94,96,102,104,106,112,114,116,122,124,126];
+       if ($plmn == 310120) error('Fuck Sprint');
+    }
+ 
     // Set base calculation for cellId
     $base = 0;
     if ($rat == 'NR') {
