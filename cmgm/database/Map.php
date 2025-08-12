@@ -57,14 +57,14 @@
     <?php
     $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-    $database_get_list = "id,carrier,latitude,longitude,concealed,status,tags";
+    $database_get_list = "id,carrier,latitude,longitude,status,tags";
 
     $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
     if (isset($_GET['showsql']))
       echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
     $result = mysqli_query($conn, $sql);
 
-    $resultArray = mysqli_fetch_all($result);
+    $resultArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
 
     <!-- Start JS -->
@@ -341,68 +341,37 @@
       include 'includes/map/iconsize.php';
 
       foreach ($resultArray as $row) {
-
-        $colCount = 1;
-        foreach ($row as $field => $value) {
-          $sepCount = ($colCount++);
-
-
-          switch ($sepCount) {
-            case 1:
-              $id = $value;
-              break;
-            case 2:
-              $pin_carrier = $value;
-              break;
-            case 3:
-              $lat = $value;
-              break;
-            case 4:
-              $long = $value;
-              break;
-            case 5:
-              $concealed = $value;
-              break;
-            case 6:
-              $status = $value;
-              break;
-            case 7:
-              $tags = $value;
-
+              $status = null;
               // Carrier pin styles
               if (@$pin_style == "carrier" or !isset($carrier)) {
-                $status = NULL;
-                if ($pin_carrier == "T-Mobile") $status = "tmobile";
-                if ($pin_carrier == "ATT") $status = "att";
-                if ($pin_carrier == "Sprint") $status = "sprint";
-                if ($pin_carrier == "Verizon") $status = "verizon";
-                if ($pin_carrier == "Dish") $status = "dish";
+                if ($row['carrier'] == "T-Mobile") $status = "tmobile";
+                if ($row['carrier'] == "ATT") $status = "att";
+                if ($row['carrier'] == "Sprint") $status = "sprint";
+                if ($row['carrier'] == "Verizon") $status = "verizon";
+                if ($row['carrier'] == "Dish") $status = "dish";
                 if (empty($status)) $status = "unknown";
 
-                if (like_match('sprint_keep,%', $tags) == "TRUE" or like_match('%,sprint_keep', $tags) == "TRUE" or like_match('%,sprint_keep,%', $tags) == "TRUE" or $tags == "sprint_keep")
+                if (like_match('sprint_keep,%', $row['tags']) == "TRUE" or like_match('%,sprint_keep', $row['tags']) == "TRUE" or like_match('%,sprint_keep,%', $row['tags']) == "TRUE" or $row['tags'] == "sprint_keep")
                     $status = $status . "_spk";
               }
 
               if (@$pin_style != "basic") {
-                if (like_match('decom,%', $tags) == "TRUE" or like_match('%,decom', $tags) == "TRUE" or like_match('%,decom,%', $tags) == "TRUE" or $tags == "decom")
+                if (like_match('decom,%', $row['tags']) == "TRUE" or like_match('%,decom', $row['tags']) == "TRUE" or like_match('%,decom,%', $row['tags']) == "TRUE" or $row['tags'] == "decom")
                   $status = "decom";
-                if (like_match('unmapped,%', $tags) == "TRUE" or like_match('%,unmapped', $tags) == "TRUE" or like_match('%,unmapped,%', $tags) == "TRUE" or $tags == "unmapped")
+                if (like_match('unmapped,%', $row['tags']) == "TRUE" or like_match('%,unmapped', $row['tags']) == "TRUE" or like_match('%,unmapped,%', $row['tags']) == "TRUE" or $row['tags'] == "unmapped")
                   $status = "unmapped";
-                if (like_match('weird,%', $tags) == "TRUE" or like_match('%,weird', $tags) == "TRUE" or like_match('%,weird,%', $tags) == "TRUE" or $tags == "weird")
+                if (like_match('weird,%', $row['tags']) == "TRUE" or like_match('%,weird', $row['tags']) == "TRUE" or like_match('%,weird,%', $row['tags']) == "TRUE" or $row['tags'] == "weird")
                   $status = "weird";
-                if (like_match('wip,%', $tags) == "TRUE" or like_match('%,wip', $tags) == "TRUE" or like_match('%,wip,%', $tags) == "TRUE" or $tags == "wip")
+                if (like_match('wip,%', $row['tags']) == "TRUE" or like_match('%,wip', $row['tags']) == "TRUE" or like_match('%,wip,%', $row['tags']) == "TRUE" or $row['tags'] == "wip")
                   $status = "wip";
               }
 
 
               // End of PHP, generate marker and add to map.
               ?>
-              marker(<?php echo $lat ?>, <?php echo $long ?>, <?php echo $status ?>, <?php echo $id ?>);
+              marker(<?php echo $row['latitude'] ?>, <?php echo $row['longitude'] ?>, <?php echo $status ?>, <?php echo $row['id'] ?>);
               <?php
-              break;
           }
-        }
-      }
 
       if (isset($marker_latitude))
         echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
