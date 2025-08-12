@@ -351,28 +351,20 @@
                 if ($row['carrier'] == "Dish") $status = "dish";
                 if (empty($status)) $status = "unknown";
 
-                if (like_match('sprint_keep,%', $row['tags']) == "TRUE" or like_match('%,sprint_keep', $row['tags']) == "TRUE" or like_match('%,sprint_keep,%', $row['tags']) == "TRUE" or $row['tags'] == "sprint_keep")
-                    $status = $status . "_spk";
-              }
-
-              if (@$pin_style != "basic") {
-                if (like_match('decom,%', $row['tags']) == "TRUE" or like_match('%,decom', $row['tags']) == "TRUE" or like_match('%,decom,%', $row['tags']) == "TRUE" or $row['tags'] == "decom")
-                  $status = "decom";
-                if (like_match('unmapped,%', $row['tags']) == "TRUE" or like_match('%,unmapped', $row['tags']) == "TRUE" or like_match('%,unmapped,%', $row['tags']) == "TRUE" or $row['tags'] == "unmapped")
-                  $status = "unmapped";
-                if (like_match('weird,%', $row['tags']) == "TRUE" or like_match('%,weird', $row['tags']) == "TRUE" or like_match('%,weird,%', $row['tags']) == "TRUE" or $row['tags'] == "weird")
-                  $status = "weird";
-                if (like_match('wip,%', $row['tags']) == "TRUE" or like_match('%,wip', $row['tags']) == "TRUE" or like_match('%,wip,%', $row['tags']) == "TRUE" or $row['tags'] == "wip")
-                  $status = "wip";
-              }
+                // chatgpt work of art minification
+                if (@$pin_style != "basic") {
+                   $tags = array_map('trim', explode(',', $row['tags']));
+                   if (in_array('sprint_keep', $tags)) $status .= "_spk";
+                   $status = array_values(array_intersect(['decom','unmapped','weird','wip'], $tags))[0] ?? $status;
+                }
 
 
-              // End of PHP, generate marker and add to map.
-              ?>
-              marker(<?php echo $row['latitude'] ?>, <?php echo $row['longitude'] ?>, <?php echo $status ?>, <?php echo $row['id'] ?>);
-              <?php
+                // End of PHP, generate marker and add to map.
+                ?>
+                marker(<?php echo $row['latitude'] ?>, <?php echo $row['longitude'] ?>, <?php echo $status ?>, <?php echo $row['id'] ?>);
+                <?php
           }
-
+      }
       if (isset($marker_latitude))
         echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
       ?>
@@ -394,5 +386,4 @@
       include "includes/footer.php"; ?>
   </div>
 </body>
-
 </html>
