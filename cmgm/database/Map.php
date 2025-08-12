@@ -57,7 +57,7 @@
     <?php
     $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-    $database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
+    $database_get_list = "id,carrier,latitude,longitude,concealed,status,tags";
 
     $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
     if (isset($_GET['showsql']))
@@ -361,36 +361,28 @@
               $long = $value;
               break;
             case 5:
-              $cellsite_type = $value;
-              break;
-            case 6:
               $concealed = $value;
               break;
-            case 7:
+            case 6:
               $status = $value;
               break;
-            case 8:
+            case 7:
               $tags = $value;
 
               // Carrier pin styles
               if (@$pin_style == "carrier" or !isset($carrier)) {
                 $status = NULL;
-                if ($pin_carrier == "T-Mobile") {
-                  $status = "tmobile";
-                  if (like_match('sprint_keep,%', $tags) == "TRUE" or like_match('%,sprint_keep', $tags) == "TRUE" or like_match('%,sprint_keep,%', $tags) == "TRUE" or $tags == "sprint_keep")
-                    $status = "sprint_keep";
-                }
-                if ($pin_carrier == "ATT")
-                  $status = "att";
-                if ($pin_carrier == "Sprint")
-                  $status = "sprint";
-                if ($pin_carrier == "Verizon")
-                  $status = "verizon";
-                if ($pin_carrier == "Dish")
-                  $status = "dish";
-                if (empty($status))
-                  $status = "unknown";
+                if ($pin_carrier == "T-Mobile") $status = "tmobile";
+                if ($pin_carrier == "ATT") $status = "att";
+                if ($pin_carrier == "Sprint") $status = "sprint";
+                if ($pin_carrier == "Verizon") $status = "verizon";
+                if ($pin_carrier == "Dish") $status = "dish";
+                if (empty($status)) $status = "unknown";
+
+                if (like_match('sprint_keep,%', $tags) == "TRUE" or like_match('%,sprint_keep', $tags) == "TRUE" or like_match('%,sprint_keep,%', $tags) == "TRUE" or $tags == "sprint_keep")
+                    $status = $status . "_spk";
               }
+
               if (@$pin_style != "basic") {
                 if (like_match('decom,%', $tags) == "TRUE" or like_match('%,decom', $tags) == "TRUE" or like_match('%,decom,%', $tags) == "TRUE" or $tags == "decom")
                   $status = "decom";
@@ -400,9 +392,8 @@
                   $status = "weird";
                 if (like_match('wip,%', $tags) == "TRUE" or like_match('%,wip', $tags) == "TRUE" or like_match('%,wip,%', $tags) == "TRUE" or $tags == "wip")
                   $status = "wip";
-                if (like_match('special,%', $tags) == "TRUE" or like_match('%,special', $tags) == "TRUE" or like_match('%,special,%', $tags) == "TRUE" or $tags == "special")
-                  $status = "special";
               }
+
 
               // End of PHP, generate marker and add to map.
               ?>
