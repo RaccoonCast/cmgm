@@ -52,7 +52,9 @@ const longitude = correctLongitude(urlParams.get('longitude'));
 const zoom = urlParams.get('zoom');
 
 // Create the Leaflet map
-var map = L.map('map');
+var map = L.map('map', {
+  zoomSnap: 0.00000000000001 
+});
 map.on('load', work);
 map.setView([latitude, longitude], zoom);
 map.on('moveend', () => {
