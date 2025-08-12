@@ -15,7 +15,7 @@ $db_vars = "id > 0";
 
 
 foreach($_GET as $key => $value){
-  $clean_value = preg_replace('/[^0-9.]/', '', $value);
+  $clean_value = preg_replace('/[^0-9-.]/', '', $value);
 
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
     ${$key} = $clean_value;
@@ -23,7 +23,7 @@ foreach($_GET as $key => $value){
     // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
       $db_get_list = $db_get_list . "," . $key;
 
-    $db_vars = preg_replace('/[^a-zA-Z0-9_]/', '', $key) . ' = "'.preg_replace('/[^a-zA-Z0-9_]/', '', $value).'" AND ' . $db_vars;
+    $db_vars = preg_replace('/[^a-z0-9_\-.,]/', '', $key) . ' = "'.preg_replace('/[^a-zA-Z0-9_]/', '', $value).'" AND ' . $db_vars;
   }
 }
 
@@ -40,7 +40,7 @@ $locations = array();
 while ($row = $result->fetch_assoc()) {
   if ($row["DISTANCE"] < 5) {
     $locations[] = array(
-      "name" => $row["id"],
+      "id" => $row["id"],
       "carrier" => $row["carrier"],
       "latitude" => $row["latitude"],
       "longitude" => $row["longitude"],

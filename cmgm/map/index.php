@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
 	<style>
+		
 		html, body {
 			height: 100%;
 			margin: 0;
@@ -19,6 +20,11 @@
       padding: 0em;
       margin: 0em;
     }
+	/* HIDDEN SIDE MENU */
+	#side_menu { width: 0%!important; 
+				 max-width: 0%!important;
+				 display: none!important;}
+	#map { width: 100%!important; }
 	</style>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -37,7 +43,7 @@ Laoreet sit amet cursus sit amet. Turpis nunc eget lorem dolor. Ipsum dolor sit 
 
 </div><div id="map" style="display: inline-block; width: 80%; max-width: 100%; height: 100%;"></div>
 <script>
-<?php include '../database/includes/map/iconsize-v2.php'; ?>
+<?php include '../database/includes/map/iconsize.php'; ?>
 const apiUrl = "https://cmgm.us/api/cmgm/getTowersV2.php";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -85,7 +91,7 @@ function work() {
       // Loop through the map pin locations
       data.forEach(location => {
         // Add the map pin to the map, if it does not already exist
-        addPin(location.latitude, location.longitude, location.name, location.carrier);
+        addPin(location.latitude, location.longitude, location.id, location.carrier, location.tags);
       });
       // Remove map pins that are not in the current map view
       unloadOutOfBoundsPins();
@@ -105,49 +111,60 @@ function updateURL() {
 }
 
 // Utility function to add a map pin to the map, if it does not already exist
-function addPin(lat, lng, name, carrier_name) {
+function addPin(lat, lng, id, carrier_name, tags) {
+  // Ensure tags is always a string
+  tags = tags || "";
+
   // Check if the pin already exists on the map
-  if (!map.hasLayer(pinLocations[name])) {
-    // If the pin does not already exist, create a new map pin
-		var customPopup = '<iframe frameBorder=\"0\" src=\"../database/Map-popup.php?id=' + name + '\">';
-		var customOptions = { 'className' : 'custom' }
-		let status;
-		let carrier = carrier_name;
-		let tags;
-		pinStyle = "carrier";
-			if (pinStyle === "celltype") {
-  		status = null;
-  		if (cellsiteType === "rooftop" && concealed === "false") status = lightgrayIcon;
-  		if (cellsiteType === "rooftop" && concealed === "true") status = darkgrayIcon;
-  		if (cellsiteType === "monopalm") status = lightgreenIcon;
-  		if (cellsiteType === "monopine") status = darkgreenIcon;
-  		if (cellsiteType === "misc-tree") status = darkgreenIcon;
-  		if (cellsiteType === "tower") status = towerIcon;
-  		if (!status) status = unknownIcon;
-		}
+  if (!map.hasLayer(pinLocations[id])) {
+    // Prepare popup
+    const customPopup = '<iframe frameBorder="0" src="../database/Map-popup.php?id=' + id + '">';
+    const customOptions = { className: 'custom' };
 
-		if (pinStyle === "carrier" || !carrier) {
-  		status = null;
-  		if (carrier === "T-Mobile") status = tmobileIcon;
-  		if (carrier === "ATT") status = attIcon;
-  		if (carrier === "Sprint") status = sprintIcon;
-  		if (carrier === "Verizon") status = verizonIcon;
-  		if (carrier === "Dish") status = dishIcon;
-  		// if (tags.includes("sprint_keep")) status = "sprint_keep";
-  		if (!status) status = unknownIcon;
-		}
+    // Normalize inputs
+    let status = null;
+    let carrier = (carrier_name || "").trim();
+    let pinStyle = "carrier";
 
-		// if (pinStyle !== "basic") {
-  		// if (tags.includes("unmapped")) status = "unmapped";
-  		// if (tags.includes("weird")) status = "weird";
-  		// if (tags.includes("wip")) status = "wip";
-  		// if (tags.includes("special")) status = "special";
-		// }
-    var newPin = L.marker(L.latLng(lat, lng), { title: name, icon: status }).addTo(map).bindPopup(customPopup,customOptions);
-    // Add the new map pin to the pinLocations object
-    pinLocations[name] = newPin;
+    // Carrier-based pin style
+    if (pinStyle === "carrier" || !carrier) {
+      if (carrier === "T-Mobile") status = tmobile;
+      if (carrier === "ATT") status = att;
+      if (carrier === "Sprint") status = sprint;
+      if (carrier === "Verizon") status = verizon;
+      if (carrier === "Dish") status = dish;
+
+	  if (
+	    tags === "sprint_keep" ||
+	    tags.startsWith("sprint_keep,") ||
+	    tags.endsWith(",sprint_keep") ||
+	    tags.includes(",sprint_keep,")
+	  ) {
+	    if (carrier === "T-Mobile") status = tmobile_spk;
+	    if (carrier === "ATT") status = att_spk;
+	    if (carrier === "Sprint") status = sprint_spk; // make sure sprint_spk exists
+	    if (carrier === "Verizon") status = verizon_spk;
+	    if (carrier === "Dish") status = dish_spk;
+	  }
+
+      if (
+        tags === "decom" ||
+        tags.startsWith("decom,") ||
+        tags.endsWith(",decom") ||
+        tags.includes(",decom,")
+      ) {
+        status = decom;
+      }
+    }
+
+    // Create and store the new pin
+    const newPin = L.marker(L.latLng(lat, lng), { title: id, icon: status })
+      .addTo(map)
+      .bindPopup(customPopup, customOptions);
+    pinLocations[id] = newPin;
   }
 }
+
 
 // Utility function to unload map pins that are not in the current map view
 function unloadOutOfBoundsPins() {
@@ -155,11 +172,11 @@ function unloadOutOfBoundsPins() {
   var bounds = map.getBounds().pad(0.5);
 
   // Loop through all of the map pins in the pinLocations object
-  for (var name in pinLocations) {
+  for (var id in pinLocations) {
     // Check if the map pin is within the bounds of the current map view
-    if (!bounds.contains(pinLocations[name].getLatLng())) {
+    if (!bounds.contains(pinLocations[id].getLatLng())) {
       // If the map pin is not within the bounds, remove it from the map
-      map.removeLayer(pinLocations[name]);
+      map.removeLayer(pinLocations[id]);
     }
 	}
 }
