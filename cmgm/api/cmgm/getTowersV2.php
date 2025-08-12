@@ -10,7 +10,7 @@ header('Pragma: no-cache');
 include '../../includes/functions/sqlpw.php'; // doesn't call native
 
 //  cody and alps' purple iphones (CAAPI)
-$db_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
+$db_get_list = "id,carrier,latitude,longitude,status,tags";
 $db_vars = "id > 0";
 
 
