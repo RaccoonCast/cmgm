@@ -66,6 +66,7 @@
 
     $resultArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
+    
 
     <!-- Start JS -->
     <script>
@@ -112,8 +113,8 @@
 
       // Sort records into JS 2D array
       for (let record of records) {
-        const latitude = record[2];
-        const longitude = record[3];
+        const latitude = record.latitude;
+        const longitude = record.longitude;
 
         recordCoordList.push([latitude, longitude]);
       }
@@ -341,32 +342,28 @@
       include 'includes/map/iconsize.php';
 
       foreach ($resultArray as $row) {
-              $status = null;
-              // Carrier pin styles
+              // Set $status (icon type) to default CMGM-db status to allow for Green/Red icons incase pin_style isn't per $carrier
+              $status = $row['status'];
               if (@$pin_style == "carrier" or !isset($carrier)) {
-                if ($row['carrier'] == "T-Mobile") $status = "tmobile";
-                if ($row['carrier'] == "ATT") $status = "att";
-                if ($row['carrier'] == "Sprint") $status = "sprint";
-                if ($row['carrier'] == "Verizon") $status = "verizon";
-                if ($row['carrier'] == "Dish") $status = "dish";
-                if (empty($status)) $status = "unknown";
 
-                // chatgpt work of art minification
+                // Set $status (icon type) to be based on the carrier, remove - for t-mobile and strtolower to address case sensitivity.
+                $status = strtolower(str_replace('-', '', $row['carrier']));
+                
+                // Address icon being set by tags (like decom or sprkeep) 
                 if (@$pin_style != "basic") {
-                   $tags = array_map('trim', explode(',', $row['tags']));
-                   if (in_array('sprint_keep', $tags)) $status .= "_spk";
-                   $status = array_values(array_intersect(['decom','unmapped','weird','wip'], $tags))[0] ?? $status;
+                   $tags = array_map('trim', explode(',', $row['tags'])); // 
+                   if (in_array('sprint_keep', $tags)) $status .= "_spk"; // Amend sprkeep marker incase of a Sprint R&R w/ another carrier
+                   $status = array_values(array_intersect(['decom','unmapped'], $tags))[0] ?? $status; // Overwrite previous status with decom/unmapped if either.
                 }
-
-
+              }
                 // End of PHP, generate marker and add to map.
                 ?>
-                marker(<?php echo $row['latitude'] ?>, <?php echo $row['longitude'] ?>, <?php echo $status ?>, <?php echo $row['id'] ?>);
+                marker(<?= $row['latitude']?>,<?= $row['longitude']?>,<?= $status ?>,<?= $row['id']?>);
                 <?php
           }
-      }
-      if (isset($marker_latitude))
-        echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
+      
+          // Add default leaflet pin marker where prescribed, primarily/solely for CMGM Edit.
+          if (isset($marker_latitude) && isset($marker_longitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
       ?>
 
       const skipPolyZoom = "<?php echo json_encode(isset($_GET['skipPolyZoom'])); ?>" === 'true';
