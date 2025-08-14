@@ -143,7 +143,7 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
  * @param mixed $tac
  * @return CurlHandle
  */
-function genAppleHandle($carrier, $cellId, $tac): CurlHandle {
+function genAppleHandle($carrier, $cellId, $tac, $rat): CurlHandle {
 	
 	// Generate payload for Apple
 	$requestPayload = [
@@ -153,6 +153,7 @@ function genAppleHandle($carrier, $cellId, $tac): CurlHandle {
 				"cellId" => $cellId,
 				"mobileCountryCode" => substr($carrier, 0, 3),
 				"mobileNetworkCode" => substr($carrier, 3, 3),
+				"rat" => $rat
 			]
 		],
 	];

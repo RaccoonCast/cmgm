@@ -1,0 +1,5 @@
+Instructions:
+
+1. `npm install`
+2. `npm run start`
+3. Leave running in the background, potentially by utilizing the included systemd service

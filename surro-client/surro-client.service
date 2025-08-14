@@ -1,0 +1,16 @@
+[Unit]
+Description="Provide a surface for CMGM's Surro API calls"
+After=network.target
+
+[Service]
+WorkingDirectory=/home/spane2003/cmgm/surro-client
+ExecStart=/home/spane2003/cmgm/surro-client/start.sh
+Environment="PATH=/usr/bin:/usr/local/bin"
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

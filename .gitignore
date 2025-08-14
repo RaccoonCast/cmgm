@@ -22,3 +22,6 @@ cmgm/metro/
 
 # PHP builtin server compatibility
 dev-router.php
+
+# Surro Client can be `npm install`ed by user
+surro-client/node_modules
