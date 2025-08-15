@@ -83,9 +83,7 @@ select {
 
 /* WIDGET AND NO TEXT DECORAITON!!! */
 .widget {
-  font-size: 18px;
-  margin-left: 12px;
-  margin-right: 12px;
+  font-size: 28px;
   text-decoration: none;
 }
 abbr {
@@ -94,6 +92,17 @@ abbr {
 .map_holder {
 	width: 100%;
 }
+#widgets {
+    display: flex;
+    width: 100%;
+    padding: 10px 0px 15px 0px;
+}
+
+.widget {
+    width: calc(100% / 8); /* replace 8 with your exact widget count */
+    text-align: center;
+}
+
 /* PADDING TO MAKE THE PHOTO/ATTACHED/EVIDENCE links easier to click */
 .pad-small-link-mobile {margin: 0em .60em 0em 0em; padding: 0.35em 0.8em 0.25em 0.5em; float: none!important; text-align: right; display:inline}
 

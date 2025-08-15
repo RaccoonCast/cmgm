@@ -17,6 +17,11 @@ if (!function_exists('css')) {
   }
 }
 
+if (str_contains($_SERVER["SCRIPT_FILENAME"], 'Edit.php')) {
+  echo '<style>:root {--cmgm_edit_panel1_width: '.$cmgm_edit_panel1_width-0.07.'%; }</style>' . PHP_EOL;
+  echo '<style>:root {--cmgm_edit_panel2_width: '.$cmgm_edit_panel2_width-0.07.'%; }</style>' . PHP_EOL; 
+}
+
 // Use Mobile CSS if on Mobile and use Desktop if on Desktop (OBVSLY)
 if(isMobile()){
   css("mobile-".$theme,$filename_for_css);

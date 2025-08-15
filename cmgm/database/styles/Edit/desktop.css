@@ -20,8 +20,8 @@ input[type=text],input[type=search],input[type=number],option,select {
 }
 @media (min-width:1871px) {
 /* Panels (split page in half) */
-.panel1 { width: 56%; float: left; }
-.panel2 { width: 44%; float: right; }
+.panel1 { width: var(--cmgm_edit_panel1_width); float: left; }
+.panel2 { width: var(--cmgm_edit_panel2_width); float: right; }
 }
 ._panel1 { width: 33.3333%; float: left;  }
 ._panel2 { width: 33.3333%; float: left; }
@@ -36,7 +36,7 @@ div[class^="_panel"] label {
 abbr, .nounderline {text-decoration: none!important;}
 .sb {
   font-size: 2.5em;
-  width: 56%;
+  width: var(--cmgm_edit_panel1_width);
   padding: 37px;
 }
 .id_input {
@@ -116,11 +116,15 @@ a[href^="?id="] {
 	display: inline-block;
 	padding-bottom: 10px;
 }
-@media (max-width: 2560px) and (min-width: 1921px) { .edit_utilitiy_holder {	width: 20%;} }
-@media (max-width: 2559px) and (min-width: 1920px) { .edit_utilitiy_holder {	width: 27%;} }
-@media (max-width: 1919px) and (min-width: 1441px) { .edit_utilitiy_holder {	width: 31%;} }
-@media (max-width: 1440px) and (min-width: 1000px) { .edit_utilitiy_holder {	width: 37%;} }
-@media (max-width: 100px) and (min-width: 1439px)  { .edit_utilitiy_holder {	width: 49%;} }
+#edit_utilitiy_holder {	
+	width: var(--cmgm_edit_panel1_width); 
+	max-width: 100%; 
+	padding-left: 10px;
+}
+#widgets {
+	float: right;
+}
+
 .latitude_longitude_label > span > a {
 	padding: 5px;
 }

@@ -88,11 +88,7 @@ if (isset($_GET['ev'])) { include_once SITE_ROOT . '/includes/functions/convert-
 if (isset($_GET['ph'])) { include_once SITE_ROOT . '/includes/functions/convert-url.php'; redir(convert_url($photo_a),0); }
 // THE FORM
 include "includes/edit/the_form.php";
-$no_edit = "true";
-echo '<div style="margin: 5px 0px 0px 10px" class="edit_utilitiy_holder">';
-if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/prev_next.php";
-if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/id_input/footer_search.php";
-echo '</div>';
+if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/widgets.php";
 ?>
 <?php if ($userID == "guest") {?><br><button onclick="redir('<?php echo $domain_with_http;?>/database/Edit.php?loginprompt=true&id=<?php echo $id; ?>',0)">Login</button> <?php } ?>
 <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>

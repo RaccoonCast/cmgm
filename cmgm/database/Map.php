@@ -351,15 +351,16 @@
                 
                 // Address icon being set by tags (like decom or sprkeep) 
                 if (@$pin_style != "basic") {
-                   $tags = array_map('trim', explode(',', $row['tags'])); // 
+                   $tags = array_map('trim', explode(',', $row['tags']));
                    if (in_array('sprint_keep', $tags)) $status .= "_spk"; // Amend sprkeep marker incase of a Sprint R&R w/ another carrier
                    $status = array_values(array_intersect(['decom','unmapped'], $tags))[0] ?? $status; // Overwrite previous status with decom/unmapped if either.
                 }
               }
-                // End of PHP, generate marker and add to map.
-                ?>
-                marker(<?= $row['latitude']?>,<?= $row['longitude']?>,<?= $status ?>,<?= $row['id']?>);
-                <?php
+            
+              // End of PHP, generate marker and add to map.
+              ?>
+              marker(<?= $row['latitude']?>,<?= $row['longitude']?>,<?= $status ?>,<?= $row['id']?>);
+              <?php
           }
       
           // Add default leaflet pin marker where prescribed, primarily/solely for CMGM Edit.
