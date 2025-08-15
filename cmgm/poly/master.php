@@ -37,6 +37,9 @@ function logWarning($warnText)
     error_log($warnText);
 }
 
+// If using DB TAC, the tac will be located here (keyed by normal key, with dbTac as tertiary parameter)
+$dbTacValues = [];
+
 // Process each group in $formData
 foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
@@ -131,26 +134,49 @@ foreach ($formData as $index => $data) {
             }
         }
 
+        // Skip Google if PCI+ passes request for eNB already in the DB, by Surro, with correct TAC
+        // NOTE: Potential Caveat - this may not work if Surro TAC changes over time, but if that happens it'll pass to Google
+        $pciPlus_skip_google = false;
+        if (isset($_POST['polyUserId']) && isset($responses[$eNB])) {
+            $existingDbRecord = array_slice($responses[$eNB], 0, 1)[0];
+        }
+
         // Build curl handle for Apple, if compatible
         if (isset($tac) && $rat == 'LTE') {
-            $appleHandle = genAppleHandle($plmn, $cellId, $tac);
-            $curlHandles_appl["$index-$cellNumber"] = $appleHandle;
+            $appleHandle = genAppleHandle($plmn, $cellId, $tac, $rat);
+            $curlHandles_appl["$index-$eNB-$cellNumber-primary"] = $appleHandle;
+
+            // Generate secondary Apple handle for other TAC
+            if (isset($existingDbRecord) && isset($existingDbRecord['tac']) && $existingDbRecord['tac'] != $tac) {
+                // Get TAC
+                $existingTac = $existingDbRecord['tac'];
+                // Set key
+                $key = "$index-$eNB-$cellNumber-dbTac";
+                $dbTacValues[$key] = $existingTac;
+
+                $appleHandle = genAppleHandle($plmn, $cellId, $existingTac, $rat);
+                $curlHandles_appl[$key] = $appleHandle;
+            }
         } else {
             logWarning('Surro skipped for TAC ' . $tac);
         }
 
-        // Skip Google if cell is deprioritized (surro-only)
-        if (!in_array($cellId, $cellIdList_depri)) {
+        // Skip Google if cell is deprioritized (surro-only) 
+        if (!in_array($cellId, $cellIdList_depri) && !isset($existingDbRecord)) {
             // Build curl handle for Google
             $googleHandle = genGoogleHandle($plmn, $cellId, $rat, $cellIdLabel, $signalLabel, $maps_api_key);
             // Add to list
-            $curlHandles_goog["$index-$cellNumber"] = $googleHandle;
+            $curlHandles_goog["$index-$eNB-$cellNumber"] = $googleHandle;
         }
     }
 }
 
 // Check that any valid requests were created
 if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
+
+    // Setup eNB blacklist in case needed
+    $eNB_blacklist = [];
+
     // Complete all apple requests
     $apple_multiCurl = curl_multi_init();
     // Add handles to list
@@ -175,7 +201,10 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 
         // Get response
         $response = curl_multi_getcontent($handle);
-        [$index, $cellNumber] = explode('-', $key);
+        [$index, $eNB, $cellNumber, $tacType] = explode('-', $key);
+
+        // Regular key, no tac added (for other providers)
+        $noTacKey = "$index-$eNB-$cellNumber";
 
         $jsonResponse = json_decode($response, true);
 
@@ -185,9 +214,32 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             continue;
         }
 
+        // If there's a secondary handler (for DB tac), remove that
+        $dbTacKey = "{$index}-{$eNB}-{$cellNumber}-dbTac";
+        if (!$tacType == "dbTac" && isset($curlHandles_appl[$dbTacKey])) {
+            // logWarning("Removing db tac from consideration");
+            unset($curlHandles_appl[$dbTacKey]);
+        }
+
         // Response is clean, so we should remove from the Google handler
-        if (isset($curlHandles_goog[$key])) {
-            unset($curlHandles_goog[$key]);
+        // logWarning("Key: {$eNB}");
+        if (isset($curlHandles_goog[$noTacKey])) {
+            unset($curlHandles_goog[$noTacKey]);
+        }
+
+        // If request is from PCI+, remove all with the same eNB
+        if (isset($_POST['polyUserId'])) {
+            if (!in_array($eNB, $eNB_blacklist)) {
+                // Loop through & remove matches
+                foreach ($curlHandles_goog as $key => $_handler) {
+                    if (str_contains($key, $eNB)) {
+                        // logWarning("Removing Google Handle: {$key}");
+                        unset($curlHandles_goog[$key]);
+                    }
+                // Add to blacklist
+                array_push($eNB_blacklist, $eNB);
+                }
+            }
         }
 
         // Get pertinent information
@@ -195,6 +247,12 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $tac = $formData[$index]['tac'];
         $plmn = $formData[$index]['plmn'];
         $rat = $formData[$index]['rat'];
+
+
+        // If using DB TAC, display that instead
+        if ($tacType == "dbTac") {
+            $tac = $dbTacValues[$dbTacKey];
+        }
 
         // Calculate cell ID
         $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
@@ -243,7 +301,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         // Iterate through Google responses
         foreach ($curlHandles_goog as $key => $handle) {
             $response = curl_multi_getcontent($handle);
-            [$index, $cellNumber] = explode('-', $key);
+            [$index, $eNB, $cellNumber] = explode('-', $key);
+
+            // logWarning("Google request called for: {$eNB}-{$cellNumber}");
 
             // Decode JSON from response
             $jsonResponse = json_decode($response, true);
