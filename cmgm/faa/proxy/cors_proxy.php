@@ -44,7 +44,7 @@ define("CSAJAX_DEBUG", false);
 /**
  * A set of valid cross domain requests
  */
-$valid_requests = ["oeaaa.faa.gov"];
+$valid_requests = ["oeaaa.faa.gov", "gs-loc.apple.com"];
 
 /**
  * Set extra multiple options for cURL
