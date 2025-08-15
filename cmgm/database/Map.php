@@ -57,15 +57,16 @@
     <?php
     $database_only_load_nearby = ", (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE";
 
-    $database_get_list = "id,carrier,latitude,longitude,cellsite_type,concealed,status,tags";
+    $database_get_list = "id,carrier,latitude,longitude,status,tags";
 
     $sql = "SELECT DISTINCT $database_get_list $database_only_load_nearby FROM db WHERE 1=1 $db_vars ORDER BY distance LIMIT $limit";
     if (isset($_GET['showsql']))
       echo "//" . $sql . PHP_EOL; // show SQL select query in Source Code (hackers only!!)
     $result = mysqli_query($conn, $sql);
 
-    $resultArray = mysqli_fetch_all($result);
+    $resultArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
+    
 
     <!-- Start JS -->
     <script>
@@ -112,8 +113,8 @@
 
       // Sort records into JS 2D array
       for (let record of records) {
-        const latitude = record[2];
-        const longitude = record[3];
+        const latitude = record.latitude;
+        const longitude = record.longitude;
 
         recordCoordList.push([latitude, longitude]);
       }
@@ -341,80 +342,28 @@
       include 'includes/map/iconsize.php';
 
       foreach ($resultArray as $row) {
-
-        $colCount = 1;
-        foreach ($row as $field => $value) {
-          $sepCount = ($colCount++);
-
-
-          switch ($sepCount) {
-            case 1:
-              $id = $value;
-              break;
-            case 2:
-              $pin_carrier = $value;
-              break;
-            case 3:
-              $lat = $value;
-              break;
-            case 4:
-              $long = $value;
-              break;
-            case 5:
-              $cellsite_type = $value;
-              break;
-            case 6:
-              $concealed = $value;
-              break;
-            case 7:
-              $status = $value;
-              break;
-            case 8:
-              $tags = $value;
-
-              // Carrier pin styles
+              // Set $status (icon type) to default CMGM-db status to allow for Green/Red icons incase pin_style isn't per $carrier
+              $status = $row['status'];
               if (@$pin_style == "carrier" or !isset($carrier)) {
-                $status = NULL;
-                if ($pin_carrier == "T-Mobile") {
-                  $status = "tmobile";
-                  if (like_match('sprint_keep,%', $tags) == "TRUE" or like_match('%,sprint_keep', $tags) == "TRUE" or like_match('%,sprint_keep,%', $tags) == "TRUE" or $tags == "sprint_keep")
-                    $status = "sprint_keep";
+
+                // Set $status (icon type) to be based on the carrier, remove - for t-mobile and strtolower to address case sensitivity.
+                $status = strtolower(str_replace('-', '', $row['carrier']));
+                
+                // Address icon being set by tags (like decom or sprkeep) 
+                if (@$pin_style != "basic") {
+                   $tags = array_map('trim', explode(',', $row['tags'])); // 
+                   if (in_array('sprint_keep', $tags)) $status .= "_spk"; // Amend sprkeep marker incase of a Sprint R&R w/ another carrier
+                   $status = array_values(array_intersect(['decom','unmapped'], $tags))[0] ?? $status; // Overwrite previous status with decom/unmapped if either.
                 }
-                if ($pin_carrier == "ATT")
-                  $status = "att";
-                if ($pin_carrier == "Sprint")
-                  $status = "sprint";
-                if ($pin_carrier == "Verizon")
-                  $status = "verizon";
-                if ($pin_carrier == "Dish")
-                  $status = "dish";
-                if (empty($status))
-                  $status = "unknown";
               }
-              if (@$pin_style != "basic") {
-                if (like_match('decom,%', $tags) == "TRUE" or like_match('%,decom', $tags) == "TRUE" or like_match('%,decom,%', $tags) == "TRUE" or $tags == "decom")
-                  $status = "decom";
-                if (like_match('unmapped,%', $tags) == "TRUE" or like_match('%,unmapped', $tags) == "TRUE" or like_match('%,unmapped,%', $tags) == "TRUE" or $tags == "unmapped")
-                  $status = "unmapped";
-                if (like_match('weird,%', $tags) == "TRUE" or like_match('%,weird', $tags) == "TRUE" or like_match('%,weird,%', $tags) == "TRUE" or $tags == "weird")
-                  $status = "weird";
-                if (like_match('wip,%', $tags) == "TRUE" or like_match('%,wip', $tags) == "TRUE" or like_match('%,wip,%', $tags) == "TRUE" or $tags == "wip")
-                  $status = "wip";
-                if (like_match('special,%', $tags) == "TRUE" or like_match('%,special', $tags) == "TRUE" or like_match('%,special,%', $tags) == "TRUE" or $tags == "special")
-                  $status = "special";
-              }
-
-              // End of PHP, generate marker and add to map.
-              ?>
-              marker(<?php echo $lat ?>, <?php echo $long ?>, <?php echo $status ?>, <?php echo $id ?>);
-              <?php
-              break;
+                // End of PHP, generate marker and add to map.
+                ?>
+                marker(<?= $row['latitude']?>,<?= $row['longitude']?>,<?= $status ?>,<?= $row['id']?>);
+                <?php
           }
-        }
-      }
-
-      if (isset($marker_latitude))
-        echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
+      
+          // Add default leaflet pin marker where prescribed, primarily/solely for CMGM Edit.
+          if (isset($marker_latitude) && isset($marker_longitude)) echo "L.marker([$marker_latitude,$marker_longitude]).addTo(mymap);";
       ?>
 
       const skipPolyZoom = "<?php echo json_encode(isset($_GET['skipPolyZoom'])); ?>" === 'true';
@@ -434,5 +383,4 @@
       include "includes/footer.php"; ?>
   </div>
 </body>
-
 </html>
