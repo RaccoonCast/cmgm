@@ -142,7 +142,7 @@ foreach ($formData as $index => $data) {
         }
 
         // Build curl handle for Apple, if compatible
-        if (isset($tac) && $rat == 'LTE') {
+        if (isset($tac)) {
             $appleHandle = genAppleHandle($plmn, $cellId, $tac, $rat);
             $curlHandles_appl["$index-$eNB-$cellNumber-primary"] = $appleHandle;
 
