@@ -27,6 +27,7 @@ $result = mysqli_query($conn, $sql);
 
 $sql_read_result = mysqli_query($conn,$sql);
 while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
+$carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
 
 if (isset($bingmaps_a)) $bmlink = '<a target="_blank" style="font-size: 10px; vertical-align: super" href="'.$bingmaps_a.'">BM</a>';
 
@@ -77,7 +78,7 @@ $url_for_cmgm = "https://cmgm.us/$id";
   </td>
 </tr>
 <tr>
-<td class="label"><?php echo $carrier; echo $carrier === "Dish" ? "<br>gNBs" : "<br>eNBs";?></td>
+<td style="height: 66px;" class="label"><?php echo $carrier_label; echo $carrier === "Dish" ? " gNBs" : " eNBs";?></td>
 <td><?php echo @$lte_list; echo @$nr_list; ?></td>
 </tr>
 <tr rowspan="2">
