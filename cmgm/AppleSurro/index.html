@@ -3,6 +3,7 @@
 <head>
     <title>Map with Plain Text Labels and Form</title>
     <meta charset="utf-8" />
+    <script src="../js/copyToClipboard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
@@ -16,13 +17,14 @@
             width: 100%;
         }	
 
-        .custom-label span {
+        .custom-label a {
             white-space: nowrap;
             background: rgba(255, 255, 255, 0.7);
             padding: 2px 4px;
             border-radius: 4px;
             font-size: 20px;
             font-weight: bold;
+            text-decoration: none;
         }
 
         .form-overlay {
@@ -83,10 +85,10 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/surro@2.0.0/dist/web/surro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/surro@latest/dist/web/surro.js"></script>
     <script>
                     surro.setCorsProxyUrl('https://cmgm.us/faa/proxy/cors_proxy.php?csurl=');
-        var map = L.map('map').setView([35.13, -117.93], 13); // Centered view
+        let map = L.map('map').setView([35.13, -117.93], 13); // Centered view
 
         // Load OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -103,38 +105,102 @@
             return "#000000"; // Default color (black)
         }
 
+
+
         // Function to update the map with new data
         function updateMap(data) {
             data.forEach(point => {
-                var plmn = point.mcc + "" + point.mnc; // Concatenate MCC and MNC to get PLMN
-                var color = getColor(plmn);
+                let plmn = point.mcc + "" + point.mnc; // Concatenate MCC and MNC to get PLMN
+                let color = getColor(plmn);
+                let enb;
 
-                // Generate label content with eNB and accuracy
-
-				if (point.eNB == null) {
-                  if (plmn == 310260 || plmn == 311490) {
-                  var labelText = point.cellId / 4096n;
-                  }
-                  if (plmn == 311480) {
-                  var labelText = point.cellId / 16384n;
-                  }
-                  if (plmn == 310410 || plmn == 313100) {
-                  var labelText = point.cellId / 1024n;
-                  }
-				} else {
-				    var labelText = `${point.eNB}`;
-				}
-
+            if (point['eNB'] == null) {
+                var rat = "NR";
+                
+                if (plmn == 310260 || plmn == 311490) {
+                    enb = point.cellId / 4096n;
+                    if (enb > 4096000000) return; // eNB
+                    var sector    = point.cellId % 4096n;   // sector ID
+                    if      (sector >= 301 && sector <= 330) suggestList = '301,302,303,304,305,306,311,312,313,314,315,316';
+                    else if (sector >= 1 && sector <= 44)    suggestList = '1,2,3,4,11,12,13,14,21,22,23,24,41,42,43,44';
+                    // if (sector >= 21 && sector <= 24)   { console.log(enb); }
+                    else if (sector >= 51 && sector <= 54)   suggestList = '1,2,3,4,51,52,53,54';
+                    else if (sector >= 351 && sector <= 354) suggestList = '351,352,353,354';
+                    else if (sector >= 371 && sector <= 374) suggestList = '371,372,373,374';
+                }
+                else if (plmn == 311480) {
+                    enb = point.cellId / 16384n;  // eNB
+                    var sector = point.cellId % 16384n;  // sector ID
+                    let values = [];
+                
+                    // Step backwards by 16 until sector < 16
+                    for (let n = Number(sector); n >= 16; n -= 16) {
+                        values.unshift(n);
+                    }
+                
+                    // Step forward by 16 (always include starting sector once)
+                    for (let n = Number(sector) + 16; n <= Number(sector) + (16 * 3); n += 16) {
+                        values.push(n);
+                    }
+                
+                    suggestList = values.join(",");
+                }
+                else if (plmn == 310410 || plmn == 313100) {
+                    enb = point.cellId / 1024n;   // eNB
+                    var sector    = point.cellId % 1024n;   // sector ID
+                    if      (sector == 25 || sector == 49 || sector == 73 || sector == 97)  suggestList = '25,49,73,97';
+                    else if (sector == 26 || sector == 50 || sector == 74 || sector == 98)  suggestList = '26,50,74,98';
+                    else if (sector == 27 || sector == 51 || sector == 75 || sector == 99)  suggestList = '27,51,75,99';
+                    else if (sector == 28 || sector == 52 || sector == 76 || sector == 100) suggestList = '28,52,76,100';
+                } else if (plmn == 313340) {
+                    enb = point.cellId / 16n;
+                    var suggestList = '*';
+                }
+            } else {
+                    enb = Math.floor(Number(point.cellId) / 256);
+                    var rat = "LTE";
+				    var sector = point.cellId % 256;
+                    if (plmn == 311480) {
+                        var base = sector % 10; // gets the last digit
+                        if (sector >= 1 && sector <= 9) { 
+                          suggestList = '1,2,3,4'; 
+                        } else if (base >= 2 && base <= 9) {
+                        // generate the list: base, base+10, base+20, base+30
+                        var base = sector % 10; // get last digit
+                        var suggestList = [10, 20, 30, 40].map(n => n + base).join(',');
+                        }
+                        if (suggestList == null) { suggestList = '1,2,3,12,22,32'; }
+                    }
+                    if (plmn == 310410) {
+                        if (sector >= 8 && sector <= 13)         suggestList = '8,9,10,11,12,13';
+                        else if (sector >= 22 && sector <= 25)   suggestList = '22,23,24,25';
+                        else if (sector >= 184 && sector <= 190) suggestList = '184,185,185,187,188,189,190';
+                        else if (sector >= 149 && sector <= 154) suggestList = '149,150,151,152,153,154';
+                        if (suggestList == null) { suggestList = '15,16,17'; }
+                    }
+                    if (plmn == 310260) {
+                        if (sector >= 1 && sector <= 9)        suggestList = '1,2,3,4,5,6,7,8,9';
+                        else if (sector >= 11 && sector <= 14) suggestList = '11,12,13,14';
+                        else if (sector >= 21 && sector <= 24) suggestList = '21,22,23,24';
+                        else if (sector >= 31 && sector <= 34) suggestList = '31,32,33,34';
+                        else if (sector >= 21 && sector <= 24) suggestList = '61,62,63,64';
+                    }
+                    if (suggestList == null) { suggestList = '1,2,3'; }
+            }   
+                let labelText = enb + ":" + sector;
                 // Use Leaflet's divIcon to add custom text
-                var label = L.divIcon({
+                let label = L.divIcon({
                     className: 'custom-label',
-                    html: `<span style="color: ${color};">${labelText}</span>`,
+                    html: `<a target="_blank" href="https://cmgm.us/poly/?plmn=${plmn}&rat=${rat}&eNB=${enb}&tac=${point.tacId}&cellListDepri=${suggestList}" style="color: ${color};">${labelText}</a>`,
                     iconSize: [0, 0] // No default icon size
                 });
 
                 // Add the label to the map at the specified location
                 L.marker([point.latitude, point.longitude], { icon: label }).addTo(map);
             });
+
+            const { latitude, longitude } = data[0];
+            map.setView([latitude, longitude], 13)
         }
 		
 		
@@ -150,8 +216,14 @@
             const mnc = carrier.substring(3);
 
                     // set surro proxy
-
-            let res = await surro.getSurroundingCells(mcc, mnc, BigInt(cid), BigInt(tac), rat);
+            if (rat == 'NR') {
+                cid = BigInt(cid);
+                tac = BigInt(tac);
+            } else {
+                cid = Number(cid);
+                tac = Number(tac);
+            }
+            let res = await surro.getSurroundingCells(mcc, mnc, cid, tac, rat);
             
             if (res.success) {
                 return res.data;
