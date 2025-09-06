@@ -1,17 +1,32 @@
 <?php
 
 $incomplete_sql_query = '
-((((NOT sv_a = "" AND sv_a IS NOT NULL) AND (sv_a_date = "" OR sv_a_date IS NULL)) -- pulls records where SV_A is set but SV_A_date is not 
-OR ((region_lte = "" AND lte_1 != "")) -- pulls records where region_lte is not set but lte_1 is
-OR ((pci_1 = "")) -- pulls record where pci_1 is not set
-OR ((region_nr = "" AND NR_1 != "")) -- pulls records where NR_1 is set but NR_region is not
-OR ((cellsite_type = "" OR cellsite_type IS NULL))) -- pulls records where cell site type is not set
-AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") -- dont count records marked future or unmapped
-AND (status = "verified")) -- only show records marked as verified
+((((NOT sv_a = "" AND sv_a IS NOT NULL) AND (sv_a_date = "" OR sv_a_date IS NULL))
+OR ((region_lte = "" AND lte_1 != ""))
+OR ((pci_1 = ""))
+OR ((region_nr = "" AND NR_1 != ""))
+OR ((cellsite_type = "" OR cellsite_type IS NULL)))
+OR ((permit_score IS NULL OR permit_score = "" OR permit_score = 0)
+AND (trails_match IS NULL OR trails_match = "" OR trails_match = 0)
+AND (equipment_matches_carrier IS NULL OR equipment_matches_carrier = "" OR equipment_matches_carrier = 0)
+AND (cellmapper_triangulation IS NULL OR cellmapper_triangulation = "" OR cellmapper_triangulation = 0)
+AND (image_evidence IS NULL OR image_evidence = "" OR image_evidence = 0)
+AND (verified_by_visit IS NULL OR verified_by_visit = "" OR verified_by_visit = 0)
+AND (sector_split_match IS NULL OR sector_split_match = "" OR sector_split_match = 0)
+AND (only_reasonable_location IS NULL OR only_reasonable_location = "" OR only_reasonable_location = 0)
+AND (archival_antenna_addition IS NULL OR archival_antenna_addition = "" OR archival_antenna_addition = 0)
+AND (carriers_ruled_out IS NULL OR carriers_ruled_out = "" OR carriers_ruled_out = 0)
+AND (alt_carriers_here IS NULL OR alt_carriers_here = "" OR alt_carriers_here = 0)))
+AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") 
+AND (status = "verified")
 ';
 
-if ($value == "NULL") $value = null; // Support user specifiying a search for empty fields.
-if ($value == "!NULL") $trimChar = null; // Support user specifiying a search for non-empty fields.
+
+$key = preg_replace('/[^A-Za-z0-9_]+/', '', $key);
+
+if ($value === "NULL") { $value = null; } // Support user specifiying a search for empty fields.
+else if ( $value === "!NULL") { $trimChar = null; } // Support user specifiying a search for non-empty fields.
+elseif ($value !== null) { $value = mysqli_real_escape_string($conn, $value); }
 
 // List of keys to ignore.
 if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" OR $key == "cachebuster" or str_contains($key, "polygon"))  { ${$key} = $value; }
@@ -82,7 +97,7 @@ elseif (@$value[0] == "!") {
 }
 
 // Filtering by an attached filename mentioned on various records. Example: &fileSearch=image_34324324.jpg will show records where image_34324324.jpg is referenced.
-elseif ($key == "filesearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%')" . @$db_vars; }
+elseif ($key == "filesearch") { $db_vars = " AND (evidence_a like '%$fs%' OR evidence_b like '%$fs%' OR evidence_c like '%$fs%' OR photo_a like '%$fs%' OR photo_b like '%$fs%' OR photo_c like '%$fs%' OR photo_d like '%$fs%' OR photo_e like '%$fs%' OR photo_f like '%$fs%' OR extra_a like '%$fs%' OR extra_b like '%$fs%' OR extra_c like '%$fs%' OR extra_d like '%$fs%' OR extra_e like '%$fs%' OR extra_f like '%$fs%')" . @$db_vars; }
 elseif ($key == "filesearchexclude") { $db_vars = " AND (evidence_a NOT LIKE '%$fs%' AND evidence_b NOT LIKE '%$fs%' AND evidence_c NOT LIKE '%$fs%' AND photo_a NOT LIKE '%$fs%' AND photo_b NOT LIKE '%$fs%' AND photo_c NOT LIKE '%$fs%' AND photo_d NOT LIKE '%$fs%' AND photo_e NOT LIKE '%$fs%' AND photo_f NOT LIKE '%$fs%' AND extra_a NOT LIKE '%$fs%' AND extra_b NOT LIKE '%$fs%' AND extra_c NOT LIKE '%$fs%')" . @$db_vars; }
 elseif ($key == "filesearchprefix") { $db_vars = " AND (evidence_a LIKE '$fs%' OR evidence_b LIKE '$fs%' OR evidence_c LIKE '$fs%' OR photo_a LIKE '$fs%' OR photo_b LIKE '$fs%' OR photo_c LIKE '$fs%' OR photo_d LIKE '$fs%' OR photo_e LIKE '$fs%' OR photo_f LIKE '$fs%' OR extra_a LIKE '$fs%' OR extra_b LIKE '$fs%' OR extra_c LIKE '$fs%')" . @$db_vars; }
 elseif ($key == "filesearchprefixexclude") { $db_vars = " AND (evidence_a NOT LIKE '$fs%' AND evidence_b NOT LIKE '$fs%' AND evidence_c NOT LIKE '$fs%' AND photo_a NOT LIKE '$fs%' AND photo_b NOT LIKE '$fs%' AND photo_c NOT LIKE '$fs%' AND photo_d NOT LIKE '$fs%' AND photo_e NOT LIKE '$fs%' AND photo_f NOT LIKE '$fs%' AND extra_a NOT LIKE '$fs%' AND extra_b NOT LIKE '$fs%' AND extra_c NOT LIKE '$fs%')" . @$db_vars; }
