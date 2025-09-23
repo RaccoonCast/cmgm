@@ -58,5 +58,10 @@
     if (!isset($_GET['time'])) {
         statBox("count_records_by_hour.php", $db_vars, $conn, $domain_with_http);
     }
+
+    // Count most common tags
+    if (!isset($_GET['tags'])) {
+        statBox('count_most_common_tags.php', $db_vars, $conn, $domain_with_http);
+    }
     echo "</div>";
     ?>
