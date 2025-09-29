@@ -198,7 +198,7 @@
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Invert pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration" onchange="if (this.value == 'custom') { let val = window.prompt('Sector Configuration:', ''); let valOption = document.createElement('option'); valOption.value = val; valOption.innerText = val; this.appendChild(valOption); valOption.selected = true; }">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
     <option value="1-sector omnidirectional">1-sector omnidirectional</option>
     <option value="1-sector unidirectional">1-sector unidirectional</option>
@@ -214,6 +214,8 @@
     <option value="4-sector">4-sector</option>
     <option value="4-sector + 1">4-sector + 1</option>
     <option value="4-sector + 1">4-sector + 2</option>
+    <option disabled value="">---</option>
+    <option value="custom">Custom...</option>
   </select><select class="misc_cw<?php if (isset($tmp_misc_4)) echo ' warning2';?>" title="Are there any antennas that emit two (or more) sectors" name="split_sector">
     <option style="display: none" value="<?php echo @$tmp_split_sector ?>" selected>Split-sector: <?php echo @$tmp_split_sector ?></option>
     <option value="true">true</option>
