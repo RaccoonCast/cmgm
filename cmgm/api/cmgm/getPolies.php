@@ -19,7 +19,7 @@ if (isset($_GET['plmn']) && is_numeric($_GET['plmn'])) $plmn = $_GET['plmn'];
 if (isset($_GET['rat']) && strlen($_GET['rat']) <= 3) $rat = $_GET['rat'];
 
 foreach($_GET as $key => $value) {
-  if ($key === "latitude" || $key === "longitude" || $key === "limit" || $key === "properties" || $key === "showsql") {
+  if ($key === "latitude" || $key === "longitude" || $key === "limit" || $key === "properties" || $key === "showsql" || $key == "average") {
     ${$key} = $value;
   }
 
@@ -66,12 +66,12 @@ WITH base_results AS (
       SIN(RADIANS($latitude)) * SIN(RADIANS(latitude))
     )) AS distance
   FROM local_poly
-  WHERE 1=1 $db_vars $db_vars_uno
-  ORDER BY distance
+  WHERE 1=1 $db_vars $db_vars_uno AND provider_source IS NOT NULL 
+    AND latitude IS NOT NULL 
+    AND longitude IS NOT NULL
+  ORDER BY distance ASC
   LIMIT $limit
 ),
-
--- Second: extract the enbs from those XX
 selected_enbs AS (
   SELECT DISTINCT enb FROM base_results
 )
@@ -95,34 +95,66 @@ if ($_GET['showsql'] == "true") {
   echo $sql;
   die();
 }
-$result = $conn->query(query: $sql);
 
-// Create an array to hold the latitude and longitude values
-$response_body = array();
+$result = $conn->query($sql);
 
-// Loop through the results and add them to the array
+$sortTemp = [];
+
 while ($row = $result->fetch_assoc()) {
-  if (empty($row['latitude'])) continue;
-  if (empty($row['longitude'])) continue;
-  if (($row['enb'] > 950000) && ($row['enb'] < 959999) && ($plmn == 310410)) continue;
-  if (($row['enb'] > 990000) && ($row['enb'] < 999999) && ($plmn == 310410)) continue;
+    if (empty($row['latitude']) || empty($row['longitude'])) continue;
+    if (($row['enb'] > 950000 && $row['enb'] < 959999 && $row['plmn'] == 310410)) continue;
+    if (($row['enb'] > 990000 && $row['enb'] < 999999 && $row['plmn'] == 310410)) continue;
 
-    $response_body[] = array(
-      "plmn" => $row["plmn"],
-      "cell" => $row["cell"],
-      "cell_id" => $row["cell_id"],
-      "enb" => $row["enb"],
-      "tac" => $row["tac"],
-      "rat" => $row["rat"],
-      "latitude" => $row["latitude"],
-      "longitude" => $row["longitude"]
-    );
+    $plmn = (int)$row['plmn'];
+    $enb = (int)$row['enb'];
+    $cell = (int)$row['cell'];
+    $lat = (float)$row['latitude'];
+    $lon = (float)$row['longitude'];
 
+    $sortKey = "{$plmn}.{$enb}";
+
+    if (!isset($sortTemp[$sortKey])) {
+        $sortTemp[$sortKey] = [
+            'plmn' => $plmn,
+            'enb' => $enb,
+            'tac' => (int)$row['tac'],
+            'cells' => [],
+            'latitudes' => [],
+            'longitudes' => []
+        ];
+    }
+
+    $sortTemp[$sortKey]['cells'][] = $cell;
+    $sortTemp[$sortKey]['latitudes'][] = $lat;
+    $sortTemp[$sortKey]['longitudes'][] = $lon;
 }
 
-// Output the organized array
-echo json_encode($response_body);
+ksort($sortTemp);
 
-$result->close(); $conn->close();
+$structured = [];
+$useAverage = isset($_GET['average']) && $_GET['average'] === 'true';
 
-?>
+foreach ($sortTemp as $data) {
+    sort($data['cells']);
+    $structuredItem = [
+        'plmn' => $data['plmn'],
+        'enb' => $data['enb'],
+        'tac' => $data['tac'],
+    ];
+
+    if ($useAverage) {
+        $structuredItem['cells'] = $data['cells'];
+        $structuredItem['latitude'] = array_sum($data['latitudes']) / count($data['latitudes']);
+        $structuredItem['longitude'] = array_sum($data['longitudes']) / count($data['longitudes']);
+    } else {
+        $structuredItem['cells'] = array_combine($data['cells'], array_map(null, $data['latitudes'], $data['longitudes']));
+    }
+
+    $structured[$data['enb']] = $structuredItem;
+}
+
+header('Content-Type: application/json');
+echo json_encode($structured, JSON_PRETTY_PRINT);
+
+$result->close();
+$conn->close();
