@@ -18,7 +18,7 @@ if (!isset($carriers[$plmn])) {
 }
 
 $carrier = $carriers[$plmn];
-$pcis_in_post = @$_POST['pci'];
+$pcis_in_post = preg_replace('/[^0-9,]+/', '', @$_POST['pci']);
 
 $sql_pcis = "SELECT PCI_1, PCI_2, PCI_3, PCI_4, PCI_5, PCI_6, PCI_7, PCI_8, PCI_9, PCI_10, PCI_11, PCI_12, PCI_13, PCI_14, PCI_15, PCI_16, PCI_17, PCI_18, PCI_19, PCI_20, PCI_21, PCI_22, PCI_23, PCI_24, PCI_25, PCI_26, PCI_27, PCI_28, PCI_29, PCI_30 FROM db WHERE (LTE_1 = '$id' OR LTE_2 = '$id' OR LTE_3 = '$id' OR LTE_4 = '$id' OR LTE_5 = '$id' OR LTE_6 = '$id' OR LTE_7 = '$id' OR LTE_8 = '$id' OR LTE_9 = '$id' OR NR_1 = '$id' OR NR_2 = '$id' OR NR_3 = '$id') AND carrier = '$carrier'";
 $result = $conn->query($sql_pcis);
