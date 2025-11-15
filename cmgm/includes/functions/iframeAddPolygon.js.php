@@ -18,6 +18,10 @@
 
     const eNB = "<?php echo $eNB; ?>";
     const TAC = "<?php echo $region_lte; ?>";
+
+    if (eNB == "0") {
+      throw 'eNB not set';
+    }
 	
     // // Generate data for request
     let postData = new FormData();
