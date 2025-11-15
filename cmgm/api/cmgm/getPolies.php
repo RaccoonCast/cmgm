@@ -46,10 +46,16 @@ foreach($_GET as $key => $value) {
     }
   }
 
+  elseif ($key === 'filterTac' && preg_match('/^!?(?<tac>\d+)$/', $value, $matches)) {
+    $tac = (int)$matches['tac'];
+
+    $db_vars = " AND tac = $tac" . $db_vars;
+  }
+
   elseif ($value != "false" && $value != "0") {
     $sanitizedKey = preg_replace('/[^a-zA-Z0-9_]/', '', $key);
     $sanitizedValue = preg_replace('/[^a-zA-Z0-9_]/', '', $value);
-    $db_vars = "AND $sanitizedKey = $sanitizedValue" . $db_vars;
+    $db_vars = " AND $sanitizedKey = '$sanitizedValue'" . $db_vars;
   }
 }
 
