@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<title>Redirecting…</title>
+<script>
+window.onload = () => {
+  const p = new URLSearchParams(location.search).get('q');
+  if (!p) return document.write('Missing ?q=');
+  let parts = p.split('-');
+  if (parts.length < 4) return document.write('Invalid format');
+  parts = parts.slice(0,4);
+  parts[3] = parts[3].split(',')[0].trim();
+  const [MCC,MNC,RAT,Site] = parts;
+  location.replace(`https://api.cellmapper.net/v6/getTowerOverrideHistory?MCC=${MCC}&MNC=${MNC}&Region=0&RAT=${RAT}&Site=${Site}`);
+};
+</script>
+</head>
+<body></body>
+</html>
