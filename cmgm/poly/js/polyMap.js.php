@@ -5,6 +5,7 @@ const defaultLat = parseFloat(params.get('latitude')) || 34.201;
 const defaultLng = parseFloat(params.get('longitude')) || -118.44;
 const defaultZoom = parseInt(params.get('zoom')) || 13;
 const plmn = params.get('plmn') || '0';
+const rat = params.get('rat') || 'LTE';
 
 const mymap = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,12 +23,20 @@ function updateURLFromMap() {
   newUrl.searchParams.set('longitude', center.lng.toFixed(6));
   newUrl.searchParams.set('zoom', zoom);
   newUrl.searchParams.set('plmn', plmn);
+  newUrl.searchParams.set('rat', rat);
   history.replaceState(null, '', newUrl);
 }
 
 mymap.on('moveend zoomend', () => {
   updateURLFromMap();
   fetchAndRenderPolygons();
+});
+
+mymap.on('tooltipopen', e => {
+  const el = e.tooltip.getElement();
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(e.tooltip.getContent());
+  });
 });
 
 mymap.on('contextmenu', (event) => {
@@ -57,6 +66,9 @@ async function fetchAndRenderPolygons() {
   const center = mymap.getCenter();
   const filterCells = '<?php echo (isset($_GET['filterCells']) && preg_match("/^[0-9]+(,[0-9]+)*$/", $_GET['filterCells'])) ? $_GET['filterCells'] : 'false'; ?>';
   const filterEnbs = '<?php echo (isset($_GET['filterEnbs']) && preg_match("/^([0-9]+)-([0-9]+)$/", $_GET['filterEnbs'])) ? $_GET['filterEnbs'] : 'false'; ?>';
+  const filterTac = '<?php echo (isset($_GET['filterTac']) && preg_match("/^([0-9]+)$/", $_GET['filterTac'])) ? $_GET['filterTac'] : 'false'; ?>';
+
+  const rat = '<?php echo (isset($_GET['rat']) && preg_match("/[E-r]/", $_GET['rat'])) ? $_GET['rat'] : 'LTE'; ?>';
 
   const showsql = '<?php echo isset($_GET['showsql']) ? $_GET['showsql'] : 'false'; ?>';
   const limit = '<?php echo isset($_GET['limit']) ? $_GET['limit'] : '175'; ?>';
@@ -66,7 +78,7 @@ async function fetchAndRenderPolygons() {
 
   console.log('passing dbfc', filterCells);
 
-  let newApiUrl = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}&filterCells=${filterCells}&filterEnbs=${filterEnbs}&showsql=${showsql}&limit=${limit}`
+  let newApiUrl = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}&filterCells=${filterCells}&filterEnbs=${filterEnbs}&showsql=${showsql}&limit=${limit}&rat=${rat}&filterTac=${filterTac}`
 
   if (useEnbAverage) {
     newApiUrl += '&average=true';
@@ -110,66 +122,76 @@ async function fetchAndRenderPolygons() {
   }
 
 
-  for (const [enb, coords, tac] of Object.entries(enbGroups)) {
+for (const [enb, coords, tac] of Object.entries(enbGroups)) {
 
-    // Filter polygons with fewer than three points
-    const showIncompletePolygons = <?php echo(isset($_GET['showIncompletePolygons']) || isset($_GET['filterCells'])) ? 'true' : 'false'; ?>;
-    if (coords.length < 3 && !(showIncompletePolygons || useEnbAverage)) continue; // Need at least 3 points to form polygon
+  // Filter polygons with fewer than three points
+  const showIncompletePolygons = <?php echo(isset($_GET['showIncompletePolygons']) || isset($_GET['filterCells'])) ? 'true' : 'false'; ?>;
+  if (coords.length < 3 && !(showIncompletePolygons || useEnbAverage)) continue;
 
-    // Get from request points with indices and information attached
-    const pointsWithIndices = coords.map((c, i) => ({ originalIndex: i, coords: c.coords, sector: c.sectorId, tac: c.tac }));
+  // Get points with extra info
+  const pointsWithIndices = coords.map((c, i) => ({
+    originalIndex: i,
+    coords: c.coords,
+    sector: c.sectorId,
+    tac: c.tac
+  }));
 
-    // Sort points while maintaining their indices and information
-    const sortedPoints = sortPointsClockwise(pointsWithIndices.map(el => el.coords), pointsWithIndices);//.map(p => p.coords);
+  // Sort points
+  const sortedPoints = sortPointsClockwise(
+    pointsWithIndices.map(el => el.coords),
+    pointsWithIndices
+  );
 
-    // Create polygon based on points alone
-    const hidePolygons = <?php echo(isset($_GET['hidePolygons']) && $_GET['hidePolygons'] != 'false') ? 'true' : 'false'; ?>;
-    const polygonPoints = sortedPoints.map(p => p.coords);
-    if (!hidePolygons) {
-      const polygon = L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
-    }
-
-    drawnENBs.add(parseInt(enb));
-
-    const hideLabels = <?php echo(isset($_GET['hideLabels']) && $_GET['hideLabels'] != 'false') ? 'true' : 'false'; ?>;
-    const showTacs = <?php echo(isset($_GET['showTacs']) && $_GET['showTacs'] != 'false') ? 'true' : 'false'; ?>;
-
-
-
-    function getLabel(pt) {
-
-      let labelText = enb;
-
-      if (!useEnbAverage) {
-        labelText += `-${pt.sector}`;
-      }
-
-      // Add TAC if requested
-      if (showTacs && pt.tac) {
-        labelText += `\n(${pt.tac})`;
-      }
-
-      return labelText
-    }
-
-    // Iterate in sorted order
-    if (!hideLabels) {
-      sortedPoints.forEach(pt => {
-        L.marker(pt.coords, { opacity: 0 })
-          // Bind label at coordinate
-          .bindTooltip(getLabel(pt), {
-            permanent: true,
-            direction: 'center',
-            className: 'label-tooltip'
-          })
-          .addTo(mymap);
-      });
-    }
+  // Draw polygon
+  const hidePolygons = <?php echo(isset($_GET['hidePolygons']) && $_GET['hidePolygons'] != 'false') ? 'true' : 'false'; ?>;
+  const polygonPoints = sortedPoints.map(p => p.coords);
+  if (!hidePolygons) {
+    L.polygon(polygonPoints, { color: '#<?php echo $accent_color; ?>', weight: 2 }).addTo(mymap);
   }
-  // } catch (e) {
-  //   console.error('Error loading polygons:', e);
-  // }
+
+  drawnENBs.add(parseInt(enb));
+
+  const hideLabels = <?php echo(isset($_GET['hideLabels']) && $_GET['hideLabels'] != 'false') ? 'true' : 'false'; ?>;
+  const showTacs = <?php echo(isset($_GET['showTacs']) && $_GET['showTacs'] != 'false') ? 'true' : 'false'; ?>;
+
+  function getLabel(pt) {
+    let labelText = enb;
+    if (!useEnbAverage) labelText += `-${pt.sector}`;
+    if (showTacs && pt.tac) labelText += `\n(${pt.tac})`;
+    return labelText;
+  }
+
+  // Add markers with clickable labels
+  if (!hideLabels) {
+    sortedPoints.forEach(pt => {
+      const labelText = getLabel(pt);
+
+      const marker = L.marker(pt.coords, { opacity: 0 }).addTo(mymap);
+
+      // Bind permanent tooltip
+      marker.bindTooltip(labelText, {
+        permanent: true,
+        direction: 'center',
+        className: 'label-tooltip'
+      });
+
+      const baseENB = labelText.split('-')[0];
+
+      // Make tooltip clickable
+      const tooltipEl = marker.getTooltip().getElement();
+      tooltipEl.style.pointerEvents = 'auto';
+      tooltipEl.style.cursor = 'pointer';
+      tooltipEl.addEventListener('click', () => {
+        navigator.clipboard.writeText(baseENB)
+          .then(() => console.log('Copied:', baseENB))
+          .catch(err => console.error('Copy failed:', err));
+      });
+    });
+  }
 }
+
+}
+
 
 fetchAndRenderPolygons();
 </script>
