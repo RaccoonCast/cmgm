@@ -16,7 +16,7 @@ echo '<a class="widget widget_emote" title="View all info" href="Reader.php?id='
 echo '<a class="widget widget_emote" title="Delete" href="Edit.php?id='.$id.'&delete=false&redirPage='.@$redirPage.'">🗑️</a>';
 if (isset($db_map_link)) echo '<a target="_blank" class="widget widget_em ote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
 echo '<a class="widget widget_emote" target="_blank" title="AntennaSearch" href="https://www.antennasearch.com/HTML/search/search.php?address=' . $latitude . ',' . $longitude . '">📡</a>';
-echo '<a class="widget widget_emote" target="_blank" title="Poly Map" href="https://cmgm.us/poly/map.php?latitude='.$latitude.'&longitude='.$longitude.'&zoom=16&plmn='.$plmn.'">🔷</a>';
+echo '<a class="widget widget_emote" target="_blank" title="Poly Map" href="https://cmgm.us/poly/map.php?latitude='.$latitude.'&longitude='.$longitude.'&zoom=16&plmn='.$plmn.'&rat=LTE">🔷</a>';
 echo '<a class="widget widget_emote" target="_blank" title="Maprad" href="'.$url_for_maprad.'">🌐</a>';
 echo '<a title="Apple Look Around" target="_blank" class="widget widget_emote" href="'.$url_for_look_around.'">🚘</a>';
 echo '<a title="Copy CMGM URL" class="widget widget_emote" onclick="copyToClipboard('.$url_for_cmgm.')" href="javascript:;">📋</a>';

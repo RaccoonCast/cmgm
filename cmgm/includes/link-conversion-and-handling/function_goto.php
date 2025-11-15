@@ -42,7 +42,7 @@ if ($goto_page == "Upload") $goto_page_URL = "https://upload.cmgm.us";
 if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
 if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";
-if ($goto_page == "Poly Map") return "https://cmgm.us/poly/map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings";
+if ($goto_page == "Poly Map") return "https://cmgm.us/poly/map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings&rat=LTE";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
 if (isset($carrier)) if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";
