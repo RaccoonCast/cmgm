@@ -1,5 +1,6 @@
 <?php
-$sql = "SELECT cellsite_type, COUNT(cellsite_type) AS count FROM db WHERE $db_vars AND cellsite_type <> '' GROUP BY cellsite_type ORDER BY count DESC LIMIT $limit;";
+$sql = "SELECT cellsite_type, COUNT(cellsite_type) AS count FROM db WHERE ($db_vars) AND cellsite_type <> '' GROUP BY cellsite_type ORDER BY count DESC LIMIT $limit;";
+
 $result = $conn->query($sql);
 
 if (!isset($json_flag)) echo "<h3>Cellsite types</h3>";
