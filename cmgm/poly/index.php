@@ -58,7 +58,7 @@ if (
     array_filter($ratList, fn($val) => $val === 'LTE' || $val === 'NR') === $ratList &&
     array_filter($enbList, 'is_numeric') === $enbList &&
     array_filter($cellListList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListList &&
-    array_filter($cellListDepriList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListDepriList
+    array_filter($cellListDepriList, fn($val) => preg_match('/^[\d\-\*]+(,[\d\-\*]+)*$/', $val)) === $cellListDepriList
 ) {
     $postData = [];
 
@@ -110,6 +110,15 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
                 <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
                 <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
                 <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
+                <option value="313340"<?php if ($value == '313340') echo ' selected'; ?>>Dish Wireless</option>
+                <option value="311580"<?php if ($value == '311580') echo ' selected'; ?>>US Cellular</option>
+                <option value="312680"<?php if ($value == '311580') echo ' selected'; ?>>AT&T FWA</option>
+                <?php
+                if (!in_array($value, ['310410','313100','310120','310260','310260','311480','313340','311580'], true)) {
+                        echo "<option value=\"$value\" selected>$value</option>";
+                }
+                ?>
+
             </select>
             <!-- RAT -->
             <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
@@ -124,7 +133,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index] ?? ''; ?>" />
             <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
             <!-- Delete button -->
-            <input type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
+            <input class="poly-btn" type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
          </form>
          <?php } ?>
       </div>
@@ -134,8 +143,8 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 		<input id="forceNewResults" name="dontCache" type="checkbox">
 	  </div>
 		 <?php } ?>
-      <button id="addFormButton" type="button">+</button>
-      <button id="submitButton" type="submit">Submit</button>
+      <button class="poly-btn" id="addFormButton" type="button">+</button>
+      <button class="poly-btn colorized" id="submitButton" type="submit">Submit</button>
    </div>
 </div>
 <?php } ?>
