@@ -1,7 +1,8 @@
 <?php
 if ($_FILES["fileToUpload"]["size"] > 25) {
+  $original_filename = basename($_FILES["fileToUpload"]["name"]);
   $target_dir = "uploads/";
-  $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+  $target_file = $target_dir . $original_filename;
   $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
   
   if ($fileType == "jpg" OR $fileType == "png" OR $fileType == "webp" OR $fileType == "jpeg") { $type = "image"; } else { $type = "misc"; }
@@ -27,7 +28,7 @@ if ($_FILES["fileToUpload"]["size"] > 25) {
   $newfilename = round(microtime(true)) . '.' . end($temp);
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $filePath)) {
   $finishedFilename = $filename . "." . $fileType;
-  redir ("?finishedFilename=$finishedFilename",0);
+  redir ("?finishedFilename=$finishedFilename&originalFilename=$original_filename",0);
   }
 }
 ?>

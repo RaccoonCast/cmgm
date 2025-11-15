@@ -8,6 +8,10 @@
      <?php
      $allowGuests = "true"; 
      error_reporting(E_ERROR | E_PARSE);
+     if (isset($_GET['originalFilename'])) {
+      $titleOverride = "true";
+      echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
+     }
      include '../functions.php';?>
    </head>
    <body>
