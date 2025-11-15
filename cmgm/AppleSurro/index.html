@@ -38,7 +38,8 @@
             z-index: 1000;
         }
 
-        .form-overlay input, .form-overlay select, .form-overlay button {
+        .form-overlay input, .form-overlay select, #submitForm {
+        box-sizing: border-box;
             display: block;
             margin: 10px 0;
             padding: 8px;
@@ -46,14 +47,14 @@
             width: 100%;
         }
 
-        .form-overlay button {
+        .form-overlay #submitForm {
             background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
         }
 
-        .form-overlay button:hover {
+        .form-overlay #submitForm:hover {
             background-color: #0056b3;
         }
     </style>
@@ -62,12 +63,14 @@
     <div id="map"></div>
 
     <div class="form-overlay">
-        <label for="carrier">Carrier:</label>
-        <select id="carrier">
+        <label for="carrierSelect">Carrier:</label>
+        <select id="carrierSelect">
             <option value="310260">T-Mobile</option>
             <option value="310410">AT&T</option>
             <option value="311480">Verizon</option>
+            <option value="custom">Other...</option>
         </select>
+        <input type="text" id="carrierCustom" placeholder="Enter custom PLMN" style="display:none">
 
         <label for="cid">Cell ID:</label>
         <input id="cid" type="number" maxlength="6" placeholder="Enter CID" required />
@@ -183,7 +186,7 @@
                         else if (sector >= 11 && sector <= 14) suggestList = '11,12,13,14';
                         else if (sector >= 21 && sector <= 24) suggestList = '21,22,23,24';
                         else if (sector >= 31 && sector <= 34) suggestList = '31,32,33,34';
-                        else if (sector >= 21 && sector <= 24) suggestList = '61,62,63,64';
+                        else if (sector >= 61 && sector <= 64) suggestList = '61,62,63,64';
                     }
                     if (suggestList == null) { suggestList = '1,2,3'; }
             }   
@@ -249,38 +252,109 @@
 			// return json;
 		}
 
-        // Handle form submission
-        document.getElementById('submitForm').addEventListener('click', async () => {
-		
-		// try {
-		
-			const carrier = document.getElementById('carrier').value;
-			const cid = document.getElementById('cid').value;
-			const tac = document.getElementById('tac').value;
-			const rat = document.getElementById('rat').value;
-	
-				if (!cid || !tac || !rat) {
-					alert('Please fill in all fields.');
-					return;
-				}
-					
-				const surroundingCells = await callApi(carrier, cid, tac, rat);
-				console.log(surroundingCells);
-				// Clear existing markers
-				map.eachLayer(layer => {
-					if (layer instanceof L.Marker && !layer._icon.classList.contains('leaflet-marker-icon')) {
-						map.removeLayer(layer);
-					}
-				});
-				
-				// Update map with new data
-				updateMap(surroundingCells);
-				
-			
-		// } catch (err) {
-		// 	console.error(err);
-		// }
-	})
-    </script>
+    // --- Main submit handler ---
+async function handleSubmit() {
+    // Choose value from select or custom input
+    const carrierSelect = document.getElementById('carrierSelect');
+    const carrierCustom = document.getElementById('carrierCustom');
+    const carrier = carrierSelect && carrierSelect.value === 'custom' ? carrierCustom.value : (carrierSelect ? carrierSelect.value : document.getElementById('carrier').value);
+
+    const cid = document.getElementById('cid').value;
+    const tac = document.getElementById('tac').value;
+    const rat = document.getElementById('rat').value;
+
+    if (!cid || !tac || !rat) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Update URL without reloading
+    const params = new URLSearchParams();
+    params.set('carrier', carrier);
+    params.set('cid', cid);
+    params.set('tac', tac);
+    params.set('rat', rat);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, '', newUrl);
+
+    // Call your API
+    const surroundingCells = await callApi(carrier, cid, tac, rat);
+    console.log(surroundingCells);
+
+    // Clear existing markers (except default icon)
+    map.eachLayer(layer => {
+        if (layer instanceof L.Marker && !layer._icon.classList.contains('leaflet-marker-icon')) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Update map
+    updateMap(surroundingCells);
+    }
+
+    // --- Attach handlers ---
+    document.getElementById('submitForm').addEventListener('click', handleSubmit);
+
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSubmit();
+            }
+        });
+    });
+
+    // --- Carrier select "Other" toggle ---
+    const carrierSelect = document.getElementById('carrierSelect');
+    const carrierCustom = document.getElementById('carrierCustom');
+
+    if (carrierSelect && carrierCustom) {
+        carrierSelect.addEventListener('change', () => {
+            if (carrierSelect.value === 'custom') {
+                carrierCustom.style.display = 'block'; // or 'block' if you want full width
+            } else {
+                carrierCustom.style.display = 'none';
+                carrierCustom.value = '';
+            }
+        });
+    }
+
+    // --- Auto-fill & auto-submit from URL ---
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+
+        // Prefill carrier
+        const carrierVal = params.get('carrier');
+        if (carrierVal && carrierSelect && carrierCustom) {
+            if ([...carrierSelect.options].some(opt => opt.value === carrierVal)) {
+                carrierSelect.value = carrierVal;
+                carrierCustom.style.display = 'none';
+                carrierCustom.value = '';
+            } else {
+                carrierSelect.value = 'custom';
+                carrierCustom.style.display = 'block';
+                carrierCustom.value = carrierVal;
+            }
+        }
+
+        // Prefill other fields
+        ['cid', 'tac', 'rat'].forEach(id => {
+            const val = params.get(id);
+            if (val) {
+                const input = document.getElementById(id);
+                if (input) input.value = val;
+            }
+        });
+
+        // Auto-submit if required fields exist
+        const cid = params.get('cid');
+        const tac = params.get('tac');
+        const rat = params.get('rat');
+        if (cid && tac && rat) {
+            handleSubmit();
+        }
+    });
+</script>
+</script>
 </body>
 </html>
