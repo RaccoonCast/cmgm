@@ -49,6 +49,7 @@ elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $valu
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
 
 elseif ($key == "id" && is_string($id)) {
+
     $cols = ['id','LTE_1','LTE_2','LTE_3','LTE_4','LTE_5','LTE_6','LTE_7','LTE_8','LTE_9','NR_1','NR_2','NR_3','NR_4'];
     if (strpos($id, '-') !== false) {
         list($start, $end) = explode('-', $id, 2);
@@ -62,6 +63,17 @@ elseif ($key == "id" && is_string($id)) {
         $db_vars = " AND (" . implode(" OR ", $conds) . ") " . @$db_vars;
     }
 }
+
+elseif ($key == "pci" && is_string($id)) {
+    $cols = [ 'pci_1','pci_2','pci_3','pci_4','pci_5', 'pci_6','pci_7','pci_8','pci_9','pci_10', 'pci_11','pci_12','pci_13','pci_14','pci_15', 'pci_16','pci_17','pci_18','pci_19','pci_20', 'pci_21','pci_22','pci_23','pci_24','pci_25', 'pci_26','pci_27','pci_28','pci_29','pci_30' ];
+
+    if (is_numeric($id)) {
+        $id = (int)$id;
+        $conds = array_map(fn($c) => "$c = $id", $cols);
+        $db_vars = " AND (" . implode(" OR ", $conds) . ") " . @$db_vars;
+    }
+}
+
 
 // Filtering by date ranges, like &date=2022-01-01,2022-03-01 to filter between January-March of 2022.
 elseif ($key == "date" AND (strpos($value, ',') !== false)) {
