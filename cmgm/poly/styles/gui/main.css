@@ -37,7 +37,7 @@ body {
 }
 
 .form input[name="radius"] {
-    max-width: 75px;
+    max-width: 125px;
 }
 
 .form select[name="rat"] {
