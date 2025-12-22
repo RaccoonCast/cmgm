@@ -16,7 +16,7 @@ $http = isset($isSecure) ? "https://" : "http://";
 $domain_with_http = $http . $domain; //. $port
 
 // SQL Database login info
-$servername = 'mysql.' . 'cmgm.us';
+$servername = "208.113.244.170";
 $db_username = 'cmgm';
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 

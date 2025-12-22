@@ -4,7 +4,8 @@
 //}
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
-header('Pragma: no-cache'); ?>
+header('Pragma: no-cache');
+include "functions.php";?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -12,17 +13,7 @@ header('Pragma: no-cache'); ?>
       <?php
       $titleOverride = "true";
       $filename_for_css = "Home";
-      if (isset($_GET['signOut'])) {
-        echo '<script src="/js/setCookie.js"></script>';
-        unset($_COOKIE['userID']);
-        ?> <script>
-          // Delete userID cookie
-         setCookie("userID", "", "100", true); 
-         // Remove '?signOut' from the URL
-         history.replaceState(null, null, window.location.href.replace('?signOut', ''))
-         </script> <?php
-      }
-      include "functions.php";
+
       if (isset($_GET['q'])) {
           // Redirect to CM for ATT Site IDs
           include "includes/functions/att-siteidconversion.php";
@@ -48,6 +39,8 @@ header('Pragma: no-cache'); ?>
       ?>
    </head>
    <body class="flex">
+    <div class="tiledBackground"></div>
+
      <?php include "includes/misc-functions/prettyInfoDisplay.php"; ?>
      <form action="/" method="post" autocomplete="off">
        <div class="buttons">

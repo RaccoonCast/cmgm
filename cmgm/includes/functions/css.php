@@ -1,4 +1,21 @@
 <?php
+$vars = [
+    'theme',
+    'accent_color',
+    'cmgm_edit_panel1_width',
+    'cmgm_edit_panel2_width'
+];
+
+foreach ($vars as $var) {
+    if (!isset($$var) && isset($_COOKIE[$var])) {
+        if (!isset($debug_flag)) {
+          $debug_flag = 0;
+        }
+        // Sanitize value: allow only a-zA-Z0-9, -, ., and spaces
+        $$var = preg_replace('/[^a-zA-Z0-9\-\. ]/', '', $_COOKIE[$var]);
+    }
+}
+
 // Auto-include CSS
 // Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
 if (!isset($filename_for_css)) $filename_for_css = basename($_SERVER['PHP_SELF'],'.php');
@@ -11,7 +28,7 @@ if (!function_exists('css')) {
     if (file_exists($php_cwd . "/styles/" . $file . '/' . $type . '.css')) { echo '<link rel="stylesheet" href="styles/' . $file . '/' . $type . '.css">' . PHP_EOL; }
     if (file_exists($php_cwd . "/styles/" . $type . '.css')) { echo '<link rel="stylesheet" href="styles/' . $type . '.css">' . PHP_EOL; }
   } else {
-    echo '<link rel="stylesheet" href="database/styles/Upload/' . $type . '.css">' . PHP_EOL;
+  echo '<link rel="stylesheet" href="database/styles/Upload/' . $type . '.css">' . PHP_EOL;
   }
 
   }

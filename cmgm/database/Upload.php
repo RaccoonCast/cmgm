@@ -12,6 +12,7 @@
       $titleOverride = "true";
       echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
      }
+     $doNotConnectToMySql = true;
      include '../functions.php';?>
    </head>
    <body>

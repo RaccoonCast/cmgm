@@ -1,6 +1,3 @@
-<title>Unrecongized Device</title>
-<META name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-<script src="/js/setCookie.js"></script>
 <?php
 
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
@@ -30,13 +27,11 @@ while($row = $result->fetch_assoc()) {
       }
 
 */
-if (!empty($_POST['userid'])) { ?>
-  <script> setCookie("userID", "<?php echo $_POST['userid']; ?>", "1000"); </script>
-  <?php
-  // No need to redirect to settings, since user pre-exists
-  // if ($_SERVER['REQUEST_URI'] == "/") {
-  //   redir("/settings/","0");
-  // }
+if (!empty($_POST['userid'])) { 
+  if (headers_sent($file, $line)) {
+    die("Headers already sent in $file on line $line");
+}
+  set_safe_cookie("userID", $_POST['userid']);
   redir($_SERVER['REQUEST_URI'],"0");
 }
 elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
@@ -47,7 +42,7 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
   $result_ipinfo = explode(",", $loc);
 
   $userID = substr(str_shuffle(md5(time())),0,32);
-  ?> <script> setCookie("userID", "<?php echo $userID ?>", "1"); </script> <?php
+  set_safe_cookie("userID", $userID);
   // $username = substr(str_shuffle(md5(time())),0,16);
   $username = $_POST['username'];
   $userIP = $_SERVER["REMOTE_ADDR"];
@@ -90,6 +85,8 @@ elseif (isset($_POST['password']) && $secret_pass == $_POST['password']) {
                     redir(str_replace('?switchUser=true', '', $_SERVER['REQUEST_URI']),"0");
 }
  ?>
+ <title>Unrecongized Device</title>
+<META name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
    </head>
    <body>
      <form action="<?= str_replace("?signOut", "", $_SERVER['REQUEST_URI']);?>" method="post" autocomplete="off">
