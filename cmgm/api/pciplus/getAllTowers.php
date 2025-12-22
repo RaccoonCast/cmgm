@@ -9,7 +9,7 @@ include "../../includes/functions/convert-url.php";
   // Check all LTE/NR fields for provided eNBs that match PLMN provided, remove edit_userid & edit_lock from fields returned by each tower.
   // Put each tower into $result_object PHP array.
   // Query using the $carrier variable directly
-  $query = "SELECT carrier, lte_1, lte_2, lte_3, lte_4, lte_5, lte_6, lte_7, lte_8, lte_9, nr_1, nr_2, nr_3, nr_4 FROM db";
+  $query = "SELECT carrier, lte_1, lte_2, lte_3, lte_4, lte_5, lte_6, lte_7, lte_8, lte_9, nr_1, nr_2, nr_3, nr_4, nr_5, nr_6 FROM db";
 
   // Execute the query
   if ($result = $conn->query($query)) {
