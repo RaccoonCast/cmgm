@@ -28,12 +28,23 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     }
     if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
         $value = substr($value, 1);
-    } 
+    }
 
     $value = preg_match('/unique_system_identifier=(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;
     $value = preg_match('/https:\/\/maprad\.io\/us\/search\/licence\/.*?\/.*?-(\d+)/', $value, $matches) ? "https://wireless2.fcc.gov/UlsApp/UlsSearch/licenseLocSum.jsp?licKey={$matches[1]}" : $value;
 
-    include "latitude_longitude.php"; 
+    include "latitude_longitude.php";
+    
+    if (($key == "region_lte" OR $key == "region_nr") && $value == 69420) {
+        if ($carrier == "T-Mobile") $plmn = 310260;
+        if ($carrier == "ATT") $plmn = 310410;
+        if ($carrier == "Verizon") $plmn = 311480;
+        if ($carrier == "Sprint") $plmn = 310120;
+        if ($carrier == "Dish") $plmn = 313340;
+        if ($key == "region_lte") $rat = "LTE";
+        if ($key == "region_nr") $rat = "NR";
+        $value = $conn->query("SELECT tac FROM local_poly WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' ORDER BY ((latitude-$latitude)*(latitude-$latitude) + (longitude-$longitude)*(longitude-$longitude)) ASC LIMIT 1")->fetch_row()[0];
+    }
     if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
         if (strpos($key, 'sv') === false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, $value) . "', ";}
         if (strpos($key, 'sv') !== false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, str_replace("https://", "", $value)) . "', ";}
