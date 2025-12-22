@@ -15,6 +15,11 @@
     if (!isset($_GET['state'])) {
        statBox("count_most_common_states.php", $db_vars, $conn, $domain_with_http);
     }
+
+        // Count most common zip codes.
+    if (!isset($_GET['zip'])) {
+       statBox("count_most_common_zips.php", $db_vars, $conn, $domain_with_http);
+    }
     
     // Count most records created during X day.
     if (!isset($_GET['date']) || (isset($_GET['date'][0]) && ($_GET['date'][0] === '<' || $_GET['date'][0] === '>'))) {
