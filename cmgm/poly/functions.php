@@ -76,34 +76,13 @@ function get($type, $latLngPairs) {
 	return $sum / count($latLngPairs);
 }
 
-/**
- * No longer used - replaced by getMultipleFromDb
- * Left here for legacy reasons, can be removed at a later date
- */
-function getFromDb($conn, $cellId, $plmn) {
-    // Query to retrieve the data
-    $query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info
-              FROM local_poly
-              WHERE cell_id = $cellId AND plmn = $plmn";
-
-    // Execute the query
-    $result = $conn->query($query);
-	
-    if ($result && $result->num_rows > 0) {
-        // Fetch and return the data as an associative array
-        return $result->fetch_assoc();
-    } else {
-        return null; // No data found
-    }
-}
-
 function getMultipleFromDb($conn, $cellIdList, $plmn) {
 
 	$cellIdListStr = implode(', ', $cellIdList);
 
 	// Query to retrieve the data
 	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac
-              FROM cmgm.local_poly
+              FROM cmgm.local_poly_beta
               WHERE cell_id IN ($cellIdListStr)
               AND plmn = $plmn";
 

@@ -71,7 +71,7 @@ WITH base_results AS (
       COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) +
       SIN(RADIANS($latitude)) * SIN(RADIANS(latitude))
     )) AS distance
-  FROM local_poly
+  FROM local_poly_beta
   WHERE 1=1 $db_vars $db_vars_uno AND provider_source IS NOT NULL 
     AND latitude IS NOT NULL 
     AND longitude IS NOT NULL
@@ -88,7 +88,7 @@ SELECT lp.*,
     COS(RADIANS($latitude)) * COS(RADIANS(lp.latitude)) * COS(RADIANS(lp.longitude) - RADIANS($longitude)) +
     SIN(RADIANS($latitude)) * SIN(RADIANS(lp.latitude))
   )) AS distance
-FROM local_poly lp
+FROM local_poly_beta lp
 JOIN selected_enbs se ON lp.enb = se.enb
 WHERE 1=1 $db_vars $db_vars_dos
   AND (3959 * ACOS(
@@ -97,12 +97,70 @@ WHERE 1=1 $db_vars $db_vars_dos
   )) <= 300
 ORDER BY lp.enb, lp.cell;
 ";
+// $sql = "
+// WITH
+// params AS (
+//     SELECT
+//         $longitude AS my_lon,
+//         $latitude AS my_lat,
+//         0.2 AS buffer_size
+// ),
+// my_location AS (
+//     SELECT ST_SRID(POINT(my_lon, my_lat), 4326) AS loc
+//     FROM params
+// ),
+// search_envelope AS (
+//     SELECT ST_SRID(
+//         ST_MakeEnvelope(
+//             POINT(my_lon - buffer_size, my_lat - buffer_size),
+//             POINT(my_lon + buffer_size, my_lat + buffer_size)
+//         ),
+//         4326
+//     ) AS env
+//     FROM params
+// ),
+// ClosestENBs AS (
+//      SELECT
+//         t1.cell_id AS cell_id,
+//         t1.enb AS enb,
+//         t1.cell AS cell,
+//         t1.tac AS tac,
+//         t1.rat AS rat,
+//         t1.provider_source AS provider_source,
+//         t1.plmn AS plmn
+//     FROM local_poly_beta t1, search_envelope se, my_location ml
+//     WHERE 1=1 $db_vars $db_vars_uno AND ST_Intersects(t1.coords, se.env)
+//     -- ORDER BY ST_DISTANCE_SPHERE(t1.coords, ml.loc) ASC
+//     LIMIT 150
+// )
+// SELECT DISTINCT
+//     t2.enb,
+//     t2.cell,
+//     t2.cell_id,
+//     t2.plmn,
+//     t2.latitude,
+//     t2.longitude,
+//     ST_DISTANCE_SPHERE(t2.coords, (SELECT loc FROM my_location)) AS distance_in_meters
+// FROM local_poly_beta t2
+// INNER JOIN ClosestENBs c ON t2.enb = c.enb
+// ORDER BY t2.enb, t2.cell, distance_in_meters ASC;
+// ";
 if ($_GET['showsql'] == "true") {
   echo $sql;
   die();
 }
 
+
 $result = $conn->query($sql);
+
+if ($result === FALSE) {
+    // An error occurred during query execution
+    echo "Error: " . $conn->error;
+}
+
+
+// print_r($result->fetch_assoc());
+// die();
 
 $sortTemp = [];
 
@@ -116,6 +174,11 @@ while ($row = $result->fetch_assoc()) {
     $cell = (int)$row['cell'];
     $lat = (float)$row['latitude'];
     $lon = (float)$row['longitude'];
+
+    if ($lat == 0.0 || $lon == 0.0) {
+      $lat = null;
+      $lon = null;
+    }
 
     $sortKey = "{$plmn}.{$enb}";
 
