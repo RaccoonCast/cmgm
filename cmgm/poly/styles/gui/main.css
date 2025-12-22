@@ -1,32 +1,37 @@
-
+/* Page */
 body {
     margin: 0;
     padding: 20px;
 }
+
+/* Form layout */
 .form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px; /* spacing between inputs */
-    align-items: center;
+    width: 100%;
 }
 
 .form form {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;          /* one visual row */
+    align-items: center;
     gap: 6px;
-    flex: 1;
 }
 
+/* Every direct child participates correctly in flex */
+.form form > * {
+    min-width: 0;               /* REQUIRED for flex + inputs */
+}
+
+/* Text inputs + selects flex */
 .form input[type="text"],
 .form input[type="number"],
 .form select {
-    flex: 1 1 auto; /* take as much space as possible */
+    flex: 1 1 auto;
     padding: 6px 10px;
     font-size: 14px;
     box-sizing: border-box;
 }
 
-/* Max-widths for specific fields */
+/* Width constraints */
 .form input[name="plmn"] {
     max-width: 165px;
 }
@@ -44,21 +49,18 @@ body {
     max-width: 120px;
 }
 
-/* Style for submit button inside the form */
+/* Buttons are part of flex but do not grow */
 .form input[type="submit"],
 .form button {
+    flex: 0 0 auto;
     padding: 6px 14px;
     font-size: 14px;
     cursor: pointer;
-}
-
-/* Make export button look like part of form */
-.form button {
-    flex: 0 0 auto; /* don’t grow */
-    border: none;
+    white-space: nowrap;
     border-radius: 4px;
 }
 
+/* Table styling (unchanged behavior) */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -67,15 +69,19 @@ table {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-th, td {
+th,
+td {
     padding: 10px;
     text-align: left;
-    border: 2px solid #000000;
+    border: 2px solid #000;
 }
+
+/* Links */
 a {
     color: var(--accent-color);
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
