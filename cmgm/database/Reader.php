@@ -1,7 +1,7 @@
 <?php
 define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
-$allowGuests = "true";
+$allowGuests = true;
 include "../includes/functions/sqlpw.php";
 include '../includes/useridsys/native.php';
 include "../includes/functions/calculateEV.php";

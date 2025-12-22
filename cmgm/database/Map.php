@@ -1,4 +1,5 @@
 <?php
+$allowGuests = true;
 include '../functions.php';
 ?>
 <html lang="en">
@@ -17,7 +18,6 @@ include '../functions.php';
     return (bool) preg_match("/^{$pattern}$/i", $subject);
   }
   $zoom = 14;
-  $allowGuests = "true";
   include '../includes/functions/headhtml.php';
   if (!isset($_GET['latitude']))
     $latitude = $default_latitude;

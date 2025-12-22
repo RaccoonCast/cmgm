@@ -1,10 +1,12 @@
+<?php 
+$allowGuests = true;
+include '../functions.php'; ?>
 <!doctype html>
 <html lang="en">
 <head>
 <script src="/js/copyToClipboard.js"></script>
   <?php
-  $allowGuests = "true";
-  include '../functions.php';
+  include "../includes/functions/headhtml.php";
   include "../includes/misc-functions/cm_linkgen.php";
   include "../includes/functions/calculateEV.php";
   include "../includes/functions/convert-url.php";

@@ -1,5 +1,6 @@
 <?php 
 $doNotConnectToMySql = true;
+$allowGuests = true;
 include "../functions.php";?>
 <!doctype html>
 <html lang="en-us">
@@ -11,7 +12,6 @@ include "../functions.php";?>
      <script src="../js/copyToClipboard.js"></script>
      <script src="../js/pasteimages.js"></script>
      <?php
-     $allowGuests = "true"; 
      error_reporting(E_ERROR | E_PARSE);
      if (isset($_GET['originalFilename'])) {
       echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
