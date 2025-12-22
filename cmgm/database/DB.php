@@ -1,10 +1,11 @@
+<?php include '../functions.php'; ?>
 <!doctype html>
 <html lang="en">
 <head>
   <script src="../js/redir.js"></script>
   <script src="../js/copyToClipboard.js"></script>
   <?php
-  include '../functions.php';
+  include "../includes/functions/headhtml.php";
   if (!isset($_GET['latitude'])) $latitude = $default_latitude;
   if (!isset($_GET['longitude'])) $longitude = $default_longitude;
   include "includes/DB-filter-get.php";

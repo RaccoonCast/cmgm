@@ -2,7 +2,9 @@
 
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
-header('Pragma: no-cache'); ?>
+header('Pragma: no-cache'); 
+include "../functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +12,12 @@ header('Pragma: no-cache'); ?>
 <script src="../js/copyToClipboard.js"></script>
 <script src="../js/redir.js"></script>
 <?php
+include '../includes/functions/headhtml.php';
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $titleOverride = "true";
 if (!isset($_GET['new']) && !isset($_GET['pciplus']) && !isset($_POST['new']) && !isset($_GET['loginprompt'])) $allowGuests = "true";
-include "../functions.php";
 if (isset($_GET['pciplus'])) include "../includes/pciplus/main.php";
 
 if (isset($_GET['back'])) $back_num = $_GET['back'];

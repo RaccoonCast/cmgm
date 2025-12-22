@@ -1,3 +1,4 @@
+<?php include '../functions.php'; ?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -22,7 +23,7 @@
 
     // Include common functions
     $titleOverride = 'true';
-    include '../functions.php';
+    include '../includes/functions/headhtml.php';
     echo '<script src="includes/functions/hideme.js"></script>';
 
     // Get current URL

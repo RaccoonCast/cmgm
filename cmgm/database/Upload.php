@@ -1,7 +1,12 @@
-
+<?php 
+$doNotConnectToMySql = true;
+include "../functions.php";?>
 <!doctype html>
 <html lang="en-us">
    <head>
+     <?php
+     include "../includes/functions/headhtml.php";
+     ?>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/copyToClipboard.js"></script>
      <script src="../js/pasteimages.js"></script>
@@ -9,11 +14,9 @@
      $allowGuests = "true"; 
      error_reporting(E_ERROR | E_PARSE);
      if (isset($_GET['originalFilename'])) {
-      $titleOverride = "true";
       echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
      }
-     $doNotConnectToMySql = true;
-     include '../functions.php';?>
+     ?>
    </head>
    <body>
      <?php

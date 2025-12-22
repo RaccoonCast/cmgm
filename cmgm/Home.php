@@ -11,6 +11,7 @@ include "functions.php";?>
    <head>
      <script src="/js/copyToClipboard.js"></script>
       <?php
+      include 'includes/functions/headhtml.php';
       $titleOverride = "true";
       $filename_for_css = "Home";
 

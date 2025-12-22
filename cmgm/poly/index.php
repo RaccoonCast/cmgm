@@ -1,3 +1,4 @@
+<?php include "../functions.php";?>
 <!DOCTYPE HTML>
 <head>
 <meta name="viewport" 
@@ -5,7 +6,7 @@
 <?php
 $poly = true;
 $titleOverride = true;
-include "../functions.php";
+include "../includes/functions/headhtml.php";
 
 $firstRun = true;
 

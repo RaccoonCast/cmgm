@@ -6,6 +6,5 @@ if (!isset($doNotConnectToMySql)) {
     include 'includes/useridsys/native.php';
     include_once 'includes/functions/sqlpw.php';
 }
-include 'includes/functions/headhtml.php';
-include 'includes/functions/common-debug-info.php';
+// include 'includes/functions/common-debug-info.php';
 ?>
