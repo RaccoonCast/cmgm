@@ -315,12 +315,12 @@
 
     <label title="Evidence score is calculated by the permit score/trails_match/etc" class="evidence_scores_label">Evidence Score</label><input
     type="number" class="evidence_scores_cw evidence_score" name="evidence_score" value="<?php include "../includes/functions/calculateEV-math.php"; echo $ev;?>" readonly>
-    </div>
+  </div>
+  <?php if (!empty($latitude)) include "includes/edit/mapWithPin.php"; ?>
     <?php if ($cmgm_edit_hide_edit_history == "false" && $cmgm_edit_history_compact == "false") if ($isMobile !="true") { ?>
     <textarea rows="10" cols="120" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><?php } else { ?>
     <textarea rows="6" cols="50" class="edit_history" placeholder="Edit History: " name="edit_history" readonly><?php echo @$edit_history; ?></textarea><br> <?php } ?>
     </div>
-    <?php if (!empty($latitude)) include "includes/edit/mapWithPin.php"; ?>
     <?php if (isset($new)) { $submit_label = "Create";} else {$submit_label = "Save";}  ?>
 <?php if (!isset($delete) && $padlock == "false") { ?><input style="margin-bottom: 0.35cm" name="edittag" type="submit" class="sb cmgm-btn" value="<?php echo $submit_label?>"><?php }
 if (@$padlock == "true") echo '</fieldset>'; ?>

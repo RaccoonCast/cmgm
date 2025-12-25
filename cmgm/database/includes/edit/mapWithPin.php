@@ -20,6 +20,6 @@ function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $user
 if (isMobile()) {
     MapWithPin($latitude, $longitude, "17", "100%", "250", $map_edit_mobile_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
 } else {
-    MapWithPin($latitude, $longitude, "18", "44%", "530", $map_edit_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
+    MapWithPin($latitude, $longitude, "18", "100%", "535", $map_edit_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
 }
 ?>
