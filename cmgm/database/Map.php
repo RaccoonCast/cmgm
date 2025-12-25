@@ -47,7 +47,13 @@
       </button>
     <?php } ?>
     <?php if (isset($_GET['showPolyLink'])) { ?>
-      <button class="special_button" id="openPolyButton" style="top: 79px;">
+      <button class="special_button" id="openPolyButton" style="top: 79px;" 
+      <?php 
+      if (strlen($_GET['showPolyLink']) > 1) {
+        $poly_link = preg_replace('/&hidePolyForm.*$/', '', base64_decode($_GET['showPolyLink']));
+        echo "onclick=\"window.open('{$poly_link}', '_blank')\";";
+       } ?> 
+        >
         <div class="buttonContainer">↗️</div>
       </button>
     <?php } ?>
