@@ -1,4 +1,6 @@
-<?php include '../functions.php'; ?>
+<?php 
+$allowGuests = true;
+include '../functions.php'; ?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -19,8 +21,6 @@
         } else {$limit = $_GET['limit'];}
     }
 
-    $allowGuests = true;
-
     // Include common functions
     $titleOverride = 'true';
     include '../includes/functions/headhtml.php';
@@ -35,13 +35,13 @@
     // Set default filter
     $db_vars = isset($db_vars) ? '1=1 ' . $db_vars : '1=1 ';
 
+    echo '</head><body><div id="content_body">';
+
     // Function to create a statistics box
     include 'includes/functions/statbox.php';
 
     include 'includes/functions/getPercent.php'; //
     include 'includes/counts/count_records_total.php';
-
-    echo "</head><body>";
 
     // Display filters if 'showsql' is set
     // (Run within <body>, or it starts <body> early)
@@ -58,7 +58,7 @@
     }
 
     include 'includes/footer.php';
-    echo '</body></html>';
+    echo '</div></body></html>';
     // Close the database connection
     $conn->close();
 
