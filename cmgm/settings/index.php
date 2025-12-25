@@ -33,6 +33,7 @@ include "../functions.php";
       'cmgm_edit_pinspace_warn', 
       'cmgm_edit_override_panels_widths', 
       'cmgm_edit_panel1_width', 
+      'cmgm_edit_panel2_width', 
       'map_map_pin_limit',
       'map_edit_pin_limit',
       'map_map_mobile_pin_limit',
