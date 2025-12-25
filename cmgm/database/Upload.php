@@ -4,9 +4,8 @@ $allowGuests = true;
 include "../functions.php";?>
 <!doctype html>
 <html lang="en-us">
-   <head>
-     <?php
-     include "../includes/functions/headhtml.php";
+  <head>
+    <?php
      ?>
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/copyToClipboard.js"></script>
@@ -14,8 +13,10 @@ include "../functions.php";?>
      <?php
      error_reporting(E_ERROR | E_PARSE);
      if (isset($_GET['originalFilename'])) {
-      echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
-     }
+       $titleOverride = true;
+       echo "<title>Upload - " . $_GET['originalFilename'] . "</title>";
+      }
+      include "../includes/functions/headhtml.php";
      ?>
    </head>
    <body>

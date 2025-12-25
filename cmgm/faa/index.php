@@ -12,6 +12,7 @@ include "utils/FAAHandleErrors.php";
 // Include CMGM-related functions
 // For accent-color CSS
 $allowGuests = true;
+include "../includes/functions/basic-functions.php";
 include "../includes/functions/sqlpw.php";
 include "../includes/useridsys/native.php";
 
