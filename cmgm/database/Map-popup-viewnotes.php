@@ -1,9 +1,11 @@
+<?php 
+$allowGuests = true;
+include '../functions.php'; ?>
 <!doctype html>
 <html lang="en">
 <head>
   <?php
-  $allowGuests = "true";
-  include '../functions.php';
+ include "../includes/functions/headhtml.php";
   $id = $_GET['id'];
   ?>
 </head>

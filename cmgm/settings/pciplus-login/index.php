@@ -2,6 +2,7 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+include "../../functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@ header("Pragma: no-cache");
    <body>
    <?php
      $titleOverride = "true";
-     include "../../functions.php";
+     include "../../includes/functions/headhtml.php";
      $pciplusIdent = mysqli_real_escape_string($conn, $_GET['pciplusIdent']);
 
      if (!empty($pciplusIdent)) {

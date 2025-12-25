@@ -1,6 +1,12 @@
+	<?php
+	include "../functions.php";
+	 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php
+  include "../includes/headhtml.php";
+  ?>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
@@ -30,9 +36,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 <body>
-	<?php
-	include "../functions.php";
-	 ?>
+
 <div id="side_menu" style="display: inline-block; width: 20%; max-width: 100%;">
 
 Neque vitae tempus quam pellentesque nec nam aliquam. Volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Eu consequat ac felis donec et. Id consectetur purus ut faucibus. Urna cursus eget nunc scelerisque viverra mauris. Id leo in vitae turpis massa sed. Adipiscing at in tellus integer. Id volutpat lacus laoreet non curabitur gravida arcu. Nisl tincidunt eget nullam non nisi est sit amet facilisis. Purus non enim praesent elementum. Elementum nisi quis eleifend quam adipiscing. A diam maecenas sed enim ut sem viverra aliquet eget. Tempor nec feugiat nisl pretium fusce id velit ut tortor. Nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Id venenatis a condimentum vitae sapien pellentesque habitant morbi. Mauris pharetra et ultrices neque ornare aenean. Elit eget gravida cum sociis natoque.

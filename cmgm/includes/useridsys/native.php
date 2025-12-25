@@ -5,6 +5,7 @@ if (!defined('SITE_ROOT')) {
 define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 }
 
+
 include SITE_ROOT . "/includes/functions/sqlpw.php";
 
 // Check to see if browser has a USER ID cookie and if it does create a variable called "cookie_userID" with that value.
@@ -22,19 +23,23 @@ if (isset($_COOKIE['userID'])) {
 if (!isset($_GET['switchUser'])) {
   $sql = "SELECT * FROM userID WHERE userID='$cookie_userID'";
   $result = mysqli_query($conn,$sql);
-  
-  while($row = $result->fetch_assoc()) {
-      foreach ($row as $key => $value) {
-        if ($key != "id") {
-          $$key = $value;
-          if (@$debug_flag == "3") {
-            echo basename(__FILE__) . ": " . "Setting $" . $key . " to have value '" . $value . "'<br>";
-          }
+
+while ($row = $result->fetch_assoc()) {
+    foreach ($row as $key => $value) {
+        if ($key !== "id") {
+            $$key = $value;
+
+          set_safe_cookie($key, $value);
+
+            if (@$debug_flag == "3") {
+                // SAFE: echo AFTER cookies or buffer output
+                echo basename(__FILE__) . ": Setting \${$key} = '{$value}'<br>";
+            }
         }
-      }
     }
 }
-
+}
+  
 // If the above code failed, $userIP variable would NOT be set, this means no entry... New IP.php we go!
 if (!isset($userIP)) {
   if (!isset($allowGuests)) {
@@ -68,7 +73,6 @@ if (!isset($userIP)) {
     $map_edit_mobile_pin_limit = "25";
   }
 }
-
 if($userID !== "guest") {
 // If the IP of the current browser is not the same as the IP listed in the database update the IP in the databse with the IP of the current browser.
 if (!isset($allowGuests) && $curr_userIP != $userIP) {

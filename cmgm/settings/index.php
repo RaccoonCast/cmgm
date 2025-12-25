@@ -2,6 +2,7 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+include "../functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +11,9 @@ header("Pragma: no-cache");
      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
      <script src="../js/latlong-settings.js"></script>
      <script src="/js/copyToClipboard.js"></script>
-     <script src="/js/setCookie.js"></script>
      <?php
      $titleOverride = "true";
-     include "../functions.php";
+     include "../includes/functions/headhtml.php";
      $list_of_vars = array(
       'debug_flag', 
       'username', 
@@ -33,6 +33,7 @@ header("Pragma: no-cache");
       'cmgm_edit_pinspace_warn', 
       'cmgm_edit_override_panels_widths', 
       'cmgm_edit_panel1_width', 
+      'cmgm_edit_panel2_width', 
       'map_map_pin_limit',
       'map_edit_pin_limit',
       'map_map_mobile_pin_limit',

@@ -1,10 +1,10 @@
+<?php include 'functions.php'; ?>
 <!DOCTYPE HTML>
 <head>
   <script src="/js/redir.js"></script>
   <script src="/js/copyToClipboard.js"></script>
   <?php
-  include 'functions.php';
-
+  include "includes/functions/headhtml.php";
   if(isMobile()){
     css("mobile","Home");
   } else {

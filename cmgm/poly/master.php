@@ -51,11 +51,11 @@ foreach ($formData as $index => $data) {
     if (isset($data['cellListDepri']) && $data['cellListDepri'] == '-') {
        if ($rat == "LTE") {
         if ($plmn == 310260) $cellList_depri = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,45,46,47,48,49,50,51,52,53,54,61,62,63,64,65,66,104,105,106,107,111,112,113,114,131,132,133,134,135,136,141,142,143,144,145,146,171,172,173,174,241,242,243,244];
-        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,185,186,187,188,189,190,191,192,193,194,195,196,197,198,35,63,99,28,56,91,182,183,181,42,70,107,49,63,115,179,171,186,201,202,203,204,205,92,93,94,95,100,101,102,108,109,110,149,150,151,152,153,154,155,171,172,173,174,175,176,177,217,218,219,220];
+        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,185,186,187,188,189,190,191,192,193,194,195,196,197,198,35,63,99,28,56,91,182,183,181,42,70,107,49,63,115,179,171,186,201,202,203,204,205,92,93,94,95,100,101,102,108,109,110,149,150,151,152,153,154,155,171,172,173,174,175,176,177,217,218,219,220,124,125,126,140,141,142,132,133,134];
         if ($plmn == 311480) $cellList_depri = [1,2,3,4,5,6,7,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,52,54,57,62,64,67,72,74,76,77,82,84,86,87,92,94,96,102,104,106,112,114,116,122,124,126];
         if ($plmn == 312680) $cellList_depri = [148,149,150,151,152,153,154,155,156];
     } else {
-        if ($plmn == 310260) $cellList_depri = [1,2,3,4,11,12,13,14,21,22,23,24,41,42,43,51,52,53,54,301,302,303,304,305,306,311,312,313,314,315,316,321,322,323,324,325,326,351,352,353,371,372,373,401,402,403,404,411,412,413,414,201,202,203]; // n71 + n66 + n25 + n25 suppl + n71 suppl + n41 + n41 suppl + n41 suppl x2 + n77 + N77 DOD + n41 on weird configs + n25 on weird configs
+        if ($plmn == 310260) $cellList_depri = [1,2,3,4,11,12,13,14,15,16,21,22,23,24,25,26,41,42,43,44,45,46,51,52,53,54,301,302,303,304,305,306,311,312,313,314,315,316,321,322,323,324,325,326,351,352,353,371,372,373,401,402,403,404,411,412,413,414,201,202,203]; // n71 + n66 + n25 + n25 suppl + n71 suppl + n41 + n41 suppl + n41 suppl x2 + n77 + N77 DOD + n41 on weird configs + n25 on weird configs
         if ($plmn == 311480) $cellList_depri = [26,27,42,43,58,59,74,75,25,41,57,20,36,52,68,23,39,55,71,122]; // n77 + n77suppl + n2 + n66 + n77 micros on 'sector' 7.
         if ($plmn == 310410) $cellList_depri = [25,49,73,26,50,74,52,28,76,27,75,51,53,77,29,1,36,3,2,84,60,30,78,54,85,61,37,31,97,79,55,80,0,56,32,121,33,4,81,57,145,5,10,6,82,8,7,99,9,98,58,34,146,100,147,123,122,11,83,520,101,59,40,15,522,169,124,104,86,35,22,19,919,778,777,527,523,303,302,301,273,269,263,193,175,108,105,103,102,92,89,88,67,64,63,62,23,21,17,16];
        }
@@ -119,7 +119,7 @@ foreach ($formData as $index => $data) {
             if (!isset($_GET['forceNewResults'])) {
                 $tmpDb = $dbDump_dataMap[$cellId];
 
-                if (is_null($tmpDb['latitude']) || is_null($tmpDb['longitude'])) {
+                if ($tmpDb['latitude'] == 0.0 || $tmpDb['longitude'] == 0.0) {
                     // If DB already null, continue without generating handles
                     continue;
                 } else {
@@ -292,9 +292,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         ];
 
         // Update database
-        $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', '$lat', '$lng', '$accuracyMiles', 'Surro', '$reqDate')
-                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate'";
+        $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info, coords)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', $lat, $lng, '$accuracyMiles', 'Surro', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
+                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = $lat, longitude = $lng, accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
         $conn->query($sqlInsert);
     }
 
@@ -351,9 +351,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
 
                 // Add to DB
                 // Update database
-                $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info)
-                          VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', '$lat', '$lng', '$accuracyMiles', 'Google', '$reqDate')
-                          ON DUPLICATE KEY UPDATE latitude = '$lat', longitude = '$lng', accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate'";
+                $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info, coords)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', $lat, $lng, '$accuracyMiles', 'Google', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
+                      ON DUPLICATE KEY UPDATE latitude = $lat, longitude = $lng, accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
                 $conn->query($sqlInsert);
 
                 // Update UserID DB to +1 gmaps api utilization
@@ -363,8 +363,8 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                 $reqDate = date('Y-m-d H:i:s');
 
                 // tell database that it was not found
-                $sqlInsert = "INSERT INTO local_poly (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info) 
-	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', NULL, NULL, NULL, '$reqDate') 
+                $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info, coords) 
+	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', 0.0, 0.0, NULL, '$reqDate', ST_SRID(POINT(0.0, 0.0), 4326)) 
 	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles), date_of_info = '$reqDate'";
                 $conn->query($sqlInsert);
             }

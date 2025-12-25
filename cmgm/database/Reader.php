@@ -1,9 +1,8 @@
 <?php
 define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 $SITE_ROOT = $_SERVER['DOCUMENT_ROOT'];
-$allowGuests = "true";
-include "../includes/functions/sqlpw.php";
-include '../includes/useridsys/native.php';
+$allowGuests = true;
+include '../functions.php';
 include "../includes/functions/calculateEV.php";
 @$id = preg_replace("/[^0-9]/", '', $_GET['id']);
 @$show_empty_fields = $_GET['show_empty_fields'];

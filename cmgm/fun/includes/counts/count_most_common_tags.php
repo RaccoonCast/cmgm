@@ -1,20 +1,31 @@
 <?php
   $sql = "
-    SELECT   
-        TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(',', tags, ','), ',', numbers.n), ',', -1)) AS tag,  
-        COUNT(*) AS tag_count  
-    FROM db  
-    CROSS JOIN (  
-        SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5   
-        UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10  
-    ) numbers  
-    WHERE CHAR_LENGTH(tags) - CHAR_LENGTH(REPLACE(tags, ',', '')) >= numbers.n - 1  
-        AND tags IS NOT NULL   
-        AND tags != ''  
-        AND TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(',', tags, ','), ',', numbers.n), ',', -1)) != ''  
-    GROUP BY tag  
-    ORDER BY tag_count DESC
-    LIMIT $limit;
+WITH RECURSIVE split AS (
+    SELECT
+        id,                       
+        TRIM(SUBSTRING_INDEX(tags, ',', 1)) AS tag,
+        SUBSTRING(tags, LENGTH(SUBSTRING_INDEX(tags, ',', 1)) + 2) AS rest
+    FROM db
+    WHERE tags IS NOT NULL AND $db_vars
+      AND tags <> ''
+
+    UNION ALL
+
+    SELECT
+        id,
+        TRIM(SUBSTRING_INDEX(rest, ',', 1)) AS tag,
+        SUBSTRING(rest, LENGTH(SUBSTRING_INDEX(rest, ',', 1)) + 2) AS rest
+    FROM split
+    WHERE rest <> ''
+)
+SELECT
+    tag,
+    COUNT(*) AS tag_count
+FROM split
+WHERE tag <> ''
+GROUP BY tag
+ORDER BY tag_count DESC
+LIMIT $limit;
   ";
 
   $result = $conn->query($sql);

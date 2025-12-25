@@ -19,7 +19,7 @@ die();
 if ($_POST['opt'] == 'Missing File Search'){
 // Let's Find Missing Files (LFMF)
 echo "The following IDs have missing attachments: <br>";
-$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f FROM db";
+$sql = "SELECT id,evidence_a,evidence_b,evidence_c,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,bingmaps_a,bingmaps_b,bingmaps_c FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -43,13 +43,17 @@ while($row = $result->fetch_assoc()) {
         if (!empty($extra_d) && substr($extra_d, 0, 4) != "http" && substr($extra_d, 0, 1) != "#" && substr($extra_d, 0, 1) != "@" && !file_exists("uploads/" . $extra_d)) echo " $id - EXTRA_D<br>";
         if (!empty($extra_e) && substr($extra_e, 0, 4) != "http" && substr($extra_e, 0, 1) != "#" && substr($extra_e, 0, 1) != "@" && !file_exists("uploads/" . $extra_e)) echo " $id - EXTRA_E<br>";
         if (!empty($extra_f) && substr($extra_f, 0, 4) != "http" && substr($extra_f, 0, 1) != "#" && substr($extra_f, 0, 1) != "@" && !file_exists("uploads/" . $extra_f)) echo " $id - EXTRA_F<br>";
+		
+        if (!empty($bingmaps_a) && substr($bingmaps_a, 0, 4) != "http" && substr($bingmaps_a, 0, 1) != "#" && substr($bingmaps_a, 0, 1) != "@" && !file_exists("uploads/" . $bingmaps_a)) echo " $id - BINGMAPS_A<br>";
+        if (!empty($bingmaps_b) && substr($bingmaps_b, 0, 4) != "http" && substr($bingmaps_b, 0, 1) != "#" && substr($bingmaps_b, 0, 1) != "@" && !file_exists("uploads/" . $bingmaps_b)) echo " $id - BINGMAPS_B<br>";
+        if (!empty($bingmaps_c) && substr($bingmaps_c, 0, 4) != "http" && substr($bingmaps_c, 0, 1) != "#" && substr($bingmaps_c, 0, 1) != "@" && !file_exists("uploads/" . $bingmaps_c)) echo " $id - BINGMAPS_C<br>";
         if ($key != "id")$$key = null;
 } }
 $result->close(); $conn->close();
 } elseif ($_POST['opt'] == 'Remove unused files') {
 // Let's Find Missing Files (LFMF) -- except it deletes the files that aren't in use.
 $list = null;
-$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f FROM db";
+$sql = "SELECT evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,bingmaps_a,bingmaps_b,bingmaps_c FROM db";
 $result = mysqli_query($conn,$sql);
 
 while($row = $result->fetch_assoc()) {
@@ -66,7 +70,7 @@ foreach($fileList as $filename){
 
   // If X was not found in list remove it.
   if (!strpos($list, $output)) {
-    unlink('uploads/' . $output . '');
+    // unlink('uploads/' . $output . '');
     echo $output . "<br>";
   }
 }
@@ -113,7 +117,7 @@ foreach($fileList as $filename){
           elseif ($carrier == "Verizon") $beginning = "MCC=311&MNC=480";
           elseif ($carrier == "Dish") $beginning = "MCC=313&MNC=340";
 
-          $link = "https://www.cellmapper.net/map?$beginning&type=LTE&latitude=$latitude&longitude=$longitude&zoom=17&ppT=$LTE_1";
+          $link = "https://www.cellmapper.net/map?$beginning&type=LTE&latitude=$latitude&longitude=$longitude&zoom=17&ppT=$LTE_1&ppL=$region_lte";
           echo '<a href="'.$link.'">#'.$id.'</a> ' . PHP_EOL;
         }
       }
