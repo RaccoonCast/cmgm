@@ -29,7 +29,7 @@ else if ( $value === "!NULL") { $trimChar = null; } // Support user specifiying 
 elseif ($value !== null) { $value = mysqli_real_escape_string($conn, $value); }
 
 // List of keys to ignore.
-if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" OR $key == "cachebuster" or str_contains($key, "polygon"))  { ${$key} = $value; }
+if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" OR $key == "cachebuster" or str_contains($key, "poly"))  { ${$key} = $value; }
 
 // Filter records by LTE or CMGM #id, e.g., &id=82869.
 // Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
