@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $sql);
 $sql_read_result = mysqli_query($conn,$sql);
 while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
 $carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
-
+if(!empty($bingmaps_a)) $bingmaps_a  = (substr($bingmaps_a,0,4)=="http") ? $bingmaps_a  : $cmgm_uploads_page . $bingmaps_a;
 if (isset($bingmaps_a)) $bmlink = '<a target="_blank" style="font-size: 10px; vertical-align: super" href="'.$bingmaps_a.'">BM</a>';
 
 
