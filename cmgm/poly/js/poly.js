@@ -37,27 +37,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Index _1 properly (run once after DOM is ready)
+document.querySelectorAll(".carrierForm").forEach((form, i) => {
+  const index = i + 1;
+
+  Array.from(form.elements).forEach((el) => {
+    if (el.name && !/_\d+$/.test(el.name)) {
+      el.name = el.name + "_" + index;
+    }
+    if (el.id && !/_\d+$/.test(el.id)) {
+      el.id = el.id + "_" + index;
+    }
+  });
+});
+
+// ensure next clone becomes _2, _3, etc
+window.latestIndex = document.querySelectorAll(".carrierForm").length;
+
 // Add new forms dynamically
 document
   .getElementById("addFormButton")
   ?.addEventListener("click", function () {
-    // Get the forms container
     const formsContainer = document.getElementById("formsContainer");
-
-    // Get the first form as a template
     const originalForm = document.querySelector(".carrierForm");
-
-    // Clone the form
     const newForm = originalForm.cloneNode(true);
 
-    // Get new index
-    if (!window.latestIndex) {
-      window.latestIndex = formsContainer.children.length + 1 || 10;
-    } else {
-      window.latestIndex += 1;
-    }
+    window.latestIndex += 1;
 
-    // Update IDs and names in the cloned form
     Array.from(newForm.elements).forEach((element) => {
       if (element.id) {
         element.id = element.id.split("_")[0] + "_" + window.latestIndex;
@@ -67,38 +73,26 @@ document
       }
     });
 
-    // Clear input values (except for selects)
     newForm.querySelectorAll("input").forEach((input) => {
-      // Don't clear button text
-      if (input.type == "button") {
-        return;
-      }
-      input.value = "";
+      if (input.type !== "button") input.value = "";
     });
 
-    // Keep carrier from previous form
     const prevForm =
       formsContainer.children[formsContainer.children.length - 1];
-    const prevCarrier = prevForm.querySelector(".plmn").value;
 
-    newForm.querySelector(".plmn").value = prevCarrier;
+    newForm.querySelector(".plmn").value =
+      prevForm.querySelector(".plmn").value;
 
-    // Update RAT on new form to LTE (in case it cloned an NR form)
-    const prevRat = prevForm
-      .querySelector(".rat")
-      .querySelector("option:checked").value;
+    const prevRat = prevForm.querySelector(".rat").value;
     newForm.querySelector(".rat").value = prevRat;
+    newForm.querySelector(".eNB").placeholder =
+      prevForm.querySelector(".eNB").placeholder;
 
-    // Update RAT-based placeholder
-    const prevPlaceholder = prevForm.querySelector(".eNB").placeholder;
-    newForm.querySelector(".eNB").placeholder = prevPlaceholder;
-
-    // Add event listener for rat change
     addRatChangeEventListener(newForm.querySelector(".rat"));
 
-    // Append the new form to the container
     formsContainer.appendChild(newForm);
   });
+
 
 // Handle data submission to server
 async function handleMakeRequest(_event) {
