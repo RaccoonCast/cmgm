@@ -41,7 +41,10 @@
       let extras = [...document.getElementsByClassName('extra_cw')]
 
       for (const el of extras) {
-        if (el.value.includes('cmgm.us/poly')) {
+        if (
+          el.value.startsWith("https://cmgm.us/poly/") ||
+          el.value.startsWith("http://cmgm.us/poly/")
+        ) {
           return el.value;
         }
       }
