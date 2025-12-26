@@ -99,8 +99,12 @@ elseif ($key == "time" && @$value[0] == "!") { $db_vars = " AND (date_added not 
 elseif ($key == "time") { $db_vars = " AND (date_added like '% ".$value."%')" . @$db_vars; }
 
 // Filtering by whether street view is set, &has_street_view=false to show records missing SV.
-elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND sv_a != '' " . @$db_vars;
-elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND sv_a = '' " . @$db_vars;
+elseif ($key == "has_street_view" && $value == "true") $db_vars = " AND (sv_a != '' OR sv_b != '' OR sv_c != '' OR sv_d != '' OR sv_e != '' OR sv_f != '') " . @$db_vars;
+elseif ($key == "has_street_view" && $value == "false") $db_vars = " AND (sv_a = '' AND sv_b = '' AND sv_c = '' AND sv_d = '' AND sv_e = '' AND sv_f = '') " . @$db_vars;
+
+// Filtering by whether evidence is set, &has_street_view=false to show records missing SV.
+elseif ($key == "has_evidence" && $value == "true") $db_vars = " AND (evidence_a != '' OR evidence_b != '' OR evidence_c != '') " . @$db_vars;
+elseif ($key == "has_evidence" && $value == "false") $db_vars = " AND (evidence_a = '' AND evidence_b = '' AND evidence_c = '') " . @$db_vars;
 
 // Filtering by string is not equal to x, with special support for tags. Example: &tags=!n41 OR &carrier=!T-Mobile 
 elseif (@$value[0] == "!") {

@@ -68,5 +68,9 @@
     if (!isset($_GET['tags'])) {
         statBox('count_most_common_tags.php', $db_vars, $conn, $domain_with_http);
     }
+
+    if (!isset($_GET['has_street_view'])) {
+        statBox('count_records_missing_xyz.php', $db_vars, $conn, $domain_with_http);
+    }
     echo "</div>";
     ?>
