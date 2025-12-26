@@ -26,8 +26,9 @@ if(isMobile()) {
 } else {
   $isMobile = "false";
 }
-function set_safe_cookie(string $name, string $value, array $options = []): bool
+function set_safe_cookie(string $name, $value, array $options = []): bool
 {
+    if ($value === null) $value = "";
     // Default cookie options
     $defaults = [
         'expires'  => time() + 365 * 24 * 60 * 60, // 1 year from now
