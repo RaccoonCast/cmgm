@@ -18,7 +18,7 @@ input[type=text],input[type=search],input[type=number],option,select {
 		font-size: 0.78em;
 		width: 100%;
 }
-@media (min-width:1871px) {
+@media (min-width:1760px) {
 /* Panels (split page in half) */
 .panel1 { width: var(--cmgm_edit_panel1_width); float: left; }
 .panel2 { width: var(--cmgm_edit_panel2_width); float: right; }
@@ -91,12 +91,12 @@ abbr, .nounderline {text-decoration: none!important;}
 .sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */
 .evidence_label, .extra_label, .photo_label, .bingmaps_label {
-	margin-left: 4px;
-	width: calc(16% - 4px)!important;
+	margin-left: 3px;
+	width: calc(16% - 3px)!important;
 }
 .evidence_scores_label {
-	margin-left: 4px;
-	width: calc(78% - 4px)!important;
+	margin-left: 3px;
+	width: calc(78% - 3px)!important;
 }
 .photo_cw, .evidence_cw, .extra_cw, .bingmaps_cw {
 	width:28%!important;
