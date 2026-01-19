@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCellLocation } = require('surro');
+const { getSurroundingCells } = require('surro');
 
 const app = express();
 app.use(express.json());
@@ -33,21 +33,28 @@ app.post('/geolocate', async (req, res) => {
 
     // Send request to apple
     try {
-        const cellInfo = await getCellLocation(parseInt(mcc), parseInt(mnc), parseInt(cellId), parseInt(lac), rat);
+        // const cellInfo = await getCellLocation(parseInt(mcc), parseInt(mnc), parseInt(cellId), parseInt(lac), rat);
+        const surroundingCellInfo = await getSurroundingCells(parseInt(mcc), parseInt(mnc), parseInt(cellId), parseInt(lac), rat);
 
-        if (cellInfo.success == false) {
-            res.status(500).send({ ok: false, error: cellInfo.error });
+        if (surroundingCellInfo.success == false) {
+            res.status(500).send({ ok: false, error: surroundingCellInfo.error });
             return;
         }
+
+        const cellInfo = surroundingCellInfo.data?.[0];
 
         // Format response data in ichanea/google format
         const responseData = {
             location: {
-                lat: cellInfo.data.lat,
-                lng: cellInfo.data.lon,
+                lat: cellInfo.latitude,
+                lng: cellInfo.longitude,
             },
-            accuracy: cellInfo.data.range,
+            accuracy: cellInfo.accuracy,
+            isExactLocation: cellInfo.location?.isExactTowerLocation == 1n,
+            confidenceScore: Number(cellInfo.location?.motionActivityConfidence)
         };
+
+        console.log('sending res:', responseData);
 
         // we know it's real now so just send the data
         res.set('Content-Type', 'application/json');
@@ -56,6 +63,7 @@ app.post('/geolocate', async (req, res) => {
         
         return;
     } catch (err) {
+        console.error("An error occured:", err);
         res.status(500).send(`An unknown error occured: ${err.message}`);
         return;
     }

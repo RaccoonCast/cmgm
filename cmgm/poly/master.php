@@ -263,8 +263,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $plmn = $formData[$index]['plmn'];
         $rat = $formData[$index]['rat'];
 
-
-        // If using DB TAC, display that instead
+               // If using DB TAC, display that instead
         if ($tacType == "dbTac") {
             $tac = $dbTacValues[$dbTacKey];
         }
@@ -277,6 +276,10 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $lng = $jsonResponse['location']['lng'];
         $accuracyMiles = ((int) $jsonResponse['accuracy']) / 1609;
 
+        $is_exact_location = $jsonResponse['isExactLocation'];
+        $confidence_score = (int) $jsonResponse['confidenceScore'];
+        
+
         // Generate date of successful request
         $reqDate = date('Y-m-d H:i:s');
 
@@ -288,13 +291,17 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             'date' => $reqDate,
             'lat' => $lat,
             'lng' => $lng,
+            'confidence_score' => $confidence_score,
+            'is_exact_location' => $is_exact_location,
             'accuracyMiles' => $accuracyMiles,
         ];
 
+        $is_exact_location_sql_bit = $is_exact_location ? 1 : 0;
+
         // Update database
-        $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info, coords)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', $lat, $lng, '$accuracyMiles', 'Surro', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
-                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = $lat, longitude = $lng, accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
+        $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, confidence_score, is_exact_location, accuracyMiles, provider_source, date_of_info, coords)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', $lat, $lng, $confidence_score, $is_exact_location_sql_bit, '$accuracyMiles', 'Surro', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
+                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = $lat, longitude = $lng, confidence_score = $confidence_score, is_exact_location = $is_exact_location_sql_bit, accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
         $conn->query($sqlInsert);
     }
 
