@@ -14,7 +14,9 @@ include '../functions.php'; ?>
   ?>
   <script>
          function openEditLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>", "_blank"); }
-         function openDeleteLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
+         function openDeleteLink() {
+            window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); 
+          }
          function openNotesLink() {  window.open("<?php echo $domain_with_http; ?>/database/Map-popup-viewnotes.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
      </script>
 </head>
@@ -22,7 +24,7 @@ include '../functions.php'; ?>
 <?php
 
 $cmgm_uploads_page = "https://files.cmgm.us/";
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,tags,status";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,NR_4,NR_5,NR_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,region_nr,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -35,6 +37,7 @@ if (isset($bingmaps_a)) $bmlink = '<a target="_blank" style="font-size: 10px; ve
 
 
 $lte_list = null;
+$nr_list = null;
 if(!empty($LTE_1)) { $lte_list = $lte_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte,"true"); }
 if(!empty($LTE_2)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_2,$region_lte,"true"); }
 if(!empty($LTE_3)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_3,$region_lte,"true"); }
@@ -44,9 +47,31 @@ if(!empty($LTE_6)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$l
 if(!empty($LTE_7)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_7,$region_lte,"true"); }
 if(!empty($LTE_8)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_8,$region_lte,"true"); }
 if(!empty($LTE_9)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_9,$region_lte,"true"); } 
-if(!empty($NR_1) && $carrier == "Dish") { $nr_list = $nr_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr,"true"); }
-if(!empty($NR_2) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr,"true"); }
-if(!empty($NR_3) && $carrier == "Dish") { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr,"true"); }
+if(!empty($NR_1)) { $nr_list = $nr_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr,"true"); }
+if(!empty($NR_2)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr,"true"); }
+if(!empty($NR_3)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr,"true"); }
+if(!empty($NR_4)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_4,$region_nr,"true"); }
+if(!empty($NR_5)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_5,$region_nr,"true"); }
+if(!empty($NR_6)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_6,$region_nr,"true"); }
+if (str_contains($lte_list, "|")) {$lte_nb = " eNBs";} else {$lte_nb = " eNB";};
+if (str_contains($nr_list, "|")) {$nr_nb = " gNBs";} else {$nr_nb = " gNB";};
+?>
+<!-- RAT SWAPPERINATOR -->
+<script>
+  function lteSwap() {
+    document.getElementById("NB_label").innerHTML = '<?= $carrier . $lte_nb?>';
+    document.getElementById("NB_container").innerHTML = '<?= $lte_list ?>';
+    document.getElementById('ratSwapButton').setAttribute('onclick','nrSwap()');
+    document.getElementById('ratSwapButton').setAttribute('value','View NR<?= $nr_nb?>');
+  }
+  function nrSwap() {
+    document.getElementById("NB_label").innerHTML = '<?= $carrier . $nr_nb?>';
+    document.getElementById("NB_container").innerHTML = '<?= $nr_list ?>';
+    document.getElementById('ratSwapButton').setAttribute('onclick','lteSwap()');
+    document.getElementById('ratSwapButton').setAttribute('value','View LTE<?= $lte_nb?>');
+  }
+</script>
+<?php
 // Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
 $map_popup_flag = "true";
 include "includes/edit/file_attach_link_gen.php";
@@ -68,21 +93,28 @@ $url_for_cmgm = "https://cmgm.us/$id";
 <td colspan="2" class="label title" style="line-height: 30px;">
 <?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?>
 <div onclick="copyToClipboard('<?php echo $url_for_cmgm; ?>')" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 5px; right: 6px;">📋</div>
+<div onclick="openDeleteLink()" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 5px; left: 6px;">🗑️</div>
 </td>
 </tr>
-</thead> 
+</thead>
 <tr>
   <td colspan="2" class="label">
     <input style="float: left" onclick="navigator.clipboard.writeText('<?php echo $latitude . "," . $longitude;?>')" type="button" value="Copy location">
-    <input style="float: left" onclick="openDeleteLink()" type="button" value="Delete #<?php echo $id ?>">
-    <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"> <?php } ?>
+    <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"><?php } ?>
+    <?php if ($carrier !== "Dish" && !empty($nr_list)) {?><input style="float: left" onclick="nrSwap()" type="button" id="ratSwapButton" value="View NR<?= $nr_nb ?>"><?php } ?>
     <input style="float: left" onclick="openEditLink()" type="button" value="Edit">
   </td>
 </tr>
 <tr>
-<td style="height: 66px;" class="label"><?php echo $carrier_label; echo $carrier === "Dish" ? " gNBs" : " eNBs";?></td>
-<td><?php echo @$lte_list; echo @$nr_list; ?></td>
-</tr>
+<?php if ($carrier !== "Dish") { ?>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo str_contains($lte_list, "|")  ? " eNBs" : " eNB";?></td>
+<td id="NB_container"><?php echo @$lte_list; ?></td>
+</tr><?php } else { ?>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo str_contains($nr_list, "|")  ? " gNBs" : " gNB";?></td>
+<td id="NB_container"><?php echo @$nr_list; ?></td>
+<?php } ?> 
+
+
 <tr rowspan="2">
 <td class="label">Address</td>
 <td>
