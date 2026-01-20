@@ -1,12 +1,13 @@
 <?php
 if ($_FILES["fileToUpload"]["size"] > 25) {
+
   $original_filename = basename($_FILES["fileToUpload"]["name"]);
   $target_dir = "uploads/";
   $target_file = $target_dir . $original_filename;
   $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
   
   if ($fileType == "jpg" OR $fileType == "png" OR $fileType == "webp" OR $fileType == "jpeg") { $type = "image"; } else { $type = "misc"; }
-  if ($fileType !== "jpg" OR $fileType !== "png" OR $fileType !== "webp" OR $fileType !== "jpeg" OR $fileType) { $type = "image"; } else { $type = "misc"; }
+  if ($fileType == "mp4") { $type = "video"; }
   $filename = $type . "-" . substr(str_shuffle(md5(time())),0,25);
   $filePath = "$target_dir" . "$filename.$fileType";
   
@@ -16,7 +17,7 @@ if ($_FILES["fileToUpload"]["size"] > 25) {
     die();
   }
   
-  $allowedFileTypes = ['png', 'jpg', 'pdf', 'webp', 'jpeg', 'json', 'csv'];
+  $allowedFileTypes = ['png', 'jpg', 'pdf', 'webp', 'jpeg', 'json', 'csv', 'mp4'];
   
   if (!in_array($fileType, $allowedFileTypes)) {
       echo "Invalid file type. Allowed types are: " . implode(', ', $allowedFileTypes);
