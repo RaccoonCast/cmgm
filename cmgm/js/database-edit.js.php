@@ -58,6 +58,9 @@ $(function(){
         $("#NR_3").attr("placeholder", "n25");
       } 
       else if (carrier === "ATT") {
+        $("#LTE_1").attr("placeholder", "LTE_1");
+        $("#LTE_2").attr("placeholder", "LTE_2");
+        $("#LTE_3").attr("placeholder", "LTE_3");
         $("#NR_1").attr("placeholder", "n77");
         $("#NR_2").attr("placeholder", "n5");
       } else {
