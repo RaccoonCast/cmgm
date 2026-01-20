@@ -97,8 +97,8 @@ $pin_or_pins = (int) $total == 1 ? 'Pin' : 'Pins';
 
 <title><?= number_format($total) ?> <?= $pin_or_pins ?> - CMGM </title>
 <meta property="og:site_name" content="cmgm.us/fun" >
-<meta property="og:title" content="CMGM - <?= number_format($total) ?> <?= $pin_or_pins ?> ">
-<meta property="og:description" content="Filtered By (<?= $filters_text ?>)">
+<meta property="og:title" content="CMGM - <?= number_format($total) ?> <?= $pin_or_pins ?>">
+<?php if (!empty($filters_text)) { ?><meta property="og:description" content="Filtered By (<?= $filters_text ?>)"><?php } ?>
 <meta property="og:type" content="website">
 <meta property="og:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']; ?>">
 <!-- <meta property="og:image" content="https://cmgm.us/favicon.ico"> -->
