@@ -33,8 +33,8 @@ if (typeof drop == 'undefined') {
   let drop;
 }
 
-const prod_url = 'https://upload.cmgm.us';
-const test_url = 'http://local.cmgm.us/database/Upload.php';
+let prod_url = window.location.origin;
+let test_url = 'http://local.cmgm.us/database/Upload.php';
 
 drop = new Dropzone('#dropzone', {
   url: prod_url, // Prod: upload.cmgm.us

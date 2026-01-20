@@ -27,7 +27,6 @@ include "../functions.php";?>
        if ($debug_flag != "0") echo "Ctrl+V upload attempting... <br>";
        include "includes/upload/ctrlv.php";
      } else {
-       if ($debug_flag != "0") echo "File select upload attempting... <br>";
        include "includes/upload/file-select.php";
      }
       ?>
