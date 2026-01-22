@@ -281,18 +281,23 @@ if (isset($_GET['download'])) {
                 . $latitude . "," . $longitude;
 
             // Write CSV row
-            fputcsv($output, [
-                "$plmn",
-                "$rat",
+            $row = [
+                $plmn,
+                $rat,
                 $enbId,
                 $tac,
                 $latitude,
                 $longitude,
                 implode(' ', $entry['cells']),
-                $polyLink,
-                $dasLink
-            ]);
-        }
+            ];
+
+            if (!isset($_GET['slim'])) {
+                $row[] = $polyLink;
+                $row[] = $dasLink;
+            }
+
+            fputcsv($output, $row);
+            }
     }
     fclose($output);
     exit;
