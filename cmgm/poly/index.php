@@ -115,12 +115,16 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
                 <option value="313340"<?php if ($value == '313340') echo ' selected'; ?>>Dish Wireless</option>
                 <option value="311580"<?php if ($value == '311580') echo ' selected'; ?>>US Cellular</option>
                 <option value="312680"<?php if ($value == '312680') echo ' selected'; ?>>AT&T FWA</option>
+                <option value="" disabled>--</option>
                 <?php
-                if (!in_array($value, ['310410','313100','310120','310260','310260','311480','313340','311580','312680'], true)) {
-                        echo "<option value=\"$value\" selected>$value</option>";
+                if (!in_array($value, [
+                  '310410','313100','310120','310260',
+                  '311480','313340','311580','312680'
+                ], true)) {
+                    echo "<option value=\"$value\" selected>$value</option>";
                 }
                 ?>
-
+                <option value="__custom__"<?php if ($value == '??') echo ' selected'; ?>>Custom PLMN</option>
             </select>
             <!-- RAT -->
             <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
@@ -134,17 +138,22 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             <!-- Cells -->
             <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index] ?? ''; ?>" />
             <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
+
             <!-- Delete button -->
-            <input class="poly-btn" type="button" value="❌" class="closeButton" onclick="removeForm(this);"/>
+            <input class="poly-btn closeButton" type="button" value="❌" onclick="removeForm(this);"/>
          </form>
          <?php } ?>
       </div>
-      <?php if (!isMobile()) { ?>
-	  <div id="dontCacheCheckbox">
-		<label for="forceNewResults">Ignore cache</label>
-		<input id="forceNewResults" name="dontCache" type="checkbox">
-	  </div>
-		 <?php } ?>
+         <!-- Below gets put into Hamburger button on mobile to contain isCache & future Unwired toggle -->
+         <?= isMobile() ? '<input class="poly-btn hamburgerButton" type="button" value="📵" onclick=toggleHamburgerMenu();"/>' : '' ?>
+         <div class="menu">
+            <label>
+                <div id="dontCacheCheckbox">
+		            <label for="forceNewResults">Ignore cache</label>
+		        <input id="forceNewResults" name="dontCache" type="checkbox">
+	            </div>
+            </label>
+        </div>
       <button class="poly-btn" id="addFormButton" type="button">+</button>
       <button class="poly-btn colorized" id="submitButton" type="submit">Submit</button>
    </div>
@@ -193,6 +202,24 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
     // send iframe to URL
     iframe.src = "<?= $iframe_url ?>";
     
+    // Hamburger menu for mobile
+    const hamburger = document.querySelector('.hamburgerButton');
+    const menu = document.querySelector('.menu');
+    
+    hamburger.addEventListener('click', (e) => {
+        menu.classList.toggle('show');
+        e.stopPropagation(); // prevent the click from closing immediately
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (menu.classList.contains('show')) {
+            // If click is outside the menu and hamburger button, close it
+            if (!menu.contains(e.target) && e.target !== hamburger) {
+                menu.classList.remove('show');
+            }
+        }
+    });
 </script>
 <!-- <iframe id="iframe" src="<?php echo $iframe_url; ?>" allow="clipboard-write" onload="console.log('jsr:', jsonResponse); (jsonResponse == 'null' && window.latestData == undefined) ? console.log('JSON response = null, skip') : addInfoData(this, responseData)"></iframe> -->
 <!-- <script>document.getElementById('iframe').contentWindow.postMessage('polyInfo', '');</script> -->

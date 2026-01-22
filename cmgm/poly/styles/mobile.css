@@ -55,11 +55,36 @@ button {
 }
 
 #submitButton {
-  width: 50%;
+  width: 60%;
 }
 #addFormButton {
-  width: 50%;
+  width: 20%;
+}
+.hamburgerButton {
+  width: 20%;
 }
 body {
   height: 100vh;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    width: 40%;
+    bottom: 53px;
+    position: absolute;
+}
+.menu.show {
+    display: flex;
+}
+/* Make the label and checkbox inline */
+#dontCacheCheckbox {
+    margin-left: 10px;
+    display: flex;
+    align-items: center; /* vertically center checkbox and label */
+    gap: 5px; /* small space between checkbox and label */
+}
+
+#dontCacheCheckbox input[type="checkbox"] {
+    margin: 0; /* remove extra default margin */
 }

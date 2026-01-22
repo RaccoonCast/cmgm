@@ -196,3 +196,39 @@ document.querySelector("#iframe")?.contentWindow?.addEventListener("load", () =>
   // Wait until fully loaded, including subframes
   handleAddPolyLink();
 });
+
+
+// Custom PLMN functionality
+document.addEventListener('change', (e) => {
+  if (!e.target.classList.contains('plmn')) return;
+
+  const select = e.target;
+
+  if (select.value !== '__custom__') return;
+
+  let plmn = prompt('Enter custom PLMN:');
+
+  if (!plmn) {
+    select.value = '';
+    return;
+  }
+
+  plmn = plmn.trim();
+
+  // Basic validation
+  if (!/^\d{6}$/.test(plmn)) {
+    alert('Invalid PLMN.');
+    select.value = '';
+    return;
+  }
+
+  // Check if option already exists
+  let option = Array.from(select.options).find(o => o.value === plmn);
+
+  if (!option) {
+    option = new Option(plmn, plmn, true, true);
+    select.insertBefore(option, select.querySelector('[value=""]'));
+  }
+
+  select.value = plmn;
+});

@@ -28,6 +28,9 @@ h1 {
 button {
   margin-left: 10px; /* Adds some space between buttons */
 }
+.poly-btn {
+    border-radius: 7px;
+}
 
 /* Ensure iframe adjusts accordingly */
 iframe {
