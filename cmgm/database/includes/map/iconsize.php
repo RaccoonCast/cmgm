@@ -23,6 +23,7 @@ var verizon = L.icon({ iconUrl: '../images/map_pins/red.png', iconSize: [<?php e
 var dish = L.icon({ iconUrl: '../images/map_pins/orange.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 var att = L.icon({ iconUrl: '../images/map_pins/blue.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 var sprint = L.icon({ iconUrl: '../images/map_pins/yellow.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
+var unknown = L.icon({ iconUrl: '../images/map_pins/snowball.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
 
 // tags
 var tmobile_spk = L.icon({ iconUrl: '../images/map_pins/purple-yellow.png', iconSize: [<?php echo $pin_size?>, <?php echo $pin_size?>], popupAnchor: [0, -12] });
