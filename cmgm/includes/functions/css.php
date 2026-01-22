@@ -15,6 +15,8 @@ foreach ($vars as $var) {
         $$var = preg_replace('/[^a-zA-Z0-9\-\. ]/', '', $_COOKIE[$var]);
     }
 }
+if (empty($theme)) $theme = "black";
+if (empty($accent_color)) $accent_color = "ff0000";
 
 // Auto-include CSS
 // Get filename of current page - remove the file extension - set that as page title (THIS IS IMPORTANT FOR THE CSS CODE)
