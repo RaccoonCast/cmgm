@@ -1,3 +1,4 @@
+
 <?php function delete($id,$delete_conf,$redirPage,$conn,$userID) {
 if ($delete_conf == "true" && $userID != "guest") {
   mysqli_query($conn, "DELETE from db WHERE id='$id'"); // First parameter is just return of "mysqli_connect()" function
@@ -12,7 +13,13 @@ if ($delete_conf == "true" && $userID != "guest") {
   if ($redirPage != "Map-popup") redir("../",0);
 }
 ?>
-<p>Are you sure you want to delete?</p>
+<style>
+  body {
+    margin: 10px!important;
+  }
+</style>
+<body>
+<p>Are you sure you want to delete #<?= $id?>?</p>
 <form action="Edit.php" id="form1" method="post">
   <input type="hidden" name="id" value="<?php echo $id?>">
   <input type="hidden" name="delete" value="true">
@@ -21,7 +28,10 @@ if ($delete_conf == "true" && $userID != "guest") {
 <br>
 </form><br>
 <button onclick="history.back()">Cancel</button>
+</body>
+</html>
 <?php
 if ($redirPage == "Map-popup") { die(); } else { echo'<br><hr><br>'; }
 }
 ?>
+
