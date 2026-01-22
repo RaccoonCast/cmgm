@@ -102,7 +102,7 @@
         iframe.contentDocument.querySelector('#openPolyButton').onclick = () => {
 
         // Generate our own poly URL  
-        const polyUrl = `/poly/?plmn=${carrierCellList[0]}&rat=LTE&eNB=${eNB}&tac=${TAC}&cellList=${carrierCellList[1]}&cachebuster=${Date.now()}`
+        const polyUrl = `/poly/?plmn_1=${carrierCellList[0]}&rat_1=LTE&eNB_1=${eNB}&tac_1=${TAC}&cellList_1=${carrierCellList[1]}&cachebuster=${Date.now()}`
 
         // Set it to open in new tab
         window.open(polyUrl, '_blank');
