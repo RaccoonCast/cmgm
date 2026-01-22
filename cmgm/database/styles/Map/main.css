@@ -84,3 +84,15 @@ li {
   margin-bottom: 0.5rem;
   color: black;
 }
+.leaflet-popup-content-wrapper {
+  border-top: 5px solid var(--accent-color)!important; /* add accent color to border */
+  border-left: 5px solid var(--accent-color)!important; /* add accent color to border */
+  border-right: 5px solid var(--accent-color)!important; /* add accent color to border */
+  border-bottom: 5px solid var(--accent-color)!important; /* add accent color to border */
+  box-shadow: 0 0 6px var(--accent-color); /* add box-shadow*/
+  border-radius: 15px;
+  position: block;
+}
+.iframe_box {
+  border-radius: 15px;
+}
