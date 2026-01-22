@@ -19,7 +19,16 @@ $val = $value . "_label";
 $link_suffix = ucfirst(substr($value,-1));
 
 if (!empty($$value)) {
-    $$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . convert_url($$value) . '">' . $link_suffix . '</a>';
+    $url = convert_url($$value);
+    if (str_contains($value, "photo")) {
+      if ((str_starts_with($$value, '@') && !str_ends_with($$value, '/'))) {
+      $photos_label_url = 'https://canon.cmgm.us/?r=' . url_partial_encode(preg_replace('/\/[^\/]*$/', '/', str_replace('@', '', $$value)));
+      $photos_label = '<a target="_blank" href="'.$photos_label_url.'">Photos</a>';
+      } else {
+      $photos_label = "Photos";
+      }
+    }
+    $$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $url . '">' . $link_suffix . '</a>';
 }
 
 if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d) && empty($sv_e) && empty($sv_f)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';

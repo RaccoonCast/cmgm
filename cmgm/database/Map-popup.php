@@ -33,7 +33,7 @@ $sql_read_result = mysqli_query($conn,$sql);
 while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
 $carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
 if(!empty($bingmaps_a)) $bingmaps_a  = (substr($bingmaps_a,0,4)=="http") ? $bingmaps_a  : $cmgm_uploads_page . $bingmaps_a;
-if (isset($bingmaps_a)) $bmlink = '<a target="_blank" style="font-size: 10px; vertical-align: super" href="'.$bingmaps_a.'">BM</a>';
+if (isset($bingmaps_a)) $bmlink = '<a target="_blank" class="sup" style="font-size: 10px;" href="'.$bingmaps_a.'">Aerial</a>';
 
 
 $lte_list = null;
@@ -126,7 +126,7 @@ echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q
 </td>
 </tr>
 <tr>
-<td class="label">Street View<?php echo @$bmlink; ?></td>
+<td class="label">Street View</td>
 <td>
 <?php
 $variableValues = array($sv_a, $sv_b, $sv_c, $sv_d, $sv_e, $sv_f);
@@ -174,7 +174,7 @@ echo !empty($evidences) ? $evidences : "<i>No Evidence<i>";
 </td>
 </tr>
 <tr>
-<td class="label">Photos</td>
+<td class="label"><?= $photos_label . @$bmlink ?></td>
 <td>
 <?php
 if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
