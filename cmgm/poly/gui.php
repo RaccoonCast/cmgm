@@ -18,6 +18,7 @@ $lat             = !empty($_GET['lat']) ? $_GET['lat'] : null;
 $lon             = !empty($_GET['lon']) ? $_GET['lon'] : null;
 $radius          = !empty($_GET['radius']) ? $_GET['radius'] : null;
 $trueLimit           = !empty($_GET['limit']) ? $_GET['limit'] : null;
+$date           = !empty($_GET['date']) ? $_GET['date'] : null;
 
 if(isset($lat) && strpos($lat, ',') !== false) {
     $explosion = explode(",", $lat);
@@ -80,6 +81,18 @@ if (isset($trueLimit)) { $limit = $trueLimit; }
 if (!is_null($rat)) {
     $sql .= $ratFilter = " AND rat = '" . mysqli_real_escape_string($conn, $rat) . "'";
 }
+
+// Date filter
+if (!is_null($date) &&
+    preg_match('/^(>=|<=|<>|!=|>|<|=)\s*(\d{4}-\d{2}-\d{2})$/', $date, $m)
+) {
+    $op  = $m[1];
+    $val = $m[2];
+
+    $sql .= " AND date_of_info $op '" . mysqli_real_escape_string($conn, $val) . "'";
+}
+
+
 
 // eNB allowlist ranges
 if (!is_null($enbAllowList)) {
@@ -352,6 +365,7 @@ copyToClipboard(latlong);
 <div class="form">
 <form method="get">
     <input type="text" name="plmn" placeholder="PLMN (e.g. 310410)" value="<?= @$plmnValue ?>">
+    <input type="text" name="date" placeholder="</> YYYY-MM-DD" value="<?= @$_GET['date'] ?>">
     <input type="text" name="cells_allow" placeholder="Cells List Whitelist" value="<?= @$_GET['cells_allow'] ?>">
     <input type="text" name="cells_block" placeholder="Cells List Blacklist" value="<?= @$_GET['cells_block'] ?>">
     <input type="text" name="enb_allowList" placeholder="eNB Range Whitelist" value="<?= @$_GET['enb_allowList'] ?>">
@@ -360,8 +374,8 @@ copyToClipboard(latlong);
     <input type="text" name="tacs_block" placeholder="TACs List Blacklist" value="<?= @$_GET['tacs_block'] ?>">
 	<select name="rat" id="rat">
         <option value="" <?php if (empty($_GET['rat'])) echo 'selected';?>>LTE & NR</option>
-        <option value="LTE" <?php if ($_GET['rat'] == "LTE") echo 'selected';?>>LTE</option>
-	<option value="NR" <?php if ($_GET['rat'] == "NR") echo 'selected';?>>NR</option>
+        <option value="LTE" <?php if (@$_GET['rat'] == "LTE") echo 'selected';?>>LTE</option>
+	<option value="NR" <?php if (@$_GET['rat'] == "NR") echo 'selected';?>>NR</option>
     </select>
     <input type="text" name="lat" placeholder="Latitude" value="<?= @$_GET['lat'] ?>">
     <input type="text" name="lon" placeholder="Longitude" value="<?= @$_GET['lon'] ?>">
