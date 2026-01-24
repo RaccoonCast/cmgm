@@ -125,8 +125,8 @@ async function fetchAndRenderPolygons() {
 for (const [enb, coords, tac] of Object.entries(enbGroups)) {
 
   // Filter polygons with fewer than three points
-  const showIncompletePolygons = <?php echo(isset($_GET['showIncompletePolygons']) || isset($_GET['filterCells'])) ? 'true' : 'false'; ?>;
-  if (coords.length < 3 && !(showIncompletePolygons || useEnbAverage)) continue;
+  const hideIncompletePolygons = <?php echo(isset($_GET['hideIncompletePolygons']) || isset($_GET['filterCells'])) ? 'true' : 'false'; ?>;
+  if (hideIncompletePolygons && coords.length < 3 && !(useEnbAverage)) continue;
 
   // Get points with extra info
   const pointsWithIndices = coords.map((c, i) => ({
