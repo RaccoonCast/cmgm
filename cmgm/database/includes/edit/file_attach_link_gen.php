@@ -24,8 +24,6 @@ if (!empty($$value)) {
       if ((str_starts_with($$value, '@') && !str_ends_with($$value, '/'))) {
       $photos_label_url = 'https://canon.cmgm.us/?r=' . url_partial_encode(preg_replace('/\/[^\/]*$/', '/', str_replace('@', '', $$value)));
       $photos_label = '<a target="_blank" href="'.$photos_label_url.'">Photos</a>';
-      } else {
-      $photos_label = "Photos";
       }
     }
     $$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $url . '">' . $link_suffix . '</a>';

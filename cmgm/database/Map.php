@@ -359,7 +359,7 @@ include '../functions.php';
                 $status = strtolower(str_replace('-', '', $row['carrier']));
                 
                 // Address icon being set by tags (like decom or sprkeep) 
-                if (@$pin_style != "basic" && $_GET['tags'] !== "unmapped") {
+                if (@$pin_style != "basic" && @$_GET['tags'] !== "unmapped") {
                    $tags = array_map('trim', explode(',', $row['tags']));
                    if (in_array('sprint_keep', $tags)) $status .= "_spk"; // Amend sprkeep marker incase of a Sprint R&R w/ another carrier
                    $status = array_values(array_intersect(['decom','unmapped'], $tags))[0] ?? $status; // Overwrite previous status with decom/unmapped if either.

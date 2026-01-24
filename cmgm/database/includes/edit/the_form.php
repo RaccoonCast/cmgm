@@ -256,7 +256,7 @@
     type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo isset($bingmaps_b) ? rawurldecode($bingmaps_b) : '' ?>"><input
     type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo isset($bingmaps_c) ? rawurldecode($bingmaps_c) : '' ?>">
 
-    <label class="photo_label"><?= $photos_label?> <span class="floatright"><?php echo isset($photo_link_linklabel_a) ? $photo_link_linklabel_a : ''; ?></span></label><input
+    <label class="photo_label"><?= isset($photos_label) ? $photos_label : "Photos";?> <span class="floatright"><?php echo isset($photo_link_linklabel_a) ? $photo_link_linklabel_a : ''; ?></span></label><input
     type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo isset($photo_a) ? rawurldecode($photo_a) : '' ?>"><input
     type="text" id="ph_b" class="photo_cw" name="photo_b" placeholder="PHOTO_B" value="<?php echo isset($photo_b) ? rawurldecode($photo_b) : '' ?>"><input
     type="text" id="ph_c" class="photo_cw" name="photo_c" placeholder="PHOTO_C" value="<?php echo isset($photo_c) ? rawurldecode($photo_c) : '' ?>">
