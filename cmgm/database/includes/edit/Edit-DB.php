@@ -16,7 +16,7 @@ if (!empty($q)) {
   if ((!empty($q_trim) && is_numeric($q_trim)) OR $q_trim == "latest") {
 
   if($q == "latest") {
-    $sql = "SELECT id FROM db ORDER BY id DESC LIMIT 1";
+    $sql = "SELECT id FROM db ORDER BY date_added DESC LIMIT 1";
   } else {
     $db_vars = "AND LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim'";
     $sql = "SELECT id FROM db WHERE 1=1 " . $db_vars;
