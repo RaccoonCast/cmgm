@@ -39,7 +39,7 @@ function convert_url($url): string {
 
   // Check if it's a canon directory
   else if (str_starts_with($url, '@') && str_ends_with($url, '/')) {
-    $url = str_replace('@', '', $url);
+    $url = preg_replace('/@/', '', $url, 1);
     // Convert to windows-friendly format (backslashes)
     // $url = str_replace('/', '\\', $url);
     $url = 'https://canon.cmgm.us/?r=' . $url;
