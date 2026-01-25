@@ -174,7 +174,7 @@ echo !empty($evidences) ? $evidences : "<i>No Evidence<i>";
 </td>
 </tr>
 <tr>
-<td class="label"><?= $photos_label . @$bmlink ?></td>
+<td class="label"><?= isset($photos_label) ? $photos_label : "Photos"; echo @$bmlink ?></td>
 <td>
 <?php
 if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
