@@ -5,6 +5,7 @@
  * It requires a subset of special characters to be URL-encoded, but not others.
  */
 function url_partial_encode($str) {
+  
   $str = str_replace("#", "%23", $str);
   $str = str_replace("&", "%26", $str);
   $str = str_replace("+", "%2B", $str);
@@ -30,7 +31,7 @@ function convert_url($url): string {
   // Check if it's a canon photo (non-directory) link
   // Use old format for now - will update it for ?r= afterward
   else if (str_starts_with($url, '@') && !str_ends_with($url, '/')) {
-    $url = str_replace('@', '', $url);
+    $url = preg_replace('/@/', '', $url, 1);
     $url = 'https://canon.cmgm.us/' . $url;
 
     // Encode to support canon.cmgm.us
