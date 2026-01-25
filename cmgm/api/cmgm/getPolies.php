@@ -72,7 +72,7 @@ WITH base_results AS (
       SIN(RADIANS($latitude)) * SIN(RADIANS(latitude))
     )) AS distance
   FROM local_poly_beta
-  WHERE 1=1 $db_vars $db_vars_uno AND provider_source IS NOT NULL 
+  WHERE plmn <> 312190 $db_vars $db_vars_uno AND provider_source IS NOT NULL 
     AND latitude IS NOT NULL 
     AND longitude IS NOT NULL
   ORDER BY distance ASC
@@ -90,7 +90,7 @@ SELECT lp.*,
   )) AS distance
 FROM local_poly_beta lp
 JOIN selected_enbs se ON lp.enb = se.enb
-WHERE 1=1 $db_vars $db_vars_dos
+WHERE plmn <> 312190 $db_vars $db_vars_dos
   AND (3959 * ACOS(
     COS(RADIANS($latitude)) * COS(RADIANS(lp.latitude)) * COS(RADIANS(lp.longitude) - RADIANS($longitude)) +
     SIN(RADIANS($latitude)) * SIN(RADIANS(lp.latitude))
