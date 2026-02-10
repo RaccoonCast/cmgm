@@ -1,17 +1,43 @@
 <script>
     // Get carrier
     const carrier = "<?php echo $carrier ?>";
-
+    const sector_configuration = "<?php echo $sector_configuration ?>";
+    const split_sector = "<?php echo $split_sector ?>";
+    
     // Base carrier/cell list for future addons
     let carrierCellList = [0, []];
 
     // Determine cell layout for each carrier
     if (carrier == 'ATT') {
         carrierCellList = [310410, [8,9,10, 15, 16, 17]];
+        if (sector_configuration.startsWith("4")) {
+          carrierCellList = [310410, [8, 9, 10, 11, 15, 16, 17, 18]];
+        }
+        if (sector_configuration.startsWith("2")) {
+          carrierCellList = [310410, [8, 9, 15, 16]];
+        }
+        if (split_sector === "true") {
+          carrierCellList = [310410, [8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20]];
+        }
     } else if (carrier == 'T-Mobile') {
         carrierCellList = [310260, [1,2,3]];
+        if (sector_configuration.startsWith("4")) {
+          carrierCellList = [310260, [1,2,3,4]];
+        }
+        if (sector_configuration.startsWith("2")) {
+          carrierCellList = [310260, [1,2]];
+        }
+        if (sector_configuration.includes("+")) {
+          carrierCellList[1].push(10, 12);
+        }
     } else if (carrier == 'Verizon') {
         carrierCellList = [311480, [1,2,3]];
+        if (sector_configuration.startsWith("4")) {
+          carrierCellList = [311480, [1,2,3,4]];
+        }
+        if (sector_configuration.startsWith("2")) {
+          carrierCellList = [311480, [1,2]];
+        }
     } else {
         throw 'Carrier not supported!';
     }
