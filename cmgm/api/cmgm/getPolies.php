@@ -29,7 +29,7 @@ foreach($_GET as $key => $value) {
         $conditions = array_map(function($cell) {
             return "cell = $cell";
         }, $cells);
-        $db_vars = 'AND (' . implode(' OR ', $conditions) . ') ' . $db_vars;
+        $db_vars = ' AND (' . implode(' OR ', $conditions) . ') ' . $db_vars;
     }
   }
 
