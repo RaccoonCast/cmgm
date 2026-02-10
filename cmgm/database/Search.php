@@ -1,13 +1,11 @@
+<?php include '../functions.php'; ?>
 <!doctype html>
 <html lang="en-us">
    <head>
-      <?php include '../functions.php';
+      <?php
+      include '../includes/functions/headhtml.php';
       if(empty($latitude)) $latitude = $default_latitude;
-      if(empty($longitude)) $longitude = $default_longitude;
-      ?>
-      <link rel="stylesheet" href="styles/style.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" type="image/png" href="/logo.png">
+      if(empty($longitude)) $longitude = $default_longitude;  ?>
    </head>
    <body>
       <?php
