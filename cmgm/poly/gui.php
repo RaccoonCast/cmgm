@@ -2,11 +2,12 @@
 ini_set('memory_limit','1024M');
 ini_set('max_execution_time', '300');
 $titleOverride = true;
+$allowGuests = true;
 if (isset($_GET['download']))  $silent = true;
 include "../functions.php";
 
 // --- GET FILTERS ---
-$plmn            = !empty($_GET['plmn']) ? (int)$_GET['plmn'] : null;
+$plmn = !empty($_GET['plmn']) ? preg_replace('/[^0-9,]/', '', $_GET['plmn']) : null;
 $cellsAllowlist  = !empty($_GET['cells_allow']) ? $_GET['cells_allow'] : null;
 $cellsBlocklist  = !empty($_GET['cells_block']) ? $_GET['cells_block'] : null;
 $tacsAllowlist  = !empty($_GET['tacs_allow']) ? $_GET['tacs_allow'] : null;
@@ -58,21 +59,37 @@ $sql .= "
 ";
 
 // PLMN filter
-if (!is_null($plmn)) {
+if (!is_null($plmn) && $plmn !== '') {
     $plmnValue = $plmn;
-    $sql .= $plmnFilter = " AND plmn = '" . mysqli_real_escape_string($conn, $plmnValue) . "'";
-    $limit = 2500;
+
+    // Split comma-separated PLMNs, trim, and escape
+    $plmnArray = array_map(
+        fn($v) => "'" . mysqli_real_escape_string($conn, trim($v)) . "'",
+        explode(',', $plmn)
+    );
+
+    // Remove any empty values
+    $plmnArray = array_filter($plmnArray);
+
+    if (!empty($plmnArray)) {
+        $sql .= $plmnFilter = " AND plmn IN (" . implode(',', $plmnArray) . ")";
+        $limit = 2500;
+    }
+
 } elseif (!isset($plmn) && empty($default_carrier)) {
+
     if ($default_carrier == "T-Mobile") $plmnValue = 310260;
-    if ($default_carrier == "ATT") $plmnValue = 310410;
-    if ($default_carrier == "Verizon") $plmnValue = 311480;
-    if ($default_carrier == "Sprint") $plmnValue = 310120;
+    if ($default_carrier == "ATT")      $plmnValue = 310410;
+    if ($default_carrier == "Verizon")  $plmnValue = 311480;
+    if ($default_carrier == "Sprint")   $plmnValue = 310120;
 
     $sql .= $plmnFilter = " AND plmn = '" . mysqli_real_escape_string($conn, $plmnValue) . "'";
     $limit = 5000;
+
 } else {
     $limit = 25000;
 }
+
 
 if (isset($_GET['download'])) { $limit = 500000; }
 if (isset($trueLimit)) { $limit = $trueLimit; }
@@ -89,7 +106,7 @@ if (!is_null($date) &&
     $op  = $m[1];
     $val = $m[2];
 
-    $sql .= " AND date_of_info $op '" . mysqli_real_escape_string($conn, $val) . "'";
+    $sql .= $dateFilter = " AND date_of_info $op '" . mysqli_real_escape_string($conn, $val) . "'";
 }
 
 
@@ -137,30 +154,33 @@ if (!is_null($enbBlockList)) {
 if (!empty($enbConditions)) {
     $sql .= " AND (" . implode(' AND ', $enbConditions) . ")";
 }
-
+$filterList = $plmnFilter . " " . $ratFilter . " " . $dateFilter;
 // Cell allowlist
 if (!is_null($cellsAllowlist)) {
     $cellList = implode(',', array_map('intval', explode(',', $_GET['cells_allow'])));
-    $sql .= " AND enb IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellList) " . @$plmnFilter . " " . @$ratFilter . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
+    $sql .= " AND enb IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellList) " . @$filterList . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
 }
 
 // Cell blocklist
 if (!is_null($cellsBlocklist)) {
     $cellBlockList = implode(',', array_map('intval', explode(',', $_GET['cells_block'])));
-    $sql .= " AND enb NOT IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellBlockList) " . @$plmnFilter . " " . @$ratFilter . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
+    $sql .= " AND enb NOT IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellBlockList) " . @$filterList . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
 }
 
 // TAC allowlist
 if (!is_null($tacsAllowlist)) {
     $tacList = implode(',', array_map('intval', explode(',', $_GET['tacs_allow'])));
-    $sql .= " AND enb IN (SELECT enb FROM local_poly_beta WHERE tac IN ($tacList) " . @$plmnFilter . " " . @$ratFilter . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
+    // Add the TAC filter to the outer query instead of just the subquery
+    $sql .= " AND tac IN ($tacList)";
 }
+
 
 // TAC blocklist
 if (!is_null($tacsBlocklist)) {
     $tacBlockList = implode(',', array_map('intval', explode(',', $_GET['tacs_block'])));
-    $sql .= " AND enb NOT IN (SELECT enb FROM local_poly_beta WHERE tac IN ($tacBlockList) " . @$plmnFilter . " " . @$ratFilter . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
+    $sql .= " AND tac NOT IN ($tacBlockList)";
 }
+
 
 
 // Geographic filter (reuse distanceExpr so no duplicate formula)
@@ -174,7 +194,7 @@ if ($distanceExpr !== "") {
     $sql .= " ORDER BY distance ASC";
 } else {
     // Default behavior
-    $sql .= " ORDER BY enb, cell";
+    $sql .= " ORDER BY plmn, enb, cell";
 }
 
 $sql .= " LIMIT $limit";
@@ -195,6 +215,17 @@ while ($row = $result->fetch_assoc()) {
     $lat  = (float)$row['latitude'];
     $lng  = (float)$row['longitude'];
 
+    if (isset($_GET['renameFNtoATT'])) {
+        if ($plmn == 313100) {
+            $plmn = 310410;
+        } 
+    }
+    if (isset($_GET['rename311490'])) {
+        if ($plmn == 311490) {
+            $plmn = 310260;
+        } 
+    }
+    
     // Initialize eNB entry if not exists
     if (!isset($enbs[$plmn][$enb])) {
         $enbs[$plmn][$enb] = [
