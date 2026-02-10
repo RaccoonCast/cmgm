@@ -12,10 +12,10 @@ padding:0;
 	 width: auto!important;
 	 height: auto!important;
 	 max-width: auto!important;
-	 max-height: 340px!important;
+	 max-height: 283px!important;
 	 min-width: 300px!important;
 	 min-height: 165px!important;
-	 }
+}
 .body::-webkit-scrollbar {
     display: none;
 }

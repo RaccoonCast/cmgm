@@ -92,8 +92,8 @@ $url_for_cmgm = "https://cmgm.us/$id";
 <tr> 
 <td colspan="2" class="label title" style="line-height: 30px;">
 <?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?>
-<div onclick="copyToClipboard('<?php echo $url_for_cmgm; ?>')" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 5px; right: 6px;">📋</div>
-<div onclick="openDeleteLink()" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 5px; left: 6px;">🗑️</div>
+<div onclick="copyToClipboard('<?php echo $url_for_cmgm; ?>')" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 2px; right: 6px;">📋</div>
+<div onclick="openDeleteLink()" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 2px; left: 6px;">🗑️</div>
 </td>
 </tr>
 </thead>
@@ -102,7 +102,7 @@ $url_for_cmgm = "https://cmgm.us/$id";
     <input style="float: left" onclick="navigator.clipboard.writeText('<?php echo $latitude . "," . $longitude;?>')" type="button" value="Copy location">
     <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"><?php } ?>
     <?php if ($carrier !== "Dish" && !empty($nr_list)) {?><input style="float: left" onclick="nrSwap()" type="button" id="ratSwapButton" value="View NR<?= $nr_nb ?>"><?php } ?>
-    <input style="float: left" onclick="openEditLink()" type="button" value="Edit">
+    <input style="float: left" onclick="openEditLink()" type="button" value="Edit #<?= $id ?>">
   </td>
 </tr>
 <tr>
@@ -180,8 +180,7 @@ echo !empty($evidences) ? $evidences : "<i>No Evidence<i>";
 if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
 if(!empty($photo_b)) $photos .= (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_b . '">PH_B</a>';
 if(!empty($photo_c)) $photos .= (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_C</a>';
-if(!empty($photo_d)) $photos .= isMobile() ? "<br>" : " | "; 
-if(!empty($photo_d)) $photos .= (substr($photo_d,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
+if(!empty($photo_d)) $photos .= (substr($photo_d,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
 if(!empty($photo_e)) $photos .= (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
 if(!empty($photo_f)) $photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_F</a>';
 echo !empty($photos) ? $photos : "<i>No Photos<i>";
@@ -194,8 +193,7 @@ echo !empty($photos) ? $photos : "<i>No Photos<i>";
 if(!empty($extra_a)) $extras  = (substr($extra_a,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $extra_a . '">EX_A</a>';
 if(!empty($extra_b)) $extras .= (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_b . '">EX_B</a>';
 if(!empty($extra_c)) $extras .= (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_C</a>';
-if(!empty($extra_d)) $extras .= isMobile() ? "<br>" : " | "; 
-if(!empty($extra_d)) $extras .= (substr($extra_d,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
+if(!empty($extra_d)) $extras .= (substr($extra_d,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_a . '">EX_D</a>' : '<a target="_blank" href="uploads/' . $extra_d . '">EX_D</a>';
 if(!empty($extra_e)) $extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_e . '">EX_E</a>';
 if(!empty($extra_f)) $extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $extra_c . '">EX_F</a>';
 echo !empty($extras) ? $extras : "<i>No Extras<i>";

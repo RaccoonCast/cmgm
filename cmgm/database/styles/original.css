@@ -9,3 +9,6 @@ input[type=text],input[type=search],input[type=number],select {
 		border-color: lightgrey;
     border: 1px solid;
 }
+input,button {
+  color: black;
+}

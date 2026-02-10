@@ -1,3 +1,6 @@
 tr:nth-child(odd) {
   background-color: #ECF0F1;
 }
+button {
+  color: #000;
+}

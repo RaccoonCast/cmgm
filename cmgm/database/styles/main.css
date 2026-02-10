@@ -5,7 +5,17 @@ footer {
   width: 100%;
   padding-bottom: 6px;
 }
+
 .footerlink {
  font-size: 18px!important;
  padding-left: 19px;
- }
+}
+
+/* This applies ONLY to Safari (Desktop & Mobile) */
+@supports (hanging-punctuation: first) and (font: -apple-system-body) {
+  input, button {
+    -webkit-appearance: none; /* Removes Safari default OS styles */
+    border-radius: 0;          /* Force-removes the rounded corners */
+    -webkit-border-radius: 0;
+  }
+}

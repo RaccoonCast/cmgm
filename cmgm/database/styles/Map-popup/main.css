@@ -49,9 +49,6 @@ input[type=button]:first-child:nth-last-child(4) ~ input[type=button] {
 		margin-left: 1px;
 		margin-right: 1px;
 }
-input[type=button] {
-	padding: 5px 0px 5px 0px;
-}
 
 html,body {
 	/* border: 2px solid var(--accent-color); */
