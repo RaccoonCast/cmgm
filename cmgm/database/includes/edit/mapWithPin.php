@@ -1,5 +1,5 @@
 <?php
-function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $userID, $eNB, $region_lte) {
+function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $userID, $eNB, $region_lte, $sector_configuration, $split_sector) {
     // Include polygons for embedding map
     include "../includes/functions/iframeAddPolygon.js.php";
 
@@ -18,8 +18,8 @@ function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $user
 
 // Set parameters for mobile and desktop view
 if (isMobile()) {
-    MapWithPin($latitude, $longitude, "17", "100%", "250", $map_edit_mobile_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
+    MapWithPin($latitude, $longitude, "17", "100%", "250", $map_edit_mobile_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0, $sector_configuration ?? "3-sector", $split_sector ?? "false");
 } else {
-    MapWithPin($latitude, $longitude, "18", "100%", "535", $map_edit_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0);
+    MapWithPin($latitude, $longitude, "18", "100%", "535", $map_edit_pin_limit, $carrier ?? "Unknown", $userID, $LTE_1 ?? 0, $region_lte ?? 0, $sector_configuration ?? "3-sector", $split_sector ?? "false");
 }
 ?>
