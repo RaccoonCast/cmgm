@@ -13,6 +13,7 @@ include "../functions.php";
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="../js/copyToClipboard.js"></script>
 <script src="../js/redir.js"></script>
+<script src="../js/checkFormModified.js"></script>
 <?php
 include '../includes/functions/headhtml.php';
 ini_set('display_errors', '1');
