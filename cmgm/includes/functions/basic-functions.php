@@ -46,10 +46,10 @@ function set_safe_cookie(string $name, $value, array $options = []): bool
 }
 
 if (isset($_GET['signOut'])) {
-  unset($_COOKIE['userID']);
   foreach ( $_COOKIE as $key => $value ){
-    set_safe_cookie($key, "");
-    }
+    set_safe_cookie($key, "");  
+  }
+  unset($_COOKIE['userID']);
 } 
 
 $curr_userIP = $_SERVER["REMOTE_ADDR"];
