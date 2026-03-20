@@ -63,6 +63,24 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
        foreach($result_object as $key => $value) $result_object[$key]['cellsite_type_normalized'] = $cellsite_type . @$category_suffix;
      }
 
+      $validPhotoOptions = ["photo_a","photo_b","photo_c","photo_d","photo_e","photo_f"];
+
+      foreach ($result_object as $key => $value) {
+          foreach ($validPhotoOptions as $validPhotoOption) {
+
+              if (empty($value[$validPhotoOption])) {
+                  continue;
+              }
+
+              $photo = $value[$validPhotoOption];
+              if (!str_starts_with($photo, '@') || str_ends_with($photo, '/')) continue;
+
+              $result_object[$key]['canon_photos_link'] = 'https://canon.cmgm.us/?r=' . url_partial_encode(preg_replace( '/\/[^\/]*$/', '/', preg_replace('/@/', '', $photo, 1)));
+
+              break; // stop after first valid photo
+          }
+      }
+
      // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg' + Convert @s to canon.cmgm.us links
      $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","bingmaps_a","bingmaps_b","bingmaps_c");
      foreach($result_object as $key => $value) {
