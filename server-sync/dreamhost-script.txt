@@ -3,9 +3,9 @@ option batch continue
 echo ----------------------------------------------
 echo Syncing files, delete mode is off.
 echo ----------------------------------------------
-synchronize both d:\cmgm\cmgm /home/cmgm/htdocs/staging.cmgm.us -filemask="| %filemask%"
+synchronize both d:\cmgm\cmgm /home/spane2003/cmgm.us -filemask="| %filemask%"
 echo ----------------------------------------------
 echo Syncing files complete, delete mode is off.
 echo ----------------------------------------------
-keepuptodate d:\cmgm\cmgm /home/cmgm/htdocs/staging.cmgm.us -filemask="| %filemask%"
+keepuptodate d:\cmgm\cmgm /home/spane2003/cmgm.us -filemask="| %filemask%"
 exit
