@@ -198,6 +198,7 @@ if ($distanceExpr !== "") {
 }
 
 $sql .= " LIMIT $limit";
+
 // $sql = "SELECT enb, cell, cell_id, plmn, rat, tac, latitude, longitude FROM local_poly_beta WHERE latitude != 0.0 AND longitude != 0.0 AND plmn != '311580' AND plmn != '310260' AND plmn != '311480' AND plmn != '310120' ORDER BY enb, cell LIMIT 2500";
 if (isset($_GET['showsql'])) echo $sql;
 $result = $conn->query($sql);
@@ -215,8 +216,11 @@ while ($row = $result->fetch_assoc()) {
     $lat  = (float)$row['latitude'];
     $lng  = (float)$row['longitude'];
 
-    if (isset($_GET['renameFNtoATT'])) {
+    if (isset($_GET['mergeAtts'])) {
         if ($plmn == 313100) {
+            $plmn = 310410;
+        } 
+        if ($plmn == 312680) {
             $plmn = 310410;
         } 
     }
