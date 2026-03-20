@@ -53,8 +53,8 @@ if(!empty($NR_3)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$long
 if(!empty($NR_4)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_4,$region_nr,"true"); }
 if(!empty($NR_5)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_5,$region_nr,"true"); }
 if(!empty($NR_6)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_6,$region_nr,"true"); }
-if (str_contains($lte_list, "|")) {$lte_nb = " eNBs";} else {$lte_nb = " eNB";};
-if (str_contains($nr_list, "|")) {$nr_nb = " gNBs";} else {$nr_nb = " gNB";};
+if (!is_null($lte_list)) if (str_contains($lte_list, "|")) {$lte_nb = " eNBs";} else {$lte_nb = " eNB";};
+if (!is_null($nr_list)) if (str_contains($nr_list, "|")) {$nr_nb = " gNBs";} else {$nr_nb = " gNB";};
 ?>
 <!-- RAT SWAPPERINATOR -->
 <script>
@@ -107,10 +107,10 @@ $url_for_cmgm = "https://cmgm.us/$id";
 </tr>
 <tr>
 <?php if ($carrier !== "Dish") { ?>
-<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo str_contains($lte_list, "|")  ? " eNBs" : " eNB";?></td>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo ($lte_list === null || str_contains($lte_list, "|")) ? " eNBs" : " eNB"; ?></td>
 <td id="NB_container"><?php echo @$lte_list; ?></td>
 </tr><?php } else { ?>
-<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo str_contains($nr_list, "|")  ? " gNBs" : " gNB";?></td>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo ($nr_list === null || str_contains($nr_list, "|")) ? " gNBs" : " gNB"; ?></td>
 <td id="NB_container"><?php echo @$nr_list; ?></td>
 <?php } ?> 
 
