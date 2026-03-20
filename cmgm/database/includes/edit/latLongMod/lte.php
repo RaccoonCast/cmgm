@@ -17,12 +17,17 @@ if ((!empty($LTE_1) OR !empty($LTE_2) OR !empty($LTE_3) OR !empty($LTE_4)) or @$
 
 // Carrier
 $base = "https://api.cellmapper.net/v6/overrideData";
-if($carrier == "T-Mobile") $base = $base . "?MCC=310&MNC=260";
-if(isset($_GET['fn'])) $base = $base . "?MCC=313&MNC=100";
-elseif($carrier == "ATT") $base = $base . "?MCC=310&MNC=410";
-if($carrier == "Sprint") $base = $base . "?MCC=310&MNC=120";
-if($carrier == "Verizon") $base = $base . "?MCC=311&MNC=480";
-if($carrier == "Dish") $base = $base . "?MCC=313&MNC=340";
+if($carrier == "T-Mobile") $base .= "?MCC=310&MNC=260";
+if($carrier == "Sprint") $base .="?MCC=310&MNC=120";
+if($carrier == "Verizon") $base .="?MCC=311&MNC=480";
+if($carrier == "Dish") $base .="?MCC=313&MNC=340";
+if($carrier == "ATT") {
+    if(isset($_GET['fn'])) {
+      $base .= "?MCC=313&MNC=100";
+    } else {
+      $base .= "?MCC=310&MNC=410";
+    }
+}
 
 if ((!empty($region_lte) && !(isset($new))) or @$ignore_checks = "true") {
 
