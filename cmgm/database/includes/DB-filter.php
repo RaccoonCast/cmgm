@@ -34,7 +34,7 @@ if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limi
 // Filter records by LTE or CMGM #id, e.g., &id=82869.
 // Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
 // Filter records by ID ranges, e.g., &id=69-420, to include CMGM #s between 69 and 420 (including 69 and 420).
-elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches) && $key !== 'id') {
+elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches) && $key !== 'id' && $key !== 'cmgm_id') {
   $start = (int)$matches['start'];
   $end = (int)$matches['end'];
 
@@ -48,10 +48,15 @@ elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $valu
 }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
 
-elseif ($key == "id" && is_string($id) && !str_contains($id, "<") && !str_contains($id, ">") &&  !str_contains($id, "!")) {
-
+elseif (($key == "id" || $key == "cmgm_id")  && is_string($id) && !str_contains($id, "<") && !str_contains($id, ">") &&  !str_contains($id, "!")) {
     $cols = ['id','LTE_1','LTE_2','LTE_3','LTE_4','LTE_5','LTE_6','LTE_7','LTE_8','LTE_9','NR_1','NR_2','NR_3','NR_4','NR_5','NR_6'];
-    if (strpos($id, '-') !== false) {
+
+    if (($key == "cmgm_id") && (strpos($id, '-') !== false)) {
+        list($start, $end) = explode('-', $id, 2);
+        $start = (int)trim($start);
+        $end = (int)trim($end);
+        $db_vars = " AND (id BETWEEN $start AND $end)" . @$db_vars;
+    } elseif (strpos($id, '-') !== false) {
         list($start, $end) = explode('-', $id, 2);
         $start = (int)trim($start);
         $end = (int)trim($end);
@@ -107,7 +112,7 @@ elseif ($key == "has_evidence" && $value == "true") $db_vars = " AND (evidence_a
 elseif ($key == "has_evidence" && $value == "false") $db_vars = " AND (evidence_a = '' AND evidence_b = '' AND evidence_c = '') " . @$db_vars;
 
 // Filtering by string is not equal to x, with special support for tags. Example: &tags=!n41 OR &carrier=!T-Mobile 
-elseif (@$value[0] == "!") {
+elseif (@$value[0] == "!" && $key !== "notes_like") {
   if ($key == "tags") { $db_vars = " AND (tags NOT like '".$trimChar.",%' AND tags NOT like '%,".$trimChar."' AND tags NOT like '%,".$trimChar.",%' AND NOT tags = '".$trimChar."' OR tags is null)" . @$db_vars; }
   elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
 }
@@ -145,7 +150,11 @@ elseif ($value == null) { $db_vars = " AND ". $key . ' = "'.$value.'"' . @$db_va
 // Search for a edit date like, &edit_date_like=2022-01 will filter records created any time during January 2022.
 elseif ($key == "edit_date_like") { $db_vars = " AND (edit_date like '%".$value."%')" . @$db_vars; }
 
+// Search for a edit history like, &edit_history_like=xyz will filter records that have xyz in edit history.
+elseif ($key == "edit_history_like") { $db_vars = " AND (edit_history like '%".$value."%')" . @$db_vars; }
+
 // Search for notes containing a specific string, "AT&T" to look for records mentioning AT&T in notes.
+elseif (($key == "notes_like") && ($value[0] === "!")) { $db_vars =  " AND ((notes NOT like '%".$trimChar."%') OR notes IS NULL)" . @$db_vars; }
 elseif ($key == "notes_like") { $db_vars =  " AND (notes like '%".$value."%')" . @$db_vars; }
 
 // Search for cellsite_type, supports &cellsite_tower=tower to look for tower_monopole/tower_lattice, or &cellsite_type=tower_monopole to filtering specifically tower monopoles.
