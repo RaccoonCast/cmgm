@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT city,state, COUNT(city) AS city_count FROM db WHERE $db_vars AND city <> '' GROUP BY city ORDER BY city_count DESC LIMIT $limit;";
+$sql = "SELECT city, state, COUNT(city) AS city_count FROM db WHERE $db_vars AND city <> '' GROUP BY city, state ORDER BY city_count DESC LIMIT $limit;";
 $result = $conn->query($sql);
 
 if (!isset($json_flag)) echo "<h3>Most common cities</h3>";

@@ -65,7 +65,7 @@ foreach ($_SERVER as $key => $value) {
   if (strpos($key, "HTTP_") === 0 || strpos($key, "CONTENT_") === 0) {
     $headername = str_replace("_", " ", str_replace("HTTP_", "", $key));
     $headername = str_replace(" ", "-", ucwords(strtolower($headername)));
-    if (!in_array($headername, ["Host", "X-Proxy-Url"])) {
+    if (!in_array($headername, ["Host", "X-Proxy-Url", "Content-Length", "Transfer-Encoding"])) {
       $request_headers[] = "$headername: $value";
     }
   }
@@ -148,6 +148,7 @@ if (CSAJAX_SUPPRESS_EXPECT) {
   array_push($request_headers, "Expect:");
 }
 
+curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers); // (re-)send headers
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response
 curl_setopt($ch, CURLOPT_HEADER, true); // enabled response headers

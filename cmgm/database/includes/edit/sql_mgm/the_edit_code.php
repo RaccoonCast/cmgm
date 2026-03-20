@@ -41,11 +41,21 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
         if ($_POST['carrier'] == "Verizon") $plmn = 311480;
         if ($_POST['carrier'] == "Sprint") $plmn = 310120;
         if ($_POST['carrier'] == "Dish") $plmn = 313340;
-        if ($key == "region_lte") $rat = "LTE";
-        if ($key == "region_nr") $rat = "NR"; 
+        if ($key == "region_lte") {
+          $rat = "LTE";
+          $enb = $_POST['LTE_1'];
+        }
+        if ($key == "region_nr") {
+          $rat = "NR";
+          $enb = $_POST['NR_1'];
+        } 
         $sql_lat = $_POST['latitude']; 
         $sql_lon = $_POST['longitude']; 
-        $value = $conn->query("SELECT tac FROM local_poly WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' ORDER BY ((latitude-$sql_lat)*(latitude-$sql_lat) + (longitude-$sql_lon)*(longitude-$sql_lon)) ASC LIMIT 1")->fetch_row()[0];
+        $sql = "SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' AND enb = $enb LIMIT 1";
+        $value = $conn->query(query: "SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' AND enb = $enb LIMIT 1")->fetch_row()[0];
+        if (empty($value)) { // Attempt legacy lookup based on nearest pin to tower location.
+          $value = $conn->query("SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' ORDER BY ((latitude-$sql_lat)*(latitude-$sql_lat) + (longitude-$sql_lon)*(longitude-$sql_lon)) ASC LIMIT 1")->fetch_row()[0];
+        }
     }
     if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
         if (strpos($key, 'sv') === false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, $value) . "', ";}

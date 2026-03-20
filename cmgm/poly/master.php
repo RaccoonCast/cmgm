@@ -44,14 +44,14 @@ $dbTacValues = [];
 foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error('Invalid eNB/gNB.');
-    $cellList = isset($data['cellList']) && preg_match('/^\d+(,\d+)*$/', $data['cellList']) ? explode(',', $data['cellList']) : null;
+    $cellList = isset($data['cellList']) && preg_match('/^\d+([,.]\d+)*$/', $data['cellList']) ? preg_split('/[,.]/', $data['cellList']) : null;
     $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error('Invalid PLMN.');
     $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; 
     $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
     if (isset($data['cellListDepri']) && $data['cellListDepri'] == '-') {
        if ($rat == "LTE") {
         if ($plmn == 310260 || $plmn == 311490) $cellList_depri = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,45,46,47,48,49,50,51,52,53,54,61,62,63,64,65,66,104,105,106,107,111,112,113,114,131,132,133,134,135,136,141,142,143,144,145,146,171,172,173,174,241,242,243,244];
-        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,28,35,42,49,56,63,70,91,92,93,94,95,96,99,100,101,102,103,104,107,108,109,110,115,124,125,126,132,133,134,140,141,142,149,150,151,152,153,154,155,171,172,173,174,175,176,177,179,181,182,183,185,186,187,188,189,190,191,192,193,194,195,196,197,198,201,202,203,204,205,217,218,219,220,221,222,223,224,227,228,229];
+        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,28,35,42,49,56,63,70,91,92,93,94,95,96,99,100,101,102,103,104,107,108,109,110,115,124,125,126,132,133,134,140,141,142,149,150,151,152,153,154,155,171,172,173,174,175,176,177,179,181,182,183,185,186,187,188,189,190,191,192,193,194,195,196,197,198,201,202,203,204,205,217,218,219,220,221,222,223,224,227,228,229,212,213,214,215,216,217];
         if ($plmn == 311480) $cellList_depri = [1,2,3,4,5,6,7,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,52,54,57,62,64,67,72,74,76,77,82,84,86,87,92,94,96,102,104,106,112,114,116,122,124,126];
         if ($plmn == 312680) $cellList_depri = [148,149,150,151,152,153,154,155,156];
     } else {
@@ -274,7 +274,7 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         // Calculate other information
         $lat = $jsonResponse['location']['lat'];
         $lng = $jsonResponse['location']['lng'];
-        $accuracyMiles = ((int) $jsonResponse['accuracy']) / 1609;
+        $accuracyMiles = round(((int)$jsonResponse['accuracy']) / 1609, 8);
 
         $is_exact_location = $jsonResponse['isExactLocation'];
         $confidence_score = (int) $jsonResponse['confidenceScore'];
@@ -341,8 +341,8 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                 // Calculate location information
                 $lat = $jsonResponse['location']['lat'];
                 $lng = $jsonResponse['location']['lng'];
-                $accuracyMiles = ((int) $jsonResponse['accuracy']) / 1609;
-
+                $accuracyMiles = round(((int)$jsonResponse['accuracy']) / 1609, 8);
+                
                 // Generate date of successful request
                 $reqDate = date('Y-m-d H:i:s');
 
