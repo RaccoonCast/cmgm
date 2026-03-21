@@ -1,9 +1,10 @@
+<title>CMGM - Edit Search</title>
 <?php
 // This file is included by Edit.php when the $id variable wasn't supplied/clear, this code checks & tries a few things to understand where the user wants to be redirected to on Edit.php.
 $filename_for_css = "DB";
 include "../includes/functions/css.php";
-@$q = @$_GET['q'];
-@$q = @$_GET['search'];
+if (isset($_GET['q'])) $q = preg_replace('/[^a-zA-Z0-9]/', '', $_GET['q']); 
+if (isset($_GET['carrier'])) $carrier = preg_replace('/[^a-zA-Z-]/', '', $_GET['carrier']);
 include "includes/DB-filter-get.php";
 
 if (!empty($q)) {
@@ -18,8 +19,10 @@ if (!empty($q)) {
   if($q == "latest") {
     $sql = "SELECT id FROM db ORDER BY date_added DESC LIMIT 1";
   } else {
-    $db_vars = "AND LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim'";
+    $db_vars = "AND (LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' OR id='$q_trim')";
+    if (isset($carrier)) $db_vars .= " AND carrier = '$carrier'";
     $sql = "SELECT id FROM db WHERE 1=1 " . $db_vars;
+
   }
 
   $result = mysqli_query($conn, $sql);
@@ -50,5 +53,5 @@ if (!empty($q)) {
 
 $locsearch = "HAVING distance < 0.333";
 include "$SITE_ROOT/database/includes/DB.php";
+die();
 ?>
-<title>CMGM - Edit Search</title>

@@ -36,7 +36,7 @@ if (isset($_GET['lock_status']))  $lock_status = $_GET['lock_status'];
 if (isset($_POST['lock_status'])) $lock_status = $_POST['lock_status'];
 if (isset($_GET['new']) OR isset($_GET['pciplus']) OR isset($_POST['new'])) $new = "true";
 
-// If $POST_NEW is set create a new DB wherever an ID is available.
+// If $POST_NEW is set, grab a new ID wherever an ID is available.
 if (isset($_POST['new'])) {
   $id = mysqli_fetch_array(mysqli_query($conn, "SELECT t1.id + 1 FROM db t1 WHERE NOT EXISTS (SELECT id FROM db t2 WHERE t2.id = t1.id + 1) LIMIT 1"))['t1.id + 1'];
   include "includes/edit/create_new.php";
@@ -47,18 +47,17 @@ if (isset($id)) include "includes/edit/sql_mgm/read_data.php";
 
 // Not found? Ok... let's try some things.
 if ((!isset($status) && !isset($new)) OR isset($_GET['search'])) {
-  include "includes/edit/Edit-DB.php";
+  include "includes/edit/idMissing.php";
   die();
 }
 
 // Unlock/Lock
 include "includes/edit/lockorunlock.php";
 include "includes/edit/delete.php";
-include "../includes/useridsys/getUsername.php";
 if (@$edit_lock != $userID && !empty($edit_lock)) $padlock = "true";
 if (@$edit_lock == $userID && !empty($edit_lock)) $padlock = "false";
 if (empty($edit_lock)) $padlock = "false";
-if ($padlock == "true") echo getUsername($edit_lock,$conn) . " blocked editing.";
+if ($padlock == "true") echo mysqli_fetch_array(mysqli_query($conn, "SELECT username FROM userID WHERE userID='$userID'"))['username'] . " blocked editing.";
 if ($userID == "guest") $padlock = "true";
 
 // Unlock/Lock controls
