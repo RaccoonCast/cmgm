@@ -370,9 +370,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                 $reqDate = date('Y-m-d H:i:s');
 
                 // tell database that it was not found
-                $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info, coords) 
-	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', 0.0, 0.0, NULL, '$reqDate', ST_SRID(POINT(0.0, 0.0), 4326)) 
-	 	        ON DUPLICATE KEY UPDATE latitude=VALUES(latitude), longitude=VALUES(longitude), accuracyMiles=VALUES(accuracyMiles), date_of_info = '$reqDate'";
+                // tell database that it was not found
+                $sqlInsert = "INSERT IGNORE INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info, coords) 
+	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', 0.0, 0.0, NULL, '$reqDate', ST_SRID(POINT(0.0, 0.0), 4326))";
                 $conn->query($sqlInsert);
             }
         }

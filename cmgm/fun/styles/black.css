@@ -14,3 +14,6 @@ footer {
     border-top: 2px solid #2D2C2C;
     background-color: #111111;
 }
+footer a {
+    color: #8ab4f8!important; 
+}
