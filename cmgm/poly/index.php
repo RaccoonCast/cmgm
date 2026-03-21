@@ -114,7 +114,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
                 <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
                 <option value="313340"<?php if ($value == '313340') echo ' selected'; ?>>Dish Wireless</option>
                 <option value="311580"<?php if ($value == '311580') echo ' selected'; ?>>US Cellular</option>
-                <option value="312680"<?php if ($value == '312680') echo ' selected'; ?>>AT&T FWA</option>
+                <option value="312680"<?php if ($value == '312680') echo ' selected'; ?>>&#8203;AT&T FWA</option>
                 <option value="" disabled>--</option>
                 <?php
                 if (!in_array($value, [
