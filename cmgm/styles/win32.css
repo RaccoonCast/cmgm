@@ -8,7 +8,7 @@
 
 /* --- GLOBAL BODY & BACKGROUND --- */
 body {
-  background-color: #D4D0C8 !important; /* Classic Win2k teal desktop */
+  background-color: #D4D0C8 !important;
   font-family: "MS Sans Serif", "Tahoma", "Arial", sans-serif !important;
   /* font-size: 11px !important; */
   color: #000000 !important;
@@ -76,7 +76,11 @@ div[class="buttons"] > input:active {
   border-right: 2px solid #FFFFFF !important;
   border-bottom: 2px solid #FFFFFF !important;
   box-shadow: none !important;
-  padding: 4px 9px 2px 11px !important; /* Nudge content to simulate press */
+  /* Nudge content to simulate press */
+  padding-top: calc(inherit + 2px) !important; 
+  padding-left: calc(inherit + 2px) !important;
+  padding-bottom: calc(inherit - 2px) !important;
+  padding-right: calc(inherit - 2px) !important;
 }
 
 /* --- KEEP SPECIFIC BOTTOM LINK WHITE (from black.css pattern) --- */
@@ -144,7 +148,7 @@ a:hover {
 div[class="panel"],
 div[class="card"],
 fieldset {
-  background-color: #C0C0C0 !important;
+  background-color: hsl(0, 0%, 75%) !important;
   border-top: 2px solid #808080 !important;
   border-left: 2px solid #808080 !important;
   border-right: 2px solid #FFFFFF !important;
