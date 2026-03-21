@@ -58,6 +58,11 @@ $sql .= "
       AND longitude != 0.0
 ";
 
+// Set filter variables
+$plmnFilter = null;
+$ratFilter = null;
+$dateFilter = null;
+
 // PLMN filter
 if (!is_null($plmn) && $plmn !== '') {
     $plmnValue = $plmn;
@@ -216,18 +221,22 @@ while ($row = $result->fetch_assoc()) {
     $lat  = (float)$row['latitude'];
     $lng  = (float)$row['longitude'];
 
-    if (isset($_GET['mergeAtts'])) {
-        if ($plmn == 313100) {
+    if (isset($_GET['mergeDuplicates'])) {
+        if ($plmn == 313100) { // Merge FirstNet in
             $plmn = 310410;
         } 
-        if ($plmn == 312680) {
+        if ($plmn == 312680) { // Merge AT&T FWA in
             $plmn = 310410;
-        } 
-    }
-    if (isset($_GET['rename311490'])) {
-        if ($plmn == 311490) {
+        }
+        if ($plmn == 311490) { // Merge T-Mobile's unified MCON for Sprint 
             $plmn = 310260;
-        } 
+        }
+        if ($plmn == 311588) { // Merge T-Mobile's unified MCON for Sprint 
+            $plmn = 311580;
+        }
+        if ($plmn == 311589) { // Merge T-Mobile's unified MCON for Sprint 
+            $plmn = 311580;
+        }
     }
     
     // Initialize eNB entry if not exists
@@ -290,7 +299,7 @@ if (isset($_GET['download'])) {
 	$output = fopen('php://output', 'w');
 	
 	// Write CSV header
-	fputcsv($output, ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells', 'Poly Link', 'DAS Link']);
+	fputcsv($output, ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells', 'Poly Link', 'DAS Link'], ',', '"', '\\');
 	
     // Loop through PLMN -> ENB structure
     foreach ($enbs as $plmn => $enbGroup) {
@@ -344,7 +353,7 @@ if (isset($_GET['download'])) {
                 $row[] = $dasLink;
             }
 
-            fputcsv($output, $row);
+            fputcsv($output, $row, ',', '"', '\\');
             }
     }
     fclose($output);
