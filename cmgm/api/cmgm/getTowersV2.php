@@ -44,8 +44,8 @@ while ($row = $result->fetch_assoc()) {
       "carrier" => $row["carrier"],
       "latitude" => $row["latitude"],
       "longitude" => $row["longitude"],
-      "cellsite_type" => $row["cellsite_type"],
-      "concealed" => $row["concealed"],
+      "cellsite_type" => @$row["cellsite_type"],
+      "concealed" => @$row["concealed"],
       "status" => $row["status"],
       "tags" => $row["tags"]
     );
