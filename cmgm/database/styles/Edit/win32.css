@@ -1,0 +1,10 @@
+.warning {
+  text-decoration: underline;
+}
+.warning2 {
+  text-decoration: none;
+}
+
+.warning, .warning2 {
+    background-color: #C0C0C0 !important;
+}
