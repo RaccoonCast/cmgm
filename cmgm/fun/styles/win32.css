@@ -1,0 +1,26 @@
+.stat-box {
+    border-top: 2px solid #ffffff !important;
+    border-left: 2px solid #ffffff !important;
+    border-right: 2px solid #808080 !important;
+    border-bottom: 2px solid #808080 !important;
+    border-radius: 0px !important;
+    color: #1a1a1a;
+    /* background-color: #D3D3D3; */
+}
+
+.stat-box h3 {
+    color: #000;
+}
+
+.stat-box:hover {
+    box-shadow: 0 0 22px var(--accent-color); /* add box-shadow*/
+}
+
+footer {
+    border-top: 2px solid #868686;
+    background-color: #bab8b8;
+}
+
+.footer a {
+    color: #000080 !important;
+}

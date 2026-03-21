@@ -1,0 +1,305 @@
+/* --- CORE PALETTE ---
+   Classic silver:   #C0C0C0
+   Raised highlight: #FFFFFF / #DFDFDF
+   Sunken shadow:    #808080 / #000000
+   Title bar blue:   #000080
+   Text:             #000000
+*/
+
+/* --- GLOBAL BODY & BACKGROUND --- */
+body {
+  background-color: #D4D0C8 !important; /* Classic Win2k teal desktop */
+  font-family: "MS Sans Serif", "Tahoma", "Arial", sans-serif !important;
+  /* font-size: 11px !important; */
+  color: #000000 !important;
+}
+
+/* --- MAIN CONTAINER / WINDOW CHROME --- */
+/* Simulates a raised Win32 dialog window */
+div[class="container"],
+div[class="main"],
+main {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+  padding: 4px !important;
+}
+
+/* --- TITLE BAR --- */
+/* Deep navy gradient, white text, classic Win32 caption */
+h1, h2,
+div[class="title"],
+div[class="header"] {
+  background: linear-gradient(to right, #000080, #1084d0) !important;
+  color: #FFFFFF !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  padding: 3px 6px !important;
+  letter-spacing: 0px !important;
+  text-shadow: none !important;
+  border: none !important;
+}
+
+/* --- BUTTONS --- */
+/* Classic raised 3D push-button look */
+button,
+input[type="button"],
+input[type="submit"],
+div[class="buttons"] > input {
+  background-color: #C0C0C0 !important;
+  color: #000000 !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+  font-size: 11px;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+  /* padding: 3px 10px !important; */
+  cursor: default !important;
+  border-radius: 0px !important;
+  text-shadow: none !important;
+  outline: none !important;
+}
+
+/* Button pressed state — border inverts to look "sunken" */
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+div[class="buttons"] > input:active {
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  box-shadow: none !important;
+  padding: 4px 9px 2px 11px !important; /* Nudge content to simulate press */
+}
+
+/* --- KEEP SPECIFIC BOTTOM LINK WHITE (from black.css pattern) --- */
+div[class="buttons"] > input:nth-child(20) {
+  color: #000000 !important; /* Win32 uses black on silver — override white */
+}
+
+/* --- TEXT INPUTS & TEXTAREAS --- */
+/* Classic sunken inset field */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+  /* font-size: 11px !important; */
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #DFDFDF !important;
+  border-bottom: 2px solid #DFDFDF !important;
+  border-radius: 0px !important;
+  padding: 2px 4px !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  -webkit-appearance: none !important;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  outline: 1px dotted #000000 !important;
+}
+
+/* --- PLACEHOLDER TEXT --- */
+::placeholder {
+  color: #808080 !important;
+  font-style: normal !important;
+}
+
+/* --- LINKS (from pink.css pattern — navigation/action links) --- */
+/* Win32 links are typically plain text or underlined in the system color */
+a,
+#link08,
+#link09 {
+  color: #000080 !important;
+  /* text-decoration: underline !important; */
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+}
+
+a:visited {
+  color: #800080 !important; /* Visited = classic purple */
+}
+
+a:hover {
+  color: #0000FF !important;
+}
+
+/* --- PANELS / GROUPBOXES --- */
+/* Sunken inset panel — classic Win32 group box style */
+div[class="panel"],
+div[class="card"],
+fieldset {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  border-radius: 0px !important;
+  padding: 8px !important;
+}
+
+/* --- SCROLLBARS --- */
+/* Approximate Win32 scrollbar in browsers that support it */
+::-webkit-scrollbar {
+  width: 16px !important;
+  background-color: #C0C0C0 !important;
+}
+
+::-webkit-scrollbar-track {
+  background: repeating-conic-gradient(#C0C0C0 0% 25%, #FFFFFF 0% 50%) 0 0 / 2px 2px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+}
+
+::-webkit-scrollbar-button {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  height: 16px !important;
+  width: 16px !important;
+}
+
+/* --- SELECTION HIGHLIGHT --- */
+::selection {
+  background-color: #000080 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- MENUS / DROPDOWNS --- */
+select option {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+}
+
+/* --- TOOLTIPS / TITLE ATTRIBUTES --- */
+/* Can't fully style native tooltips cross-browser, 
+   but this handles custom tooltip elements */
+div[class*="tooltip"],
+span[class*="tooltip"] {
+  background-color: #FFFFE1 !important; /* Classic Win32 tooltip yellow */
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+  font-size: 11px !important;
+  padding: 2px 4px !important;
+  border-radius: 0px !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+/* --- TABLES --- */
+table {
+  background-color: #C0C0C0 !important;
+  border-collapse: collapse !important;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif !important;
+  /* font-size: 11px !important; */
+}
+
+th {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  padding: 3px 6px !important;
+  font-weight: bold !important;
+}
+
+td {
+  border: 1px solid #808080 !important;
+  padding: 2px 6px !important;
+  background-color: #FFFFFF !important;
+}
+
+tr:nth-child(even) td {
+  background-color: #F0F0F0 !important;
+}
+
+/* --- PROGRESS / STATUS BARS --- */
+progress,
+div[class*="progress"] {
+  background-color: #C0C0C0 !important;
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  border-radius: 0px !important;
+  height: 16px !important;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #C0C0C0 !important;
+}
+
+progress::-webkit-progress-value {
+  background-color: #000080 !important; /* Classic navy fill */
+}
+
+/* --- CHECKBOXES & RADIO BUTTONS --- */
+/* Can't fully skin these cross-browser w/o custom elements,
+   but this nudges the surrounding label area */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #000080 !important;
+}
+
+/* --- HORIZONTAL RULES --- */
+hr {
+  border: none !important;
+  border-top: 2px solid #808080 !important;
+  border-bottom: 1px solid #FFFFFF !important;
+  margin: 6px 0 !important;
+}
+
+/* --- IMAGES --- */
+/* Give images a sunken inset frame */
+/* img {
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+} */
+
+/* Fix Edit button */
+.special_button {
+    /* left: 9px !important; */
+    background: none !important;
+    border: none !important;
+    padding: none !important;
+    box-shadow: none !important;
+}
+
+.sb.cmgm-btn {
+    font-size: 15px !important;
+}
+
+/* Fix Home */
+#txtresult {
+    font-size: 35px !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 3px !important;
+    background-color: white !important;
+}

@@ -99,6 +99,7 @@ include "../functions.php";
           <option <?php if($theme == "original") echo 'selected="selected" ';?>value="original">Basic</option>
           <option <?php if($theme == "pink") echo 'selected="selected" ';?>value="pink">Pink</option>
           <option <?php if($theme == "black") echo 'selected="selected" ';?>value="black">AMOLED Black</option>
+          <option <?php if($theme == "win32") echo 'selected="selected" ';?>value="win32">Classic</option>
         </select>
         <!-- label class="label">Debug Flag: </label><select
         class="custominput dropdown" autocomplete="on" name="debug_flag">
