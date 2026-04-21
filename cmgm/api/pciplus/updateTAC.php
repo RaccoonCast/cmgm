@@ -8,9 +8,8 @@ include "includes/useridvalidation.php"; // Verify PCI+ is making these requests
 
 $sql_edit = "UPDATE db SET ";
 foreach ($_POST as $key => $value) {
-   if (@${@$key} != $value && $key != "edittag" && @$key != "id" && $key != "username") {
+   if ($key == "region_lte" || $key == "region_nr") {
      $sql_edit .= "$key = '".mysqli_real_escape_string($conn, $value)."', ";
-     $region_lte = @mysqli_fetch_array(mysqli_query($conn, "SELECT region_lte FROM db WHERE id='$id'"))['region_lte'];
      include "../../database/includes/edit/sql_mgm/history.php";
    }
    ${$value} = @$_POST[$value];
