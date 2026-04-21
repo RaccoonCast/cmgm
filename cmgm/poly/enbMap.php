@@ -1,6 +1,7 @@
 <?php
 $allowGuests = true;
-include "../functions.php"; 
+include "../functions.php";
+ 
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,68 +14,86 @@ include "../functions.php";
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; background: #1a1a1a; }
-        .header {
-            z-index: 1001;
-        }
-        select, input[type="number"] {
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background: #222;
-            color: white;
-            outline: none;
-        }
-        select:focus, input:focus { border-color: #0078ff; }
-        
-        #map { height: 100vh; width: 100%; background: #1a1a1a; }
-        
-        /* Menu & Labels */
-        .custom-menu {
-            position: absolute; background: #fff; border: 1px solid #999; border-radius: 4px;
-            padding: 4px 0; z-index: 10000; box-shadow: 0px 4px 12px rgba(0,0,0,0.4); min-width: 180px;
-        }
-        .menu-item { padding: 10px 15px; cursor: pointer; font-size: 13px; color: #222; }
-        .menu-item:hover { background: #0078ff; color: #fff; }
-        .menu-divider { border-top: 1px solid #eee; margin: 4px 0; }
-
-        .tower-label {
-            background: rgba(255, 255, 255, 0.95); border: 1px solid #333;
-            padding: 4px; font-weight: bold; font-size: 11px; border-radius: 4px;
-            text-align: center; line-height: 1.2; pointer-events: auto !important; cursor: pointer; color: #000;
-        }
     </style>
 </head>
 <body>
+<?php
 
+
+// Get values from URL or set defaults
+// $plmn = $_GET['plmn'] ?? "0";
+// $rat  = $_GET['rat'] ?? "LTE";
+// $limit = $_GET['requestBatchSize'] ?? 250;
+// 
+//  '';
+// 
+// $oldest_date = isset($_GET['oldest_date']) ?  $_GET['oldest_date'] : '>2000-01-01';
+// $newest_date = isset($_GET['newest_date']) ? $_GET['newest_date'] : '>2000-01-01';
+// $perfectOnly = isset($_GET['perfectOnly']) ? $_GET['perfectOnly'] : 'null';
+include "../api/poly/get_param.php";
+
+// Get date of data
+$dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM local_poly_enbs_date"))['last_run'];
+$dateOfData = (new DateTime($dateOfData, new DateTimeZone('UTC')))
+    ->setTimezone(new DateTimeZone('America/Los_Angeles'))
+    ->format('Y-m-d H:i:s');
+
+// Helper to check if a value is a "Standard" option or a "Custom" one
+function is_custom($val, $options) {
+    return !in_array((string)$val, $options);
+}
+?>
 <div class="header">
     <div class="formsContainerContainer">
         <div id="formsContainer">
-        <select id="filterPlmn">
-            <option value="310410">AT&T</option>
-            <option value="310120">Sprint</option>
-            <option value="310260">T-Mobile</option>
-            <option value="311480">Verizon</option>
-            <option value="313340">Dish Wireless</option>
-            <option value="311580">US Cellular</option>
-            <option value="" disabled>--</option>
-            <option value="_custom_">Custom PLMN</option>
-            <option value="0">All PLMNs</option>
+        <?php include "includes/plmn-and-rat-selector.php"; ?>
+
+        <!-- Batch size -->
+        <select class="misc_cw" title="Set batch size" name="requestBatchSize" id="requestBatchSize">
+          <option style="display:none" value="<?php if ($limit !== 0) echo $limit; ?>" selected>
+            Batch size: <?php echo $limit; ?>
+          </option>
+          <?php if ($limit == 0) { ?>
+          <option style="display:none" value="0" selected>
+            Batch size: Unlimited (Slow)
+          </option> <?php } ?>
+          <!-- Preset number options -->
+          <option value="50">50</option>
+          <option value="125">125</option>
+          <option value="250">250</option>
+          <option value="450">450</option>
+          <option value="800">800</option>
+          <option value="1500">1500</option>
+          <option value="3000">3000</option>
+          <option value="7500">7500</option>
+          <option value="15000">15000</option>
+          <option value="40000">40000</option>
+          <option value="0">Unlimited (Slow)</option>
+          <option value="" disabled>--</option>
+          <option value="_custom_">Custom batch size</option>
         </select>
 
-        <select id="filterRat">
-            <option value="LTE">LTE</option>
-            <option value="NR">NR</option>
-            <option value="0">All RATs</option>
+        <!-- Icon size -->
+        <select class="misc_cw" title="Set icon size" name="iconSize" id="iconSize">
+          <option style="display:none" value="<?php echo $iconSize; ?>" selected>
+            Icon size: <?php echo $iconSize; ?>
+          </option>
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">30</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="" disabled>--</option>
+          <option value="_custom_">Custom...</option>
         </select>
-
-        <span>Limit:</span>
-        <input type="number" id="filterLimit" style="width: 75px;">
-        <span>Size:</span>
-        <input type="number" id="iconSize" style="width: 75px;">
-
-        <label class="checkbox-group"><input type="checkbox" id="labels"> Labels</label>
-        <label class="checkbox-group"><input type="checkbox" id="dontUnload"> No Unload</label>
+        <button id="hamburger-menu">≡</button>
+        <div id="hamburger-area" hidden>
+            <?php include "includes/advanced-selectors.php"; ?>
+        </div>
     </div>
     </div>
 </div>
@@ -84,29 +103,140 @@ include "../functions.php";
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // UI Elements
-    const plmnEl = document.getElementById('filterPlmn');
-    const ratEl = document.getElementById('filterRat');
-    const limitEl = document.getElementById('filterLimit');
-    const sizeEl = document.getElementById('iconSize');
-    const labelsEl = document.getElementById('labels');
-    const unloadEl = document.getElementById('dontUnload');
+    // Hamburger Menu toggler
+    document.addEventListener('DOMContentLoaded', () => {
+      const button = document.getElementById('hamburger-menu');
+      const area = document.getElementById('hamburger-area');
 
-    // Init values
-    plmnEl.value = urlParams.get('plmn') || "0";
-    ratEl.value = urlParams.get('rat') || "LTE";
-    limitEl.value = urlParams.get('limit') || 1000;
-    sizeEl.value = urlParams.get('iconSize') || 10;
-    labelsEl.checked = urlParams.get('labels') !== 'false';
-    unloadEl.checked = urlParams.has('dontUnload');
+      button.addEventListener('click', () => {
+        area.hidden = !area.hidden;
+      });
+    });
+
+    // something gemini said is needed for ios
+    document.addEventListener("touchstart", function() {}, true);
+    // Manage form
+    const plmn = document.getElementById('filterPlmn');
+    const rat = document.getElementById('filterRat');
+    const requestBatchSize = document.getElementById('requestBatchSize');
+    const size = document.getElementById('iconSize');
+    const labels = document.getElementById('labels');
+    const unload = document.getElementById('dontUnload');
+    const oldest_date = document.getElementById('oldest_date');
+    const newest_date = document.getElementById('newest_date');
+    const perfectSurroOnly = document.getElementById('perfectSurroOnly');
+    let currentRequestId = 0; // Track the latest request
+
+    // Mapping for prefixes
+    const labelPrefixes = {
+        requestBatchSize: "Batch size",
+        iconSize: "Icon size"
+    };
+
+    const customPrompts = {
+        filterPlmn: "Enter Custom PLMN:", 
+        requestBatchSize: "Enter Custom Batch Size:",
+        iconSize: "Enter Custom Icon Size:"
+    };
+
+    // Helper: Update the hidden label and FORCE selection to index 0
+    const updateSelectLabel = (el) => {
+        const prefix = labelPrefixes[el.id];
+        if (!prefix) return;
+
+        const labelOption = el.options[0];
+        if (!labelOption) return;
+
+        // Special case: unlimited flag
+        if (el.id === 'requestBatchSize' && el.value === '0') {
+            labelOption.text = 'Batch size: Unlimited (Slow)';
+            labelOption.value = el.value;
+            el.selectedIndex = 0;
+            return;
+        }
+
+        // Default behavior
+        labelOption.text = `${prefix}: ${el.value}`;
+        labelOption.value = el.value;
+
+        // Force UI to show the first option
+        el.selectedIndex = 0;
+    };
+
+    // Init values from URL
+    // Helper: Add custom value to dropdown if it doesn't exist
+    const addCustomOption = (el, value) => {
+        if (![...el.options].some(opt => opt.value === String(value))) {
+            const opt = new Option(value, value, true, true);
+            el.add(opt, el.options[el.options.length - 1]);
+        }
+        el.value = value;
+    };
+
+    // Initialize fields from URL (Bootstrapping custom values)
+    const urlParams = new URLSearchParams(window.location.search);
+    labels.checked = urlParams.get('labels') !== 'false';
+    unload.checked = urlParams.has('dontUnload');
+
+    // Apply initial prefixes
+    updateSelectLabel(requestBatchSize);
+    updateSelectLabel(size);
+
+    // Elements that require a full map reset/clear
+    const resetTriggers = [
+        plmn, rat, oldest_date, newest_date, 
+        cellsAllowList, cellsBlockList, enbAllowList, 
+        enbBlockList, tacsAllowList, tacsBlockList, perfectSurroOnly
+    ];
+
+    // Elements that update UI or visuals without clearing data
+    const visualTriggers = [iconSize, size, labels, requestBatchSize, unload];
+
+    [...resetTriggers, ...visualTriggers].forEach(el => {
+        el.addEventListener('change', () => {
+
+            // 1. Handle Custom Option Prompts
+            if (customPrompts[el.id] && (el.value === "_custom_" || el.value === "custom")) {
+                const custom = prompt(customPrompts[el.id]);
+                if (custom) {
+                    addCustomOption(el, custom);
+                } else {
+                    el.selectedIndex = 0;
+                    return; 
+                }
+            }
+
+            // 2. Handle Label UI updates
+            if (labelPrefixes[el.id]) {
+                updateSelectLabel(el);
+            }
+
+            // 3. Update Marker Dimensions (Size/IconSize)
+            if (el === size || el === iconSize) {
+                const newSize = parseFloat(el.value);
+                Object.values(markerMap).forEach(marker => {
+                    if (typeof marker.setRadius === 'function') {
+                        marker.setRadius(newSize);
+                    }
+                });
+            }
+
+            // 4. Reset Map if a data-critical field changed
+            if (resetTriggers.includes(el)) {
+                clearAllMarkers();
+            }
+
+            // 5. Trigger Data Update/Fetch
+            updateData(); 
+        });
+    });
 
     const map = L.map('map', {
         preferCanvas: true, boxZoom: true, zoomSnap: 0, zoomDelta: 0.8,
         wheelPxPerZoomLevel: 120, wheelDebounceTime: 100
     }).setView([parseFloat(urlParams.get('latitude')) || 34.1317, parseFloat(urlParams.get('longitude')) || -118.2630], parseInt(urlParams.get('zoom')) || 14);
-    
+    map.attributionControl.setPrefix('<?php echo "Last updated: " . $dateOfData ?> <a href="https://cmgm.us/api/poly/updatePolyEnbs.php">⟳</a>');
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     let markerMap = {};
@@ -122,37 +252,88 @@ include "../functions.php";
         return null;
     }
     function updateUrl() {
-        const center = map.getCenter();
-        urlParams.set('latitude', center.lat.toFixed(6));
-        urlParams.set('longitude', center.lng.toFixed(6));
-        urlParams.set('zoom', map.getZoom());
-        urlParams.set('plmn', plmnEl.value);
-        urlParams.set('rat', ratEl.value);
-        urlParams.set('limit', limitEl.value);
-        urlParams.set('iconSize', sizeEl.value);
-        if (labelsEl.checked) urlParams.set('labels', 'true'); else urlParams.set('labels', 'false');
-        if (unloadEl.checked) urlParams.set('dontUnload', 'true'); else urlParams.delete('dontUnload');
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+    const center = map.getCenter();
+
+    const setOrDeleteParam = (key, value) => {
+        if (value != null && value !== '') {
+            urlParams.set(key, value);
+        } else {
+            urlParams.delete(key);
+        }
+    };
+
+    if (center.lat != null) urlParams.set('latitude', center.lat.toFixed(6));
+    if (center.lng != null) urlParams.set('longitude', center.lng.toFixed(6));
+    if (map.getZoom() != null) urlParams.set('zoom', map.getZoom());
+
+    setOrDeleteParam('plmn', plmn.value);
+    setOrDeleteParam('rat', rat.value);
+    setOrDeleteParam('limit', requestBatchSize.value);
+    setOrDeleteParam('iconSize', size.value);
+    setOrDeleteParam('oldest_date', oldest_date.value);
+    setOrDeleteParam('newest_date', newest_date.value);
+    setOrDeleteParam('cellsAllowList', cellsAllowList.value);
+    setOrDeleteParam('cellsBlockList', cellsBlockList.value);
+    setOrDeleteParam('enbAllowList', enbAllowList.value);
+    setOrDeleteParam('enbBlockList', enbBlockList.value);
+    setOrDeleteParam('tacsAllowList', tacsAllowList.value);
+    setOrDeleteParam('tacsBlockList', tacsBlockList.value);
+
+    if (labels.checked) {
+        urlParams.set('labels', 'true');
+    } else {
+        urlParams.set('labels', 'false'); 
     }
 
-    async function updateData() {
+    if (unload.checked) {
+        urlParams.set('dontUnload', 'true');
+    } else {
+        urlParams.delete('dontUnload');
+    }
+    
+    if (perfectSurroOnly.checked) {
+        urlParams.set('perfectSurroOnly', 'true');
+    } else {
+        urlParams.delete('perfectSurroOnly');
+    }
+
+    window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${urlParams.toString()}`
+    );
+}
+
+async function updateData() {
         updateUrl();
         const center = map.getCenter();
         const bounds = map.getBounds();
+        const neLat = bounds.getNorthEast().lat;
+        const neLng = bounds.getNorthEast().lng;
+        const swLat = bounds.getSouthWest().lat;
+        const swLng = bounds.getSouthWest().lng;
         const zoom = map.getZoom();
+        const requestId = ++currentRequestId;
 
-        const apiUrl = `https://cmgm.us/api/cmgm/getPolyEnbs.php?latitude=${center.lat}&longitude=${center.lng}&limit=${limitEl.value}&plmn=${plmnEl.value}&rat=${ratEl.value}`;
+        // Long ass URL..
+        const apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${neLat}&boundsNELongitude=${neLng}&boundsSWLatitude=${swLat}&boundsSWLongitude=${swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}&locationType=2`;
 
         try {
             const res = await fetch(apiUrl);
             const data = await res.json();
+
+            // VALIDATION: If a newer request has started, ignore this "old" data
+            if (requestId !== currentRequestId) {
+                console.log("Discarding stale data from request:", requestId);
+                return;
+            }
 
             Object.keys(data).forEach(plmnKey => {
                 data[plmnKey].forEach(tower => {
                     const id = `${plmnKey}-${tower.rat}-${tower.enb}`;
                     if (!markerMap[id]) {
                         const marker = L.circleMarker([tower.latitude, tower.longitude], {
-                            radius: parseFloat(sizeEl.value),
+                            radius: parseFloat(size.value),
                             fillColor: (plmnKey === '310260') ? (tower.rat === 'LTE' ? '#b200ae' : '#ff4dff') :
                                        (plmnKey === '310410') ? (tower.rat === 'LTE' ? '#0059b2' : '#4da2ff') :
                                        (plmnKey === '310120') ? '#FFEF87' :
@@ -162,8 +343,10 @@ include "../functions.php";
                         }).addTo(map);
 
                         const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
+                        const suffix = tower.is_exact_location === '1' ? '★' : '';
+                        
                         const cellsInfo = tower.cells ? `<br>Cells: ${tower.cells}` : '';
-                        marker.bindTooltip(`${prefix} ${tower.enb}${cellsInfo}`, { 
+                        marker.bindTooltip(`${prefix} ${tower.enb}${suffix} ${cellsInfo}`, { 
                             permanent: false, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true 
                         });
 
@@ -184,7 +367,7 @@ include "../functions.php";
             allVisibleMarkers.sort((a, b) => map.distance(center, a.getLatLng()) - map.distance(center, b.getLatLng()));
 
             allVisibleMarkers.forEach((m, index) => {
-                const shouldBePermanent = (zoom > 10 && index < 250 && labelsEl.checked);
+                const shouldBePermanent = (zoom > 10 && index < 250 && labels.checked);
                 const tooltip = m.getTooltip();
                 if (tooltip && tooltip.options.permanent !== shouldBePermanent) {
                     const content = tooltip.getContent();
@@ -195,7 +378,7 @@ include "../functions.php";
                 }
             });
 
-            if (!unloadEl.checked) {
+            if (!unload.checked) {
                 for (let key in markerMap) {
                     if (!bounds.contains(markerMap[key].getLatLng())) {
                         map.removeLayer(markerMap[key]);
@@ -209,30 +392,6 @@ include "../functions.php";
     // --- Listeners ---
     let debounceTimer;
     const slowUpdate = () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(updateData, 400); };
-
-    [plmnEl, ratEl, labelsEl, unloadEl].forEach(el => {
-        el.addEventListener('change', () => {
-            if (el === plmnEl && el.value === "_custom_") {
-                const custom = prompt("Enter Custom PLMN:");
-                if (custom) {
-                    const opt = new Option(custom, custom, true, true);
-                    plmnEl.add(opt, plmnEl.options[plmnEl.options.length - 1]);
-                }
-            }
-            if (el === plmnEl || el === ratEl) clearAllMarkers();
-            updateData();
-        });
-    });
-
-    [limitEl, sizeEl].forEach(el => {
-        el.addEventListener('input', () => {
-            if (el === sizeEl) {
-                const newSize = parseFloat(sizeEl.value);
-                Object.values(markerMap).forEach(m => m.setRadius(newSize));
-            }
-            slowUpdate();
-        });
-    });
 
     function silentCopy(text) {
         const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
@@ -250,10 +409,11 @@ include "../functions.php";
         if (tower.tac) {
             items.push({ label: `Copy TAC (${tower.tac})`, action: () => silentCopy(tower.tac) });
         }
+        items.push({ label: `Copy location`, action: () => silentCopy(tower.latitude + ',' + tower.longitude) });
 
         items.push(
             { isDivider: true },
-            { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly?plmn=${tower.plmn}&zoom=17&rat=${tower.rat}&eNB=${tower.enb}&cellListDepri_1=-`, '_blank') },
+            { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellListDepri_1=-`, '_blank') },
             { label: 'View in CellMapper', action: () => {
                 let mnc = tower.plmn.slice(3);
                 let mcc = tower.plmn.slice(0, 3);
@@ -282,31 +442,70 @@ include "../functions.php";
             });
         }
 
-        items.forEach(opt => {
-            if (opt.isDivider) { menu.appendChild(Object.assign(document.createElement('div'), {className:'menu-divider'})); return; }
-            const item = document.createElement('div'); item.className = 'menu-item'; item.innerText = opt.label;
-            item.onclick = (ev) => { ev.stopPropagation(); opt.action(); menu.remove(); };
-            menu.appendChild(item);
-        });
-        document.body.appendChild(menu);
-        setTimeout(() => { window.onclick = () => { menu.remove(); window.onclick = null; }; }, 10);
+    items.forEach(opt => {
+                if (opt.isDivider) { 
+                    menu.appendChild(Object.assign(document.createElement('div'), {className:'menu-divider'})); 
+                    return; 
+                }
+                const item = document.createElement('div'); 
+                item.className = 'menu-item'; 
+                item.innerText = opt.label;
+
+                // Wakes up :active state on mobile devices
+                item.ontouchstart = (e) => { e.stopPropagation(); }; 
+
+                item.onclick = (ev) => { 
+                    ev.stopPropagation(); 
+                    opt.action(); 
+
+                    // Delay removal so the blue highlight is visible
+                    setTimeout(() => {
+                        if (menu && menu.parentNode) menu.remove();
+                    }, 100);
+                };
+                menu.appendChild(item);
+            });
+
+            document.body.appendChild(menu);
+
+            // Global click listener to close menu when clicking away
+            setTimeout(() => {
+                window.onclick = () => {
+                    if (menu && menu.parentNode) {
+                        menu.remove();
+                        window.onclick = null;
+                    }
+                };
+            }, 50);
     }
 
     map.on('moveend', slowUpdate);
     updateData();
 
-    document.addEventListener('paste', function (e) {
-    // Don't trigger if you're actually typing in one of the input boxes
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    const pasted = (e.clipboardData || window.clipboardData).getData('text');
-    const coords = parseLatLng(pasted);
-    
-    if (coords) {
-        map.setView(coords, map.getZoom());
-        // updateData() will trigger automatically via the moveend listener
-    }
-});
+    // Paste to Jump 
+    document.addEventListener('paste', function (e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        const coords = parseLatLng(pasted);
+                
+        if (coords) {
+            map.setView(coords, map.getZoom());
+        }
+    });
+
+    // 2. Copy coordinates on right click
+    map.on('contextmenu', function (e) {
+        // Prevent the browser's default context menu
+        if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+
+        navigator.clipboard.writeText(e.latlng.lat.toFixed(6) + ',' + e.latlng.lng.toFixed(6)).then(() => {
+            console.log("Copied Map Coords:", coords);
+        }).catch(err => {
+            console.error("Copy failed:", err);
+        });
+    });
 </script>
 </body>
 </html>

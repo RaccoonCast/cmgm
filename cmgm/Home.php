@@ -89,15 +89,16 @@ include "functions.php";?>
         type="button" style="color:#f731f7" name="goto" class="cmgm-btn sb w-033 usr_btns" onclick="redir('<?= function_goto($user_data, "lart2150") ?>');" value="lart2150"><input
         type="button" style="color:#f731f7" name="goto" class="cmgm-btn sb w-033" onclick="redir('https://upload.cmgm.us');" name="Upload" value="Upload"><input
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-050 usr_btns" onclick="redir('<?= function_goto($user_data, "AntennaSearch") ?>');" value="AntennaSearch"><input
-        type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "Maprad") ?>');" value="Maprad"><input
+        type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('../faa/');" value="FAA"><input
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "OpenCID") ?>');" value="OpenCID"><input
         type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-025" onclick="redir('../poly/');" value="Poly"><input
-        type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "Poly Map") ?>');" value="Poly Map"><input
+        type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "Cell Map") ?>');" value="Cell Map"><input
+        type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "eNB Map") ?>');" value="eNB Map"><input
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025" onclick="redir('../fun/?limit=15');" value="Stats"><input
-        type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('../faa/');" value="FAA"><input
         type="button" style="color:#101010" name="goto" class="cmgm-btn sb w-100" onclick="redir('settings/');" value="Settings">
         <!--
-        <div id="tiauquote"><br><br><br>
+          type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "Maprad") ?>');" value="Maprad"><input
+          <div id="tiauquote"><br><br><br>
          <span style="cursor: pointer;" onclick="redir('../fun/?limit=15')">“wayyy more user friendly than mymaps” <small>&#8209;thisisausername190.<small></span>
         </div>
         -->

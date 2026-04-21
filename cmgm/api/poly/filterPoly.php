@@ -1,0 +1,207 @@
+<?php
+function calculateMiles($lat1, $lon1, $lat2, $lon2) {
+    $earthRadius = 3959; // Radius of Earth in Miles
+    $dLat = deg2rad($lat2 - $lat1);
+    $dLon = deg2rad($lon2 - $lon1);
+    $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon/2) * sin($dLon/2);
+    $c = 2 * asin(sqrt($a));
+    return $earthRadius * $c;
+}
+
+// Get variables needed
+include "get_param.php";
+
+// Start query build, identify whether working with LPB/LPE/LPBE.
+$tableName = $useAggregateTable ? 'local_poly_enbs' : 'local_poly_beta';
+
+$keys = $useAggregateTable ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
+$keys .= $locationType == 1 ? ",latitude AS latitude,longitude AS longitude" : ",latitude_advanced AS latitude,longitude_advanced AS longitude";
+
+// Filter 0: Remove eNBs without a location
+if (is_null($boundsNELat) && is_null($boundsNELon) && is_null($boundsSWLat) && is_null($boundsSWLon)) {
+$whereFilters = " latitude <> 0.0 AND longitude <> 0.0 ";
+}
+
+// Filter 1: Location (latitude & longitude)
+if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon) && $limit !== 0) {
+    // 1. Calculate Distances & Center Point
+    $latDiff = abs($boundsNELat - $boundsSWLat);
+    $lonDiff = abs($boundsNELon - $boundsSWLon);
+
+    $centerLat = ($boundsNELat + $boundsSWLat) / 2;
+    $centerLon = ($boundsNELon + $boundsSWLon) / 2;
+    $centerPoint = "ST_GeomFromText('POINT($centerLat $centerLon)', 4326)";
+
+    // 2. The Auto-Trigger Logic
+    // Trigger if the box is larger than +/- 1.75 from the center (a total span of 3.5)
+    if (($latDiff > 4.0 || $lonDiff > 4.0)) {
+        echo $limit;
+        die();
+
+        // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.75 from the center
+        $microNELat = min($boundsNELat, $centerLat + 2.0);
+        $microNELon = min($boundsNELon, $centerLon + 2.0);
+        $microSWLat = max($boundsSWLat, $centerLat - 2.0);
+        $microSWLon = max($boundsSWLon, $centerLon - 2.0);
+
+        $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
+
+    } else {
+        // Standard bounding box polygon if no cap is needed
+        $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+    }
+    // 3. Execute the Spatial Query
+    // We pass in $searchPolygon, which dynamically swapped itself in Step 2!
+    $whereFilters .= "AND ST_Within(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, $centerPoint) ASC ";
+} elseif (!is_null($latitude) && !is_null($longitude)) {
+    // OPTION B: Haversine Formula)
+    $distanceExpr = "(3959 * 2 * ASIN(SQRT(
+        POWER(SIN(RADIANS(latitude - $latitude) / 2), 2) +
+        COS(RADIANS($latitude)) * COS(RADIANS(latitude)) *
+        POWER(SIN(RADIANS(longitude - $longitude) / 2), 2)
+    )))";
+
+    $locationFilter = ", $distanceExpr AS calculated_distance ";
+    $orderBy = "ORDER BY calculated_distance";
+}
+
+// Filter 2: Date Filtering
+$dateKeys = ['oldest_date', 'newest_date'];
+
+foreach ($dateKeys as $key) {
+
+    $val = $$key;
+
+    if ($val === null) {
+        continue;
+    }
+
+    if (strpos($val, ',') !== false) {
+        $strings = explode(',', $val);
+
+        $start = date("Y-m-d", strtotime($strings[0]));
+        $end   = date("Y-m-d", strtotime($strings[1]));
+
+        $whereFilters .= "AND ($key >= '$start' AND $key <= '$end') ";
+    }
+    elseif ($val[0] === '>') {
+        $whereFilters .= "AND $key >= '" . date("Y-m-d", strtotime(substr($val, 1))) . "' ";
+    }
+    elseif ($val[0] === '<') {
+        $whereFilters .= "AND $key <= '" . date("Y-m-d", strtotime(substr($val, 1))) . "' ";
+    }
+    elseif ($val[0] === '!') {
+        $trimChar = substr($val, 1);
+        $whereFilters .= "AND ($key NOT LIKE '%$trimChar%')";
+    }
+    else {
+        $whereFilters .= "AND ($key LIKE '%$val%') ";
+    }
+}
+
+// Filter 3: PLMN
+if (!is_null($plmn)) {
+    if (strpos($plmn, ',') !== false) {
+        $plmnArray = array_filter(array_map(fn($v) => "'" . preg_replace('/[^0-9]/', '', trim($v)) . "'", explode(',', $plmn)));
+        if (!empty($plmnArray)) $db_vars .= "AND plmn IN (" . implode(',', $plmnArray) . ") ";
+    } else {
+        $whereFilters .= "AND plmn = $plmn ";
+    }
+}
+
+// Filter 4: Rat
+if (!is_null($rat)) {
+    $whereFilters .= "AND RAT = '$rat' ";
+}
+
+// Filter 5: Tac
+if (!is_null($tacsAllowList)) {
+    $tacList = implode(',', array_map('intval', explode(',', $_GET['tacsAllowList'])));
+    // Add the TAC filter to the outer query instead of just the subquery
+    $whereFilters .= "AND tac IN ($tacList) ";
+}
+if (!is_null($tacsBlockList)) {
+    $tacBlockList = implode(',', array_map('intval', explode(',', $_GET['tacsBlockList'])));
+    $whereFilters .= "AND tac NOT IN ($tacBlockList) ";
+}
+
+// Filter 6: Within distance.
+if (!is_null($locationFilter) && !is_null($radius)) {
+    $whereFilters .= "AND $distanceExpr <= $radius ";
+}
+
+// Filter 7: By eNB Range
+// eNB allowlist ranges
+if (!is_null($enbAllowList)) {
+    $enbAllowArray = explode(',', $enbAllowList);
+    $enbConditions = [];
+
+    foreach ($enbAllowArray as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $enbConditions[] = "enb BETWEEN $start AND $end";
+            }
+        } else {
+            $enbConditions[] = "enb = $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    }
+    
+// eNB blocklist ranges
+if (!is_null($enbBlockList)) {
+    $enbBlockArray = explode(',', $enbBlockList);
+    $enbConditions = [];
+
+    foreach ($enbBlockArray as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $enbConditions[] = "enb NOT BETWEEN $start AND $end";
+            }
+        } else {
+            $enbConditions[] = "enb != $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    }
+if (!empty($enbConditions)) {
+    $whereFilters .= "AND (" . implode(' AND ', $enbConditions) . ") ";
+}
+
+// Filter 8: Cell filtering (space-separated string column)
+
+// Allowlist (must match at least one)
+if (!is_null($cellsAllowList)) {
+    $list = str_replace(' ', ',', $cellsAllowList);
+    $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+}
+
+// Blocklist (must match none)
+if (!is_null($cellsBlockList)) {
+    $list = str_replace(' ', ',', $cellsBlockList);
+    $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+}
+
+// Filter 9: Perfect Surro Only)
+if (!is_null($perfectSurroOnly)) {
+    $whereFilters .= "AND is_exact_location = 1 ";
+}
+
+// Filter 98: Set limit
+if (!is_null($limit) && $limit > 0) {
+    $limitClause = "LIMIT $limit";
+}
+
+// Filter 99: Build it
+$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFilters$orderBy$limitClause";
+
+// The return
+if ($showsql) error("$sql_query");
+?>

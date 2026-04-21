@@ -37,3 +37,6 @@ input[type=number] {
 #submitButton:active {
   background-color: color-mix(in srgb, var(--accent-color) 90%, black)!important;
 }
+.header {
+  border-bottom: 0px;
+}

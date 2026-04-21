@@ -3,384 +3,163 @@ ini_set('memory_limit','1024M');
 ini_set('max_execution_time', '300');
 $titleOverride = true;
 $allowGuests = true;
-if (isset($_GET['download']))  $silent = true;
+if (isset($_GET['download'])) $silent = true;
 include "../functions.php";
 
-// --- GET FILTERS ---
-$plmn = !empty($_GET['plmn']) ? preg_replace('/[^0-9,]/', '', $_GET['plmn']) : null;
-$cellsAllowlist  = !empty($_GET['cells_allow']) ? $_GET['cells_allow'] : null;
-$cellsBlocklist  = !empty($_GET['cells_block']) ? $_GET['cells_block'] : null;
-$tacsAllowlist  = !empty($_GET['tacs_allow']) ? $_GET['tacs_allow'] : null;
-$tacsBlocklist  = !empty($_GET['tacs_block']) ? $_GET['tacs_block'] : null;
-$enbAllowList = !empty($_GET['enb_allowList']) ? $_GET['enb_allowList'] : null;
-$enbBlockList = !empty($_GET['enb_blockList']) ? $_GET['enb_blockList'] : null;
-$rat             = !empty($_GET['rat']) ? $_GET['rat'] : null;
-$lat             = !empty($_GET['lat']) ? $_GET['lat'] : null;
-$lon             = !empty($_GET['lon']) ? $_GET['lon'] : null;
-$radius          = !empty($_GET['radius']) ? $_GET['radius'] : null;
-$trueLimit           = !empty($_GET['limit']) ? $_GET['limit'] : null;
-$date           = !empty($_GET['date']) ? $_GET['date'] : null;
+// --- GET FILTERS & EXECUTE QUERY ---
+include "../api/poly/filterPoly.php";
+$result = $conn->query($sql_query);
 
-if(isset($lat) && strpos($lat, ',') !== false) {
-    $explosion = explode(",", $lat);
-    $lat = trim($explosion[0]);
-    $lon = trim($explosion[1]);
-}
+// --- 1. BUILD SHARED DATA ARRAY ---
+$validRows = [];
+$hasSearchCenter = !empty($latitude) && !empty($longitude); 
 
-// --- BUILD SQL ---
-$distanceExpr = ""; // will hold Haversine if geographic filter is applied
-
-$sql = "
-    SELECT 
-        enb, cell, cell_id, plmn, rat, tac, latitude, longitude
-";
-
-// Add distance column if geo filter exists
-if (!is_null($lat) && !is_null($lon)) {
-    $lat = floatval($lat);
-    $lon = floatval($lon);
-    if (is_null($radius)) $radius = 12500;
-    $radius = floatval($radius);
-
-    $distanceExpr = "(3959 * 2 * ASIN(SQRT(
-        POWER(SIN(RADIANS(latitude - $lat) / 2), 2) +
-        COS(RADIANS($lat)) * COS(RADIANS(latitude)) *
-        POWER(SIN(RADIANS(longitude - $lon) / 2), 2)
-    )))";
-
-    $sql .= ", $distanceExpr AS distance";
-}
-
-$sql .= "
-    FROM local_poly_beta
-    WHERE
-          latitude != 0.0
-      AND longitude != 0.0
-";
-
-// Set filter variables
-$plmnFilter = null;
-$ratFilter = null;
-$dateFilter = null;
-
-// PLMN filter
-if (!is_null($plmn) && $plmn !== '') {
-    $plmnValue = $plmn;
-
-    // Split comma-separated PLMNs, trim, and escape
-    $plmnArray = array_map(
-        fn($v) => "'" . mysqli_real_escape_string($conn, trim($v)) . "'",
-        explode(',', $plmn)
-    );
-
-    // Remove any empty values
-    $plmnArray = array_filter($plmnArray);
-
-    if (!empty($plmnArray)) {
-        $sql .= $plmnFilter = " AND plmn IN (" . implode(',', $plmnArray) . ")";
-        $limit = 2500;
-    }
-
-} elseif (!isset($plmn) && empty($default_carrier)) {
-
-    if ($default_carrier == "T-Mobile") $plmnValue = 310260;
-    if ($default_carrier == "ATT")      $plmnValue = 310410;
-    if ($default_carrier == "Verizon")  $plmnValue = 311480;
-    if ($default_carrier == "Sprint")   $plmnValue = 310120;
-
-    $sql .= $plmnFilter = " AND plmn = '" . mysqli_real_escape_string($conn, $plmnValue) . "'";
-    $limit = 5000;
-
-} else {
-    $limit = 25000;
-}
-
-
-if (isset($_GET['download'])) { $limit = 500000; }
-if (isset($trueLimit)) { $limit = $trueLimit; }
-
-// RAT filter
-if (!is_null($rat)) {
-    $sql .= $ratFilter = " AND rat = '" . mysqli_real_escape_string($conn, $rat) . "'";
-}
-
-// Date filter
-if (!is_null($date) &&
-    preg_match('/^(>=|<=|<>|!=|>|<|=)\s*(\d{4}-\d{2}-\d{2})$/', $date, $m)
-) {
-    $op  = $m[1];
-    $val = $m[2];
-
-    $sql .= $dateFilter = " AND date_of_info $op '" . mysqli_real_escape_string($conn, $val) . "'";
-}
-
-
-
-// eNB allowlist ranges
-if (!is_null($enbAllowList)) {
-    $enbAllowArray = explode(',', $enbAllowList);
-    $enbConditions = [];
-
-    foreach ($enbAllowArray as $range) {
-        if (strpos($range, '-') !== false) {
-            $bounds = explode('-', $range);
-            if (count($bounds) == 2) {
-            $start = (int)$bounds[0];
-            $end   = (int)$bounds[1];
-            $enbConditions[] = "enb BETWEEN $start AND $end";
-            }
-        } else {
-            $enbConditions[] = "enb = $range";
-        }
-        }
-        $bounds = explode('-', $range);
-    }
-    
-// eNB blocklist ranges
-if (!is_null($enbBlockList)) {
-    $enbBlockArray = explode(',', $enbBlockList);
-    $enbConditions = [];
-
-    foreach ($enbBlockArray as $range) {
-        if (strpos($range, '-') !== false) {
-            $bounds = explode('-', $range);
-            if (count($bounds) == 2) {
-            $start = (int)$bounds[0];
-            $end   = (int)$bounds[1];
-            $enbConditions[] = "enb NOT BETWEEN $start AND $end";
-            }
-        } else {
-            $enbConditions[] = "enb != $range";
-        }
-        }
-        $bounds = explode('-', $range);
-    }
-
-if (!empty($enbConditions)) {
-    $sql .= " AND (" . implode(' AND ', $enbConditions) . ")";
-}
-$filterList = $plmnFilter . " " . $ratFilter . " " . $dateFilter;
-// Cell allowlist
-if (!is_null($cellsAllowlist)) {
-    $cellList = implode(',', array_map('intval', explode(',', $_GET['cells_allow'])));
-    $sql .= " AND enb IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellList) " . @$filterList . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
-}
-
-// Cell blocklist
-if (!is_null($cellsBlocklist)) {
-    $cellBlockList = implode(',', array_map('intval', explode(',', $_GET['cells_block'])));
-    $sql .= " AND enb NOT IN (SELECT enb FROM local_poly_beta WHERE cell IN ($cellBlockList) " . @$filterList . " AND latitude != 0.0 AND longitude != 0.0 GROUP BY enb)";
-}
-
-// TAC allowlist
-if (!is_null($tacsAllowlist)) {
-    $tacList = implode(',', array_map('intval', explode(',', $_GET['tacs_allow'])));
-    // Add the TAC filter to the outer query instead of just the subquery
-    $sql .= " AND tac IN ($tacList)";
-}
-
-
-// TAC blocklist
-if (!is_null($tacsBlocklist)) {
-    $tacBlockList = implode(',', array_map('intval', explode(',', $_GET['tacs_block'])));
-    $sql .= " AND tac NOT IN ($tacBlockList)";
-}
-
-
-
-// Geographic filter (reuse distanceExpr so no duplicate formula)
-if ($distanceExpr !== "") {
-    $sql .= " AND $distanceExpr <= $radius";
-}
-
-// ---------------- ORDER BY ----------------
-if ($distanceExpr !== "") {
-    // Sort by nearest → farthest
-    $sql .= " ORDER BY distance ASC";
-} else {
-    // Default behavior
-    $sql .= " ORDER BY plmn, enb, cell";
-}
-
-$sql .= " LIMIT $limit";
-
-// $sql = "SELECT enb, cell, cell_id, plmn, rat, tac, latitude, longitude FROM local_poly_beta WHERE latitude != 0.0 AND longitude != 0.0 AND plmn != '311580' AND plmn != '310260' AND plmn != '311480' AND plmn != '310120' ORDER BY enb, cell LIMIT 2500";
-if (isset($_GET['showsql'])) echo $sql;
-$result = $conn->query($sql);
-if (!$result) die("Query error: " . $conn->error);
-
-// --- BUILD STRUCTURE ---
-$enbs = [];
-while ($row = $result->fetch_assoc()) {
-    $enb  = (int)$row['enb'];
-    $cell = (int)$row['cell'];
-    $cell_id = (int)$row['cell_id'];
-    $plmn = (int)$row['plmn'];
-    $rat  = $row['rat'];
-    $tac  = (int)$row['tac'];
-    $lat  = (float)$row['latitude'];
-    $lng  = (float)$row['longitude'];
-
-    if (isset($_GET['mergeDuplicates'])) {
-        if ($plmn == 313100) { // Merge FirstNet in
-            $plmn = 310410;
-        } 
-        if ($plmn == 312680) { // Merge AT&T FWA in
-            $plmn = 310410;
-        }
-        if ($plmn == 311490) { // Merge T-Mobile's unified MCON for Sprint 
-            $plmn = 310260;
-        }
-        if ($plmn == 311588) { // Merge T-Mobile's unified MCON for Sprint 
-            $plmn = 311580;
-        }
-        if ($plmn == 311589) { // Merge T-Mobile's unified MCON for Sprint 
-            $plmn = 311580;
-        }
-    }
-    
-    // Initialize eNB entry if not exists
-    if (!isset($enbs[$plmn][$enb])) {
-        $enbs[$plmn][$enb] = [
-            'cells'     => [],
-            'cell_ids'  => [],
-            'rat'       => $rat,
-            'plmn'      => $plmn,
-            'tac'      => $tac,
-            'latitude'   => 0,
-            'longitude'   => 0,
-            'count'     => 0
-        ];
-    }
-
-    if ($tac != 0 && $enbs[$plmn][$enb]['tac'] == 0) {
-        $enbs[$plmn][$enb]['tac'] = $tac;
-    }
-
-    // Add unique cell
-    if (!in_array($cell, $enbs[$plmn][$enb]['cells'], true)) {
-        $enbs[$plmn][$enb]['cells'][] = $cell;
-    }    
-	
-	// Add unique cell
-    if (!in_array($cell_id, $enbs[$plmn][$enb]['cell_ids'], true)) {
-        $enbs[$plmn][$enb]['cell_ids'][] = $cell_id;
-    }
-
-    // Sum lat/lng and increment count
-    $enbs[$plmn][$enb]['latitude'] += $lat;
-    $enbs[$plmn][$enb]['longitude'] += $lng;
-    $enbs[$plmn][$enb]['count']++;
-}
-// Calculate averaged lat/lng for each PLMN + eNB
-foreach ($enbs as $plmn => $siteGroup) {
-    foreach ($siteGroup as $enb => $data) {
-        // Average lat/lng
-        $enbs[$plmn][$enb]['latitude']  = $data['latitude']  / $data['count'];
-        $enbs[$plmn][$enb]['longitude'] = $data['longitude'] / $data['count'];
-
-        // Sort cells numerically
-        sort($enbs[$plmn][$enb]['cells'], SORT_NUMERIC);
-
-        // Save cell list
-        $enbs[$plmn][$enb]['cell_list'] =
-            implode(' ', $enbs[$plmn][$enb]['cells']);
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) { 
+        $validRows[] = $row; 
     }
 }
 
-$result->free();
-$conn->close();
+// --- 2. ENHANCE DATA WITH PRE-CALCULATED LINKS & FORMATTING ---
+$plmnTranslations = json_decode(file_get_contents('translations.json'), true);
+$plmnMap = [];
+if ($plmnTranslations) {
+    foreach ($plmnTranslations as $item) {
+        $plmnMap[$item['plmn']] = $item['name'];
+    }
+}
 
+foreach ($validRows as &$row) {
+    $item_plmn = $row['plmn'];
+    $row['plmnName'] = $plmnMap[$item_plmn] ?? $item_plmn;
+    $row['tac']      = $row['tac'] ?? 0;
+    $row['rat']      = $row['rat'] ?? "LTE";
+    $row['enbId']    = $row['enb'];
+
+    $row['display_lat'] = round($row['latitude'], 5);
+    $row['display_lon'] = round($row['longitude'], 5);
+
+    // Pre-build shared URLs
+    $row['dasLink'] = "https://api.cellmapper.net/v6/overrideData?"
+        . "MCC=" . substr($item_plmn, 0, 3) . "&MNC=" . substr($item_plmn, 3)
+        . "&Region={$row['tac']}&RAT={$row['rat']}&Site={$row['enbId']}"
+        . "&CellID=null&Latitude=null&Longitude=null"
+        . "&action=setAttribute&attribute=TOWER_TYPE&attribute_value=DAS";
+
+    $row['polyLink'] = "https://cmgm.us/poly?"
+        . "plmn={$item_plmn}&zoom=17&rat={$row['rat']}"
+        . "&eNB={$row['enbId']}&tac={$row['tac']}&cellListDepri=-";
+
+    $row['enbLink'] = "https://www.cellmapper.net/map?"
+        . "MCC=" . substr($item_plmn, 0, 3) . "&MNC=" . substr($item_plmn, 3)
+        . "&latitude={$row['latitude']}&longitude={$row['longitude']}"
+        . "&zoom=18&rat={$row['rat']}&ppT={$row['enbId']}&ppL={$row['tac']}";
+
+    $row['locationLink'] = "https://maps.google.com/maps?f=q&source=s_q&hl=en&q="
+        . "{$row['display_lat']},{$row['display_lon']}";
+}
+unset($row); // Break reference
+
+// --- 3. HANDLE CSV DOWNLOAD ---
 if (isset($_GET['download'])) {
-    // Send headers to force download
     header('Content-Type: text/csv');
-	header('Content-Disposition: attachment; filename="enbs.csv"');
-	
-	$output = fopen('php://output', 'w');
-	
-	// Write CSV header
-	fputcsv($output, ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells', 'Poly Link', 'DAS Link'], ',', '"', '\\');
-	
-    // Loop through PLMN -> ENB structure
-    foreach ($enbs as $plmn => $enbGroup) {
-
-        foreach ($enbGroup as $enbId => $entry) {
-
-            $tac = $entry['tac'];
-            $rat = $entry['rat'];
-
-            $latitude  = round($entry['latitude'], 5);
-            $longitude = round($entry['longitude'], 5);
-
-            $dasLink = "https://api.cellmapper.net/v6/overrideData?"
-                . "MCC=" . substr($plmn, 0, 3)
-                . "&MNC=" . substr($plmn, 3)
-                . "&Region=$tac&RAT=$rat&Site=$enbId"
-                . "&CellID=null&Latitude=null&Longitude=null"
-                . "&action=setAttribute&attribute=TOWER_TYPE&attribute_value=DAS";
-
-            $polyLink = "https://cmgm.us/poly?"
-                . "plmn=" . $plmn
-                . "&zoom=17"
-                . "&rat=" . $rat
-                . "&eNB=" . $enbId
-                . "&tac=" . $tac
-                . "&cellListDepri=-";
-
-            $enbLink = "https://www.cellmapper.net/map?"
-                . "MCC=" . substr($plmn, 0, 3)
-                . "&MNC=" . substr($plmn, 3)
-                . "&latitude=" . $entry['latitude']
-                . "&longitude=" . $entry['longitude']
-                . "&zoom=18&rat=$rat&ppT=$enbId&ppL=$tac";
-
-            $locationLink = "https://maps.google.com/maps?f=q&source=s_q&hl=en&q="
-                . $latitude . "," . $longitude;
-
-            // Write CSV row
-            $row = [
-                $plmn,
-                $rat,
-                $enbId,
-                $tac,
-                $latitude,
-                $longitude,
-                implode(' ', $entry['cells']),
-            ];
-
-            if (!isset($_GET['slim'])) {
-                $row[] = $polyLink;
-                $row[] = $dasLink;
-            }
-
-            fputcsv($output, $row, ',', '"', '\\');
-            }
+    header('Content-Disposition: attachment; filename="enbs.csv"');
+    $output = fopen('php://output', 'w');
+    
+    // Header
+    $csvHeader = ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells'];
+    if (!isset($_GET['slim'])) {
+        $csvHeader[] = 'Poly Link';
+        $csvHeader[] = 'DAS Link';
+    }
+    fputcsv($output, $csvHeader, ',', '"', '\\');
+    
+    // Rows
+    foreach ($validRows as $row) {
+        $csvData = [
+            $row['plmn'],
+            $row['rat'],
+            $row['enbId'],
+            $row['tac'],
+            $row['display_lat'],
+            $row['display_lon'],
+            trim($row['cells'])
+        ];
+        if (!isset($_GET['slim'])) {
+            $csvData[] = $row['polyLink'];
+            $csvData[] = $row['dasLink'];
+        }
+        fputcsv($output, $csvData, ',', '"', '\\');
     }
     fclose($output);
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include "../includes/functions/headhtml.php"; ?>
 <script>
- function copyToClipboard(text) {
+// Custom PLMN functionality
+document.addEventListener('change', (e) => {
+  if (e.target.id !== 'filterPlmn') return;
+
+  const select = e.target;
+
+  if (select.value !== '_custom_') return;
+
+  let plmn = prompt('Enter custom PLMN:');
+
+  if (!plmn) {
+    select.value = '';
+    return;
+  }
+
+  plmn = plmn.trim();
+
+  // Basic validation
+  if (!/^\d{6}$/.test(plmn)) {
+    alert('Invalid PLMN.');
+    select.value = '';
+    return;
+  }
+
+  // Check if option already exists
+  let option = Array.from(select.options).find(o => o.value === plmn);
+
+  if (!option) {
+    option = new Option(plmn, plmn, true, true);
+    select.insertBefore(option, select.querySelector('[value=""]'));
+  }
+
+  select.value = plmn;
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function () {
+        const latInput = document.querySelector('input[name="latitude"]');
+        const lngInput = document.querySelector('input[name="longitude"]');
+        if (!latInput || !lngInput) return;
+        const raw = latInput.value;
+        if (raw.includes(",")) {
+            const parts = raw.split(",").map(v => v.trim());
+            if (parts.length === 2) {
+                latInput.value = parts[0];
+                lngInput.value = parts[1];
+            }
+        }
+    });
+});
+function copyToClipboard(text) {
     var dummy = document.createElement("textarea");
-    // to avoid breaking orgain page when copying more words
-    // cant copy when adding below this code
-    // dummy.style.display = 'none'
     document.body.appendChild(dummy);
-    //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
     dummy.value = text;
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
 }
-// PRETTY INFO DISPLAY
-function getQueryVariable(variable)
-{
+function getQueryVariable(variable) {
        var query = window.location.search.substring(1);
        var vars = query.split("&");
        for (var i=0;i<vars.length;i++) {
@@ -389,47 +168,30 @@ function getQueryVariable(variable)
        }
        return(false);
 }
-
 function myFunction2() {
-var lat = getQueryVariable("latitude");
-var long = getQueryVariable("longitude");
-var latlong = lat + "," + long
-console.log(lat);
-console.log(long);
-console.log(latlong);
-copyToClipboard(latlong);
- }
+    var lat = getQueryVariable("latitude");
+    var long = getQueryVariable("longitude");
+    var latlong = lat + "," + long;
+    copyToClipboard(latlong);
+}
 </script>
 <meta charset="UTF-8">
 <title>CMGM - Mapper</title>
-
 </head>
 <body>
-<!-- FILTER FORM -->
 <div class="form">
-<form method="get">
-    <input type="text" name="plmn" placeholder="PLMN (e.g. 310410)" value="<?= @$plmnValue ?>">
-    <input type="text" name="date" placeholder="</> YYYY-MM-DD" value="<?= @$_GET['date'] ?>">
-    <input type="text" name="cells_allow" placeholder="Cells List Whitelist" value="<?= @$_GET['cells_allow'] ?>">
-    <input type="text" name="cells_block" placeholder="Cells List Blacklist" value="<?= @$_GET['cells_block'] ?>">
-    <input type="text" name="enb_allowList" placeholder="eNB Range Whitelist" value="<?= @$_GET['enb_allowList'] ?>">
-    <input type="text" name="enb_blockList" placeholder="eNB Range Blocklist" value="<?= @$_GET['enb_blockList'] ?>">
-    <input type="text" name="tacs_allow" placeholder="TACs List Whitelist" value="<?= @$_GET['tacs_allow'] ?>">
-    <input type="text" name="tacs_block" placeholder="TACs List Blacklist" value="<?= @$_GET['tacs_block'] ?>">
-	<select name="rat" id="rat">
-        <option value="" <?php if (empty($_GET['rat'])) echo 'selected';?>>LTE & NR</option>
-        <option value="LTE" <?php if (@$_GET['rat'] == "LTE") echo 'selected';?>>LTE</option>
-	<option value="NR" <?php if (@$_GET['rat'] == "NR") echo 'selected';?>>NR</option>
-    </select>
-    <input type="text" name="lat" placeholder="Latitude" value="<?= @$_GET['lat'] ?>">
-    <input type="text" name="lon" placeholder="Longitude" value="<?= @$_GET['lon'] ?>">
+<form method="get"> 
+    <?php include "includes/plmn-and-rat-selector.php";?>
+    <?php include "includes/advanced-selectors.php";?>
+    <input type="text" name="latitude" placeholder="Latitude" value="<?= @$_GET['latitude'] ?>">
+    <input type="text" name="longitude" placeholder="Longitude" value="<?= @$_GET['longitude'] ?>">
     <input type="number" step="0.1" name="radius" placeholder="Radius (miles)" value="<?= @$_GET['radius'] ?>">
+    <input type="number" step="1" name="limit" placeholder="Limit" value="<?= $limit ?>">
     <input class="poly-btn colorized" id="submitButton" type="submit" value="View">
     <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">View as CSV</button>
 </form>
 </div>
 
-<!-- TABLE -->
 <table>
 <thead>
 <tr>
@@ -440,80 +202,38 @@ copyToClipboard(latlong);
     <th>Cells</th>
     <th>Poly Link</th>
     <th>DAS Link</th>
-    <!-- <th>Current Type</th> -->
 </tr>
 </thead>
 <tbody>
 <?php
-// Load translation.json once at the top
-$plmnTranslations = json_decode(file_get_contents('translations.json'), true);
-$plmnMap = [];
-foreach ($plmnTranslations as $item) {
-    $plmnMap[$item['plmn']] = $item['name'];
-}
-
-// Now generate table rows
-foreach ($enbs as $plmnKey => $sites) {
-    foreach ($sites as $enbId => $entry) {
-        // plmn comes from JSON key now
-        $plmn = (string)$plmnKey;
-
-        $plmnName = $plmnMap[$plmn] ?? $plmn;
-
-        $latitude  = round($entry['latitude'], 5);
-        $longitude = round($entry['longitude'], 5);
-
-        $tac = $entry['tac'] ?? 0;
-        $rat = $entry['rat'] ?? "LTE";
-
-        $curr_type = !empty($entry['current_type']) ? $entry['current_type'] : "Unknown";
-
-        // Build URLs exactly like before
-        $dasLink = "https://api.cellmapper.net/v6/overrideData?"
-            . "MCC=" . substr($plmn, 0, 3)
-            . "&MNC=" . substr($plmn, 3)
-            . "&Region=$tac&RAT=$rat&Site=$enbId"
-            . "&CellID=null&Latitude=null&Longitude=null"
-            . "&action=setAttribute&attribute=TOWER_TYPE&attribute_value=DAS";
-
-        $enbLink = "https://www.cellmapper.net/map?"
-            . "MCC=" . substr($plmn, 0, 3)
-            . "&MNC=" . substr($plmn, 3)
-            . "&latitude=" . $entry['latitude']
-            . "&longitude=" . $entry['longitude']
-            . "&zoom=18&rat=$rat&ppT=$enbId&ppL=$tac";
-
-        $polyLink = "https://cmgm.us/poly?"
-            . "plmn=" . $plmn
-            . "&zoom=17"
-            . "&rat=" . $rat
-            . "&eNB=" . $enbId
-            . "&tac=" . $tac
-            . "&cellListDepri=-";
-
-        $locationLink = "https://maps.google.com/maps?f=q&source=s_q&hl=en&q="
-            . $latitude . "," . $longitude;
-
+if (count($validRows) > 0) {
+    foreach ($validRows as $row) {
         echo "<tr class=\"tr\">
-            <td title='$plmn'>$plmnName - $rat</td>
-            <td><a href='$enbLink' target='_blank'>$enbId</a></td>
-            <td>$tac</td>
-            <td><a onclick=\"copyToClipboard('$latitude,$longitude'); return false;\" 
-                   href='$locationLink' target='_blank'>$latitude,$longitude</a></td>
+            <td title='{$row['plmn']}'>" . htmlspecialchars($row['plmnName']) . " - {$row['rat']}</td>
+            <td><a href='{$row['enbLink']}' target='_blank'>{$row['enbId']}</a></td>
+            <td>{$row['tac']}</td>
+            <td><a onclick=\"copyToClipboard('{$row['display_lat']},{$row['display_lon']}'); return false;\" 
+                   href='{$row['locationLink']}' target='_blank'>{$row['display_lat']},{$row['display_lon']}</a></td>
             <td>";
         
-        echo implode(', ', array_map(function($c, $id) use ($plmn, $tac, $rat) {
-            $url = "https://cmgm.us/AppleSurro/?carrier=$plmn&cid=$id&tac=$tac&rat=$rat";
-            return "<a href='$url' title='$id' target='_blank' style='margin-right:2px;'>$c</a>";
-        }, $entry['cells'], $entry['cell_ids']));
+        $cellsString = trim($row['cells']);
+        if (!empty($cellsString)) {
+            $cellsArray = explode(' ', $cellsString);
+            $cellLinks = array_map(function($c) use ($row) {
+                $url = "https://cmgm.us/AppleSurro/?carrier={$row['plmn']}&cid=$c&tac={$row['tac']}&rat={$row['rat']}";
+                return "<a href='$url' title='$c' target='_blank' style='margin-right:2px;'>$c</a>";
+            }, $cellsArray);
+            echo implode(', ', $cellLinks);
+        }
 
         echo "</td>
-            <td><a href='$polyLink' target='_blank'>Poly Link</a></td>
-            <td><a href='$dasLink' target='_blank'>Set as DAS</a></td>
+            <td><a href='{$row['polyLink']}' target='_blank'>Poly Link</a></td>
+            <td><a href='{$row['dasLink']}' target='_blank'>Set as DAS</a></td>
         </tr>";
     }
+} else {
+    echo "<tr><td colspan='7'>No results found within the specified parameters.</td></tr>";
 }
-
 ?>
 </tbody>
 </table>

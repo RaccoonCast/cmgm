@@ -1,0 +1,21 @@
+input, select, button {
+  height: 40px; /* Set consistent height */
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 8px;
+}
+.checkbox-container {
+    display: inline;
+}
+#requestBatchSize {
+  width: 237px;
+}
+#filterPlmn {
+  width: 142px;
+}
+#filterRat {
+  width: 97px;
+}
+#iconSize {
+  width: 127px;
+}

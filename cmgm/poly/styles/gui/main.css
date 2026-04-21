@@ -90,3 +90,6 @@ a {
 a:hover {
     text-decoration: underline;
 }
+label {
+    display: none;
+}
