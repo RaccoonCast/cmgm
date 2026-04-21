@@ -63,22 +63,22 @@
 
      if ($isMobile =="true") { ?><br><?php } ?>
 
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_7" value="<?php echo @$LTE_7?>" placeholder="LTE_7" name="LTE_7">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_8" value="<?php echo @$LTE_8?>" placeholder="LTE_8" name="LTE_8">
-    <input type="number" class="lte_cw" inputmode="numeric" pattern="[0-9]*" id="LTE_9" value="<?php echo @$LTE_9?>" placeholder="LTE_9" name="LTE_9">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
-    <input type="number" class="nr_cw" inputmode="numeric" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="NR_3" name="NR_3">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_1" value="<?php echo @$LTE_1?>" placeholder="LTE_1" name="LTE_1">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_2" value="<?php echo @$LTE_2?>" placeholder="LTE_2" name="LTE_2">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_3" value="<?php echo @$LTE_3?>" placeholder="LTE_3" name="LTE_3">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_4" value="<?php echo @$LTE_4?>" placeholder="LTE_4" name="LTE_4">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_5" value="<?php echo @$LTE_5?>" placeholder="LTE_5" name="LTE_5">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_6" value="<?php echo @$LTE_6?>" placeholder="LTE_6" name="LTE_6">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_7" value="<?php echo @$LTE_7?>" placeholder="LTE_7" name="LTE_7">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_8" value="<?php echo @$LTE_8?>" placeholder="LTE_8" name="LTE_8">
+    <input type="number" class="lte_cw" inputmode="numeric" maxlength="9" pattern="[0-9]*" id="LTE_9" value="<?php echo @$LTE_9?>" placeholder="LTE_9" name="LTE_9">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_1" value="<?php echo @$NR_1?>" placeholder="NR_1" name="NR_1">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_2" value="<?php echo @$NR_2?>" placeholder="NR_2" name="NR_2">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_3" value="<?php echo @$NR_3?>" placeholder="NR_3" name="NR_3">
 
     <label class="pci_label" for="PCI_1">Region / PCIs</label><?php if ($isMobile =="true") { ?><br><?php } ?><input
-    type="number" class="region_cw" id="region_lte" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
-    type="number" class="region_cw" id="region_nr" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
+    type="number" class="region_cw" id="region_lte" maxlength="8" value="<?php echo @$region_lte?>" placeholder="REGION_LTE" name="region_lte"><input
+    type="number" class="region_cw" id="region_nr" maxlength="8" value="<?php echo @$region_nr?>" placeholder="REGION_NR" name="region_nr">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_1" value="<?php echo @$PCI_1?>" placeholder="PCI_1" name="PCI_1">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_2" value="<?php echo @$PCI_2?>" placeholder="PCI_2" name="PCI_2">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_3" value="<?php echo @$PCI_3?>" placeholder="PCI_3" name="PCI_3">
