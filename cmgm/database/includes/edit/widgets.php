@@ -14,11 +14,11 @@ $url_for_look_around = "https://lookmap.eu.pythonanywhere.com/#c=20/$latitude/$l
 if (!empty($latitude) && !empty($longitude)) $db_map_link = "Map.php?latitude=" . $latitude . "&longitude=" . $longitude . "&zoom=18&carrier=" . @$carrier;
 echo '<a class="widget widget_emote" title="View all info" href="Reader.php?id='.$id.'">🔍</a>';
 echo '<a class="widget widget_emote" title="Delete" href="Edit.php?id='.$id.'&delete=false&redirPage='.@$redirPage.'">🗑️</a>';
-if (isset($db_map_link)) echo '<a target="_blank" class="widget widget_em ote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
+// if (isset($db_map_link)) echo '<a target="_blank" class="widget widget_em ote" title="View on Database Map" href="' . $db_map_link . '">🌎</a>';
 echo '<a class="widget widget_emote" target="_blank" title="AntennaSearch" href="https://www.antennasearch.com/HTML/search/search.php?address=' . $latitude . ',' . $longitude . '">📡</a>';
 echo '<a class="widget widget_emote" target="_blank" title="Poly Map" href="https://cmgm.us/poly/map.php?latitude='.$latitude.'&longitude='.$longitude.'&zoom=16&plmn='.$plmn.'&rat=LTE">🔷</a>';
 echo '<a class="widget widget_emote" target="_blank" title="Poly eNB Map" href="https://cmgm.us/poly/enbMap.php?latitude='.$latitude.'&longitude='.$longitude.'&zoom=15&plmn='.$plmn.'&rat=LTE">🗺️</a>';
-echo '<a class="widget widget_emote" target="_blank" title="Maprad" href="'.$url_for_maprad.'">🌐</a>';
+// echo '<a class="widget widget_emote" target="_blank" title="Maprad" href="'.$url_for_maprad.'">🌐</a>';
 echo '<a title="Apple Look Around" target="_blank" class="widget widget_emote" href="'.$url_for_look_around.'">🚘</a>';
 echo '<a title="Copy CMGM URL" class="widget widget_emote" onclick="copyToClipboard('.$url_for_cmgm.')" href="javascript:;">📋</a>';
 if (basename($_SERVER['SCRIPT_NAME']) == "Edit.php") {
