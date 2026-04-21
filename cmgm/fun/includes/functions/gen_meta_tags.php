@@ -67,7 +67,7 @@ foreach ($_GET as $key => $value) {
                 break;
             // Format hour-stamp
             case 'time':
-                $formatted_hour = date('g A', strtotime("$hour:00:00"));
+                $formatted_hour = date('g A', strtotime($_GET['time'] . ":00:00"));
                 array_push($filters, $formatted_hour);
                 break;
             default:
