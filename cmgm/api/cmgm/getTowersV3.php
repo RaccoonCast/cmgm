@@ -19,7 +19,7 @@ if (isset($_GET['max_distance'])) $max_distance = preg_replace('/[^0-9]/', '', $
 
 foreach($_GET as $key => $value){
   if ($key == "latitude" OR $key == "longitude" OR $key == "limit" OR $key == "properties" OR $key == "max_distance") {
-    ${$key} = preg_replace('/[^a-z0-9_\-.,]/', '', $value);;
+    ${$key} = preg_replace('/[^a-z0-9_\-.,]/', '', $value);
   } else {
     // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
       $db_get_list = $db_get_list . "," . $key;
