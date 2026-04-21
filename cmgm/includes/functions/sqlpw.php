@@ -16,7 +16,15 @@ $http = isset($isSecure) ? "https://" : "http://";
 $domain_with_http = $http . $domain; //. $port
 
 // SQL Database login info
+$isLocal = in_array($_SERVER['HTTP_HOST'], [
+    'localhost',
+    '127.0.0.1',
+    'local.cmgm.us',
+    'alpha.cmgm.us'
+]);
 $servername = "127.0.0.1";
+if ($isLocal) $servername = "15.204.87.244";
+
 $db_username = 'cmgm';
 $siteroot = $_SERVER['DOCUMENT_ROOT'];
 
