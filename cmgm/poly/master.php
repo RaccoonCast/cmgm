@@ -40,6 +40,9 @@ function logWarning($warnText)
 // If using DB TAC, the tac will be located here (keyed by normal key, with dbTac as tertiary parameter)
 $dbTacValues = [];
 
+// Initialize Surro Client (already in-memory, this is just a pointer)
+$client = new SurroClient();
+
 // Process each group in $formData
 foreach ($formData as $index => $data) {
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
@@ -103,7 +106,7 @@ foreach ($formData as $index => $data) {
 
     // Reformat associative array to be keyed by cell ID
     $dbDump_dataMap = [];
-    if ($arrayResults != null) {
+    if (isset($arrayResults) && $arrayResults != null) {
         foreach ($arrayResults as $_unused_index => $arrayRow) {
             $dbDump_dataMap[$arrayRow['cell_id']] = $arrayRow;
         }
@@ -126,6 +129,9 @@ foreach ($formData as $index => $data) {
                     // Otherwise, get cache data as expected
                     $cacheProvider = $tmpDb['provider_source'];
                     $dateOfInfo = $tmpDb['date_of_info'];
+                    $reach = isset($tmpDb['reach']) ? (int) $tmpDb['reach'] : null;
+                    $score = isset($tmpDb['score']) ? (int) $tmpDb['score'] : null;
+                    $is_exact_location = isset($tmpDb['is_exact_location']) ? (bool)$tmpDb['is_exact_location'] : null;
 
                     // Convert remaining items to float
                     $tmpDb = array_map('floatval', $tmpDb);
@@ -137,6 +143,10 @@ foreach ($formData as $index => $data) {
                         'lat' => $tmpDb['latitude'],
                         'lng' => $tmpDb['longitude'],
                         'accuracyMiles' => $tmpDb['accuracyMiles'],
+                        // Optional parameters
+                        'reach' => $reach,
+                        'score' => $score,
+                        'is_exact_location' => $is_exact_location,
                     ];
                     if ($tmpDb['tac'] > 0) {
                          $responses[$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
@@ -158,7 +168,7 @@ foreach ($formData as $index => $data) {
 
         // Build curl handle for Apple, if compatible
         if (isset($tac)) {
-            $appleHandle = genAppleHandle($plmn, $cellId, $tac, $rat);
+            $appleHandle = genAppleSurroRequest($plmn, $cellId, $tac, $rat);
             $curlHandles_appl["$index-$eNB-$cellNumber-primary"] = $appleHandle;
 
             // Generate secondary Apple handle for other TAC
@@ -169,7 +179,7 @@ foreach ($formData as $index => $data) {
                 $key = "$index-$eNB-$cellNumber-dbTac";
                 $dbTacValues[$key] = $existingTac;
 
-                $appleHandle = genAppleHandle($plmn, $cellId, $existingTac, $rat);
+                $appleHandle = genAppleSurroRequest($plmn, $cellId, $existingTac, $rat);
                 $curlHandles_appl[$key] = $appleHandle;
             }
         } else {
@@ -187,53 +197,40 @@ foreach ($formData as $index => $data) {
 }
 
 // Check that any valid requests were created
-if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
+if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
 
     // Setup eNB blacklist in case needed
     $eNB_blacklist = [];
 
     // Complete all apple requests
-    $apple_multiCurl = curl_multi_init();
-    // Add handles to list
-    foreach ($curlHandles_appl as $key => $handler) {
-        curl_multi_add_handle($apple_multiCurl, $handler);
-    }
+    $apple_batch_request = [];
 
-    // Execute all Apple lookups
-    do {
-        $status = curl_multi_exec($apple_multiCurl, $active);
-        curl_multi_select($apple_multiCurl);
-    } while ($active && $status == CURLM_OK);
+    // Get all results in batch
+    $apple_results = $client->getSurroundingCellsBatch(array_values($curlHandles_appl));
 
     // Iterate through Apple responses
-    foreach ($curlHandles_appl as $key => $handle) {
-        // Check for potential cURL error
-        if (curl_errno($handle)) {
-            $error_msg = curl_error($handle);
-            logWarning('Surro API returned an error:' . $error_msg);
+    foreach ($apple_results as $index => $value) {
+        if ($value === null || empty($value)) {
             continue;
         }
 
+        // First tower in the response is the one we're looking for
+        $response = $value[0];
+
         // Get response
-        $response = curl_multi_getcontent($handle);
+        // Key is the name of the item in $curlHandles_appl at current index
+        $key = array_keys($curlHandles_appl)[$index];
         [$index, $eNB, $cellNumber, $tacType] = explode('-', $key);
 
         // Regular key, no tac added (for other providers)
         $noTacKey = "$index-$eNB-$cellNumber";
 
-        $jsonResponse = json_decode($response, true);
-
-        // Check if Surro wrapper API returned nothing
-        if (isset($jsonResponse['error']) || empty($jsonResponse)) {
-            logWarning('Surro returned no response for ' . $cellNumber . ' on ' . $key);
-            continue;
-        }
-
         // If there's a secondary handler (for DB tac), remove that
         $dbTacKey = "{$index}-{$eNB}-{$cellNumber}-dbTac";
         if (!$tacType == "dbTac" && isset($curlHandles_appl[$dbTacKey])) {
+            // NOTE: We don't want to do this anymore (with Apple requests), since they are all sent at once at the beginning
             // logWarning("Removing db tac from consideration");
-            unset($curlHandles_appl[$dbTacKey]);
+            // unset($curlHandles_appl[$dbTacKey]);
         }
 
         // Response is clean, so we should remove from the Google handler
@@ -272,12 +269,15 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
 
         // Calculate other information
-        $lat = $jsonResponse['location']['lat'];
-        $lng = $jsonResponse['location']['lng'];
-        $accuracyMiles = round(((int)$jsonResponse['accuracy']) / 1609, 8);
+        $lat = $response->latitude;
+        $lng = $response->longitude;
+        $accuracyMiles = round(((int)$response->accuracy) / 1609, 8);
 
-        $is_exact_location = $jsonResponse['isExactLocation'];
-        $confidence_score = (int) $jsonResponse['confidenceScore'];
+        $location_data = $response->getLocation();
+
+        $is_exact_location = $location_data->locationType == 1;
+        $reach = $location_data->reach ?? 0;
+        $score = $location_data->score ?? 0;
         
 
         // Generate date of successful request
@@ -291,7 +291,8 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
             'date' => $reqDate,
             'lat' => $lat,
             'lng' => $lng,
-            'confidence_score' => $confidence_score,
+            'reach' => $reach,
+            'score' => $score,
             'is_exact_location' => $is_exact_location,
             'accuracyMiles' => $accuracyMiles,
         ];
@@ -299,9 +300,9 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         $is_exact_location_sql_bit = $is_exact_location ? 1 : 0;
 
         // Update database
-        $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, confidence_score, is_exact_location, accuracyMiles, provider_source, date_of_info, coords)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', $lat, $lng, $confidence_score, $is_exact_location_sql_bit, '$accuracyMiles', 'Surro', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
-                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = $lat, longitude = $lng, confidence_score = $confidence_score, is_exact_location = $is_exact_location_sql_bit, accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
+        $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, tac, rat, latitude, longitude, reach, score, is_exact_location, accuracyMiles, provider_source, date_of_info, coords)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$tac', '$rat', $lat, $lng, $reach, $score, $is_exact_location_sql_bit, '$accuracyMiles', 'Surro', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
+                      ON DUPLICATE KEY UPDATE tac = '$tac', latitude = $lat, longitude = $lng, reach = $reach, score = $score, is_exact_location = $is_exact_location_sql_bit, accuracyMiles = '$accuracyMiles', provider_source = 'Surro', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
         $conn->query($sqlInsert);
     }
 
@@ -356,11 +357,10 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                     'accuracyMiles' => $accuracyMiles,
                 ];
 
-                // Add to DB
                 // Update database
-                $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, provider_source, date_of_info, coords)
-                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', $lat, $lng, '$accuracyMiles', 'Google', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
-                      ON DUPLICATE KEY UPDATE latitude = $lat, longitude = $lng, accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
+                $sqlInsert = "INSERT INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, reach, score, accuracyMiles, provider_source, date_of_info, coords)
+                      VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', $lat, $lng, NULL, NULL, '$accuracyMiles', 'Google', '$reqDate', ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326))
+                      ON DUPLICATE KEY UPDATE latitude = $lat, longitude = $lng, reach = NULL, score = NULL, accuracyMiles = '$accuracyMiles', provider_source = 'Google', date_of_info = '$reqDate', coords = ST_SRID(POINT(COALESCE($lng, 0.0), COALESCE($lat, 0.0)), 4326)";
                 $conn->query($sqlInsert);
 
                 // Update UserID DB to +1 gmaps api utilization
@@ -370,9 +370,8 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
                 $reqDate = date('Y-m-d H:i:s');
 
                 // tell database that it was not found
-                // tell database that it was not found
-                $sqlInsert = "INSERT IGNORE INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, accuracyMiles, date_of_info, coords) 
-	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', 0.0, 0.0, NULL, '$reqDate', ST_SRID(POINT(0.0, 0.0), 4326))";
+                $sqlInsert = "INSERT IGNORE INTO local_poly_beta (plmn, cell, cell_id, enb, rat, latitude, longitude, reach, score, accuracyMiles, date_of_info, coords) 
+	         	VALUES ('$plmn', '$cellNumber', '$cellGid', '$eNB', '$rat', 0.0, 0.0, NULL, NULL, NULL, '$reqDate', ST_SRID(POINT(0.0, 0.0), 4326))";
                 $conn->query($sqlInsert);
             }
         }
@@ -380,9 +379,6 @@ if (isset($curlHandles_goog) || isset($curlHandles_appl)) {
         // Close leftover cURL instances to Google
         curl_multi_close($google_multiCurl);
     }
-
-    // Close leftover cURL instances to Surro
-    curl_multi_close($apple_multiCurl);
 }
 
 if (empty($responses)) {

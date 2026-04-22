@@ -3,7 +3,7 @@
  * @param {*} data
  * @returns
  */
-function formatCellInfo(data) {
+function formatCellInfo(data, useFullCellId = false) {
   const eNBs = Object.keys(data);
   const multipleENBs = eNBs.length > 1;
   const result = [];
@@ -14,13 +14,19 @@ function formatCellInfo(data) {
       const provider = cells[cellId].provider;
       const providerClean = provider.replaceAll('Cache - ', '')
       const providerIsCached = (providerClean !== provider)
+      const providerIsExactLocation = cells[cellId].is_exact_location === true;
+
+      let gcid = cells[cellId].cellId;
+      const reach = cells[cellId].reach ?? 'N/A';
+      const score = cells[cellId].score ?? 'N/A';
 
       const date = new Date(cells[cellId].date)?.toLocaleString() ?? '';
       const tacLabel = cells[cellId]?.tac ? ` (TAC ${cells[cellId].tac})` : ''
       const providerCachedSymbol = providerIsCached ? '<span style="vertical-align: super; font-size: small;">*</span>' : '';
+      const providerExactLocationSymbol = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : '';
       const label = multipleENBs
-        ? `<li title="${date}">${eNB}-${cellId}: ${providerClean}${tacLabel}${providerCachedSymbol}</li>`
-        : `<li title="${date}">Cell ${cellId}: ${providerClean}${tacLabel}${providerCachedSymbol}</li>`;
+        ? `<li title="${date} | Reach: ${reach} | Score: ${score}"><span class="cell-label">${eNB}</span>-${useFullCellId ? gcid : cellId}: ${providerClean}${providerExactLocationSymbol}${tacLabel}${providerCachedSymbol}</li>`
+        : `<li title="${date} | Reach: ${reach} | Score: ${score}"><span class="cell-label">Cell</span> ${useFullCellId ? gcid : cellId}: ${providerClean}${providerExactLocationSymbol}${tacLabel}${providerCachedSymbol}</li>`;
       result.push(label);
     }
   }
@@ -28,7 +34,9 @@ function formatCellInfo(data) {
   return result;
 }
 
-async function addInfoData(iframe, returnData, requestedByJs) {
+let currentData;
+
+async function addInfoData(iframe, returnData, redraw = false) {
   if (window.latestData) {
     returnData = window.latestData;
     console.log("Newer data found, using that instead!");
@@ -39,11 +47,14 @@ async function addInfoData(iframe, returnData, requestedByJs) {
     return;
   }
 
+  // Do not use full cell ID by default, but allow changing it later
+  let useFullCellId = false;
+
   // Get response and parse from base64
   const data = JSON.parse(atob(returnData));
 
   // Parse response into format for popup
-  const infoData = formatCellInfo(data);
+  const infoData = formatCellInfo(data, useFullCellId);
 
   let content = iframe.contentDocument.querySelector(
     "#polyInfoButton_content"
@@ -83,7 +94,21 @@ async function addInfoData(iframe, returnData, requestedByJs) {
   // Close popup when map is clicked elsewhere
   iframe.contentDocument.addEventListener("click", (e) => {
     if (!button.contains(e.target) && !content.contains(e.target)) {
-      content.classList.remove("show");
+      // content.classList.remove("show");
     }
   });
+
+  // When clicking inside the popup, change Sector ID to Cell ID (and vice versa)
+  content.addEventListener("click", (e) => {
+    if (!data || !e.target.classList.contains('cell-label')) {
+      return;
+    }
+
+    // Toggle UFCID
+    useFullCellId = !useFullCellId;
+    
+    const infoData = formatCellInfo(data, useFullCellId);
+    content.innerHTML = `<ul>${infoData.join("")}</ul>`;
+  });
+
 }

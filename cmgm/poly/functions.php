@@ -81,7 +81,7 @@ function getMultipleFromDb($conn, $cellIdList, $plmn, $rat) {
 	$cellIdListStr = implode(', ', $cellIdList);
 
 	// Query to retrieve the data
-	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac
+	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
               FROM cmgm.local_poly_beta
               WHERE cell_id IN ($cellIdListStr)
               AND plmn = $plmn AND rat = '$rat'";
@@ -116,35 +116,22 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
 }
 
 /**
- * Generate a cURL handle for Apple Surro API
+ * Generate a SurroundingCellsRequest handle for the Surro API
  * @param mixed $carrier
  * @param mixed $cellId
  * @param mixed $tac
- * @return CurlHandle
+ * @param mixed $rat
+ * @return PhpSurroundingCellsRequest
  */
-function genAppleHandle($carrier, $cellId, $tac, $rat): CurlHandle {
-	
-	// Generate payload for Apple
-	$requestPayload = [
-		"cellTowers" => [
-			[
-				"locationAreaCode" => $tac,
-				"cellId" => $cellId,
-				"mobileCountryCode" => substr($carrier, 0, 3),
-				"mobileNetworkCode" => substr($carrier, 3, 3),
-				"rat" => $rat
-			]
-		],
-	];
-	
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://localhost:1234/geolocate');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestPayload));
-	curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+function genAppleSurroRequest($carrier, $cellId, $tac, $rat) {
+	$mcc = (int) substr($carrier, 0, 3);
+	$mnc = (int) substr($carrier, 3, 3);
+	$tac = (int) $tac;
+	$cellId = (int) $cellId;
 
-	return $ch;
+	$req = new PhpSurroundingCellsRequest($mcc, $mnc, $cellId, $tac, $rat, 1);
+
+	return $req;
 }
 
 /**
