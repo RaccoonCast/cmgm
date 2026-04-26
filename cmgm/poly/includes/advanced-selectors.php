@@ -19,13 +19,16 @@
 <?php if (basename($_SERVER['SCRIPT_FILENAME']) !== 'gui.php') { ?>
 <div class="checkbox-container">
     <label class="checkbox-group">
-        <input type="checkbox" id="labels" <?php echo $labels; ?>> Labels
+        <input type="checkbox" id="labels" <?php echo $labels; ?>> Show Labels
+    </label>
+    <label id="forceLabelVisibilityArea" class="checkbox-group">
+        <input type="checkbox" id="forceLabelVisibility" <?php echo $forceLabelVisibility; ?>> Always show  labels
+    </label>
+    <label id="dontUnloadCheckboxArea" class="checkbox-group">
+        <input type="checkbox" id="dontUnload" <?php echo $unload; ?>> Disable Unload
     </label>
     <label class="checkbox-group">
-        <input type="checkbox" id="dontUnload" <?php echo $unload; ?>> No Unload
-    </label>
-    <label class="checkbox-group">
-        <input type="checkbox" id="perfectSurroOnly" <?php echo $perfectSurroOnly; ?>> Perfect Surro Only
+        <input type="checkbox" id="perfectSurroOnly" <?php echo $perfectSurroOnly; ?>> Exact Location Only
     </label>
 </div>
 <?php } ?>

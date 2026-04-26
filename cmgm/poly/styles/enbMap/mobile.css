@@ -1,14 +1,22 @@
 #filterPlmn {
-  width: 35%;
+  width: 33%;
 }
 #filterRat {
-  width: 25%;
+  width: 24%;
 }
-#requestBatchSize {
-  width: 40%;
-}
+
 #iconSize {
-  width: 35%;
+  width: 33%;
+}
+#hamburger-menu {
+  width: 10%;
+}
+/* "Disable" some performance impacting settings on mobile */
+#requestBatchSize {
+  display: none;
+}
+#dontUnloadCheckboxArea {
+  display: none;
 }
 /* The shared black background for both checkboxes */
 .checkbox-container {
@@ -18,6 +26,7 @@
     flex-grow: 1;         /* Fills the remaining space in the row */
     padding-left: 15px;   /* Internal room to the left of the first box */
     gap: 20px;            /* Space between the "Labels" group and "No Unload" group */
+    /* justify-content: unset!important; */
 }
 
 /* Individual checkbox + text styling */
@@ -42,4 +51,22 @@ input, select, button {
   height: 40px; /* Set consistent height */
   padding: 0px;
   margin: 0px;
+}
+.adv-filter-textbox {
+  width: 50%;
+  padding-right: 0px;
+}
+label {
+  display: none;
+}
+
+#hamburger-area {
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+}
+.adv-filter-textbox::placeholder {
+  font-size: 0.88em;
 }

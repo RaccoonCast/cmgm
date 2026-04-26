@@ -8,7 +8,7 @@ input, select, button {
     display: inline;
 }
 #requestBatchSize {
-  width: 237px;
+  width: 190px;
 }
 #filterPlmn {
   width: 142px;
@@ -18,4 +18,15 @@ input, select, button {
 }
 #iconSize {
   width: 127px;
+}
+.adv-filter-textbox {
+  width: 265px;
+  margin-bottom: 8px;
+}
+#hamburger-menu {
+    width: 40px;
+    height: 40px;
+}
+#hamburger-area {
+    margin-top: 12px;
 }

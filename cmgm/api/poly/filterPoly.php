@@ -15,12 +15,7 @@ include "get_param.php";
 $tableName = $useAggregateTable ? 'local_poly_enbs' : 'local_poly_beta';
 
 $keys = $useAggregateTable ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
-$keys .= $locationType == 1 ? ",latitude AS latitude,longitude AS longitude" : ",latitude_advanced AS latitude,longitude_advanced AS longitude";
-
-// Filter 0: Remove eNBs without a location
-if (is_null($boundsNELat) && is_null($boundsNELon) && is_null($boundsSWLat) && is_null($boundsSWLon)) {
-$whereFilters = " latitude <> 0.0 AND longitude <> 0.0 ";
-}
+$keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
 
 // Filter 1: Location (latitude & longitude)
 if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon) && $limit !== 0) {
@@ -35,9 +30,6 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     // 2. The Auto-Trigger Logic
     // Trigger if the box is larger than +/- 1.75 from the center (a total span of 3.5)
     if (($latDiff > 4.0 || $lonDiff > 4.0)) {
-        echo $limit;
-        die();
-
         // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.75 from the center
         $microNELat = min($boundsNELat, $centerLat + 2.0);
         $microNELon = min($boundsNELon, $centerLon + 2.0);
@@ -63,7 +55,7 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     )))";
 
     $locationFilter = ", $distanceExpr AS calculated_distance ";
-    $orderBy = "ORDER BY calculated_distance";
+    $orderBy = "ORDER BY calculated_distance ";
 }
 
 // Filter 2: Date Filtering
@@ -102,12 +94,24 @@ foreach ($dateKeys as $key) {
 
 // Filter 3: PLMN
 if (!is_null($plmn)) {
-    if (strpos($plmn, ',') !== false) {
-        $plmnArray = array_filter(array_map(fn($v) => "'" . preg_replace('/[^0-9]/', '', trim($v)) . "'", explode(',', $plmn)));
-        if (!empty($plmnArray)) $db_vars .= "AND plmn IN (" . implode(',', $plmnArray) . ") ";
-    } else {
-        $whereFilters .= "AND plmn = $plmn ";
+    $include = $exclude = [];
+
+    foreach (explode(',', $plmn) as $plmnValue) {
+        $plmnValue = trim($plmnValue);
+        if ($plmnValue === '') continue;
+
+        $num = intval(preg_replace('/\D/', '', $plmnValue));
+        if (!$num) continue;
+
+        if (str_starts_with($plmnValue, '!')) {
+            $exclude[] = $num;
+        } else {
+            $include[] = $num;
+        }
     }
+
+    if ($include) $whereFilters .= "AND plmn IN (" . implode(',', $include) . ") ";
+    if ($exclude) $whereFilters .= "AND plmn NOT IN (" . implode(',', $exclude) . ") ";
 }
 
 // Filter 4: Rat
@@ -178,15 +182,37 @@ if (!empty($enbConditions)) {
 // Filter 8: Cell filtering (space-separated string column)
 
 // Allowlist (must match at least one)
-if (!is_null($cellsAllowList)) {
-    $list = str_replace(' ', ',', $cellsAllowList);
-    $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+// Allowlist (must match at least one)
+// Allowlist (must match at least one)
+if (!is_null($cellsAllowList) && $useAggregateTable) {
+    // Adding ?? '' ensures str_replace never receives null
+    $list = str_replace(' ', ',', $cellsAllowList ?? ''); 
+    
+    if (!empty($list)) {
+        $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+    }
+} elseif (isset($cellsAllowList) && is_null($cellsAllowList)) {
+    $cells = array_map('intval', explode(',', $cellsAllowList));
+    if (!empty($cells)) {
+        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+        $whereFilters .= ' AND (' . implode(' OR ', $conditions) . ') ';
+    }
 }
 
 // Blocklist (must match none)
-if (!is_null($cellsBlockList)) {
-    $list = str_replace(' ', ',', $cellsBlockList);
-    $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+if (!is_null($cellsBlockList) && $useAggregateTable) {
+    // Adding ?? '' ensures str_replace never receives null
+    $list = str_replace(' ', ',', $cellsBlockList ?? '');
+    
+    if (!empty($list)) {
+        $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+    }
+} elseif (!is_null($cellsBlockList)) {
+    $cells = array_map('intval', explode(',', $cellsBlockList));
+    if (!empty($cells)) {
+        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+        $whereFilters .= ' AND NOT (' . implode(' OR ', $conditions) . ') ';
+    }
 }
 
 // Filter 9: Perfect Surro Only)
@@ -202,6 +228,45 @@ if (!is_null($limit) && $limit > 0) {
 // Filter 99: Build it
 $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFilters$orderBy$limitClause";
 
+if (!$useAggregateTable) {
+    // 1. Prepare the Base WHERE clause (for the CTE - no prefix needed here)
+    $baseWhere = "WHERE 1=1 $whereFilters";
+
+    // 2. Prefix the keys to avoid the "ambiguous" error in SELECT
+    $prefixedKeys = implode(', ', array_map(fn($k) => "main." . trim($k), explode(',', $keys)));
+
+    // 3. Create a prefixed version of filters for the main query SELECT block
+    // This adds 'main.' to the common columns to prevent the ambiguity error
+    $mainWhereFilters = str_replace(
+        ['plmn', 'enb', 'cell', 'RAT', 'tac', 'pci'], 
+        ['main.plmn', 'main.enb', 'main.cell', 'main.RAT', 'main.tac', 'main.pci'], 
+        $whereFilters
+    );
+
+    // 4. Build the query
+    $sql_query = "
+    WITH selected_enbs AS (
+        SELECT DISTINCT plmn, enb 
+        FROM $tableName 
+        $baseWhere
+        $limitClause
+    )
+    SELECT $prefixedKeys $locationFilter 
+    FROM $tableName main
+    JOIN selected_enbs se ON main.enb = se.enb AND main.plmn = se.plmn
+    WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
+    $mainWhereFilters
+    ";
+
+    // 5. Performance: Rough Bounding Box
+    if (!is_null($centerLat) && !is_null($centerLon)) {
+        $roughLimit = 1.5; 
+        $sql_query .= " AND main.latitude BETWEEN " . ($centerLat - $roughLimit) . " AND " . ($centerLat + $roughLimit);
+        $sql_query .= " AND main.longitude BETWEEN " . ($centerLon - $roughLimit) . " AND " . ($centerLon + $roughLimit);
+    }
+}
+
+
 // The return
-if ($showsql) error("$sql_query");
+if ($showsql) error("SQL Query:", "$sql_query");
 ?>

@@ -118,7 +118,7 @@ document.addEventListener('change', (e) => {
   plmn = plmn.trim();
 
   // Basic validation
-  if (!/^\d{6}$/.test(plmn)) {
+  if (!/^\d{6}(,\d{6})*$/.test(plmn)) {
     alert('Invalid PLMN.');
     select.value = '';
     return;

@@ -45,7 +45,7 @@ function is_custom($val, $options) {
 ?>
 <div class="header">
     <div class="formsContainerContainer">
-        <div id="formsContainer">
+        <div id="formsContainer">   
         <?php include "includes/plmn-and-rat-selector.php"; ?>
 
         <!-- Batch size -->
@@ -55,7 +55,7 @@ function is_custom($val, $options) {
           </option>
           <?php if ($limit == 0) { ?>
           <option style="display:none" value="0" selected>
-            Batch size: Unlimited (Slow)
+            Batch size: Unlimited
           </option> <?php } ?>
           <!-- Preset number options -->
           <option value="50">50</option>
@@ -90,7 +90,7 @@ function is_custom($val, $options) {
           <option value="" disabled>--</option>
           <option value="_custom_">Custom...</option>
         </select>
-        <button id="hamburger-menu">≡</button>
+        <button class="poly-btn" id="hamburger-menu">▼</button>
         <div id="hamburger-area" hidden>
             <?php include "includes/advanced-selectors.php"; ?>
         </div>
@@ -110,17 +110,21 @@ function is_custom($val, $options) {
 
       button.addEventListener('click', () => {
         area.hidden = !area.hidden;
+
+        // Update button icon based on hidden state
+        button.textContent = area.hidden ? '▼' : '▲';
       });
     });
 
-    // something gemini said is needed for ios
+        // something gemini said is needed for ios
     document.addEventListener("touchstart", function() {}, true);
     // Manage form
     const plmn = document.getElementById('filterPlmn');
     const rat = document.getElementById('filterRat');
     const requestBatchSize = document.getElementById('requestBatchSize');
-    const size = document.getElementById('iconSize');
+    const iconSize = document.getElementById('iconSize');
     const labels = document.getElementById('labels');
+    const forceLabelVisibility = document.getElementById('forceLabelVisibility');
     const unload = document.getElementById('dontUnload');
     const oldest_date = document.getElementById('oldest_date');
     const newest_date = document.getElementById('newest_date');
@@ -149,7 +153,7 @@ function is_custom($val, $options) {
 
         // Special case: unlimited flag
         if (el.id === 'requestBatchSize' && el.value === '0') {
-            labelOption.text = 'Batch size: Unlimited (Slow)';
+            labelOption.text = 'Batch size: Unlimited';
             labelOption.value = el.value;
             el.selectedIndex = 0;
             return;
@@ -177,10 +181,11 @@ function is_custom($val, $options) {
     const urlParams = new URLSearchParams(window.location.search);
     labels.checked = urlParams.get('labels') !== 'false';
     unload.checked = urlParams.has('dontUnload');
+    forceLabelVisibility.checked = urlParams.has('forceLabelVisibility');
 
     // Apply initial prefixes
     updateSelectLabel(requestBatchSize);
-    updateSelectLabel(size);
+    updateSelectLabel(iconSize);
 
     // Elements that require a full map reset/clear
     const resetTriggers = [
@@ -190,7 +195,7 @@ function is_custom($val, $options) {
     ];
 
     // Elements that update UI or visuals without clearing data
-    const visualTriggers = [iconSize, size, labels, requestBatchSize, unload];
+    const visualTriggers = [iconSize, labels, requestBatchSize, unload, forceLabelVisibility];
 
     [...resetTriggers, ...visualTriggers].forEach(el => {
         el.addEventListener('change', () => {
@@ -211,8 +216,8 @@ function is_custom($val, $options) {
                 updateSelectLabel(el);
             }
 
-            // 3. Update Marker Dimensions (Size/IconSize)
-            if (el === size || el === iconSize) {
+            // 3. Update Marker Dimensions (IconSize)
+            if (el === iconSize) {
                 const newSize = parseFloat(el.value);
                 Object.values(markerMap).forEach(marker => {
                     if (typeof marker.setRadius === 'function') {
@@ -225,9 +230,15 @@ function is_custom($val, $options) {
             if (resetTriggers.includes(el)) {
                 clearAllMarkers();
             }
-
+            
             // 5. Trigger Data Update/Fetch
-            updateData(); 
+            if (el.id === 'labels') {
+                updateLabelsOnly();   // no network, no fetch, no marker rebuild
+            } else if (visualTriggers.includes(el)) {
+                updateData(false);    // no fetch, just UI refresh
+            } else {
+                updateData(true);     // full refresh
+            }
         });
     });
 
@@ -269,7 +280,7 @@ function is_custom($val, $options) {
     setOrDeleteParam('plmn', plmn.value);
     setOrDeleteParam('rat', rat.value);
     setOrDeleteParam('limit', requestBatchSize.value);
-    setOrDeleteParam('iconSize', size.value);
+    setOrDeleteParam('iconSize', iconSize.value);
     setOrDeleteParam('oldest_date', oldest_date.value);
     setOrDeleteParam('newest_date', newest_date.value);
     setOrDeleteParam('cellsAllowList', cellsAllowList.value);
@@ -283,6 +294,12 @@ function is_custom($val, $options) {
         urlParams.set('labels', 'true');
     } else {
         urlParams.set('labels', 'false'); 
+    }
+
+    if (forceLabelVisibility.checked) {
+        urlParams.set('forceLabelVisibility', 'true');
+    } else {
+        urlParams.delete('forceLabelVisibility');
     }
 
     if (unload.checked) {
@@ -303,90 +320,130 @@ function is_custom($val, $options) {
         `${window.location.pathname}?${urlParams.toString()}`
     );
 }
-
-async function updateData() {
-        updateUrl();
+    function updateLabelsOnly() {
+        const allVisibleMarkers = Object.values(markerMap);
         const center = map.getCenter();
-        const bounds = map.getBounds();
-        const neLat = bounds.getNorthEast().lat;
-        const neLng = bounds.getNorthEast().lng;
-        const swLat = bounds.getSouthWest().lat;
-        const swLng = bounds.getSouthWest().lng;
-        const zoom = map.getZoom();
-        const requestId = ++currentRequestId;
+  
+        // Sort markers so those closest to the center get priority for labels
+        allVisibleMarkers.sort((a, b) =>
+            map.distance(center, a.getLatLng()) - map.distance(center, b.getLatLng())
+        );
 
-        // Long ass URL..
-        const apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${neLat}&boundsNELongitude=${neLng}&boundsSWLatitude=${swLat}&boundsSWLongitude=${swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}&locationType=2`;
+        allVisibleMarkers.forEach((m, index) => {
+            // Logic: Show labels only if zoomed in, within the first 250 closest markers, and enabled by user
+            const shouldBePermanent = ((map.getZoom() > 10 && index < 250 && labels.checked) || forceLabelVisibility.checked);
+
+            const tooltip = m.getTooltip();
+            if (!tooltip) return;
+
+            // Only update if the state has changed to avoid performance hits
+            if (tooltip.options.permanent !== shouldBePermanent) {
+                const content = tooltip.getContent();
+
+                m.unbindTooltip().bindTooltip(content, {
+                    permanent: shouldBePermanent,
+                    direction: 'bottom',
+                    className: 'tower-label',
+                    offset: [0, 12],
+                    interactive: true
+                });
+
+                if (shouldBePermanent) m.openTooltip();
+            }
+        });
+    }
+    async function fetchData(bounds, requestId) {
+        const apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&useAggregateTable&plmn=${plmn.value}&rat=${rat.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}&locationType=2`;
 
         try {
             const res = await fetch(apiUrl);
             const data = await res.json();
 
+            // Check if the API returned an error object
+            if (data && data.error) {
+                alert(data.error);
+                return null;
+            }
+
             // VALIDATION: If a newer request has started, ignore this "old" data
-            if (requestId !== currentRequestId) {
-                console.log("Discarding stale data from request:", requestId);
-                return;
-            }
+            if (requestId !== currentRequestId) return null;
 
-            Object.keys(data).forEach(plmnKey => {
-                data[plmnKey].forEach(tower => {
-                    const id = `${plmnKey}-${tower.rat}-${tower.enb}`;
-                    if (!markerMap[id]) {
-                        const marker = L.circleMarker([tower.latitude, tower.longitude], {
-                            radius: parseFloat(size.value),
-                            fillColor: (plmnKey === '310260') ? (tower.rat === 'LTE' ? '#b200ae' : '#ff4dff') :
-                                       (plmnKey === '310410') ? (tower.rat === 'LTE' ? '#0059b2' : '#4da2ff') :
-                                       (plmnKey === '310120') ? '#FFEF87' :
-                                       (plmnKey === '311580') ? '#E8B937' :
-                                       (plmnKey === '311480') ? (tower.rat === 'LTE' ? '#b20000' : '#ff4a4a') : '#ffffff',
-                            color: "#000", weight: 1.5, fillOpacity: 1
-                        }).addTo(map);
+            return data;
+        } catch (e) {
+            // This catches network failures or non-JSON responses
+            console.error("Fetch failed or returned invalid JSON:", e);
+            return null;
+        }
+    }
+    async function updateData(shouldFetch = true) {
+        updateUrl();
 
-                        const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
-                        const suffix = tower.is_exact_location === '1' ? '★' : '';
-                        
-                        const cellsInfo = tower.cells ? `<br>Cells: ${tower.cells}` : '';
-                        marker.bindTooltip(`${prefix} ${tower.enb}${suffix} ${cellsInfo}`, { 
-                            permanent: false, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true 
-                        });
+        const bounds = map.getBounds();
+        const requestId = ++currentRequestId;
 
-                        const handleTrigger = (e) => {
-                            if (e.originalEvent.button !== 0 && e.originalEvent.button !== 2) return;
-                            L.DomEvent.stopPropagation(e);
-                            if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
-                            createMenu(e, { ...tower, plmn: plmnKey });
-                        };
-                        marker.on('click', handleTrigger).on('contextmenu', handleTrigger);
-                        markerMap[id] = marker;
-                    }
-                });
-            });
+        if (shouldFetch) {
+            try {
+                const data = await fetchData({
+                    neLat: bounds.getNorthEast().lat,
+                    neLng: bounds.getNorthEast().lng,
+                    swLat: bounds.getSouthWest().lat,
+                    swLng: bounds.getSouthWest().lng,
+                }, requestId);
 
-            
-            const allVisibleMarkers = Object.values(markerMap);
-            allVisibleMarkers.sort((a, b) => map.distance(center, a.getLatLng()) - map.distance(center, b.getLatLng()));
+                if (!data) return;
 
-            allVisibleMarkers.forEach((m, index) => {
-                const shouldBePermanent = (zoom > 10 && index < 250 && labels.checked);
-                const tooltip = m.getTooltip();
-                if (tooltip && tooltip.options.permanent !== shouldBePermanent) {
-                    const content = tooltip.getContent();
-                    m.unbindTooltip().bindTooltip(content, { 
-                        permanent: shouldBePermanent, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true 
+                Object.keys(data).forEach(plmnKey => {
+                    data[plmnKey].forEach(tower => {
+                        const id = `${plmnKey}-${tower.rat}-${tower.enb}`;
+
+                        // Only create the marker if it doesn't already exist
+                        if (!markerMap[id]) {
+                            const marker = L.circleMarker([tower.latitude, tower.longitude], {
+                                radius: parseFloat(iconSize.value),
+                                fillColor: (plmnKey === '310260') ? (tower.rat === 'LTE' ? '#b200ae' : '#ff4dff') :
+                                           (plmnKey === '310410') ? (tower.rat === 'LTE' ? '#0059b2' : '#4da2ff') :
+                                           (plmnKey === '310120') ? '#FFEF87' :
+                                           (plmnKey === '311580') ? '#E8B937' :
+                                           (plmnKey === '311480') ? (tower.rat === 'LTE' ? '#b20000' : '#ff4a4a') : '#ffffff',
+                                color: "#000", weight: 1.5, fillOpacity: 1
+                            }).addTo(map);
+
+                            const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
+                            const suffix = tower.is_exact_location === '1' ? '★' : '';
+                            const cellsInfo = tower.cells ? `<br>Cells: ${tower.cells}` : '';
+
+                            marker.bindTooltip(`${prefix} ${tower.enb}${suffix} ${cellsInfo}`, { 
+                                permanent: false, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true 
+                            });
+
+                            const handleTrigger = (e) => {
+                                if (e.originalEvent.button !== 0 && e.originalEvent.button !== 2) return;
+                                L.DomEvent.stopPropagation(e);
+                                if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                                createMenu(e, { ...tower, plmn: plmnKey });
+                            };
+
+                            marker.on('click', handleTrigger).on('contextmenu', handleTrigger);
+                            markerMap[id] = marker;
+                        }
                     });
-                    if (shouldBePermanent) m.openTooltip();
-                }
-            });
+                });
+            } catch (err) {
+                console.error("Fetch error:", err);
+            }
+        }
 
-            if (!unload.checked) {
-                for (let key in markerMap) {
-                    if (!bounds.contains(markerMap[key].getLatLng())) {
-                        map.removeLayer(markerMap[key]);
-                        delete markerMap[key];
-                    }
+        // CLEANUP: Remove markers that are off-screen (unless "Don't Unload" is checked)
+        if (!unload.checked) {
+            for (let key in markerMap) {
+                if (!bounds.contains(markerMap[key].getLatLng())) {
+                    map.removeLayer(markerMap[key]);
+                    delete markerMap[key];
                 }
             }
-        } catch (err) { console.error(err); }
+        }
+
+        updateLabelsOnly();
     }
 
     // --- Listeners ---

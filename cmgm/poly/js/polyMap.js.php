@@ -49,18 +49,18 @@ mymap.on('contextmenu', (event) => {
 
 let drawnENBs = new Set();
 
-function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
-  const centroid = coordinatePairArray.reduce(
-    (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
-    [0, 0]
-  ).map(coord => coord / coordinatePairArray.length);
+  function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
+    const centroid = coordinatePairArray.reduce(
+      (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
+      [0, 0]
+    ).map(coord => coord / coordinatePairArray.length);
 
-  return pointsWithIndices.sort((a, b) => {
-    const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
-    const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
-    return angleA - angleB;
-  });
-}
+    return pointsWithIndices.sort((a, b) => {
+      const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
+      const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
+      return angleA - angleB;
+    });
+  }
 
 async function fetchAndRenderPolygons() {
   const center = mymap.getCenter();
@@ -77,46 +77,52 @@ async function fetchAndRenderPolygons() {
   console.log('average:', useEnbAverage);
 
   console.log('passing dbfc', filterCells);
+  const bounds = mymap.getBounds();
+  console.log(bounds);
 
-  let newApiUrl = `https://cmgm.us/api/cmgm/getPolies.php?latitude=${center.lat}&longitude=${center.lng}&plmn=${plmn}&filterCells=${filterCells}&filterEnbs=${filterEnbs}&showsql=${showsql}&limit=${limit}&rat=${rat}&filterTac=${filterTac}`
+  let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.getNorthEast().lat}&boundsNELongitude=${bounds.getNorthEast().lng}&boundsSWLatitude=${bounds.getSouthWest().lat}&boundsSWLongitude=${bounds.getSouthWest().lng}`;
 
   if (useEnbAverage) {
-    newApiUrl += '&average=true';
+    apiUrl += '&average=true';
   }
 
-  // try {
-  const response = await fetch(newApiUrl);
+  const response = await fetch(apiUrl);
   const data = await response.json();
 
-  // Check for potential ?filterCells arg
-
   const enbGroups = {};
+  
+  // Flatten the data since it's grouped inside PLMN keys
+  const allEnbs = Object.values(data).flat();
 
+  for (const item of allEnbs) {
+    const enbId = item.enb; 
 
-  for (const item of Object.values(data)) {
     // Check not already drawn
-    if (!drawnENBs.has(item.enb)) {
+    if (!drawnENBs.has(enbId)) {
       // Add to enbGroups if necessary
-      if (!enbGroups[item.enb]) { enbGroups[item.enb] = []; }
-      // Push coords to array
+      if (!enbGroups[enbId]) { enbGroups[enbId] = []; }
+
+      const lat = item.latitude;
+      const lon = item.longitude;
+
       if (useEnbAverage) {
-        // latitude, longitude are available in base
-        enbGroups[item.enb].push({
-          coords: [item.latitude, item.longitude],
-          cellId: 0,
-          sectorId: '*',
-          tac: item.tac
-        })
-      } else {
-        // Push for each cell
-        for (let sectorId of Object.keys(item.cells)) {
-          enbGroups[item.enb].push({
-            coords: [item.cells[sectorId][0], item.cells[sectorId][1]],
-            cellId: 'unknown',
-            sectorId: sectorId,
+        // If averaging, we only need to grab the coords from the first cell we see for this eNB
+        if (enbGroups[enbId].length === 0) {
+          enbGroups[enbId].push({
+            coords: [lat, lon],
+            cellId: 0,
+            sectorId: '*',
             tac: item.tac
           });
         }
+      } else {
+        // Since the API now gives us one row per cell, we just push it directly!
+        enbGroups[enbId].push({
+          coords: [lat, lon], 
+          cellId: item.cell_id, 
+          sectorId: item.cell,  
+          tac: item.tac
+        });
       }
     }
   }
@@ -191,7 +197,6 @@ for (const [enb, coords, tac] of Object.entries(enbGroups)) {
 }
 
 }
-
 
 fetchAndRenderPolygons();
 </script>

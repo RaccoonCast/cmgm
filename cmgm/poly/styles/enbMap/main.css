@@ -29,10 +29,3 @@ input[type="checkbox"] { float: unset!important; }
 .formsContainerContainer {
     text-align: right;
 }
-.adv-filter-textbox {
-  width: 280px;
-  margin-bottom: 8px;
-}
-#hamburger-area {
-    margin-top: 12px;
-}

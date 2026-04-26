@@ -12,15 +12,23 @@ include '../../includes/functions/sqlpw.php';
 // Apply the filters.
 include "filterPoly.php";
 
-$tableName = ($locationType == 1) ? "local_poly_enbs" : "local_poly_beta_enbs";
-
 $result = $conn->query($sql_query);
 $carrierGroups = array();
 
 while ($row = $result->fetch_assoc()) {
+    // Convert numeric values to float where possible
+    foreach ($row as $key => $value) {
+        if (is_numeric($value)) {
+            $row[$key] = (float)$value;
+        }
+    }
+
     $carrierType = $row['plmn'];
 
-    if (!isset($carrierGroups[$carrierType])) $carrierGroups[$carrierType] = array();
+    if (!isset($carrierGroups[$carrierType])) {
+        $carrierGroups[$carrierType] = array();
+    }
+
     $carrierGroups[$carrierType][] = $row;
 }
 
