@@ -19,7 +19,7 @@ if ($goto_page == "CellMapper") {
   $var = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$cm_netType,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc);
   return $var;
 }
-if ($goto_page == "Cell Map" || $goto_page == "eNB Map") {
+if ($goto_page == "Cell Map" || $goto_page == "polyMap") {
   if ("$carrier" == "T-Mobile") $plmn_settings = 310260;
   if ("$carrier" == "Sprint") $plmn_settings = 310120;
   if ("$carrier" == "ATT") $plmn_settings = 310410;
@@ -42,8 +42,8 @@ if ($goto_page == "Upload") $goto_page_URL = "https://upload.cmgm.us";
 if ($goto_page == "Settings") $goto_page_URL = "settings/";
 if ($goto_page == "AntennaSearch") return "http://www.antennasearch.com/HTML/search/search.php?address=$latitude,$longitude";
 if ($goto_page == "Bird's Eye") return "https://www.bing.com/maps?dir=0&lvl=22&cp=$latitude~$longitude&style=b";
-if ($goto_page == "Cell Map") return "https://cmgm.us/poly/map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings&rat=LTE";
-if ($goto_page == "eNB Map") return "https://cmgm.us/poly/enbMap.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings&rat=LTE";
+// if ($goto_page == "Cell Map") return "https://cmgm.us/poly/map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings&rat=LTE";
+if ($goto_page == "polyMap") return "https://cmgm.us/poly/Map.php?latitude=$latitude&longitude=$longitude&zoom=16&plmn=$plmn_settings&rat=LTE";
 
 if (!isset($suffix_part_a)) $suffix_part_a = "latitude=$latitude&longitude=$longitude";
 if (isset($carrier)) if (!isset($suffix_part_b)) $suffix_part_b = "&carrier=$carrier";

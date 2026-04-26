@@ -10,17 +10,18 @@ input, select, button {
 #requestBatchSize {
   width: 190px;
 }
+#viewMode {
+  width: 220px;
+}
 #filterPlmn {
-  width: 142px;
+  width: 140px;
 }
 #filterRat {
-  width: 97px;
+  width: 95px;
 }
-#iconSize {
-  width: 127px;
-}
-.adv-filter-textbox {
-  width: 265px;
+
+.adv-filter {
+  width: 280px;
   margin-bottom: 8px;
 }
 #hamburger-menu {
@@ -28,5 +29,5 @@ input, select, button {
     height: 40px;
 }
 #hamburger-area {
-    margin-top: 12px;
+    margin: 12px 6px 2px 12px;
 }

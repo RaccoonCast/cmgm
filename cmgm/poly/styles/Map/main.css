@@ -94,3 +94,6 @@ input[type="checkbox"] {
     width: unset !important;
     height: unset !important;
 }
+:disabled {
+    font-style: italic;
+}

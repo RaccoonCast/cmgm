@@ -13,6 +13,7 @@ include "get_param.php";
 
 // Start query build, identify whether working with LPB/LPE/LPBE.
 $tableName = $useAggregateTable ? 'local_poly_enbs' : 'local_poly_beta';
+if (!$useAggregateTable) $whereFilters = 'AND plmn <> 312190 ';
 
 $keys = $useAggregateTable ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
 $keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
@@ -28,8 +29,16 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     $centerPoint = "ST_GeomFromText('POINT($centerLat $centerLon)', 4326)";
 
     // 2. The Auto-Trigger Logic
-    // Trigger if the box is larger than +/- 1.75 from the center (a total span of 3.5)
-    if (($latDiff > 4.0 || $lonDiff > 4.0)) {
+    // Trigger if the box is larger than +/- 2.00 from the center (a total span of 4.0)
+    if (($latDiff > 2.5 || $lonDiff > 2.5) && !$useAggregateTable) {
+        // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.75 from the center
+        $microNELat = min($boundsNELat, $centerLat + 1.25);
+        $microNELon = min($boundsNELon, $centerLon + 1.25);
+        $microSWLat = max($boundsSWLat, $centerLat - 1.25);
+        $microSWLon = max($boundsSWLon, $centerLon - 1.25);
+
+        $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
+    } elseif (($latDiff > 4.0 || $lonDiff > 4.0)) {
         // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.75 from the center
         $microNELat = min($boundsNELat, $centerLat + 2.0);
         $microNELon = min($boundsNELon, $centerLon + 2.0);
@@ -37,14 +46,13 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
         $microSWLon = max($boundsSWLon, $centerLon - 2.0);
 
         $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
-
     } else {
         // Standard bounding box polygon if no cap is needed
         $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
     }
     // 3. Execute the Spatial Query
     // We pass in $searchPolygon, which dynamically swapped itself in Step 2!
-    $whereFilters .= "AND ST_Within(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+    $whereFiltersLocation .= "AND ST_Within(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
     $orderBy .= "ORDER BY ST_Distance_Sphere(coords, $centerPoint) ASC ";
 } elseif (!is_null($latitude) && !is_null($longitude)) {
     // OPTION B: Haversine Formula)
@@ -64,6 +72,7 @@ $dateKeys = ['oldest_date', 'newest_date'];
 foreach ($dateKeys as $key) {
 
     $val = $$key;
+    if (!$useAggregateTable) $key = "date_of_info";
 
     if ($val === null) {
         continue;
@@ -226,16 +235,13 @@ if (!is_null($limit) && $limit > 0) {
 }
 
 // Filter 99: Build it
-$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFilters$orderBy$limitClause";
+$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFiltersLocation$whereFilters$orderBy$limitClause";
 
 if (!$useAggregateTable) {
-    // 1. Prepare the Base WHERE clause (for the CTE - no prefix needed here)
-    $baseWhere = "WHERE 1=1 $whereFilters";
-
-    // 2. Prefix the keys to avoid the "ambiguous" error in SELECT
+    // 1. Prefix the keys to avoid the "ambiguous" error in SELECT
     $prefixedKeys = implode(', ', array_map(fn($k) => "main." . trim($k), explode(',', $keys)));
 
-    // 3. Create a prefixed version of filters for the main query SELECT block
+    // 2. Create a prefixed version of filters for the main query SELECT block
     // This adds 'main.' to the common columns to prevent the ambiguity error
     $mainWhereFilters = str_replace(
         ['plmn', 'enb', 'cell', 'RAT', 'tac', 'pci'], 
@@ -243,12 +249,18 @@ if (!$useAggregateTable) {
         $whereFilters
     );
 
+    $roughLimit = 1.25; 
+    $boundingBox = " AND latitude BETWEEN " . ($centerLat - $roughLimit) . " AND " . ($centerLat + $roughLimit) . " 
+                     AND longitude BETWEEN " . ($centerLon - $roughLimit) . " AND " . ($centerLon + $roughLimit);
+
+
     // 4. Build the query
     $sql_query = "
     WITH selected_enbs AS (
-        SELECT DISTINCT plmn, enb 
+        SELECT plmn, enb, coords
         FROM $tableName 
-        $baseWhere
+        WHERE 1=1 $whereFilters$whereFiltersLocation
+        $orderBy
         $limitClause
     )
     SELECT $prefixedKeys $locationFilter 
@@ -256,17 +268,20 @@ if (!$useAggregateTable) {
     JOIN selected_enbs se ON main.enb = se.enb AND main.plmn = se.plmn
     WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
     $mainWhereFilters
+    AND ST_Distance_Sphere(
+        ST_SRID(POINT(main.longitude, main.latitude), 4326), 
+        ST_GeomFromText('POINT($centerLat $centerLon)', 4326)
+    ) <= (100 * 1609.34)
     ";
 
     // 5. Performance: Rough Bounding Box
-    if (!is_null($centerLat) && !is_null($centerLon)) {
-        $roughLimit = 1.5; 
-        $sql_query .= " AND main.latitude BETWEEN " . ($centerLat - $roughLimit) . " AND " . ($centerLat + $roughLimit);
-        $sql_query .= " AND main.longitude BETWEEN " . ($centerLon - $roughLimit) . " AND " . ($centerLon + $roughLimit);
-    }
+
 }
 
 
 // The return
-if ($showsql) error("SQL Query:", "$sql_query");
+if ($showsql) {
+    echo $sql_query;
+    die();
+};
 ?>
