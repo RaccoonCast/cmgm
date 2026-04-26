@@ -400,11 +400,11 @@
                 allVisibleMarkers = markersWithDistance.map(item => item.marker);
 
                 allVisibleMarkers.forEach((m, index) => {
-                    const shouldBeVisible = ((map.getZoom() > 8  && index < 250 && labelSettings.value >= 1) ||
-                                            (map.getZoom() > 9  && index < 350 && labelSettings.value >= 2) ||
-                                            (map.getZoom() > 10 && index < 450 && labelSettings.value >= 3) ||
-                                            (map.getZoom() > 12 && index < 600 && labelSettings.value >= 4) ||
-                                                                                labelSettings.value == 5);
+                    const shouldBeVisible = ((map.getZoom() > 14   && index < 250 && labelSettings.value >= 1) ||
+                                             (map.getZoom() > 12   && index < 350 && labelSettings.value >= 2) ||
+                                             (map.getZoom() > 10.5 && index < 450 && labelSettings.value >= 3) ||
+                                             (map.getZoom() > 8    && index < 600 && labelSettings.value >= 4) ||
+                                                                                     labelSettings.value == 5);
 
                     // Toggle CSS display instead of unbinding/binding tooltips
                     // Yes, this makes the divicon-hiding have effectively no performance gain, but matches existing behavior
