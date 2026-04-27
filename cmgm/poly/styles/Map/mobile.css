@@ -1,23 +1,20 @@
 #filterPlmn {
-  width: 33%;
+  width: 31%;
 }
 #filterRat {
-  width: 24%;
+  width: 22%;
 }
-
-#iconSize {
-  width: 33%;
+#viewMode {
+  width: 35%;
 }
 #hamburger-menu {
-  width: 10%;
+  width: 12%;
 }
 /* "Disable" some performance impacting settings on mobile */
 #requestBatchSize {
   display: none;
 }
-#dontUnloadCheckboxArea {
-  display: none;
-}
+
 /* The shared black background for both checkboxes */
 .checkbox-container {
     background-color: #000;
@@ -46,22 +43,28 @@
     display: flex;
     flex-wrap: wrap;       /* Allows the whole bar to wrap on mobile */
     align-items: center;
+    background-color: black;
 }
 input, select, button {
   height: 40px; /* Set consistent height */
   padding: 0px;
   margin: 0px;
+  height: 3.33em!important;
 }
 .adv-filter {
-  width: 50%;
   padding-right: 0px;
+}
+.adv-filter:nth-child(odd) {
+  width: 47%;
+}
+.adv-filter:nth-child(even) {
+  width: 53%;
 }
 label {
   display: none;
 }
 
 #hamburger-area {
-
     width: 100%;
     padding: 0;
     margin: 0;

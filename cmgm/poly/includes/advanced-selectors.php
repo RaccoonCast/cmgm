@@ -14,7 +14,7 @@
     ?>
     <select class="misc_cw adv-filter" title="Customize label visibility" name="labelSettings" id="labelSettings">
         <option style="display:none" value="<?php echo $labelSettings; ?>" selected>
-            Show Labels: <?php echo $labelSettingsName; ?>
+            Labels: <?php echo $labelSettingsName; ?>
         </option>
         <option value="0">Never</option>
         <option value="1">at High Zoom</option>
@@ -55,8 +55,9 @@
 <br>
 <label>TAC Filters</label>
 <input class="adv-filter" type="text" id="tacsAllowList" name="tacsAllowList" placeholder="Whitelist TACs (15279,15301)" value="<?= !empty($tacsAllowList) ? $tacsAllowList : ''; ?>">
-<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs (15174)" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
+<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs (15000-15500)" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
 <br>
+
 
 <?php if (basename($_SERVER['SCRIPT_FILENAME']) !== 'gui.php') { ?>
 <div class="checkbox-container">
@@ -75,4 +76,5 @@
         <input type="checkbox" id="perfectSurroOnly" <?php echo $perfectSurroOnly; ?>> Exact Location Only
     </label>
 </div>
+<button style="float: left; margin-left: -5px;" class="poly-btn" id="gui-button">View on GUI</button>
 <?php } ?>

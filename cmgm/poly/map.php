@@ -109,6 +109,25 @@
                 });
             });
 
+            document.addEventListener('DOMContentLoaded', () => {
+                const button = document.getElementById('gui-button');
+
+                button.addEventListener('click', () => {
+                    let currentUrl = new URL(window.location.href);
+
+                    // Replace only the filename in the path
+                    currentUrl.pathname = currentUrl.pathname.replace(/[^/]+$/, 'gui.php');
+
+                    // Remove specific query parameters
+                    currentUrl.searchParams.delete('viewMode');
+                    currentUrl.searchParams.delete('iconSize');
+                    currentUrl.searchParams.delete('labelSettings');
+
+                    // Update the browser URL without reloading
+                    window.location.href = currentUrl.toString();
+                });
+            });
+
             // something gemini said is needed for ios
             document.addEventListener("touchstart", function () { }, true);
             // Manage form
@@ -144,7 +163,7 @@
             const labelPrefixes = {
                 requestBatchSize: "Batch size",
                 iconSize: "Icon size",
-                labelSettings: "Show Labels",
+                labelSettings: "Labels",
                 viewMode: `View Mode`
             };
 
@@ -172,7 +191,7 @@
                 
                 // Special case: label settings mapping
                 if (el.id === 'labelSettings') {
-                    labelOption.text = `Show Labels: ${labelMap[el.value]}`;
+                    labelOption.text = `Labels: ${labelMap[el.value]}`;
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
                 return;
