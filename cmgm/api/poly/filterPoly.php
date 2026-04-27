@@ -52,8 +52,8 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     }
     // 3. Execute the Spatial Query
     // We pass in $searchPolygon, which dynamically swapped itself in Step 2!
-    $whereFiltersLocation .= "AND ST_Within(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
-    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, $centerPoint) ASC ";
+    $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+    $orderBy .= "ORDER BY ST_Distance(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
 } elseif (!is_null($latitude) && !is_null($longitude) && $limit !== 0) {
     // OPTION B: Haversine Formula)
     $distanceExpr = "(3959 * 2 * ASIN(SQRT(
@@ -122,25 +122,58 @@ if (!is_null($plmn)) {
     if ($exclude) $whereFilters .= "AND plmn NOT IN (" . implode(',', $exclude) . ") ";
 }
 
-// Filter 4: Rat
+// Filter 4: Within distance.
+if (!is_null($locationFilter) && !is_null($radius)) {
+    $whereFilters .= "AND $distanceExpr <= $radius ";
+}
+
+// Filter 5: Rat
 if (!is_null($rat)) {
     $whereFilters .= "AND RAT = '$rat' ";
 }
 
-// Filter 5: Tac
+// Filter 6: Tac
 if (!is_null($tacsAllowList)) {
-    $tacList = implode(',', array_map('intval', explode(',', $_GET['tacsAllowList'])));
-    // Add the TAC filter to the outer query instead of just the subquery
-    $whereFilters .= "AND tac IN ($tacList) ";
+    $tacsAllowList = explode(',', $tacsAllowList);
+    $tacConditions = [];
+
+    foreach ($tacsAllowList as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $tacConditions[] = "tac BETWEEN $start AND $end";
+            }
+        } else {
+            $tacConditions[] = "tac = $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    if (!empty($tacConditions)) {
+        $whereFilters .= "AND (" . implode(' OR ', $tacConditions) . ") ";
+    }
 }
 if (!is_null($tacsBlockList)) {
-    $tacBlockList = implode(',', array_map('intval', explode(',', $_GET['tacsBlockList'])));
-    $whereFilters .= "AND tac NOT IN ($tacBlockList) ";
-}
+    $tacsBlockList = explode(',', $tacsBlockList);
+    $tacConditions = [];
 
-// Filter 6: Within distance.
-if (!is_null($locationFilter) && !is_null($radius)) {
-    $whereFilters .= "AND $distanceExpr <= $radius ";
+    foreach ($tacsBlockList as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $tacConditions[] = "tac NOT BETWEEN $start AND $end";
+            }
+        } else {
+            $tacConditions[] = "tac != $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    if (!empty($tacConditions)) {
+        $whereFilters .= "AND (" . implode(' AND ', $tacConditions) . ") ";
+    }
 }
 
 // Filter 7: By eNB Range
@@ -186,7 +219,7 @@ if (!is_null($enbBlockList)) {
         }
         $bounds = explode('-', $range);
     if (!empty($enbConditions)) {
-        $whereFilters .= "AND (" . implode(' OR ', $enbConditions) . ") ";
+        $whereFilters .= "AND (" . implode(' AND ', $enbConditions) . ") ";
     }
 }
 
@@ -259,7 +292,7 @@ if ($viewMode == "cells") {
     // 4. Build the query
     $sql_query = "
     WITH selected_enbs AS (
-        SELECT plmn, enb, coords
+        SELECT plmn, enb, coords, latitude, longitude
         FROM $tableName 
         WHERE 1=1 $whereFilters$whereFiltersLocation
         $orderBy
@@ -270,7 +303,8 @@ if ($viewMode == "cells") {
     JOIN selected_enbs se ON main.enb = se.enb AND main.plmn = se.plmn
     WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
     $mainWhereFilters
-AND ST_Distance_Sphere(main.coords, se.coords) <= 160934
+    AND main.latitude BETWEEN (se.latitude - 1.5) AND (se.latitude + 1.5)
+    AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
     ";
 
     // 5. Performance: Rough Bounding Box
