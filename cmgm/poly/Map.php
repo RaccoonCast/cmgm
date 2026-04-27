@@ -724,7 +724,7 @@
 
             // Add zoomend to your listeners
             map.on('moveend', slowUpdate);
-            map.on('zoomend', slowUpdate); // This ensures labels re-evaluate on zoom
+            // map.on('zoomend', slowUpdate); This ensures labels re-evaluate on zoom, temporarily disabling.
 
             updateData();
 
@@ -747,9 +747,9 @@
                 if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
 
                 navigator.clipboard.writeText(e.latlng.lat.toFixed(6) + ',' + e.latlng.lng.toFixed(6)).then(() => {
-                    console.log("Copied Map Coords:", coords);
+                    console.log("Copied Map Coords.");
                 }).catch(err => {
-                    console.error("Copy failed:", err);
+                    console.error("Copy failed.", err);
                 });
             });
         </script>

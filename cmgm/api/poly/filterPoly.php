@@ -7,6 +7,14 @@ function calculateMiles($lat1, $lon1, $lat2, $lon2) {
     $c = 2 * asin(sqrt($a));
     return $earthRadius * $c;
 }
+function buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat, $boundsSWLon, $centerLat, $centerLon, $capDistance) {
+    $microNELat = min($boundsNELat, $centerLat + $capDistance);
+    $microNELon = min($boundsNELon, $centerLon + $capDistance);
+    $microSWLat = max($boundsSWLat, $centerLat - $capDistance);
+    $microSWLon = max($boundsSWLon, $centerLon - $capDistance);
+
+    return "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
+}
 
 // Get variables needed
 include "get_param.php";
@@ -20,7 +28,7 @@ $keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced
 
 // Filter 1: Location (latitude & longitude)
 if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon)) {
-    // 1. Calculate Distances & Center Point
+    // Calculate Distances & Center Point
     $latDiff = abs($boundsNELat - $boundsSWLat);
     $lonDiff = abs($boundsNELon - $boundsSWLon);
 
@@ -28,30 +36,32 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     $centerLon = ($boundsNELon + $boundsSWLon) / 2;
     $centerPoint = "ST_GeomFromText('POINT($centerLat $centerLon)', 4326)";
 
-    // 2. The Auto-Trigger Logic
-    // Trigger if the box is larger than +/- 2.00 from the center (a total span of 4.0)
-    if (($latDiff > 4.0 || $lonDiff > 4.0) && $viewMode == "enbs" && $limit !== 0) {
-        // ZOOMED OUT: Cap the boundaries to a maximum of +/- 2.0 from the center
-        $microNELat = min($boundsNELat, $centerLat + 2.0);
-        $microNELon = min($boundsNELon, $centerLon + 2.0);
-        $microSWLat = max($boundsSWLat, $centerLat - 2.0);
-        $microSWLon = max($boundsSWLon, $centerLon - 2.0);
-
-        $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
-    } elseif (($latDiff > 2.5 || $lonDiff > 2.5) && $viewMode == "cells" && $limit !== 0) {
-        // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.25 from the center
-        $microNELat = min($boundsNELat, $centerLat + 1.25);
-        $microNELon = min($boundsNELon, $centerLon + 1.25);
-        $microSWLat = max($boundsSWLat, $centerLat - 1.25);
-        $microSWLon = max($boundsSWLon, $centerLon - 1.25);
-
-        $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
-    } else {
-        // Standard bounding box polygon if no cap is needed
-        $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+    // Reduce bounding box size if conditions for reducing are met.
+    if ($limit !== 0) {
+        if ($viewMode == "enbs") {
+            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 6.0 || $lonDiff > 6.0) && $limit > 450) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 4.0 || $lonDiff > 4.0)) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
+            }
+        }
+        if ($viewMode == "cells") {
+            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 4.0 || $lonDiff > 4.0) && $limit > 450) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
+            } elseif (($latDiff > 2.5 || $lonDiff > 2.5)) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 1.25);
+            }
+        }
     }
-    // 3. Execute the Spatial Query
-    // We pass in $searchPolygon, which dynamically swapped itself in Step 2!
+
+    // Bounding box not limited by previous if blocks, set bounding box to be equal to the user's bounding box.
+    if (!isset($searchPolygon)) $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+
+    // Add bounding box rule to query.
     $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
     $orderBy .= "ORDER BY ST_Distance(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
 } elseif (!is_null($latitude) && !is_null($longitude) && $limit !== 0) {
@@ -134,10 +144,10 @@ if (!is_null($rat)) {
 
 // Filter 6: Tac
 if (!is_null($tacsAllowList)) {
-    $tacsAllowList = explode(',', $tacsAllowList);
+    $tacsAllowListArray = explode(',', $tacsAllowList);
     $tacConditions = [];
 
-    foreach ($tacsAllowList as $range) {
+    foreach ($tacsAllowListArray as $range) {
         if (strpos($range, '-') !== false) {
             $bounds = explode('-', $range);
             if (count($bounds) == 2) {
@@ -155,10 +165,10 @@ if (!is_null($tacsAllowList)) {
     }
 }
 if (!is_null($tacsBlockList)) {
-    $tacsBlockList = explode(',', $tacsBlockList);
+    $tacsBlockListArray = explode(',', $tacsBlockList);
     $tacConditions = [];
 
-    foreach ($tacsBlockList as $range) {
+    foreach ($tacsBlockListArray as $range) {
         if (strpos($range, '-') !== false) {
             $bounds = explode('-', $range);
             if (count($bounds) == 2) {
