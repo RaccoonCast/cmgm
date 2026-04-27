@@ -3,11 +3,12 @@
     <?php
     $labelMap = [
     0 => "Never",
-    1 => "at High Zoom",
-    2 => "Normal",
-    3 => "at Low Zoom",
-    4 => "at Very Low Zoom",
-    5 => "Always"
+    1 => "at Very High Zoom",
+    2 => "at High Zoom",
+    3 => "Normal",
+    4 => "at Low Zoom",
+    5 => "at Very Low Zoom",
+    6 => "Always"
     ];
     $labelSettingsName = $labelMap[$labelSettings];
     
@@ -17,11 +18,12 @@
             Labels: <?php echo $labelSettingsName; ?>
         </option>
         <option value="0">Never</option>
-        <option value="1">at High Zoom</option>
-        <option value="2">Normal</option>
-        <option value="3">at Low Zoom</option>
-        <option value="4">at Very Low Zoom</option>
-        <option value="5">Always</option>
+        <option value="1">at Very High Zoom</option>
+        <option value="2">at High Zoom</option>
+        <option value="3">Normal</option>
+        <option value="4">at Low Zoom</option>
+        <option value="5">at Very Low Zoom</option>
+        <option value="6">Always</option>
     </select>
     <select class="misc_cw adv-filter" title="Set icon size" name="iconSize" id="iconSize">
          <option style="display:none" value="<?php echo $iconSize; ?>" selected>
@@ -71,6 +73,9 @@
     --> 
     <label id="dontUnloadCheckboxArea" class="checkbox-group">
         <input type="checkbox" id="dontUnload" <?php echo $unload; ?>> Disable Unload
+    </label>
+    <label id="randomColorCheckboxArea" class="checkbox-group">
+        <input type="checkbox" id="randomColor" <?php echo $randomColor; ?>> Randomize Colors
     </label>
     <label class="checkbox-group">
         <input type="checkbox" id="perfectSurroOnly" <?php echo $perfectSurroOnly; ?>> Exact Location Only

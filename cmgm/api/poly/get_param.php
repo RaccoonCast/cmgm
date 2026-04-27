@@ -56,6 +56,7 @@ $labelSettings        = get_param('labelSettings', '/^[1-5]$/', 'Invalid label s
 $limit                = get_param('limit', '/^\d+$/', 'Invalid limit', 450, fn($v) => (int)$v);
 $locationType         = get_param('locationType', '/^\d+$/', 'Invalid locationType, expected 1 or 2.', false, fn($v) => (int)$v);
 $perfectSurroOnly     = (($_GET['perfectSurroOnly'] ?? null) === 'true') ? true : null;
+$randomColor          = (($_GET['randomColor'] ?? null) === 'true') ? true : null;
 $showsql              = isset($_GET['showsql']);
 $iconSize             = $_GET['iconSize'] ?? 10;
 // $labels               = ($_GET['labels'] ?? 'true') === 'true' ? 'checked' : '';

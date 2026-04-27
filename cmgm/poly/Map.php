@@ -139,6 +139,7 @@
             // const labels = document.getElementById('labels');
             // const forceLabelVisibility = document.getElementById('forceLabelVisibility');
             const unload = document.getElementById('dontUnload');
+            const randomColor = document.getElementById('randomColor');
             const oldest_date = document.getElementById('oldest_date');
             const newest_date = document.getElementById('newest_date');
             const perfectSurroOnly = document.getElementById('perfectSurroOnly');
@@ -147,11 +148,12 @@
 
             const labelMap = {
                 0: "Never",
-                1: "at High Zoom",
-                2: "Normal",
-                3: "at Low Zoom",
-                4: "at Very Low Zoom",
-                5: "Always"
+                1: "at Very High Zoom",
+                2: "at High Zoom",
+                3: "Normal",
+                4: "at Low Zoom",
+                5: "at Very Low Zoom",
+                6: "Always"
             };
 
             const viewModeMap = {
@@ -245,7 +247,7 @@
             ];
 
             // Elements that update UI or visuals without clearing data
-            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize];
+            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize, randomColor];
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
@@ -390,6 +392,11 @@
                 } else {
                     urlParams.delete('dontUnload');
                 }
+                if (randomColor.checked) {
+                    urlParams.set('randomColor', 'true');
+                } else {
+                    urlParams.delete('randomColor');
+                }
 
                 if (perfectSurroOnly.checked) {
                     urlParams.set('perfectSurroOnly', 'true');
@@ -419,11 +426,12 @@
                 allVisibleMarkers = markersWithDistance.map(item => item.marker);
 
                 allVisibleMarkers.forEach((m, index) => {
-                    const shouldBeVisible = ((map.getZoom() > 14   && index < 250 && labelSettings.value >= 1) ||
-                                             (map.getZoom() > 12   && index < 350 && labelSettings.value >= 2) ||
-                                             (map.getZoom() > 10.5 && index < 450 && labelSettings.value >= 3) ||
-                                             (map.getZoom() > 8    && index < 600 && labelSettings.value >= 4) ||
-                                                                                     labelSettings.value == 5);
+                    const shouldBeVisible = ((map.getZoom() > 17   && index < 150 && labelSettings.value >= 1) ||
+                                             (map.getZoom() > 14   && index < 250 && labelSettings.value >= 2) ||
+                                             (map.getZoom() > 12   && index < 350 && labelSettings.value >= 3) ||
+                                             (map.getZoom() > 10.5 && index < 450 && labelSettings.value >= 4) ||
+                                             (map.getZoom() > 8    && index < 600 && labelSettings.value >= 5) ||
+                                                                                     labelSettings.value == 6);
 
                     // Toggle CSS display instead of unbinding/binding tooltips
                     // Yes, this makes the divicon-hiding have effectively no performance gain, but matches existing behavior
@@ -470,7 +478,17 @@
                 let visibleEnbIds = new Set(); 
 
                 // Centralized PLMN Color Mapping
-                const getColor = (plmn, rat = 'LTE') => {
+                const getColor = (plmn, rat = 'LTE', randomColor = false) => {
+                    const getRandomHexColor = () => {
+                        return '#' + Math.floor(Math.random() * 16777215)
+                            .toString(16)
+                            .padStart(6, '0');
+                    };
+
+                    if (randomColor) {
+                        return getRandomHexColor();
+                    }
+
                     const colors = {
                         '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
                         '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
@@ -478,6 +496,7 @@
                         '310120': '#FFEF87',
                         '311580': '#E8B937'
                     };
+
                     return colors[plmn] || '#666';
                 };
 
@@ -516,7 +535,7 @@
                                     // Draw individual eNB pins into pointMap
                                     const marker = L.circleMarker([tower.latitude, tower.longitude], {
                                         radius: parseFloat(iconSize.value),
-                                        fillColor: getColor(plmnKey, tower.rat),
+                                        fillColor: getColor(plmnKey, tower.rat, randomColor.checked),
                                         color: "#000", weight: 1.5, fillOpacity: 1
                                     }).addTo(mapLayerGroup); 
 
@@ -544,7 +563,7 @@
                                 
                                 // Draw Polygon into polygonMap
                                 if (!polygonMap[polyId]) {
-                                    const polyColor = getColor(points[0].plmn, points[0].rat);
+                                    const polyColor = getColor(points[0].plmn, points[0].rat, randomColor.checked);
                                     if (points.length >= 3) {
                                         const sorted = sortPointsClockwise(points.map(p => p.coords), points.map(p => ({ coords: p.coords, info: p })));
                                         polygonMap[polyId] = L.polygon(sorted.map(p => p.coords), {
