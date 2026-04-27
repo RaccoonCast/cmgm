@@ -12,26 +12,48 @@ include '../../includes/functions/sqlpw.php';
 // Apply the filters.
 include "filterPoly.php";
 
+$conn->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
 $result = $conn->query($sql_query);
-$carrierGroups = array();
+
+echo "{";
+
+$currentGroup = null;
+$firstGroup = true;
+$firstRow = true;
 
 while ($row = $result->fetch_assoc()) {
-    // Convert numeric values to float where possible
-    foreach ($row as $key => $value) {
-        if (is_numeric($value)) {
-            $row[$key] = (float)$value;
+
+    $row['latitude']  = (float)$row['latitude'];
+    $row['longitude'] = (float)$row['longitude'];
+
+    $group = $row['plmn'];
+
+    // new group
+    if ($group !== $currentGroup) {
+
+        if (!$firstGroup) {
+            echo "]";
         }
+
+        echo ($firstGroup ? "" : ",") . "\"$group\":[";
+
+        $currentGroup = $group;
+        $firstGroup = false;
+        $firstRow = true;
     }
 
-    $carrierType = $row['plmn'];
-
-    if (!isset($carrierGroups[$carrierType])) {
-        $carrierGroups[$carrierType] = array();
+    if (!$firstRow) {
+        echo ",";
     }
 
-    $carrierGroups[$carrierType][] = $row;
+    echo json_encode($row);
+
+    $firstRow = false;
 }
 
-echo json_encode($carrierGroups);
-$result->close(); $conn->close();
+if (!$firstGroup) {
+    echo "]";
+}
+
+echo "}";
 ?>
