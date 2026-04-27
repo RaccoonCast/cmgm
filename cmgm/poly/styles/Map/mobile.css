@@ -21,8 +21,8 @@
     display: flex;
     align-items: center;
     flex-grow: 1;         /* Fills the remaining space in the row */
-    padding-left: 15px;   /* Internal room to the left of the first box */
-    gap: 20px;            /* Space between the "Labels" group and "No Unload" group */
+    padding-left: 4px;    /* Internal room to the left of the first box */
+    gap: 12px;            /* Space between the "Labels" group and "No Unload" group */
     /* justify-content: unset!important; */
 }
 
@@ -30,11 +30,11 @@
 .checkbox-group {
     display: inline-flex;
     align-items: center;
-    gap: 10px;            /* Space between the actual box and its text */
+    gap: 5px;            /* Space between the actual box and its text */
     white-space: nowrap;
     color: white;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     box-sizing: border-box;
 }
 
@@ -60,7 +60,7 @@ input, select, button {
 .adv-filter:nth-child(even) {
   width: 53%;
 }
-label {
+label,#gui-button {
   display: none;
 }
 
