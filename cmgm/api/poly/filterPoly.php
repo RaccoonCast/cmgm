@@ -162,8 +162,11 @@ if (!is_null($enbAllowList)) {
         }
         }
         $bounds = explode('-', $range);
+    if (!empty($enbConditions)) {
+        $whereFilters .= "AND (" . implode(' OR ', $enbConditions) . ") ";
     }
-    
+}
+
 // eNB blocklist ranges
 if (!is_null($enbBlockList)) {
     $enbBlockArray = explode(',', $enbBlockList);
@@ -182,10 +185,11 @@ if (!is_null($enbBlockList)) {
         }
         }
         $bounds = explode('-', $range);
+    if (!empty($enbConditions)) {
+        $whereFilters .= "AND (" . implode(' OR ', $enbConditions) . ") ";
     }
-if (!empty($enbConditions)) {
-    $whereFilters .= "AND (" . implode(' AND ', $enbConditions) . ") ";
 }
+
 
 // Filter 8: Cell filtering (space-separated string column)
 
@@ -266,7 +270,7 @@ if ($viewMode == "cells") {
     JOIN selected_enbs se ON main.enb = se.enb AND main.plmn = se.plmn
     WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
     $mainWhereFilters
-    AND ST_Distance_Sphere(main.coords, se.coords) <= 160934
+AND ST_Distance_Sphere(main.coords, se.coords) <= 160934
     ";
 
     // 5. Performance: Rough Bounding Box
