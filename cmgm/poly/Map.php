@@ -477,6 +477,12 @@
                 const isCellView = viewMode.value === 'cells';
                 let visibleEnbIds = new Set(); 
 
+                
+                if (isCellView) {
+                    map.removeControl(map.attributionControl);
+                } else {
+                    map.addControl(map.attributionControl);
+                }
                 // Centralized PLMN Color Mapping
                 const getColor = (plmn, rat = 'LTE', randomColor = false) => {
                     const getRandomHexColor = () => {
