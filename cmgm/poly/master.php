@@ -45,9 +45,6 @@ $client = new SurroClient();
 
 // Process each group in $formData
 foreach ($formData as $index => $data) {
-    // No cell list provided, assume "smart" list.
-    if (empty($cellList) && empty($cellListDepri)) $data['cellListDepri'] = "-";
-
     $rat = in_array($data['rat'], ['LTE', 'NR']) ? $data['rat'] : error('Invalid RAT.');
     $eNB = preg_match('/^\d{1,10}$/', $data['eNB']) ? $data['eNB'] : error('Invalid eNB/gNB.');
     $cellList = isset($data['cellList']) && preg_match('/^\d+([,.]\d+)*$/', $data['cellList']) ? preg_split('/[,.]/', $data['cellList']) : null;
