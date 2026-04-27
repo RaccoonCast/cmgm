@@ -92,7 +92,7 @@ include "functions.php";?>
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('../faa/');" value="FAA"><input
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-025 usr_btns" onclick="redir('<?= function_goto($user_data, "OpenCID") ?>');" value="OpenCID"><input
         type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-033" onclick="redir('../poly/');" value="Poly"><input
-        type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-033 usr_btns" onclick="redir('<?= function_goto($user_data, "polyMap") ?>');" value="Map"><input
+        type="button" style="color:#fcdf03" name="goto" class="cmgm-btn sb w-033 usr_btns" onclick="redir('<?= function_goto($user_data, "Poly Map") ?>');" value="Poly Map"><input
         type="button" style="color:#029F89" name="goto" class="cmgm-btn sb w-033" onclick="redir('../fun/?limit=15');" value="Stats"><input
         type="button" style="color:#101010" name="goto" class="cmgm-btn sb w-100" onclick="redir('settings/');" value="Settings">
         <!--

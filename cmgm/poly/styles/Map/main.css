@@ -95,5 +95,5 @@ input[type="checkbox"] {
     height: unset !important;
 }
 :disabled {
-    font-style: italic;
+    text-decoration: line-through;
 }

@@ -74,14 +74,14 @@
                     </select>
                     <select class="misc_cw" title="Set view mode" name="viewMode" id="viewMode">
                         <?php 
-                        if ($viewMode == 'enbs') $viewModeName = "View Mode: eNB Pins"; 
-                        if ($viewMode == 'cells') $viewModeName = "View Mode: Cell Polygons";
+                        if ($viewMode == 'enbs') $viewModeName = "View Mode: eNB"; 
+                        if ($viewMode == 'cells') $viewModeName = "View Mode: Cell";
                         ?>
                         <option style="display:none" value="<?= $viewMode; ?>" selected>
                             <?= $viewModeName; ?>
                         </option>
-                        <option value="enbs">eNB Pins</option>
-                        <option value="cells">Cell Polygons</option>
+                        <option value="enbs">eNB</option>
+                        <option value="cells">Cell</option>
                     </select>
                     <button class="poly-btn" id="hamburger-menu">▼</button>
                     <div id="hamburger-area" hidden>
@@ -136,8 +136,8 @@
             };
 
             const viewModeMap = {
-                "enbs": "eNB Pins",
-                "cells": "Cell Polygons"
+                "enbs": "eNB",
+                "cells": "Cell"
             };
 
             // Mapping for prefixes
@@ -226,7 +226,7 @@
             ];
 
             // Elements that update UI or visuals without clearing data
-            const visualTriggers = [iconSize, labelSettings, requestBatchSize, unload];
+            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize];
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
@@ -421,12 +421,7 @@
                 });
             }
             async function fetchData(bounds, requestId) {
-                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
-
-                if (viewMode.value !== 'cells') {
-                    apiUrl += '&useAggregateTable&locationType=2';
-                }
-
+                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
                 try {
                     const res = await fetch(apiUrl);
                     const data = await res.json();
