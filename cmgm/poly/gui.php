@@ -188,7 +188,7 @@ function myFunction2() {
     <input type="number" step="0.1" name="radius" placeholder="Radius (miles)" value="<?= @$_GET['radius'] ?>">
     <input type="number" step="1" name="limit" placeholder="Limit" value="<?= $limit ?>">
     <input class="poly-btn colorized" id="submitButton" type="submit" value="View">
-    <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">View as CSV</button>
+    <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">CSV</button>
 </form>
 </div>
 

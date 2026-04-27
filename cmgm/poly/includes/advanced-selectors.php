@@ -1,4 +1,8 @@
 
+<?php
+$onGui = basename($_SERVER['SCRIPT_FILENAME']) === 'gui.php';
+if (!$onGui) {
+?>
 <label>Appearance</label>
     <?php
     $labelMap = [
@@ -43,25 +47,25 @@
     </select>
 </label>
 <br>
+<?php } ?>
 <label>Date Filters</label>
-<input class="adv-filter" type="text" id="oldest_date" name="oldest_date" placeholder="First Seen (>YYYY-MM-DD)" value="<?= !empty($oldest_date) ? $oldest_date : ''; ?>">
-<input class="adv-filter" type="text" id="newest_date" name="newest_date" placeholder="Last Seen (<YYYY-MM-DD)" value="<?= !empty($newest_date) ? $newest_date : ''; ?>" <?php if ($viewMode == 'cells') echo 'disabled' ?>>
+<input class="adv-filter" type="text" id="oldest_date" name="oldest_date" placeholder="First Seen<?= !$onGui ? ' >YYYY-MM-DD' : '' ?>" value="<?= !empty($oldest_date) ? $oldest_date : ''; ?>">
+<input class="adv-filter" type="text" id="newest_date" name="newest_date" placeholder="Last Seen<?= !$onGui ? ' (<YYYY-MM-DD)' : '' ?>" value="<?= !empty($newest_date) ? $newest_date : ''; ?>" <?php if ($viewMode == 'cells') echo 'disabled' ?>>
 <br>
 <label>Cell Filters</label>
-<input class="adv-filter" type="text" id="cellsAllowList" name="cellsAllowList" placeholder="Whitelist Cells (1,2,3)" value="<?= !empty($cellsAllowList) ? $cellsAllowList : ''; ?>">
-<input class="adv-filter" type="text" id="cellsBlockList" name="cellsBlockList" placeholder="Blacklist Cells (7,8,9)" value="<?= !empty($cellsBlockList) ? $cellsBlockList : ''; ?>">
+<input class="adv-filter" type="text" id="cellsAllowList" name="cellsAllowList" placeholder="Whitelist Cells<?= !$onGui ? ' (1,2,3)' : '' ?>" value="<?= !empty($cellsAllowList) ? $cellsAllowList : ''; ?>">
+<input class="adv-filter" type="text" id="cellsBlockList" name="cellsBlockList" placeholder="Blacklist Cells<?= !$onGui ? ' (7,8,9)' : '' ?>" value="<?= !empty($cellsBlockList) ? $cellsBlockList : ''; ?>">
 <br>
 <label>eNB Filters</label>
-<input class="adv-filter" type="text" id="enbAllowList" name="enbAllowList" placeholder="Whitelist eNBs (80000-81000)" value="<?= !empty($enbAllowList) ? $enbAllowList : ''; ?>">
-<input class="adv-filter" type="text" id="enbBlockList" name="enbBlockList" placeholder="Blacklist eNBs (1-10,5-10)" value="<?= !empty($enbBlockList) ? $enbBlockList : ''; ?>">
+<input class="adv-filter" type="text" id="enbAllowList" name="enbAllowList" placeholder="Whitelist eNBs<?= !$onGui ? ' (80000-81000)' : '' ?>" value="<?= !empty($enbAllowList) ? $enbAllowList : ''; ?>">
+<input class="adv-filter" type="text" id="enbBlockList" name="enbBlockList" placeholder="Blacklist eNBs<?= !$onGui ? ' (1-10,5-10)' : '' ?>" value="<?= !empty($enbBlockList) ? $enbBlockList : ''; ?>">
 <br>
 <label>TAC Filters</label>
-<input class="adv-filter" type="text" id="tacsAllowList" name="tacsAllowList" placeholder="Whitelist TACs (15279,15301)" value="<?= !empty($tacsAllowList) ? $tacsAllowList : ''; ?>">
-<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs (15000-15500)" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
+<input class="adv-filter" type="text" id="tacsAllowList" name="tacsAllowList" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= !empty($tacsAllowList) ? $tacsAllowList : ''; ?>">
+<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs<?= !$onGui ? ' (15000-15500)' : '' ?>" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
 <br>
 
-
-<?php if (basename($_SERVER['SCRIPT_FILENAME']) !== 'gui.php') { ?>
+<?php if (!$onGui) { ?>
 <div class="checkbox-container">
     <!--
     <label class="checkbox-group">

@@ -29,36 +29,32 @@ body {
     padding: 6px 8px;
     font-size: 14px;
     box-sizing: border-box;
+    padding: 8px 6px 8px 6px!important;
 }
 
 /* Width constraints */
-.form input[name="plmn"] {
-    max-width: 145px;
-}
-
-.form input[name="lat"],
-.form input[name="lon"] {
-    max-width: 95px;
-}
-
-.form input[name="radius"] {
-    max-width: 110px;
-}
-.form input[name="date"] {
-    max-width: 130px;
+.form select[name="plmn"] {
+    max-width: 140px;
 }
 .form select[name="rat"] {
+    max-width: 98px;
+}
+.form input[name$="date"] {
     max-width: 120px;
 }
-.form input[name*="tacs"] {
-    max-width: 145px;
+.form input[name$="itude"] {
+    max-width: 120px;
 }
-
+.form input[name="radius"] {
+    max-width: 125px;
+}
+.form input[name="limit"] {
+    max-width: 60px;
+}
 /* Buttons are part of flex but do not grow */
 .form input[type="submit"],
 .form button {
-    flex: 0 0 auto;
-    padding: 6px 14px;
+    padding-right: 16px;
     font-size: 14px;
     cursor: pointer;
     white-space: nowrap;
