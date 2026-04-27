@@ -243,11 +243,11 @@
                 plmn, rat, oldest_date, newest_date,
                 cellsAllowList, cellsBlockList, enbAllowList,
                 enbBlockList, tacsAllowList, tacsBlockList,
-                perfectSurroOnly, viewMode
+                perfectSurroOnly, viewMode, randomColor
             ];
 
             // Elements that update UI or visuals without clearing data
-            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize, randomColor];
+            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize];
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
