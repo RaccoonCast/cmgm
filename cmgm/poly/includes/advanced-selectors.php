@@ -62,7 +62,7 @@ if (!$onGui) {
 <br>
 <label>TAC Filters</label>
 <input class="adv-filter" type="text" id="tacsAllowList" name="tacsAllowList" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= !empty($tacsAllowList) ? $tacsAllowList : ''; ?>">
-<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs<?= !$onGui ? ' (15000-15500)' : '' ?>" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
+<input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs<?= !$onGui ? ' (1024-1048)' : '' ?>" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
 <br>
 
 <?php if (!$onGui) { ?>

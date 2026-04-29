@@ -52,7 +52,7 @@ $boundsNELon          = get_param('boundsNELongitude', '/^-?\d+(\.\d+)?$/', 'Mal
 $boundsSWLat          = get_param('boundsSWLatitude', '/^-?\d+(\.\d+)?$/', 'Malformed SW latitude');
 $boundsSWLon          = get_param('boundsSWLongitude', '/^-?\d+(\.\d+)?$/', 'Malformed SW longitude');
 $radius               = get_param('radius', '/^\d+(\.\d+)?$/', 'Invalid radius, expected a number like 5 or 3.75');
-$labelSettings        = get_param('labelSettings', '/^[1-5]$/', 'Invalid label setting, expected integer from 1-5.', 2);
+$labelSettings        = get_param('labelSettings', '/^[1-6]$/', 'Invalid label setting, expected integer from 1-6.', 3);
 $limit                = get_param('limit', '/^\d+$/', 'Invalid limit', 450, fn($v) => (int)$v);
 $locationType         = get_param('locationType', '/^\d+$/', 'Invalid locationType, expected 1 or 2.', false, fn($v) => (int)$v);
 $perfectSurroOnly     = (($_GET['perfectSurroOnly'] ?? null) === 'true') ? true : null;

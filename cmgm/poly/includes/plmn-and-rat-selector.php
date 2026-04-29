@@ -11,7 +11,7 @@ $standard_plmns = ["310410", "310120", "310260", "311480", "313340", "311580", "
     <option value="" disabled>--</option>
     <?php if (!in_array($plmn, $standard_plmns)): ?><option value="<?php echo $plmn; ?>" selected><?php echo $plmn; ?></option><?php endif; ?>
     <option value="_custom_">Custom PLMN</option>
-    <option <?php if (is_null($plmn)) echo "selected"; ?> value="">All PLMNs</option>
+    <option <?php if (is_null($plmn)) echo "selected"; ?> value="">&#8203;All PLMNs</option>
 </select>
 <select name="rat" id="filterRat">
     <option <?php if($rat == "LTE") echo "selected"; ?> value="LTE">LTE</option>

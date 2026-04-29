@@ -433,16 +433,21 @@
                                              (map.getZoom() > 8    && index < 600 && labelSettings.value >= 5) ||
                                                                                      labelSettings.value == 6);
 
-                    // Toggle CSS display instead of unbinding/binding tooltips
-                    // Yes, this makes the divicon-hiding have effectively no performance gain, but matches existing behavior
+                    // Toggle visibility instead of unbinding/binding tooltips
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
                         const el = m.getElement();
-                        if (el) el.style.display = shouldBeVisible ? 'block' : 'none';
+                        if (el) {
+                            el.style.visibility = shouldBeVisible ? 'visible' : 'hidden';
+                            el.style.pointerEvents = shouldBeVisible ? 'auto' : 'none';
+                        }
                     } else if (typeof m.getTooltip === 'function') {
                         const tooltip = m.getTooltip();
                         if (tooltip) {
                             const el = tooltip.getElement();
-                            if (el) el.style.display = shouldBeVisible ? 'block' : 'none';
+                            if (el) {
+                                el.style.visibility = shouldBeVisible ? 'visible' : 'hidden';
+                                el.style.pointerEvents = shouldBeVisible ? 'auto' : 'none';
+                            }
                         }
                     }
                 });
@@ -544,8 +549,10 @@
                                         fillColor: getColor(plmnKey, tower.rat, randomColor.checked),
                                         color: "#000", weight: 1.5, fillOpacity: 1
                                     }).addTo(mapLayerGroup); 
-
-                                    const label = `${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${tower.is_exact_location === 1 ? '★' : ''}`;
+                                    
+                                    const excludedPlmns = ['310260', '310410', '311480', '310120', '311580'];
+                                    
+                                    const label = `${ excludedPlmns.includes(String(tower.plmn)) ? '' : `${tower.plmn}<br>` }${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${ tower.is_exact_location === 1 ? '★' : '' }`;
                                     marker.bindTooltip(`${label}${tower.cells ? '<br>Cells: ' + tower.cells : ''}`, {
                                         permanent: true, 
                                         direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
@@ -760,9 +767,14 @@
 
                 const pasted = (e.clipboardData || window.clipboardData).getData('text');
                 const coords = parseLatLng(pasted);
-
+                let jumpZoom;
+                if (map.getZoom() < 13) {
+                    jumpZoom = 17;
+                } else {
+                    jumpZoom = map.getZoom();
+                }
                 if (coords) {
-                    map.setView(coords, map.getZoom());
+                    map.setView(coords, jumpZoom);
                 }
             });
 

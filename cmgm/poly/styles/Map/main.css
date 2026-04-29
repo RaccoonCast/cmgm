@@ -75,7 +75,9 @@ input[type="checkbox"] {
 #lastSeen {
     width: 110px;
 }
-
+.tower-label {
+    border: 0px!important;
+}
 .formsContainerContainer {
     text-align: right;
 }
