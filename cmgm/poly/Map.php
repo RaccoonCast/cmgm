@@ -119,9 +119,9 @@
                     currentUrl.pathname = currentUrl.pathname.replace(/[^/]+$/, 'gui.php');
 
                     // Remove specific query parameters
-                    currentUrl.searchParams.delete('viewMode');
-                    currentUrl.searchParams.delete('iconSize');
-                    currentUrl.searchParams.delete('labelSettings');
+                    // currentUrl.searchParams.delete('viewMode');
+                    // currentUrl.searchParams.delete('iconSize');
+                    // currentUrl.searchParams.delete('labelSettings');
 
                     // Update the browser URL without reloading
                     window.location.href = currentUrl.toString();
