@@ -297,11 +297,13 @@
 
             const map = L.map('map', {
                 preferCanvas: true, boxZoom: true, zoomSnap: 0, zoomDelta: 0.8,
-                wheelPxPerZoomLevel: 120, wheelDebounceTime: 100
+                wheelPxPerZoomLevel: 120, wheelDebounceTime: 100, maxZoom: 19,
             }).setView([parseFloat(urlParams.get('latitude')) || 34.1317, parseFloat(urlParams.get('longitude')) || -118.2630], parseInt(urlParams.get('zoom')) || 14);
             map.attributionControl.setPrefix('<?php echo "Last updated: " . $dateOfData ?> <a href="https://cmgm.us/api/poly/updatePolyEnbs.php">⟳</a>');
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            }).addTo(map)
 
             // We split the markerMap into two strict dictionaries
             let pointMap = {};   // For L.CircleMarker (pins) and L.Marker (labels)
@@ -574,7 +576,7 @@
 
                                 if (isCellView) {
                                     // Prepare data for Polygons
-                                    if (!enbGroups[markerId]) enbGroups[enbId] = [];
+                                    if (!enbGroups[enbId]) enbGroups[enbId] = [];
                                     enbGroups[enbId].push({
                                         coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
                                         sectorId: tower.cell || '?',
