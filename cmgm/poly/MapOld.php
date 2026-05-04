@@ -412,85 +412,46 @@
             }
 
             function updateLabelsOnly() {
+                // Because points are isolated, we no longer need any .filter() logic!
+                let allVisibleMarkers = Object.values(pointMap);
                 const center = map.getCenter();
-                const bounds = map.getBounds();
-                const currentZoom = map.getZoom();
-                const labelLevel = parseInt(labelSettings.value);
 
-                // 1. Separate markers into on-screen and off-screen
-                let visibleOnScreen = [];
-                let offScreen = [];
-
-                Object.values(pointMap).forEach(m => {
-                    if (m.getLatLng && bounds.contains(m.getLatLng())) {
-                        visibleOnScreen.push(m);
-                    } else {
-                        offScreen.push(m);
-                    }
-                });
-
-                // 2. Unbind/Hide all off-screen markers immediately (Zero DOM impact)
-                offScreen.forEach(m => {
-                    if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
-                        if (mapLayerGroup.hasLayer(m)) mapLayerGroup.removeLayer(m);
-                    } else if (m.getTooltip()) {
-                        m.unbindTooltip();
-                    }
-                });
-
-                // 3. Pre-calculate distance ONLY for pins currently on the screen
-                const markersWithDistance = visibleOnScreen.map(m => ({
+                // Pre-calculate distance here to avoid Haversine math inside sort loop
+                const markersWithDistance = allVisibleMarkers.map(m => ({
                     marker: m,
                     distance: map.distance(center, m.getLatLng())
                 }));
 
-                // Sort the heavily reduced array
                 markersWithDistance.sort((a, b) => a.distance - b.distance);
-                const sortedVisibleMarkers = markersWithDistance.map(item => item.marker);
+                allVisibleMarkers = markersWithDistance.map(item => item.marker);
 
-                // 4. Apply visibility logic to on-screen markers
-                sortedVisibleMarkers.forEach((m, index) => {
-                    const shouldBeVisible = ((currentZoom > 17   && index < 150 && labelLevel >= 1) ||
-                                             (currentZoom > 14   && index < 250 && labelLevel >= 2) ||
-                                             (currentZoom > 12   && index < 350 && labelLevel >= 3) ||
-                                             (currentZoom > 10.5 && index < 450 && labelLevel >= 4) ||
-                                             (currentZoom > 8    && index < 600 && labelLevel >= 5) ||
-                                                                                    labelLevel == 6);
+                allVisibleMarkers.forEach((m, index) => {
+                    const shouldBeVisible = ((map.getZoom() > 17   && index < 150 && labelSettings.value >= 1) ||
+                                             (map.getZoom() > 14   && index < 250 && labelSettings.value >= 2) ||
+                                             (map.getZoom() > 12   && index < 350 && labelSettings.value >= 3) ||
+                                             (map.getZoom() > 10.5 && index < 450 && labelSettings.value >= 4) ||
+                                             (map.getZoom() > 8    && index < 600 && labelSettings.value >= 5) ||
+                                                                                     labelSettings.value == 6);
 
+                    // Toggle visibility instead of unbinding/binding tooltips
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
-                        // For Cell Mode labels: completely remove from map instead of visibility: hidden
-                        if (shouldBeVisible && !mapLayerGroup.hasLayer(m)) {
-                            mapLayerGroup.addLayer(m);
-                        } else if (!shouldBeVisible && mapLayerGroup.hasLayer(m)) {
-                            mapLayerGroup.removeLayer(m);
+                        const el = m.getElement();
+                        if (el) {
+                            el.style.visibility = shouldBeVisible ? 'visible' : 'hidden';
+                            el.style.pointerEvents = shouldBeVisible ? 'auto' : 'none';
                         }
-                    } else {
-                        // For eNB Mode Pins: Toggle between permanent and hover-only tooltips
-                        const currentTooltip = m.getTooltip();
-                        const isPermanent = currentTooltip ? currentTooltip.options.permanent : false;
-
-                        if (shouldBeVisible && (!currentTooltip || !isPermanent)) {
-                            // Conditions met: Show label permanently
-                            m.bindTooltip(m.customLabelHtml, {
-                                permanent: true, 
-                                direction: 'bottom', 
-                                className: 'tower-label', 
-                                offset: [0, 12], 
-                                interactive: true
-                            });
-                        } else if (!shouldBeVisible && (!currentTooltip || isPermanent)) {
-                            // Conditions not met: Fallback to hover-only
-                            m.bindTooltip(m.customLabelHtml, {
-                                permanent: false, 
-                                direction: 'bottom', 
-                                className: 'tower-label', 
-                                offset: [0, 12] 
-                            });
+                    } else if (typeof m.getTooltip === 'function') {
+                        const tooltip = m.getTooltip();
+                        if (tooltip) {
+                            const el = tooltip.getElement();
+                            if (el) {
+                                el.style.visibility = shouldBeVisible ? 'visible' : 'hidden';
+                                el.style.pointerEvents = shouldBeVisible ? 'auto' : 'none';
+                            }
                         }
                     }
                 });
             }
-            
             async function fetchData(bounds, requestId) {
                 let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
                 try {
@@ -574,7 +535,7 @@
 
                                 if (isCellView) {
                                     // Prepare data for Polygons
-                                    if (!enbGroups[markerId]) enbGroups[enbId] = [];
+                                    if (!enbGroups[enbId]) enbGroups[enbId] = [];
                                     enbGroups[enbId].push({
                                         coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
                                         sectorId: tower.cell || '?',
@@ -592,9 +553,10 @@
                                     const excludedPlmns = ['310260', '310410', '311480', '310120', '311580'];
                                     
                                     const label = `${ excludedPlmns.includes(String(tower.plmn)) ? '' : `${tower.plmn}<br>` }${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${ tower.is_exact_location === 1 ? '★' : '' }`;
-
-                                    // Store the HTML string in a custom property on the marker, DO NOT bind it yet.
-                                    marker.customLabelHtml = `${label}${tower.cells ? '<br>Cells: ' + tower.cells : ''}`;
+                                    marker.bindTooltip(`${label}${tower.cells ? '<br>Cells: ' + tower.cells : ''}`, {
+                                        permanent: true, 
+                                        direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
+                                    });
 
                                     const handleTrigger = (e) => {
                                         L.DomEvent.stopPropagation(e);
@@ -716,6 +678,7 @@
                 const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
                 const items = [{ label: `Copy ${prefix} (${tower.enb})`, action: () => silentCopy(tower.enb) }];
 
+                // RESTORED: TAC copy option
                 if (tower.tac) {
                     items.push({ label: `Copy TAC (${tower.tac})`, action: () => silentCopy(tower.tac) });
                 }
