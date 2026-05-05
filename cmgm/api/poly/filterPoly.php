@@ -7,24 +7,28 @@ function calculateMiles($lat1, $lon1, $lat2, $lon2) {
     $c = 2 * asin(sqrt($a));
     return $earthRadius * $c;
 }
+function buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat, $boundsSWLon, $centerLat, $centerLon, $capDistance) {
+    $microNELat = min($boundsNELat, $centerLat + $capDistance);
+    $microNELon = min($boundsNELon, $centerLon + $capDistance);
+    $microSWLat = max($boundsSWLat, $centerLat - $capDistance);
+    $microSWLon = max($boundsSWLon, $centerLon - $capDistance);
+
+    return "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
+}
 
 // Get variables needed
 include "get_param.php";
 
 // Start query build, identify whether working with LPB/LPE/LPBE.
-$tableName = $useAggregateTable ? 'local_poly_enbs' : 'local_poly_beta';
+$tableName = $viewMode == "enbs" ? 'local_poly_enbs' : 'local_poly_beta';
+if ($viewMode == "cells") $whereFilters = 'AND plmn <> 312190 ';
 
-$keys = $useAggregateTable ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
-$keys .= $locationType == 1 ? ",latitude AS latitude,longitude AS longitude" : ",latitude_advanced AS latitude,longitude_advanced AS longitude";
-
-// Filter 0: Remove eNBs without a location
-if (is_null($boundsNELat) && is_null($boundsNELon) && is_null($boundsSWLat) && is_null($boundsSWLon)) {
-$whereFilters = " latitude <> 0.0 AND longitude <> 0.0 ";
-}
+$keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
+$keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
 
 // Filter 1: Location (latitude & longitude)
-if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon) && $limit !== 0) {
-    // 1. Calculate Distances & Center Point
+if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon)) {
+    // Calculate Distances & Center Point
     $latDiff = abs($boundsNELat - $boundsSWLat);
     $lonDiff = abs($boundsNELon - $boundsSWLon);
 
@@ -32,29 +36,35 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     $centerLon = ($boundsNELon + $boundsSWLon) / 2;
     $centerPoint = "ST_GeomFromText('POINT($centerLat $centerLon)', 4326)";
 
-    // 2. The Auto-Trigger Logic
-    // Trigger if the box is larger than +/- 1.75 from the center (a total span of 3.5)
-    if (($latDiff > 4.0 || $lonDiff > 4.0)) {
-        echo $limit;
-        die();
-
-        // ZOOMED OUT: Cap the boundaries to a maximum of +/- 1.75 from the center
-        $microNELat = min($boundsNELat, $centerLat + 2.0);
-        $microNELon = min($boundsNELon, $centerLon + 2.0);
-        $microSWLat = max($boundsSWLat, $centerLat - 2.0);
-        $microSWLon = max($boundsSWLon, $centerLon - 2.0);
-
-        $searchPolygon = "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
-
-    } else {
-        // Standard bounding box polygon if no cap is needed
-        $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+    // Reduce bounding box size if conditions for reducing are met.
+    if ($limit !== 0) {
+        if ($viewMode == "enbs") {
+            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 6.0 || $lonDiff > 6.0) && $limit > 450) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 4.0 || $lonDiff > 4.0)) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
+            }
+        }
+        if ($viewMode == "cells") {
+            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
+            } elseif (($latDiff > 4.0 || $lonDiff > 4.0) && $limit > 450) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
+            } elseif (($latDiff > 2.5 || $lonDiff > 2.5)) {
+                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 1.25);
+            }
+        }
     }
-    // 3. Execute the Spatial Query
-    // We pass in $searchPolygon, which dynamically swapped itself in Step 2!
-    $whereFilters .= "AND ST_Within(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
-    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, $centerPoint) ASC ";
-} elseif (!is_null($latitude) && !is_null($longitude)) {
+
+    // Bounding box not limited by previous if blocks, set bounding box to be equal to the user's bounding box.
+    if (!isset($searchPolygon)) $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+
+    // Add bounding box rule to query.
+    $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+    $orderBy .= "ORDER BY ST_Distance(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
+} elseif (!is_null($latitude) && !is_null($longitude) && $limit !== 0) {
     // OPTION B: Haversine Formula)
     $distanceExpr = "(3959 * 2 * ASIN(SQRT(
         POWER(SIN(RADIANS(latitude - $latitude) / 2), 2) +
@@ -63,14 +73,14 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
     )))";
 
     $locationFilter = ", $distanceExpr AS calculated_distance ";
-    $orderBy = "ORDER BY calculated_distance";
+    $orderBy = "ORDER BY calculated_distance ";
 }
 
 // Filter 2: Date Filtering
-$dateKeys = ['oldest_date', 'newest_date'];
+$date_of_info = $oldest_date; // Rename oldest_date to date_of_info for Cells mode.
+$dateKeys = $viewMode == "enbs" ? ['oldest_date', 'newest_date'] : ['date_of_info'];
 
 foreach ($dateKeys as $key) {
-
     $val = $$key;
 
     if ($val === null) {
@@ -102,33 +112,78 @@ foreach ($dateKeys as $key) {
 
 // Filter 3: PLMN
 if (!is_null($plmn)) {
-    if (strpos($plmn, ',') !== false) {
-        $plmnArray = array_filter(array_map(fn($v) => "'" . preg_replace('/[^0-9]/', '', trim($v)) . "'", explode(',', $plmn)));
-        if (!empty($plmnArray)) $db_vars .= "AND plmn IN (" . implode(',', $plmnArray) . ") ";
-    } else {
-        $whereFilters .= "AND plmn = $plmn ";
+    $include = $exclude = [];
+
+    foreach (explode(',', $plmn) as $plmnValue) {
+        $plmnValue = trim($plmnValue);
+        if ($plmnValue === '') continue;
+
+        $num = intval(preg_replace('/\D/', '', $plmnValue));
+        if (!$num) continue;
+
+        if (str_starts_with($plmnValue, '!')) {
+            $exclude[] = $num;
+        } else {
+            $include[] = $num;
+        }
     }
+
+    if ($include) $whereFilters .= "AND plmn IN (" . implode(',', $include) . ") ";
+    if ($exclude) $whereFilters .= "AND plmn NOT IN (" . implode(',', $exclude) . ") ";
 }
 
-// Filter 4: Rat
+// Filter 4: Within distance.
+if (!is_null($locationFilter) && !is_null($radius)) {
+    $whereFilters .= "AND $distanceExpr <= $radius ";
+}
+
+// Filter 5: Rat
 if (!is_null($rat)) {
     $whereFilters .= "AND RAT = '$rat' ";
 }
 
-// Filter 5: Tac
+// Filter 6: Tac
 if (!is_null($tacsAllowList)) {
-    $tacList = implode(',', array_map('intval', explode(',', $_GET['tacsAllowList'])));
-    // Add the TAC filter to the outer query instead of just the subquery
-    $whereFilters .= "AND tac IN ($tacList) ";
+    $tacsAllowListArray = explode(',', $tacsAllowList);
+    $tacConditions = [];
+
+    foreach ($tacsAllowListArray as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $tacConditions[] = "tac BETWEEN $start AND $end";
+            }
+        } else {
+            $tacConditions[] = "tac = $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    if (!empty($tacConditions)) {
+        $whereFilters .= "AND (" . implode(' OR ', $tacConditions) . ") ";
+    }
 }
 if (!is_null($tacsBlockList)) {
-    $tacBlockList = implode(',', array_map('intval', explode(',', $_GET['tacsBlockList'])));
-    $whereFilters .= "AND tac NOT IN ($tacBlockList) ";
-}
+    $tacsBlockListArray = explode(',', $tacsBlockList);
+    $tacConditions = [];
 
-// Filter 6: Within distance.
-if (!is_null($locationFilter) && !is_null($radius)) {
-    $whereFilters .= "AND $distanceExpr <= $radius ";
+    foreach ($tacsBlockListArray as $range) {
+        if (strpos($range, '-') !== false) {
+            $bounds = explode('-', $range);
+            if (count($bounds) == 2) {
+            $start = (int)$bounds[0];
+            $end   = (int)$bounds[1];
+            $tacConditions[] = "tac NOT BETWEEN $start AND $end";
+            }
+        } else {
+            $tacConditions[] = "tac != $range";
+        }
+        }
+        $bounds = explode('-', $range);
+    if (!empty($tacConditions)) {
+        $whereFilters .= "AND (" . implode(' AND ', $tacConditions) . ") ";
+    }
 }
 
 // Filter 7: By eNB Range
@@ -150,8 +205,11 @@ if (!is_null($enbAllowList)) {
         }
         }
         $bounds = explode('-', $range);
+    if (!empty($enbConditions)) {
+        $whereFilters .= "AND (" . implode(' OR ', $enbConditions) . ") ";
     }
-    
+}
+
 // eNB blocklist ranges
 if (!is_null($enbBlockList)) {
     $enbBlockArray = explode(',', $enbBlockList);
@@ -170,23 +228,46 @@ if (!is_null($enbBlockList)) {
         }
         }
         $bounds = explode('-', $range);
+    if (!empty($enbConditions)) {
+        $whereFilters .= "AND (" . implode(' AND ', $enbConditions) . ") ";
     }
-if (!empty($enbConditions)) {
-    $whereFilters .= "AND (" . implode(' AND ', $enbConditions) . ") ";
 }
+
 
 // Filter 8: Cell filtering (space-separated string column)
 
 // Allowlist (must match at least one)
-if (!is_null($cellsAllowList)) {
-    $list = str_replace(' ', ',', $cellsAllowList);
-    $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+// Allowlist (must match at least one)
+// Allowlist (must match at least one)
+if (!is_null($cellsAllowList) && $viewMode == "enbs") {
+    // Adding ?? '' ensures str_replace never receives null
+    $list = str_replace(' ', ',', $cellsAllowList ?? ''); 
+    
+    if (!empty($list)) {
+        $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+    }
+} elseif (!is_null($cellsAllowList)) {
+    $cells = array_map('intval', explode(',', $cellsAllowList));
+    if (!empty($cells)) {
+        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+        $whereFilters .= 'AND (' . implode(' OR ', $conditions) . ') ';
+    }
 }
 
 // Blocklist (must match none)
-if (!is_null($cellsBlockList)) {
-    $list = str_replace(' ', ',', $cellsBlockList);
-    $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+if (!is_null($cellsBlockList) && $viewMode == "enbs") {
+    // Adding ?? '' ensures str_replace never receives null
+    $list = str_replace(' ', ',', $cellsBlockList ?? '');
+    
+    if (!empty($list)) {
+        $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
+    }
+} elseif (!is_null($cellsBlockList)) {
+    $cells = array_map('intval', explode(',', $cellsBlockList));
+    if (!empty($cells)) {
+        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+        $whereFilters .= ' AND NOT (' . implode(' OR ', $conditions) . ') ';
+    }
 }
 
 // Filter 9: Perfect Surro Only)
@@ -200,8 +281,50 @@ if (!is_null($limit) && $limit > 0) {
 }
 
 // Filter 99: Build it
-$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFilters$orderBy$limitClause";
+$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFiltersLocation$whereFilters$orderBy$limitClause";
+
+if ($viewMode == "cells") {
+    // 1. Prefix the keys to avoid the "ambiguous" error in SELECT
+    $prefixedKeys = implode(', ', array_map(fn($k) => "main." . trim($k), explode(',', $keys)));
+
+    // 2. Create a prefixed version of filters for the main query SELECT block
+    // This adds 'main.' to the common columns to prevent the ambiguity error
+    $mainWhereFilters = str_replace(
+        ['plmn', 'enb', 'cell', 'RAT', 'tac', 'pci'], 
+        ['main.plmn', 'main.enb', 'main.cell', 'main.RAT', 'main.tac', 'main.pci'], 
+        $whereFilters
+    );
+
+    $roughLimit = 1.25; 
+    $boundingBox = " AND latitude BETWEEN " . ($centerLat - $roughLimit) . " AND " . ($centerLat + $roughLimit) . " 
+                     AND longitude BETWEEN " . ($centerLon - $roughLimit) . " AND " . ($centerLon + $roughLimit);
+  
+    // 4. Build the query
+    $sql_query = "
+    WITH selected_enbs AS (
+        SELECT plmn, enb, coords, latitude, longitude
+        FROM $tableName 
+        WHERE 1=1 $whereFilters$whereFiltersLocation
+        $orderBy
+        $limitClause
+    )
+    SELECT $prefixedKeys $locationFilter 
+    FROM $tableName main
+    JOIN selected_enbs se ON main.enb = se.enb AND main.plmn = se.plmn
+    WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
+    $mainWhereFilters
+    AND main.latitude BETWEEN (se.latitude - 1.5) AND (se.latitude + 1.5)
+    AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
+    ";
+
+    // 5. Performance: Rough Bounding Box
+
+}
+
 
 // The return
-if ($showsql) error("$sql_query");
+if ($showsql) {
+    echo $sql_query;
+    die();
+};
 ?>

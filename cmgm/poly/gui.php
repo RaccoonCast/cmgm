@@ -118,7 +118,7 @@ document.addEventListener('change', (e) => {
   plmn = plmn.trim();
 
   // Basic validation
-  if (!/^\d{6}$/.test(plmn)) {
+  if (!/^\d{6}(,\d{6})*$/.test(plmn)) {
     alert('Invalid PLMN.');
     select.value = '';
     return;
@@ -174,6 +174,22 @@ function myFunction2() {
     var latlong = lat + "," + long;
     copyToClipboard(latlong);
 }
+document.addEventListener('DOMContentLoaded', () => {
+                const button = document.getElementById('map-button');
+
+                button.addEventListener('click', () => {
+                    let currentUrl = new URL(window.location.href);
+
+                    // Replace only the filename in the path
+                    currentUrl.pathname = currentUrl.pathname.replace(/[^/]+$/, 'Map.php');
+
+                    // Remove specific query parameters
+                    // currentUrl.searchParams.delete('radius');
+
+                    // Update the browser URL without reloading
+                    window.location.href = currentUrl.toString();
+                });
+            });
 </script>
 <meta charset="UTF-8">
 <title>CMGM - Mapper</title>
@@ -188,7 +204,8 @@ function myFunction2() {
     <input type="number" step="0.1" name="radius" placeholder="Radius (miles)" value="<?= @$_GET['radius'] ?>">
     <input type="number" step="1" name="limit" placeholder="Limit" value="<?= $limit ?>">
     <input class="poly-btn colorized" id="submitButton" type="submit" value="View">
-    <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">View as CSV</button>
+    <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">CSV</button>
+    <button type="button" class="poly-btn" id="map-button">Map</button>
 </form>
 </div>
 
