@@ -413,7 +413,7 @@
                 );
             }
 
-            function updateLabelsOnly() {
+function updateLabelsOnly() {
                 const center = map.getCenter();
                 const bounds = map.getBounds();
                 const currentZoom = map.getZoom();
@@ -467,27 +467,26 @@
                             mapLayerGroup.removeLayer(m);
                         }
                     } else {
-                        // For eNB Mode Pins: Toggle between permanent and hover-only tooltips
-                        const currentTooltip = m.getTooltip();
-                        const isPermanent = currentTooltip ? currentTooltip.options.permanent : false;
-
-                        if (shouldBeVisible && (!currentTooltip || !isPermanent)) {
-                            // Conditions met: Show label permanently
-                            m.bindTooltip(m.customLabelHtml, {
-                                permanent: true, 
-                                direction: 'bottom', 
-                                className: 'tower-label', 
-                                offset: [0, 12], 
-                                interactive: true
-                            });
-                        } else if (!shouldBeVisible && (!currentTooltip || isPermanent)) {
-                            // Conditions not met: Fallback to hover-only
-                            m.bindTooltip(m.customLabelHtml, {
-                                permanent: false, 
-                                direction: 'bottom', 
-                                className: 'tower-label', 
-                                offset: [0, 12] 
-                            });
+                        const hasTooltip = !!m.getTooltip();
+                        
+                        if (shouldBeVisible) {
+                            if (!hasTooltip) {
+                                // Bind normally because zoom/settings dictate it should be visible
+                                m.bindTooltip(m.customLabelHtml, {
+                                    permanent: true, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
+                                });
+                                m._hoverAddedTooltip = false;
+                            } else if (m._hoverAddedTooltip) {
+                                // It's currently hovered, but zoom/settings say it should be permanent now.
+                                // "Promote" it by clearing the hover flag so mouseout ignores it.
+                                m._hoverAddedTooltip = false;
+                            }
+                        } else {
+                            // Zoom/settings dictate it shouldn't be visible
+                            if (hasTooltip && !m._hoverAddedTooltip) {
+                                // Unbind ONLY if it wasn't triggered by an active hover
+                                m.unbindTooltip();
+                            }
                         }
                     }
                 });
@@ -603,6 +602,28 @@
                                         if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
                                         createMenu(e, { ...tower, plmn: plmnKey });
                                     };
+
+                                    // Initialize the custom hover state flag
+                                    marker._hoverAddedTooltip = false; 
+
+                                    marker.on('mouseover', function(e) {
+                                        // Only bind if a tooltip doesn't already exist (from zoom settings)
+                                        if (!this.getTooltip()) {
+                                            this.bindTooltip(this.customLabelHtml, {
+                                                permanent: true, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
+                                            }).openTooltip();
+                                            this._hoverAddedTooltip = true; // Mark that WE added this via hover
+                                        }
+                                    });
+
+                                    marker.on('mouseout', function(e) {
+                                        // Only unbind if it was added by our hover event
+                                        if (this._hoverAddedTooltip) {
+                                            this.unbindTooltip();
+                                            this._hoverAddedTooltip = false;
+                                        }
+                                    });
+
                                     marker.on('click', handleTrigger).on('contextmenu', handleTrigger);
                                     pointMap[markerId] = marker;
                                 }
