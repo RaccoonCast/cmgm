@@ -35,3 +35,10 @@ padding:0;
 .leaflet-popup-close-button {
 	display: none;
 }
+#polyInfoButton_content table td {
+ padding-left: 10px;
+ padding-right: 10px;
+}
+.dropdown-content {
+	padding: 1rem;
+}

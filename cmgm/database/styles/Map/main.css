@@ -64,7 +64,6 @@ img[src*="/dist/images/marker-icon"] {
   display: none;
   position: absolute;
   background: #eee;
-  padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
@@ -74,16 +73,6 @@ img[src*="/dist/images/marker-icon"] {
   display: block;
 }
 
-ul {
-  margin: 0;
-  padding-left: 1rem;
-  list-style-type: none;
-}
-
-li {
-  margin-bottom: 0.5rem;
-  color: black;
-}
 .leaflet-popup-content-wrapper {
   border-top: 5px solid var(--accent-color)!important; /* add accent color to border */
   border-left: 5px solid var(--accent-color)!important; /* add accent color to border */
@@ -95,4 +84,8 @@ li {
 }
 .iframe_box {
   border-radius: 15px;
+}
+#polyInfoButton_content table {
+ color: black;
+ text-align: center;
 }

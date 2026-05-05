@@ -17,16 +17,21 @@ function formatCellInfo(data, useFullCellId = false) {
       const providerIsExactLocation = cells[cellId].is_exact_location === true;
 
       let gcid = cells[cellId].cellId;
-      const reach = cells[cellId].reach ?? 'N/A';
-      const score = cells[cellId].score ?? 'N/A';
+      const reach = cells[cellId].reach ?? '';
+      const score = cells[cellId].score ?? '';
 
-      const date = new Date(cells[cellId].date)?.toLocaleString() ?? '';
-      const tacLabel = cells[cellId]?.tac ? ` (TAC ${cells[cellId].tac})` : ''
+      const dateAndTime = new Date(cells[cellId].date) ?? '';
+      const date = dateAndTime.toLocaleDateString();  // e.g. "5/4/2026"
+      const time = dateAndTime.toLocaleTimeString();  // e.g. "10:32:15 AM"
+      const tacLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
+      const perfectSurroLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
       const providerCachedSymbol = providerIsCached ? '<span style="vertical-align: super; font-size: small;">*</span>' : '';
-      const providerExactLocationSymbol = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : '';
-      const label = multipleENBs
-        ? `<li title="${date} | Reach: ${reach} | Score: ${score}"><span class="cell-label">${eNB}</span>-${useFullCellId ? gcid : cellId}: ${providerClean}${providerExactLocationSymbol}${tacLabel}${providerCachedSymbol}</li>`
-        : `<li title="${date} | Reach: ${reach} | Score: ${score}"><span class="cell-label">Cell</span> ${useFullCellId ? gcid : cellId}: ${providerClean}${providerExactLocationSymbol}${tacLabel}${providerCachedSymbol}</li>`;
+      const scoreOrExactLocationLabel = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : score;
+      const reachLabel = providerIsExactLocation ? '' : reach;
+      const id = useFullCellId ? gcid : cellId;
+      const idContent = multipleENBs ? `${eNB}-${id}` : `${id}`;
+      const idLabel = multipleENBs ? `eNBs` : `Cells`;
+      const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}${providerCachedSymbol}</td><td>${tacLabel}</td><td title="${time}">${date}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
       result.push(label);
     }
   }
@@ -52,7 +57,9 @@ async function addInfoData(iframe, returnData, redraw = false) {
 
   // Get response and parse from base64
   const data = JSON.parse(atob(returnData));
-
+  const multipleENBs = Object.keys(data).length > 1;
+  const idLabel = multipleENBs ? 'eNBs' : 'Cells';
+  
   // Parse response into format for popup
   const infoData = formatCellInfo(data, useFullCellId);
 
@@ -79,7 +86,7 @@ async function addInfoData(iframe, returnData, redraw = false) {
   }
 
   // console.log('list data:', list);
-  content.innerHTML = `<ul>${infoData.join("")}</ul>`;
+  content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th></thead><tbody>${infoData.join("")}</tbody></table>`;
   // console.log('wrote html', content.innerHTML);
 
   button.onclick = () => {
@@ -108,7 +115,7 @@ async function addInfoData(iframe, returnData, redraw = false) {
     useFullCellId = !useFullCellId;
     
     const infoData = formatCellInfo(data, useFullCellId);
-    content.innerHTML = `<ul>${infoData.join("")}</ul>`;
+    content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th></thead><tbody>${infoData.join("")}</tbody></table>`;
   });
 
 }
