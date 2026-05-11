@@ -45,6 +45,7 @@ if ($plmn == "310260") $carrier = "T-Mobile";
 if ($plmn == "311480") $carrier = "Verizon";
 if ($plmn == "310120") $carrier = "Sprint";
 if ($plmn == "310410") $carrier = "ATT";
+if ($plmn == "313100") $carrier = "ATT";
 if ($plmn == "313340") $carrier = "Dish";
 
 ?>
