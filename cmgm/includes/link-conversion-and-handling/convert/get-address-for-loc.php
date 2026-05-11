@@ -18,22 +18,29 @@ $address = $state = $county = $city = $route =$zip = $street_number = null;
 foreach ($results as $result) {
     if (isset($result->address_components)) {
         $addressComponents = $result->address_components;
-
+        
         foreach ($addressComponents as $addrComp) {
-            if ($addrComp->types[0] == 'administrative_area_level_1') { if (empty($state)) $state = $addrComp->short_name;}
-            if ($addrComp->types[0] == 'administrative_area_level_2') { if (empty($county)) $county = $addrComp->long_name;}
-            if ($addrComp->types[0] == 'locality') { if (empty($city)) $city = $addrComp->long_name;}
-            if ($addrComp->types[0] == 'route') { if (empty($route)) $route = $addrComp->short_name;}
-            if ($addrComp->types[0] == 'postal_code') { if (empty($zip)) $zip = $addrComp->long_name;}
-            if ($addrComp->types[0] == 'street_number') { if (empty($street_number)) $street_number = $addrComp->short_name;}
+            // Guard clause: Ensure 'types' exists and is not empty to prevent warnings
+            if (!isset($addrComp->types) || empty($addrComp->types)) {
+                continue;
+            }
 
-            if (isset($state) && strlen($state) > 2) { // "support" for Puerto Rico/US Virgin Islands
-                if ($addrComp->types[0] == 'country') {
+            if (empty($state) && in_array('administrative_area_level_1', $addrComp->types)) $state = $addrComp->short_name;
+            if (empty($county) && in_array('administrative_area_level_2', $addrComp->types)) $county = $addrComp->long_name;
+            if (empty($city) && in_array('locality', $addrComp->types)) $city = $addrComp->long_name;  
+            if (empty($route) && in_array('route', $addrComp->types)) $route = $addrComp->short_name;
+            if (empty($zip) && in_array('postal_code', $addrComp->types)) $zip = $addrComp->long_name;
+            if (empty($street_number) && in_array('street_number', $addrComp->types)) $street_number = $addrComp->short_name;
+
+            // "Support" for Puerto Rico/US Virgin Islands
+            if (isset($state) && strlen($state) > 2) {
+                if (in_array('country', $addrComp->types)) {
                     $state = $addrComp->short_name;
+                }
             }
         }
 
-        // If we found valid address components, break out of the loop
+        // If we found all valid address components, break out of the outer loop
         if ($state !== null && $county !== null && $city !== null && $route !== null && $zip !== null && $street_number !== null) {
             break;
         }
@@ -43,6 +50,5 @@ foreach ($results as $result) {
     if (@$city == @$county) $county = NULL; // If county and city are the same, set county to empty.
     if (!empty($route) && !empty($street_number)) $address = "$street_number $route"; // Generate $address variable for field on edit.
 
-  }
 }
 ?>
