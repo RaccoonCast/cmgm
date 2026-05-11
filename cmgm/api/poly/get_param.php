@@ -38,6 +38,7 @@ $plmn                 = get_param('plmn', '/^!?\d+(,!?\d+)*$/', 'Invalid PLMN pr
 $viewMode             = get_param('viewMode', '/^(cells|enbs)$/', 'Invalid view mode, expected "cells" or "enbs"', 'enbs');
 $cellsAllowList       = get_param('cellsAllowList', '/^\d+(,\d+)*$/', 'Invalid cells whitelist provided, expected input like "11,12,13" or "4,5,6"');
 $cellsBlockList       = get_param('cellsBlockList', '/^\d+(,\d+)*$/', 'Invalid cells blacklist provided, expected input like "11,12,13" or "4,5,6"');
+$cells                = get_param('cells', '/^\d+(,\d+)*$/', 'Invalid cells list provided, expected input like "11,12,13" or "4,5,6"');
 $tacsAllowList        = get_param('tacsAllowList', '/^(\d+(-\d+)?)(,(\d+(-\d+)?))*$/', 'Invalid tacs whitelist provided, expected input like "1024,1028" or "15000-15300"');
 $tacsBlockList        = get_param('tacsBlockList', '/^(\d+(-\d+)?)(,(\d+(-\d+)?))*$/', 'Invalid tacs blacklist provided, expected input like "1024,1028" or "15000-15300"');
 $enbAllowList         = get_param('enbAllowList', '/^(\d+(-\d+)?)(,(\d+(-\d+)?))*$/', 'Invalid enb whitelist provided, expected input like "67684", "85105-185943" or "8000-11000,15000-18000"');
@@ -53,10 +54,14 @@ $boundsSWLat          = get_param('boundsSWLatitude', '/^-?\d+(\.\d+)?$/', 'Malf
 $boundsSWLon          = get_param('boundsSWLongitude', '/^-?\d+(\.\d+)?$/', 'Malformed SW longitude');
 $radius               = get_param('radius', '/^\d+(\.\d+)?$/', 'Invalid radius, expected a number like 5 or 3.75');
 $labelSettings        = get_param('labelSettings', '/^[0-6]$/', 'Invalid label setting, expected integer from 0-6.', 3);
+$score                = get_param('score', '/^(?:[<>]?\d+|\d+\s*-\s*\d+)$/', 'Invalid score filter, expected something like >300 or 1-30' );
+$cellQuantity         = get_param('cellQuantity', '/^(?:[<>])?\d+$/', 'Invalid cell quantity setting, expected something like <10');
 $limit                = get_param('limit', '/^\d+$/', 'Invalid limit', 450, fn($v) => (int)$v);
+$enb                  = get_param('enb', '/^\d+$/', 'Invalid eNB', 0, fn($v) => (int)$v);
 $locationType         = get_param('locationType', '/^\d+$/', 'Invalid locationType, expected 1 or 2.', false, fn($v) => (int)$v);
 $perfectSurroOnly     = (($_GET['perfectSurroOnly'] ?? null) === 'true') ? true : null;
 $randomColor          = (($_GET['randomColor'] ?? null) === 'true') ? true : null;
+$permanentlyDelete    = (($_GET['permanentlyDelete'] ?? null) === 'true') ? true : null;
 $showsql              = isset($_GET['showsql']);
 $iconSize             = $_GET['iconSize'] ?? 10;
 // $labels               = ($_GET['labels'] ?? 'true') === 'true' ? 'checked' : '';

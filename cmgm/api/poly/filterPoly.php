@@ -7,11 +7,12 @@ function calculateMiles($lat1, $lon1, $lat2, $lon2) {
     $c = 2 * asin(sqrt($a));
     return $earthRadius * $c;
 }
-function buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat, $boundsSWLon, $centerLat, $centerLon, $capDistance) {
-    $microNELat = min($boundsNELat, $centerLat + $capDistance);
-    $microNELon = min($boundsNELon, $centerLon + $capDistance);
-    $microSWLat = max($boundsSWLat, $centerLat - $capDistance);
-    $microSWLon = max($boundsSWLon, $centerLon - $capDistance);
+function buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat, $boundsSWLon, $centerLat, $centerLon, $capLatDistance, $capLonDistance) {
+    // Apply independent lat/lon caps
+    $microNELat = min($boundsNELat, $centerLat + $capLatDistance);
+    $microNELon = min($boundsNELon, $centerLon + $capLonDistance);
+    $microSWLat = max($boundsSWLat, $centerLat - $capLatDistance);
+    $microSWLon = max($boundsSWLon, $centerLon - $capLonDistance);
 
     return "POLYGON(($microSWLat $microSWLon, $microNELat $microSWLon, $microNELat $microNELon, $microSWLat $microNELon, $microSWLat $microSWLon))";
 }
@@ -23,8 +24,10 @@ include "get_param.php";
 $tableName = $viewMode == "enbs" ? 'local_poly_enbs' : 'local_poly_beta';
 if ($viewMode == "cells") $whereFilters = 'AND plmn <> 312190 ';
 
-$keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude";
-$keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
+$keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
+if ($viewMode !== "cells") {
+    $keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
+}
 
 // Filter 1: Location (latitude & longitude)
 if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) && !is_null($boundsSWLon)) {
@@ -38,24 +41,51 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
 
     // Reduce bounding box size if conditions for reducing are met.
     if ($limit !== 0) {
-        if ($viewMode == "enbs") {
-            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
-            } elseif (($latDiff > 6.0 || $lonDiff > 6.0) && $limit > 450) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
-            } elseif (($latDiff > 4.0 || $lonDiff > 4.0)) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
+        $baseCap = null;
+        $maxDiff = max($latDiff, $lonDiff); // Find the dominant axis
+        // Determine the base cap distance using the dominant axis
+            if ($viewMode == "enbs") {
+                if ($maxDiff > 15.0 && $limit > 7499) {
+                    $baseCap = 7.5;
+                } elseif ($maxDiff > 10.0 && $limit > 2999) {
+                    $baseCap = 5.0;
+                } elseif ($maxDiff > 7.0 && $limit > 450) {
+                    $baseCap = 3.5;
+                } elseif ($maxDiff > 4.50) {
+                    $baseCap = 2.25;
+                }
+            } elseif ($viewMode == "cells") {
+                if ($maxDiff > 10.0 && $limit > 7499) {
+                    $baseCap = 5.00;
+                } elseif ($maxDiff > 7.0 && $limit > 2999) {
+                    $baseCap = 3.50;
+                } elseif ($maxDiff > 4.5 && $limit > 450) {
+                    $baseCap = 2.25;
+                } elseif ($maxDiff > 3.0) {
+                    $baseCap = 1.50;
+                }
             }
-        }
-        if ($viewMode == "cells") {
-            if (($latDiff > 8.0 || $lonDiff > 8.0) && $limit > 2999) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 3.00);
-            } elseif (($latDiff > 4.0 || $lonDiff > 4.0) && $limit > 450) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 2.00);
-            } elseif (($latDiff > 2.5 || $lonDiff > 2.5)) {
-                $searchPolygon = buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat,$boundsSWLon, $centerLat, $centerLon, 1.25);
-            }
-        }
+
+        // Modify cap to consider aspect ratio of device.
+        if ($baseCap !== null) {
+        // Calculate multipliers (the dominant axis will always have a ratio of 1)
+        $ratioLat = $latDiff / $maxDiff;
+        $ratioLon = $lonDiff / $maxDiff;
+
+        // Apply ratios to the base cap to get independent lat/lon caps
+        $capLatDistance = $baseCap * $ratioLat;
+        $capLonDistance = $baseCap * $ratioLon;
+
+        if (!is_null($plmn)) $baseCap *= 1.75;
+        if (!is_null($rat)) $baseCap *= 1.10;
+
+        $searchPolygon = buildCappedPolygon(
+            $boundsNELat, $boundsNELon, 
+            $boundsSWLat, $boundsSWLon, 
+            $centerLat, $centerLon, 
+            $capLatDistance, $capLonDistance
+        );
+    }
     }
 
     // Bounding box not limited by previous if blocks, set bounding box to be equal to the user's bounding box.
@@ -63,8 +93,8 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
 
     // Add bounding box rule to query.
     $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
-    $orderBy .= "ORDER BY ST_Distance(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
-} elseif (!is_null($latitude) && !is_null($longitude) && $limit !== 0) {
+    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
+} elseif (!is_null($latitude) && !is_null($longitude)) {
     // OPTION B: Haversine Formula)
     $distanceExpr = "(3959 * 2 * ASIN(SQRT(
         POWER(SIN(RADIANS(latitude - $latitude) / 2), 2) +
@@ -72,8 +102,7 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
         POWER(SIN(RADIANS(longitude - $longitude) / 2), 2)
     )))";
 
-    $locationFilter = ", $distanceExpr AS calculated_distance ";
-    $orderBy = "ORDER BY calculated_distance ";
+    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($longitude, $latitude), 4326)) ASC ";
 }
 
 // Filter 2: Date Filtering
@@ -273,6 +302,48 @@ if (!is_null($cellsBlockList) && $viewMode == "enbs") {
 // Filter 9: Perfect Surro Only)
 if (!is_null($perfectSurroOnly)) {
     $whereFilters .= "AND is_exact_location = 1 ";
+}
+
+// Filter 10: Cell quantity
+if (!is_null($cellQuantity)) {
+    $expr = "(LENGTH(TRIM(cells)) - LENGTH(REPLACE(TRIM(cells), ' ', '')) + 1)";
+    $val = (int)$cellQuantity;
+
+    if ($cellQuantity[0] === '>') {
+        $val = (int)substr($cellQuantity, 1);
+        $whereFilters .= " AND ($expr) > $val ";
+
+    } elseif ($cellQuantity[0] === '<') {
+        $val = (int)substr($cellQuantity, 1);
+        $whereFilters .= " AND ($expr) < $val ";
+
+    } else {
+        $whereFilters .= " AND ($expr) = $val ";
+    }
+}
+
+// Filter 11: Score
+if (!is_null($score)) {
+
+    $score = trim($score);
+
+    // RANGE: 1-30
+    if (preg_match('/^(\d+)\s*-\s*(\d+)$/', $score, $m)) {
+        $min = (int)$m[1];
+        $max = (int)$m[2];
+
+        $whereFilters .= "AND score BETWEEN $min AND $max ";
+
+    } else {
+
+        // DEFAULT: <, >, or =
+        if (substr($score, 0, 1) !== '<' &&
+            substr($score, 0, 1) !== '>') {
+            $score = "= $score";
+        }
+
+        $whereFilters .= "AND score $score ";
+    }
 }
 
 // Filter 98: Set limit

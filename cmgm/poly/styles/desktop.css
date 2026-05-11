@@ -39,17 +39,19 @@ iframe {
     border: none; /* Optional: Removes iframe border */
     z-index: 0; /* Lower z-index so it's below the header */
 }
-input, select, button {
+.header input, .header select, .header button {
   align-items: center; /* Ensures content alignment inside */
   box-sizing: border-box; /* Ensures consistent sizing */
-  height: 40px; /* Set consistent height */
+  vertical-align: middle; /* Aligns inline-block elements consistently */
+  line-height: normal; /* Prevents line-height differences */
+}
+.poly-btn, input:not([type="checkbox"]), select, button {
+  height: 40px;
   margin-left: 4px;
   margin-right: 4px;
   padding: 8px;
   font-size: 1rem;
   border-radius: 4px;
-  vertical-align: middle; /* Aligns inline-block elements consistently */
-  line-height: normal; /* Prevents line-height differences */
 }
 #dontCacheCheckbox {
 	margin: 0px 8px;

@@ -45,7 +45,7 @@
     align-items: center;
     background-color: black;
 }
-input, select, button {
+.header input, .header select, .header button {
   height: 40px; /* Set consistent height */
   padding: 0px;
   margin: 0px;
@@ -60,7 +60,7 @@ input, select, button {
 .adv-filter:nth-child(even) {
   width: 53%;
 }
-label,#gui-button {
+.header label,#gui-button {
   display: none;
 }
 

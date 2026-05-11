@@ -18,18 +18,6 @@
 
     <body>
         <?php
-
-
-        // Get values from URL or set defaults
-    // $plmn = $_GET['plmn'] ?? "0";
-    // $rat  = $_GET['rat'] ?? "LTE";
-    // $limit = $_GET['requestBatchSize'] ?? 250;
-    // 
-    //  '';
-    // 
-    // $oldest_date = isset($_GET['oldest_date']) ?  $_GET['oldest_date'] : '>2000-01-01';
-    // $newest_date = isset($_GET['newest_date']) ? $_GET['newest_date'] : '>2000-01-01';
-    // $perfectOnly = isset($_GET['perfectOnly']) ? $_GET['perfectOnly'] : 'null';
         include "../api/poly/get_param.php";
 
         // Get date of data
@@ -37,12 +25,6 @@
         $dateOfData = (new DateTime($dateOfData, new DateTimeZone('UTC')))
             ->setTimezone(new DateTimeZone('America/Los_Angeles'))
             ->format('Y-m-d H:i:s');
-
-        // Helper to check if a value is a "Standard" option or a "Custom" one
-        function is_custom($val, $options)
-        {
-            return !in_array((string) $val, $options);
-        }
         ?>
         <div class="header">
             <div class="formsContainerContainer">
@@ -131,18 +113,22 @@
             // something gemini said is needed for ios
             document.addEventListener("touchstart", function () { }, true);
             // Manage form
-            const plmn = document.getElementById('filterPlmn');
-            const rat = document.getElementById('filterRat');
+            const plmn = document.getElementById('Plmn');
+            const rat = document.getElementById('Rat');
             const requestBatchSize = document.getElementById('requestBatchSize');
             const iconSize = document.getElementById('iconSize');
             const labelSettings = document.getElementById('labelSettings');
-            // const labels = document.getElementById('labels');
-            // const forceLabelVisibility = document.getElementById('forceLabelVisibility');
             const unload = document.getElementById('dontUnload');
             const randomColor = document.getElementById('randomColor');
             const oldest_date = document.getElementById('oldest_date');
             const newest_date = document.getElementById('newest_date');
             const perfectSurroOnly = document.getElementById('perfectSurroOnly');
+            const cellsAllowList = document.getElementById('cellsAllowList');
+            const cellsBlockList = document.getElementById('cellsBlockList');
+            const enbAllowList = document.getElementById('enbAllowList');
+            const enbBlockList = document.getElementById('enbBlockList');
+            const score = document.getElementById('score');
+            const cellQuantity = document.getElementById('cellQuantity');
             const viewMode = document.getElementById('viewMode');
             let currentRequestId = 0; // Track the latest request
 
@@ -170,7 +156,7 @@
             };
 
             const customPrompts = {
-                filterPlmn: "Enter Custom PLMN:",
+                Plmn: "Enter Custom PLMN:",
                 requestBatchSize: "Enter Custom Batch Size:",
                 iconSize: "Enter Custom Icon Size:"
             };
@@ -202,8 +188,11 @@
                 // Special case: View Mode settings
                 if (el.id === 'viewMode') {
                     const lastSeenBox = document.getElementById('newest_date');
+                    const cellQuantityBox = document.getElementById('cellQuantity');
                     if (el.value == 'cells') lastSeenBox.setAttribute("disabled", "true");
+                    if (el.value == 'cells') cellQuantityBox.setAttribute("disabled", "true");
                     if (el.value == 'enbs') lastSeenBox.removeAttribute("disabled");
+                    if (el.value == 'enbs') cellQuantityBox.removeAttribute("disabled");
                     labelOption.text = `View Mode: ${viewModeMap[el.value]}`;
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
@@ -243,7 +232,7 @@
                 plmn, rat, oldest_date, newest_date,
                 cellsAllowList, cellsBlockList, enbAllowList,
                 enbBlockList, tacsAllowList, tacsBlockList,
-                perfectSurroOnly, viewMode, randomColor
+                perfectSurroOnly, viewMode, randomColor, score, cellQuantity
             ];
 
             // Elements that update UI or visuals without clearing data
@@ -296,9 +285,9 @@
             });
 
             const map = L.map('map', {
-                preferCanvas: true, boxZoom: true, zoomSnap: 0, zoomDelta: 0.8,
+                preferCanvas: true, boxZoom: true, zoomSnap: 0, zoomDelta: 0.8, worldCopyJump: true,
                 wheelPxPerZoomLevel: 120, wheelDebounceTime: 100, maxZoom: 19,
-            }).setView([parseFloat(urlParams.get('latitude')) || 34.1317, parseFloat(urlParams.get('longitude')) || -118.2630], parseInt(urlParams.get('zoom')) || 14);
+            }).setView([parseFloat(urlParams.get('latitude')) || 34.1317, parseFloat(urlParams.get('longitude')) || -118.2630], parseFloat(urlParams.get('zoom')) || 14);
             map.attributionControl.setPrefix('<?php echo "Last updated: " . $dateOfData ?> <a href="https://cmgm.us/api/poly/updatePolyEnbs.php">⟳</a>');
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -322,6 +311,125 @@
                     return angleA - angleB;
                 });
             }
+            function openPurgeModal(tower) {
+                const existingModal = document.getElementById('purge-modal-overlay');
+                if (existingModal) existingModal.remove();
+
+                // 1. Create Overlay background
+                const overlay = document.createElement('div');
+                overlay.id = 'purge-modal-overlay';
+
+                // 2. Create Modal Box
+                const modal = document.createElement('div');
+                modal.id = 'purge-modal'; // Added ID for external CSS
+
+                const cells = (tower.cells || tower.cells === 0) ? tower.cells.toString().split(' ').map(c => c.trim()) : [];
+
+                // 3. Build HTML Structure (No inline styles)
+                modal.innerHTML = `
+                    
+                    <p>What cell(s) would you like to delete from ${tower.enb}?</p><br><br>
+
+                    <div id="cellCheckboxes" class="delete-checkbox-container">
+                      ${cells.map((c, i) => `
+                        <label>
+                          <input checked type="checkbox" class="cell-checkbox" value="${c}"> ${c}
+                        </label>
+                        ${(i + 1) % 6 === 0 ? '<br>' : ''}
+                      `).join('')}
+                    </div>
+
+                    <hr>
+
+                    <div class="perm-delete-container" title="Sets location of specified cells as 0.0, 0.0 instead of just deleting rows." >
+                        <label>
+                            <input type="checkbox" id="permDeleteCheckbox"> Permanently delete
+                        </label>
+                    </div>
+                    <br>
+                    <div class="modal-actions">
+                        <button id="selectAllCells" class="poly-btn">Select All Cells</button>
+                        <button id="cancelPurgeBtn" class="floatright poly-btn">Cancel</button>
+                        <button id="confirmPurgeBtn" class="floatright poly-btn colorized">Delete</button>
+                    </div>
+                `;
+
+                overlay.appendChild(modal);
+                document.body.appendChild(overlay);
+
+                modal.addEventListener('click', (e) => e.stopPropagation());
+
+                // --- Event Listeners ---
+                if (cells.length > 0) {
+                    document.getElementById('selectAllCells').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const checkboxes = modal.querySelectorAll('.cell-checkbox');
+                        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                        checkboxes.forEach(cb => cb.checked = !allChecked);
+                    });
+                }
+
+                const closeModal = () => overlay.remove();
+                document.getElementById('cancelPurgeBtn').addEventListener('click', closeModal);
+                overlay.addEventListener('click', closeModal); 
+
+                // Delete logic
+                document.getElementById('confirmPurgeBtn').addEventListener('click', async () => {
+                    const selectedCells = Array.from(modal.querySelectorAll('.cell-checkbox:checked')).map(cb => cb.value);
+                    const isPermanent = document.getElementById('permDeleteCheckbox').checked;
+
+                    const params = new URLSearchParams({
+                        cells: selectedCells.join(','),
+                        enb: tower.enb,
+                        rat: tower.rat,
+                        plmn: tower.plmn,
+                        permanentlyDelete: isPermanent ? 'true' : 'false'
+                    });
+
+                    const btn = document.getElementById('confirmPurgeBtn');
+                    btn.disabled = true;
+                    btn.innerText = "Deleting...";
+
+                    try {
+                        const response = await fetch('/api/poly/purgeApi.php?' + params.toString());
+
+                        if (response.ok) {
+                            closeModal();
+                            updateData(); 
+                        } else {
+                            alert("Error during purge API call. Status: " + response.status);
+                            btn.disabled = false;
+                            btn.innerText = "Delete";
+                        }
+                    } catch (err) {
+                        console.error("Fetch error:", err);
+                        alert("Failed to reach the purge API.");
+                        btn.disabled = false;
+                        btn.innerText = "Delete";
+                    }
+                });
+            }
+            async function triggerForceUpdate(tower) {
+                const params = new URLSearchParams({
+                    enb: tower.enb,
+                    rat: tower.rat,
+                    plmn: tower.plmn
+                });
+
+                try {
+                    const response = await fetch('/api/poly/forceUpdate.php?' + params.toString());
+
+                    if (response.ok) {
+                        // Refresh the map data seamlessly once the update finishes
+                        updateData(); 
+                    } else {
+                        alert("Error during force update. Status: " + response.status);
+                    }
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                    alert("Failed to reach the force update API.");
+                }
+            }           
 
             function clearAllMarkers() {
                 Object.values(pointMap).forEach(m => mapLayerGroup.removeLayer(m));
@@ -347,16 +455,6 @@
                         urlParams.delete(key);
                     }
                 };
-                function getPLMNColor(plmn, rat = 'LTE') {
-                    const colors = {
-                        '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff', // T-Mo
-                        '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff', // AT&T
-                        '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a', // Verizon
-                        '310120': '#FFEF87', // Sprint
-                        '311580': '#E8B937'  // USCC
-                    };
-                    return colors[plmn] || '#666';
-                }
 
                 if (center.lat != null) urlParams.set('latitude', center.lat.toFixed(6));
                 if (center.lng != null) urlParams.set('longitude', center.lng.toFixed(6));
@@ -376,6 +474,8 @@
                 setOrDeleteParam('tacsBlockList', tacsBlockList.value);
                 setOrDeleteParam('viewMode', viewMode.value);
                 setOrDeleteParam('labelSettings', labelSettings.value);
+                setOrDeleteParam('cellQuantity', cellQuantity.value);
+                setOrDeleteParam('score', score.value);
 
                 // if (labels.checked) {
                 //     urlParams.set('labels', 'true');
@@ -413,7 +513,7 @@
                 );
             }
 
-function updateLabelsOnly() {
+            function updateLabelsOnly() {
                 const center = map.getCenter();
                 const bounds = map.getBounds();
                 const currentZoom = map.getZoom();
@@ -493,7 +593,7 @@ function updateLabelsOnly() {
             }
             
             async function fetchData(bounds, requestId) {
-                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
+                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&cellQuantity=${cellQuantity.value}&score=${score.value}&locationType=2&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
                 try {
                     const res = await fetch(apiUrl);
                     const data = await res.json();
@@ -544,6 +644,7 @@ function updateLabelsOnly() {
                         '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
                         '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
                         '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a',
+                        '311370': '#C16C79',
                         '310120': '#FFEF87',
                         '311580': '#E8B937'
                     };
@@ -553,11 +654,13 @@ function updateLabelsOnly() {
 
                 if (shouldFetch) {
                     try {
+                        const clampLng = (lng) => Math.max(-180, Math.min(180, lng));
+
                         const data = await fetchData({
                             neLat: bounds.getNorthEast().lat,
-                            neLng: bounds.getNorthEast().lng,
+                            neLng: clampLng(bounds.getNorthEast().lng),
                             swLat: bounds.getSouthWest().lat,
-                            swLng: bounds.getSouthWest().lng,
+                            swLng: clampLng(bounds.getSouthWest().lng),
                         }, requestId);
 
                         if (!data) return;
@@ -578,7 +681,7 @@ function updateLabelsOnly() {
                                     if (!enbGroups[enbId]) enbGroups[enbId] = [];
                                     enbGroups[enbId].push({
                                         coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
-                                        sectorId: tower.cell || '?',
+                                        sectorId: (tower.cell || tower.cell === 0) ? tower.cell : '?',
                                         plmn: plmnKey,
                                         rat: tower.rat
                                     });
@@ -595,7 +698,7 @@ function updateLabelsOnly() {
                                     const label = `${ excludedPlmns.includes(String(tower.plmn)) ? '' : `${tower.plmn}<br>` }${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${ tower.is_exact_location === 1 ? '★' : '' }`;
 
                                     // Store the HTML string in a custom property on the marker, DO NOT bind it yet.
-                                    marker.customLabelHtml = `${label}${tower.cells ? '<br>Cells: ' + tower.cells : ''}`;
+                                    marker.customLabelHtml = `${label}${(tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}`;
 
                                     const handleTrigger = (e) => {
                                         L.DomEvent.stopPropagation(e);
@@ -738,6 +841,8 @@ function updateLabelsOnly() {
 
                 const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
                 const items = [{ label: `Copy ${prefix} (${tower.enb})`, action: () => silentCopy(tower.enb) }];
+                const cell_list_commas = String(tower.cells).replace(/ /g, ",");
+
 
                 if (tower.tac) {
                     items.push({ label: `Copy TAC (${tower.tac})`, action: () => silentCopy(tower.tac) });
@@ -746,7 +851,7 @@ function updateLabelsOnly() {
 
                 items.push(
                     { isDivider: true },
-                    { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellListDepri_1=-`, '_blank') },
+                    { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellList_1=${cell_list_commas}&cellListDepri_1=-`, '_blank') },
                     {
                         label: 'View in CellMapper', action: () => {
                             let mnc = tower.plmn.slice(3);
@@ -755,6 +860,7 @@ function updateLabelsOnly() {
                         }
                     }
                 );
+
 
                 // determine carrier
                 const carrierMap = {
@@ -776,6 +882,12 @@ function updateLabelsOnly() {
                         }
                     });
                 }
+
+                // Delete data option.
+                items.push(
+                    { isDivider: true },
+                    { label: `Delete`, action: () => openPurgeModal(tower) }
+                );
 
                 items.forEach(opt => {
                     if (opt.isDivider) {
@@ -802,7 +914,33 @@ function updateLabelsOnly() {
                 });
 
                 document.body.appendChild(menu);
-
+                
+                // Get right click menu to fit within window bounds.
+                document.body.appendChild(menu);
+    
+                // Get the dimensions of the menu and the window
+                const menuWidth = menu.offsetWidth;
+                const menuHeight = menu.offsetHeight;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+    
+                // Start with the cursor position
+                let leftPos = e.originalEvent.pageX;
+                let topPos = e.originalEvent.pageY;
+    
+                // Check horizontal bounds (if menu goes off the right edge, flip it left)
+                if (leftPos + menuWidth > windowWidth + window.scrollX) {
+                    leftPos = leftPos - menuWidth;
+                }
+    
+                //  Check vertical bounds (if menu goes off the bottom edge, flip it up)
+                if (topPos + menuHeight > windowHeight + window.scrollY) {
+                    topPos = topPos - menuHeight;
+                }
+    
+                // Apply the safe positions
+                menu.style.left = leftPos + 'px'; 
+                menu.style.top = topPos + 'px';
                 // Global click listener to close menu when clicking away
                 setTimeout(() => {
                     window.onclick = () => {
@@ -812,6 +950,9 @@ function updateLabelsOnly() {
                         }
                     };
                 }, 50);
+
+                // Call update tower.
+                triggerForceUpdate(tower)
             }
 
             // Add zoomend to your listeners

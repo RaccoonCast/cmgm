@@ -64,6 +64,10 @@ if (!$onGui) {
 <input class="adv-filter" type="text" id="tacsAllowList" name="tacsAllowList" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= !empty($tacsAllowList) ? $tacsAllowList : ''; ?>">
 <input class="adv-filter" type="text" id="tacsBlockList" name="tacsBlockList" placeholder="Blacklist TACs<?= !$onGui ? ' (1024-1048)' : '' ?>" value="<?= !empty($tacsBlockList) ? $tacsBlockList : ''; ?>">
 <br>
+<label>Miscellaneous</label>
+<input class="adv-filter" type="text" id="score" name="score" placeholder="Score<?= !$onGui ? ' (>30, 1-250, 940)' : '' ?>" value="<?= !empty($score) ? $score : ''; ?>">
+<input class="adv-filter" type="text" id="cellQuantity" name="cellQuantity" placeholder="Cells Quantity<?= !$onGui ? ' (>3, <20, 3)' : '' ?>" value="<?= !empty($cellQuantity) ? $cellQuantity : ''; ?>" <?php if ($viewMode == 'cells') echo 'disabled' ?>>
+<br>
 
 <?php if (!$onGui) { ?>
 <div class="checkbox-container">

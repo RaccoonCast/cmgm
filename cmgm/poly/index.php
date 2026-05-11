@@ -98,7 +98,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
-   <div id="formContainerContainer">
+   <div id="formContainerContainer" class="header">
       <div id="formsContainer">
         <!-- Add carriers -->
          <?php foreach($carrierList as $index => $value) { ?>

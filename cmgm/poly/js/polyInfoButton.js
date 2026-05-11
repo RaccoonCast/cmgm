@@ -23,15 +23,15 @@ function formatCellInfo(data, useFullCellId = false) {
       const dateAndTime = new Date(cells[cellId].date) ?? '';
       const date = dateAndTime.toLocaleDateString();  // e.g. "5/4/2026"
       const time = dateAndTime.toLocaleTimeString();  // e.g. "10:32:15 AM"
-      const tacLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
+      const tacLabel = cells[cellId]?.tac ? `${cells[cellId].tac}` : ''
       const perfectSurroLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
-      const providerCachedSymbol = providerIsCached ? '<span style="vertical-align: super; font-size: small;">*</span>' : '';
+      const providerNotCachedSymbol = providerIsCached ? '' : '<span style="vertical-align: super; font-size: small;">†</span>';
       const scoreOrExactLocationLabel = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : score;
       const reachLabel = providerIsExactLocation ? '' : reach;
       const id = useFullCellId ? gcid : cellId;
       const idContent = multipleENBs ? `${eNB}-${id}` : `${id}`;
       const idLabel = multipleENBs ? `eNBs` : `Cells`;
-      const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}${providerCachedSymbol}</td><td>${tacLabel}</td><td title="${time}">${date}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
+      const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}</td><td>${tacLabel}</td><td title="${time}">${date}${providerNotCachedSymbol}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
       result.push(label);
     }
   }

@@ -36,8 +36,10 @@ padding:0;
 	display: none;
 }
 #polyInfoButton_content table td {
- padding-left: 10px;
- padding-right: 10px;
+ padding: 0px 10px 0px 10px;
+}
+#polyInfoButton_content table th {
+  padding: 0px 5px 2px 5px;
 }
 .dropdown-content {
 	padding: 1rem;

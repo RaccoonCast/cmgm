@@ -1,4 +1,4 @@
-input, select, button {
+.header input, .header select, .header button {
   height: 40px; /* Set consistent height */
   margin-left: 4px;
   margin-right: 4px;
@@ -13,10 +13,10 @@ input, select, button {
 #viewMode {
   width: 170px;
 }
-#filterPlmn {
+#Plmn {
   width: 140px;
 }
-#filterRat {
+#Rat {
   width: 95px;
 }
 

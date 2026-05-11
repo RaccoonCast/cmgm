@@ -1,7 +1,7 @@
 <?php
 $standard_plmns = ["310410", "310120", "310260", "311480", "313340", "311580", "0"];
 ?>
-<select name="plmn" id="filterPlmn">
+<select name="plmn" id="Plmn">
     <option <?php if($plmn == "310410") echo "selected"; ?> value="310410">AT&T</option>
     <option <?php if($plmn == "310120") echo "selected"; ?> value="310120">Sprint</option>
     <option <?php if($plmn == "310260") echo "selected"; ?> value="310260">T-Mobile</option>
@@ -13,7 +13,7 @@ $standard_plmns = ["310410", "310120", "310260", "311480", "313340", "311580", "
     <option value="_custom_">Custom PLMN</option>
     <option <?php if (is_null($plmn)) echo "selected"; ?> value="">&#8203;All PLMNs</option>
 </select>
-<select name="rat" id="filterRat">
+<select name="rat" id="Rat">
     <option <?php if($rat == "LTE") echo "selected"; ?> value="LTE">LTE</option>
     <option <?php if($rat == "NR") echo "selected"; ?> value="NR">NR</option>
     <option <?php if (is_null($rat)) echo "selected"; ?> value="">All RATs</option>
