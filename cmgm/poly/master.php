@@ -102,7 +102,7 @@ foreach ($formData as $index => $data) {
     // Get from DB
     $cellIdList = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList); // Get list of ids
 
-    $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn, $rat); // Query DB for all simultaneously
+    $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB); // Query DB for all simultaneously
 
     // Reformat associative array to be keyed by cell ID
     $dbDump_dataMap = [];

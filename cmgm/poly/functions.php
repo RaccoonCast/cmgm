@@ -76,7 +76,7 @@ function get($type, $latLngPairs) {
 	return $sum / count($latLngPairs);
 }
 
-function getMultipleFromDb($conn, $cellIdList, $plmn, $rat) {
+function getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB) {
 
 	$cellIdListStr = implode(', ', $cellIdList);
 
@@ -84,7 +84,7 @@ function getMultipleFromDb($conn, $cellIdList, $plmn, $rat) {
 	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
               FROM cmgm.local_poly_beta
               WHERE cell_id IN ($cellIdListStr)
-              AND plmn = $plmn AND rat = '$rat'";
+              AND plmn = $plmn AND rat = '$rat' AND eNB = $eNB";
 
 	// Execute the query
 	$result = $conn->query($query);
