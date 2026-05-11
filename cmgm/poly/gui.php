@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit','1024M');
+ini_set('memory_limit','4096M');
 ini_set('max_execution_time', '300');
 $titleOverride = true;
 $allowGuests = true;
@@ -31,6 +31,7 @@ if ($plmnTranslations) {
 
 foreach ($validRows as &$row) {
     $item_plmn = $row['plmn'];
+
     $row['plmnName'] = $plmnMap[$item_plmn] ?? $item_plmn;
     $row['tac']      = $row['tac'] ?? 0;
     $row['rat']      = $row['rat'] ?? "LTE";
@@ -67,7 +68,7 @@ if (isset($_GET['download'])) {
     $output = fopen('php://output', 'w');
     
     // Header
-    $csvHeader = ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells'];
+    $csvHeader = ['PLMN', 'RAT', 'ID', 'TAC', 'Latitude', 'Longitude', 'Cells', 'First Seen Date'];
     if (!isset($_GET['slim'])) {
         $csvHeader[] = 'Poly Link';
         $csvHeader[] = 'DAS Link';
@@ -83,7 +84,8 @@ if (isset($_GET['download'])) {
             $row['tac'],
             $row['display_lat'],
             $row['display_lon'],
-            trim($row['cells'])
+            ($viewMode === "cells") ? trim($row['cell']) : trim($row['cells']),
+            ($viewMode === "cells") ?  $row['date_of_info'] : $row['oldest_date']
         ];
         if (!isset($_GET['slim'])) {
             $csvData[] = $row['polyLink'];
@@ -102,7 +104,7 @@ if (isset($_GET['download'])) {
 <script>
 // Custom PLMN functionality
 document.addEventListener('change', (e) => {
-  if (e.target.id !== 'filterPlmn') return;
+  if (e.target.id !== 'Plmn') return;
 
   const select = e.target;
 
@@ -198,6 +200,17 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="form">
 <form method="get"> 
     <?php include "includes/plmn-and-rat-selector.php";?>
+    <select class="misc_cw" title="Set view mode" name="viewMode" id="viewMode">
+        <?php 
+        if ($viewMode == 'enbs') $viewModeName = "View Mode: eNB"; 
+        if ($viewMode == 'cells') $viewModeName = "View Mode: Cell";
+        ?>
+        <option style="display:none" value="<?= $viewMode; ?>" selected>
+            <?= $viewModeName; ?>
+        </option>
+        <option value="enbs">eNB</option>
+        <option value="cells">Cell</option>
+    </select>
     <?php include "includes/advanced-selectors.php";?>
     <input type="text" name="latitude" placeholder="Latitude" value="<?= @$_GET['latitude'] ?>">
     <input type="text" name="longitude" placeholder="Longitude" value="<?= @$_GET['longitude'] ?>">
@@ -232,8 +245,8 @@ if (count($validRows) > 0) {
             <td><a onclick=\"copyToClipboard('{$row['display_lat']},{$row['display_lon']}'); return false;\" 
                    href='{$row['locationLink']}' target='_blank'>{$row['display_lat']},{$row['display_lon']}</a></td>
             <td>";
-        
-        $cellsString = trim($row['cells']);
+
+        $cellsString = ($viewMode == "cells") ? trim($row['cell']) : trim($row['cells']);
         if (!empty($cellsString)) {
             $cellsArray = explode(' ', $cellsString);
             $cellLinks = array_map(function($c) use ($row) {
