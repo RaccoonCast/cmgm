@@ -24,7 +24,7 @@ include "get_param.php";
 $tableName = $viewMode == "enbs" ? 'local_poly_enbs' : 'local_poly_beta';
 if ($viewMode == "cells") $whereFilters = 'AND plmn <> 312190 ';
 
-$keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
+$keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
 if ($viewMode !== "cells") {
     $keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
 }

@@ -312,6 +312,7 @@
                 });
             }
             function openPurgeModal(tower) {
+                console.log(tower);
                 const existingModal = document.getElementById('purge-modal-overlay');
                 if (existingModal) existingModal.remove();
 
@@ -390,12 +391,13 @@
                     btn.disabled = true;
                     btn.innerText = "Deleting...";
 
+
                     try {
                         const response = await fetch('/api/poly/purgeApi.php?' + params.toString());
 
                         if (response.ok) {
                             closeModal();
-                            updateData(); 
+                            clearAllMarkers(tower);
                         } else {
                             alert("Error during purge API call. Status: " + response.status);
                             btn.disabled = false;
@@ -431,11 +433,28 @@
                 }
             }           
 
-            function clearAllMarkers() {
-                Object.values(pointMap).forEach(m => mapLayerGroup.removeLayer(m));
-                Object.values(polygonMap).forEach(m => mapLayerGroup.removeLayer(m));
-                pointMap = {};
-                polygonMap = {};
+            function clearAllMarkers(tower = null) {
+                if (!tower) {
+                    Object.values(pointMap).forEach(m => mapLayerGroup.removeLayer(m));
+                    Object.values(polygonMap).forEach(m => mapLayerGroup.removeLayer(m));
+                    pointMap = {}; polygonMap = {};
+                    return;
+                }
+
+                // Use the full markerId for targeted cleanup
+                const markerId = `${tower.plmn}-${tower.rat}-${tower.enb}`;
+
+                // Remove eNB Pin marker
+                if (pointMap[markerId]) { mapLayerGroup.removeLayer(pointMap[markerId]); delete pointMap[markerId]; }
+
+                // Remove polygon (Cell Mode)
+                const polyId = `poly-${markerId}`;
+                if (polygonMap[polyId]) { mapLayerGroup.removeLayer(polygonMap[polyId]); delete polygonMap[polyId]; }
+
+                // Remove cell labels (Cell Mode)
+                Object.keys(pointMap).forEach(k => {
+                    if (k.startsWith(`label-${markerId}-`)) { mapLayerGroup.removeLayer(pointMap[k]); delete pointMap[k]; }
+                });
             }
 
             function parseLatLng(str) {
@@ -643,6 +662,7 @@
                     const colors = {
                         '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
                         '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                        '313100': rat === 'LTE' ? '#0059b2' : '#4da2ff',
                         '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a',
                         '311370': '#C16C79',
                         '310120': '#FFEF87',
@@ -674,16 +694,18 @@
 
                                 const enbId = tower.enb;
                                 const markerId = `${plmnKey}-${tower.rat}-${enbId}`;
-                                visibleEnbIds.add(String(enbId));
+                                
+                                visibleEnbIds.add(markerId);
 
                                 if (isCellView) {
-                                    // Prepare data for Polygons
-                                    if (!enbGroups[enbId]) enbGroups[enbId] = [];
-                                    enbGroups[enbId].push({
+                                    if (!enbGroups[markerId]) enbGroups[markerId] = [];
+                                    enbGroups[markerId].push({
                                         coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
-                                        sectorId: (tower.cell || tower.cell === 0) ? tower.cell : '?',
+                                        sectorId: (tower.cells || tower.cells === 0) ? tower.cells : '?',
                                         plmn: plmnKey,
-                                        rat: tower.rat
+                                        rat: tower.rat,
+                                        rawTower: tower,
+                                        enb: enbId // Added raw enbId back into the object just in case your polygon drawer needs it
                                     });
                                 } else if (!pointMap[markerId]) {
                                     // Draw individual eNB pins into pointMap
@@ -735,8 +757,10 @@
 
                         // Handle Polygon rendering if in Cell Mode
                         if (isCellView) {
-                            for (const [enb, points] of Object.entries(enbGroups)) {
-                                const polyId = `poly-${enb}`;
+                            // CHANGED: enb is now markerId because of our earlier fix
+                            for (const [markerId, points] of Object.entries(enbGroups)) {
+                                const rawEnb = points[0].enb; // Grab raw ENB for visual labels & copying
+                                const polyId = `poly-${markerId}`;
                                 
                                 // Draw Polygon into polygonMap
                                 if (!polygonMap[polyId]) {
@@ -750,17 +774,27 @@
                                 }
 
                                 points.forEach(pt => {
-                                    const labelId = `label-${enb}-${pt.sectorId}`;
+                                    const labelId = `label-${markerId}-${pt.sectorId}`;
 
                                     if (pointMap[labelId]) return;
 
                                     // Draw label DivIcon into pointMap
                                     const labelMarker = L.marker(pt.coords, {
-                                        icon: L.divIcon({ className: 'tower-label', html: `${enb}-${pt.sectorId}`, iconSize: [0, 0] }),
+                                        icon: L.divIcon({ className: 'tower-label', html: `${rawEnb}-${pt.sectorId}`, iconSize: [0, 0] }),
                                         interactive: true
                                     }).addTo(mapLayerGroup); 
+                                    
+                                    // Add context-menu to it.
+                                    const handleTrigger = (e) => {
+                                        L.DomEvent.stopPropagation(e);
+                                        if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                                        // Pass the raw tower data we saved earlier into the menu
+                                        createMenu(e, { ...pt.rawTower, plmn: pt.plmn });
+                                    };
 
-                                    labelMarker.on('click', () => silentCopy(enb));
+
+                                    labelMarker.on('click', handleTrigger).on('contextmenu', handleTrigger);
+                                    
                                     pointMap[labelId] = labelMarker;
                                 });
                             }
@@ -777,14 +811,18 @@
 
                         if (isCellView) {
                             // In Cell mode, pointMap only contains DivIcon labels
-                            const enbIdMatch = key.match(/label-(\d+)/);
-                            if (enbIdMatch && !visibleEnbIds.has(enbIdMatch[1])) {
-                                mapLayerGroup.removeLayer(layer);
-                                delete pointMap[key];
+                            if (key.startsWith('label-')) {
+                                // Extract markerId. Format is label-{markerId}-{sectorId}
+                                const lastDash = key.lastIndexOf('-');
+                                const extractedMarkerId = key.substring(6, lastDash);
+                                
+                                if (!visibleEnbIds.has(extractedMarkerId)) {
+                                    mapLayerGroup.removeLayer(layer);
+                                    delete pointMap[key];
+                                }
                             }
                         } else {
                             // In Standard Mode, pointMap only contains CircleMarkers
-                            // We safely call getLatLng() because we know polygons aren't in this map
                             if (!bounds.contains(layer.getLatLng())) {
                                 mapLayerGroup.removeLayer(layer);
                                 delete pointMap[key];
@@ -798,24 +836,19 @@
 
                         for (let key in polygonMap) {
                             const layer = polygonMap[key];
-
-                            // Polygons don't have getLatLng(), so we check if the bounds intersect
-                            // or if the center of the polygon is still visible.
                             const polyBounds = layer.getBounds();
 
                             if (!currentBounds.intersects(polyBounds)) {
                                 mapLayerGroup.removeLayer(layer);
                                 delete polygonMap[key];
 
-                                // Also find and remove the associated sector labels in pointMap
-                                const enbIdMatch = key.match(/poly-(\d+)/);
-                                if (enbIdMatch) {
-                                    const enbId = enbIdMatch[1];
-                                    for (let pKey in pointMap) {
-                                        if (pKey.startsWith(`label-${enbId}`)) {
-                                            mapLayerGroup.removeLayer(pointMap[pKey]);
-                                            delete pointMap[pKey];
-                                        }
+                                // Find and remove the associated sector labels in pointMap
+                                // key format is poly-{markerId}
+                                const extractedMarkerId = key.substring(5);
+                                for (let pKey in pointMap) {
+                                    if (pKey.startsWith(`label-${extractedMarkerId}-`)) {
+                                        mapLayerGroup.removeLayer(pointMap[pKey]);
+                                        delete pointMap[pKey];
                                     }
                                 }
                             }
