@@ -4,62 +4,62 @@ body {
     padding: 20px;
 }
 
-/* Form layout */
-.form {
-    width: 100%;
-}
-
-.form form {
-    display: flex;
-    flex-wrap: nowrap;          /* one visual row */
-    align-items: center;
-    gap: 0px;
-}
-
-/* Every direct child participates correctly in flex */
-.form form > * {
-    min-width: 0;               /* REQUIRED for flex + inputs */
-}
 
 /* Text inputs + selects flex */
 .form input[type="text"],
 .form input[type="number"],
 .form select {
-    flex: 1 1 auto;
-    padding: 6px 8px;
+    padding: 0px 5px;
     font-size: 14px;
     box-sizing: border-box;
-    padding: 8px 6px 8px 6px!important;
+    display: inline-block;
 }
-
 /* Width constraints */
 .form select[name="plmn"] {
-    max-width: 140px;
+    width: 6%;
 }
 .form select[name="rat"] {
-    max-width: 98px;
+    width: 4%;
+}
+.form select[name="viewMode"] {
+    width: 7%;
 }
 .form input[name$="date"] {
-    max-width: 120px;
+    width: 5%;
 }
 .form input[name$="itude"] {
-    max-width: 120px;
+    width: 5%;
+}
+.form input[name*="cells"] {
+    width: 5%;
+}
+.form input[name*="enb"] {
+    width: 6%;
+}
+.form input[name*="tac"] {
+    width: 6%;
+}
+.form input[name="score"] {
+    width: 3.5%;
+}
+.form input[name="cellQuantity"] {
+    width: 5.25%;
 }
 .form input[name="radius"] {
-    max-width: 125px;
+    width: 3.5%;
 }
 .form input[name="limit"] {
-    max-width: 60px;
+    width: 3.5%;
+}
+.form input[type="submit"], .form button {
+    width: 3%;
 }
 /* Buttons are part of flex but do not grow */
 .form input[type="submit"],
 .form button {
-    padding: 0px 12px 0px 12px;
     font-size: 14px;
-    cursor: pointer;
-    white-space: nowrap;
     border-radius: 4px;
-    width: 75px;
+    cursor: pointer;
 }
 
 /* Table styling (unchanged behavior) */

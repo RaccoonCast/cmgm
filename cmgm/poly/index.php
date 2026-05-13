@@ -99,7 +99,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
 <div class="header">
-   <div id="formContainerContainer" class="header">
+   <div id="formContainerContainer" class="header headerFloating">
       <div id="formsContainer">
         <!-- Add carriers -->
          <?php foreach($carrierList as $index => $value) { ?>
@@ -146,7 +146,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
          <?php } ?>
       </div>
          <!-- Below gets put into Hamburger button on mobile to contain isCache & future Unwired toggle -->
-         <?= isMobile() ? '<input class="poly-btn hamburgerButton" type="button" value="📵" onclick=toggleHamburgerMenu();"/>' : '' ?>
+         <?= isMobile() ? '<input class="poly-btn hamburgerButton" type="button" value="📵" onclick="toggleHamburgerMenu();"/>' : '' ?>
          <div class="menu">
             <label>
                 <div id="dontCacheCheckbox">

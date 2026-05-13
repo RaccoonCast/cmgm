@@ -60,7 +60,7 @@
 .adv-filter:nth-child(even) {
   width: 53%;
 }
-.header label,#gui-button {
+.header label,#guiMapToggle {
   display: none;
 }
 

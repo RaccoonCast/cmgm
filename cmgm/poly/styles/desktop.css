@@ -1,8 +1,8 @@
 body {
 	  height: 100vh;
 }
-.header {
-	position: fixed;
+.headerFloating {
+  position: fixed;
 	z-index: 100;
 	top: 0;
 	right: 0;
@@ -22,10 +22,6 @@ form {
 h1 {
   margin: 0; /* Removes the default margin */
   font-size: 1.5rem; /* Adjusts the font size */
-}
-
-button {
-  margin-left: 10px; /* Adds some space between buttons */
 }
 .poly-btn {
     border-radius: 7px;
@@ -47,8 +43,6 @@ iframe {
 }
 .poly-btn, input:not([type="checkbox"]), select, button {
   height: 40px;
-  margin-left: 4px;
-  margin-right: 4px;
   padding: 8px;
   font-size: 1rem;
   border-radius: 4px;

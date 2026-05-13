@@ -176,22 +176,6 @@ function myFunction2() {
     var latlong = lat + "," + long;
     copyToClipboard(latlong);
 }
-document.addEventListener('DOMContentLoaded', () => {
-                const button = document.getElementById('map-button');
-
-                button.addEventListener('click', () => {
-                    let currentUrl = new URL(window.location.href);
-
-                    // Replace only the filename in the path
-                    currentUrl.pathname = currentUrl.pathname.replace(/[^/]+$/, 'Map.php');
-
-                    // Remove specific query parameters
-                    // currentUrl.searchParams.delete('radius');
-
-                    // Update the browser URL without reloading
-                    window.location.href = currentUrl.toString();
-                });
-            });
 </script>
 <meta charset="UTF-8">
 <title>CMGM - Mapper</title>
@@ -199,26 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <body>
 <div class="form">
 <form method="get"> 
-    <?php include "includes/plmn-and-rat-selector.php";?>
-    <select class="misc_cw" title="Set view mode" name="viewMode" id="viewMode">
-        <?php 
-        if ($viewMode == 'enbs') $viewModeName = "View Mode: eNB"; 
-        if ($viewMode == 'cells') $viewModeName = "View Mode: Cell";
-        ?>
-        <option style="display:none" value="<?= $viewMode; ?>" selected>
-            <?= $viewModeName; ?>
-        </option>
-        <option value="enbs">eNB</option>
-        <option value="cells">Cell</option>
-    </select>
-    <?php include "includes/advanced-selectors.php";?>
-    <input type="text" name="latitude" placeholder="Latitude" value="<?= @$_GET['latitude'] ?>">
-    <input type="text" name="longitude" placeholder="Longitude" value="<?= @$_GET['longitude'] ?>">
-    <input type="number" step="0.1" name="radius" placeholder="Radius (miles)" value="<?= @$_GET['radius'] ?>">
-    <input type="number" step="1" name="limit" placeholder="Limit" value="<?= $limit ?>">
-    <input class="poly-btn colorized" id="submitButton" type="submit" value="View">
-    <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">CSV</button>
-    <button type="button" class="poly-btn" id="map-button">Map</button>
+    <?php include "formBuilder.php";?>
 </form>
 </div>
 
@@ -246,9 +211,8 @@ if (count($validRows) > 0) {
                    href='{$row['locationLink']}' target='_blank'>{$row['display_lat']},{$row['display_lon']}</a></td>
             <td>";
 
-        $cellsString = ($viewMode == "cells") ? trim($row['cell']) : trim($row['cells']);
-        if (!empty($cellsString)) {
-            $cellsArray = explode(' ', $cellsString);
+        if (!empty(trim($row['cells']))) {
+            $cellsArray = explode(' ', trim($row['cells']));
             $cellLinks = array_map(function($c) use ($row) {
                 $url = "https://cmgm.us/AppleSurro/?carrier={$row['plmn']}&cid=$c&tac={$row['tac']}&rat={$row['rat']}";
                 return "<a href='$url' title='$c' target='_blank' style='margin-right:2px;'>$c</a>";

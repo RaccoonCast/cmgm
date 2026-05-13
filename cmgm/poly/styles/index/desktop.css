@@ -1,0 +1,11 @@
+.poly-btn, input:not([type="checkbox"]), select, button {
+  height: 40px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+button {
+  margin-left: 10px; /* Adds some space between buttons */
+}

@@ -31,3 +31,7 @@
 #hamburger-area {
     margin: 12px 6px 2px 12px;
 }
+#guiMapToggle {
+  float: left;
+  margin-left: -5px;
+}

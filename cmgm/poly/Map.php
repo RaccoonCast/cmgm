@@ -25,54 +25,9 @@
         $dateOfData = (new DateTime($dateOfData, new DateTimeZone('UTC')))
             ->setTimezone(new DateTimeZone('America/Los_Angeles'))
             ->format('Y-m-d H:i:s');
+        
+        include "formBuilder.php"; 
         ?>
-        <div class="header">
-            <div class="formsContainerContainer">
-                <div id="formsContainer">
-                    <?php include "includes/plmn-and-rat-selector.php"; ?>
-
-                    <select class="misc_cw" title="Set batch size" name="requestBatchSize" id="requestBatchSize">
-                        <option style="display:none" value="<?php if ($limit !== 0)
-                            echo $limit; ?>" selected>
-                            Batch size: <?php echo $limit; ?>
-                        </option>
-                        <?php if ($limit == 0) { ?>
-                            <option style="display:none" value="0" selected>
-                                Batch size: Unlimited
-                            </option> <?php } ?>
-                        <option value="50">50</option>
-                        <option value="125">125</option>
-                        <option value="250">250</option>
-                        <option value="450">450</option>
-                        <option value="800">800</option>
-                        <option value="1500">1500</option>
-                        <option value="3000">3000</option>
-                        <option value="7500">7500</option>
-                        <option value="15000">15000</option>
-                        <option value="40000">40000</option>
-                        <option value="0">Unlimited (Slow)</option>
-                        <option value="" disabled>--</option>
-                        <option value="_custom_">Custom batch size</option>
-                    </select>
-                    <select class="misc_cw" title="Set view mode" name="viewMode" id="viewMode">
-                        <?php 
-                        if ($viewMode == 'enbs') $viewModeName = "View Mode: eNB"; 
-                        if ($viewMode == 'cells') $viewModeName = "View Mode: Cell";
-                        ?>
-                        <option style="display:none" value="<?= $viewMode; ?>" selected>
-                            <?= $viewModeName; ?>
-                        </option>
-                        <option value="enbs">eNB</option>
-                        <option value="cells">Cell</option>
-                    </select>
-                    <button class="poly-btn" id="hamburger-menu">▼</button>
-                    <div id="hamburger-area" hidden>
-                        <?php include "includes/advanced-selectors.php"; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="map"></div>
 
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -90,26 +45,6 @@
                     button.textContent = area.hidden ? '▼' : '▲';
                 });
             });
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const button = document.getElementById('gui-button');
-
-                button.addEventListener('click', () => {
-                    let currentUrl = new URL(window.location.href);
-
-                    // Replace only the filename in the path
-                    currentUrl.pathname = currentUrl.pathname.replace(/[^/]+$/, 'gui.php');
-
-                    // Remove specific query parameters
-                    // currentUrl.searchParams.delete('viewMode');
-                    // currentUrl.searchParams.delete('iconSize');
-                    // currentUrl.searchParams.delete('labelSettings');
-
-                    // Update the browser URL without reloading
-                    window.location.href = currentUrl.toString();
-                });
-            });
-
             // something gemini said is needed for ios
             document.addEventListener("touchstart", function () { }, true);
             // Manage form
@@ -156,7 +91,6 @@
             };
 
             const customPrompts = {
-                Plmn: "Enter Custom PLMN:",
                 requestBatchSize: "Enter Custom Batch Size:",
                 iconSize: "Enter Custom Icon Size:"
             };
@@ -176,13 +110,13 @@
                     el.selectedIndex = 0;
                     return;
                 }
-                
+
                 // Special case: label settings mapping
                 if (el.id === 'labelSettings') {
                     labelOption.text = `Labels: ${labelMap[el.value]}`;
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
-                return;
+                    return;
                 }
 
                 // Special case: View Mode settings
@@ -196,7 +130,7 @@
                     labelOption.text = `View Mode: ${viewModeMap[el.value]}`;
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
-                return;
+                    return;
                 }
 
                 // Default behavior
@@ -240,6 +174,8 @@
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
+
+                    if (el.value === "_custom_") return;
 
                     // 1. Handle Custom Option Prompts
                     if (customPrompts[el.id] && (el.value === "_custom_" || el.value === "custom")) {
