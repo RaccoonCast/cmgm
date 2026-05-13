@@ -74,8 +74,9 @@ if (
         // Add others to array
         $polyFormData['rat' . $namedIndex] = $ratList[$index];
         $polyFormData['eNB' . $namedIndex] = $enbList[$index];
-        if (!empty($cellListList[$index])) $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
-        if (!empty($cellListDepriList[$index])) $polyFormData['cellListDepri' . $namedIndex] = $cellListDepriList[$index];
+        if (isset($cellListList[$index]) && strlen($cellListList[$index]) > 0) $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
+        if (isset($cellListDepriList[$index]) && strlen($cellListDepriList[$index]) > 0) $polyFormData['cellListDepri' . $namedIndex] = $cellListDepriList[$index];
+
         $polyFormData['tac' . $namedIndex] = $tacList[$index] ?? '';  // <-- Added TAC
 
     }
