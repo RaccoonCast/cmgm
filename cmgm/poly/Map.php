@@ -496,10 +496,15 @@
                 });
 
                 // 3. Pre-calculate distance ONLY for pins currently on the screen
-                const markersWithDistance = visibleOnScreen.map(m => ({
-                    marker: m,
-                    distance: map.distance(center, m.getLatLng())
-                }));
+                const centerLat = center.lat;
+                const centerLng = center.lng;
+
+                const markersWithDistance = visibleOnScreen.map(m => {
+                    const latLng = m.getLatLng();
+                    // Fast flat-plane distance approximation (a^2 + b^2)
+                    const distanceSq = Math.pow(latLng.lat - centerLat, 2) + Math.pow(latLng.lng - centerLng, 2);
+                    return { marker: m, distance: distanceSq };
+                });
 
                 // Sort the heavily reduced array
                 markersWithDistance.sort((a, b) => a.distance - b.distance);
@@ -508,10 +513,10 @@
                 // 4. Apply visibility logic to on-screen markers
                 sortedVisibleMarkers.forEach((m, index) => {
                     const shouldBeVisible = ((currentZoom > 17   && index < 150 && labelLevel >= 1) ||
-                                             (currentZoom > 14   && index < 250 && labelLevel >= 2) ||
-                                             (currentZoom > 12   && index < 350 && labelLevel >= 3) ||
-                                             (currentZoom > 10.5 && index < 450 && labelLevel >= 4) ||
-                                             (currentZoom > 8    && index < 600 && labelLevel >= 5) ||
+                                             (currentZoom > 14   && index < 225 && labelLevel >= 2) ||
+                                             (currentZoom > 12   && index < 300 && labelLevel >= 3) ||
+                                             (currentZoom > 10.5 && index < 375 && labelLevel >= 4) ||
+                                             (currentZoom > 8    && index < 500 && labelLevel >= 5) ||
                                                                                     labelLevel == 6);
 
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
