@@ -625,11 +625,10 @@
 
                         console.log("Recv'd data:", data);
 
-                        Object.keys(data).forEach(plmnKey => {
-                            data[plmnKey].forEach(tower => {
+                        data.forEach(tower => {
 
                                 const enbId = tower.enb;
-                                const markerId = `${plmnKey}-${tower.rat}-${enbId}`;
+                                const markerId = `${tower.plmn}-${tower.rat}-${enbId}`;
                                 
                                 visibleEnbIds.add(markerId);
 
@@ -638,7 +637,7 @@
                                     enbGroups[markerId].push({
                                         coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
                                         sectorId: (tower.cells || tower.cells === 0) ? tower.cells : '?',
-                                        plmn: plmnKey,
+                                        plmn: tower.plmn,
                                         rat: tower.rat,
                                         rawTower: tower,
                                         enb: enbId // Added raw enbId back into the object just in case your polygon drawer needs it
@@ -647,7 +646,7 @@
                                     // Draw individual eNB pins into pointMap
                                     const marker = L.circleMarker([tower.latitude, tower.longitude], {
                                         radius: parseFloat(iconSize.value),
-                                        fillColor: getColor(plmnKey, tower.rat, randomColor.checked),
+                                        fillColor: getColor(tower.plmn, tower.rat, randomColor.checked),
                                         color: "#000", weight: 1.5, fillOpacity: 1
                                     }).addTo(mapLayerGroup); 
                                     
@@ -661,7 +660,7 @@
                                     const handleTrigger = (e) => {
                                         L.DomEvent.stopPropagation(e);
                                         if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
-                                        createMenu(e, { ...tower, plmn: plmnKey });
+                                        createMenu(e, { ...tower, plmn: tower.plmn });
                                     };
 
                                     // Initialize the custom hover state flag
@@ -688,7 +687,6 @@
                                     marker.on('click', handleTrigger).on('contextmenu', handleTrigger);
                                     pointMap[markerId] = marker;
                                 }
-                            });
                         });
 
                         // Handle Polygon rendering if in Cell Mode

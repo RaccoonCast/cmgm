@@ -11,27 +11,21 @@ header('Pragma: no-cache');
 include '../../includes/functions/sqlpw.php'; 
 // Apply the filters.
 include "filterPoly.php";
-
+$conn->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
 $result = $conn->query($sql_query);
 $carrierGroups = array();
 
 while ($row = $result->fetch_assoc()) {
     // Convert numeric values to float where possible
-    foreach ($row as $key => $value) {
-        if (is_numeric($value)) {
-            $row[$key] = (float)$value;
-        }
-    }
+    // foreach ($row as $key => $value) {
+    //     if (is_numeric($value)) {
+    //         $row[$key] = (float)$value;
+    //     }
+    // }
 
-    $carrierType = $row['plmn'];
-
-    if (!isset($carrierGroups[$carrierType])) {
-        $carrierGroups[$carrierType] = array();
-    }
-
-    $carrierGroups[$carrierType][] = $row;
+    $results[] = $row;
 }
 
-echo json_encode($carrierGroups);
+echo json_encode($results);
 $result->close(); $conn->close();
 ?>
