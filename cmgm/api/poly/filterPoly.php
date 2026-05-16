@@ -45,7 +45,9 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
         $maxDiff = max($latDiff, $lonDiff); // Find the dominant axis
         // Determine the base cap distance using the dominant axis
             if ($viewMode == "enbs") {
-                if ($maxDiff > 15.0 && $limit > 7499) {
+                if ($maxDiff > 15.0 && $limit > 50000) {
+                    $baseCap = null;
+                } elseif ($maxDiff > 15.0 && $limit > 7499) {
                     $baseCap = 7.5;
                 } elseif ($maxDiff > 10.0 && $limit > 2999) {
                     $baseCap = 5.0;
@@ -55,7 +57,9 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
                     $baseCap = 2.25;
                 }
             } elseif ($viewMode == "cells") {
-                if ($maxDiff > 10.0 && $limit > 7499) {
+                if ($maxDiff > 10.0 && $limit > 50000) {
+                    $baseCap = null;
+                } elseif ($maxDiff > 10.0 && $limit > 7499) {
                     $baseCap = 5.00;
                 } elseif ($maxDiff > 7.0 && $limit > 2999) {
                     $baseCap = 3.50;
@@ -86,14 +90,13 @@ if (!is_null($boundsNELat) && !is_null($boundsNELon) && !is_null($boundsSWLat) &
             $capLatDistance, $capLonDistance
         );
     }
+    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
     }
 
     // Bounding box not limited by previous if blocks, set bounding box to be equal to the user's bounding box.
     if (!isset($searchPolygon)) $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
 
-    // Add bounding box rule to query.
     $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
-    $orderBy .= "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
 } elseif (!is_null($latitude) && !is_null($longitude)) {
     // OPTION B: Haversine Formula)
     $distanceExpr = "(3959 * 2 * ASIN(SQRT(

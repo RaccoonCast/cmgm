@@ -12,20 +12,23 @@ include '../../includes/functions/sqlpw.php';
 // Apply the filters.
 include "filterPoly.php";
 $conn->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
-$result = $conn->query($sql_query);
-$carrierGroups = array();
+
+$result = $conn->query($sql_query, MYSQLI_USE_RESULT);
+
+echo '[';
+
+$first = true;
 
 while ($row = $result->fetch_assoc()) {
-    // Convert numeric values to float where possible
-    // foreach ($row as $key => $value) {
-    //     if (is_numeric($value)) {
-    //         $row[$key] = (float)$value;
-    //     }
-    // }
+    if (!$first) echo ',';
 
-    $results[] = $row;
+    echo json_encode($row);
+
+    $first = false;
 }
 
-echo json_encode($results);
-$result->close(); $conn->close();
+echo ']';
+
+$result->close();
+$conn->close();
 ?>
