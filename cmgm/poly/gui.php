@@ -13,10 +13,11 @@ $result = $conn->query($sql_query);
 // --- 1. BUILD SHARED DATA ARRAY ---
 $validRows = [];
 $hasSearchCenter = !empty($latitude) && !empty($longitude); 
-
+$num = 0;
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) { 
-        $validRows[] = $row; 
+        $validRows[] = $row;
+        $num++;
     }
 }
 
@@ -178,7 +179,7 @@ function myFunction2() {
 }
 </script>
 <meta charset="UTF-8">
-<title>CMGM - Mapper</title>
+<title>CMGM - Mapper (<?=$num?>)</title>
 </head>
 <body>
 <div class="form">
