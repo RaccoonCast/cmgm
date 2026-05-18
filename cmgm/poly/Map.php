@@ -826,8 +826,8 @@
                     { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellList_1=${cell_list_commas}&cellListDepri_1=-`, '_blank') },
                     {
                         label: 'View in CellMapper', action: () => {
-                            let mnc = tower.plmn.slice(3);
-                            let mcc = tower.plmn.slice(0, 3);
+                            let mcc = String(tower.plmn).slice(0, 3);
+                            let mnc = String(tower.plmn).slice(3);
                             window.open(`https://www.cellmapper.net/map?MCC=${mcc}&MNC=${mnc}&type=${tower.rat}&latitude=${tower.latitude}&longitude=${tower.longitude}&zoom=15&ppT=${tower.enb}&ppL=${tower.tac}`, '_blank');
                         }
                     }
@@ -848,8 +848,6 @@
                     items.push({
                         label: 'View in CMGM',
                         action: () => {
-                            let mnc = tower.plmn.slice(3);
-                            let mcc = tower.plmn.slice(0, 3);
                             window.open(`https://cmgm.us/database/Edit.php?q=${tower.enb}&carrier=${cmgm_carrier}`, '_blank');
                         }
                     });

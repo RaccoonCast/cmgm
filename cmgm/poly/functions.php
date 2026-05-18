@@ -97,21 +97,22 @@ function getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB) {
 	}
 }
 
-function get_cell($cellNumber, $eNB, $plmn, $rat) {
+function get_cell($cellNumber, $eNB, $plmn, $rat, $sub = 0) {
     if ($rat == 'NR') {
         // For NR (New Radio) set the base calculation
         $base = match ($plmn) {
             "310260" => $eNB * 4096,
             "310410" => $eNB * 1024,
-            "311480" => $eNB * 16384,
-            default => $eNB * 4096,
+            // Updated 311480: Integrates the Sub value (shifted by 6 bits)
+            "311480" => ($eNB * 16384) + ((int)$sub * 64),
+            default  => $eNB * 4096,
         };
     } elseif ($rat == 'LTE') {
         // For LTE set the base calculation
         $base = $eNB * 256;
     }
 
-    // Return the cellId by adding the cellNumber to the base
+    // Return the cellId by adding the cellNumber (Remainder) to the base
     return $base + (int)$cellNumber;
 }
 

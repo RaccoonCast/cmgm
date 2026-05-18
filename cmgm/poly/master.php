@@ -14,7 +14,7 @@ $formData = [];
 $dataSource = isset($polyFormData) ? $polyFormData : $_POST;
 
 foreach ($dataSource as $key => $value) {
-    if (preg_match('/^(eNB|cellList|cellListDepri|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
+    if (preg_match('/^(eNB|sub|cellList|cellListDepri|plmn|rat|tac)(_(\d+))?$/', $key, $matches)) {
         $field = $matches[1]; // eNB, cellList, plmn, or rat
         $index = $matches[3] ?? 0; // Use 0 if no index is specified
 
@@ -50,6 +50,7 @@ foreach ($formData as $index => $data) {
     $cellList = isset($data['cellList']) && preg_match('/^\d+([,.]\d+)*$/', $data['cellList']) ? preg_split('/[,.]/', $data['cellList']) : null;
     $plmn = preg_match('/^\d{6}$/', $data['plmn']) ? $data['plmn'] : error('Invalid PLMN.');
     $tac = isset($data['tac']) && preg_match('/^\d{1,10}$/', $data['tac']) ? $data['tac'] : null; 
+    $sub = isset($data['sub']) && is_numeric($data['sub']) ? (int)$data['sub'] : 0;
     $cellList_depri = isset($data['cellListDepri']) && preg_match('/^\d+(,\d+)*$/', $data['cellListDepri']) ? explode(',', $data['cellListDepri']) : null;
     if (isset($data['cellListDepri']) && $data['cellListDepri'] == '-') {
        if ($rat == "LTE") {
@@ -77,9 +78,10 @@ foreach ($formData as $index => $data) {
             '310260' => $eNB * 4096,
             '310410' => $eNB * 1024,
             '313100' => $eNB * 1024,
-            '311480' => $eNB * 16384,
+            // Updated 311480: eNB shifted by 14 bits, Sub shifted by 6 bits
+            '311480' => ($eNB * 16384) + ((int)$sub * 64), 
             '313340' => $eNB * 16,
-            default => $eNB * 4096,
+            default  => $eNB * 4096,
         };
     } elseif ($rat == 'LTE') {
         $cellIdLabel = 'cellId';
@@ -91,6 +93,7 @@ foreach ($formData as $index => $data) {
     $cellIdList_depri = [];
     if ($cellList_depri != null) {
         $cellList = array_merge($cellList ? $cellList : [], $cellList_depri);
+        // The final addition completes the structure: Base + Remainder
         $cellIdList_depri = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList_depri);
     }
 
@@ -100,17 +103,17 @@ foreach ($formData as $index => $data) {
     }
 
     // Get from DB
-    $cellIdList = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList); // Get list of ids
-
-    $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB); // Query DB for all simultaneously
-
-    // Reformat associative array to be keyed by cell ID
+    // $cellIdList = array_map(fn($cellNumber) => $base + (int) $cellNumber, $cellList); // Get list of ids
+    // 
+    // $arrayResults = getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB); // Query DB for all simultaneously
+    // 
+    // // Reformat associative array to be keyed by cell ID
     $dbDump_dataMap = [];
-    if (isset($arrayResults) && $arrayResults != null) {
-        foreach ($arrayResults as $_unused_index => $arrayRow) {
-            $dbDump_dataMap[$arrayRow['cell_id']] = $arrayRow;
-        }
-    }
+    // if (isset($arrayResults) && $arrayResults != null) {
+    //     foreach ($arrayResults as $_unused_index => $arrayRow) {
+    //         $dbDump_dataMap[$arrayRow['cell_id']] = $arrayRow;
+    //     }
+    // }
 
     // Loop through each cell
     foreach ($cellList as $cellNumber) {
@@ -266,7 +269,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
         }
 
         // Calculate cell ID
-        $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
+        $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat, $sub);
 
         // Calculate other information
         $lat = $response->latitude;
@@ -335,7 +338,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
             $eNB = $formData[$index]['eNB'];
             $plmn = $formData[$index]['plmn'];
             $rat = $formData[$index]['rat'];
-            $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
+            $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat, $sub);
 
             // If location not set, skip
             if (isset($jsonResponse['location'])) {

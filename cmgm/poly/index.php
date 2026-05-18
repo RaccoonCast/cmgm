@@ -14,6 +14,7 @@ $firstRun = true;
 $carrierList = [];
 $ratList = [];
 $enbList = [];
+$subList = [];
 $cellListList = [];
 $cellListDepriList = [];
 $tacList = [];  // <-- New TAC array
@@ -25,6 +26,8 @@ foreach($_GET as $key => $value) {
         array_push($ratList, $value);
     } else if (str_starts_with($key, 'eNB')) {
         array_push($enbList, $value);
+    } else if (str_starts_with($key, 'sub')) {
+        array_push($subList, $value);
     } else if (str_starts_with($key, 'cellList') && !str_starts_with($key, 'cellListDepri')) {
         array_push($cellListList, $value);
     } else if (str_starts_with($key, 'cellListDepri')) {
@@ -47,6 +50,7 @@ if (count($carrierList) === 0) {
     array_push($carrierList, '310410');
     array_push($ratList, 'LTE');
     array_push($enbList, '');
+    array_push($subList, '');
     array_push($cellListList, '');
     array_push($cellListDepriList, '');
     array_push($tacList, ''); // <-- Default tac value
@@ -58,6 +62,7 @@ if (
     array_filter($carrierList, 'is_numeric') === $carrierList &&
     array_filter($ratList, fn($val) => $val === 'LTE' || $val === 'NR') === $ratList &&
     array_filter($enbList, 'is_numeric') === $enbList &&
+    array_filter($subList, 'is_numeric') === $enbList &&
     array_filter($cellListList, fn($val) => preg_match('/^\d+(,\d+)*$/', $val)) === $cellListList &&
     array_filter($cellListDepriList, fn($val) => preg_match('/^[\d\-\*]+(,[\d\-\*]+)*$/', $val)) === $cellListDepriList
 ) {
@@ -74,6 +79,7 @@ if (
         // Add others to array
         $polyFormData['rat' . $namedIndex] = $ratList[$index];
         $polyFormData['eNB' . $namedIndex] = $enbList[$index];
+        $polyFormData['sub' . $namedIndex] = $subList[$index];
         if (isset($cellListList[$index]) && strlen($cellListList[$index]) > 0) $polyFormData['cellList' . $namedIndex] = $cellListList[$index];
         if (isset($cellListDepriList[$index]) && strlen($cellListDepriList[$index]) > 0) $polyFormData['cellListDepri' . $namedIndex] = $cellListDepriList[$index];
 
@@ -134,6 +140,7 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
             </select>
             <!-- eNB -->
             <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="<?php echo $ratList[$index] == 'NR' ? 'gNB' : 'eNB'; ?>" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
+            <input type="number" class="sub" name="<?php echo "sub" . $namedIndex;?>" maxlength="10" required placeholder="sub" value="<?php echo $subList[$index]; ?>" /><!-- Cells -->
             <!-- TAC -->
             <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
             <!-- Cells -->
