@@ -553,7 +553,7 @@
             }
             
             async function fetchData(bounds, requestId) {
-                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&cellQuantity=${cellQuantity.value}&score=${score.value}&locationType=2&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
+                let apiUrl = `/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&cellQuantity=${cellQuantity.value}&score=${score.value}&locationType=2&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
                 try {
                     const res = await fetch(apiUrl);
                     const data = await res.json();
@@ -645,7 +645,8 @@
                                         plmn: tower.plmn,
                                         rat: tower.rat,
                                         rawTower: tower,
-                                        enb: enbId // Added raw enbId back into the object just in case your polygon drawer needs it
+                                        enb: enbId,// Added raw enbId back into the object just in case your polygon drawer needs it
+                                        cell_id: tower.cell_id
                                     });
                                 } else if (!pointMap[markerId]) {
                                     // Draw individual eNB pins into pointMap
@@ -699,6 +700,7 @@
                             // CHANGED: enb is now markerId because of our earlier fix
                             for (const [markerId, points] of Object.entries(enbGroups)) {
                                 const rawEnb = points[0].enb; // Grab raw ENB for visual labels & copying
+                                const rawCell = points
                                 const polyId = `poly-${markerId}`;
                                 
                                 // Draw Polygon into polygonMap
@@ -719,7 +721,7 @@
 
                                     // Draw label DivIcon into pointMap
                                     const labelMarker = L.marker(pt.coords, {
-                                        icon: L.divIcon({ className: 'tower-label', html: `${rawEnb}-${pt.sectorId}`, iconSize: [0, 0] }),
+                                        icon: L.divIcon({ className: 'tower-label', html: `${pt.cell_id}`, iconSize: [0, 0] }),
                                         interactive: true
                                     }).addTo(mapLayerGroup); 
                                     

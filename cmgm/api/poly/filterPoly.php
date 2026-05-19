@@ -26,7 +26,7 @@ if ($viewMode == "cells") $whereFilters = 'AND plmn <> 312190 ';
 
 $keys = $viewMode == "enbs" ? "plmn,rat,enb,tac,cells,is_exact_location,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
 if ($viewMode !== "cells") {
-    $keys .= $locationType == 2 ? ",latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
+    $keys .= $locationType == 2 ? "cell_id,latitude_advanced AS latitude,longitude_advanced AS longitude" : ",latitude AS latitude,longitude AS longitude";
 }
 
 // Filter 1: Location (latitude & longitude)
