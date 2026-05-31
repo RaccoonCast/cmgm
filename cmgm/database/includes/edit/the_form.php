@@ -4,6 +4,7 @@
     include "$SITE_ROOT/includes/functions/tower_types.php";
     if ($userID !== "guest" && isset($id)) {
       if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<h4><span class="warning">Warning</span>: <i>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</i></h4>';
+      if (@$thrownError) echo '<h4><span class="warning">Warning</span>: <i>Failed to submit changes to #'.$id.' due to "'.$thrownError.'", please resolve and re-submit.</i></h4>';
       if ((substr_replace($cm_pin_distance ,"", -1) >= 2.0) && ($cmgm_edit_pinspace_warn == "false")) echo '<h4><span class="warning">Warning</span>: <i>A pin distance of 2.0x or greater will move parent down slightly on CellMapper.net, <a target="_blank" href="https://cmgm.us/settings">hide this warning</a>.</i></h4>';
       if (!isset($new) && $LTE_1 != "") {
         $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
@@ -198,7 +199,7 @@
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Invert pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration" onchange="if (this.value == 'custom') { let val = window.prompt('Sector Configuration:', ''); let valOption = document.createElement('option'); valOption.value = val; valOption.innerText = val; this.appendChild(valOption); valOption.selected = true; }">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration" onchange="if (this.value == 'custom') { let val = window.prompt('Sector Configuration:', ''); let valOption = document.createElement('option'); valOption.value = val.slice(0, 40); valOption.innerText = val.slice(0, 40); this.appendChild(valOption); valOption.selected = true; }">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
     <option value="1-sector omnidirectional">1-sector omnidirectional</option>
     <option value="1-sector unidirectional">1-sector unidirectional</option>

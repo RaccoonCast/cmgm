@@ -66,8 +66,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     }
 }
 
-
-if (strlen($sql_edit) != 14) {
+if (strlen($sql_edit) != 14) { // This serves as a check to ensure a user doesn't send "UPDATE db SET " to the database in the event they made no changes.
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
   $sql_edit .= "edit_userid = '" . $userID . "', ";
   $sql_edit .= "edit_username = '" . $username . "', ";
@@ -96,9 +95,16 @@ if (strlen($sql_edit) != 14) {
   // echo $sql_edit;
   //die();
 
-  if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
-  include "read_data.php";
-} else {
-}
+  try {
+      mysqli_query($conn, $sql_edit);
+      include "read_data.php";
+          
+  } catch (mysqli_sql_exception $e) {
+      $thrownError = $e->getMessage();
+      foreach ($_POST as $key => $value) {
+          $$key = $value;
+      }
+  }
 
+}
 ?>
