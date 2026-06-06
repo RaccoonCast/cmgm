@@ -131,3 +131,6 @@ input[type="checkbox"] {
 .modal-actions .floatright {
     float: right;
 }
+.headerFloating {
+    background-color: inherit;
+}

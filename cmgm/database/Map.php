@@ -29,6 +29,10 @@ include '../functions.php';
   } else {
     $limit = $map_map_pin_limit;
   }
+  // if (isset($_GET['hideui']) && !isset($_GET['showPolyLink'])) {
+    echo "<style>@media (min-width: 1151px) and (max-width: 1190px), (max-width: 1010px) {.leaflet-top{top:80px!important;}</style>"; // Move controls down if on Poly form within 1195px rule.
+    
+  // }
   include 'includes/DB-filter-get.php';
   ?>
 </head>
@@ -40,13 +44,16 @@ include '../functions.php';
   <div id="map">
     <div id="mapid"></div>
     <?php if (@$_GET['hideui'] !== "true") { ?>
+      <button class="special_button" id="polyMapButton">
+        <div class="buttonContainer">🔷</div>
+      </button>
+      <button class="special_button" id="refreshButton">
+        <div class="buttonContainer">🔃</div>
+      </button>
       <button class="special_button" id="backButton">
         <div class="buttonContainer">
           <?php echo isMobile() ? "⬅" : "🔙"; ?>
         </div>
-      </button>
-      <button class="special_button" id="refreshButton">
-        <div class="buttonContainer">🔃</div>
       </button>
     <?php } ?>
     <?php if (isset($_GET['showPolyLink'])) { ?>
@@ -98,6 +105,38 @@ include '../functions.php';
       <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true') { ?>
         document.getElementById('refreshButton').addEventListener('click', () => location.reload());
         document.getElementById('backButton').addEventListener('click', () => history.back());
+
+        document.getElementById('polyMapButton').addEventListener('click', () => {
+            const center = mymap.getCenter();
+            const zoom = mymap.getZoom();
+            
+            let carrier = new URLSearchParams(window.location.search).get('carrier') || '';
+
+            const hasBang = carrier.startsWith('!');
+            if (hasBang) {
+                carrier = carrier.substring(1);
+            }
+
+            const plmnMap = {
+                'T-Mobile': '310260',
+                'AT&T': '310410',
+                'Verizon': '311480',
+                'Dish': '313340'
+            };
+
+            const plmn = plmnMap[carrier];
+
+            let url =
+                `/poly/Map.php?latitude=${center.lat}` +
+                `&longitude=${center.lng}` +
+                `&zoom=${zoom}`;
+
+            if (plmn) {
+                url += `&plmn=${hasBang ? '!' : ''}${plmn}`;
+            }
+
+            window.location.href = url;
+          });
       <?php } ?>
 
       // Create list of markers
