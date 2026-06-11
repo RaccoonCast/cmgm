@@ -16,8 +16,8 @@ padding:0;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-content, iframe {
-	min-height: 385px!important;
-	max-height: 385px!important;
+	min-height: 375px!important;
+	max-height: 375px!important;
 	max-width: 80px!important;
 }
 .leaflet-popup-content-wrapper {
@@ -34,4 +34,13 @@ padding:0;
 }
 .leaflet-popup-close-button {
 	display: none;
+}
+#polyInfoButton_content table td {
+ padding: 0px 10px 0px 10px;
+}
+#polyInfoButton_content table th {
+  padding: 0px 5px 2px 5px;
+}
+.dropdown-content {
+	padding: 1rem;
 }

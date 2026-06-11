@@ -1,6 +1,6 @@
 .leaflet-popup-content-wrapper {
-  background: #111111!important;
+  background: #111111!important;  /* add accent color to border */
 }
 .leaflet-popup-tip {
-  background: #111111;
+  background-color: #111111!important;
 }
