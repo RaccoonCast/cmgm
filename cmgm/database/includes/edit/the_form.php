@@ -253,10 +253,10 @@
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input
     type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo isset($evidence_c) ? rawurldecode($evidence_c) : '' ?>">
 
-    <label class="bingmaps_label">Aerial<span class="floatright"><?php echo @$bingmaps_a_label . @$bingmaps_b_label . @$bingmaps_c_label?></span></label><input
-    type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo isset($bingmaps_a) ? rawurldecode($bingmaps_a) : '' ?>"><input
-    type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo isset($bingmaps_b) ? rawurldecode($bingmaps_b) : '' ?>"><input
-    type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo isset($bingmaps_c) ? rawurldecode($bingmaps_c) : '' ?>">
+    <label class="aerial_label">Aerial<span class="floatright"><?php echo @$aerial_a_label . @$aerial_b_label . @$aerial_c_label?></span></label><input
+    type="text" id="bm_a" class="aerial_cw" name="aerial_a" placeholder="aerial_A" value="<?php echo isset($aerial_a) ? rawurldecode($aerial_a) : '' ?>"><input
+    type="text" id="bm_b" class="aerial_cw" name="aerial_b" placeholder="aerial_B" value="<?php echo isset($aerial_b) ? rawurldecode($aerial_b) : '' ?>"><input
+    type="text" id="bm_c" class="aerial_cw" name="aerial_c" placeholder="aerial_C" value="<?php echo isset($aerial_c) ? rawurldecode($aerial_c) : '' ?>">
 
     <label class="photo_label"><?= isset($photos_label) ? $photos_label : "Photos";?> <span class="floatright"><?php echo isset($photo_link_linklabel_a) ? $photo_link_linklabel_a : ''; ?></span></label><input
     type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo isset($photo_a) ? rawurldecode($photo_a) : '' ?>"><input

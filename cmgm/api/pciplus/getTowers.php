@@ -39,7 +39,7 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
     }
      
     if (isset($_GET['cmgm_id'])) $sql = "SELECT $database_get_list,id from db WHERE id = $value";
-    if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
+  if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
               unset($row["edit_userid"]);
               unset($row["edit_lock"]);
@@ -83,7 +83,7 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
       }
 
      // Add CMGM Uploads URL prefix for values like 'image-3249823428394.jpg' + Convert @s to canon.cmgm.us links
-     $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","bingmaps_a","bingmaps_b","bingmaps_c");
+     $validOptions = array("evidence_a", "evidence_b", "evidence_c", "photo_a", "photo_b", "photo_c", "photo_d", "photo_e", "photo_f", "extra_a", "extra_b", "extra_c","extra_d","extra_e","extra_f","aerial_a","aerial_b","aerial_c");
      foreach($result_object as $key => $value) {
        foreach($validOptions as $validOption) {
         if (isset($result_object[$key][$validOption])) $result_object[$key][$validOption] = convert_url($value[$validOption]);

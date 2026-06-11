@@ -24,7 +24,7 @@ include '../functions.php'; ?>
 <?php
 
 $cmgm_uploads_page = "https://files.cmgm.us/";
-$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,NR_4,NR_5,NR_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,bingmaps_a,cellsite_type,old_cellsite_type,concealed,region_lte,region_nr,tags,status";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,NR_4,NR_5,NR_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,aerial_a,cellsite_type,old_cellsite_type,concealed,region_lte,region_nr,tags,status";
 
 $sql = "SELECT $database_get_list FROM db WHERE id = $id;";
 $result = mysqli_query($conn, $sql);
@@ -32,8 +32,8 @@ $result = mysqli_query($conn, $sql);
 $sql_read_result = mysqli_query($conn,$sql);
 while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
 $carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
-if(!empty($bingmaps_a)) $bingmaps_a  = (substr($bingmaps_a,0,4)=="http") ? $bingmaps_a  : $cmgm_uploads_page . $bingmaps_a;
-if (isset($bingmaps_a)) $bmlink = '<a target="_blank" class="sup" style="font-size: 10px;" href="'.$bingmaps_a.'">Aerial</a>';
+if(!empty($aerial_a)) $aerial_a  = (substr($aerial_a,0,4)=="http") ? $aerial_a  : $cmgm_uploads_page . $aerial_a;
+if (isset($aerial_a)) $bmlink = '<a target="_blank" class="sup" style="font-size: 10px;" href="'.$aerial_a.'">Aerial</a>';
 
 
 $lte_list = null;
