@@ -92,7 +92,8 @@
 
             const customPrompts = {
                 requestBatchSize: "Enter Custom Batch Size:",
-                iconSize: "Enter Custom Icon Size:"
+                iconSize: "Enter Custom Icon Size:",
+                Plmn: "Enter Custom PLMN:"
             };
 
             // Helper: Update the hidden label and FORCE selection to index 0
@@ -174,8 +175,6 @@
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
-
-                    if (el.value === "_custom_") return;
 
                     // 1. Handle Custom Option Prompts
                     if (customPrompts[el.id] && (el.value === "_custom_" || el.value === "custom")) {
