@@ -43,6 +43,7 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
               unset($row["edit_userid"]);
               unset($row["edit_lock"]);
+              unset($row["coords"]);
               $result_object[$value] = $row;
             }
 

@@ -42,6 +42,7 @@ while ($row = $result->fetch_assoc()) {
   $distance = $row["DISTANCE"];
   unset($row["edit_userid"]);
   unset($row["edit_lock"]);
+  unset($row["coords"]);
   unset($row["DISTANCE"]);
 
   // Determine carrier type

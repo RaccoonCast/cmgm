@@ -12,8 +12,12 @@ if (($key == "latitude" OR $key == "longitude") && @${@$key} != $value) {
   }
   $do_not_read_longitude = "true";
 } elseif(@$do_not_read_longitude != "true") {
+  $$key == $value;
   $sql_edit .= "$key = '".mysqli_real_escape_string($conn, substr($value, 0, 12))."', ";
   include "history.php";
 }
+} else {
+  $tmp_latitude ??= $_POST['latitude'];
+  $tmp_longitude ??= $_POST['longitude'];
 }
 ?>

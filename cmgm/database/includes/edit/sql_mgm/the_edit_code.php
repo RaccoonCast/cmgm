@@ -77,6 +77,9 @@ if (strlen($sql_edit) != 14) { // This serves as a check to ensure a user doesn'
   // echo "Current: " . $userID . "<br>";
   if (@$pci_removed_note == "true") @$vals .= "PCIs removed." . PHP_EOL;
   if (@$pci_updated_note == "true") @$vals .= "PCIs updated." . PHP_EOL;
+  
+  // Update coords incase location was modified.
+  $sql_edit .= "coords = ST_GeomFromText('POINT(".mysqli_real_escape_string($conn, $tmp_latitude)." ".mysqli_real_escape_string($conn, $tmp_longitude).")', 4326), ";
 
   if (isset($_POST['new'])) {
     $edit_history_value = "$edit_history" . "————— " . date("Y-m-d H:i") . " | $username created —————" . PHP_EOL . "$vals";
@@ -92,8 +95,6 @@ if (strlen($sql_edit) != 14) { // This serves as a check to ensure a user doesn'
     $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
   }
   }
-  // echo $sql_edit;
-  //die();
 
   try {
       mysqli_query($conn, $sql_edit);
