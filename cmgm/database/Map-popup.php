@@ -107,10 +107,10 @@ $url_for_cmgm = "https://cmgm.us/$id";
 </tr>
 <tr>
 <?php if ($carrier !== "Dish") { ?>
-<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo ($lte_list === null || str_contains($lte_list, "|")) ? " eNBs" : " eNB"; ?></td>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier_label ?><?php echo ($lte_list === null || str_contains($lte_list, "|")) ? " eNBs" : " eNB"; ?></td>
 <td id="NB_container"><?php echo @$lte_list; ?></td>
 </tr><?php } else { ?>
-<td style="height: 66px;" class="label" id="NB_label"><?= $carrier ?><?php echo ($nr_list === null || str_contains($nr_list, "|")) ? " gNBs" : " gNB"; ?></td>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier_label ?><?php echo ($nr_list === null || str_contains($nr_list, "|")) ? " gNBs" : " gNB"; ?></td>
 <td id="NB_container"><?php echo @$nr_list; ?></td>
 <?php } ?> 
 

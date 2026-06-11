@@ -59,9 +59,9 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
         $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte);
 
           ?> <td><input type="button" class="w-100 btn-edit" onclick="redir('Edit.php?id=<?php echo $id;?>','0')"value="Edit"></input></td> <?php
-
+        $carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
         echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
-        echo '<td class="carrier">'.$carrier.'</td>';
+        echo '<td class="carrier">'.$carrier_label.'</td>';
         echo '<td class="address"><div class="addr-box"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td></div>';
         echo '<td title="'.$cellsite_type.'" "class="cellsite_type">' . $cellsite_type_normalized . '</td>';
         echo '<td class="notes">' . $notes . '</td>';
