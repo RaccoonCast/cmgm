@@ -40,3 +40,6 @@ input[type=number] {
 .header {
   border-bottom: 0px;
 }
+.headerFloating {
+    background-color: inherit;
+}
