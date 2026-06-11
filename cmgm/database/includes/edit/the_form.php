@@ -5,6 +5,7 @@
     if ($userID !== "guest" && isset($id)) {
       if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<h4><span class="warning">Warning</span>: <i>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</i></h4>';
       if (@$thrownError) echo '<h4><span class="warning">Warning</span>: <i>Failed to submit changes to #'.$id.' due to "'.$thrownError.'", please resolve and re-submit.</i></h4>';
+      if (@$thrownMissing) echo '<h4><span class="warning">Warning</span>: <i>Record is missing '.$thrownMissing.'.</i></h4>';
       if ((substr_replace($cm_pin_distance ,"", -1) >= 2.0) && ($cmgm_edit_pinspace_warn == "false")) echo '<h4><span class="warning">Warning</span>: <i>A pin distance of 2.0x or greater will move parent down slightly on CellMapper.net, <a target="_blank" href="https://cmgm.us/settings">hide this warning</a>.</i></h4>';
       if (!isset($new) && $LTE_1 != "") {
         $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
