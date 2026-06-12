@@ -1,4 +1,7 @@
 <?php
+
+if (!isset($json_flag)) echo "<h3>Tower Properties</h3>";
+
 if (!isset($_GET['concealed'])) {
 	// Unverified
 	$sql = 'SELECT
@@ -7,8 +10,8 @@ if (!isset($_GET['concealed'])) {
 			FROM db WHERE '.$db_vars.' ';
 	
 	$result = $conn->query($sql);
-	
-  if (!isset($json_flag)) echo "<h3>Concealed vs Unconcealed</h3>";
+
+  if (!isset($json_flag)) echo "<b>Concealed vs Unconcealed:</b><br>";
 
 	// Output data
 	while ($row = $result->fetch_assoc()) {
@@ -26,6 +29,33 @@ if (!isset($_GET['concealed'])) {
 	}
 }
 
+// Carrier
+if (!isset($_GET['carrier'])) {
+  $carriers = ["T-Mobile", "Sprint", "Verizon", "ATT", "Dish"];
+  $carrierCounts = [];
+
+  if (!isset($json_flag)) echo "<b>Carrier:</b><br>";
+    foreach ($carriers as $carrier) {
+      $sql = "SELECT COUNT(*) as count FROM db WHERE $db_vars AND carrier = '$carrier'";
+      $result = $conn->query($sql);
+      $row = $result->fetch_assoc();
+      $carrierCounts[$carrier] = $row['count'];
+      $result->close();
+    }
+    foreach ($carrierCounts as $carrier => $count) {
+
+      if (isset($_GET['percents_view'])) {
+        echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . getPercent($count)  . '</a><br>';
+      } elseif (isset($json_flag)) {
+        $json_array[$carrier] = $count;
+      } else {
+        echo $carrier .  ': <a href="' . $current_url . '&carrier=' . $carrier . '">' . $count  . '</a><br>';
+      }
+    }
+
+    echo (isset($_GET['json_flag'])) ? "<br>" : "";
+    echo '<br>';
+}
 
 // Verified Vs Unverified
 if (!isset($_GET['status'])) {
@@ -36,7 +66,7 @@ if (!isset($_GET['status'])) {
 
   $result = $conn->query($sql);
 
-  if (!isset($json_flag)) echo "<h3>Verified vs Unverified</h3>";
+  if (!isset($json_flag)) echo "<b>Verified vs Unverified:</b><br>";
 
   // Output data
   while ($row = $result->fetch_assoc()) {

@@ -1,5 +1,8 @@
 <?php
     echo '<div class="statistics-wrapper">';
+    
+    // Count tower properties.
+    @$_GET['cellsite_type'] && @$_GET['carrier'] && @$_GET['status'] && @$_GET['concealed'] ?: statBox("count_tower_properties.php", $db_vars, $conn, $domain_with_http);
 
     // Count most common cities.
     if (!isset($_GET['city'])) {
@@ -37,12 +40,9 @@
     }
 
     // Carrier counts.
-    if (!isset($_GET['carrier'])) {
-        statBox("count_most_common_carrier.php", $db_vars, $conn, $domain_with_http);
-    }
-
-    // Count concealed vs unconcealed sites.
-    @$_GET['status'] && @$_GET['concealed'] ?: statBox("count_concealed_vs_unconcealed_and_status.php", $db_vars, $conn, $domain_with_http);
+    // if (!isset($_GET['carrier'])) {
+    //     statBox("count_most_common_carrier.php", $db_vars, $conn, $domain_with_http);
+    // }
 
     // Records during last X whatever.
     if (!isset($_GET['date']) && !isset($_GET['year']) && !isset($_GET['month'])) {
@@ -55,9 +55,9 @@
     }
 
     // Count most common cell site types.
-    if (!isset($_GET['cellsite_type'])) {
-        statBox("count_cellsite_type.php", $db_vars, $conn, $domain_with_http);
-    }
+    // if (!isset($_GET['cellsite_type'])) {
+    //     statBox("count_cellsite_type.php", $db_vars, $conn, $domain_with_http);
+    // }
 
     // Count most common cell site types.
     if (!isset($_GET['time'])) {

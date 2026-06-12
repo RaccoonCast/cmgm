@@ -92,7 +92,8 @@
 
             const customPrompts = {
                 requestBatchSize: "Enter Custom Batch Size:",
-                iconSize: "Enter Custom Icon Size:"
+                iconSize: "Enter Custom Icon Size:",
+                Plmn: "Enter Custom PLMN:"
             };
 
             // Helper: Update the hidden label and FORCE selection to index 0
@@ -152,10 +153,10 @@
             };
 
             // Initialize fields from URL (Bootstrapping custom values)
-            const urlParams = new URLSearchParams(window.location.search);
             // labels.checked = urlParams.get('labels') !== 'false';
-            unload.checked = urlParams.has('dontUnload');
+            // unload.checked = urlParams.has('dontUnload');
             // forceLabelVisibility.checked = urlParams.has('forceLabelVisibility');
+            const urlParams = new URLSearchParams(window.location.search);
 
             // Apply initial prefixes
             updateSelectLabel(requestBatchSize);
@@ -174,8 +175,6 @@
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
-
-                    if (el.value === "_custom_") return;
 
                     // 1. Handle Custom Option Prompts
                     if (customPrompts[el.id] && (el.value === "_custom_" || el.value === "custom")) {
@@ -828,8 +827,8 @@
                     { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellList_1=${cell_list_commas}&cellListDepri_1=-`, '_blank') },
                     {
                         label: 'View in CellMapper', action: () => {
-                            let mnc = tower.plmn.slice(3);
-                            let mcc = tower.plmn.slice(0, 3);
+                            let mnc = tower.plmn.toString().slice(3);
+                            let mcc = tower.plmn.toString().slice(0, 3);
                             window.open(`https://www.cellmapper.net/map?MCC=${mcc}&MNC=${mnc}&type=${tower.rat}&latitude=${tower.latitude}&longitude=${tower.longitude}&zoom=15&ppT=${tower.enb}&ppL=${tower.tac}`, '_blank');
                         }
                     }
@@ -850,8 +849,8 @@
                     items.push({
                         label: 'View in CMGM',
                         action: () => {
-                            let mnc = tower.plmn.slice(3);
-                            let mcc = tower.plmn.slice(0, 3);
+                            let mnc = tower.plmn.toString().slice(3);
+                            let mcc = tower.plmn.toString().slice(0, 3);
                             window.open(`https://cmgm.us/database/Edit.php?q=${tower.enb}&carrier=${cmgm_carrier}`, '_blank');
                         }
                     });
@@ -953,7 +952,7 @@
                 }
             });
 
-            // 2. Copy coordinates on right click
+            // Copy coordinates on right click
             map.on('contextmenu', function (e) {
                 // Prevent the browser's default context menu
                 if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
@@ -963,6 +962,25 @@
                 }).catch(err => {
                     console.error("Copy failed.", err);
                 });
+            });
+
+            // Middle click to open SV
+            map.on('mousedown', function(e) {
+                if (e.originalEvent.button === 1) {
+                    
+
+                    // Hackfix to stop browser from getting stuck in drag mode
+                    // Force Leaflet to drop its current drag state
+                    map.dragging.disable();
+
+                    // Re-enable dragging after a tiny delay so it works when you come back
+                    setTimeout(() => {
+                        map.dragging.enable();
+                    }, 1);
+
+                    // 3. Open your active tab just like before
+                    window.open(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${e.latlng.lat},${e.latlng.lng}`, '_blank');
+                }
             });
         </script>
     </body>

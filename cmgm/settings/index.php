@@ -1,4 +1,4 @@
-<?php
+  <?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -27,6 +27,8 @@ include "../functions.php";
       'cm_showLabels', 
       'cm_showLowAcc', 
       'cm_zoom', 
+      'poly_map_default_viewmode', 
+      'poly_map_default_unload', 
       'prefLocType', 
       'cmgm_edit_hide_edit_history', 
       'cmgm_edit_history_compact', 
@@ -108,6 +110,21 @@ include "../functions.php";
           <option <?php // if($debug_flag == "2") echo 'selected="selected" ';?>value="2">meduim</option>
           <option <?php // if($debug_flag == "3") echo 'selected="selected" ';?>value="3">high</option>
         </select> -->
+        <label class="label">Poly Map Defaults: </label><select class="w-50"
+        class="custominput dropdown" autocomplete="on" name="poly_map_default_viewmode">
+        <?php
+        if ($poly_map_default_viewmode == "enbs") $poly_map_default_viewmode_translate = "eNB"; 
+        if ($poly_map_default_viewmode == "cells") $poly_map_default_viewmode_translate = "Cells"; 
+        ?>
+        <option style="display:none" selected disabled hidden>View Mode: <?= $poly_map_default_viewmode_translate?></option>
+          <option value="enb">eNB</option>
+          <option value="cells">Cells</option>
+        </select><select class="w-50"
+        class="custominput dropdown" autocomplete="on" name="poly_map_default_unload">
+          <option style="display:none" selected disabled hidden>Disable Unload: <?= $poly_map_default_unload?></option>
+          <option value="false">false</option>
+          <option value="true">true</option>
+        </select>
         <label class="label">Preferred Location Source: </label><select
         class="custominput dropdown" autocomplete="on" name="prefLocType">
           <option <?php if($prefLocType == "settings") echo 'selected="selected" ';?>value="settings">Settings</option>

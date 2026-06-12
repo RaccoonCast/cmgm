@@ -9,3 +9,47 @@
 button {
   margin-left: 10px; /* Adds some space between buttons */
 }
+@media (min-width: 1150px) and (max-width: 1390px) {
+
+  .eNB,
+  .tac,
+  .cellList,
+  .cellListDepri {
+    width: 140px;
+  }
+  .plmn {
+    width: 140px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1150px) {
+  #mapid > div.leaflet-control-container > div.leaflet-top.leaflet-left {
+    top: 80px;
+  }
+  #formContainerContainer {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .eNB,
+  .tac {
+    width: 102px;
+  }
+  .cellList,
+  .cellListDepri {
+    width: 115px;
+  }
+  .rat {
+    width: 58px;
+  }
+  .plmn {
+    width: 127px;
+  }
+  form.carrierForm * {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  #dontCacheCheckbox,
+  .closeButton {
+    margin: 0px 4px!important;
+  }
+}

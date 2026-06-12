@@ -25,8 +25,8 @@ if (!$permanentlyDelete) {
     $sql_query = "UPDATE local_poly_beta SET latitude = 0.0, longitude = 0.0, coords = ST_SRID(POINT(0.0, 0.0), 4326)";
 }
 
-// Filter 0 specify the eNB & RAT
-$enbFilters = "WHERE eNB = $enb AND rat = '$rat'";
+// Filter 0 specify the eNB & RAT **AND PLMN**
+$enbFilters = "WHERE eNB = $enb AND rat = '$rat' AND plmn = $plmn";
 
 
 // Filter 1: Specify cells

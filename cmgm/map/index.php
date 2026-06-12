@@ -90,8 +90,17 @@ function work() {
     var lat = map.getCenter().lat;
     var lng = map.getCenter().lng;
 
+    const clampLng = (lng) => Math.max(-180, Math.min(180, lng));
+    
+    // 1. Extract and clamp the coordinates from the Leaflet bounds object
+    const bounds = map.getBounds();
+    const neLat = bounds.getNorthEast().lat;
+    const neLng = clampLng(bounds.getNorthEast().lng);
+    const swLat = bounds.getSouthWest().lat;
+    const swLng = clampLng(bounds.getSouthWest().lng);
+
     // Download map pin locations from the API
-	fetch(`${apiUrl}?latitude=${lat}&longitude=${lng}`)
+	  fetch(`${apiUrl}?boundsNELat=${neLat}&boundsNELon=${neLng}&boundsSWLat=${swLat}&boundsSWLon=${swLng}`)
     .then(response => response.json())
     .then(data => {
       // Loop through the map pin locations
@@ -199,8 +208,8 @@ function correctLongitude(value) {
 }
 
 </script>
-
-
+    <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true')
+      include "../database/includes/footer.php"; ?>
 
 </body>
 </html>

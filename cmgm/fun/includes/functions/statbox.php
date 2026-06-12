@@ -14,8 +14,8 @@
         }
         
       }
-      echo '<div class="statistics-container">';
-      echo '<div class="stat-box">';
+      echo '<div class="statistics-container' . ($file == 'count_tower_properties.php' ? ' tower-container' : '') . '">';
+      echo '<div class="stat-box '.'">';
       include "includes/counts/$file";
       $api_link = str_replace("/fun/", "/api/pciplus/fun.php", $current_url) . "&q=$file";
       $just_this_link = str_replace("/fun/", "/fun/ViewMore.php", $current_url);

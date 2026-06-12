@@ -4,6 +4,8 @@
     include "$SITE_ROOT/includes/functions/tower_types.php";
     if ($userID !== "guest" && isset($id)) {
       if (@$old_cellsite_type != "" && $cellsite_type == "") echo '<h4><span class="warning">Warning</span>: <i>The previous cellsite type was "' . $old_cellsite_type . '", please update it to use the new system.</i></h4>';
+      if (@$thrownError) echo '<h4><span class="warning">Warning</span>: <i>Failed to submit changes to #'.$id.' due to "'.$thrownError.'", please resolve and re-submit.</i></h4>';
+      if (@$thrownMissing) echo '<h4><span class="warning">Warning</span>: <i>Record is missing '.$thrownMissing.'.</i></h4>';
       if ((substr_replace($cm_pin_distance ,"", -1) >= 2.0) && ($cmgm_edit_pinspace_warn == "false")) echo '<h4><span class="warning">Warning</span>: <i>A pin distance of 2.0x or greater will move parent down slightly on CellMapper.net, <a target="_blank" href="https://cmgm.us/settings">hide this warning</a>.</i></h4>';
       if (!isset($new) && $LTE_1 != "") {
         $duplicate_id = @$conn->query("SELECT id FROM db WHERE carrier = '$carrier' AND id != '$id' AND LTE_1 = '$LTE_1'")->fetch_assoc()["id"];
@@ -198,7 +200,7 @@
     <option style="display: none" value="<?php echo @$tmp_cm_pin_inverted ?>" selected>Invert pins: <?php echo @$tmp_cm_pin_inverted ?></option>
     <option value="true">true</option>
     <option value="false">false</option>
-  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration" onchange="if (this.value == 'custom') { let val = window.prompt('Sector Configuration:', ''); let valOption = document.createElement('option'); valOption.value = val; valOption.innerText = val; this.appendChild(valOption); valOption.selected = true; }">
+  </select><select class="misc_cw<?php if (isset($tmp_misc_3)) echo ' warning2';?>" title="Sector configuration." name="sector_configuration" onchange="if (this.value == 'custom') { let val = window.prompt('Sector Configuration:', ''); let valOption = document.createElement('option'); valOption.value = val.slice(0, 40); valOption.innerText = val.slice(0, 40); this.appendChild(valOption); valOption.selected = true; }">
     <option style="display: none"  value="<?php echo $tmp_sector_configuration?>" selected>Sector Config: <?php echo @$tmp_sector_configuration ?></option>
     <option value="1-sector omnidirectional">1-sector omnidirectional</option>
     <option value="1-sector unidirectional">1-sector unidirectional</option>
@@ -251,10 +253,10 @@
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input
     type="text" id="ev_c" class="evidence_cw" name="evidence_c" placeholder="EVIDENCE_C" value="<?php echo isset($evidence_c) ? rawurldecode($evidence_c) : '' ?>">
 
-    <label class="bingmaps_label">Aerial<span class="floatright"><?php echo @$bingmaps_a_label . @$bingmaps_b_label . @$bingmaps_c_label?></span></label><input
-    type="text" id="bm_a" class="bingmaps_cw" name="bingmaps_a" placeholder="BINGMAPS_A" value="<?php echo isset($bingmaps_a) ? rawurldecode($bingmaps_a) : '' ?>"><input
-    type="text" id="bm_b" class="bingmaps_cw" name="bingmaps_b" placeholder="BINGMAPS_B" value="<?php echo isset($bingmaps_b) ? rawurldecode($bingmaps_b) : '' ?>"><input
-    type="text" id="bm_c" class="bingmaps_cw" name="bingmaps_c" placeholder="BINGMAPS_C" value="<?php echo isset($bingmaps_c) ? rawurldecode($bingmaps_c) : '' ?>">
+    <label class="aerial_label">Aerial<span class="floatright"><?php echo @$aerial_a_label . @$aerial_b_label . @$aerial_c_label?></span></label><input
+    type="text" id="aerial_a" class="aerial_cw" name="aerial_a" placeholder="AERIAL_A" value="<?php echo isset($aerial_a) ? rawurldecode($aerial_a) : '' ?>"><input
+    type="text" id="aerial_b" class="aerial_cw" name="aerial_b" placeholder="AERIAL_B" value="<?php echo isset($aerial_b) ? rawurldecode($aerial_b) : '' ?>"><input
+    type="text" id="aerial_c" class="aerial_cw" name="aerial_c" placeholder="AERIAL_C" value="<?php echo isset($aerial_c) ? rawurldecode($aerial_c) : '' ?>">
 
     <label class="photo_label"><?= isset($photos_label) ? $photos_label : "Photos";?> <span class="floatright"><?php echo isset($photo_link_linklabel_a) ? $photo_link_linklabel_a : ''; ?></span></label><input
     type="text" id="ph_a" class="photo_cw" name="photo_a" placeholder="PHOTO_A" value="<?php echo isset($photo_a) ? rawurldecode($photo_a) : '' ?>"><input

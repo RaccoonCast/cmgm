@@ -352,6 +352,7 @@ if (!is_null($score)) {
 // Filter 98: Set limit
 if (!is_null($limit) && $limit > 0) {
     $limitClause = "LIMIT $limit";
+    $limitClauseTriple = "LIMIT " . $limit * 3;
 }
 
 // Filter 99: Build it
@@ -389,6 +390,7 @@ if ($viewMode == "cells") {
     $mainWhereFilters
     AND main.latitude BETWEEN (se.latitude - 1.5) AND (se.latitude + 1.5)
     AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
+    $limitClauseTriple
     ";
 
     // 5. Performance: Rough Bounding Box

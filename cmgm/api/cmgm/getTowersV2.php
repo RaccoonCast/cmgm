@@ -17,7 +17,7 @@ $db_vars = "id > 0";
 foreach($_GET as $key => $value){
   $clean_value = preg_replace('/[^0-9-.]/', '', $value);
 
-  if ($key == "latitude" OR $key == "longitude" OR $key == "limit") {
+  if ($key == "boundsNELat" OR $key == "boundsNELon" OR $key == "boundsSWLat" OR $key = 'boundsSWLon' OR $key = 'limit') {
     ${$key} = $clean_value;
   } else {
     // this code lets you add things to the search string, like WHERE cellsite_type = "monopalm" by amending &cellsite_type=monopalm.
@@ -28,8 +28,9 @@ foreach($_GET as $key => $value){
 }
 
 if (empty($limit)) $limit = "550";
-
-$sql = "SELECT DISTINCT $db_get_list, (3959 * ACOS(COS(RADIANS($latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($longitude)) + SIN(RADIANS($latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE $db_vars ORDER BY distance LIMIT $limit";
+if (!isset($searchPolygon)) $searchPolygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+$whereFiltersLocation = " AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+$sql = "SELECT DISTINCT $db_get_list FROM db WHERE $db_vars$whereFiltersLocation";
 
 $result = $conn->query($sql);
 
@@ -38,7 +39,6 @@ $locations = array();
 
 // Loop through the results and add them to the array
 while ($row = $result->fetch_assoc()) {
-  if ($row["DISTANCE"] < 5) {
     $locations[] = array(
       "id" => $row["id"],
       "carrier" => $row["carrier"],
@@ -49,7 +49,6 @@ while ($row = $result->fetch_assoc()) {
       "status" => $row["status"],
       "tags" => $row["tags"]
     );
-  }
 }
 echo json_encode($locations);
 

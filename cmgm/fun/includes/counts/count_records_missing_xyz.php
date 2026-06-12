@@ -66,22 +66,24 @@ while ($row = $result->fetch_assoc()) {
 	}
 }
 
+if (!isset($_GET['incomplete'])) {
+	$sql = "SELECT SUM(CASE WHEN ($incomplete_sql_query) THEN 1 ELSE 0 END) AS incomplete FROM db WHERE $db_vars";
 
-$sql = "SELECT SUM(CASE WHEN ($incomplete_sql_query) THEN 1 ELSE 0 END) AS incomplete FROM db WHERE $db_vars";
+	$result = $conn->query($sql);
 
-$result = $conn->query($sql);
+	// Output data
+	while ($row = $result->fetch_assoc()) {
 
-// Output data
-while ($row = $result->fetch_assoc()) {
-
-	if (isset($_GET['percents_view'])) {
-    echo "<b>Overall incomplete records: </b>" .  '<a href="' . $current_url . '&incomplete=true">' . getPercent($row["incomplete"])  . '</a><br>';
-	} elseif (isset($json_flag)) {
-		$json_array["street_view_has_count"] = $row["incomplete"];
-	} else {
-		    echo "<b>Overall incomplete records: </b>" .  '<a href="' . $current_url . '&incomplete=true">' . $row["incomplete"]  . '</a><br>';
+		if (isset($_GET['percents_view'])) {
+	    echo "<b>Overall incomplete records: </b>" .  '<a href="' . $current_url . '&incomplete=true">' . getPercent($row["incomplete"])  . '</a><br>';
+		} elseif (isset($json_flag)) {
+			$json_array["street_view_has_count"] = $row["incomplete"];
+		} else {
+			    echo "<b>Overall incomplete records: </b>" .  '<a href="' . $current_url . '&incomplete=true">' . $row["incomplete"]  . '</a><br>';
+		}
 	}
+
+	echo (isset($_GET['json_flag'])) ? "<br>" : "";
 }
 
-echo (isset($_GET['json_flag'])) ? "<br>" : "";
 ?>

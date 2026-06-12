@@ -1,5 +1,6 @@
 <?php
 include "includes/functions.php";
+error_reporting(E_ERROR | E_PARSE);
 
 $id = substr($_POST['id'], 0, 10);
 $plmn = substr($_POST['plmn'], 0, 6);
@@ -44,7 +45,7 @@ foreach ($combined_array as $value) {
     $sql_update .= "PCI_$i = '$value', ";
 }
 
-$edit_history_suppl .= "PCIs updated at " . date("Y-m-d H:i") . " PDT." . PHP_EOL;
+$edit_history_suppl = "PCIs updated at " . date("Y-m-d H:i") . " PDT." . PHP_EOL;
 $escaped_edit_history = mysqli_real_escape_string($conn, $row['edit_history']) . $edit_history_suppl;
 $sql_update .= "edit_history = '{$escaped_edit_history}' WHERE id = '{$row['id']}'";
 

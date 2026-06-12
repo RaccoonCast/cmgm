@@ -25,3 +25,4 @@ dev-router.php
 
 # Surro Client can be `npm install`ed by user
 surro-client/node_modules
+php/ext/surro_php_bridge.dll

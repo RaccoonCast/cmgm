@@ -142,7 +142,7 @@ $onMap  = ($parentFile == "Map.php");
                   </label>
                   --> 
                <label id="dontUnloadCheckboxArea" class="checkbox-group">
-               <input type="checkbox" id="dontUnload" <?php echo $unload; ?>> Disable Unload
+               <input <?php echo $unload; ?> type="checkbox" id="dontUnload"> Disable Unload
                </label>
                <label id="randomColorCheckboxArea" class="checkbox-group">
                <input type="checkbox" id="randomColor" <?php echo $randomColor; ?>> Randomize Colors

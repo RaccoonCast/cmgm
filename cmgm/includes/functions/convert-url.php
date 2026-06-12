@@ -50,7 +50,7 @@ function convert_url($url): string {
   }
 
   // Check if it's an attachment
-  else if (preg_match('/^(?:image|misc)/', $url)) {
+  else if (preg_match('/^(?:image|misc|video)/', $url)) {
     return 'https://files.cmgm.us/' . $url;
   }
 

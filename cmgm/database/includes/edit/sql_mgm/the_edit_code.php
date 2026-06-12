@@ -66,8 +66,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     }
 }
 
-
-if (strlen($sql_edit) != 14) {
+if (strlen($sql_edit) != 14) { // This serves as a check to ensure a user doesn't send "UPDATE db SET " to the database in the event they made no changes.
   $sql_edit .= "edit_date = '" . date("Y-m-d H") . "', ";
   $sql_edit .= "edit_userid = '" . $userID . "', ";
   $sql_edit .= "edit_username = '" . $username . "', ";
@@ -78,6 +77,9 @@ if (strlen($sql_edit) != 14) {
   // echo "Current: " . $userID . "<br>";
   if (@$pci_removed_note == "true") @$vals .= "PCIs removed." . PHP_EOL;
   if (@$pci_updated_note == "true") @$vals .= "PCIs updated." . PHP_EOL;
+  
+  // Update coords incase location was modified.
+  $sql_edit .= "coords = ST_GeomFromText('POINT(".mysqli_real_escape_string($conn, $tmp_latitude)." ".mysqli_real_escape_string($conn, $tmp_longitude).")', 4326), ";
 
   if (isset($_POST['new'])) {
     $edit_history_value = "$edit_history" . "————— " . date("Y-m-d H:i") . " | $username created —————" . PHP_EOL . "$vals";
@@ -93,12 +95,17 @@ if (strlen($sql_edit) != 14) {
     $sql_edit .= " edit_history = '".mysqli_real_escape_string($conn, $edit_history_value)."' WHERE id = $id";
   }
   }
-  // echo $sql_edit;
-  //die();
 
-  if ((is_numeric($_POST['latitude']) && is_numeric($_POST['longitude']) OR (is_numeric(@$tmp_latitude) && is_numeric(@$tmp_longitude)))) mysqli_query($conn, $sql_edit);
-  include "read_data.php";
-} else {
+  try {
+      mysqli_query($conn, $sql_edit);
+      include "read_data.php";
+          
+  } catch (mysqli_sql_exception $e) {
+      $thrownError = $e->getMessage();
+      foreach ($_POST as $key => $value) {
+          $$key = $value;
+      }
+  }
+
 }
-
 ?>

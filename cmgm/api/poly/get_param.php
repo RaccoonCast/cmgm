@@ -33,9 +33,12 @@ function get_param($key, $pattern, $errorMsg, $default = null, $cast = null) {
 
     return $cast ? $cast($value) : $value;
 }
+if (!isset($poly_map_default_viewmode)) $poly_map_default_viewmode = "enbs";
+if (!isset($poly_map_default_unload)) $poly_map_default_unload = "false";
+$cellQuantity = null;
 
 $plmn                 = get_param('plmn', '/^!?\d+(,!?\d+)*$/', 'Invalid PLMN provided, expected input like "310260" or "311480,310410"');
-$viewMode             = get_param('viewMode', '/^(cells|enbs)$/', 'Invalid view mode, expected "cells" or "enbs"', 'enbs');
+$viewMode             = get_param('viewMode', '/^(cells|enbs)$/', 'Invalid view mode, expected "cells" or "enbs"', $poly_map_default_viewmode);
 $cellsAllowList       = get_param('cellsAllowList', '/^\d+(,\d+)*$/', 'Invalid cells whitelist provided, expected input like "11,12,13" or "4,5,6"');
 $cellsBlockList       = get_param('cellsBlockList', '/^\d+(,\d+)*$/', 'Invalid cells blacklist provided, expected input like "11,12,13" or "4,5,6"');
 $cells                = get_param('cells', '/^\d+(,\d+)*$/', 'Invalid cells list provided, expected input like "11,12,13" or "4,5,6"');
@@ -55,7 +58,7 @@ $boundsSWLon          = get_param('boundsSWLongitude', '/^-?\d+(\.\d+)?$/', 'Mal
 $radius               = get_param('radius', '/^\d+(\.\d+)?$/', 'Invalid radius, expected a number like 5 or 3.75');
 $labelSettings        = get_param('labelSettings', '/^[0-6]$/', 'Invalid label setting, expected integer from 0-6.', 3);
 $score                = get_param('score', '/^(?:[<>]?\d+|\d+\s*-\s*\d+)$/', 'Invalid score filter, expected something like >300 or 1-30' );
-$cellQuantity         = get_param('cellQuantity', '/^(?:[<>])?\d+$/', 'Invalid cell quantity setting, expected something like <10');
+if ($viewMode != 'cells') $cellQuantity = get_param('cellQuantity', '/^(?:[<>])?\d+$/', 'Invalid cell quantity setting, expected something like <10');
 $limit                = get_param('limit', '/^\d+$/', 'Invalid limit', 450, fn($v) => (int)$v);
 $enb                  = get_param('enb', '/^\d+$/', 'Invalid eNB', 0, fn($v) => (int)$v);
 $locationType         = get_param('locationType', '/^\d+$/', 'Invalid locationType, expected 1 or 2.', false, fn($v) => (int)$v);
@@ -66,12 +69,13 @@ $showsql              = isset($_GET['showsql']);
 $iconSize             = $_GET['iconSize'] ?? 10;
 // $labels               = ($_GET['labels'] ?? 'true') === 'true' ? 'checked' : '';
 // $forceLabelVisibility = ($_GET['forceLabelVisibility'] ?? 'true') === 'true' ? 'checked' : '';
-$unload               = isset($_GET['dontUnload']) ? 'checked' : '';
+$unload               = (isset($_GET['dontUnload']) || $poly_map_default_unload == "true") ? 'checked' : '';
 $whereFilters         = null;
 $whereFiltersLocation = null;
 $locationFilter       = null;
 $orderBy              = null;
 $limitClause          = null;
+$limitClauseTriple    = null;
 $centerLat            = null;
 $centerLon            = null;
 ?>

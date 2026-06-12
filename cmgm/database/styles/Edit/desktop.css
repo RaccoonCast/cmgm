@@ -90,7 +90,7 @@ abbr, .nounderline {text-decoration: none!important;}
 .sv1_label {max-width: 50%!important;}
 .sv2_label {max-width: 50%!important; float: right;}
 /* Right Side Menu */
-.evidence_label, .extra_label, .photo_label, .bingmaps_label {
+.evidence_label, .extra_label, .photo_label, .aerial_label {
 	margin-left: 3px;
 	width: calc(16% - 3px)!important;
 }
@@ -98,7 +98,7 @@ abbr, .nounderline {text-decoration: none!important;}
 	margin-left: 3px;
 	width: calc(78% - 3px)!important;
 }
-.photo_cw, .evidence_cw, .extra_cw, .bingmaps_cw {
+.photo_cw, .evidence_cw, .extra_cw, .aerial_cw {
 	width:28%!important;
 }
 .evidence_scores_cw {
