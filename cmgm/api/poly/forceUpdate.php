@@ -18,6 +18,25 @@ if (!isset($enb) || !isset($rat) || !isset($plmn)) {
     die();
 }
 
+$plmnMap = [
+    310410 => [310410, 313100, 312680],
+    310260 => [310260, 311490],
+    311580 => [311580, 311588],
+];
 
-mysqli_query($conn, "DELETE FROM local_poly_enbs WHERE plmn = $plmn AND enb = $enb AND rat = '$rat'");
-mysqli_query($conn, "CALL update_poly_enbs($plmn, '$rat', $enb)");
+$plmns = $plmnMap[$plmn] ?? [$plmn];
+
+foreach ($plmns as $targetPlmn) {
+    mysqli_query(
+        $conn,
+        "DELETE FROM local_poly_enbs
+         WHERE plmn = $targetPlmn
+         AND enb = $enb
+         AND rat = '$rat'"
+    );
+
+    mysqli_query(
+        $conn,
+        "CALL update_poly_enbs($targetPlmn, '$rat', $enb)"
+    );
+}
