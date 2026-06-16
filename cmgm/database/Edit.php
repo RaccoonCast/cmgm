@@ -19,7 +19,7 @@ include '../includes/functions/headhtml.php';
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-if (isset($_GET['pciplus'])) include "../includes/pciplus/main.php";
+if (isset($_GET['pciplus']) || isset($_GET['pullLocation'])) include "includes/edit/getmoreinfo.php";
 
 if (isset($_GET['back'])) $back_num = $_GET['back'];
 if (isset($_GET['next'])) $next_num = $_GET['next'];
