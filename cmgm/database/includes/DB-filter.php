@@ -43,7 +43,7 @@ elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $valu
       $db_vars = " AND $key NOT BETWEEN $start AND $end" . @$db_vars;
   } else {
       // Inclusion range (start-end)
-      $db_vars .= " AND $key BETWEEN $start AND $end" . @$db_vars;
+      $db_vars = " AND $key BETWEEN $start AND $end" . @$db_vars;
   }
 }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
@@ -113,8 +113,18 @@ elseif ($key == "has_evidence" && $value == "false") $db_vars = " AND (evidence_
 
 // Filtering by string is not equal to x, with special support for tags. Example: &tags=!n41 OR &carrier=!T-Mobile 
 elseif (@$value[0] == "!" && $key !== "notes_like") {
-  if ($key == "tags") { $db_vars = " AND (tags NOT like '".$trimChar.",%' AND tags NOT like '%,".$trimChar."' AND tags NOT like '%,".$trimChar.",%' AND NOT tags = '".$trimChar."' OR tags is null)" . @$db_vars; }
-  elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
+    if (str_starts_with($key, 'tags')) {
+        $db_vars = " AND (
+            tags NOT LIKE '".$trimChar.",%'
+            AND tags NOT LIKE '%,".$trimChar."'
+            AND tags NOT LIKE '%,".$trimChar.",%'
+            AND tags <> '".$trimChar."'
+            OR tags IS NULL
+        )" . @$db_vars;
+    }
+    elseif ($key != "tags") {
+        $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars;
+    }
 }
 
 // Filtering by an attached filename mentioned on various records.
@@ -136,12 +146,13 @@ elseif ($key == "address" && !empty($value)) {
 }
 
 // Search for tags, &tags=n41 to search for records tagged n41.
-elseif ($key == "tags" && !empty($value)) {
-  $db_vars = " AND (
-                         tags LIKE '%,$value,%' 
-                      OR tags LIKE '$value,%'
-                      OR tags LIKE '%,$value'
-                      OR tags = '$value')" . @$db_vars;
+elseif (str_starts_with($key, 'tags') && !empty($value)) {
+    $db_vars = " AND (
+        tags LIKE '%,$value,%'
+        OR tags LIKE '$value,%'
+        OR tags LIKE '%,$value'
+        OR tags = '$value'
+    )" . @$db_vars;
 }
 
 // if value is empty, do default

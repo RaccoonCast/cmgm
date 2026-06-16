@@ -33,9 +33,24 @@ LIMIT $limit;
     
 if (!isset($json_flag)) echo "<h3>Most Common Tags</h3>";  
   
-while ($row = $result->fetch_assoc()) {  
+while ($row = $result->fetch_assoc()) {
     $tag = $row['tag'];  
-    $tag_for_url = $current_url . "&tags=" . urlencode($tag);  
+
+    // Check if specific tag is already set in the URL, if so skip displaying. 
+    foreach ($_GET as $key => $value) {
+        if (str_starts_with($key, 'tags_') && $value === $tag) {
+            continue 2; // continue the outer loop
+        }
+    }
+
+    // Generate new key for additionally filtered tag.  
+    $i = 1;
+    while (isset($_GET["tags_$i"])) {
+        $i++;
+    }
+
+    $tag_for_url = $current_url . "&tags_$i=" . urlencode($tag);
+    
     $url = '<a href="'. $tag_for_url.'">'.$tag.'</a>';  
     $plural_namething = ($row["tag_count"] > 1) ? " records" : " record";  
       
