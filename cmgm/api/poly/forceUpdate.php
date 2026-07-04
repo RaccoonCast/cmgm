@@ -18,25 +18,18 @@ if (!isset($enb) || !isset($rat) || !isset($plmn)) {
     die();
 }
 
-$plmnMap = [
-    310410 => [310410, 313100, 312680],
-    310260 => [310260, 311490],
-    311580 => [311580, 311588],
-];
+$delete_query = "DELETE FROM local_poly_enbs
+         WHERE enb = $enb
+         AND rat = '$rat'";
+$update_query = "CALL update_poly_enbs($plmn, '$rat', $enb, NULL)";
 
-$plmns = $plmnMap[$plmn] ?? [$plmn];
+// NULL tells it to use eNBs from *all of time* as a source instead of just what's been added in the last 24h.
+mysqli_query(
+    $conn,
+    $delete_query
+);
 
-foreach ($plmns as $targetPlmn) {
-    mysqli_query(
-        $conn,
-        "DELETE FROM local_poly_enbs
-         WHERE plmn = $targetPlmn
-         AND enb = $enb
-         AND rat = '$rat'"
-    );
-
-    mysqli_query(
-        $conn,
-        "CALL update_poly_enbs($targetPlmn, '$rat', $enb)"
-    );
-}
+mysqli_query(
+    $conn,
+    $update_query
+);
