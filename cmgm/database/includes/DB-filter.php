@@ -17,7 +17,7 @@ AND (only_reasonable_location IS NULL OR only_reasonable_location = "" OR only_r
 AND (archival_antenna_addition IS NULL OR archival_antenna_addition = "" OR archival_antenna_addition = 0)
 AND (carriers_ruled_out IS NULL OR carriers_ruled_out = "" OR carriers_ruled_out = 0)
 AND (alt_carriers_here IS NULL OR alt_carriers_here = "" OR alt_carriers_here = 0)))
-AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") 
+AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%" AND tags NOT LIKE "%decom%") 
 AND (status = "verified")
 ';
 

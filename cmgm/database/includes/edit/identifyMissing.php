@@ -8,9 +8,10 @@ $thrownMissing = "";
 $isVerified = (isset($status) && $status === 'verified');
 $isNotFuture = (!isset($tags) || stripos($tags, 'future') === false);
 $isNotUnmapped = (!isset($tags) || stripos($tags, 'unmapped') === false);
+$isNotDecom = (!isset($tags) || stripos($tags, 'decom') === false);
 
 // Only evaluate for missing data if it passes the base criteria
-if ($isVerified && $isNotFuture && $isNotUnmapped) {
+if ($isVerified && $isNotFuture && $isNotUnmapped && $isNotDecom) {
 
     // sv_a is present but sv_a_date is missing
     if ((isset($sv_a) && $sv_a !== "") && (!isset($sv_a_date) || $sv_a_date === "")) {
