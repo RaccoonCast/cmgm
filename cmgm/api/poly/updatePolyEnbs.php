@@ -13,7 +13,7 @@ $diffSeconds = $currentTime->getTimestamp() - $lastUpdateTime->getTimestamp();
 if ($diffSeconds < 300) { // if data is less than 5 minutes recent, refuse.
     die("Data is up to date. (reasonably)");
 }
-mysqli_query($conn, "CALL update_poly_enbs();");
+mysqli_query($conn, "CALL update_poly_enbs(NULL, NULL, NULL, NULL);");
 
 echo "Table updated.";
 ?>
