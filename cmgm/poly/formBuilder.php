@@ -8,7 +8,7 @@ $onMap  = ($parentFile == "Map.php");
    <div class="formsContainerContainer">
       <div id="formsContainer">
          <?php
-            $standard_plmns = ["310410", "310120", "310260", "311480", "313340", "311580", "0"];
+            $standard_plmns = ["310410", "310120", "310260", "311480", "313340", "311580", "0", "310410,313100,312680,313790"];
             ?>
             <select name="plmn" id="Plmn">
                 <option <?php if($plmn == "310410") echo "selected"; ?> value="310410">AT&T</option>
@@ -18,7 +18,8 @@ $onMap  = ($parentFile == "Map.php");
                 <option <?php if($plmn == "313340") echo "selected"; ?> value="313340">Dish Wireless</option>
                 <option <?php if($plmn == "311580") echo "selected"; ?> value="311580">US Cellular</option>
                 <option value="" disabled>--</option>
-                <?php if (!in_array($plmn, $standard_plmns)): ?><option value="<?php echo $plmn; ?>" selected><?php echo $plmn; ?></option><?php endif; ?>
+                <option <?php if($plmn == "310410,313100,312680,313790") echo "selected"; ?> value="310410,313100,312680,313790">&#8203;All AT&Ts</option>
+                <?php if (!empty($plmn) && !in_array($plmn, $standard_plmns)): ?><option value="<?php echo $plmn; ?>" selected><?php echo $plmn; ?></option><?php endif; ?>
                 <option value="_custom_">Custom PLMN</option>
                 <option <?php if (is_null($plmn)) echo "selected"; ?> value="">&#8203;All PLMNs</option>
             </select>

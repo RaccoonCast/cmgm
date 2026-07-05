@@ -602,7 +602,9 @@
                     const colors = {
                         '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
                         '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                        '312680': rat === 'LTE' ? '#0059b2' : '#4da2ff',
                         '313100': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                        '313790': rat === 'LTE' ? '#0059b2' : '#4da2ff',
                         '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a',
                         '311370': '#C16C79',
                         '310120': '#FFEF87',
@@ -654,9 +656,11 @@
                                         color: "#000", weight: 1.5, fillOpacity: 1
                                     }).addTo(mapLayerGroup); 
                                     
-                                    const excludedPlmns = ['310260', '310410', '311480', '310120', '311580'];
+                                    const excludedPlmns = ['310260', '310410', '311480', '310120', '311580', plmn.value];
                                     
-                                    const label = `${ excludedPlmns.includes(String(tower.plmn)) ? '' : `${tower.plmn}<br>` }${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${ tower.is_exact_location === 1 ? '★' : '' }`;
+                                    const plmnNames = (plmn.value.trim() === '' || plmn.value.includes(',')) ? { '313100': 'FirstNet', '312680': 'AT&T FWA', '313790': 'Liberty' } : {};
+
+                                    const label = `${excludedPlmns.includes(String(tower.plmn)) ? '' : `${plmnNames[tower.plmn] ?? tower.plmn}<br>`}${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${tower.is_exact_location === 1 ? '★' : ''}`;
 
                                     // Store the HTML string in a custom property on the marker, DO NOT bind it yet.
                                     marker.customLabelHtml = `${label}${(tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}`;

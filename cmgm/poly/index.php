@@ -207,10 +207,12 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
     const hamburger = document.querySelector('.hamburgerButton');
     const menu = document.querySelector('.menu');
     
-    hamburger.addEventListener('click', (e) => {
-        menu.classList.toggle('show');
-        e.stopPropagation(); // prevent the click from closing immediately
-    });
+    if (hamburger && menu) {
+        hamburger.addEventListener('click', (e) => {
+            menu.classList.toggle('show');
+            e.stopPropagation();
+        });
+    }
     
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
