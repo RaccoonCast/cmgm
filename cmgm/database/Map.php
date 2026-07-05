@@ -42,30 +42,6 @@ include '../functions.php';
   </div>
   <div id="map">
     <div id="mapid"></div>
-    <?php if (@$_GET['hideui'] !== "true") { ?>
-      <button class="special_button" id="polyMapButton">
-        <div class="buttonContainer">🔷</div>
-      </button>
-      <button class="special_button" id="refreshButton">
-        <div class="buttonContainer">🔃</div>
-      </button>
-      <button class="special_button" id="backButton">
-        <div class="buttonContainer">
-          <?php echo isMobile() ? "⬅" : "🔙"; ?>
-        </div>
-      </button>
-    <?php } ?>
-    <?php if (isset($_GET['showPolyLink'])) { ?>
-      <button class="special_button" id="openPolyButton" style="top: 79px;" 
-      <?php 
-      if (strlen($_GET['showPolyLink']) > 1) {
-        $poly_link = preg_replace('/&hidePolyForm.*$/', '', base64_decode($_GET['showPolyLink']));
-        echo "onclick=\"window.open('{$poly_link}', '_blank')\";";
-       } ?> 
-        >
-        <div class="buttonContainer">↗️</div>
-      </button>
-    <?php } ?>
     <div class="dropdown-content" id="polyInfoButton_content"></div>
 
     <!-- Query db for pins stuff -->
@@ -99,44 +75,6 @@ include '../functions.php';
       // Define lat/lng
       lat = <?php echo $latitude ?>;
       long = <?php echo $longitude ?>;
-
-      // Cast add event listeners for buttons
-      <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true') { ?>
-        document.getElementById('refreshButton').addEventListener('click', () => location.reload());
-        document.getElementById('backButton').addEventListener('click', () => history.back());
-
-        document.getElementById('polyMapButton').addEventListener('click', () => {
-            const center = mymap.getCenter();
-            const zoom = mymap.getZoom();
-            
-            let carrier = new URLSearchParams(window.location.search).get('carrier') || '';
-
-            const hasBang = carrier.startsWith('!');
-            if (hasBang) {
-                carrier = carrier.substring(1);
-            }
-
-            const plmnMap = {
-                'T-Mobile': '310260',
-                'AT&T': '310410',
-                'Verizon': '311480',
-                'Dish': '313340'
-            };
-
-            const plmn = plmnMap[carrier];
-
-            let url =
-                `/poly/Map.php?latitude=${center.lat}` +
-                `&longitude=${center.lng}` +
-                `&zoom=${zoom}`;
-
-            if (plmn) {
-                url += `&plmn=${hasBang ? '!' : ''}${plmn}`;
-            }
-
-            window.location.href = url;
-          });
-      <?php } ?>
 
       // Create list of markers
       let markerList = [];
@@ -189,12 +127,24 @@ include '../functions.php';
 
       // Add original zoom control
       L.control.zoom({ position: 'topleft' }).addTo(mymap);
-
-      <?php if (isset($_GET['hideui']) &&  $_GET['hideui'] == true && !isset($_GET['showPolyLink']) && !isset($_GET['marker_latitude'])) { ?>
-        // Create custom control
-        const MyControl = L.Control.extend({
+      <?php
+          // Set a default fallback URL
+          $polyLinkUrl = '#'; 
+          
+          // Process the URL if the parameter exists and is valid
+          if (isset($_GET['showPolyLink']) && strlen($_GET['showPolyLink']) > 1) {
+              $decoded = base64_decode($_GET['showPolyLink']);
+              $polyLinkUrl = preg_replace('/&hidePolyForm.*$/', '', $decoded);
+          }
+      ?>
+      // json_encode safely formats the string for JavaScript
+      // Output will look like: const POLY_LINK_URL = "http://example.com/map";
+      const POLY_LINK_URL = <?php echo json_encode($polyLinkUrl); ?>;
+    
+		  // Create custom control
+        const polyInfoButton = L.Control.extend({
           onAdd(map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control poly-info-control');
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button poly-info-control');
 
             container.innerHTML = '<a href="#" class=""> <span style="font-size: 22px;">▲</span></a>'; // Or any HTML content
             container.id = 'polyInfoButton';
@@ -206,11 +156,115 @@ include '../functions.php';
           }
         });
 
-        // then add custom control after
-        const myControl = new MyControl({ position: 'topleft' });
-        mymap.addControl(myControl);
+        const polyMapButton = L.Control.extend({
+          onAdd(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
+            container.innerHTML = '<a href="#"><span style="font-size:22px;">⯁</span></a>';
+            container.id = 'polyMapButton';
+            L.DomEvent.disableClickPropagation(container);
+            return container;
+          }
+        });
 
-      <?php } ?>
+        const refreshButton = L.Control.extend({
+          onAdd(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
+            container.innerHTML = '<a href="#"><span style="font-size:22px;">🔃</span></a>';
+            container.id = 'refreshButton';
+            L.DomEvent.disableClickPropagation(container);
+            return container;
+          }
+        });
+
+        const backButton = L.Control.extend({
+          onAdd(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
+            container.innerHTML = '<a href="#"><span style="font-size:22px;"><?= isMobile() ? "⬅" : "🔙" ?></span></a>';
+            container.id = 'backButton';
+            L.DomEvent.disableClickPropagation(container);
+            return container;
+          }
+        });
+
+        const openPolyButton = L.Control.extend({
+          onAdd(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
+            
+            // Check if we have a real URL to determine the target attribute
+            const targetAttr = POLY_LINK_URL !== '#' ? 'target="_blank"' : '';
+            
+            container.innerHTML = `<a href="${POLY_LINK_URL}" ${targetAttr}><span style="font-size:27px;">↗</span></a>`;
+            container.id = 'openPolyButton';
+            L.DomEvent.disableClickPropagation(container);
+            
+            return container;
+          }
+        });
+        const url_params = new URLSearchParams(location.search);
+
+        if (!url_params.has('hideui') && !url_params.has('polygon')) { // Only show refresh button on regular Map.php
+            mymap.addControl(new refreshButton({ position: 'topleft' }));
+            // mymap.addControl(new BackControl({ position: 'topleft' })); // Deprecated : Back button is generally useless.
+        }
+
+        if (url_params.has('hideui') && !url_params.has('showPolyLink') && !url_params.has('marker_latitude') && url_params.has('polygon')) { // Only show poly's cell info button on Poly when a polygon loaded.
+          mymap.addControl(new polyInfoButton({ position: 'topleft' })); // Poly Cells Info Button
+        }
+        
+        if (!url_params.has('marker_latitude')) { // Hide open Poly Map button solely on Edit's iframe.
+          mymap.addControl(new polyMapButton({ position: 'topleft' }));
+        }
+
+        if (url_params.has('polygon') && url_params.has('marker_latitude')) { // Only show open poly button on edit iframe and only *after* polygon has loaded.
+          mymap.addControl(new openPolyButton({ position: 'topleft' }));
+        }
+
+      // Cast add event listeners for buttons
+      document.getElementById('refreshButton')?.addEventListener('click', () => location.reload());
+      document.getElementById('backButton')?.addEventListener('click', () => history.back());
+      document.getElementById('polyMapButton')?.addEventListener('click', () => {
+          const center = mymap.getCenter();
+          const zoom = mymap.getZoom();
+
+          const params = new URLSearchParams(window.parent.location.search);
+
+          let carrier = params.get('carrier') || '';
+
+          const hasBang = carrier.startsWith('!');
+          if (hasBang) {
+              carrier = carrier.substring(1);
+          }
+
+          const plmnMap = {
+              'T-Mobile': '310260',
+              'AT&T': '310410',
+              'Verizon': '311480',
+              'Dish': '313340'
+          };
+
+          let plmn = plmnMap[carrier];
+
+          // Fall back to plmn_1, plmn_2, ... if no carrier mapping exists
+          if (!plmn) {
+              const plmns = [...params.entries()]
+            .filter(([key, value]) => /^plmn_\d+$/.test(key) && value)
+            .map(([, value]) => value);
+
+              plmn = [...new Set(plmns)].join(',');
+          }
+
+          let url =
+              `/poly/Map.php?latitude=${center.lat}` +
+              `&longitude=${center.lng}` +
+              `&zoom=${zoom}`;
+
+          if (plmn) {
+              url += `&plmn=${hasBang ? '!' : ''}${plmn}`;
+          }
+
+          window.parent.location.href = url;
+      });
+
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -228,7 +282,7 @@ include '../functions.php';
         tags = "<?php echo @$url_suffix; ?>";
 
         var URI = "Map.php?latitude=" + newLat + "&longitude=" + newLong + "&zoom=" + newZoom + tags;
-        console.log(URI);
+        // console.log(URI);
         history.replaceState("obj", "", URI);
         //location.reload(true);
       }
