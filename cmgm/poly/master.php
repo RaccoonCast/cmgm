@@ -136,7 +136,7 @@ foreach ($formData as $index => $data) {
                     // Convert remaining items to float
                     $tmpDb = array_map('floatval', $tmpDb);
 
-                    $responses[$eNB][$cellNumber] = [
+                    $responses[$plmn][$eNB][$cellNumber] = [
                         'provider' => 'Cache - ' . $cacheProvider,
                         'cellId' => $tmpDb['cell_id'],
                         'date' => $dateOfInfo,
@@ -149,7 +149,7 @@ foreach ($formData as $index => $data) {
                         'is_exact_location' => $is_exact_location,
                     ];
                     if ($tmpDb['tac'] > 0) {
-                         $responses[$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
+                         $responses[$plmn][$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
                     }
                     // Skip adding curl handles, since data is already covered by db
                     continue;
@@ -162,8 +162,8 @@ foreach ($formData as $index => $data) {
         // Skip Google if PCI+ passes request for eNB already in the DB, by Surro, with correct TAC
         // NOTE: Potential Caveat - this may not work if Surro TAC changes over time, but if that happens it'll pass to Google
         $pciPlus_skip_google = false;
-        if (isset($_POST['polyUserId']) && isset($responses[$eNB])) {
-            $existingDbRecord = array_slice($responses[$eNB], 0, 1)[0];
+        if (isset($_POST['polyUserId']) && isset($responses[$plmn][$eNB])) {
+            $existingDbRecord = array_slice($responses[$plmn][$eNB], 0, 1)[0];
         }
 
         // Build curl handle for Apple, if compatible
@@ -284,7 +284,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
         $reqDate = date('Y-m-d H:i:s');
 
         // Add to responses
-        $responses[$eNB][$cellNumber] = [
+        $responses[$plmn][$eNB][$cellNumber] = [
             'provider' => 'Surro',
             'cellId' => $cellGid,
             'tac' => (int) $tac,

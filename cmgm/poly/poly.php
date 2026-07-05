@@ -8,33 +8,35 @@ function generateURL($responses) {
     $eNBCount = count($responses);
 
     // Loop through each eNB
-    foreach ($responses as $eNB => $cells) {
-        $cellLatitudes = [];
-        $cellLongitudes = [];
-        
-        // Loop through each cell within the eNB
-        foreach ($cells as $index => $cell) {
-            $lat = $cell['lat'];
-            $lng = $cell['lng'];
+    foreach ($responses as $plmn => $eNBs) {
+        foreach ($eNBs as $eNB => $cells) {
+            $cellLatitudes = [];
+            $cellLongitudes = [];
             
-            // Accumulate latitudes and longitudes for the average
-            $totalLat += $lat;
-            $totalLng += $lng;
+            // Loop through each cell within the eNB for this PLMN
+            foreach ($cells as $cellNumber => $cell) {
+                $lat = $cell['lat'];
+                $lng = $cell['lng'];
+                
+                // Accumulate latitudes and longitudes for the average
+                $totalLat += $lat;
+                $totalLng += $lng;
 
-            // Add the coordinates to the polygon
-            $polygon[] = "$lat,$lng";
+                // Add the coordinates to the polygon
+                $polygon[] = "$lat,$lng";
 
-            // Add the label: use the eNB ID + cell number if multiple eNBs; use the Cell ID if only one eNB
-            if ($eNBCount > 1) {
-                $labels[] = $eNB . '-' . $index;
-            } else {
-                $labels[] = $index;  // Use the Cell ID for a single eNB
+                  // Add the label: use the eNB ID + cell number if multiple eNBs; use the Cell ID if only one eNB
+                if ($eNBCount > 1) {
+                    $labels[] = $eNB . '-' . $cellNumber;
+                } else {
+                    $labels[] = $cellNumber;
+                }
             }
         }
     }
 
     // Calculate the average latitude and longitude
-    $totalCells = array_sum(array_map('count', $responses)); // Total number of cells
+    $totalCells = array_sum(array_map(fn($eNBs) => array_sum(array_map('count', $eNBs)), $responses));
     $avgLat = $totalLat / $totalCells;
     $avgLng = $totalLng / $totalCells;
 

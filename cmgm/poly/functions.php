@@ -102,6 +102,7 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
         // For NR (New Radio) set the base calculation
         $base = match ($plmn) {
             "310260" => $eNB * 4096,
+			"311490" => $eNB * 4096,
             "310410" => $eNB * 1024,
 			"313100" => $eNB * 1024,
             "311480" => $eNB * 16384,

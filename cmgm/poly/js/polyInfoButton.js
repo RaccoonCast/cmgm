@@ -4,39 +4,54 @@
  * @returns
  */
 function formatCellInfo(data, useFullCellId = false) {
-  const eNBs = Object.keys(data);
-  const multipleENBs = eNBs.length > 1;
+  const plmns = Object.keys(data);
   const result = [];
 
-  for (const eNB of eNBs) {
-    const cells = data[eNB];
-    for (const cellId in cells) {
-      const provider = cells[cellId].provider;
-      const providerClean = provider.replaceAll('Cache - ', '')
-      const providerIsCached = (providerClean !== provider)
-      const providerIsExactLocation = cells[cellId].is_exact_location === true;
+  // First, calculate the total number of unique eNBs across all PLMNs 
+  // to determine if we need to include the eNB in the label
+  let eNBCount = 0;
+  for (const plmn of plmns) {
+    eNBCount += Object.keys(data[plmn]).length;
+  }
+  const multipleENBs = eNBCount > 1;
 
-      let gcid = cells[cellId].cellId;
-      const reach = cells[cellId].reach ?? '';
-      const score = cells[cellId].score ?? '';
+  // Loop 1: PLMNs
+  for (const plmn of plmns) {
+    const eNBs = data[plmn];
+    
+    // Loop 2: eNBs within the PLMN
+    for (const eNB in eNBs) {
+      const cells = eNBs[eNB];
+      
+      // Loop 3: Cells within the eNB
+      for (const cellId in cells) {
+        const provider = cells[cellId].provider;
+        const providerClean = provider.replaceAll('Cache - ', '')
+        const providerIsCached = (providerClean !== provider)
+        const providerIsExactLocation = cells[cellId].is_exact_location === true;
 
-      const dateAndTime = new Date(cells[cellId].date) ?? '';
-      const date = dateAndTime.toLocaleDateString();  // e.g. "5/4/2026"
-      const time = dateAndTime.toLocaleTimeString();  // e.g. "10:32:15 AM"
-      const tacLabel = cells[cellId]?.tac ? `${cells[cellId].tac}` : ''
-      const perfectSurroLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
-      const providerNotCachedSymbol = providerIsCached ? '' : '<span style="vertical-align: super; font-size: small;">†</span>';
-      const scoreOrExactLocationLabel = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : score;
-      const reachLabel = providerIsExactLocation ? '' : reach;
-      const id = useFullCellId ? gcid : cellId;
-      const idContent = multipleENBs ? `${eNB}-${id}` : `${id}`;
-      const idLabel = multipleENBs ? `eNBs` : `Cells`;
-      const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}</td><td>${tacLabel}</td><td title="${time}">${date}${providerNotCachedSymbol}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
-      result.push(label);
+        let gcid = cells[cellId].cellId;
+        const reach = cells[cellId].reach ?? '';
+        const score = cells[cellId].score ?? '';
+
+        const dateAndTime = new Date(cells[cellId].date) ?? '';
+        const date = dateAndTime.toLocaleDateString();  // e.g. "5/4/2026"
+        const time = dateAndTime.toLocaleTimeString();  // e.g. "10:32:15 AM"
+        const tacLabel = cells[cellId]?.tac ? `${cells[cellId].tac}` : ''
+        const perfectSurroLabel = cells[cellId]?.tac ? ` ${cells[cellId].tac}` : ''
+        const providerNotCachedSymbol = providerIsCached ? '' : '<span style="vertical-align: super; font-size: small;">†</span>';
+        const scoreOrExactLocationLabel = providerIsExactLocation ? '<span style="font-size: small;">★</span>' : score;
+        const reachLabel = providerIsExactLocation ? '' : reach;
+        const id = useFullCellId ? gcid : cellId;
+        const idContent = multipleENBs ? `${eNB}-${id}` : `${id}`;
+        
+        const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}</td><td>${tacLabel}</td><td title="${time}">${date}${providerNotCachedSymbol}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
+        result.push(label);
+      }
     }
   }
-
-  return result;
+  
+  return result; 
 }
 
 let currentData;
