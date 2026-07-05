@@ -348,7 +348,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
                 $reqDate = date('Y-m-d H:i:s');
 
                 // Add to responses
-                $responses[$eNB][$cellNumber] = [
+                $responses[$plmn][$eNB][$cellNumber] = [
                     'provider' => 'Google',
                     'cellId' => $cellGid,
                     'date' => $reqDate,

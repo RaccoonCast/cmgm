@@ -19,8 +19,10 @@ if (!isset($enb) || !isset($rat) || !isset($plmn)) {
 }
 
 $delete_query = "DELETE FROM local_poly_enbs
-         WHERE enb = $enb
-         AND rat = '$rat'";
+         WHERE 
+         plmn = $plmn AND
+         enb = $enb AND
+         rat = '$rat'";
 $update_query = "CALL update_poly_enbs($plmn, '$rat', $enb, NULL)";
 
 // NULL tells it to use eNBs from *all of time* as a source instead of just what's been added in the last 24h.
