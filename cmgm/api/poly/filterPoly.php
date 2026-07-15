@@ -303,7 +303,7 @@ if (!is_null($cellsBlockList) && $viewMode == "enbs") {
 }
 
 // Filter 9: Perfect Surro Only)
-if (!is_null($perfectSurroOnly)) {
+if ($perfectSurroOnly == 'checked') {
     $whereFilters .= "AND is_exact_location = 1 ";
 }
 

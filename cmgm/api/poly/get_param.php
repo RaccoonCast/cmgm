@@ -62,8 +62,8 @@ if ($viewMode != 'cells') $cellQuantity = get_param('cellQuantity', '/^(?:[<>])?
 $limit                = get_param('limit', '/^\d+$/', 'Invalid limit', 450, fn($v) => (int)$v);
 $enb                  = get_param('enb', '/^\d+$/', 'Invalid eNB', 0, fn($v) => (int)$v);
 $locationType         = get_param('locationType', '/^\d+$/', 'Invalid locationType, expected 1 or 2.', false, fn($v) => (int)$v);
-$perfectSurroOnly     = (($_GET['perfectSurroOnly'] ?? null) === 'true') ? 'checked' : '';
-$randomColor          = (($_GET['randomColor'] ?? null) === 'true') ? 'checked' : '';
+$perfectSurroOnly     = (@$_GET['perfectSurroOnly'] == 'true') ? 'checked' : null;
+$randomColor          = (@$_GET['randomColor'] == 'true') ? 'checked' : null;
 $permanentlyDelete    = (($_GET['permanentlyDelete'] ?? null) === 'true') ? true : null;
 $showsql              = isset($_GET['showsql']);
 $iconSize             = $_GET['iconSize'] ?? 10;
