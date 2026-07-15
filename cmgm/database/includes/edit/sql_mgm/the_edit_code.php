@@ -22,7 +22,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     else if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
       $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'&doNotRedir');
     } 
-    else if (in_array($key, $fieldsToReplace) && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
+    else if (in_array($key, $fieldsToReplace) && strpos($value, '&antennasearch') === false && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
       // Replace raw text, or AntennaSearch "nonregTower" link
       $value = "https://cmgm.us/faa?asn={$faa_match[0]}";
     }
