@@ -345,19 +345,18 @@ if (!is_null($score)) {
             $score = "= $score";
         }
 
-        $whereFilters .= "AND score $score ";
+        $whereFilters .= "AND (score $score OR score IS NULL)";
     }
 }
 
-// Filter 98: Set limit
+
+// Filter 97: Set limit variables
 if (!is_null($limit) && $limit > 0) {
     $limitClause = "LIMIT $limit";
     $limitClauseTriple = "LIMIT " . $limit * 3;
 }
 
-// Filter 99: Build it
-$sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFiltersLocation$whereFilters$orderBy$limitClause";
-
+// Filter 98: Build the query
 if ($viewMode == "cells") {
     // 1. Prefix the keys to avoid the "ambiguous" error in SELECT
     $prefixedKeys = implode(', ', array_map(fn($k) => "main." . trim($k), explode(',', $keys)));
@@ -389,14 +388,19 @@ if ($viewMode == "cells") {
     WHERE main.latitude <> 0.0 AND main.longitude <> 0.0 
     $mainWhereFilters
     AND main.latitude BETWEEN (se.latitude - 1.5) AND (se.latitude + 1.5)
-    AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
-    $limitClauseTriple
+    AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5) 
     ";
-
-    // 5. Performance: Rough Bounding Box
-
+    $plmnKey = "main.plmn";
+} else {
+    $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE 1=1 $whereFiltersLocation$whereFilters";
+    $plmnKey = "plmn";
 }
 
+// Filter 99: Hard-ignore T-Mobile data on USCellular layer, could eventually be removed from LPE/LPB for good but to play it safe, this query suffix will suffice for now."
+$sql_query .= "AND NOT ($plmnKey IN (311580, 311588, 311589) AND tac > 10000 ) ";
+
+// Filter 100: Set final limit
+$sql_query .= ($viewMode == "cells") ? $limitClauseTriple : $orderBy . $limitClause;
 
 // The return
 if ($showsql) {
