@@ -85,7 +85,7 @@ if (isset($_GET['download'])) {
             $row['tac'],
             $row['display_lat'],
             $row['display_lon'],
-            ($viewMode === "cells") ? trim($row['cell']) : trim($row['cells']),
+            trim($row['cells']),
             ($viewMode === "cells") ?  $row['date_of_info'] : $row['oldest_date']
         ];
         if (!isset($_GET['slim'])) {
