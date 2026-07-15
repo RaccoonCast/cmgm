@@ -215,7 +215,7 @@ include '../functions.php';
           mymap.addControl(new polyMapButton({ position: 'topleft' }));
         }
 
-        if (url_params.has('polygon') && url_params.has('marker_latitude')) { // Only show open poly button on edit iframe and only *after* polygon has loaded.
+        if (url_params.has('showPolyLink') && url_params.has('marker_latitude')) { // Only show open poly button on edit iframe and only *after* polygon has loaded.
           mymap.addControl(new openPolyButton({ position: 'topleft' }));
         }
 
@@ -478,6 +478,39 @@ include '../functions.php';
       } else if (polygonVertexMarkerList && !skipPolyZoom) {
         const markerGroup = new L.featureGroup(polygonVertexMarkerList);
         mymap.fitBounds(markerGroup.getBounds().pad(0.5));
+      }
+
+
+      // Delete cell function for Poly index (embedded in Map.php)
+      function deleteCell(eNB, rat, plmn, cellId) {
+          if (!confirm(`Are you sure you want to delete ${eNB}:${cellId}?`)) {
+              return;
+          }
+      
+          const params = new URLSearchParams({
+              cells: cellId,
+              enb: eNB,
+              rat: rat,
+              plmn: plmn,
+              permanentlyDelete: false
+          });
+      
+          fetch(`https://cmgm.us/api/poly/purgeApi.php?${params}`)
+              .then(response => response.text())
+              .then(result => {
+                  console.log("Delete successful:", result);
+                  
+                  // Trigger parent resubmit AFTER successful deletion
+                  if (typeof window.parent.refreshPolyFromIframe === 'function') {
+                      window.parent.refreshPolyFromIframe();
+                  } else {
+                      console.error("window.parent.refreshPolyFromIframe is not defined or accessible.");
+                  }
+              })
+              .catch(error => {
+                  console.error("Delete failed:", error);
+                  alert("Failed to delete cell.");
+              });
       }
 
     </script>

@@ -3,6 +3,21 @@
  * @param {*} data
  * @returns
  */
+// Refresh poly form for delete cell.
+window.refreshPolyFromIframe = function() {
+    const submitBtn = document.getElementById("submitButton");
+    if (submitBtn) {
+        submitBtn.click();
+    } else {
+        console.error("Could not find #submitButton on parent page.");
+    }
+};
+
+// This is used by cell deleter.
+function refreshPolyFromIframe() {
+    document.getElementById("submitButton")?.click();
+}
+
 function formatCellInfo(data, useFullCellId = false) {
   const plmns = Object.keys(data);
   const result = [];
@@ -14,7 +29,7 @@ function formatCellInfo(data, useFullCellId = false) {
     eNBCount += Object.keys(data[plmn]).length;
   }
   const multipleENBs = eNBCount > 1;
-
+console.log(JSON.stringify(plmns));
   // Loop 1: PLMNs
   for (const plmn of plmns) {
     const eNBs = data[plmn];
@@ -45,7 +60,15 @@ function formatCellInfo(data, useFullCellId = false) {
         const id = useFullCellId ? gcid : cellId;
         const idContent = multipleENBs ? `${eNB}-${id}` : `${id}`;
         
-        const label = `<tr><td class="cell-label">${idContent}</td><td>${providerClean}</td><td>${tacLabel}</td><td title="${time}">${date}${providerNotCachedSymbol}</td><td>${reachLabel}</td><td>${scoreOrExactLocationLabel}</td></tr>`;
+        const label = `<tr>
+            <td class="cell-label">${idContent}</td>
+            <td>${providerClean}</td>
+            <td>${tacLabel}</td>
+            <td title="${time}">${date}${providerNotCachedSymbol}</td>
+            <td>${reachLabel}</td>
+            <td>${scoreOrExactLocationLabel}</td>
+            <td><a href="#" onclick="deleteCell('${eNB}', '${cells[cellId].rat}', '${plmn}', '${cellId}'); return false;">🗑️</a></td>
+        </tr>`;
         result.push(label);
       }
     }
@@ -101,7 +124,7 @@ async function addInfoData(iframe, returnData, redraw = false) {
   }
 
   // console.log('list data:', list);
-  content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th></thead><tbody>${infoData.join("")}</tbody></table>`;
+  content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th><th>Delete</th></thead><tbody>${infoData.join("")}</tbody></table>`;
   // console.log('wrote html', content.innerHTML);
 
   button.onclick = () => {
@@ -130,7 +153,7 @@ async function addInfoData(iframe, returnData, redraw = false) {
     useFullCellId = !useFullCellId;
     
     const infoData = formatCellInfo(data, useFullCellId);
-    content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th></thead><tbody>${infoData.join("")}</tbody></table>`;
+    content.innerHTML = `<table><thead><th>${idLabel}</th><th>Provider</th><th>TAC</th><th>Date</th><th>Reach</th><th>Score</th><th>Delete</th></thead><tbody>${infoData.join("")}</tbody></table>`;
   });
 
 }

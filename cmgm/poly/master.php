@@ -128,6 +128,7 @@ foreach ($formData as $index => $data) {
                 } else {
                     // Otherwise, get cache data as expected
                     $cacheProvider = $tmpDb['provider_source'];
+                    $rat = $tmpDb['rat'];
                     $dateOfInfo = $tmpDb['date_of_info'];
                     $reach = isset($tmpDb['reach']) ? (int) $tmpDb['reach'] : null;
                     $score = isset($tmpDb['score']) ? (int) $tmpDb['score'] : null;
@@ -139,6 +140,7 @@ foreach ($formData as $index => $data) {
                     $responses[$plmn][$eNB][$cellNumber] = [
                         'provider' => 'Cache - ' . $cacheProvider,
                         'cellId' => $tmpDb['cell_id'],
+                        'rat' => $rat,
                         'date' => $dateOfInfo,
                         'lat' => $tmpDb['latitude'],
                         'lng' => $tmpDb['longitude'],
@@ -287,6 +289,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
         $responses[$plmn][$eNB][$cellNumber] = [
             'provider' => 'Surro',
             'cellId' => $cellGid,
+            'rat' => $rat,
             'tac' => (int) $tac,
             'date' => $reqDate,
             'lat' => $lat,
@@ -351,6 +354,7 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
                 $responses[$plmn][$eNB][$cellNumber] = [
                     'provider' => 'Google',
                     'cellId' => $cellGid,
+                    'rat' => $rat,
                     'date' => $reqDate,
                     'lat' => $lat,
                     'lng' => $lng,

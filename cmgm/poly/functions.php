@@ -81,7 +81,7 @@ function getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB) {
 	$cellIdListStr = implode(', ', $cellIdList);
 
 	// Query to retrieve the data
-	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
+	$query = "SELECT cell_id, rat, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
               FROM cmgm.local_poly_beta
               WHERE cell_id IN ($cellIdListStr)
               AND plmn = $plmn AND rat = '$rat' AND eNB = $eNB";

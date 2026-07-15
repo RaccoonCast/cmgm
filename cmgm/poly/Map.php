@@ -843,6 +843,7 @@
                 const carrierMap = {
                     310260: "T-Mobile",
                     310410: "ATT",
+                    313100: "ATT",
                     311480: "Verizon",
                     310120: "Sprint"
                 };
@@ -858,11 +859,33 @@
                             window.open(`https://cmgm.us/database/Edit.php?q=${tower.enb}&carrier=${cmgm_carrier}`, '_blank');
                         }
                     });
+
+                    items.push(
+                        { isDivider: true },
+                        {
+                            label: 'Pin',
+                            action: () => {
+                                let location = prompt('Enter location (latitude,longitude):', '');
+                    
+                                if (!location) return;
+                    
+                                let coords = location.split(',').map(c => c.trim());
+                    
+                                if (coords.length !== 2 || isNaN(coords[0]) || isNaN(coords[1])) {
+                                    alert('Invalid location format. Use: latitude,longitude');
+                                    return;
+                                }
+                    
+                                let latitude = coords[0];
+                                let longitude = coords[1];
+                    
+                                window.open(`https://cmgm.us/database/Edit.php?new&pullLocation&latitude=${latitude}&longitude=${longitude}&${tower.rat}_1=${tower.enb}&region_${tower.rat.toLowerCase()}=${tower.tac}&carrier=${cmgm_carrier}`, '_blank');
+                            }
+                        }
+                    );
                 }
 
-                // Delete data option.
                 items.push(
-                    { isDivider: true },
                     { label: `Delete`, action: () => openPurgeModal(tower) }
                 );
 
