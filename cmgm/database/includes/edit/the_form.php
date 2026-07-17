@@ -18,7 +18,7 @@
     <input type="hidden" class="id" name="id" value="<?php echo @$id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
     <label class="cellsite_type_label">Type of cellsite</label><select
-    class="status_cw" onClick="lte_1Reqd()" id="status" name="status" required>
+    class="status_cw" id="status" name="status" required>
   <option style="display:none" value="">&nbsp;</option>
     <option <?php if(@$status == "verified") echo "selected"?> value="verified">Verified</option>
     <option <?php if(@$status == "unverified") echo "selected"?> value="unverified">Unverified</option>
