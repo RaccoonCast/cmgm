@@ -51,7 +51,6 @@ if (!empty($q)) {
   $sql = "SELECT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a, (3959 * ACOS(COS(RADIANS($default_latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($default_longitude)) + SIN(RADIANS($default_latitude)) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE LTE_1='$q_trim' OR LTE_2='$q_trim' OR LTE_3='$q_trim' OR LTE_4='$q_trim' OR LTE_5='$q_trim' OR LTE_5='$q_trim' OR LTE_6='$q_trim' OR LTE_7='$q_trim' OR LTE_8='$q_trim' OR LTE_9='$q_trim' OR NR_1='$q_trim' OR NR_2='$q_trim' OR NR_3='$q_trim' ORDER BY distance LIMIT 75";
 }
 
-$locsearch = "HAVING distance < 0.333";
 include "$SITE_ROOT/database/includes/DB.php";
 die();
 ?>

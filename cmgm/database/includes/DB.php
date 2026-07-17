@@ -3,27 +3,39 @@ include "../includes/functions/tower_types.php";
 if (!isset($_GET['limit'])) $limit = 75;
 $latitude_for_search = !empty($latitude) ? $latitude : $default_latitude;
 $longitude_for_search = !empty($longitude) ? $longitude : $default_longitude;
-$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type,region_lte, (3959 * ACOS(COS(RADIANS(".@$latitude_for_search.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude_for_search.")) + SIN(RADIANS(".@$latitude_for_search.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type,region_lte, "
+     . "(3959 * ACOS(COS(RADIANS(" . @$latitude_for_search . ")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(" . @$longitude_for_search . ")) + SIN(RADIANS(" . @$latitude_for_search . ")) * SIN(RADIANS(latitude)))) AS DISTANCE "
+     . "FROM db WHERE 1=1 " . @$db_vars . " HAVING DISTANCE < 0.666 ORDER BY DISTANCE LIMIT $limit";
 
-$result = mysqli_query($conn,$sql);
-$numRows = mysqli_num_rows($result);
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Database query failed: " . mysqli_error($conn));
+}
+
+$all_rows = [];
+$close_rows = [];
+
+// Prioritize results that are closer, fallback to further away ONLY if no results are found.
+while ($row = $result->fetch_assoc()) {
+    $all_rows[] = $row;
+    if ($row['DISTANCE'] < 0.333) {
+        $close_rows[] = $row;
+    }
+}
+
+$active_rows = !empty($close_rows) ? $close_rows : $all_rows;
+$numRows = count($active_rows);
+
 if ($numRows == 0) {
-  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a> or <a href="https://cmgm.us/database/Edit.php?new&pullLocation&latitude='.$latitude.'&longitude='.$longitude.'">create new</a>.</h4>';
-  die();
+    echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a> or <a href="https://cmgm.us/database/Edit.php?new&pullLocation&latitude='.$latitude.'&longitude='.$longitude.'">create new</a>.</h4>';
+    die();
 }
 
-
-if(empty($result)) {
-
-}
-
-if (mysqli_num_rows($result) == "1") {
-  while($row = $result->fetch_assoc()) {
-  foreach ($row as $key => $value) {
-    $$key = $value;
-    if ($key == "DISTANCE") { redir("Edit.php?id=$id","0"); }
-  }
-}
+if ($numRows == 1) {
+    $target_id = $active_rows[0]['id'];
+    redir("Edit.php?id=$target_id", "0");
+    die();
 }
 
 ?>
