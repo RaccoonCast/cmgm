@@ -358,6 +358,9 @@ if (!is_null($limit) && $limit > 0) {
 
 // Filter 98: Build the query
 if ($viewMode == "cells") {
+    // Set-up unique order by.
+    $orderBy = "ORDER BY ST_Distance_Sphere(ST_SRID(POINT(AVG(longitude), AVG(latitude)), 4326), ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
+
     // 1. Prefix the keys to avoid the "ambiguous" error in SELECT
     $prefixedKeys = implode(', ', array_map(fn($k) => "main." . trim($k), explode(',', $keys)));
 
@@ -376,9 +379,10 @@ if ($viewMode == "cells") {
     // 4. Build the query
     $sql_query = "
     WITH selected_enbs AS (
-        SELECT plmn, enb, coords, latitude, longitude
+        SELECT plmn, enb, AVG(latitude) AS latitude, AVG(longitude) AS longitude
         FROM $tableName 
         WHERE 1=1 $whereFilters$whereFiltersLocation
+        GROUP by plmn, enb
         $orderBy
         $limitClause
     )
