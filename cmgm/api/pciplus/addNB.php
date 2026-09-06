@@ -42,7 +42,7 @@ if ($edit_date != date("Y-m-d H") OR $edit_userid != $userID) {
 if ($conn->query($sql_edit) === TRUE) {
   $val = $conn -> affected_rows;
   if ($val == "1") {
-    $acceptable_values = array("LTE_1", "LTE_2", "LTE_3", "LTE_4", "NR_1", "NR_2", "NR_3", "NR_4", "NR_5", "NR_6");
+    $acceptable_values = array("LTE_1", "LTE_2", "LTE_3", "LTE_4", "LTE_5", "LTE_6", "LTE_7", "LTE_8", "LTE_9", "NR_1", "NR_2", "NR_3", "NR_4", "NR_5", "NR_6");
     if (in_array($pos, $acceptable_values)) {
     $ignore_checks = "true";
     $carrier = "Dish"; // not really, its a jk, no one pins dish.
