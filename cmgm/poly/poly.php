@@ -5,14 +5,12 @@ function generateURL($responses) {
     $totalLng = 0;
     $polygon = [];
     $labels = [];
-    $eNBCount = count($responses);
+
+    $eNBCount = array_sum(array_map('count', $responses));
 
     // Loop through each eNB
     foreach ($responses as $plmn => $eNBs) {
         foreach ($eNBs as $eNB => $cells) {
-            $cellLatitudes = [];
-            $cellLongitudes = [];
-            
             // Loop through each cell within the eNB for this PLMN
             foreach ($cells as $cellNumber => $cell) {
                 $lat = $cell['lat'];
@@ -51,5 +49,6 @@ function generateURL($responses) {
     
     return $url;
 }
+
 $url = generateURL($responses);
 ?>

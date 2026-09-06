@@ -102,10 +102,12 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
    <div id="formContainerContainer" class="header headerFloating">
       <div id="formsContainer">
         <!-- Add carriers -->
-         <?php foreach($carrierList as $index => $value) { ?>
+         <?php foreach($carrierList as $index => $value) {
+            @$indexForLabels += 1;
+        ?>
          <form class="carrierForm">
             <!-- // Set name of index -->
-            <?php $namedIndex = ($index === 0) ? '' : '_' . $index; ?>
+            <?php $namedIndex = ($index === 0) ? '' : '_' . $indexForLabels; ?>
             <!-- PLMN -->
             <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
                 <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
