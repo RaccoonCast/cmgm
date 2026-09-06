@@ -482,7 +482,7 @@ if ($view_mode == "cells") {
 // Filter 99: Compare to CM / CMGM data.
 if ($view_mode == "cm") {
     $sql_query = "
-    SELECT plmn,rat,enb,tac,cells,oldest_date,newest_date,location_type,cm_tower_type,latitude,longitude FROM $tableName
+    SELECT plmn,rat,enb,tac,cells,oldest_date,newest_date,location_type,cm_tower_type,cm_status,latitude,longitude FROM $tableName
     WHERE $whereFilters $whereFiltersCmLocation
     ORDER BY ST_Distance_Sphere(cm_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC 
     ";

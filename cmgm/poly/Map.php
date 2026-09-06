@@ -709,11 +709,11 @@
                         }
                     });
                             
-                    const shouldBeVisible = isTargetEnb || ((currentZoom > 17   && index < 150 && labelLevel >= 1) ||
-                                                            (currentZoom > 14   && index < 225 && labelLevel >= 2) ||
-                                                            (currentZoom > 12   && index < 300 && labelLevel >= 3) ||
-                                                            (currentZoom > 10.5 && index < 375 && labelLevel >= 4) ||
-                                                            (currentZoom > 8    && index < 500 && labelLevel >= 5) ||
+                    const shouldBeVisible = isTargetEnb || ((currentZoom => 17   && index < 150 && labelLevel >= 1) ||
+                                                            (currentZoom => 14   && index < 225 && labelLevel >= 2) ||
+                                                            (currentZoom => 12   && index < 300 && labelLevel >= 3) ||
+                                                            (currentZoom => 11   && index < 375 && labelLevel >= 4) ||
+                                                            (currentZoom => 8    && index < 500 && labelLevel >= 5) ||
                                                                                                    labelLevel == 6);
                             
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
@@ -975,7 +975,7 @@
                                 
                                 const label = `${excludedplmns.includes(String(tower.plmn)) ? '' : `${plmnNames[tower.plmn] ?? tower.plmn}<br>`}${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${tower.location_type % 10 === 1 ? '★' : ''}`;
                                 
-                                marker.customLabelHtml = tower.cm_tower_type === 'UNMAPPED'
+                                marker.customLabelHtml = tower.cm_status === 'unmapped'
                                 ? `<span class="extra-italic">${label}${!hide_cells.checked && (tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}</span>`
                                 : `${label}${!hide_cells.checked && (tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}`;
                                 
