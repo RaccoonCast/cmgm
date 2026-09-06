@@ -21,7 +21,7 @@
         include "../api/poly/get_param.php";
 
         // Get date of data
-        $dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM local_poly_enbs_date"))['last_run'];
+        $dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM poly_enbs_date"))['last_run'];
         $dateOfData = (new DateTime($dateOfData, new DateTimeZone('UTC')))
             ->setTimezone(new DateTimeZone('America/Los_Angeles'))
             ->format('Y-m-d H:i:s');
@@ -65,6 +65,7 @@
             const enb_allow_list = document.getElementById('enb_allow_list');
             const enb_block_list = document.getElementById('enb_block_list');
             const score = document.getElementById('score');
+            const reach = document.getElementById('reach');
             const cells_quantity = document.getElementById('cells_quantity');
             const view_mode = document.getElementById('view_mode');
             const cm_includes = document.getElementById('cm_includes');
@@ -130,7 +131,6 @@
                 // Special case: View Mode settings
                 if (el.id === 'view_mode') {
                     const mode = el.value;
-                    console.log("View mode triggered! Mode is:", mode);
                     const managedIds = [
                         'newest_date', 'cells_quantity',
                         'CMGMPINNED', 'CMPINNED', 'DAS', 
@@ -204,7 +204,7 @@
                 cells_allow_list, cells_block_list, enb_allow_list,
                 enb_block_list, tacs_allow_list, tacs_block_list,
                 cm_includes, cm_excludes, view_mode, 
-                random_color, score, cells_quantity, hide_cells
+                random_color, score, reach, cells_quantity, hide_cells
             ];
 
             // Elements that update UI or visuals without clearing data
@@ -608,6 +608,7 @@
                 setOrDeleteParam('label_settings', label_settings.value);
                 setOrDeleteParam('cells_quantity', cells_quantity.value);
                 setOrDeleteParam('score', score.value);
+                setOrDeleteParam('reach', reach.value);
                 setOrDeleteParam('cm_includes', cm_includes.value);
                 setOrDeleteParam('cm_excludes', cm_excludes.value);
 
@@ -709,11 +710,11 @@
                         }
                     });
                             
-                    const shouldBeVisible = isTargetEnb || ((currentZoom => 17   && index < 150 && labelLevel >= 1) ||
-                                                            (currentZoom => 14   && index < 225 && labelLevel >= 2) ||
-                                                            (currentZoom => 12   && index < 300 && labelLevel >= 3) ||
-                                                            (currentZoom => 11   && index < 375 && labelLevel >= 4) ||
-                                                            (currentZoom => 8    && index < 500 && labelLevel >= 5) ||
+                    const shouldBeVisible = isTargetEnb || ((currentZoom >= 17   && index < 150 && labelLevel >= 1) ||
+                                                            (currentZoom >= 14   && index < 225 && labelLevel >= 2) ||
+                                                            (currentZoom >= 12   && index < 300 && labelLevel >= 3) ||
+                                                            (currentZoom >= 11   && index < 375 && labelLevel >= 4) ||
+                                                            (currentZoom >= 8    && index < 500 && labelLevel >= 5) ||
                                                                                                    labelLevel == 6);
                             
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
@@ -775,6 +776,7 @@
                     `&tacs_block_list=${tacs_block_list.value}` +
                     `&cells_quantity=${cells_quantity.value}` +
                     `&score=${score.value}` +
+                    `&reach=${reach.value}` +
                     // `&locationTypeFilter=${locationTypeFilter.value}` +
                     `&cm_includes=${cm_includes.value}` +
                     `&cm_excludes=${cm_excludes.value}`;

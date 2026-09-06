@@ -18,7 +18,7 @@ if (!isset($enb) || !isset($rat) || !isset($plmn)) {
     die();
 }
 
-$delete_query = "DELETE FROM local_poly_enbs
+$delete_query = "DELETE FROM poly_enbs
          WHERE 
          plmn = $plmn AND
          enb = $enb AND

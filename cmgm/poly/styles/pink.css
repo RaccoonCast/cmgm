@@ -1,12 +1,9 @@
 .header {
-  background-color: #F7BEF7;
+  background-color: #F7BEF7C0; /* ~75% opacity on #F7BEF7C0 */
   border: 0px;
   color: white;
-  box-shadow: 0px 0px 5px 5px #f7bef7;
+  box-shadow: 0px 0px 5px 5px #f7bef7D9;  /* ~85% opacity on #f7bef7D9 */
 }
 body {
 	background-color: #D7DBDD;
-}
-input, select, button {
-	  border: 2px solid #000;
 }

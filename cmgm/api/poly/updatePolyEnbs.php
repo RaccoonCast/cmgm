@@ -3,7 +3,7 @@
 header('Pragma: no-cache');
 include '../../functions.php'; 
 
-$dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM local_poly_enbs_date"))['last_run'];
+$dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM poly_enbs_date"))['last_run'];
 
 $lastUpdateTime = new DateTime($dateOfData, new DateTimeZone('UTC'));
 $currentTime = new DateTime("now", new DateTimeZone('UTC'));

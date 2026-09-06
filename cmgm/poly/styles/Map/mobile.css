@@ -48,7 +48,7 @@
 .header input, .header select, .header button {
   padding: 0px;
   margin: 0px;
-  height: 3.1em!important;
+  height: 3.05em!important;
 }
 .adv-filter {
   padding-right: 0px;
@@ -59,6 +59,10 @@
 .adv-filter:nth-child(even) {
   width: 53%;
 }
+.adv-filter-33 {
+  width: 33.33333333%;
+}
+
 .header label,#guiMapToggle {
   display: none;
 }
@@ -79,7 +83,7 @@
 .chip-btn::before {
       left: 3px; /* Stick it to the left edge */
 }
-#PERFECTSURRO {
+#PERFECTSURRO,#DECOMMISSIONED,#COW {
   display: none;
 }
 

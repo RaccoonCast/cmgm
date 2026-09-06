@@ -77,7 +77,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
               $polygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
 
               $sql_query = "SELECT tac 
-              FROM local_poly_enbs 
+              FROM poly_enbs 
               WHERE plmn = $plmn
                 AND rat = '$rat'
                 AND tac IS NOT NULL

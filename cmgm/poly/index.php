@@ -98,69 +98,68 @@ if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset
  <script src="js/polyInfoButton.js"></script>
 </head>
 <?php if (!isset($_GET['hidePolyForm'])) {?>
-<div class="header">
-   <div id="formContainerContainer" class="header headerFloating">
-      <div id="formsContainer">
-        <!-- Add carriers -->
-         <?php foreach($carrierList as $index => $value) {
-            @$indexForLabels += 1;
-        ?>
-         <form class="carrierForm">
-            <!-- // Set name of index -->
-            <?php $namedIndex = ($index === 0) ? '' : '_' . $indexForLabels; ?>
-            <!-- PLMN -->
-            <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
-                <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
-                <option value="313100"<?php if ($value == '313100') echo ' selected'; ?>>FirstNet</option>
-                <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
-                <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
-                <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
-                <option value="313340"<?php if ($value == '313340') echo ' selected'; ?>>Dish Wireless</option>
-                <option value="311580"<?php if ($value == '311580') echo ' selected'; ?>>US Cellular</option>
-                <option value="312680"<?php if ($value == '312680') echo ' selected'; ?>>&#8203;AT&T FWA</option>
-                <option value="" disabled>--</option>
-                <?php
-                if (!in_array($value, [
-                  '310410','313100','310120','310260',
-                  '311480','313340','311580','312680'
-                ], true)) {
-                    echo "<option value=\"$value\" selected>$value</option>";
-                }
-                ?>
-                <option value="__custom__"<?php if ($value == '??') echo ' selected'; ?>>Custom PLMN</option>
-            </select>
-            <!-- RAT -->
-            <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
-               <option value="LTE"<?php if ($ratList[$index] == 'LTE') echo ' selected'; ?>>LTE</option>
-               <option value="NR"<?php if ($ratList[$index] == 'NR') echo ' selected'; ?>>NR</option>
-            </select>
-            <!-- eNB -->
-            <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="<?php echo $ratList[$index] == 'NR' ? 'gNB' : 'eNB'; ?>" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
-            <!-- TAC -->
-            <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
-            <!-- Cells -->
-            <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index] ?? ''; ?>" />
-            <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
 
-            <!-- Delete button -->
-            <input class="poly-btn closeButton" type="button" value="❌" onclick="removeForm(this);"/>
-         </form>
-         <?php } ?>
-      </div>
-         <!-- Below gets put into Hamburger button on mobile to contain isCache & future Unwired toggle -->
-         <?= isMobile() ? '<input class="poly-btn hamburgerButton" type="button" value="📵" onclick="toggleHamburgerMenu();"/>' : '' ?>
-         <div class="menu">
-            <label>
-                <div id="dontCacheCheckbox">
-		            <label for="forceNewResults">Ignore cache</label>
-		        <input id="forceNewResults" name="dontCache" type="checkbox">
-	            </div>
-            </label>
-        </div>
-      <button class="poly-btn" id="addFormButton" type="button">+</button>
-      <button class="poly-btn colorized" id="submitButton" type="submit">Submit</button>
+<div id="formContainerContainer" class="header headerFloating">
+   <div id="formsContainer">
+     <!-- Add carriers -->
+      <?php foreach($carrierList as $index => $value) {
+         @$indexForLabels += 1;
+     ?>
+      <form class="carrierForm">
+         <!-- // Set name of index -->
+         <?php $namedIndex = ($index === 0) ? '' : '_' . $indexForLabels; ?>
+         <!-- PLMN -->
+         <select class="plmn" name="<?php echo "plmn" . $namedIndex;?>" required>
+             <option value="310410"<?php if ($value == '310410') echo ' selected'; ?>>AT&T</option>
+             <option value="313100"<?php if ($value == '313100') echo ' selected'; ?>>FirstNet</option>
+             <option value="310120"<?php if ($value == '310120') echo ' selected'; ?>>Sprint</option>
+             <option value="310260"<?php if ($value == '310260') echo ' selected'; ?>>T-Mobile</option>
+             <option value="311480"<?php if ($value == '311480') echo ' selected'; ?>>Verizon</option>
+             <option value="313340"<?php if ($value == '313340') echo ' selected'; ?>>Dish Wireless</option>
+             <option value="311580"<?php if ($value == '311580') echo ' selected'; ?>>US Cellular</option>
+             <option value="312680"<?php if ($value == '312680') echo ' selected'; ?>>&#8203;AT&T FWA</option>
+             <option value="" disabled>--</option>
+             <?php
+             if (!in_array($value, [
+               '310410','313100','310120','310260',
+               '311480','313340','311580','312680'
+             ], true)) {
+                 echo "<option value=\"$value\" selected>$value</option>";
+             }
+             ?>
+             <option value="__custom__"<?php if ($value == '??') echo ' selected'; ?>>Custom PLMN</option>
+         </select>
+         <!-- RAT -->
+         <select class="rat" name="<?php echo "rat" . $namedIndex;?>" required>
+            <option value="LTE"<?php if ($ratList[$index] == 'LTE') echo ' selected'; ?>>LTE</option>
+            <option value="NR"<?php if ($ratList[$index] == 'NR') echo ' selected'; ?>>NR</option>
+         </select>
+         <!-- eNB -->
+         <input type="number" class="eNB" name="<?php echo "eNB" . $namedIndex;?>" maxlength="10" required placeholder="<?php echo $ratList[$index] == 'NR' ? 'gNB' : 'eNB'; ?>" value="<?php echo $enbList[$index]; ?>" /><!-- Cells -->
+         <!-- TAC -->
+         <input type="number" class="tac" name="<?php echo "tac" . $namedIndex;?>" placeholder="TAC" value="<?php echo $tacList[$index] ?? ''; ?>"></input>
+         <!-- Cells -->
+         <input type="text" class="cellList" name="<?php echo "cellList" . $namedIndex;?>" pattern="^[0-9,]+$" required placeholder="1,2,3 (Cells)" value="<?php echo $cellListList[$index] ?? ''; ?>" />
+         <input type="text" class="cellListDepri" name="<?php echo "cellListDepri" . $namedIndex;?>" pattern="^[0-9,]+$" placeholder="7,8,9 (Extra Cells)" value="<?php echo $cellListDepriList[$index] ?? ''; ?>" />
+         <!-- Delete button -->
+         <input class="poly-btn closeButton" type="button" value="❌" onclick="removeForm(this);"/>
+      </form>
+      <?php } ?>
    </div>
+      <!-- Below gets put into Hamburger button on mobile to contain isCache & future Unwired toggle -->
+      <?= isMobile() ? '<input class="poly-btn hamburgerButton" type="button" value="📵" onclick="toggleHamburgerMenu();"/>' : '' ?>
+      <div class="menu">
+         <label>
+             <div id="dontCacheCheckbox">
+	            <label for="forceNewResults">Ignore cache</label>
+	        <input id="forceNewResults" name="dontCache" type="checkbox">
+            </div>
+         </label>
+     </div>
+   <button class="poly-btn" id="addFormButton" type="button">+</button>
+   <button class="poly-btn colorized" id="submitButton" type="submit">Submit</button>
 </div>
+
 <?php } ?>
 <script>
     const jsonResponse = `<?php echo json_encode($responses) ?>`; const responseData = jsonResponse ? btoa(jsonResponse) : null;

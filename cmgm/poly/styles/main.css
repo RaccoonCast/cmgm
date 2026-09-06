@@ -39,9 +39,9 @@ input[type=number] {
 }
 .header {
   border-bottom: 0px;
-}
-.headerFloating {
-    background-color: inherit;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 1000;
 }
 .leaflet-added-button {
   margin-top: 5px !important;

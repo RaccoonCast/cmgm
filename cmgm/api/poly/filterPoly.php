@@ -30,9 +30,9 @@ include "get_param.php";
 // Start query build, identify whether working with LPB/LPE/LPBE.
 $tableName = $view_mode == "cells" ? 'local_poly_beta' : 'poly_enbs';
 
-$keys = $view_mode == "enbs" ? "plmn,rat,enb,tac,cells,location_type,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
+$basic_keys = $view_mode !== "cells" ? "plmn,rat,enb,tac,cells,location_type,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
 if ($view_mode !== "cells") {
-    $keys .= ",poly_latitude AS latitude,poly_longitude AS longitude";
+    $keys = $basic_keys . ",poly_latitude AS latitude,poly_longitude AS longitude";
 }
 
 
@@ -92,7 +92,7 @@ if ($boundsNELat !== null && $boundsNELon !== null && $boundsSWLat !== null && $
         $baseCap = null;
         $maxDiff = max($latDiff, $lonDiff); // Find the dominant axis
         // Determine the base cap distance using the dominant axis
-        if ($view_mode == "enbs" || $view_mode == "cm"){
+        if ($view_mode !== "cells"){
             if ($limit > 50000) {
                 if ($maxDiff > 15.0) $baseCap = null;
             } elseif ($limit > 7499) {
@@ -104,7 +104,7 @@ if ($boundsNELat !== null && $boundsNELon !== null && $boundsSWLat !== null && $
             } elseif ($maxDiff > 4.50) {
                 $baseCap = 2.25;
             }
-        } elseif ($view_mode == "cells") {
+        } else {
             if ($limit > 50000) {
                 if ($maxDiff > 10.0) $baseCap = null;
             } elseif ($limit > 7499) {
@@ -145,7 +145,7 @@ if ($boundsNELat !== null && $boundsNELon !== null && $boundsSWLat !== null && $
 
     $whereFiltersLocation .= "AND MBRWithin(coords, ST_GeomFromText('$searchPolygon', 4326)) ";
     $whereFiltersPolyLocation = "AND MBRWithin(poly_coords, ST_GeomFromText('$searchPolygon', 4326)) ";
-    $whereFiltersCmLocation = "AND MBRWithin(cm_coords, ST_GeomFromText('$searchPolygon', 4326)) ";
+    $whereFiltersCmLocation = "AND MBRWithin(cm_coords, ST_GeomFromText('$searchPolygon', 4326))";
 } elseif ($latitude !== null && $longitude !== null) {
     // OPTION B: Haversine Formula)
     $distanceExpr = "(3959 * 2 * ASIN(SQRT(
@@ -154,12 +154,12 @@ if ($boundsNELat !== null && $boundsNELon !== null && $boundsSWLat !== null && $
         POWER(SIN(RADIANS(longitude - $longitude) / 2), 2)
     )))";
 
-    $orderByCell .= "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($longitude, $latitude), 4326)) ASC ";
+    $orderByLatLngPoint = "ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($longitude, $latitude), 4326)) ASC ";
 }
 
 // Filter 3: Date Filtering
 $date_of_info = $oldest_date; // Rename oldest_date to date_of_info for Cells mode.
-$dateKeys = ($view_mode === "enbs" || $view_mode === "cmgm"  || $view_mode === "cm") ? ['oldest_date', 'newest_date'] : ['date_of_info'];
+$dateKeys = $view_mode !== "cells" ? ['oldest_date', 'newest_date'] : ['date_of_info'];
 
 foreach ($dateKeys as $key) {
     $val = $$key;
@@ -196,10 +196,9 @@ if ($radius !== null) {
     $whereFilters .= "AND $distanceExpr <= $radius ";
 }
 
-// Filter 5: rat
+// Filter 5: Rat
 if ($rat !== null) {
     $whereFilters .= "AND RAT = '$rat' ";
-    $ratFiltered = true;
 }
 
 // Filter 6: Tac
@@ -246,8 +245,7 @@ if ($tacs_block_list !== null) {
     }
 }
 
-// Filter 7: By eNB Range
-// eNB allowlist ranges
+// Filter 7: By eNB Range (eNB allow_list ranges)
 if ($enb_allow_list !== null) {
     $enbAllowArray = explode(',', $enb_allow_list);
     $enbConditions = [];
@@ -295,7 +293,7 @@ if ($enb_block_list !== null) {
 
 
 // Filter 8: Cell filtering (space-separated string column)
-if ($cells_allow_list !== null && ($view_mode == "enbs" || $view_mode == "cm")) {
+if ($cells_allow_list !== null && $view_mode !== "cells") {
     $list = str_replace(' ', ',', $cells_allow_list ?? ''); 
     
     if (!empty($list)) {
@@ -310,7 +308,7 @@ if ($cells_allow_list !== null && ($view_mode == "enbs" || $view_mode == "cm")) 
 }
 
 // Blocklist (must match none)
-if ($cells_block_list !== null && ($view_mode == "enbs" ||  $view_mode == "cm")) {
+if ($cells_block_list !== null && $view_mode !== "cells") {
     $list = str_replace(' ', ',', $cells_block_list ?? '');
     
     if (!empty($list)) {
@@ -361,13 +359,32 @@ if ($score !== null) {
     }
 }
 
+// Filter 11: Reach
+if ($reach !== null) {
+    $reach = trim($reach);
 
-// Filter 11: CM Filters
+    if (preg_match('/^(\d+)\s*-\s*(\d+)$/', $reach, $m)) {
+        $min = (int)$m[1];
+        $max = (int)$m[2];
+
+        $whereFilters .= "AND reach BETWEEN $min AND $max ";
+    } else {
+        if (substr($reach, 0, 1) !== '<' &&
+            substr($reach, 0, 1) !== '>') {
+            $reach = "= $reach";
+        }
+
+        $whereFilters .= "AND (reach $reach OR score IS NULL)";
+    }
+}
+
+
+// Filter 12: CM Filters
 if ($view_mode == "cm") {
     $cmIncludes = isset($_GET['cm_includes']) ? explode(',', $_GET['cm_includes']) : [];
     $cmexcludes = isset($_GET['cm_excludes']) ? explode(',', $_GET['cm_excludes']) : [];
 
-    $validTowerTypes = ['DAS', 'PICO', 'MACRO'];
+    $validTowerTypes = ['DAS', 'PICO', 'COW', 'DECOMMISSIONED', 'MICRO'];
 
     // Includes: Chained with AND (must match all selected types)
     $activeIncludes = array_intersect($cmIncludes, $validTowerTypes);
@@ -444,6 +461,7 @@ if ($limit !== null && $limit > 0) {
     $limitClause = "LIMIT $limit";
     $limitClauseQuadruple = "LIMIT " . $limit * 4;
 }
+
 // Filter 98: Build the query
 if ($view_mode == "cells") {
     if (!isset($centerLon)) $centerLon = $longitude;
@@ -475,17 +493,15 @@ if ($view_mode == "cells") {
     AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
     ";
 } else {
-    $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE $whereFilters$whereFiltersPolyLocation
-                  ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC ";
+    $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE $whereFilters ".@$whereFiltersPolyLocation."";
 }
+
+$sql_query .= ($centerLat !== null) ? "ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC " : $orderByLatLngPoint;
 
 // Filter 99: Compare to CM / CMGM data.
 if ($view_mode == "cm") {
-    $sql_query = "
-    SELECT plmn,rat,enb,tac,cells,oldest_date,newest_date,location_type,cm_tower_type,cm_status,latitude,longitude FROM $tableName
-    WHERE $whereFilters $whereFiltersCmLocation
-    ORDER BY ST_Distance_Sphere(cm_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC 
-    ";
+    $sql_query = "SELECT $basic_keys,latitude,longitude,cm_tower_type,cm_status FROM $tableName WHERE $whereFilters";
+    $sql_query .= $centerLat !== null ? "$whereFiltersCmLocation ORDER BY ST_Distance_Sphere(cm_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC " : $orderByLatLngPoint;
 }
 
 // Filter 100: Set final limit

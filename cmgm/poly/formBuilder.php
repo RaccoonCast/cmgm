@@ -128,27 +128,29 @@ $onMap  = ($parentFile == "Map.php");
             <input class="adv-filter" type="text" id="tacs_allow_list" name="tacs_allow_list" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= !empty($tacs_allow_list) ? $tacs_allow_list : ''; ?>">
             <input class="adv-filter" type="text" id="tacs_block_list" name="tacs_block_list" placeholder="Blacklist TACs<?= !$onGui ? ' (1024-1048)' : '' ?>" value="<?= !empty($tacs_block_list) ? $tacs_block_list : ''; ?>">
             <?= $onMap ? '<br>' : '' ?>
-            <label>Miscellaneous</label>
-            <input class="adv-filter" type="text" id="score" name="score" placeholder="Score<?= !$onGui ? ' (>30, 1-250, 940)' : '' ?>" value="<?= !empty($score) ? $score : ''; ?>">
-            <input class="adv-filter" type="text" id="cells_quantity" name="cells_quantity" placeholder="Cells Quantity<?= !$onGui ? ' (>3, <20, 3)' : '' ?>" value="<?= !empty($cells_quantity) ? $cells_quantity : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
+            <label>Misc</label>
+            <input class="adv-filter-33" type="text" id="score" name="score" placeholder="Score<?= !$onGui ? ' (1-250, 940)' : '' ?>" value="<?= !empty($score) ? $score : ''; ?>">
+            <input class="adv-filter-33" type="text" id="reach" name="reach" placeholder="Reach<?= !$onGui ? ' (>10000)' : '' ?>" value="<?= !empty($reach) ? $reach : ''; ?>">
+            <input class="adv-filter-33" type="text" id="cells_quantity" name="cells_quantity" placeholder="Cells Quantity<?= !$onGui ? ' (<3)' : '' ?>" value="<?= !empty($cells_quantity) ? $cells_quantity : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
             <?= $onMap ? '<br>' : '' ?>
             <?php
             $includesArray = is_array($cm_includes ?? 0) ? $cm_includes : ($cm_includes ? explode(',', $cm_includes) : []);
             $excludesArray = is_array($cm_excludes ?? 0) ? $cm_excludes : ($cm_excludes ? explode(',', $cm_excludes) : []);
 
             $chips = [
-                'CMGMPINNED'   => "CMGM'd",
-                'CMPINNED'     => "CM'd",
-                'DAS'          => 'DAS',
-                'PICO'         => 'Picos',
-                'MACRO'        => 'Macros',
-                'MAPPED'       => 'Mapped',
-                'PERFECTSURRO' => 'Perfect Surro'
+                'CMGMPINNED'     => "CMGM'd",
+                'CMPINNED'       => "CM'd",
+                'DAS'            => 'DAS',
+                'PICO'           => 'Pico',
+                'MICRO'          => 'Micro',
+                'COW'            => 'COW',
+                'DECOMMISSIONED' => 'Decom',
+                'MAPPED'         => 'Mapped',
+                'PERFECTSURRO'   => 'Perfect Surro'
             ];
             ?>
 
             <span id="cm_filters" <?php if ($view_mode != "cm") echo 'style="display:none"';?>>
-                <label>CM Filters</label>
                 <input type="hidden" name="cm_includes" id="cm_includes" value="<?= is_array($cm_includes ?? 0) ? implode(',', $cm_includes) : ($cm_includes ?? '') ?>">
                 <input type="hidden" name="cm_excludes" id="cm_excludes" value="<?= is_array($cm_excludes ?? 0) ? implode(',', $cm_excludes) : ($cm_excludes ?? '') ?>">
 
@@ -168,19 +170,9 @@ $onMap  = ($parentFile == "Map.php");
                         </button>
                     <?php endforeach; ?>
                 </div>
-                  
-                <?= $onMap ? '<br>' : '' ?>
             </span>
             <?php if (!$onGui) { ?>
             <div class="checkbox-container">
-               <!--
-                  <label class="checkbox-group">
-                      <input type="checkbox" id="labels" <?php echo $labels; ?>> Show Labels
-                  </label> 
-                  <label id="forceLabelVisibilityArea" class="checkbox-group">
-                      <input type="checkbox" id="forceLabelVisibility" <?php echo $forceLabelVisibility; ?>> Always show  labels
-                  </label>
-                  --> 
                <label id="dont_unloadCheckboxArea" class="checkbox-group">
                <input <?php echo $unload; ?> type="checkbox" id="dont_unload"> Disable Unload
                </label>
@@ -190,11 +182,6 @@ $onMap  = ($parentFile == "Map.php");
                <label id="random_colorCheckboxArea" class="checkbox-group">
                <input type="checkbox" id="random_color" <?php echo $random_color; ?>> Randomize Colors
                </label>
-               <!--
-               <label class="checkbox-group">
-               <input type="checkbox" id="perfectSurroOnly" <?php echo $perfectSurroOnly; ?>> Exact Location Only
-               </label>
-                -->
             </div>
             
             <?php } if (!$onMap) { ?>
@@ -205,7 +192,7 @@ $onMap  = ($parentFile == "Map.php");
                 <input class="poly-btn colorized" id="submitButton" type="submit" value="View">
                 <button type="button" class="poly-btn" onclick="location.href=location.href+'&download'">CSV</button>
                 <?php } ?>
-                <button type="button" class="poly-btn" id="guiMapToggle"><?= $onMap ? 'View on GUI' : 'Map' ?></button>
+                <button type="button" class="poly-btn" id="guiMapToggle"><?= $onMap ? 'GUI View' : 'Map' ?></button>
          </div>
       </div>
    </div>
