@@ -180,9 +180,9 @@ echo !empty($evidences) ? @$evidences : "<i>No Evidence<i>";
 if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
 if(!empty($photo_b)) @$photos .= (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_b . '">PH_B</a>';
 if(!empty($photo_c)) @$photos .= (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_C</a>';
-if(!empty($photo_d)) @$photos .= (substr($photo_d,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_a . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
+if(!empty($photo_d)) @$photos .= (substr($photo_d,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_d . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
 if(!empty($photo_e)) @$photos .= (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
-if(!empty($photo_f)) @$photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_F</a>';
+if(!empty($photo_f)) @$photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_f . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_f . '">PH_F</a>';
 echo !empty($photos) ? @$photos : "<i>No Photos<i>";
 ?>
 </tr></td>
@@ -195,7 +195,7 @@ if(!empty($extra_b)) @$extras .= (substr($extra_b,0,4)=="http") ? ' | <a target=
 if(!empty($extra_c)) @$extras .= (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_c . '">EX_C</a>';
 if(!empty($extra_d)) @$extras .= (substr($extra_d,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_d . '">EX_D</a>' : '<a target="_blank" href="' . $cmgm_uploads_page . $extra_d . '">EX_D</a>';
 if(!empty($extra_e)) @$extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_e . '">EX_E</a>';
-if(!empty($extra_f)) @$extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_F</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_c . '">EX_F</a>';
+if(!empty($extra_f)) @$extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_f . '">EX_F</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_f . '">EX_F</a>';
 echo !empty($extras) ? @$extras : "<i>No Extras<i>";
 ?>
 </td>
