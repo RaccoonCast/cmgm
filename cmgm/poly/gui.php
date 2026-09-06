@@ -86,7 +86,7 @@ if (isset($_GET['download'])) {
             $row['display_lat'],
             $row['display_lon'],
             trim($row['cells']),
-            ($viewMode === "cells") ?  $row['date_of_info'] : $row['oldest_date']
+            ($view_mode === "cells") ?  $row['date_of_info'] : $row['oldest_date']
         ];
         if (!isset($_GET['slim'])) {
             $csvData[] = $row['polyLink'];
@@ -105,7 +105,7 @@ if (isset($_GET['download'])) {
 <script>
 // Custom PLMN functionality
 document.addEventListener('change', (e) => {
-  if (e.target.id !== 'Plmn') return;
+  if (e.target.id !== 'plmn') return;
 
   const select = e.target;
 

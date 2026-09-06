@@ -43,9 +43,10 @@ if (!is_null($cells)) {
 
 $main_query = "
     $sql_query $enbFilters $whereFilters;
-    DELETE FROM local_poly_enbs $enbFilters;
+    DELETE FROM poly_enbs $enbFilters;
     CALL update_poly_enbs($plmn, '$rat', $enb, NULL);
 ";
+echo $main_query;
 
 $conn->multi_query($main_query);
 

@@ -5,7 +5,6 @@ html {
     height: 100%;
     overflow: hidden;
     font-family: sans-serif;
-    background: #1a1a1a;
 }
 
 .header {
@@ -106,7 +105,6 @@ input[type="checkbox"] {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.4); */
     z-index: 10000;
     display: flex;
     justify-content: center;
@@ -114,7 +112,6 @@ input[type="checkbox"] {
 }
 
 #purge-modal {
-    /* background-color: #fff; */
     padding: 25px;
     border-radius: 8px;
     min-width: 300px;
@@ -130,4 +127,114 @@ input[type="checkbox"] {
 }
 .modal-actions .floatright {
     float: right;
+}
+/* Highlights the target eNB label in bright yellow */
+.target-enb-highlight,.target-enb-yellow {
+    background-color: #FFFECE !important;
+}
+.leaflet-tooltip-bottom.target-enb-highlight::before,.leaflet-tooltip-bottom.target-enb-yellow::before  {
+       border-bottom-color: #FFFECE !important;
+}
+
+/* Highlights the target eNB label in green */
+.target-enb-green {
+    background-color: #D0E8D2 !important;
+}
+.leaflet-tooltip-bottom.target-enb-green::before {
+     border-bottom-color: #D0E8D2 !important;
+}
+
+.tower-label {
+    position: relative;
+}
+
+.tower-label::after {
+    content: '';
+    position: absolute;
+    top: -8px;   
+    bottom: -8px;
+    left: -8px;  
+    right: -8px; 
+    background: transparent; 
+}
+.extra-italic {
+    display: inline-block;
+    font-style: italic;
+    transform: skewX(-12deg);
+}
+/* Pills */
+.cm_filters {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap; 
+    padding: 6px 2px;
+}
+.cm_filters::-webkit-scrollbar {
+    display: none;
+}
+
+.cm_filters .inline-select,
+.chip-filter-container {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px; 
+}
+
+.cm_filters {
+    margin-bottom: 0;
+}
+
+.chip-filter-container.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* chip btns */
+.chip-btn {
+    display: inline-block; 
+    vertical-align: middle;
+    position: relative;
+    padding: 6px 14px; 
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    outline: none;
+}
+
+/* Make the text slidable */
+.btn-text {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+.chip-btn::before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly center it vertically */
+    font-weight: bold;
+    opacity: 0; /* Invisible in neutral state */
+    transition: opacity 0.2s ease;
+}
+.chip-btn[data-state="include"] .btn-text,
+.chip-btn[data-state="exclude"] .btn-text {
+    transform: translateX(6px); 
+}
+.chip-btn[data-state="include"] {
+    background-color: #198754; 
+    border: 1px solid #198754;
+}
+
+.chip-btn[data-state="exclude"] {
+    background-color: #dc3545; 
+    border: 1px solid #dc3545;
+}
+.chip-btn[data-state="include"]::before { 
+    content: '+'; 
+    opacity: 1;
+}
+.chip-btn[data-state="exclude"]::before { 
+    content: '−'; 
+    opacity: 1; /* Fade the icon in */
 }
