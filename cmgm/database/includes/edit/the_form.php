@@ -140,7 +140,7 @@
     <option data-display="Other user map primary: false" value="false">false</option>
     </select>
 
-    <script src="../js/dumb-shit.js"></script>
+    <script src="../js/edit.js"></script>
 
     <label class="latitude_longitude_label"><a id="addr_gmaps" target="_blank" href="https://www.google.com/maps/place/<?php echo $latitude.",".$longitude;?>/@<?php echo $latitude.",".$longitude;?>,20z/data=!3m1!1e3">Lat/Lon</a><span class="floatright"><?php include "latLongMod/copy.php"; ?></span></label><input
     type="text" class="latitude_cw" id="latitude" value="<?php echo @$latitude?>" placeholder="Latitude" name="latitude" required><input

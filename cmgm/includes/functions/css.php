@@ -36,7 +36,7 @@ if (!function_exists('css')) {
   }
 }
 
-if (str_contains($_SERVER["SCRIPT_FILENAME"], 'Edit.php')) {
+if (str_contains($_SERVER["SCRIPT_FILENAME"], 'Edit.php') && isset($cmgm_edit_panel1_width) && isset($cmgm_edit_panel2_width)) {
   echo '<style>:root {--cmgm_edit_panel1_width: '.$cmgm_edit_panel1_width-0.02.'%; }</style>' . PHP_EOL;
   echo '<style>:root {--cmgm_edit_panel2_width: '.$cmgm_edit_panel2_width-0.02.'%; }</style>' . PHP_EOL; 
 }

@@ -71,3 +71,11 @@ img[src*="/dist/images/marker-icon"] {
  color: black;
  text-align: center;
 }
+.leaflet-control a,
+.leaflet-control a:visited,
+.leaflet-control a:hover,
+.leaflet-control a:active {
+    color: var(--accent-color) !important;
+    text-decoration: none !important;
+    filter: saturate(60%); /* Reduces color saturation */
+}

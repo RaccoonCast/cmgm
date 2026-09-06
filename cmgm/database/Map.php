@@ -159,9 +159,17 @@ include '../functions.php';
         const polyMapButton = L.Control.extend({
           onAdd(map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
-            container.innerHTML = '<a href="#"><span style="font-size:22px;">⯁</span></a>';
+            container.innerHTML = '<a href="#" title="Poly Map"><span style="font-size:22px;">⯁</span></a>';
             container.id = 'polyMapButton';
+
             L.DomEvent.disableClickPropagation(container);
+
+            // 2. Attach the click listener directly to the container/anchor
+            L.DomEvent.on(container, 'click', (e) => {
+              L.DomEvent.preventDefault(e); // Prevents the <a href="#"> from scrolling the page to the top
+              navigateToPolyMap(this.options.mini);
+            });
+
             return container;
           }
         });
@@ -211,24 +219,23 @@ include '../functions.php';
           mymap.addControl(new polyInfoButton({ position: 'topleft' })); // Poly Cells Info Button
         }
         
-        if (!url_params.has('marker_latitude')) { // Hide open Poly Map button solely on Edit's iframe.
-          mymap.addControl(new polyMapButton({ position: 'topleft' }));
+        if (!url_params.has('marker_latitude')) {  // Hide open Poly Map button solely on Edit's iframe.
+          mymap.addControl(new polyMapButton({ position: 'topleft', mini: false }));
         }
 
-        if (url_params.has('showPolyLink') && url_params.has('marker_latitude')) { // Only show open poly button on edit iframe and only *after* polygon has loaded.
+        if (url_params.has('marker_latitude')) { // Only show open poly map button on edit iframe and only *after* polygon has loaded.
+          mymap.addControl(new polyMapButton({ position: 'topleft', mini: true }));
           mymap.addControl(new openPolyButton({ position: 'topleft' }));
         }
 
-      // Cast add event listeners for buttons
-      document.getElementById('refreshButton')?.addEventListener('click', () => location.reload());
-      document.getElementById('backButton')?.addEventListener('click', () => history.back());
-      document.getElementById('polyMapButton')?.addEventListener('click', () => {
+        // Poly map function
+        function navigateToPolyMap(mini) {
           const center = mymap.getCenter();
           const zoom = mymap.getZoom();
 
           const params = new URLSearchParams(window.parent.location.search);
 
-          let carrier = params.get('carrier') || '';
+          let carrier = params.get('carrier') || sessionStorage.getItem('carrier') || '';
 
           const hasBang = carrier.startsWith('!');
           if (hasBang) {
@@ -237,8 +244,9 @@ include '../functions.php';
 
           const plmnMap = {
               'T-Mobile': '310260',
-              'AT&T': '310410',
+              'ATT': '310410',
               'Verizon': '311480',
+              'Sprint': '310120',
               'Dish': '313340'
           };
 
@@ -262,9 +270,20 @@ include '../functions.php';
               url += `&plmn=${hasBang ? '!' : ''}${plmn}`;
           }
 
-          window.parent.location.href = url;
-      });
+          // Append '&mini' if the mini flag is true
+          if (mini) {
+              const storedEnb = sessionStorage.getItem('enb');
+              url += storedEnb ? `&mini=${encodeURIComponent(storedEnb)}` : '&mini';
+          }
+          // Record current location for a back button on Poly map
+          sessionStorage.setItem('polyMapReturnUrl', window.location.href);
 
+          (mini ? window : window.parent).location.href = url;
+      }
+
+      // Cast add event listeners for buttons
+      document.getElementById('refreshButton')?.addEventListener('click', () => location.reload());
+      document.getElementById('backButton')?.addEventListener('click', () => history.back());
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',

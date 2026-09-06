@@ -97,7 +97,16 @@ include "includes/edit/the_form.php";
 if (!isset($delete) && !isset($new) && !isset($_GET['lock_status']) && $padlock == "false") include "includes/edit/widgets.php";
 ?>
 <?php if ($userID == "guest") {?><br><button onclick="redir('<?php echo $domain_with_http;?>/database/Edit.php?loginprompt=true&id=<?php echo $id; ?>',0)">Login</button> <?php } ?>
-<script> if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
+<script> 
+if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
+sessionStorage.setItem('carrier', '<?php echo $carrier ?>');
+<?php
+$enbs = [];
+for ($i = 1; $i <= 9; $i++) if (!empty(${"LTE_$i"})) $enbs[] = "L" . ${"LTE_$i"};
+for ($i = 1; $i <= 6; $i++) if (!empty(${"NR_$i"})) $enbs[] = "N" . ${"NR_$i"};
+if ($enbs) echo "sessionStorage.setItem('enb'," . json_encode(implode(',', $enbs)) . ");";
+?>
+</script>
 <div style="padding-bottom: 70px" class="pre_footer"></div>
 <?php include "includes/footer.php"; ?>
 </body>
