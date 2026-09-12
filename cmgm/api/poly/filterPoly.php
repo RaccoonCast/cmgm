@@ -57,7 +57,8 @@ if ($plmn !== null) {
 $possible = $include ? array_intersect($include, $blacklist) : $blacklist;
 
 if (array_diff($possible, $exclude)) {
-    $whereFilters .= "NOT (plmn IN (" . implode(',', $blacklist) . ") AND tac > 10000)";
+    if ($whereFilters !== null) $whereFilters .= "AND ";
+    $whereFilters .= "NOT (plmn IN (" . implode(',', $blacklist) . ") AND tac > 10000) ";
 }
 
 
@@ -329,14 +330,14 @@ if ($cells_quantity !== null) {
 
     if ($cells_quantity[0] === '>') {
         $val = (int)substr($cells_quantity, 1);
-        $whereFilters .= " AND ($expr) > $val ";
+        $whereFilters .= "AND ($expr) > $val ";
 
     } elseif ($cells_quantity[0] === '<') {
         $val = (int)substr($cells_quantity, 1);
-        $whereFilters .= " AND ($expr) < $val ";
+        $whereFilters .= "AND ($expr) < $val ";
 
     } else {
-        $whereFilters .= " AND ($expr) = $val ";
+        $whereFilters .= "AND ($expr) = $val ";
     }
 }
 
@@ -355,7 +356,7 @@ if ($score !== null) {
             $score = "= $score";
         }
 
-        $whereFilters .= "AND (score $score OR score IS NULL)";
+        $whereFilters .= "AND (score $score OR score IS NULL) ";
     }
 }
 
@@ -374,7 +375,7 @@ if ($reach !== null) {
             $reach = "= $reach";
         }
 
-        $whereFilters .= "AND (reach $reach OR score IS NULL)";
+        $whereFilters .= "AND (reach $reach OR score IS NULL) ";
     }
 }
 
@@ -389,36 +390,22 @@ if ($view_mode == "cm") {
     // Includes: Chained with AND (must match all selected types)
     $activeIncludes = array_intersect($cmIncludes, $validTowerTypes);
     if (!empty($activeIncludes)) {
-        $includeClauses = [];
-        foreach ($activeIncludes as $type) {
-            $includeClauses[] = "cm_tower_type = '$type'";
-        }
-        $whereFilters .= " AND (" . implode(" OR ", $includeClauses) . ")";
+        $quotedIncludes = array_map(function($type) { return "'$type'"; }, $activeIncludes);
+        $whereFilters .= "AND cm_tower_type IN (" . implode(", ", $quotedIncludes) . ") ";
     }
 
     // excludes: Must not match these types (preserving the legacy style allowing NULLs)
     $activeexcludes = array_intersect($cmexcludes, $validTowerTypes);
     if (!empty($activeexcludes)) {
-        $excludeClauses = [];
-        foreach ($activeexcludes as $type) {
-            $excludeClauses[] = "(cm_tower_type != '$type' OR cm_tower_type IS NULL)";
-        }
-        $whereFilters .= " AND " . implode(" AND ", $excludeClauses);
-    }
-
-    // Handle PERFECTSURRO overrides over CMGMPINNED and PINNED conflicts
-    if (in_array('PERFECTSURRO', $cmIncludes)) {
-        $cmIncludes = array_diff($cmIncludes, ['CMGMPINNED', 'PINNED']);
-    }
-    if (in_array('PERFECTSURRO', $cmexcludes)) {
-        $cmexcludes = array_diff($cmexcludes, ['CMGMPINNED', 'PINNED']);
+        $quotedExcludes = array_map(function($type) { return "'$type'"; }, $activeexcludes);
+        $whereFilters .= "AND (cm_tower_type NOT IN (" . implode(", ", $quotedExcludes) . ") OR cm_tower_type IS NULL) ";
     }
 
     // Location Type Definitions & Mapping
     $locationTypesMap = [
         'PERFECTSURRO' => ['31', '41', '1'],
         'CMGMPINNED'   => ['40', '41', '42'],
-        'CMPINNED'       => ['30', '31', '32']
+        'CMPINNED'     => ['30', '31', '32']
     ];
 
     // Location Type Includes
@@ -431,7 +418,7 @@ if ($view_mode == "cm") {
     $includeLocTypes = array_unique($includeLocTypes);
     if (!empty($includeLocTypes)) {
         $escapedTypes = implode("', '", $includeLocTypes);
-        $whereFilters .= " AND location_type IN ('$escapedTypes')";
+        $whereFilters .= "AND location_type IN ('$escapedTypes') ";
     }
 
     // Location Type Excludes
@@ -444,15 +431,15 @@ if ($view_mode == "cm") {
     $excludeLocTypes = array_unique($excludeLocTypes);
     if (!empty($excludeLocTypes)) {
         $escapedTypes = implode("', '", $excludeLocTypes);
-        $whereFilters .= " AND location_type NOT IN ('$escapedTypes')";
+        $whereFilters .= "AND location_type NOT IN ('$escapedTypes') ";
     }
 
     // Mapped Status Filters
     if (in_array('MAPPED', $cmIncludes)) {
-        $whereFilters .= " AND cm_status <> 'UNMAPPED'";
+        $whereFilters .= "AND cm_status <> 'UNMAPPED' ";
     }
     if (in_array('MAPPED', $cmexcludes)) {
-        $whereFilters .= " AND cm_status = 'UNMAPPED'";
+        $whereFilters .= "AND cm_status = 'UNMAPPED' ";
     }
 }
 
