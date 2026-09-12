@@ -235,7 +235,7 @@ include '../functions.php';
 
           const params = new URLSearchParams(window.parent.location.search);
 
-          let carrier = params.get('carrier') || sessionStorage.getItem('carrier') || '';
+          let carrier = sessionStorage.getItem('carrier') || params.get('carrier') || '';
 
           const hasBang = carrier.startsWith('!');
           if (hasBang) {
