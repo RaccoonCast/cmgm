@@ -26,10 +26,10 @@ $delete_query = "DELETE FROM poly_enbs
 $update_query = "CALL update_poly_enbs($plmn, '$rat', $enb, NULL)";
 
 // NULL tells it to use eNBs from *all of time* as a source instead of just what's been added in the last 24h.
-mysqli_query(
-    $conn,
-    $delete_query
-);
+// mysqli_query(
+//     $conn,
+//     $delete_query
+// );
 
 mysqli_query(
     $conn,
