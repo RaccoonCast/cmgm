@@ -17,7 +17,7 @@ AND (only_reasonable_location IS NULL OR only_reasonable_location = "" OR only_r
 AND (archival_antenna_addition IS NULL OR archival_antenna_addition = "" OR archival_antenna_addition = 0)
 AND (carriers_ruled_out IS NULL OR carriers_ruled_out = "" OR carriers_ruled_out = 0)
 AND (alt_carriers_here IS NULL OR alt_carriers_here = "" OR alt_carriers_here = 0)))
-AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%") 
+AND (tags NOT LIKE "%future%" AND tags NOT LIKE "%unmapped%" AND tags NOT LIKE "%decom%") 
 AND (status = "verified")
 ';
 
@@ -43,7 +43,7 @@ elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $valu
       $db_vars = " AND $key NOT BETWEEN $start AND $end" . @$db_vars;
   } else {
       // Inclusion range (start-end)
-      $db_vars .= " AND $key BETWEEN $start AND $end" . @$db_vars;
+      $db_vars = " AND $key BETWEEN $start AND $end" . @$db_vars;
   }
 }
 elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
@@ -113,8 +113,18 @@ elseif ($key == "has_evidence" && $value == "false") $db_vars = " AND (evidence_
 
 // Filtering by string is not equal to x, with special support for tags. Example: &tags=!n41 OR &carrier=!T-Mobile 
 elseif (@$value[0] == "!" && $key !== "notes_like") {
-  if ($key == "tags") { $db_vars = " AND (tags NOT like '".$trimChar.",%' AND tags NOT like '%,".$trimChar."' AND tags NOT like '%,".$trimChar.",%' AND NOT tags = '".$trimChar."' OR tags is null)" . @$db_vars; }
-  elseif ($key != "tags") { $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars; }
+    if (str_starts_with($key, 'tags')) {
+        $db_vars = " AND (
+            tags NOT LIKE '".$trimChar.",%'
+            AND tags NOT LIKE '%,".$trimChar."'
+            AND tags NOT LIKE '%,".$trimChar.",%'
+            AND tags <> '".$trimChar."'
+            OR tags IS NULL
+        )" . @$db_vars;
+    }
+    elseif ($key != "tags") {
+        $db_vars = " AND NOT " . $key . ' = "'.$trimChar.'"' . @$db_vars;
+    }
 }
 
 // Filtering by an attached filename mentioned on various records.
@@ -136,12 +146,13 @@ elseif ($key == "address" && !empty($value)) {
 }
 
 // Search for tags, &tags=n41 to search for records tagged n41.
-elseif ($key == "tags" && !empty($value)) {
-  $db_vars = " AND (
-                         tags LIKE '%,$value,%' 
-                      OR tags LIKE '$value,%'
-                      OR tags LIKE '%,$value'
-                      OR tags = '$value')" . @$db_vars;
+elseif (str_starts_with($key, 'tags') && !empty($value)) {
+    $db_vars = " AND (
+        tags LIKE '%,$value,%'
+        OR tags LIKE '$value,%'
+        OR tags LIKE '%,$value'
+        OR tags = '$value'
+    )" . @$db_vars;
 }
 
 // if value is empty, do default

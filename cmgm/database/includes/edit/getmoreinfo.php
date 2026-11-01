@@ -12,7 +12,7 @@ include_once SITE_ROOT . "/includes/link-conversion-and-handling/convert.php";
 // echo $state . "<br>";
 // echo $zip . "<br>";
 
-
+if (isset($_GET['pci'])) {
 $PCIs = @$_GET['pci'];
 $PCIs = explode(",", @$PCIs);
 $PCI_1 = @$PCIs[0];
@@ -40,6 +40,8 @@ $PCI_22 = @$PCIs[21];
 $PCI_23 = @$PCIs[22];
 $PCI_24 = @$PCIs[23];
 $status = "verified";
+}
+
 $plmn = @$_GET['plmn'];
 if ($plmn == "310260") $carrier = "T-Mobile";
 if ($plmn == "311480") $carrier = "Verizon";

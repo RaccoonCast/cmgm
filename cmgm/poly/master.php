@@ -54,12 +54,12 @@ foreach ($formData as $index => $data) {
     if (isset($data['cellListDepri']) && $data['cellListDepri'] == '-') {
        if ($rat == "LTE") {
         if ($plmn == 310260 || $plmn == 311490) $cellList_depri = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,45,46,47,48,49,50,51,52,53,54,61,62,63,64,65,66,104,105,106,107,111,112,113,114,131,132,133,134,135,136,141,142,143,144,145,146,171,172,173,174,241,242,243,244];
-        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,28,35,42,49,56,63,70,91,92,93,94,95,96,99,100,101,102,103,104,107,108,109,110,115,124,125,126,132,133,134,140,141,142,149,150,151,152,153,154,155,171,172,173,174,175,176,177,179,181,182,183,185,186,187,188,189,190,191,192,193,194,195,196,197,198,201,202,203,204,205,217,218,219,220,221,222,223,224,227,228,229,212,213,214,215,216,217];
+        if ($plmn == 310410 || $plmn == 313100) $cellList_depri = [1,2,3,4,7,8,9,10,11,12,13,15,16,17,18,19,20,22,23,24,25,26,27,28,35,42,49,56,63,70,91,92,93,94,95,96,99,100,101,102,103,104,107,108,109,110,115,124,125,126,132,133,134,140,141,142,149,150,151,152,153,154,155,171,172,173,174,175,176,177,179,181,182,183,185,186,187,188,189,190,191,192,193,194,195,196,197,198,201,202,203,204,205,217,218,219,220,221,222,223,224,227,228,229,212,213,214,215,216,217];
         if ($plmn == 311480) $cellList_depri = [1,2,3,4,5,6,7,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,52,54,57,62,64,67,72,74,76,77,82,84,86,87,92,94,96,102,104,106,112,114,116,122,124,126];
         if ($plmn == 312680) $cellList_depri = [148,149,150,151,152,153,154,155,156];
     } else {
         if ($plmn == 310260) $cellList_depri = [1,2,3,4,11,12,13,14,15,16,21,22,23,24,25,26,41,42,43,44,45,46,51,52,53,54,301,302,303,304,305,306,311,312,313,314,315,316,321,322,323,324,325,326,351,352,353,371,372,373,401,402,403,404,411,412,413,414,201,202,203]; // n71 + n66 + n25 + n25 suppl + n71 suppl + n41 + n41 suppl + n41 suppl x2 + n77 + N77 DOD + n41 on weird configs + n25 on weird configs
-        if ($plmn == 311480) $cellList_depri = [26,27,42,43,58,59,74,75,25,41,57,20,36,52,68,23,39,55,71,122]; // n77 + n77suppl + n2 + n66 + n77 micros on 'sector' 7.
+        if ($plmn == 311480) $cellList_depri = [20,22,23,25,26,27,36,38,39,41,42,43,52,54,55,57,58,59,68,70,71,73,74,75,122]; // n77 + n77suppl + n2 + n66 + n77 micros on 'sector' 7.
         if ($plmn == 310410) $cellList_depri = [25,49,73,26,50,74,52,28,76,27,75,51,53,77,29,1,36,3,2,84,60,30,78,54,85,61,37,31,97,79,55,80,0,56,32,121,33,4,81,57,145,5,10,6,82,8,7,99,9,98,58,34,146,100,147,123,122,11,83,520,101,59,40,15,522,169,124,104,86,35,22,19,919,778,777,527,523,303,302,301,273,269,263,193,175,108,105,103,102,92,89,88,67,64,63,62,23,21,17,16];
        }
     }
@@ -128,6 +128,7 @@ foreach ($formData as $index => $data) {
                 } else {
                     // Otherwise, get cache data as expected
                     $cacheProvider = $tmpDb['provider_source'];
+                    $rat = $tmpDb['rat'];
                     $dateOfInfo = $tmpDb['date_of_info'];
                     $reach = isset($tmpDb['reach']) ? (int) $tmpDb['reach'] : null;
                     $score = isset($tmpDb['score']) ? (int) $tmpDb['score'] : null;
@@ -136,9 +137,10 @@ foreach ($formData as $index => $data) {
                     // Convert remaining items to float
                     $tmpDb = array_map('floatval', $tmpDb);
 
-                    $responses[$eNB][$cellNumber] = [
+                    $responses[$plmn][$eNB][$cellNumber] = [
                         'provider' => 'Cache - ' . $cacheProvider,
                         'cellId' => $tmpDb['cell_id'],
+                        'rat' => $rat,
                         'date' => $dateOfInfo,
                         'lat' => $tmpDb['latitude'],
                         'lng' => $tmpDb['longitude'],
@@ -149,7 +151,7 @@ foreach ($formData as $index => $data) {
                         'is_exact_location' => $is_exact_location,
                     ];
                     if ($tmpDb['tac'] > 0) {
-                         $responses[$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
+                         $responses[$plmn][$eNB][$cellNumber]['tac'] = $tmpDb['tac'];
                     }
                     // Skip adding curl handles, since data is already covered by db
                     continue;
@@ -162,8 +164,8 @@ foreach ($formData as $index => $data) {
         // Skip Google if PCI+ passes request for eNB already in the DB, by Surro, with correct TAC
         // NOTE: Potential Caveat - this may not work if Surro TAC changes over time, but if that happens it'll pass to Google
         $pciPlus_skip_google = false;
-        if (isset($_POST['polyUserId']) && isset($responses[$eNB])) {
-            $existingDbRecord = array_slice($responses[$eNB], 0, 1)[0];
+        if (isset($_POST['polyUserId']) && isset($responses[$plmn][$eNB])) {
+            $existingDbRecord = array_slice($responses[$plmn][$eNB], 0, 1)[0];
         }
 
         // Build curl handle for Apple, if compatible
@@ -284,9 +286,10 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
         $reqDate = date('Y-m-d H:i:s');
 
         // Add to responses
-        $responses[$eNB][$cellNumber] = [
+        $responses[$plmn][$eNB][$cellNumber] = [
             'provider' => 'Surro',
             'cellId' => $cellGid,
+            'rat' => $rat,
             'tac' => (int) $tac,
             'date' => $reqDate,
             'lat' => $lat,
@@ -348,9 +351,10 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
                 $reqDate = date('Y-m-d H:i:s');
 
                 // Add to responses
-                $responses[$eNB][$cellNumber] = [
+                $responses[$plmn][$eNB][$cellNumber] = [
                     'provider' => 'Google',
                     'cellId' => $cellGid,
+                    'rat' => $rat,
                     'date' => $reqDate,
                     'lat' => $lat,
                     'lng' => $lng,

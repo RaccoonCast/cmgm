@@ -12,7 +12,7 @@ if ($_FILES["fileToUpload"]["size"] > 25) {
   $filePath = "$target_dir" . "$filename.$fileType";
   
   // Check file size
-  if ($_FILES["fileToUpload"]["size"] > 26214400) {
+  if ($_FILES["fileToUpload"]["size"] > 52428800) {
     echo "Sorry, your file is too large.";
     die();
   }

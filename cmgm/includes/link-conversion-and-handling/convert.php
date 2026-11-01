@@ -34,6 +34,7 @@ if ((strpos($data, 'Latitude') !== false || strpos($data, 'Longitude') !== false
     (strpos($data, 'LAT ') !== false || strpos($data, 'LONG') !== false) && !isset($conv_type)) {
     include "convert/lat,long-mod.php";
 }
+
 // Attempt comma seperating lat,long to $lat,$long
 if(strpos($data, ',') !== false && !isset($conv_type)) include "convert/lat,long.php";
 // Attempt CellMapper URL Conversion (incl testmap)

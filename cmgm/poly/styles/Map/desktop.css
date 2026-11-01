@@ -4,24 +4,31 @@
   margin-right: 4px;
   padding: 8px;
 }
+select {
+   padding-right: 0!important;
+}
 .checkbox-container {
     display: inline;
 }
-#requestBatchSize {
-  width: 190px;
+#request_batch_size {
+  width: 184px;
 }
-#viewMode {
-  width: 170px;
+#view_mode {
+  width: 152px;
 }
-#Plmn {
-  width: 140px;
+#plmn {
+  width: 130px;
 }
-#Rat {
-  width: 95px;
+#rat {
+  width: 96px;
 }
 
 .adv-filter {
   width: 265px;
+  margin-bottom: 8px;
+}
+.adv-filter-33 {
+  width: 172.55px;
   margin-bottom: 8px;
 }
 #hamburger-menu {
@@ -34,4 +41,15 @@
 #guiMapToggle {
   float: left;
   margin-left: -5px;
+}
+.chip-btn {
+      margin: 0 3.5px 0 0 !important;
+      padding: 11px!important;
+}
+.chip-btn::before {
+      left: 5px; /* Stick it to the left edge */
+}
+#cm_filters {
+  display: block;
+  margin-bottom: 8px;
 }

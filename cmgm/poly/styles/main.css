@@ -39,7 +39,18 @@ input[type=number] {
 }
 .header {
   border-bottom: 0px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 1000;
 }
-.headerFloating {
-    background-color: inherit;
+.leaflet-added-button {
+  margin-top: 5px !important;
+} 
+.leaflet-control a,
+.leaflet-control a:visited,
+.leaflet-control a:hover,
+.leaflet-control a:active {
+    color: var(--accent-color) !important;
+    text-decoration: none !important;
+    filter: saturate(60%); /* Reduces color saturation */
 }

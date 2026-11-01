@@ -81,7 +81,7 @@ function getMultipleFromDb($conn, $cellIdList, $plmn, $rat, $eNB) {
 	$cellIdListStr = implode(', ', $cellIdList);
 
 	// Query to retrieve the data
-	$query = "SELECT cell_id, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
+	$query = "SELECT cell_id, rat, latitude, longitude, accuracyMiles, date_of_info, provider_source, tac, reach, score, is_exact_location
               FROM cmgm.local_poly_beta
               WHERE cell_id IN ($cellIdListStr)
               AND plmn = $plmn AND rat = '$rat' AND eNB = $eNB";
@@ -102,7 +102,9 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
         // For NR (New Radio) set the base calculation
         $base = match ($plmn) {
             "310260" => $eNB * 4096,
+			"311490" => $eNB * 4096,
             "310410" => $eNB * 1024,
+			"313100" => $eNB * 1024,
             "311480" => $eNB * 16384,
             default => $eNB * 4096,
         };

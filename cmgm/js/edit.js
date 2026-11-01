@@ -42,3 +42,7 @@ if (new URLSearchParams(window.location.search).get('new') != null) {
     }
   })
 }
+
+document.querySelector('#carrier').addEventListener('change', () => {
+    sessionStorage.setItem('carrier', document.querySelector('#carrier').value);
+});

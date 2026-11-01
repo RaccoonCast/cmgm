@@ -39,6 +39,7 @@ if (is_numeric(@$_GET['plmn']) || isset($_GET['cmgm_id'])) { // Verify PLMN is n
     }
      
     if (isset($_GET['cmgm_id'])) $sql = "SELECT $database_get_list,id from db WHERE id = $value";
+
   if ($result = $conn->query($sql) or error("$conn->error",$_GET['search'])) {
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
               unset($row["edit_userid"]);

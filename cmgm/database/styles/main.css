@@ -8,7 +8,8 @@ footer {
 
 .footerlink {
  font-size: 18px!important;
- padding-left: 19px;
+ margin-left: 7px;
+ padding: 0px 6px 0px 6px;
 }
 
 /* This applies ONLY to Safari (Desktop & Mobile) */

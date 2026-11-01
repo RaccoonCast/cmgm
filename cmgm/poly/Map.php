@@ -21,7 +21,7 @@
         include "../api/poly/get_param.php";
 
         // Get date of data
-        $dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM local_poly_enbs_date"))['last_run'];
+        $dateOfData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT last_run FROM poly_enbs_date"))['last_run'];
         $dateOfData = (new DateTime($dateOfData, new DateTimeZone('UTC')))
             ->setTimezone(new DateTimeZone('America/Los_Angeles'))
             ->format('Y-m-d H:i:s');
@@ -30,7 +30,9 @@
         ?>
         <div id="map"></div>
 
+
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="js/poly-map.js"></script>
         <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
         <script>
             // Hamburger Menu toggler
@@ -48,23 +50,28 @@
             // something gemini said is needed for ios
             document.addEventListener("touchstart", function () { }, true);
             // Manage form
-            const plmn = document.getElementById('Plmn');
-            const rat = document.getElementById('Rat');
-            const requestBatchSize = document.getElementById('requestBatchSize');
-            const iconSize = document.getElementById('iconSize');
-            const labelSettings = document.getElementById('labelSettings');
-            const unload = document.getElementById('dontUnload');
-            const randomColor = document.getElementById('randomColor');
+            const plmn = document.getElementById('plmn');
+            const rat = document.getElementById('rat');
+            const request_batch_size = document.getElementById('request_batch_size');
+            const icon_size = document.getElementById('icon_size');
+            const label_settings = document.getElementById('label_settings');
+            const unload = document.getElementById('dont_unload');
+            const hide_cells = document.getElementById('hide_cells');
+            const random_color = document.getElementById('random_color');
             const oldest_date = document.getElementById('oldest_date');
             const newest_date = document.getElementById('newest_date');
-            const perfectSurroOnly = document.getElementById('perfectSurroOnly');
-            const cellsAllowList = document.getElementById('cellsAllowList');
-            const cellsBlockList = document.getElementById('cellsBlockList');
-            const enbAllowList = document.getElementById('enbAllowList');
-            const enbBlockList = document.getElementById('enbBlockList');
+            const cells_allow_list = document.getElementById('cells_allow_list');
+            const cells_block_list = document.getElementById('cells_block_list');
+            const enb_allow_list = document.getElementById('enb_allow_list');
+            const enb_block_list = document.getElementById('enb_block_list');
             const score = document.getElementById('score');
-            const cellQuantity = document.getElementById('cellQuantity');
-            const viewMode = document.getElementById('viewMode');
+            const reach = document.getElementById('reach');
+            const cells_quantity = document.getElementById('cells_quantity');
+            const view_mode = document.getElementById('view_mode');
+            const cm_includes = document.getElementById('cm_includes');
+            const cm_excludes = document.getElementById('cm_excludes');
+            const tacs_allow_list = document.getElementById('tacs_allow_list');
+            const tacs_block_list = document.getElementById('tacs_block_list');
             let currentRequestId = 0; // Track the latest request
 
             const labelMap = {
@@ -77,23 +84,24 @@
                 6: "Always"
             };
 
-            const viewModeMap = {
+            const view_modeMap = {
                 "enbs": "eNB",
-                "cells": "Cell"
+                "cells": "Cell",
+                "cm": "CM"
             };
 
             // Mapping for prefixes
             const labelPrefixes = {
-                requestBatchSize: "Batch size",
-                iconSize: "Icon size",
-                labelSettings: "Labels",
-                viewMode: `View Mode`
+                request_batch_size: "Batch size",
+                icon_size: "Icon size",
+                label_settings: "Labels",
+                view_mode: `View Mode`
             };
 
             const customPrompts = {
-                requestBatchSize: "Enter Custom Batch Size:",
-                iconSize: "Enter Custom Icon Size:",
-                Plmn: "Enter Custom PLMN:"
+                request_batch_size: "Enter Custom Batch Size:",
+                icon_size: "Enter Custom Icon Size:",
+                plmn: "Enter Custom PLMN:"
             };
 
             // Helper: Update the hidden label and FORCE selection to index 0
@@ -105,7 +113,7 @@
                 if (!labelOption) return;
 
                 // Special case: unlimited flag
-                if (el.id === 'requestBatchSize' && el.value === '0') {
+                if (el.id === 'request_batch_size' && el.value === '0') {
                     labelOption.text = 'Batch size: Unlimited';
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
@@ -113,7 +121,7 @@
                 }
 
                 // Special case: label settings mapping
-                if (el.id === 'labelSettings') {
+                if (el.id === 'label_settings') {
                     labelOption.text = `Labels: ${labelMap[el.value]}`;
                     labelOption.value = el.value;
                     el.selectedIndex = 0;
@@ -121,15 +129,46 @@
                 }
 
                 // Special case: View Mode settings
-                if (el.id === 'viewMode') {
-                    const lastSeenBox = document.getElementById('newest_date');
-                    const cellQuantityBox = document.getElementById('cellQuantity');
-                    if (el.value == 'cells') lastSeenBox.setAttribute("disabled", "true");
-                    if (el.value == 'cells') cellQuantityBox.setAttribute("disabled", "true");
-                    if (el.value == 'enbs') lastSeenBox.removeAttribute("disabled");
-                    if (el.value == 'enbs') cellQuantityBox.removeAttribute("disabled");
-                    labelOption.text = `View Mode: ${viewModeMap[el.value]}`;
-                    labelOption.value = el.value;
+                if (el.id === 'view_mode') {
+                    const mode = el.value;
+                    const managedIds = [
+                        'newest_date', 'cells_quantity',
+                        'CMGMPINNED', 'CMPINNED', 'DAS', 
+                        'PICO', 'MACRO', 'MAPPED', 'PERFECTSURRO'
+                    ];
+                
+                    managedIds.forEach(id => {
+                        const box = document.getElementById(id);
+                        if (!box) return;
+                
+                        let shouldDisable = false;
+                
+                        if (mode === 'cells') {
+                            shouldDisable = true;
+                        } else if (mode === 'enbs' || mode === 'enb') {
+                            shouldDisable = (id !== 'newest_date' && id !== 'cells_quantity');
+                        } else if (mode === 'cm') {
+                            shouldDisable = false;
+                        }
+                
+                        if (shouldDisable) {
+                            box.setAttribute("disabled", "true");
+                        } else {
+                            box.removeAttribute("disabled");
+                        }
+                    });
+                
+                    const cmFilters = document.getElementById('cm_filters');
+                    if (cmFilters) {
+                        if (mode !== 'cm') {
+                            cmFilters.style.display = 'none';
+                        } else {
+                            cmFilters.style.display = '';
+                        }
+                    }
+                
+                    labelOption.text = `View Mode: ${view_modeMap[mode]}`;
+                    labelOption.value = mode;
                     el.selectedIndex = 0;
                     return;
                 }
@@ -153,25 +192,23 @@
             };
 
             // Initialize fields from URL (Bootstrapping custom values)
-            // labels.checked = urlParams.get('labels') !== 'false';
-            // unload.checked = urlParams.has('dontUnload');
-            // forceLabelVisibility.checked = urlParams.has('forceLabelVisibility');
             const urlParams = new URLSearchParams(window.location.search);
 
             // Apply initial prefixes
-            updateSelectLabel(requestBatchSize);
-            updateSelectLabel(iconSize);
+            updateSelectLabel(request_batch_size);
+            updateSelectLabel(icon_size);
 
             // Elements that require a full map reset/clear
             const resetTriggers = [
                 plmn, rat, oldest_date, newest_date,
-                cellsAllowList, cellsBlockList, enbAllowList,
-                enbBlockList, tacsAllowList, tacsBlockList,
-                perfectSurroOnly, viewMode, randomColor, score, cellQuantity
+                cells_allow_list, cells_block_list, enb_allow_list,
+                enb_block_list, tacs_allow_list, tacs_block_list,
+                cm_includes, cm_excludes, view_mode, 
+                random_color, score, reach, cells_quantity, hide_cells
             ];
 
             // Elements that update UI or visuals without clearing data
-            const visualTriggers = [iconSize, labelSettings, unload, requestBatchSize];
+            const visualTriggers = [icon_size, label_settings, unload, request_batch_size];
 
             [...resetTriggers, ...visualTriggers].forEach(el => {
                 el.addEventListener('change', () => {
@@ -194,7 +231,7 @@
 
                     // 3. Update Marker Dimensions (IconSize)
                     // Because we separated our dictionaries, we safely only target pointMap (which holds pins)
-                    if (el === iconSize) {
+                    if (el === icon_size) {
                         const newSize = parseFloat(el.value);
                         Object.values(pointMap).forEach(marker => {
                             if (typeof marker.setRadius === 'function') {
@@ -220,27 +257,29 @@
             });
 
             const map = L.map('map', {
-                preferCanvas: true, boxZoom: true, zoomSnap: 0, zoomDelta: 0.8, worldCopyJump: true,
-                wheelPxPerZoomLevel: 120, wheelDebounceTime: 100, maxZoom: 19,
+                renderer: L.canvas(), boxZoom: true, zoomSnap: 0, zoomDelta: 0.8, worldCopyJump: true,
+                wheelPxPerZoomLevel: 120, wheelDebounceTime: 100, maxZoom: 22
             }).setView([parseFloat(urlParams.get('latitude')) || 34.1317, parseFloat(urlParams.get('longitude')) || -118.2630], parseFloat(urlParams.get('zoom')) || 14);
-            map.attributionControl.setPrefix('<?php echo "Last updated: " . $dateOfData ?> <a href="https://cmgm.us/api/poly/updatePolyEnbs.php">⟳</a>');
+            map.attributionControl.setPrefix('<?php if (!isset($_GET['mini'])) echo "Last updated: " . $dateOfData . '<a href="https://cmgm.us/api/poly/updatePolyEnbs.php">⟳</a>' ?>');
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19
+                maxZoom: 22,
+                maxNativeZoom: 19
             }).addTo(map)
 
-            // We split the markerMap into two strict dictionaries
-            let pointMap = {};   // For L.CircleMarker (pins) and L.Marker (labels)
-            let polygonMap = {}; // For L.Polygon (cell areas)
+            // We split the marker map into strict dictionaries
+            let pointMap = {};    // For L.CircleMarker (pins) and L.Marker (labels)
+            let polygonMap = {};  // For L.Polygon (cell areas)
+            let explodedMap = {}; // For exploded eNB temporary layer groups
             const mapLayerGroup = L.layerGroup().addTo(map);
 
-            function sortPointsClockwise(coordinatePairArray, pointsWithIndices) {
-                const centroid = coordinatePairArray.reduce(
-                    (acc, point) => [acc[0] + point[0], acc[1] + point[1]],
+            function sortPointsClockwise(points) {
+                const centroid = points.reduce(
+                    (acc, point) => [acc[0] + point.coords[0], acc[1] + point.coords[1]],
                     [0, 0]
-                ).map(coord => coord / coordinatePairArray.length);
-
-                return pointsWithIndices.sort((a, b) => {
+                ).map(coord => coord / points.length);
+                        
+                return points.sort((a, b) => {
                     const angleA = Math.atan2(a.coords[1] - centroid[1], a.coords[0] - centroid[0]);
                     const angleB = Math.atan2(b.coords[1] - centroid[1], b.coords[0] - centroid[0]);
                     return angleA - angleB;
@@ -368,11 +407,145 @@
                 }
             }           
 
+            // --- Explode / Un-explode Logic ---
+            async function explodeEnb(tower) {
+                const markerId = `${tower.plmn}-${tower.rat}-${tower.enb}`;
+                
+                if (explodedMap[markerId]) return;
+                explodedMap[markerId] = { loading: true };
+
+                if (pointMap[markerId] && mapLayerGroup.hasLayer(pointMap[markerId])) {
+                    mapLayerGroup.removeLayer(pointMap[markerId]);
+                }
+
+                const apiUrl = `https://cmgm.us/api/poly/getPoly.php?plmn=${tower.plmn}&rat=${tower.rat}&enb=${tower.enb}`;
+                try {
+                    const res = await fetch(apiUrl);
+                    const data = await res.json();
+
+                    if (!data || data.error || !Array.isArray(data) || data.length === 0) {
+                        if (data && data.error) alert(data.error);
+                        delete explodedMap[markerId];
+                        if (pointMap[markerId]) mapLayerGroup.addLayer(pointMap[markerId]);
+                        return;
+                    }
+
+                    const explodeGroup = L.layerGroup().addTo(mapLayerGroup);
+
+                    const points = data.map(pt => ({
+                        coords: [parseFloat(pt.latitude), parseFloat(pt.longitude)],
+                        sectorId: (pt.cells || pt.cells === 0) ? pt.cells : '?',
+                        plmn: pt.plmn,
+                        rat: pt.rat,
+                        rawTower: pt,
+                        enb: pt.enb
+                    }));
+
+                    // Helper to cleanly trigger un-explosion
+                    const handleUnexplode = (e) => {
+                        L.DomEvent.stopPropagation(e);
+                        if (e.originalEvent && e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                        unexplodeEnb(markerId);
+                    };
+
+                    // Draw Polygon if at least 2 points exist
+                    if (points.length >= 2) {
+                        const sorted = sortPointsClockwise(points);
+                        const polyColor = getColor(tower.plmn, tower.rat, random_color.checked);
+                        
+                        const poly = L.polygon(sorted.map(p => p.coords), {
+                            color: polyColor, weight: 2, fillOpacity: 0.2, interactive: true
+                        }).addTo(explodeGroup);
+
+                        // Polygon: Left Click OR Middle Click un-explodes back to eNB marker
+                        poly.on('click', handleUnexplode);
+                        poly.on('mousedown', (e) => {
+                            if (e.originalEvent.button === 1) handleUnexplode(e);
+                        });
+                    }
+
+                    // Draw individual cell labels
+                    points.forEach(pt => {
+                        const labelMarker = L.marker(pt.coords, {
+                            icon: L.divIcon({ className: 'tower-label', html: `${pt.enb}-${pt.sectorId}`, icon_size: [0, 0] }),
+                            interactive: true
+                        }).addTo(explodeGroup);
+
+                        // Handler for opening the custom context menu for this specific sector
+                        const handleSectorMenu = (e) => {
+                            L.DomEvent.stopPropagation(e);
+                            if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                            createMenu(e, { ...pt.rawTower, plmn: pt.plmn });
+                        };
+
+                        // Both Left Click and Right Click open the sector menu
+                        labelMarker.on('click', handleSectorMenu).on('contextmenu', handleSectorMenu);
+
+                        // Middle Click on a cell label un-explodes the site
+                        labelMarker.on('mousedown', (e) => {
+                            if (e.originalEvent.button === 1) handleUnexplode(e);
+                        });
+                    });
+
+                    explodedMap[markerId] = {
+                        group: explodeGroup,
+                        tower: tower
+                    };
+
+                } catch (err) {
+                    console.error("Failed to explode eNB:", err);
+                    delete explodedMap[markerId];
+                    if (pointMap[markerId]) mapLayerGroup.addLayer(pointMap[markerId]);
+                }
+            }
+
+            function unexplodeEnb(markerId) {
+                if (!explodedMap[markerId]) return;
+
+                if (explodedMap[markerId].group) {
+                    mapLayerGroup.removeLayer(explodedMap[markerId].group);
+                }
+                delete explodedMap[markerId];
+
+                // Restore standard eNB pin
+                if (pointMap[markerId]) {
+                    mapLayerGroup.addLayer(pointMap[markerId]);
+                    updateLabelsOnly();
+                } else {
+                    // If the pin was cleaned up from pointMap while exploded, refresh UI
+                    updateData(false);
+                }
+            }
+            
+            function syncTooltipClasses(marker, isTargetEnb, containerElement = null) {
+                const isCmLoc = marker.location_type >= 30 && marker.location_type < 40;
+                const isCmgmLoc = marker.location_type >= 40 && marker.location_type < 50;
+                const isCmView = view_mode.value === 'cm';
+                const isMini = urlParams.has('mini'); // urlParams is already globally scoped
+                        
+                const classRules = {
+                    'target-enb-highlight': isMini && isTargetEnb,
+                    'target-enb-green': isCmView && isCmgmLoc,
+                    'target-enb-yellow': isCmView && isCmLoc
+                };
+                        
+                // If an existing tooltip container is passed, update its DOM classes in place
+                if (containerElement) {
+                    Object.entries(classRules).forEach(([cls, apply]) => {
+                        L.DomUtil[apply ? 'addClass' : 'removeClass'](containerElement, cls);
+                    });
+                }
+                        
+                // Always return the combined class string for new tooltips
+                return ['tower-label', ...Object.keys(classRules).filter(k => classRules[k])].join(' ');
+            }
+
             function clearAllMarkers(tower = null) {
                 if (!tower) {
                     Object.values(pointMap).forEach(m => mapLayerGroup.removeLayer(m));
                     Object.values(polygonMap).forEach(m => mapLayerGroup.removeLayer(m));
-                    pointMap = {}; polygonMap = {};
+                    Object.values(explodedMap).forEach(item => { if (item.group) mapLayerGroup.removeLayer(item.group); });
+                    pointMap = {}; polygonMap = {}; explodedMap = {};
                     return;
                 }
 
@@ -387,6 +560,11 @@
                 if (polygonMap[polyId]) { mapLayerGroup.removeLayer(polygonMap[polyId]); delete polygonMap[polyId]; }
 
                 // Remove cell labels (Cell Mode)
+                if (explodedMap[markerId]) {
+                    if (explodedMap[markerId].group) mapLayerGroup.removeLayer(explodedMap[markerId].group);
+                    delete explodedMap[markerId];
+                }
+
                 Object.keys(pointMap).forEach(k => {
                     if (k.startsWith(`label-${markerId}-`)) { mapLayerGroup.removeLayer(pointMap[k]); delete pointMap[k]; }
                 });
@@ -416,48 +594,38 @@
 
                 setOrDeleteParam('plmn', plmn.value);
                 setOrDeleteParam('rat', rat.value);
-                setOrDeleteParam('limit', requestBatchSize.value);
-                setOrDeleteParam('iconSize', iconSize.value);
+                setOrDeleteParam('limit', request_batch_size.value);
+                setOrDeleteParam('icon_size', icon_size.value);
                 setOrDeleteParam('oldest_date', oldest_date.value);
                 setOrDeleteParam('newest_date', newest_date.value);
-                setOrDeleteParam('cellsAllowList', cellsAllowList.value);
-                setOrDeleteParam('cellsBlockList', cellsBlockList.value);
-                setOrDeleteParam('enbAllowList', enbAllowList.value);
-                setOrDeleteParam('enbBlockList', enbBlockList.value);
-                setOrDeleteParam('tacsAllowList', tacsAllowList.value);
-                setOrDeleteParam('tacsBlockList', tacsBlockList.value);
-                setOrDeleteParam('viewMode', viewMode.value);
-                setOrDeleteParam('labelSettings', labelSettings.value);
-                setOrDeleteParam('cellQuantity', cellQuantity.value);
+                setOrDeleteParam('cells_allow_list', cells_allow_list.value);
+                setOrDeleteParam('cells_block_list', cells_block_list.value);
+                setOrDeleteParam('enb_allow_list', enb_allow_list.value);
+                setOrDeleteParam('enb_block_list', enb_block_list.value);
+                setOrDeleteParam('tacs_allow_list', tacs_allow_list.value);
+                setOrDeleteParam('tacs_block_list', tacs_block_list.value);
+                setOrDeleteParam('view_mode', view_mode.value);
+                setOrDeleteParam('label_settings', label_settings.value);
+                setOrDeleteParam('cells_quantity', cells_quantity.value);
                 setOrDeleteParam('score', score.value);
-
-                // if (labels.checked) {
-                //     urlParams.set('labels', 'true');
-                // } else {
-                //     urlParams.set('labels', 'false');
-                // }
-
-                // if (forceLabelVisibility.checked) {
-                //     urlParams.set('forceLabelVisibility', 'true');
-                // } else {
-                //     urlParams.delete('forceLabelVisibility');
-                // }
+                setOrDeleteParam('reach', reach.value);
+                setOrDeleteParam('cm_includes', cm_includes.value);
+                setOrDeleteParam('cm_excludes', cm_excludes.value);
 
                 if (unload.checked) {
-                    urlParams.set('dontUnload', 'true');
+                    urlParams.set('dont_unload', 'true');
                 } else {
-                    urlParams.delete('dontUnload');
+                    urlParams.delete('dont_unload');
                 }
-                if (randomColor.checked) {
-                    urlParams.set('randomColor', 'true');
+                if (hide_cells.checked) {
+                    urlParams.set('hide_cells', 'true');
                 } else {
-                    urlParams.delete('randomColor');
+                    urlParams.delete('hide_cells');
                 }
-
-                if (perfectSurroOnly.checked) {
-                    urlParams.set('perfectSurroOnly', 'true');
+                if (random_color.checked) {
+                    urlParams.set('random_color', 'true');
                 } else {
-                    urlParams.delete('perfectSurroOnly');
+                    urlParams.delete('random_color');
                 }
 
                 window.history.replaceState(
@@ -467,25 +635,46 @@
                 );
             }
 
+            function getTargetEnbs() {
+                const miniParam = urlParams.get('mini');
+                if (!miniParam || miniParam === "") return [];
+
+                return miniParam.split(',').map(id => {
+                    const prefix = id.charAt(0).toUpperCase();
+                    const enbId = id.slice(1);
+
+                    if (prefix === 'L') return { rat: 'LTE', enb: enbId };
+                    if (prefix === 'N') return { rat: 'NR', enb: enbId };
+
+                    // Fallback just in case a raw number is passed without L/N
+                    return { rat: null, enb: id }; 
+                });
+            }
+
             function updateLabelsOnly() {
                 const center = map.getCenter();
                 const bounds = map.getBounds();
                 const currentZoom = map.getZoom();
-                const labelLevel = parseInt(labelSettings.value);
+                const labelLevel = parseInt(label_settings.value);
 
-                // 1. Separate markers into on-screen and off-screen
+                // Grab target eNB(s) (if present)
+                const targetEnbs = getTargetEnbs();
+                const hasTargets = targetEnbs.length > 0;
+
+                // Separate markers into on-screen and off-screen
                 let visibleOnScreen = [];
                 let offScreen = [];
 
-                Object.values(pointMap).forEach(m => {
-                    if (m.getLatLng && bounds.contains(m.getLatLng())) {
-                        visibleOnScreen.push(m);
-                    } else {
-                        offScreen.push(m);
-                    }
-                });
 
-                // 2. Unbind/Hide all off-screen markers immediately (Zero DOM impact)
+                Object.entries(pointMap).forEach(([key, m]) => {
+                        if (m.getLatLng && bounds.contains(m.getLatLng())) {
+                            visibleOnScreen.push(m);
+                        } else {
+                            offScreen.push(m);
+                        }
+                    });
+
+                // Unbind/Hide all off-screen markers immediately (Zero DOM impact)
                 offScreen.forEach(m => {
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
                         if (mapLayerGroup.hasLayer(m)) mapLayerGroup.removeLayer(m);
@@ -494,7 +683,7 @@
                     }
                 });
 
-                // 3. Pre-calculate distance ONLY for pins currently on the screen
+                // Pre-calculate distance ONLY for pins currently on the screen
                 const centerLat = center.lat;
                 const centerLng = center.lng;
 
@@ -511,39 +700,55 @@
 
                 // 4. Apply visibility logic to on-screen markers
                 sortedVisibleMarkers.forEach((m, index) => {
-                    const shouldBeVisible = ((currentZoom > 17   && index < 150 && labelLevel >= 1) ||
-                                             (currentZoom > 14   && index < 225 && labelLevel >= 2) ||
-                                             (currentZoom > 12   && index < 300 && labelLevel >= 3) ||
-                                             (currentZoom > 10.5 && index < 375 && labelLevel >= 4) ||
-                                             (currentZoom > 8    && index < 500 && labelLevel >= 5) ||
-                                                                                    labelLevel == 6);
-
+                    const isTargetEnb = hasTargets && targetEnbs.some(t => {
+                        if (!m._key) return false;
+                                
+                        if (t.rat) {
+                            return m._key.endsWith(`-${t.rat}-${t.enb}`);
+                        } else {
+                            return m._key.endsWith(`-${t.enb}`); // Fallback if no L/N prefix was used
+                        }
+                    });
+                            
+                    const shouldBeVisible = isTargetEnb || ((currentZoom >= 17   && index < 150 && labelLevel >= 1) ||
+                                                            (currentZoom >= 14   && index < 225 && labelLevel >= 2) ||
+                                                            (currentZoom >= 12   && index < 300 && labelLevel >= 3) ||
+                                                            (currentZoom >= 11   && index < 375 && labelLevel >= 4) ||
+                                                            (currentZoom >= 8    && index < 500 && labelLevel >= 5) ||
+                                                                                                   labelLevel == 6);
+                            
                     if (m instanceof L.Marker && m.options.icon instanceof L.DivIcon) {
-                        // For Cell Mode labels: completely remove from map instead of visibility: hidden
                         if (shouldBeVisible && !mapLayerGroup.hasLayer(m)) {
                             mapLayerGroup.addLayer(m);
                         } else if (!shouldBeVisible && mapLayerGroup.hasLayer(m)) {
                             mapLayerGroup.removeLayer(m);
                         }
+                            
+                        if (hasTargets && mapLayerGroup.hasLayer(m) && m._icon) {
+                            if (isTargetEnb) {
+                                L.DomUtil.addClass(m._icon, 'target-enb-highlight');
+                            } else {
+                                L.DomUtil.removeClass(m._icon, 'target-enb-highlight');
+                            }
+                        }
                     } else {
                         const hasTooltip = !!m.getTooltip();
                         
+                        // Pass the container directly to the helper to update it in place, 
+                        // while capturing the string for new tooltips
+                        const dynamicClassString = syncTooltipClasses(m, isTargetEnb, m.getTooltip()?._container);
+                            
                         if (shouldBeVisible) {
                             if (!hasTooltip) {
-                                // Bind normally because zoom/settings dictate it should be visible
                                 m.bindTooltip(m.customLabelHtml, {
-                                    permanent: true, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
+                                    permanent: true, direction: 'bottom', className: dynamicClassString, offset: [0, 12], interactive: true
                                 });
                                 m._hoverAddedTooltip = false;
                             } else if (m._hoverAddedTooltip) {
-                                // It's currently hovered, but zoom/settings say it should be permanent now.
-                                // "Promote" it by clearing the hover flag so mouseout ignores it.
                                 m._hoverAddedTooltip = false;
                             }
                         } else {
-                            // Zoom/settings dictate it shouldn't be visible
                             if (hasTooltip && !m._hoverAddedTooltip) {
-                                // Unbind ONLY if it wasn't triggered by an active hover
                                 m.unbindTooltip();
                             }
                         }
@@ -552,7 +757,31 @@
             }
             
             async function fetchData(bounds, requestId) {
-                let apiUrl = `/api/poly/getPolyEnbs.php?boundsNELatitude=${bounds.neLat}&boundsNELongitude=${bounds.neLng}&boundsSWLatitude=${bounds.swLat}&boundsSWLongitude=${bounds.swLng}&limit=${requestBatchSize.value}&plmn=${plmn.value}&rat=${rat.value}&viewMode=${viewMode.value}&oldest_date=${oldest_date.value}&newest_date=${newest_date.value}&cellsAllowList=${cellsAllowList.value}&cellsBlockList=${cellsBlockList.value}&enbAllowList=${enbAllowList.value}&enbBlockList=${enbBlockList.value}&tacsAllowList=${tacsAllowList.value}&tacsBlockList=${tacsBlockList.value}&cellQuantity=${cellQuantity.value}&score=${score.value}&locationType=2&perfectSurroOnly=${perfectSurroOnly.checked ? 'true' : ''}`;
+                let apiUrl = `https://cmgm.us/api/poly/getPolyEnbs.php?` +
+                    `boundsNELatitude=${bounds.neLat}` +
+                    `&boundsNELongitude=${bounds.neLng}` +
+                    `&boundsSWLatitude=${bounds.swLat}` +
+                    `&boundsSWLongitude=${bounds.swLng}` +
+                    `&limit=${request_batch_size.value}` +
+                    `&plmn=${plmn.value}` +
+                    `&rat=${rat.value}` +
+                    `&view_mode=${view_mode.value}` +
+                    `&oldest_date=${oldest_date.value}` +
+                    `&newest_date=${newest_date.value}` +
+                    `&cells_allow_list=${cells_allow_list.value}` +
+                    `&cells_block_list=${cells_block_list.value}` +
+                    `&enb_allow_list=${enb_allow_list.value}` +
+                    `&enb_block_list=${enb_block_list.value}` +
+                    `&tacs_allow_list=${tacs_allow_list.value}` +
+                    `&tacs_block_list=${tacs_block_list.value}` +
+                    `&cells_quantity=${cells_quantity.value}` +
+                    `&score=${score.value}` +
+                    `&reach=${reach.value}` +
+                    // `&locationTypeFilter=${locationTypeFilter.value}` +
+                    `&cm_includes=${cm_includes.value}` +
+                    `&cm_excludes=${cm_excludes.value}`;
+                
+                if (urlParams.has('mini') && !hasAutoPannedForMini) apiUrl += '&mini';
                 try {
                     const res = await fetch(apiUrl);
                     const data = await res.json();
@@ -574,43 +803,128 @@
                 }
             }
 
+            // Centralized PLMN Color Mapping
+            const getColor = (plmn, rat = 'LTE', random_color = false) => {
+                const getRandomHexColor = () => {
+                    return '#' + Math.floor(Math.random() * 16777215)
+                        .toString(16)
+                        .padStart(6, '0');
+                };
+
+                if (random_color) {
+                    return getRandomHexColor();
+                }
+
+                const colors = {
+                    '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
+                    '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                    '312680': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                    '313100': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                    '313790': rat === 'LTE' ? '#0059b2' : '#4da2ff',
+                    '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a',
+                    '311370': '#C16C79',
+                    '310120': '#FFEF87',
+                    '311580': '#E8B937',
+                    '311588': '#E8B937',
+                    '311589': '#E8B937'
+                };
+
+                return colors[plmn] || '#666';
+            };
+            // Flag to ensure we only auto-pan once on initial load
+            let hasAutoPannedForMini = false;
+
+            function panToNearestEnb(data) {
+                const baseLat = parseFloat(urlParams.get('latitude'));
+                const baseLng = parseFloat(urlParams.get('longitude'));
+
+                // Guard: Only run if we have valid coordinates and haven't panned yet
+                if (isNaN(baseLat) || isNaN(baseLng) || !Array.isArray(data) || data.length === 0) {
+                    return;
+                }
+
+                let targetTowers = [];
+                const targetEnbs = getTargetEnbs();
+
+                // 1. Find all specific eNBs passed in &mini
+                if (targetEnbs.length > 0) {
+                    targetTowers = data.filter(t => 
+                        targetEnbs.some(target => 
+                            String(t.enb) === String(target.enb) && 
+                            (!target.rat || t.rat === target.rat)
+                        )
+                    ).map(t => ({ lat: parseFloat(t.latitude), lng: parseFloat(t.longitude) }));
+                }
+
+                // 2. Fallback: If no exact match, find the closest distance
+                if (targetTowers.length === 0) {
+                    let minDistanceSq = Infinity;
+                    let closestTower = null;
+
+                    data.forEach(tower => {
+                        const lat = parseFloat(tower.latitude);
+                        const lng = parseFloat(tower.longitude);
+                        const distSq = Math.pow(lat - baseLat, 2) + Math.pow(lng - baseLng, 2);
+
+                        if (distSq < minDistanceSq) {
+                            minDistanceSq = distSq;
+                            closestTower = { lat, lng };
+                        }
+                    });
+
+                    if (closestTower) targetTowers.push(closestTower);
+                }
+
+                if (targetTowers.length > 0) {
+                    hasAutoPannedForMini = true;
+
+                    // Get origin marker coordinates from sessionStorage (fallback to URL params)
+                    let markerLat = baseLat;
+                    let markerLng = baseLng;
+
+                    const returnUrlString = sessionStorage.getItem('polyMapReturnUrl');
+                    if (returnUrlString) {
+                        try {
+                            const returnUrl = new URL(returnUrlString);
+                            const parsedLat = parseFloat(returnUrl.searchParams.get('marker_latitude'));
+                            const parsedLng = parseFloat(returnUrl.searchParams.get('marker_longitude'));
+
+                            if (!isNaN(parsedLat) && !isNaN(parsedLng)) {
+                                markerLat = parsedLat;
+                                markerLng = parsedLng;
+                            }
+                            L.marker([markerLat, markerLng]).addTo(map);
+                        } catch (err) {
+                            console.error("Could not parse polyMapReturnUrl:", err);
+                        }
+                    }
+
+                    // Create bounding box containing the origin marker AND ALL target towers
+                    const bounds = L.latLngBounds([[markerLat, markerLng]]);
+                    targetTowers.forEach(t => bounds.extend([t.lat, t.lng]));
+
+                    // Force Leaflet to recognize true iframe pixel dimensions before bounding
+                    map.invalidateSize();
+
+                    // Adjust camera to frame everything inside the viewport
+                    map.fitBounds(bounds, {
+                        padding: [150, 150], 
+                        maxZoom: 17
+                    });
+                }
+            }
+
             async function updateData(shouldFetch = true) {
                 updateUrl();
                 const bounds = map.getBounds();
                 const requestId = ++currentRequestId;
-                const isCellView = viewMode.value === 'cells';
-                let visibleEnbIds = new Set(); 
+                const isCellView = view_mode.value === 'cells';
 
-                
                 if (isCellView) {
                     map.removeControl(map.attributionControl);
                 } else {
                     map.addControl(map.attributionControl);
                 }
-                // Centralized PLMN Color Mapping
-                const getColor = (plmn, rat = 'LTE', randomColor = false) => {
-                    const getRandomHexColor = () => {
-                        return '#' + Math.floor(Math.random() * 16777215)
-                            .toString(16)
-                            .padStart(6, '0');
-                    };
-
-                    if (randomColor) {
-                        return getRandomHexColor();
-                    }
-
-                    const colors = {
-                        '310260': rat === 'LTE' ? '#b200ae' : '#ff4dff',
-                        '310410': rat === 'LTE' ? '#0059b2' : '#4da2ff',
-                        '313100': rat === 'LTE' ? '#0059b2' : '#4da2ff',
-                        '311480': rat === 'LTE' ? '#b20000' : '#ff4a4a',
-                        '311370': '#C16C79',
-                        '310120': '#FFEF87',
-                        '311580': '#E8B937'
-                    };
-
-                    return colors[plmn] || '#666';
-                };
 
                 if (shouldFetch) {
                     try {
@@ -627,86 +941,110 @@
 
                         const enbGroups = {};
 
-                        console.log("Recv'd data:", data);
+                        // console.log("Recv'd data:", data);
+                        const excludedplmns = ['310260', '310410', '311480', '310120', '311580', plmn.value];
+                        const plmnNames = (plmn.value.trim() === '' || plmn.value.includes(',')) ? { '313100': 'FirstNet', '312680': 'AT&T FWA', '313790': 'Liberty' } : {};
 
                         data.forEach(tower => {
+                            const enbId = tower.enb;
+                            const markerId = `${tower.plmn}-${tower.rat}-${enbId}`;
 
-                                const enbId = tower.enb;
-                                const markerId = `${tower.plmn}-${tower.rat}-${enbId}`;
-                                
-                                visibleEnbIds.add(markerId);
+                            if (isCellView) {
+                                if (!enbGroups[markerId]) enbGroups[markerId] = [];
+                                enbGroups[markerId].push({
+                                    coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
+                                    sectorId: (tower.cells || tower.cells === 0) ? tower.cells : '?',
+                                    plmn: tower.plmn,
+                                    rat: tower.rat,
+                                    rawTower: tower,
+                                    enb: enbId 
+                                });
+                            } else if (!pointMap[markerId]) {
+                                const marker = L.circleMarker([tower.latitude, tower.longitude], {
+                                    radius: parseFloat(icon_size.value),
+                                    fillColor: getColor(tower.plmn, tower.rat, random_color.checked),
+                                    color: "#000", weight: 1.5, fillOpacity: 1,
+                                    pane: 'markerPane'
+                                });
 
-                                if (isCellView) {
-                                    if (!enbGroups[markerId]) enbGroups[markerId] = [];
-                                    enbGroups[markerId].push({
-                                        coords: [parseFloat(tower.latitude), parseFloat(tower.longitude)],
-                                        sectorId: (tower.cells || tower.cells === 0) ? tower.cells : '?',
-                                        plmn: tower.plmn,
-                                        rat: tower.rat,
-                                        rawTower: tower,
-                                        enb: enbId,// Added raw enbId back into the object just in case your polygon drawer needs it
-                                        cell_id: tower.cell_id
-                                    });
-                                } else if (!pointMap[markerId]) {
-                                    // Draw individual eNB pins into pointMap
-                                    const marker = L.circleMarker([tower.latitude, tower.longitude], {
-                                        radius: parseFloat(iconSize.value),
-                                        fillColor: getColor(tower.plmn, tower.rat, randomColor.checked),
-                                        color: "#000", weight: 1.5, fillOpacity: 1
-                                    }).addTo(mapLayerGroup); 
-                                    
-                                    const excludedPlmns = ['310260', '310410', '311480', '310120', '311580'];
-                                    
-                                    const label = `${ excludedPlmns.includes(String(tower.plmn)) ? '' : `${tower.plmn}<br>` }${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${ tower.is_exact_location === 1 ? '★' : '' }`;
+                                marker.location_type = tower.location_type;
+                                marker._key = markerId;
 
-                                    // Store the HTML string in a custom property on the marker, DO NOT bind it yet.
-                                    marker.customLabelHtml = `${label}${(tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}`;
-
-                                    const handleTrigger = (e) => {
-                                        L.DomEvent.stopPropagation(e);
-                                        if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
-                                        createMenu(e, { ...tower, plmn: tower.plmn });
-                                    };
-
-                                    // Initialize the custom hover state flag
-                                    marker._hoverAddedTooltip = false; 
-
-                                    marker.on('mouseover', function(e) {
-                                        // Only bind if a tooltip doesn't already exist (from zoom settings)
-                                        if (!this.getTooltip()) {
-                                            this.bindTooltip(this.customLabelHtml, {
-                                                permanent: true, direction: 'bottom', className: 'tower-label', offset: [0, 12], interactive: true
-                                            }).openTooltip();
-                                            this._hoverAddedTooltip = true; // Mark that WE added this via hover
-                                        }
-                                    });
-
-                                    marker.on('mouseout', function(e) {
-                                        // Only unbind if it was added by our hover event
-                                        if (this._hoverAddedTooltip) {
-                                            this.unbindTooltip();
-                                            this._hoverAddedTooltip = false;
-                                        }
-                                    });
-
-                                    marker.on('click', handleTrigger).on('contextmenu', handleTrigger);
-                                    pointMap[markerId] = marker;
+                                // Only add pin to map if it is NOT currently exploded
+                                if (!explodedMap[markerId]) {
+                                    marker.addTo(mapLayerGroup);
                                 }
+                                
+                                const label = `${excludedplmns.includes(String(tower.plmn)) ? '' : `${plmnNames[tower.plmn] ?? tower.plmn}<br>`}${tower.rat === 'NR' ? 'gNB' : 'eNB'} ${tower.enb}${tower.location_type % 10 === 1 ? '★' : ''}`;
+                                
+                                marker.customLabelHtml = tower.cm_status === 'unmapped'
+                                ? `<span class="extra-italic">${label}${!hide_cells.checked && (tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}</span>`
+                                : `${label}${!hide_cells.checked && (tower.cells || tower.cells === 0) ? '<br>Cells: ' + tower.cells : ''}`;
+                                
+                                const handleContextMenu = (e) => {
+                                    L.DomEvent.stopPropagation(e);
+                                    if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                                    createMenu(e, { ...tower, plmn: tower.plmn });
+                                };
+
+                                // Remove handleLeftClick and bind both click types to handleContextMenu
+                                marker._hoverAddedTooltip = false; 
+
+                                marker.on('mouseover touchstart', function(e) {
+                                    map.doubleClickZoom.disable();
+                                            
+                                    if (!this.getTooltip()) {
+                                        const targetEnbs = getTargetEnbs();
+                                        const isTargetEnb = targetEnbs.length > 0 && targetEnbs.some(t => {
+                                            if (!this._key) return false;
+                                            return t.rat ? this._key.endsWith(`-${t.rat}-${t.enb}`) : this._key.endsWith(`-${t.enb}`);
+                                        });
+                                            
+                                        // Fetch the unified class string
+                                        const dynamicClass = syncTooltipClasses(this, isTargetEnb);
+                                            
+                                        this.bindTooltip(this.customLabelHtml, { permanent: true, direction: 'bottom',  className: dynamicClass,  offset: [0, 12],  interactive: true }).openTooltip();
+                                            
+                                        this._hoverAddedTooltip = true; 
+                                    }
+                                });
+
+                                marker.on('mouseout touchend', function(e) {
+                                    map.doubleClickZoom.enable();
+
+                                    if (this._hoverAddedTooltip) {
+                                        this.unbindTooltip();
+                                        this._hoverAddedTooltip = false;
+                                    }
+                                });
+
+                                // 1. Both Left Click and Right Click open the context menu
+                                marker.on('click', handleContextMenu).on('contextmenu', handleContextMenu);
+
+                                // 2. Middle Click (button === 1) triggers the explosion
+                                marker.on('mousedown', function(e) {
+                                    if (e.originalEvent.button === 1) {
+                                        L.DomEvent.stopPropagation(e); 
+                                        if (e.originalEvent.preventDefault) e.originalEvent.preventDefault();
+                                        explodeEnb(tower);
+                                    }
+                                });
+
+                                pointMap[markerId] = marker;
+                            }
                         });
 
                         // Handle Polygon rendering if in Cell Mode
                         if (isCellView) {
-                            // CHANGED: enb is now markerId because of our earlier fix
                             for (const [markerId, points] of Object.entries(enbGroups)) {
-                                const rawEnb = points[0].enb; // Grab raw ENB for visual labels & copying
-                                const rawCell = points
+                                const rawEnb = points[0].enb; 
                                 const polyId = `poly-${markerId}`;
                                 
                                 // Draw Polygon into polygonMap
                                 if (!polygonMap[polyId]) {
-                                    const polyColor = getColor(points[0].plmn, points[0].rat, randomColor.checked);
-                                    if (points.length >= 3) {
-                                        const sorted = sortPointsClockwise(points.map(p => p.coords), points.map(p => ({ coords: p.coords, info: p })));
+                                    const polyColor = getColor(points[0].plmn, points[0].rat, random_color.checked);
+                                    if (points.length >= 2) {
+                                        const sorted = sortPointsClockwise(points);
                                         polygonMap[polyId] = L.polygon(sorted.map(p => p.coords), {
                                             color: polyColor, weight: 2, fillOpacity: 0.2, interactive: false
                                         }).addTo(mapLayerGroup); 
@@ -718,11 +1056,14 @@
 
                                     if (pointMap[labelId]) return;
 
+
                                     // Draw label DivIcon into pointMap
                                     const labelMarker = L.marker(pt.coords, {
-                                        icon: L.divIcon({ className: 'tower-label', html: `${pt.cell_id}`, iconSize: [0, 0] }),
+                                        icon: L.divIcon({ className: 'tower-label', html: `${rawEnb}-${pt.sectorId}`, icon_size: [0, 0] }),
                                         interactive: true
                                     }).addTo(mapLayerGroup); 
+
+                                    labelMarker._key = labelId; // Pre-assign key to avoid mutations on map pan
                                     
                                     // Add context-menu to it.
                                     const handleTrigger = (e) => {
@@ -739,6 +1080,8 @@
                                 });
                             }
                         }
+
+                        if (urlParams.has('mini') && !hasAutoPannedForMini) panToNearestEnb(data);
                     } catch (err) { console.error("Fetch error:", err); }
                 }
 
@@ -749,24 +1092,13 @@
                     for (let key in pointMap) {
                         const layer = pointMap[key];
 
-                        if (isCellView) {
-                            // In Cell mode, pointMap only contains DivIcon labels
-                            if (key.startsWith('label-')) {
-                                // Extract markerId. Format is label-{markerId}-{sectorId}
-                                const lastDash = key.lastIndexOf('-');
-                                const extractedMarkerId = key.substring(6, lastDash);
-                                
-                                if (!visibleEnbIds.has(extractedMarkerId)) {
-                                    mapLayerGroup.removeLayer(layer);
-                                    delete pointMap[key];
-                                }
-                            }
-                        } else {
-                            // In Standard Mode, pointMap only contains CircleMarkers
-                            if (!bounds.contains(layer.getLatLng())) {
-                                mapLayerGroup.removeLayer(layer);
-                                delete pointMap[key];
-                            }
+                        // Don't delete markers belonging to actively exploded sites
+                        if (explodedMap[key]) continue;
+
+                        // Only remove from memory if the coordinate is physically outside the visible map bounds
+                        if (!bounds.contains(layer.getLatLng())) {
+                            mapLayerGroup.removeLayer(layer);
+                            delete pointMap[key];
                         }
                     }
 
@@ -811,56 +1143,92 @@
                 const oldMenu = document.getElementById('active-menu'); if (oldMenu) oldMenu.remove();
                 const menu = document.createElement('div'); menu.id = 'active-menu'; menu.className = 'custom-menu';
                 menu.style.left = e.originalEvent.pageX + 'px'; menu.style.top = e.originalEvent.pageY + 'px';
-
+                
                 const prefix = tower.rat === 'NR' ? 'gNB' : 'eNB';
                 const items = [{ label: `Copy ${prefix} (${tower.enb})`, action: () => silentCopy(tower.enb) }];
-                const cell_list_commas = String(tower.cells).replace(/ /g, ",");
+                const cell_list_commas = tower.cells ? String(tower.cells).replace(/ /g, ",") : '';
+                
+                const towerPlmnStr = String(tower.plmn);
+                const mcc = towerPlmnStr.slice(0, 3);
+                const mnc = towerPlmnStr.slice(3);
 
 
                 if (tower.tac) {
                     items.push({ label: `Copy TAC (${tower.tac})`, action: () => silentCopy(tower.tac) });
                 }
-                items.push({ label: `Copy location`, action: () => silentCopy(tower.latitude + ',' + tower.longitude) });
+                if (!urlParams.has('mini')) items.push({ label: `Copy location`, action: () => silentCopy(tower.latitude + ',' + tower.longitude) });
 
                 items.push(
                     { isDivider: true },
-                    { label: 'View in Poly', action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellList_1=${cell_list_commas}&cellListDepri_1=-`, '_blank') },
                     {
-                        label: 'View in CellMapper', action: () => {
-                            let mnc = tower.plmn.toString().slice(3);
-                            let mcc = tower.plmn.toString().slice(0, 3);
-                            window.open(`https://www.cellmapper.net/map?MCC=${mcc}&MNC=${mnc}&type=${tower.rat}&latitude=${tower.latitude}&longitude=${tower.longitude}&zoom=15&ppT=${tower.enb}&ppL=${tower.tac}`, '_blank');
-                        }
+                        label: 'View in Poly',
+                        action: () => window.open(`https://cmgm.us/poly/?plmn_1=${tower.plmn}&rat_1=${tower.rat}&eNB_1=${tower.enb}&tac_1=${tower.tac}&cellList_1=${cell_list_commas}&cellListDepri_1=-`, '_blank')
                     }
                 );
 
-
-                // determine carrier
-                const carrierMap = {
-                    310260: "T-Mobile",
-                    310410: "ATT",
-                    311480: "Verizon",
-                    310120: "Sprint"
-                };
-
-                let cmgm_carrier = carrierMap[tower.plmn];
-
-                if (cmgm_carrier) {
+                if (!urlParams.has('mini')) {
                     items.push({
-                        label: 'View in CMGM',
+                        label: 'View in CellMapper',
                         action: () => {
-                            let mnc = tower.plmn.toString().slice(3);
-                            let mcc = tower.plmn.toString().slice(0, 3);
-                            window.open(`https://cmgm.us/database/Edit.php?q=${tower.enb}&carrier=${cmgm_carrier}`, '_blank');
+                            window.open(`https://www.cellmapper.net/map?MCC=${mcc}&MNC=${mnc}&type=${tower.rat}&latitude=${tower.latitude}&longitude=${tower.longitude}&zoom=15&ppT=${tower.enb}&ppL=${tower.tac}`, '_blank');
                         }
                     });
-                }
 
-                // Delete data option.
-                items.push(
-                    { isDivider: true },
-                    { label: `Delete`, action: () => openPurgeModal(tower) }
-                );
+
+                    // determine carrier
+                    const carrierMap = {
+                        310260: "T-Mobile",
+                        310410: "ATT",
+                        313100: "ATT",
+                        311480: "Verizon",
+                        310120: "Sprint"
+                    };
+
+                    let cmgm_carrier = carrierMap[tower.plmn];
+
+                    if (cmgm_carrier) {
+                        items.push({
+                            label: 'View in CMGM',
+                            action: () => {
+                                window.open(`https://cmgm.us/database/Edit.php?q=${tower.enb}&carrier=${cmgm_carrier}`, '_blank');
+                            }
+                        });
+
+                        if (tower.location_type !== 4 || (tower.cells || tower.cells === 0)) {
+                            items.push({ isDivider: true });
+                        }
+
+                        if (tower.location_type !== 4) {
+                            items.push(
+                                {
+                                    label: 'Pin',
+                                    action: () => {
+                                        let location = prompt('Enter location (latitude,longitude):', '');
+
+                                        if (!location) return;
+
+                                        let coords = location.split(',').map(c => c.trim());
+
+                                        if (coords.length !== 2 || isNaN(coords[0]) || isNaN(coords[1])) {
+                                        alert('Invalid location format. Use: latitude,longitude');
+                                        return;
+                                        }
+
+                                        let latitude = coords[0];
+                                        let longitude = coords[1];
+
+                                        window.open(`https://cmgm.us/database/Edit.php?new&pullLocation&latitude=${latitude}&longitude=${longitude}&${tower.rat}_1=${tower.enb}&region_${tower.rat.toLowerCase()}=${tower.tac}&carrier=${cmgm_carrier}`, '_blank');
+                                    }
+                            }
+                        );
+                        }
+                    }
+                    if ((tower.cells || tower.cells === 0)) {
+                        items.push(
+                            { label: `Delete`, action: () => openPurgeModal(tower) }
+                        );
+                    }
+                }
 
                 items.forEach(opt => {
                     if (opt.isDivider) {
@@ -925,13 +1293,11 @@
                 }, 50);
 
                 // Call update tower.
-                triggerForceUpdate(tower)
+                triggerForceUpdate(tower);
             }
 
             // Add zoomend to your listeners
             map.on('moveend', slowUpdate);
-            // map.on('zoomend', slowUpdate); This ensures labels re-evaluate on zoom, temporarily disabling.
-
             updateData();
 
 
@@ -941,12 +1307,7 @@
 
                 const pasted = (e.clipboardData || window.clipboardData).getData('text');
                 const coords = parseLatLng(pasted);
-                let jumpZoom;
-                if (map.getZoom() < 13) {
-                    jumpZoom = 17;
-                } else {
-                    jumpZoom = map.getZoom();
-                }
+                const jumpZoom = map.getZoom() < 13 ? 17 : map.getZoom();
                 if (coords) {
                     map.setView(coords, jumpZoom);
                 }
@@ -982,6 +1343,32 @@
                     window.open(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${e.latlng.lat},${e.latlng.lng}`, '_blank');
                 }
             });
+
+            // Button to return to regular Map.php on edit iframe.
+            const polyMapReturnButton = L.Control.extend({
+              onAdd: function(map) {
+                const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-added-button');
+                container.id = 'polyMapReturnButton';
+                container.innerHTML = '<a href="#"><span style="font-size:22px;">⯁</span></a>';
+
+                // Prevent map clicks/drags from triggering when interacting with the container
+                L.DomEvent.disableClickPropagation(container);
+
+                // 2. Bind the click event directly inside onAdd using Leaflet's event system
+                const link = container.querySelector('a');
+                L.DomEvent.on(link, 'click', L.DomEvent.stop) // Prevents the default '#' page jump
+                          .on(link, 'click', () => {
+                              window.location.href = sessionStorage.getItem('polyMapReturnUrl');
+                          });
+
+                return container;
+              }
+            });
+
+            // Check for the 'mini' URL parameter
+            if (new URLSearchParams(window.location.search).has('mini')) {
+              map.addControl(new polyMapReturnButton({ position: 'topleft' }));
+            }
         </script>
     </body>
 

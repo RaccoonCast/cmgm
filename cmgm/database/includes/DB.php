@@ -3,12 +3,12 @@ include "../includes/functions/tower_types.php";
 if (!isset($_GET['limit'])) $limit = 75;
 $latitude_for_search = !empty($latitude) ? $latitude : $default_latitude;
 $longitude_for_search = !empty($longitude) ? $longitude : $default_longitude;
-$sql = "SELECT DISTINCT id,LTE_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type,region_lte, (3959 * ACOS(COS(RADIANS(".@$latitude_for_search.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude_for_search.")) + SIN(RADIANS(".@$latitude_for_search.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
+$sql = "SELECT DISTINCT id,LTE_1,NR_1,carrier,latitude,longitude,address,city,state,zip,notes,evidence_a,cellsite_type,old_cellsite_type,region_lte,region_nr, (3959 * ACOS(COS(RADIANS(".@$latitude_for_search.")) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(".@$longitude_for_search.")) + SIN(RADIANS(".@$latitude_for_search.")) * SIN(RADIANS(latitude)))) AS DISTANCE FROM db WHERE 1=1 ".@$db_vars." ".@$locsearch." ORDER BY distance LIMIT $limit";
 
 $result = mysqli_query($conn,$sql);
 $numRows = mysqli_num_rows($result);
 if ($numRows == 0) {
-  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a>.</h4>';
+  echo '<h4 style="padding-left: 1.2em">No results found, <a href="javascript:history.back()">go back</a> or <a href="https://cmgm.us/database/Edit.php?new&pullLocation&latitude='.$latitude.'&longitude='.$longitude.'">create new</a>.</h4>';
   die();
 }
 
@@ -54,13 +54,24 @@ if (mysqli_num_rows($result) > 1) { while($row = $result->fetch_assoc()) {
         }
         include_once $SITE_ROOT . "/includes/link-conversion-and-handling/function_goto.php";
         include_once $SITE_ROOT . "/includes/misc-functions/cm_linkgen.php";
+
+        $enb_id = (!empty($LTE_1)) ? $LTE_1 : $NR_1; 
+        
+        if (!empty($region_lte)) {
+            $tac_id = $region_lte;
+            $tac = 'LTE';
+        } else {
+            $tac_id = $region_nr;
+            $tac = 'NR';
+        }
+
         $user_data = ['latitude' => $latitude, 'longitude' => $longitude];                                                                
         $gmlink = function_goto($user_data, "Google Maps");
-        $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte);
+        $cmlink = cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,$tac,$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$enb_id,$tac_id);
 
           ?> <td><input type="button" class="w-100 btn-edit" onclick="redir('Edit.php?id=<?php echo $id;?>','0')"value="Edit"></input></td> <?php
         $carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
-        echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$LTE_1.'</a></td>';
+        echo '<td class="lte" id="'.$id.'"><a href="'.$cmlink.'">'.$enb_id.'</a></td>';
         echo '<td class="carrier">'.$carrier_label.'</td>';
         echo '<td class="address"><div class="addr-box"><a href="'.$gmlink.'">'.$address.' <br>'.$city.', '.$state.' '.$zip.'</a></td></div>';
         echo '<td title="'.$cellsite_type.'" "class="cellsite_type">' . $cellsite_type_normalized . '</td>';

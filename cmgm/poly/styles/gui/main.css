@@ -21,7 +21,7 @@ body {
 .form select[name="rat"] {
     width: 4%;
 }
-.form select[name="viewMode"] {
+.form select[name="view_mode"] {
     width: 7%;
 }
 .form input[name$="date"] {
@@ -42,7 +42,7 @@ body {
 .form input[name="score"] {
     width: 3.5%;
 }
-.form input[name="cellQuantity"] {
+.form input[name="cells_quantity"] {
     width: 5.25%;
 }
 .form input[name="radius"] {

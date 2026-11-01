@@ -22,7 +22,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     else if (in_array($key, $fieldsToReplace) && substr($value, 0, 1) === '@' && is_numeric(substr($value, 1, 2))) {
       $value = file_get_contents('https://canon.cmgm.us/getPath.php?q='.substr($value, 1).'&doNotRedir');
     } 
-    else if (in_array($key, $fieldsToReplace) && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
+    else if (in_array($key, $fieldsToReplace) && strpos($value, '&antennasearch') === false && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
       // Replace raw text, or AntennaSearch "nonregTower" link
       $value = "https://cmgm.us/faa?asn={$faa_match[0]}";
     }
@@ -35,27 +35,64 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
 
     include "latitude_longitude.php";
     
-    if (($key == "region_lte" OR $key == "region_nr") && $value == 69420) {
+    if (($key == "region_lte" OR $key == "region_nr") && empty($value)) {
         if ($_POST['carrier'] == "T-Mobile") $plmn = 310260;
         if ($_POST['carrier'] == "ATT") $plmn = 310410;
         if ($_POST['carrier'] == "Verizon") $plmn = 311480;
         if ($_POST['carrier'] == "Sprint") $plmn = 310120;
         if ($_POST['carrier'] == "Dish") $plmn = 313340;
         if ($key == "region_lte") {
-          $rat = "LTE";
-          $enb = $_POST['LTE_1'];
+            $rat = "LTE";
+            for ($i = 1; $i <= 9; $i++) {
+                if (!empty($_POST["LTE_$i"] && is_numeric($_POST["LTE_$i"]))) {
+                    $lte_enb = $_POST["LTE_$i"];
+                    break;
+                }
+            }
         }
+
         if ($key == "region_nr") {
-          $rat = "NR";
-          $enb = $_POST['NR_1'];
-        } 
-        $sql_lat = $_POST['latitude']; 
-        $sql_lon = $_POST['longitude']; 
-        $sql = "SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' AND enb = $enb LIMIT 1";
-        $value = $conn->query(query: "SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' AND enb = $enb LIMIT 1")->fetch_row()[0];
-        if (empty($value)) { // Attempt legacy lookup based on nearest pin to tower location.
-          $value = $conn->query("SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' ORDER BY ((latitude-$sql_lat)*(latitude-$sql_lat) + (longitude-$sql_lon)*(longitude-$sql_lon)) ASC LIMIT 1")->fetch_row()[0];
+            $rat = "NR";
+            for ($i = 1; $i <= 3; $i++) {
+                if (!empty($_POST["NR_$i"] && is_numeric($_POST["NR_$i"]))) {
+                    $nr_gnb = $_POST["NR_$i"];
+                    break;
+                }
+            }
         }
+        if (isset($plmn) && ((($rat == "NR") && (isset($nr_gnb))) || (($rat == "LTE") && (isset($lte_enb))))) {
+          $enb = (isset($nr_gnb)) ? $nr_gnb : $lte_enb;
+          $sql_lat = $_POST['latitude']; 
+          $sql_lon = $_POST['longitude']; 
+          $result = $conn->query("SELECT tac FROM local_poly_beta WHERE TAC IS NOT NULL AND latitude IS NOT NULL AND longitude IS NOT NULL AND plmn = $plmn AND rat = '$rat' AND enb = '$enb' LIMIT 1");
+
+          $row = $result?->fetch_row();
+
+          if ($row === null) {
+              $boundsSWLat = $sql_lat - 0.75;
+              $boundsSWLon = $sql_lon - 0.75;
+              $boundsNELat = $sql_lat + 0.75;
+              $boundsNELon = $sql_lon + 0.75;
+
+              $polygon = "POLYGON(($boundsSWLat $boundsSWLon, $boundsNELat $boundsSWLon, $boundsNELat $boundsNELon, $boundsSWLat $boundsNELon, $boundsSWLat $boundsSWLon))";
+
+              $sql_query = "SELECT tac 
+              FROM poly_enbs 
+              WHERE plmn = $plmn
+                AND rat = '$rat'
+                AND tac IS NOT NULL
+                AND MBRWithin(poly_coords, ST_GeomFromText('$polygon', 4326))
+              ORDER BY ((latitude - $sql_lat)*(latitude - $sql_lat) + (longitude - $sql_lon)*(longitude - $sql_lon)) ASC 
+              LIMIT 1;";
+
+              // 4. Execute the $sql_query string you just built
+              $result = $conn->query($sql_query);
+              $row = $result?->fetch_row();
+          }
+            
+          $value = $row[0] ?? null;
+        }
+
     }
     if (@${@$key} != $value && $key != "evidence_score" && $key != "edittag" && $key != "latitude" && $key != "longitude" && $key != "edit_history" && @$key != "edit_lock" && @$key != "id" && @$key != "new" && @$key != "date_added" && $key != "multiplier") {
         if (strpos($key, 'sv') === false) { $sql_edit .= "$key = '" . mysqli_real_escape_string($conn, $value) . "', ";}
