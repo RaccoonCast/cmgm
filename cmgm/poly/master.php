@@ -171,7 +171,7 @@ foreach ($formData as $index => $data) {
         // Build curl handle for Apple, if compatible
         if (isset($tac)) {
             $appleHandle = genAppleSurroRequest($plmn, $cellId, $tac, $rat);
-            $curlHandles_appl["$index-$eNB-$cellNumber-primary"] = $appleHandle;
+            $curlHandles_appl["$cellId:$tac"] = [$appleHandle, "$index-$eNB-$cellNumber-primary"];
 
             // Generate secondary Apple handle for other TAC
             if (isset($existingDbRecord) && isset($existingDbRecord['tac']) && $existingDbRecord['tac'] != $tac) {
@@ -182,7 +182,7 @@ foreach ($formData as $index => $data) {
                 $dbTacValues[$key] = $existingTac;
 
                 $appleHandle = genAppleSurroRequest($plmn, $cellId, $existingTac, $rat);
-                $curlHandles_appl[$key] = $appleHandle;
+                $curlHandles_appl["$cellId:$existingTac"] = [$appleHandle, $key];
             }
         } else {
             logWarning('Surro skipped for TAC ' . $tac);
@@ -208,32 +208,27 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
     $apple_batch_request = [];
 
     // Get all results in batch
-    $apple_results = $client->getSurroundingCellsBatch(array_values($curlHandles_appl));
+    $apple_response = $client->getMultipleCells(array_column($curlHandles_appl, 0), $rat);
+    $apple_results = $apple_response->getFound();
 
     // Iterate through Apple responses
-    foreach ($apple_results as $index => $value) {
+    foreach ($apple_results as $value) {
         if ($value === null || empty($value)) {
             continue;
         }
 
-        // First tower in the response is the one we're looking for
-        $response = $value[0];
-
         // Get response
-        // Key is the name of the item in $curlHandles_appl at current index
-        $key = array_keys($curlHandles_appl)[$index];
+        // getFound() is not aligned to request indexes, so key $curlHandles_appl by cid/tac
+        $request = $curlHandles_appl["{$value->cellId}:{$value->tacId}"] ?? null;
+        if ($request === null) continue;
+        $key = $request[1];
         [$index, $eNB, $cellNumber, $tacType] = explode('-', $key);
 
         // Regular key, no tac added (for other providers)
         $noTacKey = "$index-$eNB-$cellNumber";
 
-        // If there's a secondary handler (for DB tac), remove that
+        // Key for a secondary DB TAC request, if present.
         $dbTacKey = "{$index}-{$eNB}-{$cellNumber}-dbTac";
-        if (!$tacType == "dbTac" && isset($curlHandles_appl[$dbTacKey])) {
-            // NOTE: We don't want to do this anymore (with Apple requests), since they are all sent at once at the beginning
-            // logWarning("Removing db tac from consideration");
-            // unset($curlHandles_appl[$dbTacKey]);
-        }
 
         // Response is clean, so we should remove from the Google handler
         // logWarning("Key: {$eNB}");
@@ -271,11 +266,11 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
         $cellGid = get_cell($cellNumber, $eNB, $plmn, $rat);
 
         // Calculate other information
-        $lat = $response->latitude;
-        $lng = $response->longitude;
-        $accuracyMiles = round(((int)$response->accuracy) / 1609, 8);
+        $lat = $value->latitude;
+        $lng = $value->longitude;
+        $accuracyMiles = round(((int)$value->accuracy) / 1609, 8);
 
-        $location_data = $response->getLocation();
+        $location_data = $value->getLocation();
 
         $is_exact_location = $location_data->locationType == 1;
         $reach = $location_data->reach ?? 0;

@@ -118,12 +118,12 @@ function get_cell($cellNumber, $eNB, $plmn, $rat) {
 }
 
 /**
- * Generate a SurroundingCellsRequest handle for the Surro API
+ * Generate a PhpCellLocationRequest handle for the Surro getMultipleCells API
  * @param mixed $carrier
  * @param mixed $cellId
  * @param mixed $tac
  * @param mixed $rat
- * @return PhpSurroundingCellsRequest
+ * @return PhpCellLocationRequest
  */
 function genAppleSurroRequest($carrier, $cellId, $tac, $rat) {
 	$mcc = (int) substr($carrier, 0, 3);
@@ -131,7 +131,7 @@ function genAppleSurroRequest($carrier, $cellId, $tac, $rat) {
 	$tac = (int) $tac;
 	$cellId = (int) $cellId;
 
-	$req = new PhpSurroundingCellsRequest($mcc, $mnc, $cellId, $tac, $rat, 1);
+	$req = new PhpCellLocationRequest($mcc, $mnc, $cellId, $tac);
 
 	return $req;
 }
