@@ -30,11 +30,12 @@ include "get_param.php";
 // Start query build, identify whether working with LPB/LPE/LPBE.
 $tableName = $view_mode == "cells" ? 'local_poly_beta' : 'poly_enbs';
 
-$basic_keys = $view_mode !== "cells" ? "plmn,rat,enb,tac,cells,location_type,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
+$basic_keys = $keys = $view_mode !== "cells" ? "plmn,rat,enb,tac,cells,location_type,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
 if ($view_mode !== "cells") {
     $keys = $basic_keys . ",poly_latitude AS latitude,poly_longitude AS longitude";
 }
 
+if (isset($getScore)) $keys .= ",score";
 
 // Filter 1: PLMN
 $blacklist = [311580, 311588, 311589];
@@ -154,8 +155,6 @@ if ($boundsNELat !== null && $boundsNELon !== null && $boundsSWLat !== null && $
         COS(RADIANS($latitude)) * COS(RADIANS(latitude)) *
         POWER(SIN(RADIANS(longitude - $longitude) / 2), 2)
     )))";
-
-    $orderByLatLngPoint = "ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($longitude, $latitude), 4326)) ASC ";
 }
 
 // Filter 3: Date Filtering
@@ -483,13 +482,20 @@ if ($view_mode == "cells") {
     $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE $whereFilters ".@$whereFiltersPolyLocation."";
 }
 
-$sql_query .= ($centerLat !== null) ? "ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC " : $orderByLatLngPoint;
 
 // Filter 99: Compare to CM / CMGM data.
 if ($view_mode == "cm") {
-    $sql_query = "SELECT $basic_keys,latitude,longitude,cm_tower_type,cm_status FROM $tableName WHERE $whereFilters";
-    $sql_query .= $centerLat !== null ? "$whereFiltersCmLocation ORDER BY ST_Distance_Sphere(cm_coords, ST_SRID(POINT($centerLon, $centerLat), 4326)) ASC " : $orderByLatLngPoint;
+    $sql_query = "SELECT $basic_keys,latitude,longitude,cm_tower_type,cm_status FROM $tableName WHERE $whereFilters $whereFiltersCmLocation";
 }
+
+// Order by:
+$orderByLon = isset($centerLon) ? $centerLon : $longitude;
+$orderByLat = isset($centerLat) ? $centerLat : $latitude;
+$orderBy_cells = "ORDER BY ST_Distance_Sphere(coords, ST_SRID(POINT($orderByLon, $orderByLat), 4326)) ASC ";
+$orderBy_enbs = "ORDER BY ST_Distance_Sphere(poly_coords, ST_SRID(POINT($orderByLon, $orderByLat), 4326)) ASC ";
+$orderBy_cm = "ORDER BY ST_Distance_Sphere(cm_coords, ST_SRID(POINT($orderByLon, $orderByLat), 4326)) ASC ";
+
+$sql_query .= ${"orderBy_$view_mode"};
 
 // Filter 100: Set final limit
 $sql_query .= ($view_mode == "cells" && $limit !== 0) ? $limitClauseQuadruple : $limitClause;

@@ -81,8 +81,7 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
               WHERE plmn = $plmn
                 AND rat = '$rat'
                 AND tac IS NOT NULL
-                AND coords IS NOT NULL
-                AND MBRWithin(coords, ST_GeomFromText('$polygon', 4326))
+                AND MBRWithin(poly_coords, ST_GeomFromText('$polygon', 4326))
               ORDER BY ((latitude - $sql_lat)*(latitude - $sql_lat) + (longitude - $sql_lon)*(longitude - $sql_lon)) ASC 
               LIMIT 1;";
 

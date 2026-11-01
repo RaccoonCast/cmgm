@@ -66,6 +66,7 @@ $cm_includes           = get_param('cm_includes', '/^[A-Z,]+$/', 'Invalid CM Fil
 $cm_excludes           = get_param('cm_excludes', '/^[A-Z,]+$/', 'Invalid CM Filters, typo?', NULL);
 $random_color          = (@$_GET['random_color'] == 'true') ? 'checked' : null;
 $permanentlyDelete     = (($_GET['permanentlyDelete'] ?? null) === 'true') ? true : null;
+$getScore              = isset($_GET['getScore']);
 $showsql               = isset($_GET['showsql']);
 $icon_size             = $_GET['icon_size'] ?? 10;
 // $labels               = ($_GET['labels'] ?? 'true') === 'true' ? 'checked' : '';
