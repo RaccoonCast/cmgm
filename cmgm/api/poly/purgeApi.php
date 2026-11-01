@@ -28,6 +28,7 @@ if (!$permanentlyDelete) {
 // Filter 0 specify the eNB & RAT **AND PLMN**
 $enbFilters = "WHERE eNB = $enb AND rat = '$rat' AND plmn = $plmn";
 
+$whereFilters = ""; // Initialized to prevent PHP warnings
 
 // Filter 1: Specify cells
 if (!is_null($cells)) {
@@ -37,16 +38,20 @@ if (!is_null($cells)) {
     ));
 
     if ($include) {
-        $whereFilters .= "AND cell IN (" . implode(',', $include) . ")";
+        $whereFilters .= " AND cell IN (" . implode(',', $include) . ")";
     }
 }
 
+// Sandwich the operations in COMMITs to force the DB to release locks 
 $main_query = "
+    COMMIT; 
+    
     $sql_query $enbFilters $whereFilters;
-    DELETE FROM poly_enbs $enbFilters;
+    
     CALL update_poly_enbs($plmn, '$rat', $enb, NULL);
+    
+    COMMIT;
 ";
-echo $main_query;
 
 $conn->multi_query($main_query);
 
