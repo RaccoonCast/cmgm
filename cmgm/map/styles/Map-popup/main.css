@@ -1,0 +1,79 @@
+.widget {
+	display: inline;
+  text-decoration: none!important;
+}
+.body::-webkit-scrollbar {
+    display: none;
+}
+abbr[title] {
+    text-decoration: none !important;
+}
+body {
+	margin: 0px;
+}
+table {
+	width: 100%;
+}
+table{
+		text-align: center;
+    border:0px;
+	  border-collapse:collapse;
+}
+tbody,html,body,table,p {
+margin: 0px;
+padding: 0px;
+border: 0px;
+}
+
+
+/* two items */
+input[type=button]:first-child:nth-last-child(2),
+input[type=button]:first-child:nth-last-child(2) ~ input[type=button] {
+    width: calc(50% - 2px);
+		margin-left: 1px;
+		margin-right: 1px;
+}
+
+/* three items */
+input[type=button]:first-child:nth-last-child(3),
+input[type=button]:first-child:nth-last-child(3) ~ input[type=button] {
+    width: calc(33.3333% - 2px);
+		margin-left: 1px;
+		margin-right: 1px;
+}
+
+/* four items */
+input[type=button]:first-child:nth-last-child(4),
+input[type=button]:first-child:nth-last-child(4) ~ input[type=button] {
+    width: calc(25% - 2px);
+		margin-left: 1px;
+		margin-right: 1px;
+}
+
+html,body {
+	/* border: 2px solid var(--accent-color); */
+	height: 100%;
+	min-height: 100%;
+	box-sizing: border-box;
+}
+.error {
+  text-decoration: none;
+  color: #F78A8A!important;
+}
+input {
+padding-top: 0.33em;
+padding-bottom: 0.33em;
+}
+.label {
+	/* min-width: 100%; // Firefox breaks */ 
+	width: 30%;
+}
+.sup {
+  display: inline-block;
+  transform: translateY(-0.7em);
+  margin-left: 3px;
+}
+td.label a {
+    display: inline-block;
+    line-height: 1;
+}

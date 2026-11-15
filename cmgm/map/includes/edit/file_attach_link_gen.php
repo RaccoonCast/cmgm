@@ -1,0 +1,77 @@
+<?php
+
+include_once SITE_ROOT . '/includes/functions/convert-url.php';
+
+// Generate Links for File Attaches
+
+function file_exists_on_local($file) { 
+$headers = @get_headers("https://files.cmgm.us/" . $file); 
+return ($headers && strpos($headers[0], '200')) ? true : false;
+}
+
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c', 'sv_a', 'sv_b', 'sv_c', 'sv_d', 'sv_e', 'sv_f', 'aerial_a', 'aerial_b', 'aerial_c');
+
+foreach ($foreachList as &$value) {
+
+if (strpos($value, 'sv') !== false && !empty($$value)) ${$value} = "https://" . $$value;
+
+$val = $value . "_label";
+$link_suffix = ucfirst(substr($value,-1));
+
+if (!empty($$value)) {
+    $url = convert_url($$value);
+    if (str_contains($value, "photo")) {
+      if ((str_starts_with($$value, '@') && !str_ends_with($$value, '/'))) {
+      $photos_label_url = 'https://canon.cmgm.us/?r=' . url_partial_encode(preg_replace('/\/[^\/]*$/', '/', preg_replace('/@/', '', $$value, 1)));
+      $photos_label = '<a target="_blank" href="'.$photos_label_url.'">Photos</a>';
+      }
+    }
+    $$val = '<a class="pad-small-link pad-small-link-mobile" target="_blank" href="' . $url . '">' . $link_suffix . '</a>';
+}
+
+if (empty($sv_a) && empty($sv_b) && empty($sv_c) && empty($sv_d) && empty($sv_e) && empty($sv_f)) $sv_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.google.com/maps?layer=c&cbll=' . @$latitude. ',' . @$longitude . '">A</a>';
+if (empty($aerial_a) && empty($aerial_b) && empty($aerial_c)) $aerial_a_label = '<a class="pad-small-link error" target="_blank" href="https://www.bing.com/maps?dir=0&lvl=22&style=b&cp=' . @$latitude. '~' . @$longitude . '">A</a>';
+
+if($isMobile == "false") {
+  $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label;
+  $photo_link_linklabel_b = @$photo_d_label.@$photo_e_label.@$photo_f_label;
+
+  $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label;
+  $extra_linklabel_b = @$extra_d_label.@$extra_e_label.@$extra_f_label;
+
+  $sv_linklabel_a = @$sv_a_label.@$sv_b_label.@$sv_c_label;
+  $sv_linklabel_b = @$sv_d_label.@$sv_e_label.@$sv_f_label;
+} else {
+  $photo_link_linklabel_a = @$photo_a_label.@$photo_b_label.@$photo_c_label.@$photo_d_label.@$photo_e_label.@$photo_f_label;
+  $sv_linklabel_a = @$sv_a_label.@$sv_b_label.@$sv_c_label.@$sv_d_label.@$sv_e_label.@$sv_f_label;
+  $extra_linklabel_a = @$extra_a_label.@$extra_b_label.@$extra_c_label.@$extra_d_label.@$extra_e_label.@$extra_f_label;
+}
+}
+
+if (isset($new)) {
+   echo '<title>New</title>';
+   } elseif(!empty($LTE_1)) {
+      echo '<title>#'.$id.' - ' . $LTE_1 . ' (Edit)</title>';
+      } elseif(!empty($NR_1)) {
+         echo '<title>#'.$id.' - ' . $NR_1 . ' (Edit)</title>';
+         } else {
+           echo '<title>#'.$id.' - Unknown (Edit)</title>';
+           }
+
+// if ($carrier == "T-Mobile") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-magenta.png">';
+//   }
+// if ($carrier == "Sprint") {
+//  echo '<link rel="icon" type="image/png" href="/images/logo-yellow.png">';
+//   }
+// if ($carrier == "Dish") {
+//  echo '<link rel="icon" type="image/png" href="/images/logo-orange.png">';
+//   }
+// if ($carrier == "ATT") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-blue.png">';
+//   }
+// if ($carrier == "Verizon") {
+//   echo '<link rel="icon" type="image/png" href="/images/logo-red.png">';
+//   }
+
+?>

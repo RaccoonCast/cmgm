@@ -4,3 +4,7 @@
 .leaflet-popup-tip {
   background-color: #111111!important;
 }
+footer {
+  border-top: 2px solid #2D2C2C;
+  background-color: #111111;
+}

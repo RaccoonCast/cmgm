@@ -1,33 +1,9 @@
-#refreshButton {
-  top: 121px;
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
-#backButton {
-  top: 163px;
-}
-#polyMapButton {
-  top: 79px;
-}
-.special_button {
-  position: absolute;
-  left: 17px;
-  border: 0;
-  padding: 0px 0px 0px 0px;
-  background: none;
-  font-size: 180%;
-  width: 35px;
-  height: 35px;
-  vertical-align: bottom;
-  z-index: 400;
-}
-.special_button:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-.buttonContainer {
-  top: -5px;
-  left: -10px;
-  position: relative;
-}
+
 .leaflet-control-attribution {
   display: none;
 }
@@ -56,11 +32,23 @@ img[src*="/dist/images/marker-icon"] {
   width: 30px;
   height: 30px;
   line-height: 30px;
-  margin-top: 5px !important;
   color: black;
   text-align: center;
   cursor: pointer;
   user-select: none;
+}
+.leaflet-added-button {
+  margin-top: 5px !important;
+}
+#polyMapButton {
+  top: auto !important;
+}
+.leaflet-control > a:hover {
+  text-decoration: none;
+}
+.poly-info-control > a:hover {
+  color: #8ab4f8;
+  text-decoration: underline;
 }
 
 .dropdown-content {
@@ -92,6 +80,14 @@ img[src*="/dist/images/marker-icon"] {
  color: black;
  text-align: center;
 }
+.leaflet-control a,
+.leaflet-control a:visited,
+.leaflet-control a:hover,
+.leaflet-control a:active {
+  color: var(--accent-color) !important;
+  text-decoration: none !important;
+  filter: saturate(60%);
+}
 .leaflet-popup-content {
 	margin: 0px!important;
 }
@@ -103,6 +99,7 @@ footer {
   bottom: 0;
   width: 100%;
   padding-bottom: 6px;
+  z-index: 1000;
 }
 
 .footerlink {

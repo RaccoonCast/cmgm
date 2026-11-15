@@ -91,7 +91,7 @@
         let iframeUrl = res.URL;
 
         if (res?.URL == undefined) {
-          return `/database/Map.php?latitude=<?php echo $lat?>&longitude=<?php echo $long?>&marker_latitude=<?php echo $lat?>&marker_longitude=<?php echo $long?>&zoom=<?php echo $zoom?>&limit=<?php echo $limit?>&pin_style=carrier&hideui=true&showPolyLink`
+          return `/map/?latitude=<?php echo $lat?>&longitude=<?php echo $long?>&marker_latitude=<?php echo $lat?>&marker_longitude=<?php echo $long?>&zoom=<?php echo $zoom?>&limit=<?php echo $limit?>&pin_style=carrier&hideui=true&showPolyLink`
         }
 
         // Get site lat/lng/zoom

@@ -8,7 +8,7 @@ function MapWithPin($lat, $long, $zoom, $width, $height, $limit, $carrier, $user
 	
     // Make map
     echo '<iframe 
-			src="/database/Map.php' . $url_variables . '"
+			src="/map/' . $url_variables . '"
 			width="' . $width . '" 
 			height="' . $height . '" 
 			style="float: right; border: none; display: inline-block;" 

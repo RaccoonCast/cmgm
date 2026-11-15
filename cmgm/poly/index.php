@@ -86,7 +86,7 @@ if (
 }
 
 // Make sure URL is returned, otherwise return regular map
-$iframe_url = isset($url) ? $url . '&hideui=true' : 'https://cmgm.us/database/Map.php?&hideui=true';
+$iframe_url = isset($url) ? $url . '&hideui=true' : 'https://cmgm.us/map/?&hideui=true';
 
 if (isset($_GET['marker_latitude']) && isset($_GET['marker_longitude']) && isset($_GET['hidePolyForm'])) {
     $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

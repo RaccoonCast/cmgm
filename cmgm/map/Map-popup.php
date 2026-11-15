@@ -1,0 +1,214 @@
+<?php 
+$allowGuests = true;
+include __DIR__ . '/../functions.php'; ?>
+<!doctype html>
+<html lang="en">
+<head>
+<script src="/js/copyToClipboard.js"></script>
+  <?php
+  include __DIR__ . "/../includes/functions/headhtml.php";
+  include __DIR__ . "/../includes/misc-functions/cm_linkgen.php";
+  include __DIR__ . "/../includes/functions/calculateEV.php";
+  include __DIR__ . "/../includes/functions/convert-url.php";
+  $id = preg_replace("/[^0-9]/", '', $_GET['id']);
+  ?>
+  <script>
+         function openEditLink() {  window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>", "_blank"); }
+         function openDeleteLink() {
+            window.open("<?php echo $domain_with_http; ?>/database/Edit.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); 
+          }
+         function openNotesLink() {  window.open("<?php echo $domain_with_http; ?>/map/Map-popup-viewnotes.php?id=<?php echo $id; ?>&delete=false&redirPage=Map-popup", "_self"); }
+     </script>
+</head>
+<body class="body">
+<?php
+
+$cmgm_uploads_page = "https://files.cmgm.us/";
+$database_get_list = "id,date_added,LTE_1,LTE_2,LTE_3,LTE_4,LTE_5,LTE_6,LTE_7,LTE_8,LTE_9,NR_1,NR_2,NR_3,NR_4,NR_5,NR_6,carrier,latitude,longitude,city,zip,state,address,notes,evidence_a,evidence_b,evidence_c,photo_a,photo_b,photo_c,photo_d,photo_e,photo_f,extra_a,extra_b,extra_c,extra_d,extra_e,extra_f,sv_a,sv_b,sv_c,sv_d,sv_e,sv_f,sv_a_date,sv_b_date,sv_c_date,sv_d_date,sv_e_date,sv_f_date,aerial_a,cellsite_type,old_cellsite_type,concealed,region_lte,region_nr,tags,status";
+
+$sql = "SELECT $database_get_list FROM db WHERE id = $id;";
+$result = mysqli_query($conn, $sql);
+
+$sql_read_result = mysqli_query($conn,$sql);
+while($row = $sql_read_result->fetch_assoc()) foreach ($row as $key => $value) $$key = $value;
+$carrier_label = ($carrier == "ATT") ? "AT&T" : $carrier;
+if(!empty($aerial_a)) $aerial_a  = (substr($aerial_a,0,4)=="http") ? $aerial_a  : $cmgm_uploads_page . $aerial_a;
+if (isset($aerial_a)) $bmlink = '<a target="_blank" class="sup" style="font-size: 10px;" href="'.$aerial_a.'">Aerial</a>';
+
+
+$lte_list = null;
+$nr_list = null;
+$lte_nb = " eNBs";
+$nr_nb = " gNBs";
+if(!empty($LTE_1)) { $lte_list = $lte_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_1,$region_lte,"true"); }
+if(!empty($LTE_2)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_2,$region_lte,"true"); }
+if(!empty($LTE_3)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_3,$region_lte,"true"); }
+if(!empty($LTE_4)) { $lte_list = $lte_list . " <br> " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_4,$region_lte,"true"); }
+if(!empty($LTE_5)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_5,$region_lte,"true"); }
+if(!empty($LTE_6)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_6,$region_lte,"true"); }
+if(!empty($LTE_7)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_7,$region_lte,"true"); }
+if(!empty($LTE_8)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_8,$region_lte,"true"); }
+if(!empty($LTE_9)) { $lte_list = $lte_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"LTE",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$LTE_9,$region_lte,"true"); } 
+if(!empty($NR_1)) { $nr_list = $nr_list . "" . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_1,$region_nr,"true"); }
+if(!empty($NR_2)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_2,$region_nr,"true"); }
+if(!empty($NR_3)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_3,$region_nr,"true"); }
+if(!empty($NR_4)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_4,$region_nr,"true"); }
+if(!empty($NR_5)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_5,$region_nr,"true"); }
+if(!empty($NR_6)) { $nr_list = $nr_list . " | " . cellmapperLink($latitude,$longitude,$cm_zoom,$carrier,"NR",$cm_mapType,$cm_groupTowers,$cm_showLabels,$cm_showLowAcc,$NR_6,$region_nr,"true"); }
+if (!is_null($lte_list) && !str_contains($lte_list, "|")) $lte_nb = " eNB";
+if (!is_null($nr_list) && !str_contains($nr_list, "|")) $nr_nb = " gNB";
+?>
+<!-- RAT SWAPPERINATOR -->
+<script>
+  function lteSwap() {
+    document.getElementById("NB_label").innerHTML = '<?= $carrier . $lte_nb?>';
+    document.getElementById("NB_container").innerHTML = '<?= $lte_list ?>';
+    document.getElementById('ratSwapButton').setAttribute('onclick','nrSwap()');
+    document.getElementById('ratSwapButton').setAttribute('value','View NR<?= $nr_nb?>');
+  }
+  function nrSwap() {
+    document.getElementById("NB_label").innerHTML = '<?= $carrier . $nr_nb?>';
+    document.getElementById("NB_container").innerHTML = '<?= $nr_list ?>';
+    document.getElementById('ratSwapButton').setAttribute('onclick','lteSwap()');
+    document.getElementById('ratSwapButton').setAttribute('value','View LTE<?= $lte_nb?>');
+  }
+</script>
+<?php
+// Create links for sv_a/b/c/d, evidence_a/b/c, photo_a/b/c/d/e/f, misc a/b/c
+$map_popup_flag = "true";
+include __DIR__ . "/includes/edit/file_attach_link_gen.php";
+$concealed_status = ($concealed == "true") ? "Concealed " : "Unconcealed ";
+$status_icon = ($status == "verified") ? "🟢" : "🔴";
+if (!empty($cellsite_type)) {
+  include "$SITE_ROOT/includes/functions/tower_types.php";
+  $cellsite_type = !empty($cellsite_type) ? $cellsite_type : $old_cellsite_type;
+  $category = ucfirst(explode('_', $cellsite_type)[0]);
+  $cellsite_type = $options[$category][$cellsite_type];
+} else {
+  $cellsite_type = $old_cellsite_type;
+}
+$url_for_cmgm = "https://cmgm.us/$id"; 
+?> 
+<table>
+<thead>
+<tr> 
+<td colspan="2" class="label title" style="line-height: 30px;">
+<?php echo $status_icon . $concealed_status .  ucfirst($cellsite_type); ?>
+<div onclick="copyToClipboard('<?php echo $url_for_cmgm; ?>')" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 2px; right: 6px;">📋</div>
+<div onclick="openDeleteLink()" style="font-size: 1.2em; cursor: pointer; position: absolute; top: 2px; left: 6px;">🗑️</div>
+</td>
+</tr>
+</thead>
+<tr>
+  <td colspan="2" class="label">
+    <input style="float: left" onclick="navigator.clipboard.writeText('<?php echo $latitude . "," . $longitude;?>')" type="button" value="Copy location">
+    <?php if (!empty($notes)) { ?><input style="float: left" onclick="openNotesLink()" type="button" value="View Notes"><?php } ?>
+    <?php if ($carrier !== "Dish" && !empty($nr_list)) {?><input style="float: left" onclick="nrSwap()" type="button" id="ratSwapButton" value="View NR<?= $nr_nb ?>"><?php } ?>
+    <input style="float: left" onclick="openEditLink()" type="button" value="Edit #<?= $id ?>">
+  </td>
+</tr>
+<tr>
+<?php if ($carrier !== "Dish") { ?>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier_label ?><?php echo ($lte_list === null || str_contains($lte_list, "|")) ? " eNBs" : " eNB"; ?></td>
+<td id="NB_container"><?php echo @$lte_list; ?></td>
+</tr><?php } else { ?>
+<td style="height: 66px;" class="label" id="NB_label"><?= $carrier_label ?><?php echo ($nr_list === null || str_contains($nr_list, "|")) ? " gNBs" : " gNB"; ?></td>
+<td id="NB_container"><?php echo @$nr_list; ?></td>
+<?php } ?> 
+
+
+<tr rowspan="2">
+<td class="label">Address</td>
+<td>
+<?php 
+if ($address == "") $address = "Somewhere in";
+if ($city == "") $city = "Somewhereville";
+echo nl2br('<a target="_blank" href="https://maps.google.com/maps?f=q&source=s_q&hl=en&q=' .$latitude . ',' .$longitude . '">' . $address . ' <br>' . $city . ', ' . $state . ' ' . $zip . '</a>');
+?>
+</td>
+</tr>
+<tr>
+<td class="label">Street View</td>
+<td>
+<?php
+$variableValues = array($sv_a, $sv_b, $sv_c, $sv_d, $sv_e, $sv_f);
+$secondaryVariableValues = array($sv_a_date, $sv_b_date, $sv_c_date, $sv_d_date, $sv_e_date, $sv_f_date);
+$variableNames = array('SV_A', 'SV_B', 'SV_C', 'SV_D', 'SV_E', 'SV_F');
+$nonEmptyLinks = array();
+for ($i = 0; $i < count($variableNames); $i++) {
+    $name = $variableNames[$i];
+    $value = $variableValues[$i];
+    $secondaryValue = $secondaryVariableValues[$i];
+    if (!empty($value) && !empty($secondaryValue)) {
+        $nonEmptyLinks[$name] = array(
+            'url' => $value,
+            'label' => $secondaryValue
+        );
+    }
+}
+$links = array_map(function ($linkData, $name) {
+    return '<a target="_blank" title="' . $linkData['label'] . '" href="' . $linkData['url'] . '">' . $name . '</a>';
+}, $nonEmptyLinks, array_keys($nonEmptyLinks));
+if (!empty($links)) {
+    echo implode(' | ', $links);
+} else {
+    echo '<a class="error" target="_blank" href="https://www.google.com/maps?layer=c&cbll='.$latitude.','.$longitude.'">Street View</a>';
+}
+?>
+</td>
+</tr>
+<?php
+$foreachList = array('photo_a', 'photo_b', 'photo_c', 'photo_d', 'photo_e', 'photo_f', 'extra_a', 'extra_b', 'extra_c', 'extra_d', 'extra_e', 'extra_f', 'evidence_a', 'evidence_b', 'evidence_c');
+foreach ($foreachList as &$value) {
+  $$value = convert_url($$value);
+}
+
+?>
+<tr>
+<td class="label">Evidence</td>
+<td>
+<?php
+if(!empty($evidence_a)) $evidences  = (substr($evidence_a,0,4)=="http") ? '<a target="_blank" href="' . $evidence_a . '">EV_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $evidence_a . '">EV_A</a>';
+if(!empty($evidence_b)) @$evidences .= (substr($evidence_b,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_b . '">EV_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_b . '">EV_B</a>';
+if(!empty($evidence_c)) @$evidences .= (substr($evidence_c,0,4)=="http") ? ' | <a target="_blank" href="' . $evidence_c . '">EV_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $evidence_c . '">EV_C</a>';
+echo !empty($evidences) ? @$evidences : "<i>No Evidence<i>";
+?>
+</td>
+</tr>
+<tr>
+<td class="label"><?= isset($photos_label) ? $photos_label : "Photos"; echo @$bmlink ?></td>
+<td>
+<?php
+if(!empty($photo_a)) $photos  = (substr($photo_a,0,4)=="http") ? '<a target="_blank" href="' . $photo_a . '">PH_A</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_a . '">PH_A</a>';
+if(!empty($photo_b)) @$photos .= (substr($photo_b,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_b . '">PH_B</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_b . '">PH_B</a>';
+if(!empty($photo_c)) @$photos .= (substr($photo_c,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_c . '">PH_C</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_c . '">PH_C</a>';
+if(!empty($photo_d)) @$photos .= (substr($photo_d,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_d . '">PH_D</a>' : '<a target="_blank" href="' .$cmgm_uploads_page . $photo_d . '">PH_D</a>';
+if(!empty($photo_e)) @$photos .= (substr($photo_e,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_e . '">PH_E</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_e . '">PH_E</a>';
+if(!empty($photo_f)) @$photos .= (substr($photo_f,0,4)=="http") ? ' | <a target="_blank" href="' . $photo_f . '">PH_F</a>' : ' | <a target="_blank" href="' .$cmgm_uploads_page . $photo_f . '">PH_F</a>';
+echo !empty($photos) ? @$photos : "<i>No Photos<i>";
+?>
+</tr></td>
+<tr>
+<td class="label">Extras</td>
+<td>
+<?php
+if(!empty($extra_a)) $extras  = (substr($extra_a,0,4)=="http") ? '<a target="_blank" href="' . $extra_a . '">EX_A</a>' : '<a target="_blank" href="' . $cmgm_uploads_page . $extra_a . '">EX_A</a>';
+if(!empty($extra_b)) @$extras .= (substr($extra_b,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_b . '">EX_B</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_b . '">EX_B</a>';
+if(!empty($extra_c)) @$extras .= (substr($extra_c,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_c . '">EX_C</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_c . '">EX_C</a>';
+if(!empty($extra_d)) @$extras .= (substr($extra_d,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_d . '">EX_D</a>' : '<a target="_blank" href="' . $cmgm_uploads_page . $extra_d . '">EX_D</a>';
+if(!empty($extra_e)) @$extras .= (substr($extra_e,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_e . '">EX_E</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_e . '">EX_E</a>';
+if(!empty($extra_f)) @$extras .= (substr($extra_f,0,4)=="http") ? ' | <a target="_blank" href="' . $extra_f . '">EX_F</a>' : ' | <a target="_blank" href="' . $cmgm_uploads_page . $extra_f . '">EX_F</a>';
+echo !empty($extras) ? @$extras : "<i>No Extras<i>";
+?>
+</td>
+</tr>
+<tr>
+<td class="label">Tags</td>
+<td><?php echo @$tags ?></td>
+</tr>
+
+</tbody>
+</table>
+</body>
+</html>
+
