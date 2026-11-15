@@ -35,32 +35,27 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
 
     include "latitude_longitude.php";
     
-    if (($key == "region_lte" OR $key == "region_nr") && empty($value)) {
+    if (($key == "region_lte" OR $key == "region_nr")) {
         if ($_POST['carrier'] == "T-Mobile") $plmn = 310260;
         if ($_POST['carrier'] == "ATT") $plmn = 310410;
         if ($_POST['carrier'] == "Verizon") $plmn = 311480;
         if ($_POST['carrier'] == "Sprint") $plmn = 310120;
         if ($_POST['carrier'] == "Dish") $plmn = 313340;
-        if ($key == "region_lte") {
-            $rat = "LTE";
-            for ($i = 1; $i <= 9; $i++) {
-                if (!empty($_POST["LTE_$i"] && is_numeric($_POST["LTE_$i"]))) {
-                    $lte_enb = $_POST["LTE_$i"];
-                    break;
-                }
-            }
-        }
 
-        if ($key == "region_nr") {
-            $rat = "NR";
-            for ($i = 1; $i <= 3; $i++) {
-                if (!empty($_POST["NR_$i"] && is_numeric($_POST["NR_$i"]))) {
-                    $nr_gnb = $_POST["NR_$i"];
-                    break;
-                }
-            }
-        }
-        if (isset($plmn) && ((($rat == "NR") && (isset($nr_gnb))) || (($rat == "LTE") && (isset($lte_enb))))) {
+          $rat = ($key == "region_lte") ? "LTE" : "NR";
+          $enb_var = ($rat == "LTE") ? "lte_enb" : "nr_gnb";
+          $max = ($rat == "LTE") ? 9 : 6;
+
+          for ($i = 1; $i <= $max; $i++) {
+              $nb = $_POST["{$rat}_$i"];
+
+              if (!empty($nb) && is_numeric($nb)) {
+                  if (!isset($$enb_var) && empty($value)) $$enb_var = $nb; // Check that enb_var hasn't been set already and that TAC for the appropriate XYZ is in fact empty.
+                  $conn->query("INSERT IGNORE INTO poly_enbs_queue (plmn, rat, enb) VALUES ($plmn, '$rat', $nb)");
+              }
+          }
+
+          if (isset($plmn) && ((($rat == "NR") && (isset($nr_gnb))) || (($rat == "LTE") && (isset($lte_enb))))) {
           $enb = (isset($nr_gnb)) ? $nr_gnb : $lte_enb;
           $sql_lat = $_POST['latitude']; 
           $sql_lon = $_POST['longitude']; 
