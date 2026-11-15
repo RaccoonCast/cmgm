@@ -8,7 +8,6 @@
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Remove unused files">
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Show unused DB IDs">
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="Show uploads filesize">
-<input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PCI matcher">
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="PWA Manifest">
 
 <input type="submit" class="cmgm-btn" style="width: 145px;" name="opt" value="ppT Link Maker">
@@ -93,9 +92,7 @@ foreach($fileList as $filename){
 
         echo "Upload folder filesize: " . formatBytes($size);
         // 23.81M
-  } elseif ($_POST['opt'] == 'PCI matcher') {
-        redir("..\includes\misc-functions\PCI-match.php?carrier=$default_carrier","0");
-    } elseif ($_POST['opt'] == 'PWA Manifest') {
+  } elseif ($_POST['opt'] == 'PWA Manifest') {
         redir("..\manifest.json","0");
     }  elseif ($_POST['opt'] == 'ppT Link Maker') {
       $sql = "SELECT id, carrier, latitude, longitude, LTE_1, region_lte FROM db WHERE PCI_1 = '' AND LTE_1 IS NOT NULL AND LTE_1 <> '' AND tags NOT LIKE '%future%' AND tags NOT LIKE '%unmapped%'";
