@@ -76,7 +76,7 @@
        < = less than/before
      </p>
      <input type="submit" formaction="DB.php" class="sb w-75 custominput cmgm-btn" value="Search"><input
-     type="submit" formaction="Map.php" class="w-25 sb custominput cmgm-btn" value="Search on map">
+     type="submit" formaction="/map/" class="w-25 sb custominput cmgm-btn" value="Search on map">
    </div>
     </form>
     <?php

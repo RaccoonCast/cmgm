@@ -21,7 +21,7 @@ if (!empty($_POST['data'])) {
     $idList = @$idList . "," . $id;
   }
   $idList = substr($idList, 1);
-  redir("..\..\database\Map.php?latitude=$default_latitude&longitude=$default_longitude&idlist=$idList","0");
+  redir("..\..\map\?latitude=$default_latitude&longitude=$default_longitude&idlist=$idList","0");
 } else {
 // get latitude from URL
 if (!empty($_GET['carrier'])) { $carrier = $_GET['carrier']; }
