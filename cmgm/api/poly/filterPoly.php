@@ -28,6 +28,7 @@ function buildCappedPolygon($boundsNELat, $boundsNELon, $boundsSWLat, $boundsSWL
 include "get_param.php";
 
 // Start query build, identify whether working with LPB/LPE/LPBE.
+// $tableName = $view_mode == "cells" ? 'testenv_local_poly_beta' : 'testenv_local_poly_enbs';
 $tableName = $view_mode == "cells" ? 'local_poly_beta' : 'poly_enbs';
 
 $basic_keys = $keys = $view_mode !== "cells" ? "plmn,rat,enb,tac,cells,location_type,oldest_date,newest_date" : "enb,cell AS cells,cell_id,plmn,rat,tac,latitude,longitude,date_of_info";
@@ -293,33 +294,30 @@ if ($enb_block_list !== null) {
 
 
 // Filter 8: Cell filtering (space-separated string column)
+// Allowlist
 if ($cells_allow_list !== null && $view_mode !== "cells") {
-    $list = str_replace(' ', ',', $cells_allow_list ?? ''); 
-    
-    if (!empty($list)) {
+    $list = str_replace(' ', ',', $cells_allow_list);
+
+    if ($list !== '') {
         $whereFilters .= "AND (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
     }
-} elseif ($cells_allow_list !== null) {
+} elseif ($cells_allow_list !== null && $cells_allow_list !== '') {
     $cells = array_map('intval', explode(',', $cells_allow_list));
-    if (!empty($cells)) {
-        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
-        $whereFilters .= 'AND (' . implode(' OR ', $conditions) . ') ';
-    }
+    $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+    $whereFilters .= 'AND (' . implode(' OR ', $conditions) . ') ';
 }
 
 // Blocklist (must match none)
 if ($cells_block_list !== null && $view_mode !== "cells") {
-    $list = str_replace(' ', ',', $cells_block_list ?? '');
-    
-    if (!empty($list)) {
+    $list = str_replace(' ', ',', $cells_block_list);
+
+    if ($list !== '') {
         $whereFilters .= "AND NOT (" . implode(' OR ', array_map(fn($c) => "FIND_IN_SET('$c', REPLACE(cells, ' ', ','))", explode(',', $list))) . ") ";
     }
-} elseif ($cells_block_list !== null) {
+} elseif ($cells_block_list !== null && $cells_block_list !== '') {
     $cells = array_map('intval', explode(',', $cells_block_list));
-    if (!empty($cells)) {
-        $conditions = array_map(fn($cell) => "cell = $cell", $cells);
-        $whereFilters .= ' AND NOT (' . implode(' OR ', $conditions) . ') ';
-    }
+    $conditions = array_map(fn($cell) => "cell = $cell", $cells);
+    $whereFilters .= ' AND NOT (' . implode(' OR ', $conditions) . ') ';
 }
 
 // Filter 9: Cell quantity
@@ -374,7 +372,7 @@ if ($reach !== null) {
             $reach = "= $reach";
         }
 
-        $whereFilters .= "AND (reach $reach OR score IS NULL) ";
+        $whereFilters .= "AND (reach $reach OR reach IS NULL) ";
     }
 }
 
@@ -479,13 +477,13 @@ if ($view_mode == "cells") {
     AND main.longitude BETWEEN (se.longitude - 1.5) AND (se.longitude + 1.5)
     ";
 } else {
-    $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE $whereFilters ".@$whereFiltersPolyLocation."";
+    $sql_query = "SELECT $keys$locationFilter FROM $tableName WHERE $whereFilters ".@$whereFiltersPolyLocation." AND poly_latitude <> 0.0 AND poly_longitude <> 0.0";
 }
 
 
 // Filter 99: Compare to CM / CMGM data.
 if ($view_mode == "cm") {
-    $sql_query = "SELECT $basic_keys,latitude,longitude,cm_tower_type,cm_status FROM $tableName WHERE $whereFilters $whereFiltersCmLocation";
+    $sql_query = "SELECT $basic_keys,latitude,longitude,cm_tower_type,cm_status FROM $tableName WHERE $whereFilters $whereFiltersCmLocation AND poly_latitude <> 0.0 AND poly_longitude <> 0.0";
 }
 
 // Order by:
