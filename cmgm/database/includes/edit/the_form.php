@@ -87,10 +87,13 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_4" value="<?php echo @$PCI_4?>" placeholder="PCI_4" name="PCI_4">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_5" value="<?php echo @$PCI_5?>" placeholder="PCI_5" name="PCI_5">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_6" value="<?php echo @$PCI_6?>" placeholder="PCI_6" name="PCI_6">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_4" value="<?php echo @$NR_4?>" placeholder="NR_4" name="NR_4">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_5" value="<?php echo @$NR_5?>" placeholder="NR_5" name="NR_5">
+    <input type="number" class="nr_cw" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="NR_6" value="<?php echo @$NR_6?>" placeholder="NR_6" name="NR_6">
+    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs <input type="button" onclick="$('.pci_cw').val('')" value="Empty Fields"></label><?php } ?>
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_7" value="<?php echo @$PCI_7?>" placeholder="PCI_7" name="PCI_7">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_8" value="<?php echo @$PCI_8?>" placeholder="PCI_8" name="PCI_8">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_9" value="<?php echo @$PCI_9?>" placeholder="PCI_9" name="PCI_9">
-    <?php if(!isMobile()) {?><label class="pci_label" for="PCI_1">PCIs <input type="button" onclick="$('.pci_cw').val('')" value="Empty Fields"></label><?php } ?>
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_10" value="<?php echo @$PCI_10?>" placeholder="PCI_10" name="PCI_10">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_11" value="<?php echo @$PCI_11?>" placeholder="PCI_11" name="PCI_11">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_12" value="<?php echo @$PCI_12?>" placeholder="PCI_12" name="PCI_12">
@@ -100,9 +103,9 @@
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_16" value="<?php echo @$PCI_16?>" placeholder="PCI_16" name="PCI_16">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_17" value="<?php echo @$PCI_17?>" placeholder="PCI_17" name="PCI_17">
     <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_18" value="<?php echo @$PCI_18?>" placeholder="PCI_18" name="PCI_18">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20">
-    <input type="number" class="pci_cw" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_19" value="<?php echo @$PCI_19?>" placeholder="PCI_19" name="PCI_19">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_20" value="<?php echo @$PCI_20?>" placeholder="PCI_20" name="PCI_20">
+    <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_21" value="<?php echo @$PCI_21?>" placeholder="PCI_21" name="PCI_21">
     <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_22" value="<?php echo @$PCI_22?>" placeholder="PCI_22" name="PCI_22">
     <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_23" value="<?php echo @$PCI_23?>" placeholder="PCI_23" name="PCI_23">
     <input type="number" class="pci_cw d-none" inputmode="numeric" pattern="[0-9]*" id="PCI_24" value="<?php echo @$PCI_24?>" placeholder="PCI_24" name="PCI_24">
