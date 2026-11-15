@@ -10,7 +10,7 @@ $currentTime = new DateTime("now", new DateTimeZone('UTC'));
 
 $diffSeconds = $currentTime->getTimestamp() - $lastUpdateTime->getTimestamp();
 
-if ($diffSeconds < 300) { // if data is less than 5 minutes recent, refuse.
+if ($diffSeconds < 120) { // if data is less than 2 minutes recent, refuse.
     die("Data is up to date. (reasonably)");
 }
 mysqli_query($conn, "CALL update_poly_enbs(NULL, NULL, NULL, NULL);");

@@ -208,9 +208,13 @@ if (count($curlHandles_goog) > 0 || count($curlHandles_appl) > 0) {
     $apple_batch_request = [];
 
     // Get all results in batch
-    $apple_response = $client->getMultipleCells(array_column($curlHandles_appl, 0), $rat);
-    $apple_results = $apple_response->getFound();
-
+    if (count($curlHandles_appl) > 0) {
+        $apple_response = $client->getMultipleCells(array_column($curlHandles_appl, 0), $rat);
+        $apple_results = $apple_response->getFound();
+    } else {
+        $apple_results = [];
+    }
+    
     // Iterate through Apple responses
     foreach ($apple_results as $value) {
         if ($value === null || empty($value)) {

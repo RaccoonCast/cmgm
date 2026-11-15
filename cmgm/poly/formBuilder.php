@@ -113,25 +113,25 @@ $onMap  = ($parentFile == "Map.php");
             <?php endif; ?>
             <?= $onMap ? '<br>' : '' ?>
             <label>Date Filters</label>
-            <input class="adv-filter" type="text" id="oldest_date" name="oldest_date" placeholder="First Seen<?= !$onGui ? ' >YYYY-MM-DD' : '' ?>" value="<?= !empty($oldest_date) ? $oldest_date : ''; ?>">
-            <input class="adv-filter" type="text" id="newest_date" name="newest_date" placeholder="Last Seen<?= !$onGui ? ' (<YYYY-MM-DD)' : '' ?>" value="<?= !empty($newest_date) ? $newest_date : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
+            <input class="adv-filter" type="text" id="oldest_date" name="oldest_date" placeholder="First Seen<?= !$onGui ? ' >YYYY-MM-DD' : '' ?>" value="<?= isset($oldest_date) ? $oldest_date : ''; ?>">
+            <input class="adv-filter" type="text" id="newest_date" name="newest_date" placeholder="Last Seen<?= !$onGui ? ' (<YYYY-MM-DD)' : '' ?>" value="<?= isset($newest_date) ? $newest_date : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
             <?= $onMap ? '<br>' : '' ?>
             <label>Cell Filters</label>
-            <input class="adv-filter" type="text" id="cells_allow_list" name="cells_allow_list" placeholder="Whitelist Cells<?= !$onGui ? ' (1,2,3)' : '' ?>" value="<?= !empty($cells_allow_list) ? $cells_allow_list : ''; ?>">
-            <input class="adv-filter" type="text" id="cells_block_list" name="cells_block_list" placeholder="Blacklist Cells<?= !$onGui ? ' (7,8,9)' : '' ?>" value="<?= !empty($cells_block_list) ? $cells_block_list : ''; ?>">
+            <input class="adv-filter" type="text" id="cells_allow_list" name="cells_allow_list" placeholder="Whitelist Cells<?= !$onGui ? ' (1,2,3)' : '' ?>" value="<?= isset($cells_allow_list) ? $cells_allow_list : ''; ?>">
+            <input class="adv-filter" type="text" id="cells_block_list" name="cells_block_list" placeholder="Blacklist Cells<?= !$onGui ? ' (7,8,9)' : '' ?>" value="<?= isset($cells_block_list) ? $cells_block_list : ''; ?>">
             <?= $onMap ? '<br>' : '' ?>
             <label>eNB Filters</label>
-            <input class="adv-filter" type="text" id="enb_allow_list" name="enb_allow_list" placeholder="Whitelist eNBs<?= !$onGui ? ' (80000-81000)' : '' ?>" value="<?= !empty($enb_allow_list) ? $enb_allow_list : ''; ?>">
-            <input class="adv-filter" type="text" id="enb_block_list" name="enb_block_list" placeholder="Blacklist eNBs<?= !$onGui ? ' (1-10,5-10)' : '' ?>" value="<?= !empty($enb_block_list) ? $enb_block_list : ''; ?>">
+            <input class="adv-filter" type="text" id="enb_allow_list" name="enb_allow_list" placeholder="Whitelist eNBs<?= !$onGui ? ' (80000-81000)' : '' ?>" value="<?= isset($enb_allow_list) ? $enb_allow_list : ''; ?>">
+            <input class="adv-filter" type="text" id="enb_block_list" name="enb_block_list" placeholder="Blacklist eNBs<?= !$onGui ? ' (1-10,5-10)' : '' ?>" value="<?= isset($enb_block_list) ? $enb_block_list : ''; ?>">
             <?= $onMap ? '<br>' : '' ?>
             <label>TAC Filters</label>
-            <input class="adv-filter" type="text" id="tacs_allow_list" name="tacs_allow_list" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= !empty($tacs_allow_list) ? $tacs_allow_list : ''; ?>">
-            <input class="adv-filter" type="text" id="tacs_block_list" name="tacs_block_list" placeholder="Blacklist TACs<?= !$onGui ? ' (1024-1048)' : '' ?>" value="<?= !empty($tacs_block_list) ? $tacs_block_list : ''; ?>">
+            <input class="adv-filter" type="text" id="tacs_allow_list" name="tacs_allow_list" placeholder="Whitelist TACs<?= !$onGui ? ' (15279,15301)' : '' ?>" value="<?= isset($tacs_allow_list) ? $tacs_allow_list : ''; ?>">
+            <input class="adv-filter" type="text" id="tacs_block_list" name="tacs_block_list" placeholder="Blacklist TACs<?= !$onGui ? ' (1024-1048)' : '' ?>" value="<?= isset($tacs_block_list) ? $tacs_block_list : ''; ?>">
             <?= $onMap ? '<br>' : '' ?>
             <label>Misc</label>
-            <input class="adv-filter-33" type="text" id="score" name="score" placeholder="Score<?= !$onGui ? ' (1-250, 940)' : '' ?>" value="<?= !empty($score) ? $score : ''; ?>">
-            <input class="adv-filter-33" type="text" id="reach" name="reach" placeholder="Reach<?= !$onGui ? ' (>10000)' : '' ?>" value="<?= !empty($reach) ? $reach : ''; ?>">
-            <input class="adv-filter-33" type="text" id="cells_quantity" name="cells_quantity" placeholder="Cells Quantity<?= !$onGui ? ' (<3)' : '' ?>" value="<?= !empty($cells_quantity) ? $cells_quantity : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
+            <input class="adv-filter-33" type="text" id="score" name="score" placeholder="Score<?= !$onGui ? ' (1-250, 940)' : '' ?>" value="<?= isset($score) ? $score : ''; ?>">
+            <input class="adv-filter-33" type="text" id="reach" name="reach" placeholder="Reach<?= !$onGui ? ' (>10000)' : '' ?>" value="<?= isset($reach) ? $reach : ''; ?>">
+            <input class="adv-filter-33" type="text" id="cells_quantity" name="cells_quantity" placeholder="Cells Quantity<?= !$onGui ? ' (<3)' : '' ?>" value="<?= isset($cells_quantity) ? $cells_quantity : ''; ?>" <?php if ($view_mode == 'cells') echo 'disabled' ?>>
             <?= $onMap ? '<br>' : '' ?>
             <?php
             $includesArray = is_array($cm_includes ?? 0) ? $cm_includes : ($cm_includes ? explode(',', $cm_includes) : []);
