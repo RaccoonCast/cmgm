@@ -25,6 +25,9 @@ if (isset($_POST['edittag'])) { foreach ($_POST as $key => $value) {
     else if (in_array($key, $fieldsToReplace) && strpos($value, '&antennasearch') === false && preg_match("/(\d{2}|\d{4})-(\w+)-(\d+)-(OE|NRA)/i", $value, $faa_match)) {
       // Replace raw text, or AntennaSearch "nonregTower" link
       $value = "https://cmgm.us/faa?asn={$faa_match[0]}";
+    } 
+    else if (in_array($key, $fieldsToReplace) && str_contains($value, 'wireless2.fcc.gov/UlsApp/')) {
+      $value = preg_replace('/;JSESSIONID_[^=]+=[^?&#]*/i', '', $value); // Clean up FCC ULS URLs
     }
     if (in_array($key, $removeLeadindZeroes) && substr($value, 0, 1) === '0') {
         $value = substr($value, 1);
