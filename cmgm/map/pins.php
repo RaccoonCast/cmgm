@@ -113,6 +113,8 @@ $requestedLimit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int) $_
 $limit = max(1, min(25000, $requestedLimit ?: ($mobileRequest ? 300 : 550)));
 $centerLat = max(-90.0, min(90.0, numeric_parameter('centerLat', (float) $default_latitude)));
 $centerLon = normalize_longitude(numeric_parameter('centerLon', (float) $default_longitude));
+$pinStyle = strtolower(trim((string) ($_GET['pin_style'] ?? 'carrier')));
+if (!in_array($pinStyle, ['carrier', 'concealed', 'status'], true)) $pinStyle = 'status';
 
 // These parameters control the map itself and must never become database filters.
 $mapParameters = [
@@ -164,7 +166,15 @@ if ($mode === 'viewport') {
 $distance = '(3959 * ACOS(LEAST(1, GREATEST(-1, COS(RADIANS(' . $centerLat . '))'
   . ' * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $centerLon . '))'
   . ' + SIN(RADIANS(' . $centerLat . ')) * SIN(RADIANS(latitude))))))';
-$sql = 'SELECT id, carrier, latitude, longitude, status, tags, ' . $distance . ' AS distance'
+$pinColumns = ['id', 'latitude', 'longitude'];
+if ($pinStyle === 'carrier') {
+  array_push($pinColumns, 'carrier', 'tags');
+} elseif ($pinStyle === 'concealed') {
+  array_push($pinColumns, 'concealed', 'tags');
+} else {
+  $pinColumns[] = 'status';
+}
+$sql = 'SELECT ' . implode(', ', $pinColumns) . ', ' . $distance . ' AS distance'
   . ' FROM db WHERE 1=1' . $filters . $boundsFilter . ' ORDER BY distance LIMIT ' . $limit;
 $queryStarted = microtime(true);
 $result = mysqli_query($conn, $sql);

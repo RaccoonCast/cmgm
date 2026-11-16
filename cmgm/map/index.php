@@ -30,6 +30,7 @@ $footerThemes = [
   'win32' => ['border' => '#868686', 'background' => '#bab8b8']
 ];
 $footerTheme = $footerThemes[$theme] ?? $footerThemes['black'];
+$showMapFilterUi = !isset($_GET['hideui']) || $_GET['hideui'] !== 'true';
 
 $filename_for_css = 'Map';
 ?>
@@ -43,6 +44,18 @@ $filename_for_css = 'Map';
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <?php include __DIR__ . '/../includes/functions/headhtml.php'; ?>
+  <?php if ($showMapFilterUi): ?>
+    <!-- Use Poly Map's actual UI styles rather than a visual approximation. -->
+    <link rel="stylesheet" href="/poly/styles/Map/<?= htmlspecialchars($theme, ENT_QUOTES) ?>.css">
+    <link rel="stylesheet" href="/poly/styles/<?= htmlspecialchars($theme, ENT_QUOTES) ?>.css">
+    <link rel="stylesheet" href="/poly/styles/Map/desktop.css" media="(min-width: 681px)">
+    <link rel="stylesheet" href="/poly/styles/desktop.css" media="(min-width: 681px)">
+    <link rel="stylesheet" href="/poly/styles/Map/mobile.css" media="(max-width: 680px)">
+    <link rel="stylesheet" href="/poly/styles/mobile.css" media="(max-width: 680px)">
+    <link rel="stylesheet" href="/poly/styles/Map/main.css">
+    <link rel="stylesheet" href="/poly/styles/main.css">
+    <link rel="stylesheet" href="styles/filter-ui.css?v=<?= filemtime(__DIR__ . '/styles/filter-ui.css') ?>">
+  <?php endif; ?>
   <!-- Keep the Leaflet height chain local to this page. External theme CSS may be cached independently. -->
   <style>
     html, body, #map, #mapid { width: 100%; height: 100%; }
@@ -69,7 +82,7 @@ $filename_for_css = 'Map';
   <?php endif; ?>
 </head>
 <body class="body">
-  <div id="sidebar"></div>
+  <?php if ($showMapFilterUi) include __DIR__ . '/includes/filter-ui.php'; ?>
   <div id="map">
     <div id="mapid"></div>
     <div class="dropdown-content" id="polyInfoButton_content"></div>
@@ -78,13 +91,16 @@ $filename_for_css = 'Map';
   <script>
     const initialCenter = [<?= json_encode($latitude) ?>, <?= json_encode($longitude) ?>];
     const initialZoom = <?= json_encode($zoom) ?>;
-    const requestLimit = <?= json_encode($limit) ?>;
-    const viewportBatchSize = <?= json_encode($viewport_batch_size) ?>;
-    const pinRadius = Math.max(3, (<?= json_encode($pin_size) ?> / 2 - 1));
+    let requestLimit = <?= json_encode($limit) ?>;
+    let viewportBatchSize = <?= json_encode($viewport_batch_size) ?>;
+    let pinRadius = Math.max(3, (<?= json_encode($pin_size) ?> / 2 - 1));
+    const defaultRequestLimit = requestLimit;
+    const defaultViewportBatchSize = viewportBatchSize;
     const useCoordCenter = <?= (isset($_GET['useCoordCenter']) || empty($_GET['latitude'])) ? 'true' : 'false' ?>;
-    const useCarrierIcons = <?= (($_GET['pin_style'] ?? null) === 'carrier' || !isset($_GET['carrier'])) ? 'true' : 'false' ?>;
-    const pinStyle = <?= json_encode($_GET['pin_style'] ?? null) ?>;
-    const requestedTags = <?= json_encode($_GET['tags'] ?? null) ?>;
+    let pinStyle = <?= json_encode($_GET['pin_style'] ?? 'carrier') ?>;
+    let useCarrierIcons = pinStyle === 'carrier';
+    let useConcealedIcons = pinStyle === 'concealed';
+    let requestedTags = <?= json_encode($_GET['tags'] ?? null) ?>;
     const polyLinkUrl = <?= json_encode($polyLinkUrl) ?>;
     const skipPolyZoom = <?= isset($_GET['skipPolyZoom']) ? 'true' : 'false' ?>;
 
@@ -108,7 +124,9 @@ $filename_for_css = 'Map';
       att_spk: splitPin('#0FA7FF', '#FFFB00'),
       verizon_spk: splitPin('#FF0000', '#FFFB00'),
       dish_spk: splitPin('#FF9707', '#FFFB00'),
-      sprint_spk: solidPin('#FFFB00')
+      sprint_spk: solidPin('#FFFB00'),
+      concealed_true: solidPin('#4ABE00'),
+      concealed_false: solidPin('#FF0000')
     };
 
     const map = L.map('mapid', {
@@ -231,10 +249,16 @@ $filename_for_css = 'Map';
       if (useCarrierIcons) {
         iconName = String(record.carrier || 'unknown').toLowerCase().replace(/-/g, '').replace(/[^a-z0-9_]/g, '');
         const tags = String(record.tags || '').split(',').map(tag => tag.trim()).filter(Boolean);
-        if (pinStyle !== 'basic' && requestedTags !== 'unmapped') {
+        if (requestedTags !== 'unmapped') {
           if (tags.includes('sprint_keep')) iconName += '_spk';
           if (tags.includes('decom')) iconName = 'decom';
           else if (tags.includes('unmapped')) iconName = 'unmapped';
+        }
+      } else if (useConcealedIcons) {
+        iconName = 'concealed_' + String(record.concealed);
+        const tags = String(record.tags || '').split(',').map(tag => tag.trim()).filter(Boolean);
+        if (requestedTags !== 'unmapped') {
+          if (tags.includes('unmapped')) iconName = 'unmapped';
         }
       }
 
@@ -395,6 +419,46 @@ $filename_for_css = 'Map';
         if (activePinRequest === controller) activePinRequest = null;
       }
     }
+
+    window.refreshMapFilters = async parameters => {
+      const params = parameters instanceof URLSearchParams
+        ? new URLSearchParams(parameters)
+        : new URLSearchParams(parameters || window.location.search);
+
+      const numericLimit = Number(params.get('limit'));
+      requestLimit = Number.isFinite(numericLimit) && numericLimit > 0
+        ? Math.max(1, Math.min(5000, Math.trunc(numericLimit)))
+        : defaultRequestLimit;
+      viewportBatchSize = Number.isFinite(numericLimit) && numericLimit > 0
+        ? Math.max(1, Math.min(25000, Math.trunc(numericLimit)))
+        : defaultViewportBatchSize;
+
+      const numericPinSize = Number(params.get('pin_size'));
+      const nextPinSize = Number.isFinite(numericPinSize) && numericPinSize > 0
+        ? Math.max(8, Math.min(80, numericPinSize))
+        : 20;
+      pinRadius = Math.max(3, (nextPinSize / 2 - 1));
+      pinStyle = params.get('pin_style') || 'carrier';
+      useCarrierIcons = pinStyle === 'carrier';
+      useConcealedIcons = pinStyle === 'concealed';
+      requestedTags = params.get('tags');
+
+      history.replaceState({}, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+      clearTimeout(viewportTimer);
+      if (activePinRequest) {
+        activePinRequest.abort();
+        activePinRequest = null;
+      }
+      requestSequence++;
+      map.closePopup();
+      for (const marker of pinLocations.values()) map.removeLayer(marker);
+      pinLocations.clear();
+      persistentInitialPinIds.clear();
+      initialPinBatchCaptured = false;
+      lastCompleteViewportBounds = null;
+
+      return loadPins('viewport');
+    };
 
     function updateURL() {
       const center = map.getCenter();
@@ -607,6 +671,8 @@ $filename_for_css = 'Map';
         });
     }
   </script>
+
+  <?php if ($showMapFilterUi): ?><script src="js/filter-ui.js?v=<?= filemtime(__DIR__ . '/js/filter-ui.js') ?>"></script><?php endif; ?>
 
   <?php if (!isset($_GET['hideui']) || $_GET['hideui'] !== 'true') include __DIR__ . '/includes/footer.php'; ?>
 </body>

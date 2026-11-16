@@ -31,9 +31,28 @@ elseif ($value !== null) { $value = mysqli_real_escape_string($conn, $value); }
 // List of keys to ignore.
 if ($key == "latitude" OR $key == "longitude" OR $key == "zoom" OR $key == "limit" OR $key == "marker_latitude" OR $key == "marker_longitude" OR $key == "back" OR $key == "pin_style" or $key == "q" or $key == "hideui" or $key == "pin_size" OR $key == "title" OR $key == "percents_view" OR $key == "next" OR $key == "cachebuster" or str_contains($key, "poly"))  { ${$key} = $value; }
 
-// Filter records by LTE or CMGM #id, e.g., &id=82869.
-// Filter records by a comma-separated list of CMGM #ids, e.g., &idlist=1,2,3,5,10,11,12 to show records 1-12 but not 6,7,8,9.
-// Filter records by ID ranges, e.g., &id=69-420, to include CMGM #s between 69 and 420 (including 69 and 420).
+// Filter CMGM IDs with one parameter. Supports a single ID, comma-separated
+// IDs, ranges, or a mixture such as &cmgm_id=44,51,100-125. Keep idlist as a
+// backwards-compatible alias for existing shared URLs.
+elseif (($key === 'cmgm_id' || $key === 'idlist') && is_string($value)) {
+  $cmgmIdClauses = [];
+  $cmgmIdTerms = preg_split('/\s*,\s*/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
+
+  foreach ($cmgmIdTerms as $term) {
+    if (preg_match('/^(?<start>\d+)-(?<end>\d+)$/', $term, $matches)) {
+      $start = min((int) $matches['start'], (int) $matches['end']);
+      $end = max((int) $matches['start'], (int) $matches['end']);
+      $cmgmIdClauses[] = "id BETWEEN $start AND $end";
+    } elseif (ctype_digit($term)) {
+      $cmgmIdClauses[] = 'id = ' . (int) $term;
+    }
+  }
+
+  $db_vars = ' AND (' . ($cmgmIdClauses ? implode(' OR ', $cmgmIdClauses) : '0 = 1') . ')' . @$db_vars;
+}
+
+// Filter records by LTE/NR or CMGM #id, e.g., &id=82869.
+// Filter ID ranges, e.g., &id=69-420.
 elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $value, $matches) && $key !== 'id' && $key !== 'cmgm_id') {
   $start = (int)$matches['start'];
   $end = (int)$matches['end'];
@@ -46,17 +65,10 @@ elseif (is_string($value) && preg_match('/^!?(?<start>\d+)-(?<end>\d+)$/', $valu
       $db_vars = " AND $key BETWEEN $start AND $end" . @$db_vars;
   }
 }
-elseif ($key == "idlist") { $db_vars = " AND FIND_IN_SET(`id`, '$value')" . @$db_vars; }
-
-elseif (($key == "id" || $key == "cmgm_id")  && is_string($id) && !str_contains($id, "<") && !str_contains($id, ">") &&  !str_contains($id, "!")) {
+elseif ($key == "id" && is_string($id) && !str_contains($id, "<") && !str_contains($id, ">") && !str_contains($id, "!")) {
     $cols = ['id','LTE_1','LTE_2','LTE_3','LTE_4','LTE_5','LTE_6','LTE_7','LTE_8','LTE_9','NR_1','NR_2','NR_3','NR_4','NR_5','NR_6'];
 
-    if (($key == "cmgm_id") && (strpos($id, '-') !== false)) {
-        list($start, $end) = explode('-', $id, 2);
-        $start = (int)trim($start);
-        $end = (int)trim($end);
-        $db_vars = " AND (id BETWEEN $start AND $end)" . @$db_vars;
-    } elseif (strpos($id, '-') !== false) {
+    if (strpos($id, '-') !== false) {
         list($start, $end) = explode('-', $id, 2);
         $start = (int)trim($start);
         $end = (int)trim($end);
