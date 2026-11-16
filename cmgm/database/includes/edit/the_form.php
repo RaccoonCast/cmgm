@@ -13,7 +13,7 @@
       }
     }
     ?>
-  <div class="panel1">
+  <div class="panel1<?php if ($cmgm_edit_override_panels_widths) echo " panel1_force"; ?>">
     <?php if (isset($new)) { ?><input type="hidden" class="id" name="new" value="true"> <?php } ?>
     <input type="hidden" class="id" name="id" value="<?php echo @$id?>">
     <input type="hidden" class="date_added" name="date_added" value="<?php echo @$date_added?>">
@@ -250,7 +250,7 @@
     </div>
 
     </div>
-    <div class="panel2">
+    <div class="panel2<?php if ($cmgm_edit_override_panels_widths) echo " panel2_force"; ?>">
     <label class="evidence_label">Evidence <span class="floatright"><?php echo @$evidence_a_label . @$evidence_b_label . @$evidence_c_label?></span></label><input
     type="text" id="ev_a" class="evidence_cw" name="evidence_a" placeholder="EVIDENCE_A" value="<?php echo isset($evidence_a) ? rawurldecode($evidence_a) : '' ?>"><input
     type="text" id="ev_b" class="evidence_cw" name="evidence_b" placeholder="EVIDENCE_B" value="<?php echo isset($evidence_b) ? rawurldecode($evidence_b) : '' ?>"><input

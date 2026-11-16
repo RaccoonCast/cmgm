@@ -30,6 +30,8 @@ div[class^="_panel"] label {
   font-size: 0.9em;
 	white-space: nowrap;
 }
+.panel1_force { width: var(--cmgm_edit_panel1_width); float: left; }
+.panel2_force { width: var(--cmgm_edit_panel2_width); float: right; }
 
 /* Size for dropdowns and remove text decoration on abbr for widget & ev abbr */
 .status_cw, .concealed_cw, .carrier_cw, .cellsite_type_cw,option {font-size: 1.1em;}
